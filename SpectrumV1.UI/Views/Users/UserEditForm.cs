@@ -21,7 +21,7 @@ namespace SpectrumV1.Views.Users
 	{
 		private UserModel _userModel = new UserModel();
 		private readonly UserRepository _userRepository = new UserRepository();
-		private readonly CompanyRepository _companyRepository = new CompanyRepository(); // repository instance
+		private readonly CompanyRepository _companyRepository = new CompanyRepository();
 		private List<CompanyModel> _companies; // cache companies
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
@@ -255,6 +255,7 @@ namespace SpectrumV1.Views.Users
 
 			return validateReturnValue;
 		}
+
 		private void cboCompanies_AddNewValue(object sender, AddNewValueEventArgs e)
 		{
 

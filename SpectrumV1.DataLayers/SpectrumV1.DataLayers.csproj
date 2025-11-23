@@ -157,9 +157,6 @@
     <Compile Include="DataAccess\Types\SqlServerDatabaseModel.cs" />
     <Compile Include="DataUtilities\ConnectionHelper.cs" />
     <Compile Include="DataUtilities\DatabaseSettings.cs" />
-    <Compile Include="Projects\ContractDetailModel.cs" />
-    <Compile Include="Projects\ProjectDocumentsModel.cs" />
-    <Compile Include="Projects\ProjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -180,7 +177,9 @@
       <Name>SpectrumV1.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Projects\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

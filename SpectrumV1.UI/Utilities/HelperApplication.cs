@@ -364,12 +364,15 @@ namespace SpectrumV1.Utilities
 					var defaultCompany = new Models.Common.Companies.CompanyModel
 					{
 						CompanyName = "Spectrum Lebanon",
+						Company = "Spectrum Lebanon",
+						Branch = "Default Branch",
 						ShortName = "Spectrum lb",
 						DirectoryPath = @"z:\Companies\Spectrum-lb",
 						Address = "",
 						PhoneNumber1 = "48 3683 838",
 						Email = "",
-						Website = "www.spectrumlb.com"
+						Website = "www.spectrumlb.com",
+						CreatedBy = "admin",
 					};
 					companyRepo.AddNewCompanyAsync(defaultCompany).Wait();
 				}
@@ -381,7 +384,10 @@ namespace SpectrumV1.Utilities
 				{
 					var defaultBranch = new Models.Common.Companies.BranchModel
 					{
-						BranchName = "Default Branch"
+						BranchName = "Default Branch",
+						Company = "Spectrum Lebanon",
+						Branch = "Default Branch",
+						CreatedBy = "admin",
 					};
 					branchRepo.AddNewBranchAsync(defaultBranch).Wait();
 				}

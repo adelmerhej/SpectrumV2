@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace SpectrumV1.DataLayers.Projects
+namespace SpectrumV1.Models.Projects
 {
 	// Embedded document for contract, financial, and warranty terms
 	public class ContractDetailModel

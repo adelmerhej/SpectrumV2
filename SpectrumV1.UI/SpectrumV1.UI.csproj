@@ -68,6 +68,30 @@
     <Compile Include="Utilities\HelperApplication.cs" />
     <Compile Include="Utilities\Interfaces\IFormWithRibbon.cs" />
     <Compile Include="Utilities\LogInfoRepository.cs" />
+    <Compile Include="Views\Common\Companies\BranchEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Companies\BranchEditForm.Designer.cs">
+      <DependentUpon>BranchEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Companies\BranchesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Companies\BranchesListForm.Designer.cs">
+      <DependentUpon>BranchesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Companies\CompaniesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Companies\CompaniesListForm.Designer.cs">
+      <DependentUpon>CompaniesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Companies\CompanyEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Companies\CompanyEditForm.Designer.cs">
+      <DependentUpon>CompanyEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +162,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\Common\Companies\BranchEditForm.resx">
+      <DependentUpon>BranchEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Companies\BranchesListForm.resx">
+      <DependentUpon>BranchesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Companies\CompaniesListForm.resx">
+      <DependentUpon>CompaniesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Companies\CompanyEditForm.resx">
+      <DependentUpon>CompanyEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -168,6 +204,8 @@
     <EmbeddedResource Include="Views\Users\UsersListForm.resx">
       <DependentUpon>UsersListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Companies.BranchModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Companies.CompanyModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Users.UserModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

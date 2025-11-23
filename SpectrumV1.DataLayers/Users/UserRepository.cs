@@ -80,9 +80,9 @@ namespace SpectrumV1.DataLayers.Users
 				await _users.InsertOneAsync(user);
 				return user._id;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				throw new Exception(ex.Message);
 			}
 		}
 
@@ -96,9 +96,9 @@ namespace SpectrumV1.DataLayers.Users
 				var result = await _users.ReplaceOneAsync(u => u._id == user._id, user);
 				return result.IsAcknowledged && result.ModifiedCount > 0;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				throw new Exception(ex.Message);
 			}
 		}
 

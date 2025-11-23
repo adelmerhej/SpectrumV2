@@ -59,9 +59,9 @@ namespace SpectrumV1.DataLayers.Common.Branches
 				await _branches.InsertOneAsync(branch);
 				return branch._id;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				throw new Exception(ex.Message);
 			}
 		}
 
@@ -75,15 +75,23 @@ namespace SpectrumV1.DataLayers.Common.Branches
 				var result = await _branches.ReplaceOneAsync(u => u._id == branch._id, branch);
 				return result.IsAcknowledged && result.ModifiedCount > 0;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				throw new Exception(ex.Message);
 			}
 		}
 
 		public async Task<bool> DeleteBranchAsync(string id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var result = await _branches.DeleteOneAsync(u => u._id == id);
+				return result.IsAcknowledged && result.DeletedCount > 0;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
 		}
 
 		/// <summary>

@@ -60,9 +60,9 @@ namespace SpectrumV1.DataLayers.Common.Companies
 				await _companies.InsertOneAsync(company);
 				return company._id;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				throw new Exception(ex.Message);
 			}
 		}
 
@@ -76,15 +76,23 @@ namespace SpectrumV1.DataLayers.Common.Companies
 				var result = await _companies.ReplaceOneAsync(u => u._id == company._id, company);
 				return result.IsAcknowledged && result.ModifiedCount > 0;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				throw new Exception(ex.Message);
 			}
 		}
 
 		public async Task<bool> DeleteCompanyAsync(string id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var result = await _companies.DeleteOneAsync(u => u._id == id);
+				return result.IsAcknowledged && result.DeletedCount > 0;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
 		}
 
 		/// <summary>

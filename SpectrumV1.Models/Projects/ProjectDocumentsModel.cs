@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace SpectrumV1.DataLayers.Projects
+namespace SpectrumV1.Models.Projects
 {
 	// Embedded document for grouping links to physical files/folders
 	public class ProjectDocumentsModel

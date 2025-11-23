@@ -6,6 +6,7 @@ using SpectrumV1.Properties;
 using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
 using SpectrumV1.Utilities.Layout;
+using SpectrumV1.Views.Common.Companies;
 using SpectrumV1.Views.Main.Update;
 using SpectrumV1.Views.Users;
 using System;
@@ -209,6 +210,14 @@ namespace SpectrumV1.Views.Main
 			OpenForm(new UsersListForm());
 		}
 
+		private void mnuCompaniesList_Click(object sender, EventArgs e)
+		{
+			OpenForm(new CompaniesListForm());
+		}
 
+		private void mnuBranches_Click(object sender, EventArgs e)
+		{
+			OpenForm(new BranchesListForm());
+		}
 	}
 }

@@ -141,6 +141,7 @@
 			this.grpReadingPane = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.dockRight = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.showPendingJobs = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+			this.mnuBranches = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			((System.ComponentModel.ISupportInitialize)(this.ribbonMainForm)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
@@ -843,6 +844,7 @@
 			// 
 			this.mnuCommon.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
             this.mnuCompaniesList,
+            this.mnuBranches,
             this.mnuServicesList,
             this.mnuActivitiesList});
 			this.mnuCommon.Expanded = true;
@@ -856,6 +858,7 @@
 			this.mnuCompaniesList.Name = "mnuCompaniesList";
 			this.mnuCompaniesList.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.mnuCompaniesList.Text = "Companies";
+			this.mnuCompaniesList.Click += new System.EventHandler(this.mnuCompaniesList_Click);
 			// 
 			// mnuServicesList
 			// 
@@ -1089,6 +1092,15 @@
 			this.showPendingJobs.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.showPendingJobs.Text = "Show Pending Jobs";
 			// 
+			// mnuBranches
+			// 
+			this.mnuBranches.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuBranches.ImageOptions.SvgImage")));
+			this.mnuBranches.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+			this.mnuBranches.Name = "mnuBranches";
+			this.mnuBranches.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+			this.mnuBranches.Text = "Branches";
+			this.mnuBranches.Click += new System.EventHandler(this.mnuBranches_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1235,5 +1247,6 @@
 		private DevExpress.XtraBars.Navigation.AccordionControlElement grpReadingPane;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement dockRight;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement showPendingJobs;
+		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuBranches;
 	}
 }
