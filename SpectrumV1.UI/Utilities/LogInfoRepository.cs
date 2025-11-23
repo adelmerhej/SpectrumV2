@@ -13,14 +13,13 @@ namespace SpectrumV1.Utilities
 			obj.CreatedAt = DateTime.UtcNow;
 			obj.Company = CurrentUser.Company;
 			obj.Branch = CurrentUser.Branch;
+			obj.WorkingYear = DateTime.Now.Year;
 		}
 
 		public void UpdateLogInfo<T>(T obj) where T : EntityObject
 		{
 			obj.LastModifiedBy = CurrentUser.UserName;
 			obj.LastModifiedDate = DateTime.UtcNow;
-			obj.Company = CurrentUser.Company;
-			obj.Branch = CurrentUser.Branch;
 		}
 
 		#endregion

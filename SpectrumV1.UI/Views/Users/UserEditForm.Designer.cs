@@ -29,17 +29,23 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserEditForm));
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
+			this.cboBranches = new DevExpress.XtraEditors.SearchLookUpEdit();
+			this.searchLookUpEdit2View = new DevExpress.XtraGrid.Views.Grid.GridView();
+			this.cboCompanies = new DevExpress.XtraEditors.SearchLookUpEdit();
+			this.searchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
+			this.cboRoles = new DevExpress.XtraEditors.LookUpEdit();
 			this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
 			this.btnSave = new DevExpress.XtraEditors.SimpleButton();
 			this.chkChangePasswordNextLogon = new DevExpress.XtraEditors.CheckEdit();
 			this.txtEmail = new DevExpress.XtraEditors.TextEdit();
+			this.bsUser = new System.Windows.Forms.BindingSource(this.components);
 			this.changePasswordLink = new DevExpress.XtraEditors.HyperlinkLabelControl();
 			this.chkActive = new DevExpress.XtraEditors.CheckEdit();
 			this.txtUsername = new DevExpress.XtraEditors.TextEdit();
@@ -56,25 +62,37 @@
 			this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.lblCompany = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lblBranch = new DevExpress.XtraLayout.LayoutControlItem();
+			this.emptySpaceItem13 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.emptySpaceItem14 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
-			this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.grpAccessPermission = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lblRole = new DevExpress.XtraLayout.LayoutControlItem();
+			this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.emptySpaceItem11 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
-			this.txtMobile = new DevExpress.XtraEditors.TextEdit();
-			this.bsUser = new System.Windows.Forms.BindingSource(this.components);
-			this.cboRoles = new DevExpress.XtraEditors.LookUpEdit();
-			this.lblRole = new DevExpress.XtraLayout.LayoutControlItem();
-			this.emptySpaceItem11 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem12 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.txtMobile = new DevExpress.XtraEditors.TextEdit();
+			this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.cboBranches.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit2View)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.cboCompanies.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.cboRoles.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkChangePasswordNextLogon.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsUser)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtUsername.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).BeginInit();
@@ -90,25 +108,29 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblCompany)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblBranch)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem13)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem14)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.grpAccessPermission)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblRole)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtMobile.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsUser)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboRoles.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblRole)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtMobile.Properties)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// mainLayout
 			// 
+			this.mainLayout.Controls.Add(this.cboBranches);
+			this.mainLayout.Controls.Add(this.cboCompanies);
 			this.mainLayout.Controls.Add(this.cboRoles);
 			this.mainLayout.Controls.Add(this.btnCancel);
 			this.mainLayout.Controls.Add(this.btnSave);
@@ -125,6 +147,73 @@
 			this.mainLayout.Size = new System.Drawing.Size(756, 586);
 			this.mainLayout.TabIndex = 0;
 			this.mainLayout.Text = "layoutControl1";
+			// 
+			// cboBranches
+			// 
+			this.cboBranches.Location = new System.Drawing.Point(111, 181);
+			this.cboBranches.Name = "cboBranches";
+			this.cboBranches.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+			this.cboBranches.Properties.DisplayMember = "BranchName";
+			this.cboBranches.Properties.NullText = "";
+			this.cboBranches.Properties.PopupView = this.searchLookUpEdit2View;
+			this.cboBranches.Properties.ShowAddNewButton = true;
+			this.cboBranches.Properties.ValueMember = "BranchName";
+			this.cboBranches.Size = new System.Drawing.Size(415, 22);
+			this.cboBranches.StyleController = this.mainLayout;
+			this.cboBranches.TabIndex = 18;
+			this.cboBranches.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboBranches_AddNewValue);
+			// 
+			// searchLookUpEdit2View
+			// 
+			this.searchLookUpEdit2View.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn3,
+            this.gridColumn4});
+			this.searchLookUpEdit2View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+			this.searchLookUpEdit2View.Name = "searchLookUpEdit2View";
+			this.searchLookUpEdit2View.OptionsSelection.EnableAppearanceFocusedCell = false;
+			this.searchLookUpEdit2View.OptionsView.ShowGroupPanel = false;
+			// 
+			// cboCompanies
+			// 
+			this.cboCompanies.Location = new System.Drawing.Point(111, 155);
+			this.cboCompanies.Name = "cboCompanies";
+			this.cboCompanies.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+			this.cboCompanies.Properties.DisplayMember = "CompanyName";
+			this.cboCompanies.Properties.NullText = "";
+			this.cboCompanies.Properties.PopupView = this.searchLookUpEdit1View;
+			this.cboCompanies.Properties.ShowAddNewButton = true;
+			this.cboCompanies.Properties.ValueMember = "CompanyName";
+			this.cboCompanies.Size = new System.Drawing.Size(415, 22);
+			this.cboCompanies.StyleController = this.mainLayout;
+			this.cboCompanies.TabIndex = 17;
+			this.cboCompanies.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboCompanies_AddNewValue);
+			// 
+			// searchLookUpEdit1View
+			// 
+			this.searchLookUpEdit1View.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn1,
+            this.gridColumn2});
+			this.searchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+			this.searchLookUpEdit1View.Name = "searchLookUpEdit1View";
+			this.searchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
+			this.searchLookUpEdit1View.OptionsView.ShowGroupPanel = false;
+			// 
+			// cboRoles
+			// 
+			this.cboRoles.Location = new System.Drawing.Point(111, 342);
+			this.cboRoles.Name = "cboRoles";
+			this.cboRoles.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+			this.cboRoles.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Role", "Role", 60, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default)});
+			this.cboRoles.Properties.DisplayMember = "Role";
+			this.cboRoles.Properties.NullText = "";
+			this.cboRoles.Properties.ValueMember = "_id";
+			this.cboRoles.Size = new System.Drawing.Size(417, 22);
+			this.cboRoles.StyleController = this.mainLayout;
+			this.cboRoles.TabIndex = 16;
 			// 
 			// btnCancel
 			// 
@@ -149,7 +238,7 @@
 			// 
 			// chkChangePasswordNextLogon
 			// 
-			this.chkChangePasswordNextLogon.Location = new System.Drawing.Point(38, 306);
+			this.chkChangePasswordNextLogon.Location = new System.Drawing.Point(38, 378);
 			this.chkChangePasswordNextLogon.Name = "chkChangePasswordNextLogon";
 			this.chkChangePasswordNextLogon.Properties.Caption = "Change Password Next Logon";
 			this.chkChangePasswordNextLogon.Size = new System.Drawing.Size(690, 24);
@@ -165,6 +254,10 @@
 			this.txtEmail.StyleController = this.mainLayout;
 			this.txtEmail.TabIndex = 12;
 			// 
+			// bsUser
+			// 
+			this.bsUser.DataSource = typeof(SpectrumV1.Models.Users.UserModel);
+			// 
 			// changePasswordLink
 			// 
 			this.changePasswordLink.Location = new System.Drawing.Point(530, 90);
@@ -178,7 +271,7 @@
 			// chkActive
 			// 
 			this.chkActive.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsUser, "Active", true));
-			this.chkActive.Location = new System.Drawing.Point(38, 334);
+			this.chkActive.Location = new System.Drawing.Point(38, 406);
 			this.chkActive.Name = "chkActive";
 			this.chkActive.Properties.Caption = "Active";
 			this.chkActive.Size = new System.Drawing.Size(690, 24);
@@ -199,10 +292,10 @@
 			this.txtPassword.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsUser, "PasswordHash", true));
 			this.txtPassword.Location = new System.Drawing.Point(111, 90);
 			this.txtPassword.Name = "txtPassword";
-			editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
-			editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
+			editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.txtPassword.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtPassword.Properties.PasswordChar = '*';
 			this.txtPassword.Properties.ReadOnly = true;
 			this.txtPassword.Size = new System.Drawing.Size(415, 25);
@@ -239,10 +332,14 @@
             this.layoutControlItem2,
             this.emptySpaceItem7,
             this.emptySpaceItem1,
-            this.emptySpaceItem8});
+            this.emptySpaceItem8,
+            this.lblCompany,
+            this.lblBranch,
+            this.emptySpaceItem13,
+            this.emptySpaceItem14});
 			this.grpUserInfo.Location = new System.Drawing.Point(10, 0);
 			this.grpUserInfo.Name = "grpUserInfo";
-			this.grpUserInfo.Size = new System.Drawing.Size(722, 165);
+			this.grpUserInfo.Size = new System.Drawing.Size(722, 256);
 			this.grpUserInfo.Text = "User Info";
 			// 
 			// lblUsername
@@ -312,21 +409,45 @@
 			// 
 			// emptySpaceItem8
 			// 
-			this.emptySpaceItem8.Location = new System.Drawing.Point(0, 101);
+			this.emptySpaceItem8.Location = new System.Drawing.Point(0, 153);
 			this.emptySpaceItem8.Name = "emptySpaceItem8";
-			this.emptySpaceItem8.Size = new System.Drawing.Size(694, 10);
+			this.emptySpaceItem8.Size = new System.Drawing.Size(694, 49);
+			// 
+			// lblCompany
+			// 
+			this.lblCompany.Control = this.cboCompanies;
+			this.lblCompany.Location = new System.Drawing.Point(0, 101);
+			this.lblCompany.Name = "lblCompany";
+			this.lblCompany.Size = new System.Drawing.Size(492, 26);
+			this.lblCompany.Text = "Company";
+			this.lblCompany.TextSize = new System.Drawing.Size(58, 16);
+			// 
+			// lblBranch
+			// 
+			this.lblBranch.Control = this.cboBranches;
+			this.lblBranch.Location = new System.Drawing.Point(0, 127);
+			this.lblBranch.Name = "lblBranch";
+			this.lblBranch.Size = new System.Drawing.Size(492, 26);
+			this.lblBranch.Text = "Branch";
+			this.lblBranch.TextSize = new System.Drawing.Size(58, 16);
+			// 
+			// emptySpaceItem13
+			// 
+			this.emptySpaceItem13.Location = new System.Drawing.Point(492, 101);
+			this.emptySpaceItem13.Name = "emptySpaceItem13";
+			this.emptySpaceItem13.Size = new System.Drawing.Size(202, 26);
+			// 
+			// emptySpaceItem14
+			// 
+			this.emptySpaceItem14.Location = new System.Drawing.Point(492, 127);
+			this.emptySpaceItem14.Name = "emptySpaceItem14";
+			this.emptySpaceItem14.Size = new System.Drawing.Size(202, 26);
 			// 
 			// emptySpaceItem5
 			// 
 			this.emptySpaceItem5.Location = new System.Drawing.Point(0, 0);
 			this.emptySpaceItem5.Name = "emptySpaceItem5";
 			this.emptySpaceItem5.Size = new System.Drawing.Size(10, 531);
-			// 
-			// emptySpaceItem4
-			// 
-			this.emptySpaceItem4.Location = new System.Drawing.Point(0, 26);
-			this.emptySpaceItem4.Name = "emptySpaceItem4";
-			this.emptySpaceItem4.Size = new System.Drawing.Size(694, 14);
 			// 
 			// grpAccessPermission
 			// 
@@ -337,15 +458,15 @@
             this.lblRole,
             this.emptySpaceItem4,
             this.emptySpaceItem11});
-			this.grpAccessPermission.Location = new System.Drawing.Point(10, 212);
+			this.grpAccessPermission.Location = new System.Drawing.Point(10, 288);
 			this.grpAccessPermission.Name = "grpAccessPermission";
-			this.grpAccessPermission.Size = new System.Drawing.Size(722, 150);
+			this.grpAccessPermission.Size = new System.Drawing.Size(722, 146);
 			this.grpAccessPermission.Text = "Access Permission";
 			// 
 			// layoutControlItem3
 			// 
 			this.layoutControlItem3.Control = this.chkChangePasswordNextLogon;
-			this.layoutControlItem3.Location = new System.Drawing.Point(0, 40);
+			this.layoutControlItem3.Location = new System.Drawing.Point(0, 36);
 			this.layoutControlItem3.Name = "layoutControlItem3";
 			this.layoutControlItem3.Size = new System.Drawing.Size(694, 28);
 			this.layoutControlItem3.TextVisible = false;
@@ -353,16 +474,37 @@
 			// layoutControlItem1
 			// 
 			this.layoutControlItem1.Control = this.chkActive;
-			this.layoutControlItem1.Location = new System.Drawing.Point(0, 68);
+			this.layoutControlItem1.Location = new System.Drawing.Point(0, 64);
 			this.layoutControlItem1.Name = "layoutControlItem1";
 			this.layoutControlItem1.Size = new System.Drawing.Size(694, 28);
 			this.layoutControlItem1.TextVisible = false;
 			// 
+			// lblRole
+			// 
+			this.lblRole.Control = this.cboRoles;
+			this.lblRole.Location = new System.Drawing.Point(0, 0);
+			this.lblRole.Name = "lblRole";
+			this.lblRole.Size = new System.Drawing.Size(494, 26);
+			this.lblRole.Text = "Role";
+			this.lblRole.TextSize = new System.Drawing.Size(58, 16);
+			// 
+			// emptySpaceItem4
+			// 
+			this.emptySpaceItem4.Location = new System.Drawing.Point(0, 26);
+			this.emptySpaceItem4.Name = "emptySpaceItem4";
+			this.emptySpaceItem4.Size = new System.Drawing.Size(694, 10);
+			// 
+			// emptySpaceItem11
+			// 
+			this.emptySpaceItem11.Location = new System.Drawing.Point(494, 0);
+			this.emptySpaceItem11.Name = "emptySpaceItem11";
+			this.emptySpaceItem11.Size = new System.Drawing.Size(200, 26);
+			// 
 			// emptySpaceItem9
 			// 
-			this.emptySpaceItem9.Location = new System.Drawing.Point(10, 165);
+			this.emptySpaceItem9.Location = new System.Drawing.Point(10, 256);
 			this.emptySpaceItem9.Name = "emptySpaceItem9";
-			this.emptySpaceItem9.Size = new System.Drawing.Size(722, 47);
+			this.emptySpaceItem9.Size = new System.Drawing.Size(722, 32);
 			// 
 			// layoutControlItem4
 			// 
@@ -386,6 +528,12 @@
 			this.emptySpaceItem10.Name = "emptySpaceItem10";
 			this.emptySpaceItem10.Size = new System.Drawing.Size(448, 31);
 			// 
+			// emptySpaceItem12
+			// 
+			this.emptySpaceItem12.Location = new System.Drawing.Point(10, 434);
+			this.emptySpaceItem12.Name = "emptySpaceItem12";
+			this.emptySpaceItem12.Size = new System.Drawing.Size(722, 97);
+			// 
 			// txtMobile
 			// 
 			this.txtMobile.Location = new System.Drawing.Point(106, 152);
@@ -398,45 +546,37 @@
 			this.txtMobile.Size = new System.Drawing.Size(408, 22);
 			this.txtMobile.TabIndex = 10;
 			// 
-			// bsUser
+			// gridColumn3
 			// 
-			this.bsUser.DataSource = typeof(SpectrumV1.Models.Users.UserModel);
+			this.gridColumn3.Caption = "Id";
+			this.gridColumn3.FieldName = "_id";
+			this.gridColumn3.Name = "gridColumn3";
+			this.gridColumn3.Width = 212;
 			// 
-			// cboRoles
+			// gridColumn4
 			// 
-			this.cboRoles.Location = new System.Drawing.Point(111, 266);
-			this.cboRoles.Name = "cboRoles";
-			this.cboRoles.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.cboRoles.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Role", "Role", 60, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default)});
-			this.cboRoles.Properties.DisplayMember = "Role";
-			this.cboRoles.Properties.NullText = "";
-			this.cboRoles.Properties.ValueMember = "_id";
-			this.cboRoles.Size = new System.Drawing.Size(417, 22);
-			this.cboRoles.StyleController = this.mainLayout;
-			this.cboRoles.TabIndex = 16;
+			this.gridColumn4.Caption = "Branch Name";
+			this.gridColumn4.FieldName = "BranchName";
+			this.gridColumn4.Name = "gridColumn4";
+			this.gridColumn4.Visible = true;
+			this.gridColumn4.VisibleIndex = 0;
+			this.gridColumn4.Width = 824;
 			// 
-			// lblRole
+			// gridColumn1
 			// 
-			this.lblRole.Control = this.cboRoles;
-			this.lblRole.Location = new System.Drawing.Point(0, 0);
-			this.lblRole.Name = "lblRole";
-			this.lblRole.Size = new System.Drawing.Size(494, 26);
-			this.lblRole.Text = "Role";
-			this.lblRole.TextSize = new System.Drawing.Size(58, 16);
+			this.gridColumn1.Caption = "Id";
+			this.gridColumn1.FieldName = "_id";
+			this.gridColumn1.Name = "gridColumn1";
+			this.gridColumn1.Width = 196;
 			// 
-			// emptySpaceItem11
+			// gridColumn2
 			// 
-			this.emptySpaceItem11.Location = new System.Drawing.Point(494, 0);
-			this.emptySpaceItem11.Name = "emptySpaceItem11";
-			this.emptySpaceItem11.Size = new System.Drawing.Size(200, 26);
-			// 
-			// emptySpaceItem12
-			// 
-			this.emptySpaceItem12.Location = new System.Drawing.Point(10, 362);
-			this.emptySpaceItem12.Name = "emptySpaceItem12";
-			this.emptySpaceItem12.Size = new System.Drawing.Size(722, 169);
+			this.gridColumn2.Caption = "Company Name";
+			this.gridColumn2.FieldName = "CompanyName";
+			this.gridColumn2.Name = "gridColumn2";
+			this.gridColumn2.Visible = true;
+			this.gridColumn2.VisibleIndex = 0;
+			this.gridColumn2.Width = 840;
 			// 
 			// UserEditForm
 			// 
@@ -453,8 +593,14 @@
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
 			this.mainLayout.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.cboBranches.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit2View)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.cboCompanies.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.cboRoles.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkChangePasswordNextLogon.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsUser)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtUsername.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).EndInit();
@@ -470,21 +616,23 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblCompany)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblBranch)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem13)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem14)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.grpAccessPermission)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblRole)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtMobile.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsUser)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboRoles.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblRole)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtMobile.Properties)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -526,5 +674,17 @@
 		private DevExpress.XtraLayout.LayoutControlItem lblRole;
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem11;
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem12;
+		private DevExpress.XtraEditors.SearchLookUpEdit cboBranches;
+		private DevExpress.XtraGrid.Views.Grid.GridView searchLookUpEdit2View;
+		private DevExpress.XtraEditors.SearchLookUpEdit cboCompanies;
+		private DevExpress.XtraGrid.Views.Grid.GridView searchLookUpEdit1View;
+		private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+		private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+		private DevExpress.XtraLayout.LayoutControlItem lblCompany;
+		private DevExpress.XtraLayout.LayoutControlItem lblBranch;
+		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem13;
+		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem14;
+		private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+		private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
 	}
 }

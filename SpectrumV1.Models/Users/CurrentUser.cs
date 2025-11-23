@@ -9,6 +9,5 @@
 		public static string Company { get; set; }
 		public static string Branch { get; set; }
 		public static int WorkingYear { get; set; }
-		public static string CompanyName { get; set; } // Added CompanyName to match usage in LoginForm
 	}
 }

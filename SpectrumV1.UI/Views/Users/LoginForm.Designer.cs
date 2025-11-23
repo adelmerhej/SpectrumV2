@@ -29,12 +29,12 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
 			this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
 			this.lnkAbout = new DevExpress.XtraEditors.HyperlinkLabelControl();
 			this.lnkNewPassword = new DevExpress.XtraEditors.HyperlinkLabelControl();
@@ -45,20 +45,20 @@
 			this.btnLogin = new DevExpress.XtraEditors.SimpleButton();
 			this.lblUsername = new DevExpress.XtraEditors.LabelControl();
 			this.tablePanel1 = new DevExpress.Utils.Layout.TablePanel();
+			this.cboCompanies = new DevExpress.XtraEditors.LookUpEdit();
 			this.lblCompaniesList = new DevExpress.XtraEditors.LabelControl();
 			this.chkSavePassword = new DevExpress.XtraEditors.CheckEdit();
 			this.txtUsername = new DevExpress.XtraEditors.TextEdit();
 			this.txtPassword = new DevExpress.XtraEditors.ButtonEdit();
 			this.picLogo = new DevExpress.XtraEditors.PictureEdit();
-			this.cboCompanies = new DevExpress.XtraEditors.LookUpEdit();
 			((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.tablePanel1)).BeginInit();
 			this.tablePanel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.cboCompanies.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkSavePassword.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtUsername.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.picLogo.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboCompanies.Properties)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lnkAbout
@@ -220,6 +220,24 @@
 			this.tablePanel1.Size = new System.Drawing.Size(418, 120);
 			this.tablePanel1.TabIndex = 57;
 			// 
+			// cboCompanies
+			// 
+			this.tablePanel1.SetColumn(this.cboCompanies, 1);
+			this.tablePanel1.SetColumnSpan(this.cboCompanies, 3);
+			this.cboCompanies.Location = new System.Drawing.Point(103, 62);
+			this.cboCompanies.Name = "cboCompanies";
+			this.cboCompanies.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+			this.cboCompanies.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("_id", "Id"),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Name", 60, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default)});
+			this.cboCompanies.Properties.DisplayMember = "CompanyName";
+			this.cboCompanies.Properties.NullText = "";
+			this.cboCompanies.Properties.ValueMember = "CompanyName";
+			this.tablePanel1.SetRow(this.cboCompanies, 2);
+			this.cboCompanies.Size = new System.Drawing.Size(312, 22);
+			this.cboCompanies.TabIndex = 9;
+			// 
 			// lblCompaniesList
 			// 
 			this.lblCompaniesList.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
@@ -268,10 +286,10 @@
 			this.txtPassword.Location = new System.Drawing.Point(103, 34);
 			this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.txtPassword.Name = "txtPassword";
-			editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
-			editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
+			editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.txtPassword.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtPassword.Properties.PasswordChar = '*';
 			this.txtPassword.Size = new System.Drawing.Size(312, 25);
 			this.txtPassword.TabIndex = 1;
@@ -291,24 +309,6 @@
 			this.picLogo.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
 			this.picLogo.Size = new System.Drawing.Size(415, 212);
 			this.picLogo.TabIndex = 58;
-			// 
-			// cboCompanies
-			// 
-			this.tablePanel1.SetColumn(this.cboCompanies, 1);
-			this.tablePanel1.SetColumnSpan(this.cboCompanies, 3);
-			this.cboCompanies.Location = new System.Drawing.Point(103, 62);
-			this.cboCompanies.Name = "cboCompanies";
-			this.cboCompanies.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.cboCompanies.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("_id", "Id"),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Name", 60, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default)});
-			this.cboCompanies.Properties.DisplayMember = "CompanyName";
-			this.cboCompanies.Properties.NullText = "";
-			this.cboCompanies.Properties.ValueMember = "_id";
-			this.tablePanel1.SetRow(this.cboCompanies, 2);
-			this.cboCompanies.Size = new System.Drawing.Size(312, 22);
-			this.cboCompanies.TabIndex = 9;
 			// 
 			// LoginForm
 			// 
@@ -336,11 +336,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.tablePanel1)).EndInit();
 			this.tablePanel1.ResumeLayout(false);
 			this.tablePanel1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.cboCompanies.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkSavePassword.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtUsername.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.picLogo.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboCompanies.Properties)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

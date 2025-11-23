@@ -114,12 +114,31 @@ namespace SpectrumV1.Views.Users
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-
+			UserEditForm frm = new UserEditForm(new UserModel());
+			frm.SendUpdatedUser += RcvUpdatedUserAsync;
+			frm.ShowDialog();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
 		{
+			if (!_users.Any()) return;
 
+			try
+			{
+				string currentRowId = gvUsers.GetFocusedRowCellValue("_id").ToString();
+				if (string.IsNullOrEmpty(currentRowId)) return;
+
+				_userModel = _users.SingleOrDefault(x => x._id == currentRowId);
+				if (_userModel == null) return;
+
+				var userForm = new UserEditForm(_userModel);
+				userForm.SendUpdatedUser += RcvUpdatedUserAsync;
+				userForm.ShowDialog();
+			}
+			catch (Exception exception)
+			{
+				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)

@@ -121,7 +121,7 @@ namespace SpectrumV1.Views.Main
 			statusAppName.Caption = @"App: " + HelperApplication.AssemblyDescription;
 			statusVersion.Caption = Resources.VERSION + @" " + HelperApplication.AssemblyVersion;
 
-			statusCompanyName.Caption = Resources.COMPANY_NAME + @" " + CurrentUser.CompanyName;
+			statusCompanyName.Caption = Resources.COMPANY_NAME + @" " + CurrentUser.Company;
 			statusUserName.Caption = Resources.USER_NAME + @" " + CurrentUser.UserName;
 			statusDate.Caption = Resources.TODAY + @" " + DateTime.Now.ToLongDateString();
 		}

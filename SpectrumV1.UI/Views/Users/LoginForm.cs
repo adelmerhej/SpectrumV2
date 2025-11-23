@@ -164,8 +164,8 @@ namespace SpectrumV1.Views.Users
 					// Resolve selected company context (optional future logic)
 					if (cboCompanies.EditValue != null)
 					{
-						CurrentUser.Company = cboCompanies.EditValue.ToString();
-						CurrentUser.CompanyName = cboCompanies.Text;
+						CurrentUser.Company = user.Company;
+						CurrentUser.Branch = user.Branch;
 					}
 
 					// Persist remembered credentials

@@ -8,6 +8,12 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SpectrumV1.Utilities.Enums; // Added for RolesType enum
+using System.Linq;
+using DevExpress.XtraEditors.Controls;
+using System.Collections.Generic;
+using SpectrumV1.DataLayers.Common.Companies; // Added for companies repository
+using SpectrumV1.Models.Common.Companies; // Added for CompanyModel
 
 namespace SpectrumV1.Views.Users
 {
@@ -15,6 +21,8 @@ namespace SpectrumV1.Views.Users
 	{
 		private UserModel _userModel = new UserModel();
 		private readonly UserRepository _userRepository = new UserRepository();
+		private readonly CompanyRepository _companyRepository = new CompanyRepository(); // repository instance
+		private List<CompanyModel> _companies; // cache companies
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
@@ -48,17 +56,23 @@ namespace SpectrumV1.Views.Users
 		{
 			try
 			{
-				//	//
-				//	_formId = _formRepository.SelectFormByName(_formName);
-				//	_userPermission = _userPermissionRepository.SelectUserPermissionById(CurrentUser.UserId, _formId);
-				//	if (_userPermission is { Count: > 0 })
-				//	{
-				//		var isProtected = _userPermission.SingleOrDefault(x => x.ControlName == "IsProtected")?.Value;
-				//		if (isProtected != null) _isProtected = (bool)isProtected;
-				//	}
-				//	//
+				// Only load from repository if editing existing user (has id)
+				if (!string.IsNullOrEmpty(_userModel?._id))
+				{
+					var existing = await _userRepository.GetUserByIdAsync(_userModel._id);
+					if (existing != null)
+						_userModel = existing;
+				}
 
-				_userModel = await _userRepository.GetUserByIdAsync(_userModel._id);
+				// Load companies
+				_companies = await _companyRepository.GetCompaniesAsync();
+
+				cboCompanies.Properties.DataSource = _companies;
+				cboCompanies.Properties.NullText = string.Empty;
+				if (!string.IsNullOrWhiteSpace(_userModel.Company))
+				{
+					cboCompanies.EditValue = _userModel.Company; // preselect existing company
+				}
 			}
 			catch (Exception ex)
 			{
@@ -73,6 +87,25 @@ namespace SpectrumV1.Views.Users
 
 		private void ApplyDefaults()
 		{
+			// Populate role list from RolesType enum
+			var roles = Enum.GetValues(typeof(RolesType))
+				.Cast<RolesType>()
+				.Select(r => new { Role = r.ToString() })
+				.ToList();
+			cboRoles.Properties.DataSource = roles;
+			cboRoles.Properties.DisplayMember = "Role";
+			cboRoles.Properties.ValueMember = "Role";
+			cboRoles.Properties.NullText = string.Empty;
+
+			// Preselect first existing role if editing
+			if (_userModel?.Roles != null && _userModel.Roles.Count > 0)
+			{
+				cboRoles.EditValue = _userModel.Roles[0];
+			}
+
+			// Company pre-select handled in InitializeBindings after data load
+
+			txtPassword.ReadOnly = !string.IsNullOrEmpty(_userModel?._id);
 		}
 
 		private void ApplyPermissions()
@@ -94,20 +127,33 @@ namespace SpectrumV1.Views.Users
 				BindingContext[bsUser].EndCurrentEdit();
 				_userModel = (UserModel)bsUser.Current;
 
+				// Update roles from selection (single role for now)
+				var selectedRole = cboRoles.EditValue?.ToString();
+				if (!string.IsNullOrWhiteSpace(selectedRole))
+				{
+					_userModel.Roles = new List<string> { selectedRole };
+				}
+
+				// Map selected company
+				var selectedCompanyId = cboCompanies.EditValue?.ToString();
+
 				if (string.IsNullOrEmpty(_userModel._id))
 				{
 					_logInfoRepository.CreateLogInfo(_userModel);
 
 					SystemUtilities.PasswordHasher = new PasswordHasher();
 					_userModel.PasswordHash = SystemUtilities.PasswordHasher.HashPassword(txtPassword.Text);
-					_userModel.SecurityStamp = Guid.NewGuid().ToString("D");
+					_userModel.SecurityStamp = System.Guid.NewGuid().ToString("D");
 					_userModel.FirstTimeAccess = true;
+					_userModel.Company = selectedCompanyId;
 
 					var newId = await _userRepository.AddNewUserAsync(_userModel);
 				}
 				else
 				{
 					_logInfoRepository.UpdateLogInfo(_userModel);
+
+					_userModel.Company = selectedCompanyId;
 					await _userRepository.UpdateUserAsync(_userModel);
 				}
 
@@ -118,9 +164,6 @@ namespace SpectrumV1.Views.Users
 			{
 				XtraMessageBox.Show(ex.Message, @"Error Saving user", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-
-
-
 		}
 
 		private void changePasswordLink_ClickAsync(object sender, EventArgs e)
@@ -212,5 +255,16 @@ namespace SpectrumV1.Views.Users
 
 			return validateReturnValue;
 		}
+		private void cboCompanies_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+
+		}
+
+		private void cboBranches_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+
+		}
+
+
 	}
 }

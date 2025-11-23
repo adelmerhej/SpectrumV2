@@ -74,6 +74,13 @@ namespace SpectrumV1.Utilities.Enums
 		Female,
 		Male
 	}
+
+	public enum RolesType
+	{
+		Admin = 1,
+		User = 2,
+		Client = 3
+	}
 }
 
 public enum CollectionViewMasterDetailLayout

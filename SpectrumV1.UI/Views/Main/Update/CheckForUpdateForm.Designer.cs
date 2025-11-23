@@ -258,6 +258,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(798, 300);
 			this.Controls.Add(this.mainLayout);
+			this.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.Shadow;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.IconOptions.Image = global::SpectrumV1.Properties.Resources.LiveUpdate;
 			this.MaximizeBox = false;
 			this.Name = "CheckForUpdateForm";
