@@ -250,21 +250,24 @@ namespace SpectrumV1.Views.Common.Countries
 			{
 				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-		}
+		}	
 
 		private async void RcvUpdatedContinentAsync(object sender, EventArgs e)
 		{
 			if (sender == null) return;
 			_continentModel = sender as ContinentModel;
+			if (_continentModel == null) return;
 
-			if (_continentModel != null && (_continentModel.LastModifiedDate == null || _continentModel.Deleted))
+			if (_continentModel.Deleted || _continentModel.LastModifiedDate == null)
 			{
 				await InitializeBindings();
 				WireUpBindings();
 			}
 			else
 			{
-				gvContinents.UpdateCurrentRow();
+				gcContinents.RefreshDataSource();
+				gvContinents.RefreshRow(gvContinents.FocusedRowHandle);
+				gvContinents	.UpdateCurrentRow();
 			}
 		}
 

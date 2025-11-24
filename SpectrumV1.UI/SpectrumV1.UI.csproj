@@ -92,6 +92,18 @@
     <Compile Include="Views\Common\Companies\CompanyEditForm.Designer.cs">
       <DependentUpon>CompanyEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Common\Countries\CitiesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CitiesListForm.Designer.cs">
+      <DependentUpon>CitiesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CityEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CityEditForm.Designer.cs">
+      <DependentUpon>CityEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Common\Countries\ContinentEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +115,54 @@
     </Compile>
     <Compile Include="Views\Common\Countries\ContinentsListForm.Designer.cs">
       <DependentUpon>ContinentsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CountriesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CountriesListForm.Designer.cs">
+      <DependentUpon>CountriesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CountryEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CountryEditForm.Designer.cs">
+      <DependentUpon>CountryEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\DistrictEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\DistrictEditForm.Designer.cs">
+      <DependentUpon>DistrictEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\DistrictsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\DistrictsListForm.Designer.cs">
+      <DependentUpon>DistrictsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ProvinceEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ProvinceEditForm.Designer.cs">
+      <DependentUpon>ProvinceEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ProvincesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ProvincesListForm.Designer.cs">
+      <DependentUpon>ProvincesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\RegionEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\RegionEditForm.Designer.cs">
+      <DependentUpon>RegionEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\RegionsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\RegionsListForm.Designer.cs">
+      <DependentUpon>RegionsListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Main\AboutForm.cs">
       <SubType>Form</SubType>
@@ -186,11 +246,41 @@
     <EmbeddedResource Include="Views\Common\Companies\CompanyEditForm.resx">
       <DependentUpon>CompanyEditForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\CitiesListForm.resx">
+      <DependentUpon>CitiesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\CityEditForm.resx">
+      <DependentUpon>CityEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Common\Countries\ContinentEditForm.resx">
       <DependentUpon>ContinentEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Common\Countries\ContinentsListForm.resx">
       <DependentUpon>ContinentsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\CountriesListForm.resx">
+      <DependentUpon>CountriesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\CountryEditForm.resx">
+      <DependentUpon>CountryEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\DistrictEditForm.resx">
+      <DependentUpon>DistrictEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\DistrictsListForm.resx">
+      <DependentUpon>DistrictsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\ProvinceEditForm.resx">
+      <DependentUpon>ProvinceEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\ProvincesListForm.resx">
+      <DependentUpon>ProvincesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\RegionEditForm.resx">
+      <DependentUpon>RegionEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\RegionsListForm.resx">
+      <DependentUpon>RegionsListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
@@ -224,7 +314,12 @@
     </EmbeddedResource>
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Companies.BranchModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Companies.CompanyModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.CityModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.ContinentModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.CountryModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.DistrictModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.ProvinceModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.RegionModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Users.UserModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

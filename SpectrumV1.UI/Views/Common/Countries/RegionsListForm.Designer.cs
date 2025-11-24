@@ -1,6 +1,6 @@
 ﻿namespace SpectrumV1.Views.Common.Countries
 {
-	partial class ContinentsListForm
+	partial class RegionsListForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -29,8 +29,8 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContinentsListForm));
-			this.rcContinentsList = new DevExpress.XtraBars.Ribbon.RibbonControl();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegionsListForm));
+			this.rcRegionsList = new DevExpress.XtraBars.Ribbon.RibbonControl();
 			this.btnNew = new DevExpress.XtraBars.BarButtonItem();
 			this.btnDelete = new DevExpress.XtraBars.BarButtonItem();
 			this.btnEdit = new DevExpress.XtraBars.BarButtonItem();
@@ -38,7 +38,7 @@
 			this.btnRefresh = new DevExpress.XtraBars.BarButtonItem();
 			this.btnClose = new DevExpress.XtraBars.BarButtonItem();
 			this.btnResetGridStyle = new DevExpress.XtraBars.BarButtonItem();
-			this.rpContinentsList = new DevExpress.XtraBars.Ribbon.RibbonPage();
+			this.rpRegionsList = new DevExpress.XtraBars.Ribbon.RibbonPage();
 			this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
 			this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
 			this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -47,34 +47,35 @@
 			this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
 			this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
-			this.gcContinents = new DevExpress.XtraGrid.GridControl();
-			this.bsContinents = new System.Windows.Forms.BindingSource(this.components);
-			this.gvContinents = new DevExpress.XtraGrid.Views.Grid.GridView();
-			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colContinentName = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.gcRegions = new DevExpress.XtraGrid.GridControl();
+			this.gvRegions = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.repCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
-			this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-			((System.ComponentModel.ISupportInitialize)(this.rcContinentsList)).BeginInit();
+			this.bsRegions = new System.Windows.Forms.BindingSource(this.components);
+			this.colRegionName = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colContinent = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
+			((System.ComponentModel.ISupportInitialize)(this.rcRegionsList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.gcContinents)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsContinents)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.gvContinents)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gcRegions)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gvRegions)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsRegions)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// rcContinentsList
+			// rcRegionsList
 			// 
-			this.rcContinentsList.EmptyAreaImageOptions.ImagePadding = new System.Windows.Forms.Padding(35, 39, 35, 39);
-			this.rcContinentsList.ExpandCollapseItem.Id = 0;
-			this.rcContinentsList.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
-            this.rcContinentsList.ExpandCollapseItem,
+			this.rcRegionsList.EmptyAreaImageOptions.ImagePadding = new System.Windows.Forms.Padding(35, 39, 35, 39);
+			this.rcRegionsList.ExpandCollapseItem.Id = 0;
+			this.rcRegionsList.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.rcRegionsList.ExpandCollapseItem,
             this.btnNew,
             this.btnDelete,
             this.btnEdit,
@@ -82,17 +83,17 @@
             this.btnRefresh,
             this.btnClose,
             this.btnResetGridStyle});
-			this.rcContinentsList.Location = new System.Drawing.Point(0, 0);
-			this.rcContinentsList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-			this.rcContinentsList.MaxItemId = 42;
-			this.rcContinentsList.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
-			this.rcContinentsList.Name = "rcContinentsList";
-			this.rcContinentsList.OptionsMenuMinWidth = 385;
-			this.rcContinentsList.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
-            this.rpContinentsList,
+			this.rcRegionsList.Location = new System.Drawing.Point(0, 0);
+			this.rcRegionsList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			this.rcRegionsList.MaxItemId = 42;
+			this.rcRegionsList.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
+			this.rcRegionsList.Name = "rcRegionsList";
+			this.rcRegionsList.OptionsMenuMinWidth = 385;
+			this.rcRegionsList.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
+            this.rpRegionsList,
             this.rpViewSettings});
-			this.rcContinentsList.Size = new System.Drawing.Size(1384, 193);
-			this.rcContinentsList.StatusBar = this.ribbonStatusBar1;
+			this.rcRegionsList.Size = new System.Drawing.Size(1385, 193);
+			this.rcRegionsList.StatusBar = this.ribbonStatusBar1;
 			// 
 			// btnNew
 			// 
@@ -103,7 +104,6 @@
 			this.btnNew.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.NewCustomer.svg";
 			this.btnNew.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnNew.ImageOptions.SvgImage")));
 			this.btnNew.Name = "btnNew";
-			this.btnNew.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNew_ItemClick);
 			// 
 			// btnDelete
 			// 
@@ -114,7 +114,6 @@
 			this.btnDelete.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Delete.svg";
 			this.btnDelete.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDelete.ImageOptions.SvgImage")));
 			this.btnDelete.Name = "btnDelete";
-			this.btnDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDelete_ItemClick);
 			// 
 			// btnEdit
 			// 
@@ -125,7 +124,6 @@
 			this.btnEdit.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Edit.svg";
 			this.btnEdit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEdit.ImageOptions.SvgImage")));
 			this.btnEdit.Name = "btnEdit";
-			this.btnEdit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnEdit_ItemClick);
 			// 
 			// btnPrint
 			// 
@@ -136,7 +134,6 @@
 			this.btnPrint.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.SalesAnalysis.svg";
 			this.btnPrint.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPrint.ImageOptions.SvgImage")));
 			this.btnPrint.Name = "btnPrint";
-			this.btnPrint.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPrint_ItemClick);
 			// 
 			// btnRefresh
 			// 
@@ -144,7 +141,6 @@
 			this.btnRefresh.Id = 37;
 			this.btnRefresh.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRefresh.ImageOptions.SvgImage")));
 			this.btnRefresh.Name = "btnRefresh";
-			this.btnRefresh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnRefresh_ItemClick);
 			// 
 			// btnClose
 			// 
@@ -152,7 +148,6 @@
 			this.btnClose.Id = 38;
 			this.btnClose.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnClose.ImageOptions.SvgImage")));
 			this.btnClose.Name = "btnClose";
-			this.btnClose.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClose_ItemClick);
 			// 
 			// btnResetGridStyle
 			// 
@@ -160,17 +155,16 @@
 			this.btnResetGridStyle.Id = 41;
 			this.btnResetGridStyle.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnResetGridStyle.ImageOptions.SvgImage")));
 			this.btnResetGridStyle.Name = "btnResetGridStyle";
-			this.btnResetGridStyle.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResetGridStyle_ItemClick);
 			// 
-			// rpContinentsList
+			// rpRegionsList
 			// 
-			this.rpContinentsList.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+			this.rpRegionsList.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup1,
             this.ribbonPageGroup6,
             this.ribbonPageGroup8,
             this.ribbonPageGroup11});
-			this.rpContinentsList.Name = "rpContinentsList";
-			this.rpContinentsList.Text = "CONTINENTS";
+			this.rpRegionsList.Name = "rpRegionsList";
+			this.rpRegionsList.Text = "REGIONS";
 			// 
 			// ribbonPageGroup1
 			// 
@@ -223,115 +217,65 @@
 			// 
 			// ribbonStatusBar1
 			// 
-			this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 761);
+			this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 730);
 			this.ribbonStatusBar1.Name = "ribbonStatusBar1";
-			this.ribbonStatusBar1.Ribbon = this.rcContinentsList;
-			this.ribbonStatusBar1.Size = new System.Drawing.Size(1384, 30);
+			this.ribbonStatusBar1.Ribbon = this.rcRegionsList;
+			this.ribbonStatusBar1.Size = new System.Drawing.Size(1385, 30);
 			// 
 			// mainLayout
 			// 
-			this.mainLayout.Controls.Add(this.gcContinents);
+			this.mainLayout.Controls.Add(this.gcRegions);
 			this.mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.mainLayout.Location = new System.Drawing.Point(0, 193);
 			this.mainLayout.Name = "mainLayout";
 			this.mainLayout.Root = this.Root;
-			this.mainLayout.Size = new System.Drawing.Size(1384, 568);
-			this.mainLayout.TabIndex = 4;
+			this.mainLayout.Size = new System.Drawing.Size(1385, 537);
+			this.mainLayout.TabIndex = 5;
 			this.mainLayout.Text = "layoutControl1";
 			// 
-			// gcContinents
+			// gcRegions
 			// 
-			this.gcContinents.DataSource = this.bsContinents;
-			this.gcContinents.EmbeddedNavigator.Buttons.Append.Visible = false;
-			this.gcContinents.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
-			this.gcContinents.EmbeddedNavigator.Buttons.Edit.Visible = false;
-			this.gcContinents.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
-			this.gcContinents.EmbeddedNavigator.Buttons.Remove.Visible = false;
-			this.gcContinents.Location = new System.Drawing.Point(14, 14);
-			this.gcContinents.MainView = this.gvContinents;
-			this.gcContinents.Name = "gcContinents";
-			this.gcContinents.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+			this.gcRegions.DataSource = this.bsRegions;
+			this.gcRegions.EmbeddedNavigator.Buttons.Append.Visible = false;
+			this.gcRegions.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
+			this.gcRegions.EmbeddedNavigator.Buttons.Edit.Visible = false;
+			this.gcRegions.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
+			this.gcRegions.EmbeddedNavigator.Buttons.Remove.Visible = false;
+			this.gcRegions.Location = new System.Drawing.Point(14, 14);
+			this.gcRegions.MainView = this.gvRegions;
+			this.gcRegions.Name = "gcRegions";
+			this.gcRegions.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repCheckEdit});
-			this.gcContinents.Size = new System.Drawing.Size(1356, 540);
-			this.gcContinents.TabIndex = 8;
-			this.gcContinents.UseEmbeddedNavigator = true;
-			this.gcContinents.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvContinents});
+			this.gcRegions.Size = new System.Drawing.Size(1357, 509);
+			this.gcRegions.TabIndex = 8;
+			this.gcRegions.UseEmbeddedNavigator = true;
+			this.gcRegions.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvRegions});
 			// 
-			// bsContinents
+			// gvRegions
 			// 
-			this.bsContinents.DataSource = typeof(SpectrumV1.Models.Common.Countries.ContinentModel);
-			// 
-			// gvContinents
-			// 
-			this.gvContinents.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+			this.gvRegions.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id,
-            this.colContinentName,
+            this.colRegionName,
+            this.colContinent,
             this.colNotes,
             this.colIsDefault,
             this.colActive});
-			this.gvContinents.GridControl = this.gcContinents;
-			this.gvContinents.Name = "gvContinents";
-			this.gvContinents.OptionsBehavior.AllowFixedGroups = DevExpress.Utils.DefaultBoolean.True;
-			this.gvContinents.OptionsBehavior.AutoExpandAllGroups = true;
-			this.gvContinents.OptionsBehavior.Editable = false;
-			this.gvContinents.OptionsBehavior.ReadOnly = true;
-			this.gvContinents.OptionsFind.AlwaysVisible = true;
-			this.gvContinents.OptionsView.ColumnAutoWidth = false;
-			this.gvContinents.OptionsView.ShowGroupedColumns = true;
-			this.gvContinents.OptionsView.ShowGroupPanel = false;
-			this.gvContinents.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvContinents_RowCellStyle);
-			this.gvContinents.DoubleClick += new System.EventHandler(this.gvContinents_DoubleClick);
-			// 
-			// col_id
-			// 
-			this.col_id.FieldName = "_id";
-			this.col_id.MinWidth = 25;
-			this.col_id.Name = "col_id";
-			this.col_id.Width = 94;
-			// 
-			// colContinentName
-			// 
-			this.colContinentName.FieldName = "ContinentName";
-			this.colContinentName.MinWidth = 25;
-			this.colContinentName.Name = "colContinentName";
-			this.colContinentName.Visible = true;
-			this.colContinentName.VisibleIndex = 0;
-			this.colContinentName.Width = 300;
-			// 
-			// colNotes
-			// 
-			this.colNotes.FieldName = "Notes";
-			this.colNotes.MinWidth = 25;
-			this.colNotes.Name = "colNotes";
-			this.colNotes.Visible = true;
-			this.colNotes.VisibleIndex = 1;
-			this.colNotes.Width = 400;
-			// 
-			// colIsDefault
-			// 
-			this.colIsDefault.ColumnEdit = this.repCheckEdit;
-			this.colIsDefault.FieldName = "IsDefault";
-			this.colIsDefault.MinWidth = 25;
-			this.colIsDefault.Name = "colIsDefault";
-			this.colIsDefault.Visible = true;
-			this.colIsDefault.VisibleIndex = 2;
-			this.colIsDefault.Width = 94;
+			this.gvRegions.GridControl = this.gcRegions;
+			this.gvRegions.Name = "gvRegions";
+			this.gvRegions.OptionsBehavior.AllowFixedGroups = DevExpress.Utils.DefaultBoolean.True;
+			this.gvRegions.OptionsBehavior.AutoExpandAllGroups = true;
+			this.gvRegions.OptionsBehavior.Editable = false;
+			this.gvRegions.OptionsBehavior.ReadOnly = true;
+			this.gvRegions.OptionsFind.AlwaysVisible = true;
+			this.gvRegions.OptionsView.ColumnAutoWidth = false;
+			this.gvRegions.OptionsView.ShowGroupedColumns = true;
+			this.gvRegions.OptionsView.ShowGroupPanel = false;
 			// 
 			// repCheckEdit
 			// 
 			this.repCheckEdit.AutoHeight = false;
 			this.repCheckEdit.Name = "repCheckEdit";
-			// 
-			// colActive
-			// 
-			this.colActive.ColumnEdit = this.repCheckEdit;
-			this.colActive.FieldName = "Active";
-			this.colActive.MinWidth = 25;
-			this.colActive.Name = "colActive";
-			this.colActive.Visible = true;
-			this.colActive.VisibleIndex = 3;
-			this.colActive.Width = 94;
 			// 
 			// Root
 			// 
@@ -340,47 +284,104 @@
 			this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1});
 			this.Root.Name = "Root";
-			this.Root.Size = new System.Drawing.Size(1384, 568);
+			this.Root.Size = new System.Drawing.Size(1385, 537);
 			this.Root.TextVisible = false;
 			// 
 			// layoutControlItem1
 			// 
-			this.layoutControlItem1.Control = this.gcContinents;
+			this.layoutControlItem1.Control = this.gcRegions;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(1360, 544);
+			this.layoutControlItem1.Size = new System.Drawing.Size(1361, 513);
 			this.layoutControlItem1.TextVisible = false;
 			// 
-			// ContinentsListForm
+			// bsRegions
+			// 
+			this.bsRegions.DataSource = typeof(SpectrumV1.Models.Common.Countries.RegionModel);
+			// 
+			// colRegionName
+			// 
+			this.colRegionName.FieldName = "RegionName";
+			this.colRegionName.MinWidth = 25;
+			this.colRegionName.Name = "colRegionName";
+			this.colRegionName.Visible = true;
+			this.colRegionName.VisibleIndex = 0;
+			this.colRegionName.Width = 300;
+			// 
+			// colContinent
+			// 
+			this.colContinent.FieldName = "Continent";
+			this.colContinent.MinWidth = 25;
+			this.colContinent.Name = "colContinent";
+			this.colContinent.Visible = true;
+			this.colContinent.VisibleIndex = 1;
+			this.colContinent.Width = 200;
+			// 
+			// col_id
+			// 
+			this.col_id.FieldName = "_id";
+			this.col_id.MinWidth = 25;
+			this.col_id.Name = "col_id";
+			this.col_id.Width = 94;
+			// 
+			// colNotes
+			// 
+			this.colNotes.FieldName = "Notes";
+			this.colNotes.MinWidth = 25;
+			this.colNotes.Name = "colNotes";
+			this.colNotes.Visible = true;
+			this.colNotes.VisibleIndex = 2;
+			this.colNotes.Width = 300;
+			// 
+			// colIsDefault
+			// 
+			this.colIsDefault.ColumnEdit = this.repCheckEdit;
+			this.colIsDefault.FieldName = "IsDefault";
+			this.colIsDefault.MinWidth = 25;
+			this.colIsDefault.Name = "colIsDefault";
+			this.colIsDefault.Visible = true;
+			this.colIsDefault.VisibleIndex = 3;
+			this.colIsDefault.Width = 94;
+			// 
+			// colActive
+			// 
+			this.colActive.ColumnEdit = this.repCheckEdit;
+			this.colActive.FieldName = "Active";
+			this.colActive.MinWidth = 25;
+			this.colActive.Name = "colActive";
+			this.colActive.Visible = true;
+			this.colActive.VisibleIndex = 4;
+			this.colActive.Width = 94;
+			// 
+			// RegionsListForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1384, 791);
+			this.ClientSize = new System.Drawing.Size(1385, 760);
 			this.Controls.Add(this.mainLayout);
 			this.Controls.Add(this.ribbonStatusBar1);
-			this.Controls.Add(this.rcContinentsList);
-			this.Name = "ContinentsListForm";
-			this.Ribbon = this.rcContinentsList;
+			this.Controls.Add(this.rcRegionsList);
+			this.Name = "RegionsListForm";
+			this.Ribbon = this.rcRegionsList;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.StatusBar = this.ribbonStatusBar1;
-			this.Text = "Continents List";
-			((System.ComponentModel.ISupportInitialize)(this.rcContinentsList)).EndInit();
+			this.Text = "Regions List";
+			((System.ComponentModel.ISupportInitialize)(this.rcRegionsList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.gcContinents)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsContinents)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.gvContinents)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gcRegions)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gvRegions)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsRegions)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-
-		public DevExpress.XtraBars.Ribbon.RibbonControl rcContinentsList;
+		public DevExpress.XtraBars.Ribbon.RibbonControl rcRegionsList;
 		private DevExpress.XtraBars.BarButtonItem btnNew;
 		private DevExpress.XtraBars.BarButtonItem btnDelete;
 		private DevExpress.XtraBars.BarButtonItem btnEdit;
@@ -388,7 +389,7 @@
 		private DevExpress.XtraBars.BarButtonItem btnRefresh;
 		private DevExpress.XtraBars.BarButtonItem btnClose;
 		private DevExpress.XtraBars.BarButtonItem btnResetGridStyle;
-		private DevExpress.XtraBars.Ribbon.RibbonPage rpContinentsList;
+		private DevExpress.XtraBars.Ribbon.RibbonPage rpRegionsList;
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup8;
@@ -397,16 +398,17 @@
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
 		private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar1;
 		private DevExpress.XtraLayout.LayoutControl mainLayout;
-		private DevExpress.XtraGrid.GridControl gcContinents;
-		private DevExpress.XtraGrid.Views.Grid.GridView gvContinents;
+		private DevExpress.XtraGrid.GridControl gcRegions;
+		private DevExpress.XtraGrid.Views.Grid.GridView gvRegions;
+		private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repCheckEdit;
 		private DevExpress.XtraLayout.LayoutControlGroup Root;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-		private System.Windows.Forms.BindingSource bsContinents;
+		private System.Windows.Forms.BindingSource bsRegions;
 		private DevExpress.XtraGrid.Columns.GridColumn col_id;
-		private DevExpress.XtraGrid.Columns.GridColumn colContinentName;
+		private DevExpress.XtraGrid.Columns.GridColumn colRegionName;
+		private DevExpress.XtraGrid.Columns.GridColumn colContinent;
 		private DevExpress.XtraGrid.Columns.GridColumn colNotes;
 		private DevExpress.XtraGrid.Columns.GridColumn colIsDefault;
-		private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repCheckEdit;
 		private DevExpress.XtraGrid.Columns.GridColumn colActive;
 	}
 }
