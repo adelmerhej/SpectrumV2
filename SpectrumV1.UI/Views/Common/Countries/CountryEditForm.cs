@@ -14,7 +14,10 @@ namespace SpectrumV1.Views.Common.Countries
 	{
 		private CountryModel _countryModel = new CountryModel();
 
+		private RegionModel _regionModel = new RegionModel();
 		private IList<RegionModel> _regions = new List<RegionModel>();
+
+		private ContinentModel _continentModel = new ContinentModel();
 		private IList<ContinentModel> _continents = new List<ContinentModel>();
 
 		private readonly CountryRepository _countryRepository = new CountryRepository();

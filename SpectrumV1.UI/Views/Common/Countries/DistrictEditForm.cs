@@ -14,10 +14,10 @@ namespace SpectrumV1.Views.Common.Countries
 	{
 		private DistrictModel _districtModel = new DistrictModel();
 
-		private IList<ProvinceModel> _provinceModel = new List<ProvinceModel>();
+		private ProvinceModel _provinceModel = new ProvinceModel();
 		private IList<ProvinceModel> _provinces = new List<ProvinceModel>();
 
-		private IList<CountryModel> _countryModel = new List<CountryModel>();
+		private CountryModel _countryModel = new CountryModel();
 		private IList<CountryModel> _countries = new List<CountryModel>();
 
 		private RegionModel _regionModel = new RegionModel();

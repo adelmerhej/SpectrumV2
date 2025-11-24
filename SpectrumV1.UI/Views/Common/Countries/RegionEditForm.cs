@@ -1,7 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using SpectrumV1.DataLayers.Common.Countries;
-using SpectrumV1.Models.Common.Companies;
 using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Utilities;
 using System;
@@ -9,7 +8,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView;
 
 namespace SpectrumV1.Views.Common.Countries
 {
