@@ -117,6 +117,7 @@
 			this.mnuUsersList = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuCommon = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuCompaniesList = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+			this.mnuBranches = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuServicesList = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuActivitiesList = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuCountriesListMenu = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -141,7 +142,6 @@
 			this.grpReadingPane = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.dockRight = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.showPendingJobs = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-			this.mnuBranches = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			((System.ComponentModel.ISupportInitialize)(this.ribbonMainForm)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
@@ -860,6 +860,15 @@
 			this.mnuCompaniesList.Text = "Companies";
 			this.mnuCompaniesList.Click += new System.EventHandler(this.mnuCompaniesList_Click);
 			// 
+			// mnuBranches
+			// 
+			this.mnuBranches.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuBranches.ImageOptions.SvgImage")));
+			this.mnuBranches.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+			this.mnuBranches.Name = "mnuBranches";
+			this.mnuBranches.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+			this.mnuBranches.Text = "Branches";
+			this.mnuBranches.Click += new System.EventHandler(this.mnuBranches_Click);
+			// 
 			// mnuServicesList
 			// 
 			this.mnuServicesList.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuServicesList.ImageOptions.SvgImage")));
@@ -885,6 +894,7 @@
             this.mnuRegions,
             this.mnuProvinces,
             this.mnuDistricts});
+			this.mnuCountriesListMenu.Expanded = true;
 			this.mnuCountriesListMenu.Name = "mnuCountriesListMenu";
 			this.mnuCountriesListMenu.Text = "Countries";
 			// 
@@ -895,6 +905,7 @@
 			this.mnuCountries.Name = "mnuCountries";
 			this.mnuCountries.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.mnuCountries.Text = "Countries";
+			this.mnuCountries.Click += new System.EventHandler(this.mnuCountries_Click);
 			// 
 			// mnuCities
 			// 
@@ -903,6 +914,7 @@
 			this.mnuCities.Name = "mnuCities";
 			this.mnuCities.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.mnuCities.Text = "Cities";
+			this.mnuCities.Click += new System.EventHandler(this.mnuCities_Click);
 			// 
 			// mnuContinents
 			// 
@@ -911,6 +923,7 @@
 			this.mnuContinents.Name = "mnuContinents";
 			this.mnuContinents.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.mnuContinents.Text = "Continents";
+			this.mnuContinents.Click += new System.EventHandler(this.mnuContinents_Click);
 			// 
 			// mnuRegions
 			// 
@@ -919,6 +932,7 @@
 			this.mnuRegions.Name = "mnuRegions";
 			this.mnuRegions.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.mnuRegions.Text = "Regions";
+			this.mnuRegions.Click += new System.EventHandler(this.mnuRegions_Click);
 			// 
 			// mnuProvinces
 			// 
@@ -927,6 +941,7 @@
 			this.mnuProvinces.Name = "mnuProvinces";
 			this.mnuProvinces.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.mnuProvinces.Text = "Provinces";
+			this.mnuProvinces.Click += new System.EventHandler(this.mnuProvinces_Click);
 			// 
 			// mnuDistricts
 			// 
@@ -935,6 +950,7 @@
 			this.mnuDistricts.Name = "mnuDistricts";
 			this.mnuDistricts.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.mnuDistricts.Text = "Districts";
+			this.mnuDistricts.Click += new System.EventHandler(this.mnuDistricts_Click);
 			// 
 			// mnuSystem
 			// 
@@ -952,6 +968,7 @@
 			this.mnuDatabaseSettings.Name = "mnuDatabaseSettings";
 			this.mnuDatabaseSettings.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.mnuDatabaseSettings.Text = "Database Settings";
+			this.mnuDatabaseSettings.Click += new System.EventHandler(this.mnuDatabaseSettings_Click);
 			// 
 			// mnuGeneralSettings
 			// 
@@ -960,6 +977,7 @@
 			this.mnuGeneralSettings.Name = "mnuGeneralSettings";
 			this.mnuGeneralSettings.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.mnuGeneralSettings.Text = "General Settings";
+			this.mnuGeneralSettings.Click += new System.EventHandler(this.mnuGeneralSettings_Click);
 			// 
 			// accordionSettings
 			// 
@@ -1091,15 +1109,6 @@
 			this.showPendingJobs.Name = "showPendingJobs";
 			this.showPendingJobs.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.showPendingJobs.Text = "Show Pending Jobs";
-			// 
-			// mnuBranches
-			// 
-			this.mnuBranches.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuBranches.ImageOptions.SvgImage")));
-			this.mnuBranches.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-			this.mnuBranches.Name = "mnuBranches";
-			this.mnuBranches.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-			this.mnuBranches.Text = "Branches";
-			this.mnuBranches.Click += new System.EventHandler(this.mnuBranches_Click);
 			// 
 			// MainForm
 			// 

@@ -92,6 +92,18 @@
     <Compile Include="Views\Common\Companies\CompanyEditForm.Designer.cs">
       <DependentUpon>CompanyEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Common\Countries\ContinentEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ContinentEditForm.Designer.cs">
+      <DependentUpon>ContinentEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ContinentsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ContinentsListForm.Designer.cs">
+      <DependentUpon>ContinentsListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +186,12 @@
     <EmbeddedResource Include="Views\Common\Companies\CompanyEditForm.resx">
       <DependentUpon>CompanyEditForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\ContinentEditForm.resx">
+      <DependentUpon>ContinentEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\ContinentsListForm.resx">
+      <DependentUpon>ContinentsListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -206,6 +224,7 @@
     </EmbeddedResource>
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Companies.BranchModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Companies.CompanyModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.ContinentModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Users.UserModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

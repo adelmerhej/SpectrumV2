@@ -1,24 +1,25 @@
 ﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
-using SpectrumV1.DataLayers.Users;
+using DevExpress.XtraGrid.Views.Grid;
+using SpectrumV1.DataLayers.Common.Countries;
 using SpectrumV1.Models.Common.Countries;
-using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SpectrumV1.Views.Users
+namespace SpectrumV1.Views.Common.Countries
 {
-	public partial class UsersListForm : RibbonForm, IFormWithRibbon
+	public partial class ContinentsListForm : RibbonForm, IFormWithRibbon
 	{
-		private UserModel _userModel = new UserModel();
-		private IList<UserModel> _users = new List<UserModel>();
+		private ContinentModel _continentModel = new ContinentModel();
+		private IList<ContinentModel> _continents = new List<ContinentModel>();
 
-		private readonly UserRepository _userRepository = new UserRepository();
+		private readonly ContinentRepository _continentRepository = new ContinentRepository();
 
 		//Init permissionvariables
 		private bool _canAdd = true;
@@ -30,13 +31,13 @@ namespace SpectrumV1.Views.Users
 
 		#region Implementation of IFormWithRibbon
 
-		public RibbonControl MainRibbon => rcUsersList;
-		public RibbonPage DefaultPage => rpUsersList;
+		public RibbonControl MainRibbon => rcContinentsList;
+		public RibbonPage DefaultPage => rpContinentsList;
 
 
 		#endregion
 
-		public UsersListForm()
+		public ContinentsListForm()
 		{
 			InitializeComponent();
 
@@ -65,7 +66,7 @@ namespace SpectrumV1.Views.Users
 				//	}
 				//	//
 
-				_users = await _userRepository.GetUsersAsync();
+				_continents = await _continentRepository.GetContinentsAsync();
 			}
 			catch (Exception ex)
 			{
@@ -75,13 +76,13 @@ namespace SpectrumV1.Views.Users
 
 		private void WireUpBindings()
 		{
-			gcUsers.DataSource = null;
-			gcUsers.DataSource = _users;
+			gcContinents.DataSource = null;
+			gcContinents.DataSource = _continents;
 		}
 
 		private void ApplyDefaults()
 		{
-			//lnkAbout.Text = $@"About {Settings.Default.ApplicationName.Trim()}";
+
 		}
 
 		private void ApplyPermissions()
@@ -114,26 +115,26 @@ namespace SpectrumV1.Views.Users
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			UserEditForm frm = new UserEditForm(new UserModel());
-			frm.SendUpdatedUser += RcvUpdatedUserAsync;
+			ContinentEditForm frm = new ContinentEditForm(new ContinentModel());
+			frm.SendUpdatedContinent += RcvUpdatedContinentAsync;
 			frm.ShowDialog();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			if (!_users.Any()) return;
+			if (!_continents.Any()) return;
 
 			try
 			{
-				string currentRowId = gvUsers.GetFocusedRowCellValue("_id").ToString();
+				string currentRowId = gvContinents.GetFocusedRowCellValue("_id").ToString();
 				if (string.IsNullOrEmpty(currentRowId)) return;
 
-				_userModel = _users.SingleOrDefault(x => x._id == currentRowId);
-				if (_userModel == null) return;
+				_continentModel = _continents.SingleOrDefault(x => x._id == currentRowId);
+				if (_continentModel == null) return;
 
-				var userForm = new UserEditForm(_userModel);
-				userForm.SendUpdatedUser += RcvUpdatedUserAsync;
-				userForm.ShowDialog();
+				var continentForm = new ContinentEditForm(_continentModel);
+				continentForm.SendUpdatedContinent += RcvUpdatedContinentAsync;
+				continentForm.ShowDialog();
 			}
 			catch (Exception exception)
 			{
@@ -148,7 +149,7 @@ namespace SpectrumV1.Views.Users
 
 		private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			gcUsers.ShowRibbonPrintPreview();
+			gcContinents.ShowRibbonPrintPreview();
 		}
 
 		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
@@ -157,8 +158,8 @@ namespace SpectrumV1.Views.Users
 
 			try
 			{
-				string id = gvUsers.GetFocusedRowCellValue("_id").ToString();
-				string name = gvUsers.GetFocusedRowCellValue("Username").ToString();
+				string id = gvContinents.GetFocusedRowCellValue("_id").ToString();
+				string name = gvContinents.GetFocusedRowCellValue("ContinentName").ToString();
 
 				if (!string.IsNullOrEmpty(id))
 				{
@@ -166,17 +167,17 @@ namespace SpectrumV1.Views.Users
 							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
 							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
 					{
-						_userModel = gvUsers.GetFocusedRow() as UserModel;
-						if (_userModel == null)
+						_continentModel = gvContinents.GetFocusedRow() as ContinentModel;
+						if (_continentModel == null)
 						{
 							return;
 						}
-						_userModel.Deleted = true;
+						_continentModel.Deleted = true;
 
 						//delete the record
-						bool deleted = await _userRepository.DeleteUserAsync(id);
+						bool deleted = await _continentRepository.DeleteContinentAsync(id);
 						if (!deleted) return;
-						RcvUpdatedUserAsync(_userModel, EventArgs.Empty);
+						RcvUpdatedContinentAsync(_continentModel, EventArgs.Empty);
 					}
 				}
 
@@ -208,24 +209,42 @@ namespace SpectrumV1.Views.Users
 
 		}
 
+		private void gvContinents_RowCellStyle(object sender, RowCellStyleEventArgs e)
+		{
+			GridView view = sender as GridView;
+			if (e.RowHandle >= 0)
+			{
+				bool isActive = view != null && (bool)view.GetRowCellValue(e.RowHandle, "Active");
+				bool isDefault = view != null && (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
+				if (isDefault)
+				{
+					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+				}
+				if (!isActive)
+				{
+					e.Appearance.ForeColor = Color.Gray;
+					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+				}
+			}
+		}
 
 		#endregion
 
-		private void gvUsers_DoubleClick(object sender, EventArgs e)
+		private void gvContinents_DoubleClick(object sender, EventArgs e)
 		{
-			if (!_users.Any()) return;
+			if (!_continents.Any()) return;
 
 			try
 			{
-				string currentRowId = gvUsers.GetFocusedRowCellValue("_id").ToString();
+				string currentRowId = gvContinents.GetFocusedRowCellValue("_id").ToString();
 				if (string.IsNullOrEmpty(currentRowId)) return;
 
-				_userModel = _users.SingleOrDefault(x => x._id == currentRowId);
-				if (_userModel == null) return;
+				_continentModel = _continents.SingleOrDefault(x => x._id == currentRowId);
+				if (_continentModel == null) return;
 
-				var userForm = new UserEditForm(_userModel);
-				userForm.SendUpdatedUser += RcvUpdatedUserAsync;
-				userForm.ShowDialog();
+				var continentForm = new ContinentEditForm(_continentModel);
+				continentForm.SendUpdatedContinent += RcvUpdatedContinentAsync;
+				continentForm.ShowDialog();
 			}
 			catch (Exception exception)
 			{
@@ -233,28 +252,28 @@ namespace SpectrumV1.Views.Users
 			}
 		}
 
-		private async void RcvUpdatedUserAsync(object sender, EventArgs e)
+		private async void RcvUpdatedContinentAsync(object sender, EventArgs e)
 		{
 			if (sender == null) return;
-			_userModel = sender as UserModel;
+			_continentModel = sender as ContinentModel;
 
-			if (_userModel != null && (_userModel.LastModifiedDate == null || _userModel.Deleted))
+			if (_continentModel != null && (_continentModel.LastModifiedDate == null || _continentModel.Deleted))
 			{
 				await InitializeBindings();
 				WireUpBindings();
 			}
 			else
 			{
-				gvUsers.UpdateCurrentRow();
+				gvContinents.UpdateCurrentRow();
 			}
 		}
 
 		private bool CanDelete()
 		{
-			UserModel dataBoundItem = gvUsers.GetFocusedRow() as UserModel;
+			ContinentModel dataBoundItem = gvContinents.GetFocusedRow() as ContinentModel;
 
-			if (gvUsers == null || gvUsers.SelectedRowsCount == 0) return false;
-			if (gvUsers.SelectedRowsCount > 1)
+			if (gvContinents == null || gvContinents.SelectedRowsCount == 0) return false;
+			if (gvContinents.SelectedRowsCount > 1)
 			{
 				XtraMessageBox.Show("Only one record can be selected at a time, please try again",
 					"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);

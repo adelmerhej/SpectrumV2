@@ -7,6 +7,7 @@ using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
 using SpectrumV1.Utilities.Layout;
 using SpectrumV1.Views.Common.Companies;
+using SpectrumV1.Views.Common.Countries;
 using SpectrumV1.Views.Main.Update;
 using SpectrumV1.Views.Users;
 using System;
@@ -218,6 +219,46 @@ namespace SpectrumV1.Views.Main
 		private void mnuBranches_Click(object sender, EventArgs e)
 		{
 			OpenForm(new BranchesListForm());
+		}
+
+		private void mnuCountries_Click(object sender, EventArgs e)
+		{
+			OpenForm(new BranchesListForm());
+		}
+
+		private void mnuCities_Click(object sender, EventArgs e)
+		{
+			OpenForm(new BranchesListForm());
+		}
+
+		private void mnuContinents_Click(object sender, EventArgs e)
+		{
+			OpenForm(new ContinentsListForm());
+		}
+
+		private void mnuRegions_Click(object sender, EventArgs e)
+		{
+			OpenForm(new BranchesListForm());
+		}
+
+		private void mnuProvinces_Click(object sender, EventArgs e)
+		{
+			OpenForm(new BranchesListForm());
+		}
+
+		private void mnuDistricts_Click(object sender, EventArgs e)
+		{
+			OpenForm(new BranchesListForm());
+		}
+
+		private void mnuDatabaseSettings_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void mnuGeneralSettings_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
