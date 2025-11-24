@@ -1,13 +1,14 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using SpectrumV1.Models.Common.Companies;
 using System;
 
-namespace SpectrumV1.Models.Common.Companies
+namespace SpectrumV1.Models.Common.Countries
 {
-	public class BranchModel : EntityObject, ICloneable
+	public class RegionModel : EntityObject, ICloneable
 	{
-		[BsonElement("BranchName")]
-		public string BranchName { get; set; }
+		[BsonElement("RegionName")]
+		public string RegionName { get; set; }
+		public string Continent { get; set; }
 
 		#region Implementation of ICloneable
 

@@ -146,6 +146,12 @@
     <Compile Include="Administration\Update\LiveUpdateSettingsModel.cs" />
     <Compile Include="Common\Companies\BranchModel.cs" />
     <Compile Include="Common\Companies\CompanyModel.cs" />
+    <Compile Include="Common\Countries\CityModel.cs" />
+    <Compile Include="Common\Countries\ContinentModel.cs" />
+    <Compile Include="Common\Countries\CountryModel.cs" />
+    <Compile Include="Common\Countries\DistrictModel.cs" />
+    <Compile Include="Common\Countries\ProvinceModel.cs" />
+    <Compile Include="Common\Countries\RegionModel.cs" />
     <Compile Include="EntityObject.cs" />
     <Compile Include="Projects\ContractDetailModel.cs" />
     <Compile Include="Projects\ProjectDocumentsModel.cs" />

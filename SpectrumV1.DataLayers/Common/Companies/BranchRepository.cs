@@ -102,7 +102,6 @@ namespace SpectrumV1.DataLayers.Common.Branches
 			return await _branches.CountDocumentsAsync(new BsonDocument());
 		}
 
-
 		#region Implementation of IDisposable
 		public void Dispose()
 		{
