@@ -405,7 +405,7 @@ namespace SpectrumV1.Utilities
 				var continentCount = continentRepo.GetCountAsync().Result;
 				if (continentCount == 0)
 				{
-					var defaultcontinent = new Models.Common.Countries.ContinentModel
+					var defaultContinent = new Models.Common.Countries.ContinentModel
 					{
 						ContinentName = "Asia",
 						Company = "Spectrum Lebanon",
@@ -416,7 +416,153 @@ namespace SpectrumV1.Utilities
 						Active = true,
 						WorkingYear = DateTime.Now.Year,
 					};
-					continentRepo.AddNewContinentAsync(defaultcontinent).Wait();
+					continentRepo.AddNewContinentAsync(defaultContinent).Wait();
+				}
+
+				//4- Check collection Regions and add default if empty
+				var regionRepo = new DataLayers.Common.Countries.RegionRepository();
+				var regionCount = regionRepo.GetCountAsync().Result;
+				if (regionCount == 0)
+				{
+					var defaultRegion = new Models.Common.Countries.RegionModel
+					{
+						RegionName = "Middle East",
+						Continent = "Asia",
+						Company = "Spectrum Lebanon",
+						Branch = "Default Branch",
+						CreatedBy = "admin",
+						CreatedAt = DateTime.Now,
+						IsDefault = true,
+						Active = true,
+						WorkingYear = DateTime.Now.Year,
+					};
+					regionRepo.AddNewRegionAsync(defaultRegion).Wait();
+				}
+
+				//5- Check collection Countries and add default if empty
+				var countryRepo = new DataLayers.Common.Countries.CountryRepository();
+				var countryCount = countryRepo.GetCountAsync().Result;
+				if (countryCount == 0)
+				{
+					var defaultCountry = new Models.Common.Countries.CountryModel
+					{
+						CountryName = "Lebanon",
+						Region = "Middle East",
+						Continent = "Asia",
+						Company = "Spectrum Lebanon",
+						Branch = "Default Branch",
+						CreatedBy = "admin",
+						CreatedAt = DateTime.Now,
+						IsDefault = true,
+						Active = true,
+						WorkingYear = DateTime.Now.Year,
+					};
+					countryRepo.AddNewCountryAsync(defaultCountry).Wait();
+				}
+
+				//6- Check collection Provinces and add default if empty
+				var provinceRepo = new DataLayers.Common.Countries.ProvinceRepository();
+				var provinceCount = provinceRepo.GetCountAsync().Result;
+				if (provinceCount == 0)
+				{
+					var defaultProvince = new Models.Common.Countries.ProvinceModel
+					{
+						ProvinceName = "Beirut",
+						Country = "Lebanon",
+						Region = "Middle East",
+						Continent = "Asia",
+						Company = "Spectrum Lebanon",
+						Branch = "Default Branch",
+						CreatedBy = "admin",
+						CreatedAt = DateTime.Now,
+						IsDefault = true,
+						Active = true,
+						WorkingYear = DateTime.Now.Year,
+					};
+					provinceRepo.AddNewProvinceAsync(defaultProvince).Wait();
+				}
+
+				//7- Check collection Districts and add default if empty
+				var districtRepo = new DataLayers.Common.Countries.DistrictRepository();
+				var districtCount = districtRepo.GetCountAsync().Result;
+				if (districtCount == 0)
+				{
+					var defaultDistrict = new Models.Common.Countries.DistrictModel
+					{
+						DistrictName = "Achrafieh",
+						Province = "Beirut",
+						Country = "Lebanon",
+						Region = "Middle East",
+						Continent = "Asia",
+						Company = "Spectrum Lebanon",
+						Branch = "Default Branch",
+						CreatedBy = "admin",
+						CreatedAt = DateTime.Now,
+						IsDefault = true,
+						Active = true,
+						WorkingYear = DateTime.Now.Year,
+					};
+					districtRepo.AddNewDistrictAsync(defaultDistrict).Wait();
+				}
+
+				//8- Check collection Cities and add default if empty
+				var cityRepo = new DataLayers.Common.Countries.CityRepository();
+				var cityCount = cityRepo.GetCountAsync().Result;
+				if (cityCount == 0)
+				{
+					var defaultCity = new Models.Common.Countries.CityModel
+					{
+						CityName = "Beirut",
+						District = "Achrafieh",
+						Province = "Beirut",
+						Country = "Lebanon",
+						Region = "Middle East",
+						Continent = "Asia",
+						Company = "Spectrum Lebanon",
+						Branch = "Default Branch",
+						CreatedBy = "admin",
+						CreatedAt = DateTime.Now,
+						IsDefault = true,
+						Active = true,
+						WorkingYear = DateTime.Now.Year,
+					};
+					cityRepo.AddNewCityAsync(defaultCity).Wait();
+				}
+
+				//8- Check collection Currencies and add default if empty
+				var currencyRepo = new DataLayers.Common.Currencies.CurrencyRepository();
+				var currencyCount = currencyRepo.GetCountAsync().Result;
+				if (currencyCount == 0)
+				{
+					var defaultCurrency = new Models.Common.Currencies.CurrencyModel
+					{
+						CurrencyName = "Lebanese Pound",
+						CurrencyCode = "LBP",
+						CurrencySymbol = "ل.ل",
+						Company = "Spectrum Lebanon",
+						Branch = "Default Branch",
+						CreatedBy = "admin",
+						CreatedAt = DateTime.Now,
+						IsDefault = true,
+						Active = true,
+						WorkingYear = DateTime.Now.Year,
+					};
+					currencyRepo.AddNewCurrencyAsync(defaultCurrency).Wait();
+
+					defaultCurrency = new Models.Common.Currencies.CurrencyModel
+					{
+						CurrencyName = "US Dollar",
+						CurrencyCode = "USD",
+						CurrencySymbol = "$",
+						Company = "Spectrum Lebanon",
+						Branch = "Default Branch",
+						CreatedBy = "admin",
+						CreatedAt = DateTime.Now,
+						IsDefault = false,
+						Active = true,
+						WorkingYear = DateTime.Now.Year,
+					};
+					currencyRepo.AddNewCurrencyAsync(defaultCurrency).Wait();
 				}
 			}
 			catch (Exception ex)
