@@ -160,6 +160,10 @@
     <Compile Include="Common\Countries\Interfaces\IRegionRepository.cs" />
     <Compile Include="Common\Countries\ProvinceRepository.cs" />
     <Compile Include="Common\Countries\RegionRepository.cs" />
+    <Compile Include="Common\Currencies\CurrencyExchangeRepository.cs" />
+    <Compile Include="Common\Currencies\CurrencyRepository.cs" />
+    <Compile Include="Common\Currencies\Interfaces\ICurrencyExchangeRepository.cs" />
+    <Compile Include="Common\Currencies\Interfaces\ICurrencyRepository.cs" />
     <Compile Include="Common\Forms\FormCategoryRepository.cs" />
     <Compile Include="Common\Forms\FormRepository.cs" />
     <Compile Include="DataAccess\AbstractDatabaseModel.cs" />

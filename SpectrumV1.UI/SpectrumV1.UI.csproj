@@ -164,6 +164,12 @@
     <Compile Include="Views\Common\Countries\RegionsListForm.Designer.cs">
       <DependentUpon>RegionsListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Common\Currencies\CurrenciesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Currencies\CurrenciesListForm.Designer.cs">
+      <DependentUpon>CurrenciesListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -282,6 +288,9 @@
     <EmbeddedResource Include="Views\Common\Countries\RegionsListForm.resx">
       <DependentUpon>RegionsListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Currencies\CurrenciesListForm.resx">
+      <DependentUpon>CurrenciesListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -320,6 +329,8 @@
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.DistrictModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.ProvinceModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.RegionModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Currencies.CurrencyModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Currencies.ExchangeCurrencyModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Users.UserModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

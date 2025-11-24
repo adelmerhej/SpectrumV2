@@ -152,6 +152,8 @@
     <Compile Include="Common\Countries\DistrictModel.cs" />
     <Compile Include="Common\Countries\ProvinceModel.cs" />
     <Compile Include="Common\Countries\RegionModel.cs" />
+    <Compile Include="Common\Currencies\CurrencyModel.cs" />
+    <Compile Include="Common\Currencies\CurrencyExchangeModel.cs" />
     <Compile Include="EntityObject.cs" />
     <Compile Include="Projects\ContractDetailModel.cs" />
     <Compile Include="Projects\ProjectDocumentsModel.cs" />
