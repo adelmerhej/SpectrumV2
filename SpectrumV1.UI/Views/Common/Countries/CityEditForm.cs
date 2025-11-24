@@ -238,8 +238,5 @@ namespace SpectrumV1.Views.Common.Countries
 			return validateReturnValue;
 		}
 
-
-
-
 	}
 }
