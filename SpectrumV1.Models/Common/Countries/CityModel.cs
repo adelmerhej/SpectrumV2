@@ -1,5 +1,4 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using SpectrumV1.Models.Common.Companies;
 using System;
 
 namespace SpectrumV1.Models.Common.Countries
@@ -23,7 +22,7 @@ namespace SpectrumV1.Models.Common.Countries
 		/// <returns>A new object that is a copy of this instance.</returns>
 		public object Clone()
 		{
-			var recordModel = (BranchModel)MemberwiseClone();
+			var recordModel = (CityModel)MemberwiseClone();
 			return recordModel;
 		}
 

@@ -3,7 +3,6 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Branches;
-using SpectrumV1.DataLayers.Common.Companies;
 using SpectrumV1.Models.Common.Companies;
 using SpectrumV1.Utilities.Interfaces;
 using System;
@@ -20,11 +19,7 @@ namespace SpectrumV1.Views.Common.Companies
 		private BranchModel _branchModel = new BranchModel();
 		private IList<BranchModel> _branches = new List<BranchModel>();
 
-		private CompanyModel _companyModel = new CompanyModel();
-		private IList<CompanyModel> _companies = new List<CompanyModel>();
-
 		private readonly BranchRepository _branchRepository = new BranchRepository();
-		private readonly CompanyRepository _companyRepository = new CompanyRepository();
 
 		//Init permissionvariables
 		private bool _canAdd = true;
@@ -72,7 +67,6 @@ namespace SpectrumV1.Views.Common.Companies
 				//	//
 
 				_branches = await _branchRepository.GetBranchesAsync();
-				_companies = await _companyRepository.GetCompaniesAsync();
 			}
 			catch (Exception ex)
 			{
@@ -84,9 +78,6 @@ namespace SpectrumV1.Views.Common.Companies
 		{
 			gcBranches.DataSource = null;
 			gcBranches.DataSource = _branches;
-
-			repCompanies.DataSource = null;
-			repCompanies.DataSource = _companies;
 		}
 
 		private void ApplyDefaults()

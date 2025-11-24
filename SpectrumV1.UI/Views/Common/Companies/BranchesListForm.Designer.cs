@@ -54,7 +54,6 @@
 			this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colCompanyId = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.repCompanies = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
 			this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.repCheckBox = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
 			this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -66,7 +65,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.gcBranches)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bsBranches)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gvBranches)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.repCompanies)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repCheckBox)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
@@ -236,7 +234,6 @@
 			this.mainLayout.Controls.Add(this.gcBranches);
 			this.mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.mainLayout.Location = new System.Drawing.Point(0, 193);
-			this.mainLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.mainLayout.Name = "mainLayout";
 			this.mainLayout.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(717, 447, 450, 350);
 			this.mainLayout.Root = this.layoutControlGroup1;
@@ -252,13 +249,12 @@
 			this.gcBranches.EmbeddedNavigator.Buttons.Edit.Visible = false;
 			this.gcBranches.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
 			this.gcBranches.EmbeddedNavigator.Buttons.Remove.Visible = false;
-			this.gcBranches.Location = new System.Drawing.Point(19, 21);
+			this.gcBranches.Location = new System.Drawing.Point(14, 14);
 			this.gcBranches.MainView = this.gvBranches;
 			this.gcBranches.Name = "gcBranches";
 			this.gcBranches.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repCheckBox,
-            this.repCompanies});
-			this.gcBranches.Size = new System.Drawing.Size(1383, 498);
+            this.repCheckBox});
+			this.gcBranches.Size = new System.Drawing.Size(1393, 512);
 			this.gcBranches.TabIndex = 9;
 			this.gcBranches.UseEmbeddedNavigator = true;
 			this.gcBranches.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -320,26 +316,12 @@
 			// colCompanyId
 			// 
 			this.colCompanyId.Caption = "Company";
-			this.colCompanyId.ColumnEdit = this.repCompanies;
 			this.colCompanyId.FieldName = "Company";
 			this.colCompanyId.MinWidth = 25;
 			this.colCompanyId.Name = "colCompanyId";
 			this.colCompanyId.Visible = true;
 			this.colCompanyId.VisibleIndex = 2;
 			this.colCompanyId.Width = 237;
-			// 
-			// repCompanies
-			// 
-			this.repCompanies.AutoHeight = false;
-			this.repCompanies.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.repCompanies.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("_id", "Id", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Company Name", 60, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default)});
-			this.repCompanies.DisplayMember = "CompanyName";
-			this.repCompanies.Name = "repCompanies";
-			this.repCompanies.NullText = "";
-			this.repCompanies.ValueMember = "Id";
 			// 
 			// colIsDefault
 			// 
@@ -374,7 +356,6 @@
 			this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1});
 			this.layoutControlGroup1.Name = "Root";
-			this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(21, 21, 24, 24);
 			this.layoutControlGroup1.Size = new System.Drawing.Size(1421, 540);
 			this.layoutControlGroup1.TextVisible = false;
 			// 
@@ -383,7 +364,7 @@
 			this.layoutControlItem1.Control = this.gcBranches;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(1387, 502);
+			this.layoutControlItem1.Size = new System.Drawing.Size(1397, 516);
 			this.layoutControlItem1.TextVisible = false;
 			// 
 			// BranchesListForm
@@ -405,7 +386,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.gcBranches)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.bsBranches)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.gvBranches)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.repCompanies)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.repCheckBox)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
@@ -439,7 +419,6 @@
 		private DevExpress.XtraGrid.Columns.GridColumn colName;
 		private DevExpress.XtraGrid.Columns.GridColumn colNotes;
 		private DevExpress.XtraGrid.Columns.GridColumn colCompanyId;
-		private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repCompanies;
 		private DevExpress.XtraGrid.Columns.GridColumn colIsDefault;
 		private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repCheckBox;
 		private DevExpress.XtraGrid.Columns.GridColumn colActive;

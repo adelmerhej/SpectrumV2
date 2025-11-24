@@ -223,12 +223,12 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuCountries_Click(object sender, EventArgs e)
 		{
-			OpenForm(new BranchesListForm());
+			OpenForm(new CountriesListForm());
 		}
 
 		private void mnuCities_Click(object sender, EventArgs e)
 		{
-			OpenForm(new BranchesListForm());
+			OpenForm(new CitiesListForm());
 		}
 
 		private void mnuContinents_Click(object sender, EventArgs e)
@@ -238,17 +238,17 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuRegions_Click(object sender, EventArgs e)
 		{
-			OpenForm(new BranchesListForm());
+			OpenForm(new RegionsListForm());
 		}
 
 		private void mnuProvinces_Click(object sender, EventArgs e)
 		{
-			OpenForm(new BranchesListForm());
+			OpenForm(new ProvincesListForm());
 		}
 
 		private void mnuDistricts_Click(object sender, EventArgs e)
 		{
-			OpenForm(new BranchesListForm());
+			OpenForm(new DistrictsListForm());
 		}
 
 		private void mnuDatabaseSettings_Click(object sender, EventArgs e)

@@ -113,6 +113,7 @@
 			this.cboContinents.Size = new System.Drawing.Size(473, 22);
 			this.cboContinents.StyleController = this.mainLayout;
 			this.cboContinents.TabIndex = 7;
+			this.cboContinents.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboContinents_AddNewValue);
 			// 
 			// searchLookUpEdit1View
 			// 
@@ -182,6 +183,7 @@
 			this.btnCancel.StyleController = this.mainLayout;
 			this.btnCancel.TabIndex = 5;
 			this.btnCancel.Text = "Cancel";
+			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			// 
 			// btnSave
 			// 
@@ -191,6 +193,7 @@
 			this.btnSave.StyleController = this.mainLayout;
 			this.btnSave.TabIndex = 4;
 			this.btnSave.Text = "Save";
+			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			// 
 			// txtName
 			// 

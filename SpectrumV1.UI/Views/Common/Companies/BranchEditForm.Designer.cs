@@ -30,6 +30,11 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
+			this.cboCompanies = new DevExpress.XtraEditors.SearchLookUpEdit();
+			this.bsBranch = new System.Windows.Forms.BindingSource(this.components);
+			this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+			this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.chkActive = new DevExpress.XtraEditors.CheckEdit();
 			this.txtNotes = new DevExpress.XtraEditors.MemoEdit();
 			this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
@@ -43,18 +48,18 @@
 			this.grpBranchInfo = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lblName = new DevExpress.XtraLayout.LayoutControlItem();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
-			this.cboCompanies = new DevExpress.XtraEditors.SearchLookUpEdit();
 			this.lblCompany = new DevExpress.XtraLayout.LayoutControlItem();
-			this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-			this.bsBranch = new System.Windows.Forms.BindingSource(this.components);
-			this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.chkIsDefault = new DevExpress.XtraEditors.CheckEdit();
+			this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.cboCompanies.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsBranch)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).BeginInit();
@@ -66,18 +71,18 @@
 			((System.ComponentModel.ISupportInitialize)(this.grpBranchInfo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboCompanies.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblCompany)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsBranch)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.chkIsDefault.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// mainLayout
 			// 
+			this.mainLayout.Controls.Add(this.chkIsDefault);
 			this.mainLayout.Controls.Add(this.cboCompanies);
 			this.mainLayout.Controls.Add(this.chkActive);
 			this.mainLayout.Controls.Add(this.txtNotes);
@@ -94,13 +99,59 @@
 			this.mainLayout.TabIndex = 10;
 			this.mainLayout.Text = "layoutControl1";
 			// 
+			// cboCompanies
+			// 
+			this.cboCompanies.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsBranch, "Company", true));
+			this.cboCompanies.Location = new System.Drawing.Point(96, 80);
+			this.cboCompanies.Name = "cboCompanies";
+			this.cboCompanies.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+			this.cboCompanies.Properties.DisplayMember = "CompanyName";
+			this.cboCompanies.Properties.NullText = "";
+			this.cboCompanies.Properties.PopupView = this.gridView1;
+			this.cboCompanies.Properties.ShowAddNewButton = true;
+			this.cboCompanies.Properties.ValueMember = "CompanyName";
+			this.cboCompanies.Size = new System.Drawing.Size(474, 22);
+			this.cboCompanies.StyleController = this.mainLayout;
+			this.cboCompanies.TabIndex = 15;
+			// 
+			// bsBranch
+			// 
+			this.bsBranch.DataSource = typeof(SpectrumV1.Models.Common.Companies.BranchModel);
+			// 
+			// gridView1
+			// 
+			this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn1,
+            this.gridColumn2});
+			this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+			this.gridView1.Name = "gridView1";
+			this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
+			this.gridView1.OptionsView.ShowGroupPanel = false;
+			// 
+			// gridColumn1
+			// 
+			this.gridColumn1.Caption = "Id";
+			this.gridColumn1.FieldName = "_id";
+			this.gridColumn1.Name = "gridColumn1";
+			this.gridColumn1.Width = 213;
+			// 
+			// gridColumn2
+			// 
+			this.gridColumn2.Caption = "Company Name";
+			this.gridColumn2.FieldName = "CompanyName";
+			this.gridColumn2.Name = "gridColumn2";
+			this.gridColumn2.Visible = true;
+			this.gridColumn2.VisibleIndex = 0;
+			this.gridColumn2.Width = 823;
+			// 
 			// chkActive
 			// 
 			this.chkActive.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsBranch, "Active", true));
 			this.chkActive.Location = new System.Drawing.Point(28, 144);
 			this.chkActive.Name = "chkActive";
 			this.chkActive.Properties.Caption = "Active";
-			this.chkActive.Size = new System.Drawing.Size(542, 24);
+			this.chkActive.Size = new System.Drawing.Size(376, 24);
 			this.chkActive.StyleController = this.mainLayout;
 			this.chkActive.TabIndex = 13;
 			// 
@@ -109,7 +160,7 @@
 			this.txtNotes.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsBranch, "Notes", true));
 			this.txtNotes.Location = new System.Drawing.Point(28, 245);
 			this.txtNotes.Name = "txtNotes";
-			this.txtNotes.Size = new System.Drawing.Size(542, 83);
+			this.txtNotes.Size = new System.Drawing.Size(542, 82);
 			this.txtNotes.StyleController = this.mainLayout;
 			this.txtNotes.TabIndex = 11;
 			// 
@@ -164,9 +215,9 @@
 			// emptySpaceItem1
 			// 
 			this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
-			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 332);
+			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 331);
 			this.emptySpaceItem1.Name = "emptySpaceItem1";
-			this.emptySpaceItem1.Size = new System.Drawing.Size(574, 15);
+			this.emptySpaceItem1.Size = new System.Drawing.Size(574, 16);
 			// 
 			// emptySpaceItem2
 			// 
@@ -199,7 +250,8 @@
             this.layoutControlItem1,
             this.emptySpaceItem3,
             this.emptySpaceItem4,
-            this.lblCompany});
+            this.lblCompany,
+            this.layoutControlItem2});
 			this.grpBranchInfo.Location = new System.Drawing.Point(0, 0);
 			this.grpBranchInfo.Name = "grpBranchInfo";
 			this.grpBranchInfo.Size = new System.Drawing.Size(574, 191);
@@ -219,26 +271,8 @@
 			this.layoutControlItem1.Control = this.chkActive;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 90);
 			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(546, 28);
+			this.layoutControlItem1.Size = new System.Drawing.Size(380, 28);
 			this.layoutControlItem1.TextVisible = false;
-			// 
-			// layoutControlGroup4
-			// 
-			this.layoutControlGroup4.GroupStyle = DevExpress.Utils.GroupStyle.Light;
-			this.layoutControlGroup4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem6});
-			this.layoutControlGroup4.Location = new System.Drawing.Point(0, 191);
-			this.layoutControlGroup4.Name = "layoutControlGroup4";
-			this.layoutControlGroup4.Size = new System.Drawing.Size(574, 141);
-			this.layoutControlGroup4.Text = "Notes";
-			// 
-			// layoutControlItem6
-			// 
-			this.layoutControlItem6.Control = this.txtNotes;
-			this.layoutControlItem6.Location = new System.Drawing.Point(0, 0);
-			this.layoutControlItem6.Name = "layoutControlItem6";
-			this.layoutControlItem6.Size = new System.Drawing.Size(546, 87);
-			this.layoutControlItem6.TextVisible = false;
 			// 
 			// emptySpaceItem3
 			// 
@@ -252,22 +286,6 @@
 			this.emptySpaceItem4.Name = "emptySpaceItem4";
 			this.emptySpaceItem4.Size = new System.Drawing.Size(546, 38);
 			// 
-			// cboCompanies
-			// 
-			this.cboCompanies.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsBranch, "Company", true));
-			this.cboCompanies.Location = new System.Drawing.Point(96, 80);
-			this.cboCompanies.Name = "cboCompanies";
-			this.cboCompanies.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.cboCompanies.Properties.DisplayMember = "CompanyName";
-			this.cboCompanies.Properties.NullText = "";
-			this.cboCompanies.Properties.PopupView = this.gridView1;
-			this.cboCompanies.Properties.ShowAddNewButton = true;
-			this.cboCompanies.Properties.ValueMember = "CompanyName";
-			this.cboCompanies.Size = new System.Drawing.Size(474, 22);
-			this.cboCompanies.StyleController = this.mainLayout;
-			this.cboCompanies.TabIndex = 15;
-			// 
 			// lblCompany
 			// 
 			this.lblCompany.Control = this.cboCompanies;
@@ -277,35 +295,41 @@
 			this.lblCompany.Text = "Company";
 			this.lblCompany.TextSize = new System.Drawing.Size(53, 16);
 			// 
-			// gridView1
+			// layoutControlGroup4
 			// 
-			this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn1,
-            this.gridColumn2});
-			this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-			this.gridView1.Name = "gridView1";
-			this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
-			this.gridView1.OptionsView.ShowGroupPanel = false;
+			this.layoutControlGroup4.GroupStyle = DevExpress.Utils.GroupStyle.Light;
+			this.layoutControlGroup4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem6});
+			this.layoutControlGroup4.Location = new System.Drawing.Point(0, 191);
+			this.layoutControlGroup4.Name = "layoutControlGroup4";
+			this.layoutControlGroup4.Size = new System.Drawing.Size(574, 140);
+			this.layoutControlGroup4.Text = "Notes";
 			// 
-			// bsBranch
+			// layoutControlItem6
 			// 
-			this.bsBranch.DataSource = typeof(SpectrumV1.Models.Common.Companies.BranchModel);
+			this.layoutControlItem6.Control = this.txtNotes;
+			this.layoutControlItem6.Location = new System.Drawing.Point(0, 0);
+			this.layoutControlItem6.Name = "layoutControlItem6";
+			this.layoutControlItem6.Size = new System.Drawing.Size(546, 86);
+			this.layoutControlItem6.TextVisible = false;
 			// 
-			// gridColumn1
+			// chkIsDefault
 			// 
-			this.gridColumn1.Caption = "Id";
-			this.gridColumn1.FieldName = "_id";
-			this.gridColumn1.Name = "gridColumn1";
-			this.gridColumn1.Width = 213;
+			this.chkIsDefault.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsBranch, "IsDefault", true));
+			this.chkIsDefault.Location = new System.Drawing.Point(408, 144);
+			this.chkIsDefault.Name = "chkIsDefault";
+			this.chkIsDefault.Properties.Caption = "Is Default";
+			this.chkIsDefault.Size = new System.Drawing.Size(162, 24);
+			this.chkIsDefault.StyleController = this.mainLayout;
+			this.chkIsDefault.TabIndex = 16;
 			// 
-			// gridColumn2
+			// layoutControlItem2
 			// 
-			this.gridColumn2.Caption = "Company Name";
-			this.gridColumn2.FieldName = "CompanyName";
-			this.gridColumn2.Name = "gridColumn2";
-			this.gridColumn2.Visible = true;
-			this.gridColumn2.VisibleIndex = 0;
-			this.gridColumn2.Width = 823;
+			this.layoutControlItem2.Control = this.chkIsDefault;
+			this.layoutControlItem2.Location = new System.Drawing.Point(380, 90);
+			this.layoutControlItem2.Name = "layoutControlItem2";
+			this.layoutControlItem2.Size = new System.Drawing.Size(166, 28);
+			this.layoutControlItem2.TextVisible = false;
 			// 
 			// BranchEditForm
 			// 
@@ -321,6 +345,9 @@
 			this.Text = "Edit Branch";
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.cboCompanies.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsBranch)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).EndInit();
@@ -332,14 +359,13 @@
 			((System.ComponentModel.ISupportInitialize)(this.grpBranchInfo)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboCompanies.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblCompany)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsBranch)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.chkIsDefault.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -370,5 +396,7 @@
 		private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
 		private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
 		private DevExpress.XtraLayout.LayoutControlItem lblCompany;
+		private DevExpress.XtraEditors.CheckEdit chkIsDefault;
+		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
 	}
 }
