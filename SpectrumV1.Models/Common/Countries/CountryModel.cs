@@ -7,7 +7,7 @@ namespace SpectrumV1.Models.Common.Countries
 	{
 		[BsonElement("CountryName")]
 		public string CountryName { get; set; }
-		public string CountrCode { get; set; }
+		public string CountryCode { get; set; }
 		public string Region { get; set; }
 		public string Continent { get; set; }
 

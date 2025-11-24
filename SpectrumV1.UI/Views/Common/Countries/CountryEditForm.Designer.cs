@@ -31,14 +31,9 @@
 			this.components = new System.ComponentModel.Container();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
 			this.cboContinents = new DevExpress.XtraEditors.SearchLookUpEdit();
-			this.bsCountry = new System.Windows.Forms.BindingSource(this.components);
 			this.searchLookUpEdit3View = new DevExpress.XtraGrid.Views.Grid.GridView();
-			this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.cboRegions = new DevExpress.XtraEditors.SearchLookUpEdit();
 			this.searchLookUpEdit2View = new DevExpress.XtraGrid.Views.Grid.GridView();
-			this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.chkIsDefault = new DevExpress.XtraEditors.CheckEdit();
 			this.txtCode = new DevExpress.XtraEditors.TextEdit();
 			this.chkActive = new DevExpress.XtraEditors.CheckEdit();
@@ -66,10 +61,14 @@
 			this.lblName = new DevExpress.XtraLayout.LayoutControlItem();
 			this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.bsCountry = new System.Windows.Forms.BindingSource(this.components);
+			this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.cboContinents.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsCountry)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit3View)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.cboRegions.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit2View)).BeginInit();
@@ -98,6 +97,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.lblName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsCountry)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// mainLayout
@@ -137,10 +137,6 @@
 			this.cboContinents.StyleController = this.mainLayout;
 			this.cboContinents.TabIndex = 24;
 			// 
-			// bsCountry
-			// 
-			this.bsCountry.DataSource = typeof(SpectrumV1.Models.Common.Countries.CountryModel);
-			// 
 			// searchLookUpEdit3View
 			// 
 			this.searchLookUpEdit3View.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
@@ -150,22 +146,6 @@
 			this.searchLookUpEdit3View.Name = "searchLookUpEdit3View";
 			this.searchLookUpEdit3View.OptionsSelection.EnableAppearanceFocusedCell = false;
 			this.searchLookUpEdit3View.OptionsView.ShowGroupPanel = false;
-			// 
-			// gridColumn7
-			// 
-			this.gridColumn7.Caption = "Id";
-			this.gridColumn7.FieldName = "_id";
-			this.gridColumn7.Name = "gridColumn7";
-			this.gridColumn7.Width = 213;
-			// 
-			// gridColumn8
-			// 
-			this.gridColumn8.Caption = "Continent";
-			this.gridColumn8.FieldName = "ContinentName";
-			this.gridColumn8.Name = "gridColumn8";
-			this.gridColumn8.Visible = true;
-			this.gridColumn8.VisibleIndex = 0;
-			this.gridColumn8.Width = 823;
 			// 
 			// cboRegions
 			// 
@@ -193,22 +173,6 @@
 			this.searchLookUpEdit2View.OptionsSelection.EnableAppearanceFocusedCell = false;
 			this.searchLookUpEdit2View.OptionsView.ShowGroupPanel = false;
 			// 
-			// gridColumn5
-			// 
-			this.gridColumn5.Caption = "Id";
-			this.gridColumn5.FieldName = "_id";
-			this.gridColumn5.Name = "gridColumn5";
-			this.gridColumn5.Width = 215;
-			// 
-			// gridColumn6
-			// 
-			this.gridColumn6.Caption = "Region";
-			this.gridColumn6.FieldName = "RegionName";
-			this.gridColumn6.Name = "gridColumn6";
-			this.gridColumn6.Visible = true;
-			this.gridColumn6.VisibleIndex = 0;
-			this.gridColumn6.Width = 821;
-			// 
 			// chkIsDefault
 			// 
 			this.chkIsDefault.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsCountry, "IsDefault", true));
@@ -221,7 +185,7 @@
 			// 
 			// txtCode
 			// 
-			this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsCountry, "CountrCode", true));
+			this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsCountry, "CountryCode", true));
 			this.txtCode.Location = new System.Drawing.Point(97, 80);
 			this.txtCode.Name = "txtCode";
 			this.txtCode.Properties.MaxLength = 3;
@@ -257,6 +221,7 @@
 			this.btnCancel.StyleController = this.mainLayout;
 			this.btnCancel.TabIndex = 8;
 			this.btnCancel.Text = "Cancel";
+			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			// 
 			// btnSave
 			// 
@@ -266,6 +231,7 @@
 			this.btnSave.StyleController = this.mainLayout;
 			this.btnSave.TabIndex = 7;
 			this.btnSave.Text = "Save";
+			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			// 
 			// txtName
 			// 
@@ -450,6 +416,42 @@
 			this.layoutControlItem6.Size = new System.Drawing.Size(596, 135);
 			this.layoutControlItem6.TextVisible = false;
 			// 
+			// bsCountry
+			// 
+			this.bsCountry.DataSource = typeof(SpectrumV1.Models.Common.Countries.CountryModel);
+			// 
+			// gridColumn7
+			// 
+			this.gridColumn7.Caption = "Id";
+			this.gridColumn7.FieldName = "_id";
+			this.gridColumn7.Name = "gridColumn7";
+			this.gridColumn7.Width = 213;
+			// 
+			// gridColumn8
+			// 
+			this.gridColumn8.Caption = "Continent";
+			this.gridColumn8.FieldName = "ContinentName";
+			this.gridColumn8.Name = "gridColumn8";
+			this.gridColumn8.Visible = true;
+			this.gridColumn8.VisibleIndex = 0;
+			this.gridColumn8.Width = 823;
+			// 
+			// gridColumn5
+			// 
+			this.gridColumn5.Caption = "Id";
+			this.gridColumn5.FieldName = "_id";
+			this.gridColumn5.Name = "gridColumn5";
+			this.gridColumn5.Width = 215;
+			// 
+			// gridColumn6
+			// 
+			this.gridColumn6.Caption = "Region";
+			this.gridColumn6.FieldName = "RegionName";
+			this.gridColumn6.Name = "gridColumn6";
+			this.gridColumn6.Visible = true;
+			this.gridColumn6.VisibleIndex = 0;
+			this.gridColumn6.Width = 821;
+			// 
 			// CountryEditForm
 			// 
 			this.AcceptButton = this.btnSave;
@@ -467,7 +469,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.cboContinents.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsCountry)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit3View)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.cboRegions.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit2View)).EndInit();
@@ -496,6 +497,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.lblName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsCountry)).EndInit();
 			this.ResumeLayout(false);
 
 		}

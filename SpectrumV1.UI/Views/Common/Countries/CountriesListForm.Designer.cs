@@ -52,7 +52,7 @@
 			this.gvCountries = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colCountryName = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colCountrCode = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colCountryCode = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colRegion = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colContinent = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -106,6 +106,7 @@
 			this.btnNew.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.NewCustomer.svg";
 			this.btnNew.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnNew.ImageOptions.SvgImage")));
 			this.btnNew.Name = "btnNew";
+			this.btnNew.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNew_ItemClick);
 			// 
 			// btnDelete
 			// 
@@ -116,6 +117,7 @@
 			this.btnDelete.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Delete.svg";
 			this.btnDelete.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDelete.ImageOptions.SvgImage")));
 			this.btnDelete.Name = "btnDelete";
+			this.btnDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDelete_ItemClick);
 			// 
 			// btnEdit
 			// 
@@ -126,6 +128,7 @@
 			this.btnEdit.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Edit.svg";
 			this.btnEdit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEdit.ImageOptions.SvgImage")));
 			this.btnEdit.Name = "btnEdit";
+			this.btnEdit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnEdit_ItemClick);
 			// 
 			// btnPrint
 			// 
@@ -136,6 +139,7 @@
 			this.btnPrint.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.SalesAnalysis.svg";
 			this.btnPrint.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPrint.ImageOptions.SvgImage")));
 			this.btnPrint.Name = "btnPrint";
+			this.btnPrint.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPrint_ItemClick);
 			// 
 			// btnRefresh
 			// 
@@ -143,6 +147,7 @@
 			this.btnRefresh.Id = 37;
 			this.btnRefresh.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRefresh.ImageOptions.SvgImage")));
 			this.btnRefresh.Name = "btnRefresh";
+			this.btnRefresh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnRefresh_ItemClick);
 			// 
 			// btnClose
 			// 
@@ -150,6 +155,7 @@
 			this.btnClose.Id = 38;
 			this.btnClose.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnClose.ImageOptions.SvgImage")));
 			this.btnClose.Name = "btnClose";
+			this.btnClose.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClose_ItemClick);
 			// 
 			// btnResetGridStyle
 			// 
@@ -157,6 +163,7 @@
 			this.btnResetGridStyle.Id = 41;
 			this.btnResetGridStyle.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnResetGridStyle.ImageOptions.SvgImage")));
 			this.btnResetGridStyle.Name = "btnResetGridStyle";
+			this.btnResetGridStyle.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResetGridStyle_ItemClick);
 			// 
 			// rpCountriesList
 			// 
@@ -263,7 +270,7 @@
 			this.gvCountries.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id,
             this.colCountryName,
-            this.colCountrCode,
+            this.colCountryCode,
             this.colRegion,
             this.colContinent,
             this.colNotes,
@@ -279,6 +286,8 @@
 			this.gvCountries.OptionsView.ColumnAutoWidth = false;
 			this.gvCountries.OptionsView.ShowGroupedColumns = true;
 			this.gvCountries.OptionsView.ShowGroupPanel = false;
+			this.gvCountries.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvCountries_RowCellStyle);
+			this.gvCountries.DoubleClick += new System.EventHandler(this.gvCountries_DoubleClick);
 			// 
 			// col_id
 			// 
@@ -296,14 +305,15 @@
 			this.colCountryName.VisibleIndex = 0;
 			this.colCountryName.Width = 300;
 			// 
-			// colCountrCode
+			// colCountryCode
 			// 
-			this.colCountrCode.FieldName = "CountrCode";
-			this.colCountrCode.MinWidth = 25;
-			this.colCountrCode.Name = "colCountrCode";
-			this.colCountrCode.Visible = true;
-			this.colCountrCode.VisibleIndex = 1;
-			this.colCountrCode.Width = 150;
+			this.colCountryCode.Caption = "Country Code";
+			this.colCountryCode.FieldName = "CountryCode";
+			this.colCountryCode.MinWidth = 25;
+			this.colCountryCode.Name = "colCountryCode";
+			this.colCountryCode.Visible = true;
+			this.colCountryCode.VisibleIndex = 1;
+			this.colCountryCode.Width = 150;
 			// 
 			// colRegion
 			// 
@@ -429,7 +439,7 @@
 		private System.Windows.Forms.BindingSource bsCountries;
 		private DevExpress.XtraGrid.Columns.GridColumn col_id;
 		private DevExpress.XtraGrid.Columns.GridColumn colCountryName;
-		private DevExpress.XtraGrid.Columns.GridColumn colCountrCode;
+		private DevExpress.XtraGrid.Columns.GridColumn colCountryCode;
 		private DevExpress.XtraGrid.Columns.GridColumn colRegion;
 		private DevExpress.XtraGrid.Columns.GridColumn colContinent;
 		private DevExpress.XtraGrid.Columns.GridColumn colNotes;
