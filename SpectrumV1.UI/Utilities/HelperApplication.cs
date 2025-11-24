@@ -373,6 +373,10 @@ namespace SpectrumV1.Utilities
 						Email = "",
 						Website = "www.spectrumlb.com",
 						CreatedBy = "admin",
+						CreatedAt = DateTime.Now,
+						IsDefault = true,
+						Active = true,
+						WorkingYear = DateTime.Now.Year,
 					};
 					companyRepo.AddNewCompanyAsync(defaultCompany).Wait();
 				}
@@ -388,10 +392,32 @@ namespace SpectrumV1.Utilities
 						Company = "Spectrum Lebanon",
 						Branch = "Default Branch",
 						CreatedBy = "admin",
+						CreatedAt = DateTime.Now,
+						IsDefault = true,
+						Active = true,
+						WorkingYear = DateTime.Now.Year,
 					};
 					branchRepo.AddNewBranchAsync(defaultBranch).Wait();
 				}
 
+				//3- Check collection Continents and add default if empty
+				var continentRepo = new DataLayers.Common.Countries.ContinentRepository();
+				var continentCount = continentRepo.GetCountAsync().Result;
+				if (continentCount == 0)
+				{
+					var defaultcontinent = new Models.Common.Countries.ContinentModel
+					{
+						ContinentName = "Asia",
+						Company = "Spectrum Lebanon",
+						Branch = "Default Branch",
+						CreatedBy = "admin",
+						CreatedAt = DateTime.Now,
+						IsDefault = true,
+						Active = true,
+						WorkingYear = DateTime.Now.Year,
+					};
+					continentRepo.AddNewContinentAsync(defaultcontinent).Wait();
+				}
 			}
 			catch (Exception ex)
 			{
