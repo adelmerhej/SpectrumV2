@@ -1,5 +1,6 @@
 ﻿using DevExpress.LookAndFeel;
 using DevExpress.XtraBars;
+using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using SpectrumV1.Models.Users;
 using SpectrumV1.Properties;
@@ -9,6 +10,7 @@ using SpectrumV1.Utilities.Layout;
 using SpectrumV1.Views.Common;
 using SpectrumV1.Views.Common.Companies;
 using SpectrumV1.Views.Common.Countries;
+using SpectrumV1.Views.Main.Connections;
 using SpectrumV1.Views.Main.Update;
 using SpectrumV1.Views.Users;
 using System;
@@ -17,7 +19,7 @@ using System.Windows.Forms;
 
 namespace SpectrumV1.Views.Main
 {
-	public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm
+	public partial class MainForm : RibbonForm
 	{
 		private const string _formName = "MainForm";
 		private int _formId;
@@ -215,8 +217,9 @@ namespace SpectrumV1.Views.Main
 			}
 		}
 
-		#region TODO Menu
-		private void mnuToDoList_Click(object sender, EventArgs e)
+		#region Dashboard Menu
+
+		private void mnuDashboardActivities_Click(object sender, EventArgs e)
 		{
 			ShowFeatureUnderDevelopment();
 		}
@@ -411,7 +414,8 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuDatabaseSettings_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
+			ServerConfigurationForm dForm = new ServerConfigurationForm();
+			dForm.ShowDialog();
 		}
 
 		private void mnuGeneralSettings_Click(object sender, EventArgs e)
@@ -420,5 +424,7 @@ namespace SpectrumV1.Views.Main
 		}
 
 		#endregion
+
+
 	}
 }

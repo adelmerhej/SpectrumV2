@@ -241,6 +241,43 @@ public enum ProjectLocationsType
 	Local = 1,
 	Abroad = 2
 }
+public enum ProjectStatus
+{
+	Active,
+	Completed,
+	OnHold,
+	Cancelled
+}
+
+public enum BillingStatus
+{
+	Unbilled,
+	Billed,
+	Invoiced,
+	Paid
+}
+
+public enum CostType
+{
+	Labor,
+	Materials,
+	Equipment,
+	Subcontractor,
+	Software,
+	Travel,
+	Other
+}
+
+public enum PaymentMethod
+{
+	Cash,
+	CreditCard,
+	BankTransfer,
+	OnlinePayment,
+	WireTransfer,
+	Check,
+	Other
+}
 
 public enum EnumDebCred
 {

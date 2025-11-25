@@ -9,8 +9,8 @@ namespace SpectrumV1.DataLayers.Common.Areas
 		// CRUD Operations
 		Task<List<AreaModel>> GetAreasAsync();
 		Task<AreaModel> GetAreaByIdAsync(string id);
-		Task<string> AddNewAreaAsync(AreaModel branch);
-		Task<bool> UpdateAreaAsync(AreaModel branch);
+		Task<string> AddNewAreaAsync(AreaModel area);
+		Task<bool> UpdateAreaAsync(AreaModel area);
 		Task<bool> DeleteAreaAsync(string id);
 
 		// A custom query example
