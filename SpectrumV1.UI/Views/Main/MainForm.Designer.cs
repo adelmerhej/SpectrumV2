@@ -114,7 +114,7 @@
 			this.mnuCompaniesList = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuBranches = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuServicesList = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-			this.mnuActivitiesList = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+			this.mnuAreas = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuCountriesListMenu = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuCountries = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuCities = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -501,7 +501,7 @@
 			// 
 			// mnuDashboardActivities
 			// 
-			this.mnuDashboardActivities.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuToDoList.ImageOptions.SvgImage")));
+			this.mnuDashboardActivities.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuDashboardActivities.ImageOptions.SvgImage")));
 			this.mnuDashboardActivities.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
 			this.mnuDashboardActivities.Name = "mnuDashboardActivities";
 			this.mnuDashboardActivities.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
@@ -824,7 +824,7 @@
             this.mnuCompaniesList,
             this.mnuBranches,
             this.mnuServicesList,
-            this.mnuActivitiesList});
+            this.mnuAreas});
 			this.mnuCommon.Expanded = true;
 			this.mnuCommon.Name = "mnuCommon";
 			this.mnuCommon.Text = "Common";
@@ -856,14 +856,14 @@
 			this.mnuServicesList.Text = "Services List";
 			this.mnuServicesList.Click += new System.EventHandler(this.mnuServicesList_Click);
 			// 
-			// mnuActivitiesList
+			// mnuAreas
 			// 
-			this.mnuActivitiesList.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuActivitiesList.ImageOptions.SvgImage")));
-			this.mnuActivitiesList.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-			this.mnuActivitiesList.Name = "mnuActivitiesList";
-			this.mnuActivitiesList.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-			this.mnuActivitiesList.Text = "Activities";
-			this.mnuActivitiesList.Click += new System.EventHandler(this.mnuActivitiesList_Click);
+			this.mnuAreas.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuActivitiesList.ImageOptions.SvgImage")));
+			this.mnuAreas.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+			this.mnuAreas.Name = "mnuAreas";
+			this.mnuAreas.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+			this.mnuAreas.Text = "Area";
+			this.mnuAreas.Click += new System.EventHandler(this.mnuAreas_Click);
 			// 
 			// mnuCountriesListMenu
 			// 
@@ -1207,7 +1207,7 @@
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuCommon;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuCompaniesList;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuServicesList;
-		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuActivitiesList;
+		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuAreas;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuCountriesListMenu;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuCountries;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuCities;

@@ -8,6 +8,7 @@ using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
 using SpectrumV1.Utilities.Layout;
 using SpectrumV1.Views.Common;
+using SpectrumV1.Views.Common.Areas;
 using SpectrumV1.Views.Common.Companies;
 using SpectrumV1.Views.Common.Countries;
 using SpectrumV1.Views.Main.Connections;
@@ -370,15 +371,15 @@ namespace SpectrumV1.Views.Main
 			ShowFeatureUnderDevelopment();
 		}
 
-		private void mnuActivitiesList_Click(object sender, EventArgs e)
+		private void mnuAreas_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
+			OpenForm(new AreasListForm());
 		}
 
 		#endregion
 
 		#region Countries Menu
-				private void mnuCountries_Click(object sender, EventArgs e)
+		private void mnuCountries_Click(object sender, EventArgs e)
 		{
 			OpenForm(new CountriesListForm());
 		}
@@ -423,8 +424,8 @@ namespace SpectrumV1.Views.Main
 			ShowFeatureUnderDevelopment();
 		}
 
-		#endregion
 
+		#endregion
 
 	}
 }

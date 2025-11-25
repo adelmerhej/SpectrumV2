@@ -30,6 +30,7 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
+			this.txtCode = new DevExpress.XtraEditors.TextEdit();
 			this.chkIsDefault = new DevExpress.XtraEditors.CheckEdit();
 			this.chkActive = new DevExpress.XtraEditors.CheckEdit();
 			this.txtNotes = new DevExpress.XtraEditors.MemoEdit();
@@ -47,14 +48,14 @@
 			this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lblAreaCode = new DevExpress.XtraLayout.LayoutControlItem();
+			this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.bsAreas = new System.Windows.Forms.BindingSource(this.components);
-			this.txtCode = new DevExpress.XtraEditors.TextEdit();
-			this.lblAreaCode = new DevExpress.XtraLayout.LayoutControlItem();
-			this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkIsDefault.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).BeginInit();
@@ -70,12 +71,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblAreaCode)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bsAreas)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblAreaCode)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// mainLayout
@@ -96,6 +96,15 @@
 			this.mainLayout.Size = new System.Drawing.Size(548, 360);
 			this.mainLayout.TabIndex = 10;
 			this.mainLayout.Text = "layoutControl1";
+			// 
+			// txtCode
+			// 
+			this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsAreas, "AreaCode", true));
+			this.txtCode.Location = new System.Drawing.Point(76, 54);
+			this.txtCode.Name = "txtCode";
+			this.txtCode.Size = new System.Drawing.Size(196, 22);
+			this.txtCode.StyleController = this.mainLayout;
+			this.txtCode.TabIndex = 7;
 			// 
 			// chkIsDefault
 			// 
@@ -135,6 +144,7 @@
 			this.btnCancel.StyleController = this.mainLayout;
 			this.btnCancel.TabIndex = 5;
 			this.btnCancel.Text = "Cancel";
+			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			// 
 			// btnSave
 			// 
@@ -144,6 +154,7 @@
 			this.btnSave.StyleController = this.mainLayout;
 			this.btnSave.TabIndex = 4;
 			this.btnSave.Text = "Save";
+			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			// 
 			// txtName
 			// 
@@ -254,6 +265,21 @@
 			this.layoutControlItem2.Size = new System.Drawing.Size(125, 28);
 			this.layoutControlItem2.TextVisible = false;
 			// 
+			// lblAreaCode
+			// 
+			this.lblAreaCode.Control = this.txtCode;
+			this.lblAreaCode.Location = new System.Drawing.Point(0, 0);
+			this.lblAreaCode.Name = "lblAreaCode";
+			this.lblAreaCode.Size = new System.Drawing.Size(248, 26);
+			this.lblAreaCode.Text = "Code";
+			this.lblAreaCode.TextSize = new System.Drawing.Size(33, 16);
+			// 
+			// emptySpaceItem3
+			// 
+			this.emptySpaceItem3.Location = new System.Drawing.Point(248, 0);
+			this.emptySpaceItem3.Name = "emptySpaceItem3";
+			this.emptySpaceItem3.Size = new System.Drawing.Size(248, 26);
+			// 
 			// layoutControlGroup4
 			// 
 			this.layoutControlGroup4.GroupStyle = DevExpress.Utils.GroupStyle.Light;
@@ -276,30 +302,6 @@
 			// 
 			this.bsAreas.DataSource = typeof(SpectrumV1.Models.Common.Areas.AreaModel);
 			// 
-			// txtCode
-			// 
-			this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsAreas, "AreaCode", true));
-			this.txtCode.Location = new System.Drawing.Point(76, 54);
-			this.txtCode.Name = "txtCode";
-			this.txtCode.Size = new System.Drawing.Size(196, 22);
-			this.txtCode.StyleController = this.mainLayout;
-			this.txtCode.TabIndex = 7;
-			// 
-			// lblAreaCode
-			// 
-			this.lblAreaCode.Control = this.txtCode;
-			this.lblAreaCode.Location = new System.Drawing.Point(0, 0);
-			this.lblAreaCode.Name = "lblAreaCode";
-			this.lblAreaCode.Size = new System.Drawing.Size(248, 26);
-			this.lblAreaCode.Text = "Code";
-			this.lblAreaCode.TextSize = new System.Drawing.Size(33, 16);
-			// 
-			// emptySpaceItem3
-			// 
-			this.emptySpaceItem3.Location = new System.Drawing.Point(248, 0);
-			this.emptySpaceItem3.Name = "emptySpaceItem3";
-			this.emptySpaceItem3.Size = new System.Drawing.Size(248, 26);
-			// 
 			// AreaEditForm
 			// 
 			this.AcceptButton = this.btnSave;
@@ -308,12 +310,15 @@
 			this.CancelButton = this.btnCancel;
 			this.ClientSize = new System.Drawing.Size(548, 360);
 			this.Controls.Add(this.mainLayout);
+			this.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.Shadow;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
 			this.Name = "AreaEditForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Edit Area";
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkIsDefault.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).EndInit();
@@ -329,12 +334,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblAreaCode)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.bsAreas)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblAreaCode)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
 			this.ResumeLayout(false);
 
 		}
