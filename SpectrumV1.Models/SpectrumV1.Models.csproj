@@ -156,6 +156,7 @@
     <Compile Include="Common\Currencies\CurrencyModel.cs" />
     <Compile Include="Common\Currencies\CurrencyExchangeModel.cs" />
     <Compile Include="EntityObject.cs" />
+    <Compile Include="HumanResources\Engineers\EngineerModel.cs" />
     <Compile Include="Projects\ContractDetailModel.cs" />
     <Compile Include="Projects\ProjectDocumentsModel.cs" />
     <Compile Include="Projects\ProjectModel.cs" />

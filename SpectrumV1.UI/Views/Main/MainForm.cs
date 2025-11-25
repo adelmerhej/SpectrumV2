@@ -6,6 +6,7 @@ using SpectrumV1.Properties;
 using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
 using SpectrumV1.Utilities.Layout;
+using SpectrumV1.Views.Common;
 using SpectrumV1.Views.Common.Companies;
 using SpectrumV1.Views.Common.Countries;
 using SpectrumV1.Views.Main.Update;
@@ -206,6 +207,146 @@ namespace SpectrumV1.Views.Main
 			}
 		}
 
+		private void ShowFeatureUnderDevelopment()
+		{
+			using (var form = new FeatureUnderDevelopmentForm())
+			{
+				form.ShowDialog(this);
+			}
+		}
+
+		#region TODO Menu
+		private void mnuToDoList_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		#endregion
+
+		#region Operations Menu
+
+		private void mnuProjects_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuInvoices_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuInvoicesExpenses_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuReceipts_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuAccountsStatement_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+
+
+		#endregion
+
+		#region Members Menu
+
+		private void mnuClients_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuEngineers_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+
+
+		#endregion
+
+		#region HumanResources Menu
+
+		private void mnuHrCVs_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuEmployees_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuDepartments_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuRoles_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+
+		#endregion
+
+		#region Accounting Menu
+
+		private void mnuJournals_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuChartsOfAccount_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuCostCenter_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuJournalTypes_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuCurrencies_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuExchangeList_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuBanksList_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuStatementOfAccount_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuTrialBalance_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+
+		#endregion
+
+		#region Settings Menu
+
 		private void mnuUsersList_Click(object sender, System.EventArgs e)
 		{
 			OpenForm(new UsersListForm());
@@ -221,7 +362,20 @@ namespace SpectrumV1.Views.Main
 			OpenForm(new BranchesListForm());
 		}
 
-		private void mnuCountries_Click(object sender, EventArgs e)
+		private void mnuServicesList_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		private void mnuActivitiesList_Click(object sender, EventArgs e)
+		{
+			ShowFeatureUnderDevelopment();
+		}
+
+		#endregion
+
+		#region Countries Menu
+				private void mnuCountries_Click(object sender, EventArgs e)
 		{
 			OpenForm(new CountriesListForm());
 		}
@@ -251,14 +405,20 @@ namespace SpectrumV1.Views.Main
 			OpenForm(new DistrictsListForm());
 		}
 
+		#endregion
+
+		#region Main Settings Menu Events
+
 		private void mnuDatabaseSettings_Click(object sender, EventArgs e)
 		{
-
+			ShowFeatureUnderDevelopment();
 		}
 
 		private void mnuGeneralSettings_Click(object sender, EventArgs e)
 		{
-
+			ShowFeatureUnderDevelopment();
 		}
+
+		#endregion
 	}
 }

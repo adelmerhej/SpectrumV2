@@ -236,6 +236,11 @@ public enum DataJvTypes
 	CK = 11
 }
 
+public enum ProjectLocationsType
+{
+	Local = 1,
+	Abroad = 2
+}
 
 public enum EnumDebCred
 {

@@ -1,13 +1,12 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace SpectrumV1.Models.Common.Areas
+namespace SpectrumV1.Models.HumanResources.Engineers
 {
-	public class AreaModel : EntityObject, ICloneable
+	public class EngineerModel : EntityObject, ICloneable
 	{
-		[BsonElement("AreaName")]
-		public string AreaName { get; set; }
-		public string AreaCode { get; set; }
+		[BsonElement("Name")]
+		public string Name { get; set; }
 
 		#region Implementation of ICloneable
 
@@ -15,7 +14,7 @@ namespace SpectrumV1.Models.Common.Areas
 		/// <returns>A new object that is a copy of this instance.</returns>
 		public object Clone()
 		{
-			var recordModel = (AreaModel)MemberwiseClone();
+			var recordModel = (EngineerModel)MemberwiseClone();
 			return recordModel;
 		}
 
