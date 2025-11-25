@@ -144,6 +144,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Administration\Update\LiveUpdateSettingsProvider.cs" />
+    <Compile Include="Common\Areas\AreaRepository.cs" />
+    <Compile Include="Common\Areas\IAreaRepository.cs" />
     <Compile Include="Common\Companies\BranchRepository.cs" />
     <Compile Include="Common\Companies\CompanyRepository.cs" />
     <Compile Include="Common\Companies\IBranchRepository.cs" />
