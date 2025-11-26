@@ -2,11 +2,9 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
-using SpectrumV1.DataLayers.Common.Areas;
-using SpectrumV1.Models.Common.Areas;
-using SpectrumV1.Models.Common.Countries;
+using SpectrumV1.DataLayers.Common.Services;
+using SpectrumV1.Models.Common.Services;
 using SpectrumV1.Utilities.Interfaces;
-using SpectrumV1.Views.Common.Countries;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,14 +12,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SpectrumV1.Views.Common.Areas
+namespace SpectrumV1.Views.Common.Services
 {
-	public partial class AreasListForm : RibbonForm, IFormWithRibbon
+	public partial class ServicesListForm : RibbonForm, IFormWithRibbon
 	{
-		private AreaModel _areaModel = new AreaModel();
-		private IList<AreaModel> _areas = new List<AreaModel>();
+		private ServiceModel _serviceModel = new ServiceModel();
+		private IList<ServiceModel> _services = new List<ServiceModel>();
 
-		private readonly AreaRepository _areaRepository = new AreaRepository();
+		private readonly ServiceRepository _serviceRepository = new ServiceRepository();
 
 		//Init permissionvariables
 		private bool _canAdd = true;
@@ -33,13 +31,13 @@ namespace SpectrumV1.Views.Common.Areas
 
 		#region Implementation of IFormWithRibbon
 
-		public RibbonControl MainRibbon => rcAreas;
-		public RibbonPage DefaultPage => rpAreas;
+		public RibbonControl MainRibbon => rcServicesList;
+		public RibbonPage DefaultPage => rpServicesList;
 
 
 		#endregion
 
-		public AreasListForm()
+		public ServicesListForm()
 		{
 			InitializeComponent();
 
@@ -68,7 +66,7 @@ namespace SpectrumV1.Views.Common.Areas
 				//	}
 				//	//
 
-				_areas = await _areaRepository.GetAreasAsync();
+				_services = await _serviceRepository.GetServicesAsync();
 			}
 			catch (Exception ex)
 			{
@@ -78,8 +76,8 @@ namespace SpectrumV1.Views.Common.Areas
 
 		private void WireUpBindings()
 		{
-			gcAreas.DataSource = null;
-			gcAreas.DataSource = _areas;
+			gcServices.DataSource = null;
+			gcServices.DataSource = _services;
 		}
 
 		private void ApplyDefaults()
@@ -113,31 +111,30 @@ namespace SpectrumV1.Views.Common.Areas
 			btnDelete.Enabled = _isAdmin || _canDelete;
 		}
 
-
-		#region Buttons Events
+		#region Buttons Event
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			AreaEditForm frm = new AreaEditForm(new AreaModel());
-			frm.SendUpdatedArea += RcvUpdatedAreaAsync;
+			ServiceEditForm frm = new ServiceEditForm(new ServiceModel());
+			frm.SendUpdatedService += RcvUpdatedServiceAsync;
 			frm.ShowDialog();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			if (!_areas.Any()) return;
+			if (!_services.Any()) return;
 
 			try
 			{
-				string currentRowId = gvAreas.GetFocusedRowCellValue("_id").ToString();
+				string currentRowId = gvServices.GetFocusedRowCellValue("_id").ToString();
 				if (string.IsNullOrEmpty(currentRowId)) return;
 
-				_areaModel = _areas.SingleOrDefault(x => x._id == currentRowId);
-				if (_areaModel == null) return;
+				_serviceModel = _services.SingleOrDefault(x => x._id == currentRowId);
+				if (_serviceModel == null) return;
 
-				var countryForm = new AreaEditForm(_areaModel);
-				countryForm.SendUpdatedArea += RcvUpdatedAreaAsync;
-				countryForm.ShowDialog();
+				var serviceForm = new ServiceEditForm(_serviceModel);
+				serviceForm.SendUpdatedService += RcvUpdatedServiceAsync;
+				serviceForm.ShowDialog();
 			}
 			catch (Exception exception)
 			{
@@ -152,7 +149,7 @@ namespace SpectrumV1.Views.Common.Areas
 
 		private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			gcAreas.ShowRibbonPrintPreview();
+			gcServices.ShowRibbonPrintPreview();
 		}
 
 		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
@@ -161,25 +158,26 @@ namespace SpectrumV1.Views.Common.Areas
 
 			try
 			{
-				string id = gvAreas.GetFocusedRowCellValue("_id").ToString();
-				string name = gvAreas.GetFocusedRowCellValue("AreaName").ToString();
+				string id = gvServices.GetFocusedRowCellValue("_id").ToString();
+				string name = gvServices.GetFocusedRowCellValue("ServiceName").ToString();
 
 				if (!string.IsNullOrEmpty(id))
 				{
-					if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
+					if (XtraMessageBox.Show($"Are you sure you want to delete: `{name}`?",
 							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
 							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
 					{
-						_areaModel = gvAreas.GetFocusedRow() as AreaModel;
-						if (_areaModel == null)
+						_serviceModel = gvServices.GetFocusedRow() as ServiceModel;
+						if (_serviceModel == null)
 						{
 							return;
 						}
-						_areaModel.Deleted = true;
+						_serviceModel.Deleted = true;
 
 						//delete the record
-						await _areaRepository.DeleteAreaAsync(_areaModel._id);
-						RcvUpdatedAreaAsync(_areaModel, EventArgs.Empty);
+						bool deleted = await _serviceRepository.DeleteServiceAsync(id);
+						if (!deleted) return;
+						RcvUpdatedServiceAsync(_serviceModel, EventArgs.Empty);
 					}
 				}
 
@@ -211,40 +209,42 @@ namespace SpectrumV1.Views.Common.Areas
 
 		}
 
-		#endregion
-
-
-		private async void RcvUpdatedAreaAsync(object sender, EventArgs e)
+		private void gvServices_RowCellStyle(object sender, RowCellStyleEventArgs e)
 		{
-			if (sender == null) return;
-			_areaModel = sender as AreaModel;
-
-			if (_areaModel != null && (_areaModel.LastModifiedDate == null || _areaModel.Deleted))
+			GridView view = sender as GridView;
+			if (e.RowHandle >= 0)
 			{
-				await InitializeBindings();
-				WireUpBindings();
-			}
-			else
-			{
-				gvAreas.UpdateCurrentRow();
+				bool isActive = view != null && (bool)view.GetRowCellValue(e.RowHandle, "Active");
+				bool isDefault = view != null && (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
+				if (isDefault)
+				{
+					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+				}
+				if (!isActive)
+				{
+					e.Appearance.ForeColor = Color.Gray;
+					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+				}
 			}
 		}
 
-		private void gvAreas_DoubleClick(object sender, EventArgs e)
+		#endregion
+
+		private void gvServices_DoubleClick(object sender, EventArgs e)
 		{
-			if (!_areas.Any()) return;
+			if (!_services.Any()) return;
 
 			try
 			{
-				string currentRowId = gvAreas.GetFocusedRowCellValue("_id").ToString();
+				string currentRowId = gvServices.GetFocusedRowCellValue("_id").ToString();
 				if (string.IsNullOrEmpty(currentRowId)) return;
 
-				_areaModel = _areas.SingleOrDefault(x => x._id == currentRowId);
-				if (_areaModel == null) return;
+				_serviceModel = _services.SingleOrDefault(x => x._id == currentRowId);
+				if (_serviceModel == null) return;
 
-				var countryForm = new AreaEditForm(_areaModel);
-				countryForm.SendUpdatedArea += RcvUpdatedAreaAsync;
-				countryForm.ShowDialog();
+				var serviceForm = new ServiceEditForm(_serviceModel);
+				serviceForm.SendUpdatedService += RcvUpdatedServiceAsync;
+				serviceForm.ShowDialog();
 			}
 			catch (Exception exception)
 			{
@@ -252,12 +252,31 @@ namespace SpectrumV1.Views.Common.Areas
 			}
 		}
 
+		private async void RcvUpdatedServiceAsync(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_serviceModel = sender as ServiceModel;
+			if (_serviceModel == null) return;
+
+			if (_serviceModel.Deleted || _serviceModel.LastModifiedDate == null)
+			{
+				await InitializeBindings();
+				WireUpBindings();
+			}
+			else
+			{
+				gcServices.RefreshDataSource();
+				gvServices.RefreshRow(gvServices.FocusedRowHandle);
+				gvServices.UpdateCurrentRow();
+			}
+		}
+
 		private bool CanDelete()
 		{
-			AreaModel dataBoundItem = gvAreas.GetFocusedRow() as AreaModel;
+			ServiceModel dataBoundItem = gvServices.GetFocusedRow() as ServiceModel;
 
-			if (gvAreas == null || gvAreas.SelectedRowsCount == 0) return false;
-			if (gvAreas.SelectedRowsCount > 1)
+			if (gvServices == null || gvServices.SelectedRowsCount == 0) return false;
+			if (gvServices.SelectedRowsCount > 1)
 			{
 				XtraMessageBox.Show("Only one record can be selected at a time, please try again",
 					"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -272,25 +291,6 @@ namespace SpectrumV1.Views.Common.Areas
 			}
 
 			return true;
-		}
-
-		private void gvAreas_RowCellStyle(object sender, RowCellStyleEventArgs e)
-		{
-			GridView view = sender as GridView;
-			if (e.RowHandle >= 0)
-			{
-				bool isActive = (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
-				if (isDefault)
-				{
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-				}
-				if (!isActive)
-				{
-					e.Appearance.ForeColor = Color.Gray;
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-				}
-			}
 		}
 	}
 }

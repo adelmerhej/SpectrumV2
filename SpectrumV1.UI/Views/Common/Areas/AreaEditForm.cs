@@ -1,7 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using SpectrumV1.DataLayers.Common.Areas;
 using SpectrumV1.Models.Common.Areas;
-using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Utilities;
 using System;
 using System.Text;
@@ -12,16 +11,18 @@ namespace SpectrumV1.Views.Common.Areas
 {
 	public partial class AreaEditForm : XtraForm
 	{
-		private AreaModel _areaModel;
+		private AreaModel _areaModel = new AreaModel();
+
 		private readonly AreaRepository _areaRepository = new AreaRepository();
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
+		//init permission variables
 		private bool _canEdit = true;
 		private bool _isAdmin = true;
+		private bool _isProtected = true;
 
 		public EventHandler SendUpdatedArea;
-
 
 		public AreaEditForm(AreaModel model)
 		{
@@ -31,7 +32,6 @@ namespace SpectrumV1.Views.Common.Areas
 
 			StartLoading();
 		}
-
 		private async void StartLoading()
 		{
 			await InitializeBindings();
@@ -44,13 +44,15 @@ namespace SpectrumV1.Views.Common.Areas
 		{
 			try
 			{
-				// Only load from repository if editing existing user (has id)
-				if (!string.IsNullOrEmpty(_areaModel?._id))
-				{
-					var existing = await _areaRepository.GetAreaByIdAsync(_areaModel._id);
-					if (existing != null)
-						_areaModel = existing;
-				}
+				//	//
+				//	_formId = _formRepository.SelectFormByName(_formName);
+				//	_userPermission = _userPermissionRepository.SelectUserPermissionById(CurrentUser.UserId, _formId);
+				//	if (_userPermission is { Count: > 0 })
+				//	{
+				//		var isProtected = _userPermission.SingleOrDefault(x => x.ControlName == "IsProtected")?.Value;
+				//		if (isProtected != null) _isProtected = (bool)isProtected;
+				//	}
+				//	//
 			}
 			catch (Exception ex)
 			{
@@ -70,12 +72,25 @@ namespace SpectrumV1.Views.Common.Areas
 
 		private void ApplyPermissions()
 		{
-			btnSave.Enabled = _isAdmin || _canEdit;
-		}
+			//if (_userPermission == null) return;
+			//if (_userPermission.Count <= 0) return;
 
-		private void btnCancel_Click(object sender, EventArgs e)
-		{
-			Close();
+			//var canAdd = _userPermission.SingleOrDefault(x => x.ControlName == "CanAdd")?.Value;
+			//if (canAdd != null) _canAdd = (bool)canAdd;
+
+			//var canEdit = _userPermission.SingleOrDefault(x => x.ControlName == "CanEdit")?.Value;
+			//if (canEdit != null) _canEdit = (bool)canEdit;
+
+			//var canDelete = _userPermission.SingleOrDefault(x => x.ControlName == "CanDelete")?.Value;
+			//if (canDelete != null) _canDelete = (bool)canDelete;
+
+			//var canPrint = _userPermission.SingleOrDefault(x => x.ControlName == "CanPrint")?.Value;
+			//if (canPrint != null) _canPrint = (bool)canPrint;
+
+			//var isAdmin = _userPermission.SingleOrDefault(x => x.ControlName == "IsAdmin")?.Value;
+			//if (isAdmin != null) _isAdmin = (bool)isAdmin;
+
+			btnSave.Enabled = _isAdmin || _canEdit;
 		}
 
 		private async void btnSave_Click(object sender, EventArgs e)
@@ -87,15 +102,18 @@ namespace SpectrumV1.Views.Common.Areas
 				BindingContext[bsAreas].EndCurrentEdit();
 				_areaModel = (AreaModel)bsAreas.Current;
 
+
 				if (string.IsNullOrEmpty(_areaModel._id))
 				{
 					_logInfoRepository.CreateLogInfo(_areaModel);
+
 					var newId = await _areaRepository.AddNewAreaAsync(_areaModel);
 				}
 				else
 				{
 					_logInfoRepository.UpdateLogInfo(_areaModel);
-					await _areaRepository.UpdateAreaAsync (_areaModel);
+
+					await _areaRepository.UpdateAreaAsync(_areaModel);
 				}
 
 				SendUpdatedArea(_areaModel, EventArgs.Empty);
@@ -105,6 +123,11 @@ namespace SpectrumV1.Views.Common.Areas
 			{
 				XtraMessageBox.Show(ex.Message, @"Error Saving user", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
+		}
+
+		private void btnCancel_Click(object sender, EventArgs e)
+		{
+			Close();
 		}
 
 		private bool ValidateData()

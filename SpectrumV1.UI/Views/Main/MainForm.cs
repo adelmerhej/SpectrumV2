@@ -11,6 +11,7 @@ using SpectrumV1.Views.Common;
 using SpectrumV1.Views.Common.Areas;
 using SpectrumV1.Views.Common.Companies;
 using SpectrumV1.Views.Common.Countries;
+using SpectrumV1.Views.Common.Services;
 using SpectrumV1.Views.Main.Connections;
 using SpectrumV1.Views.Main.Update;
 using SpectrumV1.Views.Users;
@@ -368,7 +369,8 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuServicesList_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
+			OpenForm(new ServicesListForm());
+
 		}
 
 		private void mnuAreas_Click(object sender, EventArgs e)

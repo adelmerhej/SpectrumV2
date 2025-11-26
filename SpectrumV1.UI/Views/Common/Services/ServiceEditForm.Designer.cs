@@ -1,6 +1,6 @@
-﻿namespace SpectrumV1.Views.Common.Areas
+﻿namespace SpectrumV1.Views.Common.Services
 {
-	partial class AreaEditForm
+	partial class ServiceEditForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -31,7 +31,7 @@
 			this.components = new System.ComponentModel.Container();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
 			this.txtCode = new DevExpress.XtraEditors.TextEdit();
-			this.bsAreas = new System.Windows.Forms.BindingSource(this.components);
+			this.bsService = new System.Windows.Forms.BindingSource(this.components);
 			this.chkIsDefault = new DevExpress.XtraEditors.CheckEdit();
 			this.chkActive = new DevExpress.XtraEditors.CheckEdit();
 			this.txtNotes = new DevExpress.XtraEditors.MemoEdit();
@@ -44,19 +44,19 @@
 			this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.grpInfo = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.lblAreaName = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lblServiceName = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lblAreaCode = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lblServiceCode = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsAreas)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsService)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkIsDefault.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).BeginInit();
@@ -67,12 +67,12 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.grpInfo)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblAreaName)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblServiceName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblAreaCode)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblServiceCode)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
@@ -94,25 +94,25 @@
 			this.mainLayout.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(738, 385, 450, 350);
 			this.mainLayout.Root = this.layoutControlGroup1;
 			this.mainLayout.Size = new System.Drawing.Size(548, 360);
-			this.mainLayout.TabIndex = 10;
+			this.mainLayout.TabIndex = 11;
 			this.mainLayout.Text = "layoutControl1";
 			// 
 			// txtCode
 			// 
-			this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsAreas, "AreaCode", true));
+			this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsService, "ServiceCode", true));
 			this.txtCode.Location = new System.Drawing.Point(76, 54);
 			this.txtCode.Name = "txtCode";
 			this.txtCode.Size = new System.Drawing.Size(196, 22);
 			this.txtCode.StyleController = this.mainLayout;
 			this.txtCode.TabIndex = 7;
 			// 
-			// bsAreas
+			// bsService
 			// 
-			this.bsAreas.DataSource = typeof(SpectrumV1.Models.Common.Areas.AreaModel);
+			this.bsService.DataSource = typeof(SpectrumV1.Models.Common.Services.ServiceModel);
 			// 
 			// chkIsDefault
 			// 
-			this.chkIsDefault.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsAreas, "IsDefault", true));
+			this.chkIsDefault.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsService, "IsDefault", true));
 			this.chkIsDefault.Location = new System.Drawing.Point(399, 116);
 			this.chkIsDefault.Name = "chkIsDefault";
 			this.chkIsDefault.Properties.Caption = "Is Default";
@@ -122,7 +122,7 @@
 			// 
 			// chkActive
 			// 
-			this.chkActive.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsAreas, "Active", true));
+			this.chkActive.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsService, "Active", true));
 			this.chkActive.Location = new System.Drawing.Point(28, 116);
 			this.chkActive.Name = "chkActive";
 			this.chkActive.Properties.Caption = "Active";
@@ -132,7 +132,7 @@
 			// 
 			// txtNotes
 			// 
-			this.txtNotes.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsAreas, "Notes", true));
+			this.txtNotes.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsService, "Notes", true));
 			this.txtNotes.Location = new System.Drawing.Point(28, 198);
 			this.txtNotes.Name = "txtNotes";
 			this.txtNotes.Size = new System.Drawing.Size(492, 87);
@@ -162,7 +162,7 @@
 			// 
 			// txtName
 			// 
-			this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsAreas, "AreaName", true));
+			this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsService, "ServiceName", true));
 			this.txtName.Location = new System.Drawing.Point(76, 80);
 			this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.txtName.Name = "txtName";
@@ -220,26 +220,26 @@
 			// 
 			this.grpInfo.GroupStyle = DevExpress.Utils.GroupStyle.Light;
 			this.grpInfo.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lblAreaName,
+            this.lblServiceName,
             this.emptySpaceItem4,
             this.emptySpaceItem5,
             this.layoutControlItem1,
             this.layoutControlItem2,
-            this.lblAreaCode,
+            this.lblServiceCode,
             this.emptySpaceItem3});
 			this.grpInfo.Location = new System.Drawing.Point(0, 0);
 			this.grpInfo.Name = "grpInfo";
 			this.grpInfo.Size = new System.Drawing.Size(524, 144);
-			this.grpInfo.Text = "Area Info";
+			this.grpInfo.Text = "Service Info";
 			// 
-			// lblAreaName
+			// lblServiceName
 			// 
-			this.lblAreaName.Control = this.txtName;
-			this.lblAreaName.Location = new System.Drawing.Point(0, 26);
-			this.lblAreaName.Name = "lblAreaName";
-			this.lblAreaName.Size = new System.Drawing.Size(496, 26);
-			this.lblAreaName.Text = "Name";
-			this.lblAreaName.TextSize = new System.Drawing.Size(33, 16);
+			this.lblServiceName.Control = this.txtName;
+			this.lblServiceName.Location = new System.Drawing.Point(0, 26);
+			this.lblServiceName.Name = "lblServiceName";
+			this.lblServiceName.Size = new System.Drawing.Size(496, 26);
+			this.lblServiceName.Text = "Name";
+			this.lblServiceName.TextSize = new System.Drawing.Size(33, 16);
 			// 
 			// emptySpaceItem4
 			// 
@@ -269,14 +269,14 @@
 			this.layoutControlItem2.Size = new System.Drawing.Size(125, 28);
 			this.layoutControlItem2.TextVisible = false;
 			// 
-			// lblAreaCode
+			// lblServiceCode
 			// 
-			this.lblAreaCode.Control = this.txtCode;
-			this.lblAreaCode.Location = new System.Drawing.Point(0, 0);
-			this.lblAreaCode.Name = "lblAreaCode";
-			this.lblAreaCode.Size = new System.Drawing.Size(248, 26);
-			this.lblAreaCode.Text = "Code";
-			this.lblAreaCode.TextSize = new System.Drawing.Size(33, 16);
+			this.lblServiceCode.Control = this.txtCode;
+			this.lblServiceCode.Location = new System.Drawing.Point(0, 0);
+			this.lblServiceCode.Name = "lblServiceCode";
+			this.lblServiceCode.Size = new System.Drawing.Size(248, 26);
+			this.lblServiceCode.Text = "Code";
+			this.lblServiceCode.TextSize = new System.Drawing.Size(33, 16);
 			// 
 			// emptySpaceItem3
 			// 
@@ -302,7 +302,7 @@
 			this.layoutControlItem6.Size = new System.Drawing.Size(496, 91);
 			this.layoutControlItem6.TextVisible = false;
 			// 
-			// AreaEditForm
+			// ServiceEditForm
 			// 
 			this.AcceptButton = this.btnSave;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -310,16 +310,14 @@
 			this.CancelButton = this.btnCancel;
 			this.ClientSize = new System.Drawing.Size(548, 360);
 			this.Controls.Add(this.mainLayout);
-			this.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.Shadow;
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
-			this.Name = "AreaEditForm";
+			this.Name = "ServiceEditForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Edit Area";
+			this.Text = "Edit Service";
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsAreas)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsService)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkIsDefault.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).EndInit();
@@ -330,12 +328,12 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.grpInfo)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblAreaName)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblServiceName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblAreaCode)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblServiceCode)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
@@ -346,6 +344,7 @@
 		#endregion
 
 		private DevExpress.XtraLayout.LayoutControl mainLayout;
+		private DevExpress.XtraEditors.TextEdit txtCode;
 		private DevExpress.XtraEditors.CheckEdit chkIsDefault;
 		private DevExpress.XtraEditors.CheckEdit chkActive;
 		private DevExpress.XtraEditors.MemoEdit txtNotes;
@@ -358,16 +357,15 @@
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
 		private DevExpress.XtraLayout.LayoutControlGroup grpInfo;
-		private DevExpress.XtraLayout.LayoutControlItem lblAreaName;
+		private DevExpress.XtraLayout.LayoutControlItem lblServiceName;
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+		private DevExpress.XtraLayout.LayoutControlItem lblServiceCode;
+		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
 		private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup4;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
-		private System.Windows.Forms.BindingSource bsAreas;
-		private DevExpress.XtraEditors.TextEdit txtCode;
-		private DevExpress.XtraLayout.LayoutControlItem lblAreaCode;
-		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
+		private System.Windows.Forms.BindingSource bsService;
 	}
 }

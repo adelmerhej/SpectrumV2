@@ -2,7 +2,6 @@
 using DevExpress.XtraEditors.Controls;
 using SpectrumV1.DataLayers.Common.Branches;
 using SpectrumV1.DataLayers.Common.Companies;
-using SpectrumV1.DataLayers.Common.Forms;
 using SpectrumV1.DataLayers.Users;
 using SpectrumV1.Models.Common.Companies;
 using SpectrumV1.Models.Users;
@@ -36,7 +35,6 @@ namespace SpectrumV1.Views.Users
 		/// </summary>
 		private IList<UserPermissionModel> _userPermission = new List<UserPermissionModel>();
 		private readonly UserPermissionRepository _userPermissionRepository = new UserPermissionRepository();
-		private readonly FormRepository _formRepository = new FormRepository();
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
 		private bool _canEdit;

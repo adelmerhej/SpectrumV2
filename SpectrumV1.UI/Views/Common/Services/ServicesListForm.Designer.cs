@@ -1,6 +1,6 @@
-﻿namespace SpectrumV1.Views.Common.Areas
+﻿namespace SpectrumV1.Views.Common.Services
 {
-	partial class AreasListForm
+	partial class ServicesListForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -29,8 +29,9 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AreasListForm));
-			this.rcAreas = new DevExpress.XtraBars.Ribbon.RibbonControl();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServicesListForm));
+			this.bsServices = new System.Windows.Forms.BindingSource(this.components);
+			this.rcServicesList = new DevExpress.XtraBars.Ribbon.RibbonControl();
 			this.btnNew = new DevExpress.XtraBars.BarButtonItem();
 			this.btnDelete = new DevExpress.XtraBars.BarButtonItem();
 			this.btnEdit = new DevExpress.XtraBars.BarButtonItem();
@@ -38,7 +39,7 @@
 			this.btnRefresh = new DevExpress.XtraBars.BarButtonItem();
 			this.btnClose = new DevExpress.XtraBars.BarButtonItem();
 			this.btnResetGridStyle = new DevExpress.XtraBars.BarButtonItem();
-			this.rpAreas = new DevExpress.XtraBars.Ribbon.RibbonPage();
+			this.rpServicesList = new DevExpress.XtraBars.Ribbon.RibbonPage();
 			this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
 			this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
 			this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -47,35 +48,38 @@
 			this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
 			this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
-			this.gcAreas = new DevExpress.XtraGrid.GridControl();
-			this.bsAreas = new System.Windows.Forms.BindingSource(this.components);
-			this.gvAreas = new DevExpress.XtraGrid.Views.Grid.GridView();
+			this.gcServices = new DevExpress.XtraGrid.GridControl();
+			this.gvServices = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colAreaName = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colAreaCode = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colServiceName = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colServiceCode = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.repCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
 			this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-			((System.ComponentModel.ISupportInitialize)(this.rcAreas)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsServices)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.rcServicesList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.gcAreas)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsAreas)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.gvAreas)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gcServices)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gvServices)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// rcAreas
+			// bsServices
 			// 
-			this.rcAreas.EmptyAreaImageOptions.ImagePadding = new System.Windows.Forms.Padding(35, 39, 35, 39);
-			this.rcAreas.ExpandCollapseItem.Id = 0;
-			this.rcAreas.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
-            this.rcAreas.ExpandCollapseItem,
+			this.bsServices.DataSource = typeof(SpectrumV1.Models.Common.Services.ServiceModel);
+			// 
+			// rcServicesList
+			// 
+			this.rcServicesList.EmptyAreaImageOptions.ImagePadding = new System.Windows.Forms.Padding(35, 39, 35, 39);
+			this.rcServicesList.ExpandCollapseItem.Id = 0;
+			this.rcServicesList.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.rcServicesList.ExpandCollapseItem,
             this.btnNew,
             this.btnDelete,
             this.btnEdit,
@@ -83,17 +87,17 @@
             this.btnRefresh,
             this.btnClose,
             this.btnResetGridStyle});
-			this.rcAreas.Location = new System.Drawing.Point(0, 0);
-			this.rcAreas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-			this.rcAreas.MaxItemId = 42;
-			this.rcAreas.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
-			this.rcAreas.Name = "rcAreas";
-			this.rcAreas.OptionsMenuMinWidth = 385;
-			this.rcAreas.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
-            this.rpAreas,
+			this.rcServicesList.Location = new System.Drawing.Point(0, 0);
+			this.rcServicesList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			this.rcServicesList.MaxItemId = 42;
+			this.rcServicesList.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
+			this.rcServicesList.Name = "rcServicesList";
+			this.rcServicesList.OptionsMenuMinWidth = 385;
+			this.rcServicesList.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
+            this.rpServicesList,
             this.rpViewSettings});
-			this.rcAreas.Size = new System.Drawing.Size(1385, 193);
-			this.rcAreas.StatusBar = this.ribbonStatusBar1;
+			this.rcServicesList.Size = new System.Drawing.Size(1387, 193);
+			this.rcServicesList.StatusBar = this.ribbonStatusBar1;
 			// 
 			// btnNew
 			// 
@@ -163,15 +167,15 @@
 			this.btnResetGridStyle.Name = "btnResetGridStyle";
 			this.btnResetGridStyle.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResetGridStyle_ItemClick);
 			// 
-			// rpAreas
+			// rpServicesList
 			// 
-			this.rpAreas.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+			this.rpServicesList.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup1,
             this.ribbonPageGroup6,
             this.ribbonPageGroup8,
             this.ribbonPageGroup11});
-			this.rpAreas.Name = "rpAreas";
-			this.rpAreas.Text = "AREAS";
+			this.rpServicesList.Name = "rpServicesList";
+			this.rpServicesList.Text = "SERVICES";
 			// 
 			// ribbonPageGroup1
 			// 
@@ -224,93 +228,87 @@
 			// 
 			// ribbonStatusBar1
 			// 
-			this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 757);
+			this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 763);
 			this.ribbonStatusBar1.Name = "ribbonStatusBar1";
-			this.ribbonStatusBar1.Ribbon = this.rcAreas;
-			this.ribbonStatusBar1.Size = new System.Drawing.Size(1385, 30);
+			this.ribbonStatusBar1.Ribbon = this.rcServicesList;
+			this.ribbonStatusBar1.Size = new System.Drawing.Size(1387, 30);
 			// 
 			// mainLayout
 			// 
-			this.mainLayout.Controls.Add(this.gcAreas);
+			this.mainLayout.Controls.Add(this.gcServices);
 			this.mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.mainLayout.Location = new System.Drawing.Point(0, 193);
 			this.mainLayout.Name = "mainLayout";
 			this.mainLayout.Root = this.Root;
-			this.mainLayout.Size = new System.Drawing.Size(1385, 564);
-			this.mainLayout.TabIndex = 7;
+			this.mainLayout.Size = new System.Drawing.Size(1387, 570);
+			this.mainLayout.TabIndex = 6;
 			this.mainLayout.Text = "layoutControl1";
 			// 
-			// gcAreas
+			// gcServices
 			// 
-			this.gcAreas.DataSource = this.bsAreas;
-			this.gcAreas.EmbeddedNavigator.Buttons.Append.Visible = false;
-			this.gcAreas.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
-			this.gcAreas.EmbeddedNavigator.Buttons.Edit.Visible = false;
-			this.gcAreas.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
-			this.gcAreas.EmbeddedNavigator.Buttons.Remove.Visible = false;
-			this.gcAreas.Location = new System.Drawing.Point(14, 14);
-			this.gcAreas.MainView = this.gvAreas;
-			this.gcAreas.Name = "gcAreas";
-			this.gcAreas.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+			this.gcServices.DataSource = this.bsServices;
+			this.gcServices.EmbeddedNavigator.Buttons.Append.Visible = false;
+			this.gcServices.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
+			this.gcServices.EmbeddedNavigator.Buttons.Edit.Visible = false;
+			this.gcServices.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
+			this.gcServices.EmbeddedNavigator.Buttons.Remove.Visible = false;
+			this.gcServices.Location = new System.Drawing.Point(14, 14);
+			this.gcServices.MainView = this.gvServices;
+			this.gcServices.Name = "gcServices";
+			this.gcServices.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repCheckEdit});
-			this.gcAreas.Size = new System.Drawing.Size(1357, 536);
-			this.gcAreas.TabIndex = 8;
-			this.gcAreas.UseEmbeddedNavigator = true;
-			this.gcAreas.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvAreas});
+			this.gcServices.Size = new System.Drawing.Size(1359, 542);
+			this.gcServices.TabIndex = 8;
+			this.gcServices.UseEmbeddedNavigator = true;
+			this.gcServices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvServices});
 			// 
-			// bsAreas
+			// gvServices
 			// 
-			this.bsAreas.DataSource = typeof(SpectrumV1.Models.Common.Areas.AreaModel);
-			// 
-			// gvAreas
-			// 
-			this.gvAreas.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+			this.gvServices.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id,
-            this.colAreaName,
-            this.colAreaCode,
+            this.colServiceName,
+            this.colServiceCode,
             this.colNotes,
             this.colIsDefault,
             this.colActive});
-			this.gvAreas.GridControl = this.gcAreas;
-			this.gvAreas.Name = "gvAreas";
-			this.gvAreas.OptionsBehavior.AllowFixedGroups = DevExpress.Utils.DefaultBoolean.True;
-			this.gvAreas.OptionsBehavior.AutoExpandAllGroups = true;
-			this.gvAreas.OptionsBehavior.Editable = false;
-			this.gvAreas.OptionsBehavior.ReadOnly = true;
-			this.gvAreas.OptionsFind.AlwaysVisible = true;
-			this.gvAreas.OptionsView.ColumnAutoWidth = false;
-			this.gvAreas.OptionsView.ShowGroupedColumns = true;
-			this.gvAreas.OptionsView.ShowGroupPanel = false;
-			this.gvAreas.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvAreas_RowCellStyle);
-			this.gvAreas.DoubleClick += new System.EventHandler(this.gvAreas_DoubleClick);
+			this.gvServices.GridControl = this.gcServices;
+			this.gvServices.Name = "gvServices";
+			this.gvServices.OptionsBehavior.AllowFixedGroups = DevExpress.Utils.DefaultBoolean.True;
+			this.gvServices.OptionsBehavior.AutoExpandAllGroups = true;
+			this.gvServices.OptionsBehavior.Editable = false;
+			this.gvServices.OptionsBehavior.ReadOnly = true;
+			this.gvServices.OptionsFind.AlwaysVisible = true;
+			this.gvServices.OptionsView.ColumnAutoWidth = false;
+			this.gvServices.OptionsView.ShowGroupedColumns = true;
+			this.gvServices.OptionsView.ShowGroupPanel = false;
+			this.gvServices.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvServices_RowCellStyle);
+			this.gvServices.DoubleClick += new System.EventHandler(this.gvServices_DoubleClick);
 			// 
 			// col_id
 			// 
 			this.col_id.FieldName = "_id";
 			this.col_id.MinWidth = 25;
 			this.col_id.Name = "col_id";
-			this.col_id.Visible = true;
-			this.col_id.VisibleIndex = 0;
 			this.col_id.Width = 94;
 			// 
-			// colAreaName
+			// colServiceName
 			// 
-			this.colAreaName.FieldName = "AreaName";
-			this.colAreaName.MinWidth = 25;
-			this.colAreaName.Name = "colAreaName";
-			this.colAreaName.Visible = true;
-			this.colAreaName.VisibleIndex = 1;
-			this.colAreaName.Width = 300;
+			this.colServiceName.FieldName = "ServiceName";
+			this.colServiceName.MinWidth = 25;
+			this.colServiceName.Name = "colServiceName";
+			this.colServiceName.Visible = true;
+			this.colServiceName.VisibleIndex = 0;
+			this.colServiceName.Width = 300;
 			// 
-			// colAreaCode
+			// colServiceCode
 			// 
-			this.colAreaCode.FieldName = "AreaCode";
-			this.colAreaCode.MinWidth = 25;
-			this.colAreaCode.Name = "colAreaCode";
-			this.colAreaCode.Visible = true;
-			this.colAreaCode.VisibleIndex = 2;
-			this.colAreaCode.Width = 150;
+			this.colServiceCode.FieldName = "ServiceCode";
+			this.colServiceCode.MinWidth = 25;
+			this.colServiceCode.Name = "colServiceCode";
+			this.colServiceCode.Visible = true;
+			this.colServiceCode.VisibleIndex = 1;
+			this.colServiceCode.Width = 150;
 			// 
 			// colNotes
 			// 
@@ -318,7 +316,7 @@
 			this.colNotes.MinWidth = 25;
 			this.colNotes.Name = "colNotes";
 			this.colNotes.Visible = true;
-			this.colNotes.VisibleIndex = 3;
+			this.colNotes.VisibleIndex = 2;
 			this.colNotes.Width = 300;
 			// 
 			// colIsDefault
@@ -328,7 +326,7 @@
 			this.colIsDefault.MinWidth = 25;
 			this.colIsDefault.Name = "colIsDefault";
 			this.colIsDefault.Visible = true;
-			this.colIsDefault.VisibleIndex = 4;
+			this.colIsDefault.VisibleIndex = 3;
 			this.colIsDefault.Width = 94;
 			// 
 			// repCheckEdit
@@ -343,7 +341,7 @@
 			this.colActive.MinWidth = 25;
 			this.colActive.Name = "colActive";
 			this.colActive.Visible = true;
-			this.colActive.VisibleIndex = 5;
+			this.colActive.VisibleIndex = 4;
 			this.colActive.Width = 94;
 			// 
 			// Root
@@ -353,36 +351,36 @@
 			this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1});
 			this.Root.Name = "Root";
-			this.Root.Size = new System.Drawing.Size(1385, 564);
+			this.Root.Size = new System.Drawing.Size(1387, 570);
 			this.Root.TextVisible = false;
 			// 
 			// layoutControlItem1
 			// 
-			this.layoutControlItem1.Control = this.gcAreas;
+			this.layoutControlItem1.Control = this.gcServices;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(1361, 540);
+			this.layoutControlItem1.Size = new System.Drawing.Size(1363, 546);
 			this.layoutControlItem1.TextVisible = false;
 			// 
-			// AreasListForm
+			// ServicesListForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1385, 787);
+			this.ClientSize = new System.Drawing.Size(1387, 793);
 			this.Controls.Add(this.mainLayout);
 			this.Controls.Add(this.ribbonStatusBar1);
-			this.Controls.Add(this.rcAreas);
-			this.Name = "AreasListForm";
-			this.Ribbon = this.rcAreas;
+			this.Controls.Add(this.rcServicesList);
+			this.Name = "ServicesListForm";
+			this.Ribbon = this.rcServicesList;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.StatusBar = this.ribbonStatusBar1;
-			this.Text = "Areas List";
-			((System.ComponentModel.ISupportInitialize)(this.rcAreas)).EndInit();
+			this.Text = "Services List";
+			((System.ComponentModel.ISupportInitialize)(this.bsServices)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.rcServicesList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.gcAreas)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsAreas)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.gvAreas)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gcServices)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gvServices)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
@@ -392,8 +390,8 @@
 		}
 
 		#endregion
-
-		public DevExpress.XtraBars.Ribbon.RibbonControl rcAreas;
+		private System.Windows.Forms.BindingSource bsServices;
+		public DevExpress.XtraBars.Ribbon.RibbonControl rcServicesList;
 		private DevExpress.XtraBars.BarButtonItem btnNew;
 		private DevExpress.XtraBars.BarButtonItem btnDelete;
 		private DevExpress.XtraBars.BarButtonItem btnEdit;
@@ -401,7 +399,7 @@
 		private DevExpress.XtraBars.BarButtonItem btnRefresh;
 		private DevExpress.XtraBars.BarButtonItem btnClose;
 		private DevExpress.XtraBars.BarButtonItem btnResetGridStyle;
-		private DevExpress.XtraBars.Ribbon.RibbonPage rpAreas;
+		private DevExpress.XtraBars.Ribbon.RibbonPage rpServicesList;
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup8;
@@ -410,15 +408,14 @@
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
 		private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar1;
 		private DevExpress.XtraLayout.LayoutControl mainLayout;
-		private DevExpress.XtraGrid.GridControl gcAreas;
-		private DevExpress.XtraGrid.Views.Grid.GridView gvAreas;
+		private DevExpress.XtraGrid.GridControl gcServices;
+		private DevExpress.XtraGrid.Views.Grid.GridView gvServices;
 		private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repCheckEdit;
 		private DevExpress.XtraLayout.LayoutControlGroup Root;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-		private System.Windows.Forms.BindingSource bsAreas;
-		private DevExpress.XtraGrid.Columns.GridColumn colAreaName;
-		private DevExpress.XtraGrid.Columns.GridColumn colAreaCode;
 		private DevExpress.XtraGrid.Columns.GridColumn col_id;
+		private DevExpress.XtraGrid.Columns.GridColumn colServiceName;
+		private DevExpress.XtraGrid.Columns.GridColumn colServiceCode;
 		private DevExpress.XtraGrid.Columns.GridColumn colNotes;
 		private DevExpress.XtraGrid.Columns.GridColumn colIsDefault;
 		private DevExpress.XtraGrid.Columns.GridColumn colActive;

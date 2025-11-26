@@ -166,8 +166,8 @@
     <Compile Include="Common\Currencies\CurrencyRepository.cs" />
     <Compile Include="Common\Currencies\Interfaces\ICurrencyExchangeRepository.cs" />
     <Compile Include="Common\Currencies\Interfaces\ICurrencyRepository.cs" />
-    <Compile Include="Common\Forms\FormCategoryRepository.cs" />
-    <Compile Include="Common\Forms\FormRepository.cs" />
+    <Compile Include="Common\Services\IServiceRepository.cs" />
+    <Compile Include="Common\Services\ServiceRepository.cs" />
     <Compile Include="DataAccess\AbstractDatabaseModel.cs" />
     <Compile Include="DataAccess\DatabaseFactory.cs" />
     <Compile Include="DataAccess\IDatabase.cs" />

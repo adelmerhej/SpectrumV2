@@ -185,6 +185,18 @@
     <Compile Include="Views\Common\FeatureUnderDevelopmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Views\Common\Services\ServiceEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Services\ServiceEditForm.Designer.cs">
+      <DependentUpon>ServiceEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Services\ServicesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Services\ServicesListForm.Designer.cs">
+      <DependentUpon>ServicesListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -312,6 +324,12 @@
     <EmbeddedResource Include="Views\Common\Currencies\CurrenciesListForm.resx">
       <DependentUpon>CurrenciesListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Services\ServiceEditForm.resx">
+      <DependentUpon>ServiceEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Services\ServicesListForm.resx">
+      <DependentUpon>ServicesListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -353,6 +371,7 @@
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.RegionModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Currencies.CurrencyModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Currencies.ExchangeCurrencyModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Services.ServiceModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Users.UserModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
