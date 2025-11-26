@@ -40,6 +40,7 @@
     <Reference Include="DevExpress.Data.Desktop.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Drawing.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Images.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v25.1.Core, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraBars.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -227,6 +228,24 @@
     <Compile Include="Views\Main\WaitForm1.Designer.cs">
       <DependentUpon>WaitForm1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Members\Clients\ClientEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Clients\ClientEditForm.Designer.cs">
+      <DependentUpon>ClientEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Clients\ClientsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Clients\ClientsListForm.Designer.cs">
+      <DependentUpon>ClientsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Engineers\EngineersListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Engineers\EngineersListForm.Designer.cs">
+      <DependentUpon>EngineersListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Users\ChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -345,6 +364,15 @@
     <EmbeddedResource Include="Views\Main\WaitForm1.resx">
       <DependentUpon>WaitForm1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Clients\ClientEditForm.resx">
+      <DependentUpon>ClientEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Clients\ClientsListForm.resx">
+      <DependentUpon>ClientsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Engineers\EngineersListForm.resx">
+      <DependentUpon>EngineersListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Users\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -372,6 +400,7 @@
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Currencies.CurrencyModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Currencies.ExchangeCurrencyModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Services.ServiceModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Members.Clients.ClientModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Users.UserModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -440,7 +469,9 @@
   <ItemGroup>
     <None Include="Resources\professor.svg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Members\Suppliers\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpectrumV1.DataLayers\SpectrumV1.DataLayers.csproj">
       <Project>{c358f497-16b5-42ca-8c46-6fead2528018}</Project>

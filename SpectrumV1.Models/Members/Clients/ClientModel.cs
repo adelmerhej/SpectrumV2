@@ -18,8 +18,8 @@ namespace SpectrumV1.Models.Members.Clients
 		public string PoBox { get; set; }
 		public string MofNo { get; set; }
 		public string Activity { get; set; }
-		public int CountryId { get; set; }
-		public int CityId { get; set; }
+		public string Country { get; set; }
+		public string City { get; set; }
 
 		#region Implementation of ICloneable
 

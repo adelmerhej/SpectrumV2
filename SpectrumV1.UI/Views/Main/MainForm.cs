@@ -14,6 +14,8 @@ using SpectrumV1.Views.Common.Countries;
 using SpectrumV1.Views.Common.Services;
 using SpectrumV1.Views.Main.Connections;
 using SpectrumV1.Views.Main.Update;
+using SpectrumV1.Views.Members.Clients;
+using SpectrumV1.Views.Members.Engineers;
 using SpectrumV1.Views.Users;
 using System;
 using System.Linq;
@@ -263,12 +265,12 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuClients_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
+			OpenForm(new ClientsListForm());
 		}
 
 		private void mnuEngineers_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
+			OpenForm(new EngineersListForm());
 		}
 
 
