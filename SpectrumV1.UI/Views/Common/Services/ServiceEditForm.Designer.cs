@@ -31,7 +31,6 @@
 			this.components = new System.ComponentModel.Container();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
 			this.txtCode = new DevExpress.XtraEditors.TextEdit();
-			this.bsService = new System.Windows.Forms.BindingSource(this.components);
 			this.chkIsDefault = new DevExpress.XtraEditors.CheckEdit();
 			this.chkActive = new DevExpress.XtraEditors.CheckEdit();
 			this.txtNotes = new DevExpress.XtraEditors.MemoEdit();
@@ -53,10 +52,10 @@
 			this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.bsService = new System.Windows.Forms.BindingSource(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsService)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkIsDefault.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).BeginInit();
@@ -76,6 +75,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsService)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// mainLayout
@@ -105,10 +105,6 @@
 			this.txtCode.Size = new System.Drawing.Size(196, 22);
 			this.txtCode.StyleController = this.mainLayout;
 			this.txtCode.TabIndex = 7;
-			// 
-			// bsService
-			// 
-			this.bsService.DataSource = typeof(SpectrumV1.Models.Common.Services.ServiceModel);
 			// 
 			// chkIsDefault
 			// 
@@ -302,6 +298,10 @@
 			this.layoutControlItem6.Size = new System.Drawing.Size(496, 91);
 			this.layoutControlItem6.TextVisible = false;
 			// 
+			// bsService
+			// 
+			this.bsService.DataSource = typeof(SpectrumV1.Models.Common.Services.ServiceModel);
+			// 
 			// ServiceEditForm
 			// 
 			this.AcceptButton = this.btnSave;
@@ -317,7 +317,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsService)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkIsDefault.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).EndInit();
@@ -337,6 +336,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsService)).EndInit();
 			this.ResumeLayout(false);
 
 		}

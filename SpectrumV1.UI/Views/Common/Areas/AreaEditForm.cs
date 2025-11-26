@@ -32,6 +32,7 @@ namespace SpectrumV1.Views.Common.Areas
 
 			StartLoading();
 		}
+
 		private async void StartLoading()
 		{
 			await InitializeBindings();

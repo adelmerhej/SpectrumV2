@@ -248,12 +248,12 @@
 			this.gcAreas.EmbeddedNavigator.Buttons.Edit.Visible = false;
 			this.gcAreas.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
 			this.gcAreas.EmbeddedNavigator.Buttons.Remove.Visible = false;
-			this.gcAreas.Location = new System.Drawing.Point(14, 14);
+			this.gcAreas.Location = new System.Drawing.Point(12, 12);
 			this.gcAreas.MainView = this.gvAreas;
 			this.gcAreas.Name = "gcAreas";
 			this.gcAreas.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repCheckEdit});
-			this.gcAreas.Size = new System.Drawing.Size(1357, 536);
+			this.gcAreas.Size = new System.Drawing.Size(1361, 540);
 			this.gcAreas.TabIndex = 8;
 			this.gcAreas.UseEmbeddedNavigator = true;
 			this.gcAreas.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -290,8 +290,6 @@
 			this.col_id.FieldName = "_id";
 			this.col_id.MinWidth = 25;
 			this.col_id.Name = "col_id";
-			this.col_id.Visible = true;
-			this.col_id.VisibleIndex = 0;
 			this.col_id.Width = 94;
 			// 
 			// colAreaName
@@ -300,7 +298,7 @@
 			this.colAreaName.MinWidth = 25;
 			this.colAreaName.Name = "colAreaName";
 			this.colAreaName.Visible = true;
-			this.colAreaName.VisibleIndex = 1;
+			this.colAreaName.VisibleIndex = 0;
 			this.colAreaName.Width = 300;
 			// 
 			// colAreaCode
@@ -309,7 +307,7 @@
 			this.colAreaCode.MinWidth = 25;
 			this.colAreaCode.Name = "colAreaCode";
 			this.colAreaCode.Visible = true;
-			this.colAreaCode.VisibleIndex = 2;
+			this.colAreaCode.VisibleIndex = 1;
 			this.colAreaCode.Width = 150;
 			// 
 			// colNotes
@@ -318,7 +316,7 @@
 			this.colNotes.MinWidth = 25;
 			this.colNotes.Name = "colNotes";
 			this.colNotes.Visible = true;
-			this.colNotes.VisibleIndex = 3;
+			this.colNotes.VisibleIndex = 2;
 			this.colNotes.Width = 300;
 			// 
 			// colIsDefault
@@ -328,7 +326,7 @@
 			this.colIsDefault.MinWidth = 25;
 			this.colIsDefault.Name = "colIsDefault";
 			this.colIsDefault.Visible = true;
-			this.colIsDefault.VisibleIndex = 4;
+			this.colIsDefault.VisibleIndex = 3;
 			this.colIsDefault.Width = 94;
 			// 
 			// repCheckEdit
@@ -343,7 +341,7 @@
 			this.colActive.MinWidth = 25;
 			this.colActive.Name = "colActive";
 			this.colActive.Visible = true;
-			this.colActive.VisibleIndex = 5;
+			this.colActive.VisibleIndex = 4;
 			this.colActive.Width = 94;
 			// 
 			// Root
@@ -361,7 +359,7 @@
 			this.layoutControlItem1.Control = this.gcAreas;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(1361, 540);
+			this.layoutControlItem1.Size = new System.Drawing.Size(1365, 544);
 			this.layoutControlItem1.TextVisible = false;
 			// 
 			// AreasListForm
