@@ -13,8 +13,8 @@ namespace SpectrumV1.Views.Common.Countries
 {
 	public partial class RegionEditForm : XtraForm
 	{
-		private RegionModel _regionModel;
-		
+		private RegionModel _regionModel = new RegionModel();
+
 		private ContinentModel _continentModel = new ContinentModel();
 		private IList<ContinentModel> _continents = new List<ContinentModel>();
 
@@ -23,8 +23,10 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
+		//init permission variables
 		private bool _canEdit = true;
 		private bool _isAdmin = true;
+		private bool _isProtected = true;
 
 		public EventHandler SendUpdatedRegion;
 
@@ -36,6 +38,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 			StartLoading();
 		}
+	
 		private async void StartLoading()
 		{
 			await InitializeBindings();
@@ -48,13 +51,15 @@ namespace SpectrumV1.Views.Common.Countries
 		{
 			try
 			{
-				// Only load from repository if editing existing user (has id)
-				if (!string.IsNullOrEmpty(_regionModel?._id))
-				{
-					var existing = await _regionRepository.GetRegionByIdAsync(_regionModel._id);
-					if (existing != null)
-						_regionModel = existing;
-				}
+				//	//
+				//	_formId = _formRepository.SelectFormByName(_formName);
+				//	_userPermission = _userPermissionRepository.SelectUserPermissionById(CurrentUser.UserId, _formId);
+				//	if (_userPermission is { Count: > 0 })
+				//	{
+				//		var isProtected = _userPermission.SingleOrDefault(x => x.ControlName == "IsProtected")?.Value;
+				//		if (isProtected != null) _isProtected = (bool)isProtected;
+				//	}
+				//	//
 
 				_continents = await _continentRepository.GetContinentsAsync();
 			}
@@ -79,12 +84,25 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private void ApplyPermissions()
 		{
-			btnSave.Enabled = _isAdmin || _canEdit;
-		}
+			//if (_userPermission == null) return;
+			//if (_userPermission.Count <= 0) return;
 
-		private void btnCancel_Click(object sender, EventArgs e)
-		{
-			Close();
+			//var canAdd = _userPermission.SingleOrDefault(x => x.ControlName == "CanAdd")?.Value;
+			//if (canAdd != null) _canAdd = (bool)canAdd;
+
+			//var canEdit = _userPermission.SingleOrDefault(x => x.ControlName == "CanEdit")?.Value;
+			//if (canEdit != null) _canEdit = (bool)canEdit;
+
+			//var canDelete = _userPermission.SingleOrDefault(x => x.ControlName == "CanDelete")?.Value;
+			//if (canDelete != null) _canDelete = (bool)canDelete;
+
+			//var canPrint = _userPermission.SingleOrDefault(x => x.ControlName == "CanPrint")?.Value;
+			//if (canPrint != null) _canPrint = (bool)canPrint;
+
+			//var isAdmin = _userPermission.SingleOrDefault(x => x.ControlName == "IsAdmin")?.Value;
+			//if (isAdmin != null) _isAdmin = (bool)isAdmin;
+
+			btnSave.Enabled = _isAdmin || _canEdit;
 		}
 
 		private async void btnSave_Click(object sender, EventArgs e)
@@ -95,6 +113,7 @@ namespace SpectrumV1.Views.Common.Countries
 			{
 				BindingContext[bsRegion].EndCurrentEdit();
 				_regionModel = (RegionModel)bsRegion.Current;
+
 
 				if (string.IsNullOrEmpty(_regionModel._id))
 				{
@@ -118,6 +137,11 @@ namespace SpectrumV1.Views.Common.Countries
 			}
 		}
 
+		private void btnCancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
 		private bool ValidateData()
 		{
 			var validateReturnValue = true;
@@ -130,6 +154,14 @@ namespace SpectrumV1.Views.Common.Countries
 				validateMessage.Append("\n- Name cannot be empty.");
 				validateReturnValue = false;
 				txtName.Focus();
+			}
+
+			if (cboContinents.Text == "")
+			{
+				messageNumber += 1;
+				validateMessage.Append("\n- Continent cannot be empty.");
+				validateReturnValue = false;
+				cboContinents.Focus();
 			}
 
 			if (!validateReturnValue)

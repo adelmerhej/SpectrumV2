@@ -101,6 +101,7 @@
 			// 
 			// cboContinents
 			// 
+			this.cboContinents.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsRegion, "Continent", true));
 			this.cboContinents.Location = new System.Drawing.Point(97, 90);
 			this.cboContinents.Name = "cboContinents";
 			this.cboContinents.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
