@@ -243,10 +243,12 @@ public enum ProjectLocationsType
 }
 public enum ProjectStatus
 {
+	Unknown,
 	Active,
-	Completed,
+	Closed,
 	OnHold,
-	Cancelled
+	Cancelled,
+	Completed
 }
 
 public enum BillingStatus

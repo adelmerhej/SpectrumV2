@@ -165,9 +165,14 @@
     <Compile Include="Operations\Projects\ProjectModel.cs" />
     <Compile Include="Operations\Projects\ProjectPaymentModel.cs" />
     <Compile Include="Operations\Projects\TimeEntryModel.cs" />
+    <Compile Include="Projects\AddendumModel.cs" />
     <Compile Include="Projects\ContractDetailModel.cs" />
+    <Compile Include="Projects\ContractInfoModel.cs" />
+    <Compile Include="Projects\InvoiceModel.cs" />
+    <Compile Include="Projects\LocationInfoModel.cs" />
     <Compile Include="Projects\ProjectDocumentsModel.cs" />
     <Compile Include="Projects\ProjectModel.cs" />
+    <Compile Include="Projects\WarrantyInfoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\CurrentUser.cs" />
     <Compile Include="Users\UserDetailModel.cs" />

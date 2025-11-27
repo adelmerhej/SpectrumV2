@@ -1,17 +1,10 @@
 ﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
-using SpectrumV1.DataLayers.Common.Areas;
 using SpectrumV1.DataLayers.Members.Clients;
-using SpectrumV1.Models.Common.Areas;
 using SpectrumV1.Models.Members.Clients;
 using SpectrumV1.Utilities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;

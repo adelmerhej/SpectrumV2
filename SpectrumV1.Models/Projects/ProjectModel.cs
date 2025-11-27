@@ -1,10 +1,11 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections.Generic;
 
 namespace SpectrumV1.Models.Projects
 {
-	public class ProjectModel
+	public class ProjectModel : EntityObject, ICloneable
 	{  // Mandatory: MongoDB document primary key
 		[BsonId]
 		[BsonRepresentation(BsonType.ObjectId)]
@@ -17,37 +18,93 @@ namespace SpectrumV1.Models.Projects
 		// References: Storing IDs for related collections (Area, Engineer, Client, etc.).
 		// Use string for MongoDB ObjectId references.
 
-		[BsonElement("AreaId")]
+		[BsonElement("Area")]
+		public string Area { get; set; }							// "Area"
+
+		[BsonElement("ProjectName")]								// "Project Name"
+		public string ProjectName { get; set; }
+
+		[BsonElement("QuotationReferenceId")]                       // Optional Reference to the Quotation document
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string AreaId { get; set; }
+		public ObjectId? QuotationReferenceId { get; set; }
 
-		[BsonElement("EngineerId")]
+		[BsonElement("Reference ")]									// "Quotation Reference "
+		public string Reference { get; set; }
+
+		[BsonElement("ClientId")]									// Optional ref to Clients collection
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string EngineerId { get; set; }
+		public ObjectId? ClientId { get; set; }
 
-		[BsonElement("ClientId")]
+		[BsonElement("ClientName ")]								// denormalized client name
+		public string ClientName { get; set; }
+
+
+		// Personnel / Ownership
+		//------------------------------------------------
+		[BsonElement("EngineerInCharge ")]							// "Engineer in-charge"
+		public string EngineerInCharge { get; set; }
+
+		[BsonElement("EngineerId")]									// optional ref to Engineers collection
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string ClientId { get; set; }
+		public ObjectId? EngineerId { get; set; }
 
-		// Assuming this ProjectName references a lookup/master Project name list.
-		[BsonElement("ProjectNameId")]
-		[BsonRepresentation(BsonType.ObjectId)]
-		public string ProjectNameId { get; set; }
 
-		// Reference to the Quotation document
-		[BsonElement("QuotationReferenceId")]
-		[BsonRepresentation(BsonType.ObjectId)]
-		public string QuotationReferenceId { get; set; }
+		// Location
+		//------------------------------------------------
+		[BsonElement("Location ")]									// Location
+		public LocationInfoModel Location { get; set; }
 
-		// Core Project Fields
-		[BsonElement("IsActive")]
-		public bool IsActive { get; set; } = true;
 
-		[BsonElement("IssuanceYear")]
-		public int IssuanceYear { get; set; } // date.year()
+		// Dates & status
+		//------------------------------------------------
 
+		[BsonElement("YearOfIssuance ")]
+		[BsonRepresentation(BsonType.Int32)]
+		public int? YearOfIssuance { get; set; }					// "Year of Issuance"
+
+		public DateTime? IssuanceDate { get; set; }					// "Issuance Date"
+
+		public DateTime? ExpiryDate { get; set; }					// "Expiry Date"
+
+		[BsonRepresentation(BsonType.String)]
+		public ProjectStatus Status { get; set; }                   // "Status"
+
+		// Description & free text	
+		//------------------------------------------------
 		[BsonElement("Description")]
 		public string Description { get; set; }
+
+
+		// Contract & financials (single, canonical contract)
+		//------------------------------------------------
+		[BsonElement("Contract")]
+		public ContractInfoModel Contract { get; set; }
+
+
+		// Repeating financial adjustments (addendums) -> dynamic list
+		//------------------------------------------------
+		[BsonElement("Addendums")]
+		public List<AddendumModel> Addendums { get; set; } = new List<AddendumModel>();
+
+
+		// Invoicing related (if present in CSV)
+		//------------------------------------------------
+		[BsonElement("Invoices")]
+		public List<InvoiceModel> Invoices { get; set; } = new List<InvoiceModel>();
+
+
+		// Warranties / bank / misc
+		//------------------------------------------------
+		[BsonElement("Warranty")]
+		public WarrantyInfoModel Warranty { get; set; }
+
+		[BsonElement("Bank")]
+		public string Bank { get; set; }
+
+		// Audit / provenance
+		//------------------------------------------------
+		[BsonElement("SourceFile")] 
+		public string SourceFile { get; set; }            // store original CSV filename/row id if needed
 
 
 		// ==========================================================
@@ -61,5 +118,18 @@ namespace SpectrumV1.Models.Projects
 		// EMBEDDED: Groups all contract, financial, and warranty details
 		[BsonElement("ContractDetails")]
 		public ContractDetailModel ContractDetails { get; set; } = new ContractDetailModel();
+
+
+		#region Implementation of ICloneable
+
+		/// <summary>Creates a new object that is a copy of the current instance.</summary>
+		/// <returns>A new object that is a copy of this instance.</returns>
+		public object Clone()
+		{
+			var recordModel = (ProjectModel)MemberwiseClone();
+			return recordModel;
+		}
+
+		#endregion
 	}
 }
