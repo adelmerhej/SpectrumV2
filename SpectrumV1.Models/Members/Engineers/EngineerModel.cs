@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace SpectrumV1.Models.HumanResources.Engineers
+namespace SpectrumV1.Models.Members.Engineers
 {
 	public class EngineerModel : EntityObject, ICloneable
 	{

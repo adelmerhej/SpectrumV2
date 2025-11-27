@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EngineersListForm));
 			this.rcEngineers = new DevExpress.XtraBars.Ribbon.RibbonControl();
 			this.btnNew = new DevExpress.XtraBars.BarButtonItem();
@@ -51,22 +52,16 @@
 			this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
 			this.gcEngineers = new DevExpress.XtraGrid.GridControl();
+			this.bsEngineers = new System.Windows.Forms.BindingSource(this.components);
 			this.gvEngineers = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colClientName = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colContactPerson = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colEngineerName = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colSpecialization = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colAddress = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colMobileNumber = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colPhoneNumber = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colEmail = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colPhoneNumber1 = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colPhoneNumber2 = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colPhoneNumber3 = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colFaxNumber = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colWebsite = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colPoBox = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colMofNo = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colActivity = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colCountry = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colCity = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colHiredDate = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -82,6 +77,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gcEngineers)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsEngineers)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gvEngineers)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repDateFormat)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repDateFormat.CalendarTimeProperties)).BeginInit();
@@ -294,6 +290,7 @@
 			// 
 			// gcEngineers
 			// 
+			this.gcEngineers.DataSource = this.bsEngineers;
 			this.gcEngineers.EmbeddedNavigator.Buttons.Append.Visible = false;
 			this.gcEngineers.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
 			this.gcEngineers.EmbeddedNavigator.Buttons.Edit.Visible = false;
@@ -318,24 +315,21 @@
 			this.gcEngineers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvEngineers});
 			// 
+			// bsEngineers
+			// 
+			this.bsEngineers.DataSource = typeof(SpectrumV1.Models.Members.Engineers.EngineerModel);
+			// 
 			// gvEngineers
 			// 
 			this.gvEngineers.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id,
-            this.colClientName,
-            this.colContactPerson,
+            this.colEngineerName,
+            this.colSpecialization,
             this.colAddress,
+            this.colMobileNumber,
+            this.colPhoneNumber,
             this.colEmail,
-            this.colPhoneNumber1,
-            this.colPhoneNumber2,
-            this.colPhoneNumber3,
-            this.colFaxNumber,
-            this.colWebsite,
-            this.colPoBox,
-            this.colMofNo,
-            this.colActivity,
-            this.colCountry,
-            this.colCity,
+            this.colHiredDate,
             this.colNotes,
             this.colIsDefault,
             this.colActive});
@@ -360,23 +354,23 @@
 			this.col_id.Name = "col_id";
 			this.col_id.Width = 94;
 			// 
-			// colClientName
+			// colEngineerName
 			// 
-			this.colClientName.FieldName = "ClientName";
-			this.colClientName.MinWidth = 25;
-			this.colClientName.Name = "colClientName";
-			this.colClientName.Visible = true;
-			this.colClientName.VisibleIndex = 0;
-			this.colClientName.Width = 300;
+			this.colEngineerName.FieldName = "EngineerName";
+			this.colEngineerName.MinWidth = 25;
+			this.colEngineerName.Name = "colEngineerName";
+			this.colEngineerName.Visible = true;
+			this.colEngineerName.VisibleIndex = 0;
+			this.colEngineerName.Width = 300;
 			// 
-			// colContactPerson
+			// colSpecialization
 			// 
-			this.colContactPerson.FieldName = "ContactPerson";
-			this.colContactPerson.MinWidth = 25;
-			this.colContactPerson.Name = "colContactPerson";
-			this.colContactPerson.Visible = true;
-			this.colContactPerson.VisibleIndex = 1;
-			this.colContactPerson.Width = 300;
+			this.colSpecialization.FieldName = "Specialization";
+			this.colSpecialization.MinWidth = 25;
+			this.colSpecialization.Name = "colSpecialization";
+			this.colSpecialization.Visible = true;
+			this.colSpecialization.VisibleIndex = 1;
+			this.colSpecialization.Width = 200;
 			// 
 			// colAddress
 			// 
@@ -385,7 +379,25 @@
 			this.colAddress.Name = "colAddress";
 			this.colAddress.Visible = true;
 			this.colAddress.VisibleIndex = 2;
-			this.colAddress.Width = 400;
+			this.colAddress.Width = 300;
+			// 
+			// colMobileNumber
+			// 
+			this.colMobileNumber.FieldName = "MobileNumber";
+			this.colMobileNumber.MinWidth = 25;
+			this.colMobileNumber.Name = "colMobileNumber";
+			this.colMobileNumber.Visible = true;
+			this.colMobileNumber.VisibleIndex = 3;
+			this.colMobileNumber.Width = 100;
+			// 
+			// colPhoneNumber
+			// 
+			this.colPhoneNumber.FieldName = "PhoneNumber";
+			this.colPhoneNumber.MinWidth = 25;
+			this.colPhoneNumber.Name = "colPhoneNumber";
+			this.colPhoneNumber.Visible = true;
+			this.colPhoneNumber.VisibleIndex = 4;
+			this.colPhoneNumber.Width = 100;
 			// 
 			// colEmail
 			// 
@@ -393,100 +405,17 @@
 			this.colEmail.MinWidth = 25;
 			this.colEmail.Name = "colEmail";
 			this.colEmail.Visible = true;
-			this.colEmail.VisibleIndex = 3;
-			this.colEmail.Width = 300;
+			this.colEmail.VisibleIndex = 5;
+			this.colEmail.Width = 100;
 			// 
-			// colPhoneNumber1
+			// colHiredDate
 			// 
-			this.colPhoneNumber1.FieldName = "PhoneNumber1";
-			this.colPhoneNumber1.MinWidth = 25;
-			this.colPhoneNumber1.Name = "colPhoneNumber1";
-			this.colPhoneNumber1.Visible = true;
-			this.colPhoneNumber1.VisibleIndex = 4;
-			this.colPhoneNumber1.Width = 200;
-			// 
-			// colPhoneNumber2
-			// 
-			this.colPhoneNumber2.FieldName = "PhoneNumber2";
-			this.colPhoneNumber2.MinWidth = 25;
-			this.colPhoneNumber2.Name = "colPhoneNumber2";
-			this.colPhoneNumber2.Visible = true;
-			this.colPhoneNumber2.VisibleIndex = 5;
-			this.colPhoneNumber2.Width = 200;
-			// 
-			// colPhoneNumber3
-			// 
-			this.colPhoneNumber3.FieldName = "PhoneNumber3";
-			this.colPhoneNumber3.MinWidth = 25;
-			this.colPhoneNumber3.Name = "colPhoneNumber3";
-			this.colPhoneNumber3.Visible = true;
-			this.colPhoneNumber3.VisibleIndex = 6;
-			this.colPhoneNumber3.Width = 200;
-			// 
-			// colFaxNumber
-			// 
-			this.colFaxNumber.FieldName = "FaxNumber";
-			this.colFaxNumber.MinWidth = 25;
-			this.colFaxNumber.Name = "colFaxNumber";
-			this.colFaxNumber.Visible = true;
-			this.colFaxNumber.VisibleIndex = 7;
-			this.colFaxNumber.Width = 200;
-			// 
-			// colWebsite
-			// 
-			this.colWebsite.FieldName = "Website";
-			this.colWebsite.MinWidth = 25;
-			this.colWebsite.Name = "colWebsite";
-			this.colWebsite.Visible = true;
-			this.colWebsite.VisibleIndex = 8;
-			this.colWebsite.Width = 200;
-			// 
-			// colPoBox
-			// 
-			this.colPoBox.FieldName = "PoBox";
-			this.colPoBox.MinWidth = 25;
-			this.colPoBox.Name = "colPoBox";
-			this.colPoBox.Visible = true;
-			this.colPoBox.VisibleIndex = 9;
-			this.colPoBox.Width = 200;
-			// 
-			// colMofNo
-			// 
-			this.colMofNo.FieldName = "MofNo";
-			this.colMofNo.MinWidth = 25;
-			this.colMofNo.Name = "colMofNo";
-			this.colMofNo.Visible = true;
-			this.colMofNo.VisibleIndex = 10;
-			this.colMofNo.Width = 200;
-			// 
-			// colActivity
-			// 
-			this.colActivity.FieldName = "Activity";
-			this.colActivity.MinWidth = 25;
-			this.colActivity.Name = "colActivity";
-			this.colActivity.Visible = true;
-			this.colActivity.VisibleIndex = 11;
-			this.colActivity.Width = 300;
-			// 
-			// colCountry
-			// 
-			this.colCountry.Caption = "Country";
-			this.colCountry.FieldName = "Country";
-			this.colCountry.MinWidth = 25;
-			this.colCountry.Name = "colCountry";
-			this.colCountry.Visible = true;
-			this.colCountry.VisibleIndex = 12;
-			this.colCountry.Width = 200;
-			// 
-			// colCity
-			// 
-			this.colCity.Caption = "City";
-			this.colCity.FieldName = "City";
-			this.colCity.MinWidth = 25;
-			this.colCity.Name = "colCity";
-			this.colCity.Visible = true;
-			this.colCity.VisibleIndex = 13;
-			this.colCity.Width = 200;
+			this.colHiredDate.FieldName = "HiredDate";
+			this.colHiredDate.MinWidth = 25;
+			this.colHiredDate.Name = "colHiredDate";
+			this.colHiredDate.Visible = true;
+			this.colHiredDate.VisibleIndex = 6;
+			this.colHiredDate.Width = 94;
 			// 
 			// colNotes
 			// 
@@ -494,7 +423,7 @@
 			this.colNotes.MinWidth = 25;
 			this.colNotes.Name = "colNotes";
 			this.colNotes.Visible = true;
-			this.colNotes.VisibleIndex = 14;
+			this.colNotes.VisibleIndex = 7;
 			this.colNotes.Width = 300;
 			// 
 			// colIsDefault
@@ -503,7 +432,7 @@
 			this.colIsDefault.MinWidth = 25;
 			this.colIsDefault.Name = "colIsDefault";
 			this.colIsDefault.Visible = true;
-			this.colIsDefault.VisibleIndex = 15;
+			this.colIsDefault.VisibleIndex = 8;
 			this.colIsDefault.Width = 94;
 			// 
 			// colActive
@@ -512,7 +441,7 @@
 			this.colActive.MinWidth = 25;
 			this.colActive.Name = "colActive";
 			this.colActive.Visible = true;
-			this.colActive.VisibleIndex = 16;
+			this.colActive.VisibleIndex = 9;
 			this.colActive.Width = 94;
 			// 
 			// repDateFormat
@@ -620,6 +549,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.gcEngineers)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsEngineers)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.gvEngineers)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.repDateFormat.CalendarTimeProperties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.repDateFormat)).EndInit();
@@ -660,24 +590,6 @@
 		private DevExpress.XtraLayout.LayoutControl mainLayout;
 		private DevExpress.XtraGrid.GridControl gcEngineers;
 		private DevExpress.XtraGrid.Views.Grid.GridView gvEngineers;
-		private DevExpress.XtraGrid.Columns.GridColumn col_id;
-		private DevExpress.XtraGrid.Columns.GridColumn colClientName;
-		private DevExpress.XtraGrid.Columns.GridColumn colContactPerson;
-		private DevExpress.XtraGrid.Columns.GridColumn colAddress;
-		private DevExpress.XtraGrid.Columns.GridColumn colEmail;
-		private DevExpress.XtraGrid.Columns.GridColumn colPhoneNumber1;
-		private DevExpress.XtraGrid.Columns.GridColumn colPhoneNumber2;
-		private DevExpress.XtraGrid.Columns.GridColumn colPhoneNumber3;
-		private DevExpress.XtraGrid.Columns.GridColumn colFaxNumber;
-		private DevExpress.XtraGrid.Columns.GridColumn colWebsite;
-		private DevExpress.XtraGrid.Columns.GridColumn colPoBox;
-		private DevExpress.XtraGrid.Columns.GridColumn colMofNo;
-		private DevExpress.XtraGrid.Columns.GridColumn colActivity;
-		private DevExpress.XtraGrid.Columns.GridColumn colCountry;
-		private DevExpress.XtraGrid.Columns.GridColumn colCity;
-		private DevExpress.XtraGrid.Columns.GridColumn colNotes;
-		private DevExpress.XtraGrid.Columns.GridColumn colIsDefault;
-		private DevExpress.XtraGrid.Columns.GridColumn colActive;
 		private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repDateFormat;
 		private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repCountries;
 		private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repCities;
@@ -686,5 +598,17 @@
 		private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repMemberOf;
 		private DevExpress.XtraLayout.LayoutControlGroup Root;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+		private System.Windows.Forms.BindingSource bsEngineers;
+		private DevExpress.XtraGrid.Columns.GridColumn col_id;
+		private DevExpress.XtraGrid.Columns.GridColumn colEngineerName;
+		private DevExpress.XtraGrid.Columns.GridColumn colSpecialization;
+		private DevExpress.XtraGrid.Columns.GridColumn colAddress;
+		private DevExpress.XtraGrid.Columns.GridColumn colMobileNumber;
+		private DevExpress.XtraGrid.Columns.GridColumn colPhoneNumber;
+		private DevExpress.XtraGrid.Columns.GridColumn colEmail;
+		private DevExpress.XtraGrid.Columns.GridColumn colHiredDate;
+		private DevExpress.XtraGrid.Columns.GridColumn colNotes;
+		private DevExpress.XtraGrid.Columns.GridColumn colIsDefault;
+		private DevExpress.XtraGrid.Columns.GridColumn colActive;
 	}
 }

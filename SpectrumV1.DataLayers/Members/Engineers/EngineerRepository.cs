@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using SpectrumV1.DataLayers.DataAccess.Types;
-using SpectrumV1.Models.HumanResources.Engineers;
+using SpectrumV1.Models.Members.Engineers;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

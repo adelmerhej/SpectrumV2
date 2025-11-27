@@ -1,4 +1,4 @@
-﻿using SpectrumV1.Models.HumanResources.Engineers;
+﻿using SpectrumV1.Models.Members.Engineers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
