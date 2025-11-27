@@ -1,10 +1,13 @@
 ﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using SpectrumV1.DataLayers.Common.Countries;
 using SpectrumV1.DataLayers.Members.Clients;
+using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Models.Members.Clients;
 using SpectrumV1.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,7 +18,12 @@ namespace SpectrumV1.Views.Members.Clients
 	{
 		private ClientModel _clientModel = new ClientModel();
 
+		private IList<CityModel> _cities = new List<CityModel>();
+		private IList<CountryModel> _countries = new List<CountryModel>();
+
 		private readonly ClientRepository _clientRepository = new ClientRepository();
+		private readonly CountryRepository _countryRepository = new CountryRepository();
+		private readonly CityRepository _cityRepository = new CityRepository();
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
@@ -59,6 +67,9 @@ namespace SpectrumV1.Views.Members.Clients
 				//		if (isProtected != null) _isProtected = (bool)isProtected;
 				//	}
 				//	//
+
+				_cities = await _cityRepository.GetCitiesAsync();
+				_countries = await _countryRepository.GetCountriesAsync();
 			}
 			catch (Exception ex)
 			{
@@ -69,6 +80,12 @@ namespace SpectrumV1.Views.Members.Clients
 		private void WireUpBindings()
 		{
 			bsClient.DataSource = _clientModel;
+
+			cboCountries.Properties.DataSource = null;
+			cboCountries.Properties.DataSource = _countries;
+
+			cboCities.Properties.DataSource = null;
+			cboCities.Properties.DataSource = _cities;
 		}
 
 		private void ApplyDefaults()

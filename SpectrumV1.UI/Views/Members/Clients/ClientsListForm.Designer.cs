@@ -54,9 +54,9 @@
 			this.repositoryItemSearchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
-			this.gcCustomers = new DevExpress.XtraGrid.GridControl();
+			this.gcClients = new DevExpress.XtraGrid.GridControl();
 			this.bsClients = new System.Windows.Forms.BindingSource(this.components);
-			this.gvCustomers = new DevExpress.XtraGrid.Views.Grid.GridView();
+			this.gvClients = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colClientName = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colContactPerson = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -89,9 +89,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1View)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.gcCustomers)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gcClients)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bsClients)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.gvCustomers)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gvClients)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repDateFormat)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repDateFormat.CalendarTimeProperties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repCountries)).BeginInit();
@@ -144,6 +144,7 @@
 			this.btnNew.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.NewCustomer.svg";
 			this.btnNew.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnNew.ImageOptions.SvgImage")));
 			this.btnNew.Name = "btnNew";
+			this.btnNew.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNew_ItemClick);
 			// 
 			// btnDelete
 			// 
@@ -154,6 +155,7 @@
 			this.btnDelete.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Delete.svg";
 			this.btnDelete.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDelete.ImageOptions.SvgImage")));
 			this.btnDelete.Name = "btnDelete";
+			this.btnDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDelete_ItemClick);
 			// 
 			// btnEdit
 			// 
@@ -164,6 +166,7 @@
 			this.btnEdit.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Edit.svg";
 			this.btnEdit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEdit.ImageOptions.SvgImage")));
 			this.btnEdit.Name = "btnEdit";
+			this.btnEdit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnEdit_ItemClick);
 			// 
 			// btnPrint
 			// 
@@ -174,6 +177,7 @@
 			this.btnPrint.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.SalesAnalysis.svg";
 			this.btnPrint.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPrint.ImageOptions.SvgImage")));
 			this.btnPrint.Name = "btnPrint";
+			this.btnPrint.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPrint_ItemClick);
 			// 
 			// barButtonItem13
 			// 
@@ -220,6 +224,7 @@
 			this.btnClose.Id = 38;
 			this.btnClose.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnClose.ImageOptions.SvgImage")));
 			this.btnClose.Name = "btnClose";
+			this.btnClose.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClose_ItemClick);
 			// 
 			// btnResetGridStyle
 			// 
@@ -227,6 +232,7 @@
 			this.btnResetGridStyle.Id = 43;
 			this.btnResetGridStyle.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnResetGridStyle.ImageOptions.SvgImage")));
 			this.btnResetGridStyle.Name = "btnResetGridStyle";
+			this.btnResetGridStyle.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResetGridStyle_ItemClick);
 			// 
 			// rpCustomersList
 			// 
@@ -317,7 +323,7 @@
 			// 
 			// mainLayout
 			// 
-			this.mainLayout.Controls.Add(this.gcCustomers);
+			this.mainLayout.Controls.Add(this.gcClients);
 			this.mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.mainLayout.Location = new System.Drawing.Point(0, 193);
 			this.mainLayout.Name = "mainLayout";
@@ -326,40 +332,40 @@
 			this.mainLayout.TabIndex = 17;
 			this.mainLayout.Text = "layoutControl1";
 			// 
-			// gcCustomers
+			// gcClients
 			// 
-			this.gcCustomers.DataSource = this.bsClients;
-			this.gcCustomers.EmbeddedNavigator.Buttons.Append.Visible = false;
-			this.gcCustomers.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
-			this.gcCustomers.EmbeddedNavigator.Buttons.Edit.Visible = false;
-			this.gcCustomers.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
-			this.gcCustomers.EmbeddedNavigator.Buttons.Remove.Visible = false;
-			this.gcCustomers.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-			this.gcCustomers.Location = new System.Drawing.Point(14, 14);
-			this.gcCustomers.MainView = this.gvCustomers;
-			this.gcCustomers.Margin = new System.Windows.Forms.Padding(14, 16, 14, 16);
-			this.gcCustomers.Name = "gcCustomers";
-			this.gcCustomers.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+			this.gcClients.DataSource = this.bsClients;
+			this.gcClients.EmbeddedNavigator.Buttons.Append.Visible = false;
+			this.gcClients.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
+			this.gcClients.EmbeddedNavigator.Buttons.Edit.Visible = false;
+			this.gcClients.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
+			this.gcClients.EmbeddedNavigator.Buttons.Remove.Visible = false;
+			this.gcClients.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+			this.gcClients.Location = new System.Drawing.Point(14, 14);
+			this.gcClients.MainView = this.gvClients;
+			this.gcClients.Margin = new System.Windows.Forms.Padding(14, 16, 14, 16);
+			this.gcClients.Name = "gcClients";
+			this.gcClients.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repDateFormat,
             this.repCountries,
             this.repCities,
             this.repCheckBox,
             this.repUsers,
             this.repMemberOf});
-			this.gcCustomers.ShowOnlyPredefinedDetails = true;
-			this.gcCustomers.Size = new System.Drawing.Size(1374, 532);
-			this.gcCustomers.TabIndex = 4;
-			this.gcCustomers.UseEmbeddedNavigator = true;
-			this.gcCustomers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvCustomers});
+			this.gcClients.ShowOnlyPredefinedDetails = true;
+			this.gcClients.Size = new System.Drawing.Size(1374, 532);
+			this.gcClients.TabIndex = 4;
+			this.gcClients.UseEmbeddedNavigator = true;
+			this.gcClients.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvClients});
 			// 
 			// bsClients
 			// 
 			this.bsClients.DataSource = typeof(SpectrumV1.Models.Members.Clients.ClientModel);
 			// 
-			// gvCustomers
+			// gvClients
 			// 
-			this.gvCustomers.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+			this.gvClients.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id,
             this.colClientName,
             this.colContactPerson,
@@ -378,19 +384,21 @@
             this.colNotes,
             this.colIsDefault,
             this.colActive});
-			this.gvCustomers.DetailHeight = 458;
-			this.gvCustomers.DetailVerticalIndent = 13;
-			this.gvCustomers.GridControl = this.gcCustomers;
-			this.gvCustomers.Name = "gvCustomers";
-			this.gvCustomers.OptionsBehavior.AutoExpandAllGroups = true;
-			this.gvCustomers.OptionsBehavior.Editable = false;
-			this.gvCustomers.OptionsBehavior.ReadOnly = true;
-			this.gvCustomers.OptionsFind.AlwaysVisible = true;
-			this.gvCustomers.OptionsSelection.MultiSelect = true;
-			this.gvCustomers.OptionsView.ColumnAutoWidth = false;
-			this.gvCustomers.OptionsView.ShowGroupPanel = false;
-			this.gvCustomers.OptionsView.ShowIndicator = false;
-			this.gvCustomers.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
+			this.gvClients.DetailHeight = 458;
+			this.gvClients.DetailVerticalIndent = 13;
+			this.gvClients.GridControl = this.gcClients;
+			this.gvClients.Name = "gvClients";
+			this.gvClients.OptionsBehavior.AutoExpandAllGroups = true;
+			this.gvClients.OptionsBehavior.Editable = false;
+			this.gvClients.OptionsBehavior.ReadOnly = true;
+			this.gvClients.OptionsFind.AlwaysVisible = true;
+			this.gvClients.OptionsSelection.MultiSelect = true;
+			this.gvClients.OptionsView.ColumnAutoWidth = false;
+			this.gvClients.OptionsView.ShowGroupPanel = false;
+			this.gvClients.OptionsView.ShowIndicator = false;
+			this.gvClients.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
+			this.gvClients.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvClients_RowCellStyle);
+			this.gvClients.DoubleClick += new System.EventHandler(this.gvClients_DoubleClick);
 			// 
 			// col_id
 			// 
@@ -636,7 +644,7 @@
 			// 
 			// layoutControlItem1
 			// 
-			this.layoutControlItem1.Control = this.gcCustomers;
+			this.layoutControlItem1.Control = this.gcClients;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem1.Name = "layoutControlItem1";
 			this.layoutControlItem1.Size = new System.Drawing.Size(1378, 536);
@@ -661,9 +669,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1View)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.gcCustomers)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gcClients)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.bsClients)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.gvCustomers)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gvClients)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.repDateFormat.CalendarTimeProperties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.repDateFormat)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.repCountries)).EndInit();
@@ -701,8 +709,8 @@
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
 		private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar1;
 		private DevExpress.XtraLayout.LayoutControl mainLayout;
-		private DevExpress.XtraGrid.GridControl gcCustomers;
-		private DevExpress.XtraGrid.Views.Grid.GridView gvCustomers;
+		private DevExpress.XtraGrid.GridControl gcClients;
+		private DevExpress.XtraGrid.Views.Grid.GridView gvClients;
 		private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repDateFormat;
 		private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repCountries;
 		private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repCities;
