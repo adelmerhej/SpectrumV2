@@ -115,6 +115,14 @@ namespace SpectrumV1.DataLayers.Users
 			return user.PasswordHash == hashedPassword ? user : null;
 		}
 
+		/// <summary>
+		/// Check if there's records for currency document.
+		/// </summary>
+		public async Task<long> GetCountAsync()
+		{
+			return await _users.CountDocumentsAsync(new BsonDocument());
+		}
+
 		#region Implementation of IDisposable
 		public void Dispose()
 		{

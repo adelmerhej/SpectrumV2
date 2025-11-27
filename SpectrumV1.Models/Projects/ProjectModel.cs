@@ -6,11 +6,7 @@ using System.Collections.Generic;
 namespace SpectrumV1.Models.Projects
 {
 	public class ProjectModel : EntityObject, ICloneable
-	{  // Mandatory: MongoDB document primary key
-		[BsonId]
-		[BsonRepresentation(BsonType.ObjectId)]
-		public string Id { get; set; }
-
+	{
 		// ==========================================================
 		// 1. Project Information (References and Core Data)
 		// ==========================================================
@@ -19,39 +15,39 @@ namespace SpectrumV1.Models.Projects
 		// Use string for MongoDB ObjectId references.
 
 		[BsonElement("Area")]
-		public string Area { get; set; }							// "Area"
+		public string Area { get; set; }                            // "Area"
 
-		[BsonElement("ProjectName")]								// "Project Name"
+		[BsonElement("ProjectName")]                               // "Project Name"
 		public string ProjectName { get; set; }
 
 		[BsonElement("QuotationReferenceId")]                       // Optional Reference to the Quotation document
 		[BsonRepresentation(BsonType.ObjectId)]
 		public ObjectId? QuotationReferenceId { get; set; }
 
-		[BsonElement("Reference ")]									// "Quotation Reference "
+		[BsonElement("Reference ")]                                 // "Quotation Reference "
 		public string Reference { get; set; }
 
-		[BsonElement("ClientId")]									// Optional ref to Clients collection
+		[BsonElement("ClientId")]                                   // Optional ref to Clients collection
 		[BsonRepresentation(BsonType.ObjectId)]
 		public ObjectId? ClientId { get; set; }
 
-		[BsonElement("ClientName ")]								// denormalized client name
+		[BsonElement("ClientName ")]                                // denormalized client name
 		public string ClientName { get; set; }
 
 
 		// Personnel / Ownership
 		//------------------------------------------------
-		[BsonElement("EngineerInCharge ")]							// "Engineer in-charge"
+		[BsonElement("EngineerInCharge ")]                          // "Engineer in-charge"
 		public string EngineerInCharge { get; set; }
 
-		[BsonElement("EngineerId")]									// optional ref to Engineers collection
+		[BsonElement("EngineerId")]                                 // optional ref to Engineers collection
 		[BsonRepresentation(BsonType.ObjectId)]
 		public ObjectId? EngineerId { get; set; }
 
 
 		// Location
 		//------------------------------------------------
-		[BsonElement("Location ")]									// Location
+		[BsonElement("Location ")]                                  // Location
 		public LocationInfoModel Location { get; set; }
 
 
@@ -60,16 +56,16 @@ namespace SpectrumV1.Models.Projects
 
 		[BsonElement("YearOfIssuance ")]
 		[BsonRepresentation(BsonType.Int32)]
-		public int? YearOfIssuance { get; set; }					// "Year of Issuance"
+		public int? YearOfIssuance { get; set; }                    // "Year of Issuance"
 
-		public DateTime? IssuanceDate { get; set; }					// "Issuance Date"
+		public DateTime? IssuanceDate { get; set; }                  // "Issuance Date"
 
-		public DateTime? ExpiryDate { get; set; }					// "Expiry Date"
+		public DateTime? ExpiryDate { get; set; }                    // "Expiry Date"
 
 		[BsonRepresentation(BsonType.String)]
 		public ProjectStatus Status { get; set; }                   // "Status"
 
-		// Description & free text	
+		// Description & free text   
 		//------------------------------------------------
 		[BsonElement("Description")]
 		public string Description { get; set; }
@@ -122,8 +118,6 @@ namespace SpectrumV1.Models.Projects
 
 		#region Implementation of ICloneable
 
-		/// <summary>Creates a new object that is a copy of the current instance.</summary>
-		/// <returns>A new object that is a copy of this instance.</returns>
 		public object Clone()
 		{
 			var recordModel = (ProjectModel)MemberwiseClone();

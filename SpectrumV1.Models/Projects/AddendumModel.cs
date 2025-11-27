@@ -10,6 +10,7 @@ namespace SpectrumV1.Models.Projects
 		public int Sequence { get; set; }                 // 1,2,3... useful if CSV had Add 1, Add 2, etc.
 		public string Title { get; set; }                 // optional descriptive title
 		public DateTime? BODDate { get; set; }            // "Adde1 BOD Date", etc.
+		public string DecisionNo { get; set; }            //
 
 		[BsonRepresentation(BsonType.Decimal128)]
 		public decimal? Amount { get; set; }              // "Add 1 Amount"

@@ -1,9 +1,11 @@
 ﻿using DevExpress.XtraEditors;
+using Microsoft.AspNet.Identity;
 using SpectrumV1.DataLayers.Administration.Update;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Administration.Connections;
 using SpectrumV1.Models.Users;
 using SpectrumV1.Update.Utilities;
+using SpectrumV1.Utilities.Common;
 using SpectrumV1.Views.Main.Connections;
 using SpectrumV1.Views.Main.Update;
 using System;
@@ -563,6 +565,29 @@ namespace SpectrumV1.Utilities
 						WorkingYear = DateTime.Now.Year,
 					};
 					currencyRepo.AddNewCurrencyAsync(defaultCurrency).Wait();
+				}
+
+				//9- Check collection Users and add default if empty
+				var userRepo = new DataLayers.Users.UserRepository();
+				var userCount = userRepo.GetCountAsync().Result;
+				if (userCount == 0)
+				{
+					// Create the default admin user document
+					SystemUtilities.PasswordHasher = new PasswordHasher();
+					var temporaryAdminPassword = SystemUtilities.PasswordHasher.HashPassword("admin");
+
+					var defaultUser = new Models.Users.UserModel
+					{
+						Username = "admin",
+						Email = "admin@spectrum-lb.com",
+						PasswordHash = temporaryAdminPassword,
+						SecurityStamp = Guid.NewGuid().ToString(),
+						Roles = new List<string> { "admin" },
+						IsLockedOut = false,
+						CreatedBy = "admin",
+						CreatedAt = DateTime.UtcNow
+					};
+					userRepo.AddNewUserAsync(defaultUser).Wait();
 				}
 			}
 			catch (Exception ex)

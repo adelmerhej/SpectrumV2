@@ -137,6 +137,7 @@
 			this.grpReadingPane = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.dockRight = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.showPendingJobs = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+			this.accordionControlSeparator3 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
 			((System.ComponentModel.ISupportInitialize)(this.ribbonMainForm)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
@@ -512,10 +513,11 @@
 			// 
 			this.OperationsGroupMenu.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
             this.mnuProjects,
+            this.accordionControlSeparator3,
             this.mnuInvoices,
-            this.mnuInvoicesExpenses,
             this.mnuReceipts,
             this.accordionControlSeparator5,
+            this.mnuInvoicesExpenses,
             this.mnuAccountsStatement});
 			this.OperationsGroupMenu.Expanded = true;
 			this.OperationsGroupMenu.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
@@ -858,7 +860,7 @@
 			// 
 			// mnuAreas
 			// 
-			this.mnuAreas.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuActivitiesList.ImageOptions.SvgImage")));
+			this.mnuAreas.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuAreas.ImageOptions.SvgImage")));
 			this.mnuAreas.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
 			this.mnuAreas.Name = "mnuAreas";
 			this.mnuAreas.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
@@ -1090,6 +1092,10 @@
 			this.showPendingJobs.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.showPendingJobs.Text = "Show Pending Jobs";
 			// 
+			// accordionControlSeparator3
+			// 
+			this.accordionControlSeparator3.Name = "accordionControlSeparator3";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1232,5 +1238,6 @@
 		private DevExpress.XtraBars.Navigation.AccordionControlElement showPendingJobs;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuBranches;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuMembers;
+		private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator3;
 	}
 }

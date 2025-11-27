@@ -20,6 +20,7 @@ using SpectrumV1.Views.Users;
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using SpectrumV1.Views.Projects; // added
 
 namespace SpectrumV1.Views.Main
 {
@@ -234,7 +235,7 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuProjects_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
+			OpenForm(new ProjectsListForm());
 		}
 
 		private void mnuInvoices_Click(object sender, EventArgs e)
