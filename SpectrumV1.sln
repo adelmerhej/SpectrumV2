@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectrumV1.Models", "Spectr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectrumV1.DataLayers", "SpectrumV1.DataLayers\SpectrumV1.DataLayers.csproj", "{C358F497-16B5-42CA-8C46-6FEAD2528018}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectrumV1.Reports", "SpectrumV1.Reports\SpectrumV1.Reports.csproj", "{5C62BD1D-CF7E-4606-B313-6A24BEABF497}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C358F497-16B5-42CA-8C46-6FEAD2528018}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C358F497-16B5-42CA-8C46-6FEAD2528018}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C358F497-16B5-42CA-8C46-6FEAD2528018}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C62BD1D-CF7E-4606-B313-6A24BEABF497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C62BD1D-CF7E-4606-B313-6A24BEABF497}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C62BD1D-CF7E-4606-B313-6A24BEABF497}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C62BD1D-CF7E-4606-B313-6A24BEABF497}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

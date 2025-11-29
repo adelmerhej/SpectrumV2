@@ -142,5 +142,89 @@ namespace SpectrumV1.DataLayers.Properties {
                 this["DatabaseConnectionString"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("MongoDb")]
+        public string BackupDatabaseType {
+            get {
+                return ((string)(this["BackupDatabaseType"]));
+            }
+            set {
+                this["BackupDatabaseType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
+        public string BackupDatabaseHost {
+            get {
+                return ((string)(this["BackupDatabaseHost"]));
+            }
+            set {
+                this["BackupDatabaseHost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("27017")]
+        public int BackupDatabasePort {
+            get {
+                return ((int)(this["BackupDatabasePort"]));
+            }
+            set {
+                this["BackupDatabasePort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("spectrumdb_backup")]
+        public string BackupDatabaseName {
+            get {
+                return ((string)(this["BackupDatabaseName"]));
+            }
+            set {
+                this["BackupDatabaseName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BackupDatabaseUser {
+            get {
+                return ((string)(this["BackupDatabaseUser"]));
+            }
+            set {
+                this["BackupDatabaseUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BackupDatabasePassword {
+            get {
+                return ((string)(this["BackupDatabasePassword"]));
+            }
+            set {
+                this["BackupDatabasePassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BackupDatabaseConnectionString {
+            get {
+                return ((string)(this["BackupDatabaseConnectionString"]));
+            }
+            set {
+                this["BackupDatabaseConnectionString"] = value;
+            }
+        }
     }
 }

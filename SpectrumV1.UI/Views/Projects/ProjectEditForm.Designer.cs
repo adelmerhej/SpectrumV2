@@ -39,16 +39,16 @@ namespace SpectrumV1.Views.Projects
 			this.dtExpiryDate = new DevExpress.XtraEditors.DateEdit();
 			this.memoDescription = new DevExpress.XtraEditors.MemoEdit();
 			this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.lciDescription = new DevExpress.XtraLayout.LayoutControlItem();
+			this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lciProjectName = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lciReference = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lciClient = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lciEngineer = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lciStatus = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lciIssuanceDate = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lciExpiryDate = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lciDescription = new DevExpress.XtraLayout.LayoutControlItem();
-			this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.lciClient = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lciEngineer = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.bsProject)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
@@ -64,16 +64,16 @@ namespace SpectrumV1.Views.Projects
 			((System.ComponentModel.ISupportInitialize)(this.dtExpiryDate.Properties.CalendarTimeProperties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memoDescription.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lciDescription)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lciProjectName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lciReference)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lciClient)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lciEngineer)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lciStatus)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lciIssuanceDate)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lciExpiryDate)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lciDescription)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lciClient)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lciEngineer)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// bsProject
@@ -100,7 +100,7 @@ namespace SpectrumV1.Views.Projects
 			this.ribbonControl.OptionsMenuMinWidth = 385;
 			this.ribbonControl.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
-			this.ribbonControl.Size = new System.Drawing.Size(1176, 193);
+			this.ribbonControl.Size = new System.Drawing.Size(1362, 193);
 			this.ribbonControl.StatusBar = this.ribbonStatusBar1;
 			// 
 			// btnSave
@@ -234,10 +234,10 @@ namespace SpectrumV1.Views.Projects
 			// 
 			// ribbonStatusBar1
 			// 
-			this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 656);
+			this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 668);
 			this.ribbonStatusBar1.Name = "ribbonStatusBar1";
 			this.ribbonStatusBar1.Ribbon = this.ribbonControl;
-			this.ribbonStatusBar1.Size = new System.Drawing.Size(1176, 30);
+			this.ribbonStatusBar1.Size = new System.Drawing.Size(1362, 30);
 			// 
 			// mainLayout
 			// 
@@ -253,7 +253,7 @@ namespace SpectrumV1.Views.Projects
 			this.mainLayout.Location = new System.Drawing.Point(0, 193);
 			this.mainLayout.Name = "mainLayout";
 			this.mainLayout.Root = this.Root;
-			this.mainLayout.Size = new System.Drawing.Size(1176, 463);
+			this.mainLayout.Size = new System.Drawing.Size(1362, 475);
 			this.mainLayout.TabIndex = 8;
 			// 
 			// cboStatus
@@ -262,7 +262,7 @@ namespace SpectrumV1.Views.Projects
 			this.cboStatus.Name = "cboStatus";
 			this.cboStatus.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.cboStatus.Size = new System.Drawing.Size(427, 22);
+			this.cboStatus.Size = new System.Drawing.Size(517, 22);
 			this.cboStatus.StyleController = this.mainLayout;
 			this.cboStatus.TabIndex = 7;
 			// 
@@ -270,7 +270,7 @@ namespace SpectrumV1.Views.Projects
 			// 
 			this.txtProjectName.Location = new System.Drawing.Point(123, 54);
 			this.txtProjectName.Name = "txtProjectName";
-			this.txtProjectName.Size = new System.Drawing.Size(427, 22);
+			this.txtProjectName.Size = new System.Drawing.Size(517, 22);
 			this.txtProjectName.StyleController = this.mainLayout;
 			this.txtProjectName.TabIndex = 4;
 			// 
@@ -278,29 +278,29 @@ namespace SpectrumV1.Views.Projects
 			// 
 			this.txtReference.Location = new System.Drawing.Point(123, 80);
 			this.txtReference.Name = "txtReference";
-			this.txtReference.Size = new System.Drawing.Size(427, 22);
+			this.txtReference.Size = new System.Drawing.Size(517, 22);
 			this.txtReference.StyleController = this.mainLayout;
 			this.txtReference.TabIndex = 5;
 			// 
 			// cboClients
 			// 
-			this.cboClients.Location = new System.Drawing.Point(677, 54);
+			this.cboClients.Location = new System.Drawing.Point(767, 54);
 			this.cboClients.Name = "cboClients";
 			this.cboClients.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
 			this.cboClients.Properties.NullText = "";
-			this.cboClients.Size = new System.Drawing.Size(471, 22);
+			this.cboClients.Size = new System.Drawing.Size(567, 22);
 			this.cboClients.StyleController = this.mainLayout;
 			this.cboClients.TabIndex = 8;
 			// 
 			// cboEngineers
 			// 
-			this.cboEngineers.Location = new System.Drawing.Point(677, 80);
+			this.cboEngineers.Location = new System.Drawing.Point(767, 80);
 			this.cboEngineers.Name = "cboEngineers";
 			this.cboEngineers.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
 			this.cboEngineers.Properties.NullText = "";
-			this.cboEngineers.Size = new System.Drawing.Size(471, 22);
+			this.cboEngineers.Size = new System.Drawing.Size(567, 22);
 			this.cboEngineers.StyleController = this.mainLayout;
 			this.cboEngineers.TabIndex = 9;
 			// 
@@ -313,7 +313,7 @@ namespace SpectrumV1.Views.Projects
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
 			this.dtIssuanceDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.dtIssuanceDate.Size = new System.Drawing.Size(427, 22);
+			this.dtIssuanceDate.Size = new System.Drawing.Size(517, 22);
 			this.dtIssuanceDate.StyleController = this.mainLayout;
 			this.dtIssuanceDate.TabIndex = 10;
 			// 
@@ -326,7 +326,7 @@ namespace SpectrumV1.Views.Projects
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
 			this.dtExpiryDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.dtExpiryDate.Size = new System.Drawing.Size(427, 22);
+			this.dtExpiryDate.Size = new System.Drawing.Size(517, 22);
 			this.dtExpiryDate.StyleController = this.mainLayout;
 			this.dtExpiryDate.TabIndex = 11;
 			// 
@@ -334,7 +334,7 @@ namespace SpectrumV1.Views.Projects
 			// 
 			this.memoDescription.Location = new System.Drawing.Point(14, 218);
 			this.memoDescription.Name = "memoDescription";
-			this.memoDescription.Size = new System.Drawing.Size(1148, 231);
+			this.memoDescription.Size = new System.Drawing.Size(1334, 243);
 			this.memoDescription.StyleController = this.mainLayout;
 			this.memoDescription.TabIndex = 12;
 			// 
@@ -347,84 +347,22 @@ namespace SpectrumV1.Views.Projects
             this.layoutControlGroup1,
             this.layoutControlGroup2});
 			this.Root.Name = "Root";
-			this.Root.Size = new System.Drawing.Size(1176, 463);
+			this.Root.Size = new System.Drawing.Size(1362, 475);
 			this.Root.TextVisible = false;
-			// 
-			// lciProjectName
-			// 
-			this.lciProjectName.Control = this.txtProjectName;
-			this.lciProjectName.Location = new System.Drawing.Point(0, 0);
-			this.lciProjectName.Name = "lciProjectName";
-			this.lciProjectName.Size = new System.Drawing.Size(526, 26);
-			this.lciProjectName.Text = "Project Name";
-			this.lciProjectName.TextSize = new System.Drawing.Size(80, 16);
-			// 
-			// lciReference
-			// 
-			this.lciReference.Control = this.txtReference;
-			this.lciReference.Location = new System.Drawing.Point(0, 26);
-			this.lciReference.Name = "lciReference";
-			this.lciReference.Size = new System.Drawing.Size(526, 26);
-			this.lciReference.Text = "Reference";
-			this.lciReference.TextSize = new System.Drawing.Size(80, 16);
-			// 
-			// lciClient
-			// 
-			this.lciClient.Control = this.cboClients;
-			this.lciClient.Location = new System.Drawing.Point(0, 0);
-			this.lciClient.Name = "lciClient";
-			this.lciClient.Size = new System.Drawing.Size(570, 26);
-			this.lciClient.Text = "Client";
-			this.lciClient.TextSize = new System.Drawing.Size(80, 16);
-			// 
-			// lciEngineer
-			// 
-			this.lciEngineer.Control = this.cboEngineers;
-			this.lciEngineer.Location = new System.Drawing.Point(0, 26);
-			this.lciEngineer.Name = "lciEngineer";
-			this.lciEngineer.Size = new System.Drawing.Size(570, 104);
-			this.lciEngineer.Text = "Engineer";
-			this.lciEngineer.TextSize = new System.Drawing.Size(80, 16);
-			// 
-			// lciStatus
-			// 
-			this.lciStatus.Control = this.cboStatus;
-			this.lciStatus.Location = new System.Drawing.Point(0, 52);
-			this.lciStatus.Name = "lciStatus";
-			this.lciStatus.Size = new System.Drawing.Size(526, 26);
-			this.lciStatus.Text = "Status";
-			this.lciStatus.TextSize = new System.Drawing.Size(80, 16);
-			// 
-			// lciIssuanceDate
-			// 
-			this.lciIssuanceDate.Control = this.dtIssuanceDate;
-			this.lciIssuanceDate.Location = new System.Drawing.Point(0, 78);
-			this.lciIssuanceDate.Name = "lciIssuanceDate";
-			this.lciIssuanceDate.Size = new System.Drawing.Size(526, 26);
-			this.lciIssuanceDate.Text = "Issuance Date";
-			this.lciIssuanceDate.TextSize = new System.Drawing.Size(80, 16);
-			// 
-			// lciExpiryDate
-			// 
-			this.lciExpiryDate.Control = this.dtExpiryDate;
-			this.lciExpiryDate.Location = new System.Drawing.Point(0, 104);
-			this.lciExpiryDate.Name = "lciExpiryDate";
-			this.lciExpiryDate.Size = new System.Drawing.Size(526, 26);
-			this.lciExpiryDate.Text = "Expiry Date";
-			this.lciExpiryDate.TextSize = new System.Drawing.Size(80, 16);
 			// 
 			// lciDescription
 			// 
 			this.lciDescription.Control = this.memoDescription;
 			this.lciDescription.Location = new System.Drawing.Point(0, 184);
 			this.lciDescription.Name = "lciDescription";
-			this.lciDescription.Size = new System.Drawing.Size(1152, 255);
+			this.lciDescription.Size = new System.Drawing.Size(1338, 267);
 			this.lciDescription.Text = "Description";
 			this.lciDescription.TextLocation = DevExpress.Utils.Locations.Top;
 			this.lciDescription.TextSize = new System.Drawing.Size(80, 16);
 			// 
 			// layoutControlGroup1
 			// 
+			this.layoutControlGroup1.GroupStyle = DevExpress.Utils.GroupStyle.Light;
 			this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lciProjectName,
             this.lciReference,
@@ -433,24 +371,88 @@ namespace SpectrumV1.Views.Projects
             this.lciExpiryDate});
 			this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlGroup1.Name = "layoutControlGroup1";
-			this.layoutControlGroup1.Size = new System.Drawing.Size(554, 184);
+			this.layoutControlGroup1.Size = new System.Drawing.Size(644, 184);
 			this.layoutControlGroup1.Text = "Project Info";
+			// 
+			// lciProjectName
+			// 
+			this.lciProjectName.Control = this.txtProjectName;
+			this.lciProjectName.Location = new System.Drawing.Point(0, 0);
+			this.lciProjectName.Name = "lciProjectName";
+			this.lciProjectName.Size = new System.Drawing.Size(616, 26);
+			this.lciProjectName.Text = "Project Name";
+			this.lciProjectName.TextSize = new System.Drawing.Size(80, 16);
+			// 
+			// lciReference
+			// 
+			this.lciReference.Control = this.txtReference;
+			this.lciReference.Location = new System.Drawing.Point(0, 26);
+			this.lciReference.Name = "lciReference";
+			this.lciReference.Size = new System.Drawing.Size(616, 26);
+			this.lciReference.Text = "Reference";
+			this.lciReference.TextSize = new System.Drawing.Size(80, 16);
+			// 
+			// lciStatus
+			// 
+			this.lciStatus.Control = this.cboStatus;
+			this.lciStatus.Location = new System.Drawing.Point(0, 52);
+			this.lciStatus.Name = "lciStatus";
+			this.lciStatus.Size = new System.Drawing.Size(616, 26);
+			this.lciStatus.Text = "Status";
+			this.lciStatus.TextSize = new System.Drawing.Size(80, 16);
+			// 
+			// lciIssuanceDate
+			// 
+			this.lciIssuanceDate.Control = this.dtIssuanceDate;
+			this.lciIssuanceDate.Location = new System.Drawing.Point(0, 78);
+			this.lciIssuanceDate.Name = "lciIssuanceDate";
+			this.lciIssuanceDate.Size = new System.Drawing.Size(616, 26);
+			this.lciIssuanceDate.Text = "Issuance Date";
+			this.lciIssuanceDate.TextSize = new System.Drawing.Size(80, 16);
+			// 
+			// lciExpiryDate
+			// 
+			this.lciExpiryDate.Control = this.dtExpiryDate;
+			this.lciExpiryDate.Location = new System.Drawing.Point(0, 104);
+			this.lciExpiryDate.Name = "lciExpiryDate";
+			this.lciExpiryDate.Size = new System.Drawing.Size(616, 26);
+			this.lciExpiryDate.Text = "Expiry Date";
+			this.lciExpiryDate.TextSize = new System.Drawing.Size(80, 16);
 			// 
 			// layoutControlGroup2
 			// 
+			this.layoutControlGroup2.GroupStyle = DevExpress.Utils.GroupStyle.Light;
 			this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lciClient,
             this.lciEngineer});
-			this.layoutControlGroup2.Location = new System.Drawing.Point(554, 0);
+			this.layoutControlGroup2.Location = new System.Drawing.Point(644, 0);
 			this.layoutControlGroup2.Name = "layoutControlGroup2";
-			this.layoutControlGroup2.Size = new System.Drawing.Size(598, 184);
+			this.layoutControlGroup2.Size = new System.Drawing.Size(694, 184);
 			this.layoutControlGroup2.Text = "Resources Details";
+			// 
+			// lciClient
+			// 
+			this.lciClient.Control = this.cboClients;
+			this.lciClient.Location = new System.Drawing.Point(0, 0);
+			this.lciClient.Name = "lciClient";
+			this.lciClient.Size = new System.Drawing.Size(666, 26);
+			this.lciClient.Text = "Client";
+			this.lciClient.TextSize = new System.Drawing.Size(80, 16);
+			// 
+			// lciEngineer
+			// 
+			this.lciEngineer.Control = this.cboEngineers;
+			this.lciEngineer.Location = new System.Drawing.Point(0, 26);
+			this.lciEngineer.Name = "lciEngineer";
+			this.lciEngineer.Size = new System.Drawing.Size(666, 104);
+			this.lciEngineer.Text = "Engineer";
+			this.lciEngineer.TextSize = new System.Drawing.Size(80, 16);
 			// 
 			// ProjectEditForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1176, 686);
+			this.ClientSize = new System.Drawing.Size(1362, 698);
 			this.Controls.Add(this.mainLayout);
 			this.Controls.Add(this.ribbonStatusBar1);
 			this.Controls.Add(this.ribbonControl);
@@ -474,16 +476,16 @@ namespace SpectrumV1.Views.Projects
 			((System.ComponentModel.ISupportInitialize)(this.dtExpiryDate.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.memoDescription.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lciDescription)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lciProjectName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lciReference)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lciClient)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lciEngineer)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lciStatus)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lciIssuanceDate)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lciExpiryDate)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lciDescription)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lciClient)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lciEngineer)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

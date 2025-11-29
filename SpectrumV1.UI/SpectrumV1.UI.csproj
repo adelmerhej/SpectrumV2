@@ -210,6 +210,12 @@
     <Compile Include="Views\Main\Connections\ServerConfigurationForm.Designer.cs">
       <DependentUpon>ServerConfigurationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Main\Connections\SuperAdminConnectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Main\Connections\SuperAdminConnectionForm.Designer.cs">
+      <DependentUpon>SuperAdminConnectionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -373,6 +379,9 @@
     <EmbeddedResource Include="Views\Main\Connections\ServerConfigurationForm.resx">
       <DependentUpon>ServerConfigurationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Main\Connections\SuperAdminConnectionForm.resx">
+      <DependentUpon>SuperAdminConnectionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -509,6 +518,10 @@
     <ProjectReference Include="..\SpectrumV1.Models\SpectrumV1.Models.csproj">
       <Project>{2dd2c5d0-7eae-44aa-aaf5-409141391579}</Project>
       <Name>SpectrumV1.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpectrumV1.Reports\SpectrumV1.Reports.csproj">
+      <Project>{5c62bd1d-cf7e-4606-b313-6a24beabf497}</Project>
+      <Name>SpectrumV1.Reports</Name>
     </ProjectReference>
     <ProjectReference Include="..\SpectrumV1.Update\SpectrumV1.Update.csproj">
       <Project>{d9750722-a1ed-4646-9e6e-2ac0a20e1b05}</Project>

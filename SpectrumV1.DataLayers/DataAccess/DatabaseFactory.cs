@@ -48,16 +48,49 @@ namespace SpectrumV1.DataLayers.DataAccess
 			Settings.Default.Save();
 		}
 
-		public static ConnectionModel ConnectionParamsGet()
+		// New: set connection params for primary or backup
+		public static void ConnectionParamsSet(ConnectionModel connection, bool isBackup)
+		{
+			if (!isBackup)
+			{
+				ConnectionParamsSet(connection);
+				return;
+			}
+
+			Settings.Default.BackupDatabaseType = connection.DatabaseType;
+			Settings.Default.BackupDatabaseHost = connection.DatabaseHost;
+			Settings.Default.BackupDatabasePort = connection.DatabasePort;
+			Settings.Default.BackupDatabaseName = connection.DatabaseName;
+			Settings.Default.BackupDatabaseUser = connection.DatabaseUser;
+			Settings.Default.BackupDatabasePassword = connection.DatabasePassword;
+			Settings.Default.BackupDatabaseConnectionString = connection.DatabaseConnectionString;
+			Settings.Default.Save();
+		}
+
+		public static ConnectionModel ConnectionParamsGet(bool secondConnection = false)
 		{
 			ConnectionModel connection = new ConnectionModel();
-			connection.DatabaseType = Settings.Default.DatabaseType;
-			connection.DatabaseHost = Settings.Default.DatabaseHost;
-			connection.DatabasePort = Settings.Default.DatabasePort;
-			connection.DatabaseName = Settings.Default.DatabaseName;
-			connection.DatabaseUser = Settings.Default.DatabaseUser;
-			connection.DatabasePassword = Settings.Default.DatabasePassword;
-			connection.DatabaseConnectionString = Settings.Default.DatabaseConnectionString;
+
+			if (!secondConnection)
+			{
+				connection.DatabaseType = Settings.Default.DatabaseType;
+				connection.DatabaseHost = Settings.Default.DatabaseHost;
+				connection.DatabasePort = Settings.Default.DatabasePort;
+				connection.DatabaseName = Settings.Default.DatabaseName;
+				connection.DatabaseUser = Settings.Default.DatabaseUser;
+				connection.DatabasePassword = Settings.Default.DatabasePassword;
+				connection.DatabaseConnectionString = Settings.Default.DatabaseConnectionString;
+			}
+			else
+			{
+				connection.DatabaseType = Settings.Default.BackupDatabaseType;
+				connection.DatabaseHost = Settings.Default.BackupDatabaseHost;
+				connection.DatabasePort = Settings.Default.BackupDatabasePort;
+				connection.DatabaseName = Settings.Default.BackupDatabaseName;
+				connection.DatabaseUser = Settings.Default.BackupDatabaseUser;
+				connection.DatabasePassword = Settings.Default.BackupDatabasePassword;
+				connection.DatabaseConnectionString = Settings.Default.BackupDatabaseConnectionString;
+			}
 
 			// If MongoDB and no explicit connection string, build one from parameters.
 			if (string.IsNullOrWhiteSpace(connection.DatabaseConnectionString) &&
@@ -115,6 +148,13 @@ namespace SpectrumV1.DataLayers.DataAccess
 				System.Diagnostics.Debug.WriteLine("MongoDB test connection failed: " + ex.Message + " | ConnString: " + connectionString);
 				return false;
 			}
+		}
+
+		// New: convenience method to test primary or backup connection stored in settings
+		public static bool TestStoredConnection(bool isBackup)
+		{
+			var conn = ConnectionParamsGet(isBackup);
+			return TestDatabaseConnection(conn.DatabaseConnectionString, conn.DatabaseName);
 		}
 	}
 }

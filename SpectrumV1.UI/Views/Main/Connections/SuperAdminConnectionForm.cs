@@ -2,32 +2,30 @@
 using DevExpress.XtraEditors.Controls;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Administration.Connections;
-using SpectrumV1.Models.Users;
 using System;
 using System.Windows.Forms;
 
 namespace SpectrumV1.Views.Main.Connections
 {
-	public partial class ServerConfigurationForm : XtraForm
+	public partial class SuperAdminConnectionForm : XtraForm
 	{
 		private ConnectionModel _connectionModel = new ConnectionModel();
 		private const string _databaseType = "MongoDb";
 		private const string _authDb = "admin";
 
-		public ServerConfigurationForm()
+		public SuperAdminConnectionForm()
 		{
 			InitializeComponent();
 
 			ConnectionParams();
 			InitializeBindings();
 			WireUpBindings();
-			ApplyPermissions();
 		}
 
 		#region Init preloading Methods
 		private void ConnectionParams()
 		{
-			_connectionModel = DatabaseFactory.ConnectionParamsGet();
+			_connectionModel = DatabaseFactory.ConnectionParamsGet(true);
 		}
 
 		private void InitializeBindings()
@@ -43,11 +41,6 @@ namespace SpectrumV1.Views.Main.Connections
 			txtUsername.Text = _connectionModel.DatabaseUser ?? string.Empty;
 			txtPassword.Text = _connectionModel.DatabasePassword ?? string.Empty;
 			txtConnectionString.Text = _connectionModel.DatabaseConnectionString ?? string.Empty;
-		}
-
-		private void ApplyPermissions()
-		{
-			btnSecondConnection.Visible = CurrentUser.UserName.ToLower() == "admin";
 		}
 
 		#endregion
@@ -164,12 +157,6 @@ namespace SpectrumV1.Views.Main.Connections
 		private void txtPassword_EditValueChanged(object sender, EventArgs e)
 		{
 			BuildAndUpdateConnectionString();
-		}
-
-		private void btnSecondConnection_Click(object sender, EventArgs e)
-		{
-			SuperAdminConnectionForm frm = new SuperAdminConnectionForm();
-			frm.ShowDialog();
 		}
 	}
 }
