@@ -29,9 +29,6 @@ namespace SpectrumV1.Views.Main
 		private const string _formName = "MainForm";
 		private int _formId;
 
-
-
-
 		private bool _isVisible;
 		private bool _isActive;
 		private bool _isAdmin;
@@ -60,34 +57,12 @@ namespace SpectrumV1.Views.Main
 		
 		private void MainForm_Activated(object sender, EventArgs e)
 		{
-			try
-			{
-				var af = ActiveMdiChild as IFormWithRibbon;
-				if (af == null) return;
-				ribbonMainForm.SelectedPage = ribbonMainForm.MergedPages[af.DefaultPage.Text];
-
-				UpdateStatus();
-			}
-			catch (Exception exception)
-			{
-				Console.WriteLine(exception);
-			}
+			TrySelectMergedPageForActiveChild();
 		}
 
 		private void MainForm_MdiChildActivate(object sender, EventArgs e)
 		{
-			try
-			{
-				var af = ActiveMdiChild as IFormWithRibbon;
-				if (af == null) return;
-				ribbonMainForm.SelectedPage = ribbonMainForm.MergedPages[af.DefaultPage.Text];
-
-				UpdateStatus();
-			}
-			catch (Exception exception)
-			{
-				Console.WriteLine(exception);
-			}
+			TrySelectMergedPageForActiveChild();
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -152,14 +127,12 @@ namespace SpectrumV1.Views.Main
 
 		private void btnAbout_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			AboutForm dForm = new AboutForm();
-			dForm.ShowDialog();
+			ShowDialog(new AboutForm());
 		}
 
 		private void btnLiveUpdate_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			CheckForUpdateForm dForm = new CheckForUpdateForm();
-			dForm.ShowDialog();
+			ShowDialog(new CheckForUpdateForm());
 		}
 
 		private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
@@ -184,27 +157,42 @@ namespace SpectrumV1.Views.Main
 				Settings.Default.ApplicationPalette = defaultLookAndFeel1.LookAndFeel.ActiveSvgPaletteName;
 
 				Settings.Default.Save();
-				Close();
+				if (!IsDisposed)
+				{
+					Close();
+				}
 			}
 		}
 
 
 		#endregion
 
+		/// <summary>
+		/// Opens a form instance, reusing any existing open instance of the same type.
+		/// Pass <paramref name="isDialog"/> to show as modal dialog instead of MDI.
+		/// </summary>
 		private void OpenForm<T>(T myForm, bool isDialog = false) where T : Form
 		{
 			try
 			{
-				if (!Application.OpenForms.OfType<T>().Any())
+				var existing = Application.OpenForms.Cast<Form>().FirstOrDefault(f => f.GetType() == typeof(T));
+				if (existing != null)
 				{
-					if (!isDialog) myForm.MdiParent = this;
+					if (existing.WindowState == FormWindowState.Minimized)
+						existing.WindowState = FormWindowState.Normal;
+					existing.BringToFront();
+					existing.Focus();
+					return;
+				}
 
+				if (!isDialog)
+				{
+					myForm.MdiParent = this;
 					myForm.Show();
 				}
 				else
 				{
-					Application.OpenForms[myForm.Name]?.Focus();
-					//myForm.Focus();
+					ShowDialog(myForm);
 				}
 			}
 			catch (Exception ex)
@@ -214,11 +202,80 @@ namespace SpectrumV1.Views.Main
 			}
 		}
 
-		private void ShowFeatureUnderDevelopment()
+		/// <summary>
+		/// Opens a form of type <typeparamref name="T"/> by creating a new instance only if not already open.
+		/// This avoids passing already-constructed instances and keeps a single instance per type.
+		/// </summary>
+		private void OpenForm<T>(bool isDialog = false)
+			where T : Form, new()
 		{
-			using (var form = new FeatureUnderDevelopmentForm())
+			try
+			{
+				var existing = Application.OpenForms.Cast<Form>().OfType<T>().FirstOrDefault();
+				if (existing != null)
+				{
+					if (existing.WindowState == FormWindowState.Minimized)
+						existing.WindowState = FormWindowState.Normal;
+					existing.BringToFront();
+					existing.Focus();
+					return;
+				}
+
+				var myForm = new T();
+				if (!isDialog)
+				{
+					myForm.MdiParent = this;
+					myForm.Show();
+				}
+				else
+				{
+					ShowDialog(myForm);
+				}
+			}
+			catch (Exception ex)
+			{
+				XtraMessageBox.Show(ex.Message, "Main OpenForm Error Message!", MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+			}
+		}
+
+		private void ShowDialog(Form form)
+		{
+			if (form == null) return;
+			using (form)
 			{
 				form.ShowDialog(this);
+			}
+		}
+
+		private void ShowFeatureUnderDevelopment()
+		{
+			ShowDialog(new FeatureUnderDevelopmentForm());
+		}
+
+		private void TrySelectMergedPageForActiveChild()
+		{
+			try
+			{
+				var af = ActiveMdiChild as IFormWithRibbon;
+				if (af == null || af.DefaultPage == null || af.DefaultPage.Text == null) return;
+				var pageText = af.DefaultPage.Text;
+				var mergedPages = ribbonMainForm?.MergedPages;
+				RibbonPage targetPage = null;
+				if (mergedPages != null)
+				{
+					// Some DevExpress collections do not expose ContainsKey; indexer returns null if not found.
+					targetPage = mergedPages[pageText];
+				}
+				if (targetPage != null)
+				{
+					ribbonMainForm.SelectedPage = targetPage;
+				}
+				UpdateStatus();
+			}
+			catch (Exception exception)
+			{
+				Console.WriteLine(exception);
 			}
 		}
 
@@ -235,7 +292,9 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuProjects_Click(object sender, EventArgs e)
 		{
-			OpenForm(new ProjectsListForm());
+			//OpenForm(new ProjectsListForm());
+			OpenForm<ProjectsListForm>();
+			// Example using new overload: OpenForm<ProjectsListForm>();
 		}
 
 		private void mnuInvoices_Click(object sender, EventArgs e)
@@ -266,12 +325,12 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuClients_Click(object sender, EventArgs e)
 		{
-			OpenForm(new ClientsListForm());
+			OpenForm<ClientsListForm>();
 		}
 
 		private void mnuEngineers_Click(object sender, EventArgs e)
 		{
-			OpenForm(new EngineersListForm());
+			OpenForm<EngineersListForm>();
 		}
 
 
@@ -357,28 +416,29 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuUsersList_Click(object sender, System.EventArgs e)
 		{
-			OpenForm(new UsersListForm());
+			OpenForm<UsersListForm>();
+
 		}
 
 		private void mnuCompaniesList_Click(object sender, EventArgs e)
 		{
-			OpenForm(new CompaniesListForm());
+			OpenForm<CompaniesListForm>();
 		}
 
 		private void mnuBranches_Click(object sender, EventArgs e)
 		{
-			OpenForm(new BranchesListForm());
+			OpenForm<BranchesListForm>();
 		}
 
 		private void mnuServicesList_Click(object sender, EventArgs e)
 		{
-			OpenForm(new ServicesListForm());
+			OpenForm<ServicesListForm>();
 
 		}
 
 		private void mnuAreas_Click(object sender, EventArgs e)
 		{
-			OpenForm(new AreasListForm());
+			OpenForm<AreasListForm>();
 		}
 
 		#endregion
@@ -386,32 +446,32 @@ namespace SpectrumV1.Views.Main
 		#region Countries Menu
 		private void mnuCountries_Click(object sender, EventArgs e)
 		{
-			OpenForm(new CountriesListForm());
+			OpenForm<CountriesListForm>();
 		}
 
 		private void mnuCities_Click(object sender, EventArgs e)
 		{
-			OpenForm(new CitiesListForm());
+			OpenForm<CitiesListForm>();
 		}
 
 		private void mnuContinents_Click(object sender, EventArgs e)
 		{
-			OpenForm(new ContinentsListForm());
+			OpenForm<ContinentsListForm>();
 		}
 
 		private void mnuRegions_Click(object sender, EventArgs e)
 		{
-			OpenForm(new RegionsListForm());
+			OpenForm<RegionsListForm>();
 		}
 
 		private void mnuProvinces_Click(object sender, EventArgs e)
 		{
-			OpenForm(new ProvincesListForm());
+			OpenForm<ProvincesListForm>();
 		}
 
 		private void mnuDistricts_Click(object sender, EventArgs e)
 		{
-			OpenForm(new DistrictsListForm());
+			OpenForm<DistrictsListForm>();
 		}
 
 		#endregion
@@ -420,8 +480,7 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuDatabaseSettings_Click(object sender, EventArgs e)
 		{
-			ServerConfigurationForm dForm = new ServerConfigurationForm();
-			dForm.ShowDialog();
+			ShowDialog(new ServerConfigurationForm());
 		}
 
 		private void mnuGeneralSettings_Click(object sender, EventArgs e)
