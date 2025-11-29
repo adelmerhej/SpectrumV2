@@ -28,6 +28,8 @@ namespace SpectrumV1
 		{
 			SetDpiScaling();
 
+			// Set up global exception handlers before any UI operations
+			Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			Application.ThreadException += Application_ThreadException;
 

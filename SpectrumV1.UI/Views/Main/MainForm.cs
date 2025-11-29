@@ -20,7 +20,7 @@ using SpectrumV1.Views.Users;
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using SpectrumV1.Views.Projects; // added
+using SpectrumV1.Views.Projects;
 
 namespace SpectrumV1.Views.Main
 {
