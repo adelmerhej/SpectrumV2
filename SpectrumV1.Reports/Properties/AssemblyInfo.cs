@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SpectrumV1.Reports")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Spectrum Software Management First Version V1 (SSM V1)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SpectrumV1.Reports")]
-[assembly: AssemblyCopyright("Copyright ©  2025")]
+[assembly: AssemblyCompany("Spectrum")]
+[assembly: AssemblyProduct("Spectrum Software Management V1")]
+[assembly: AssemblyCopyright("Copyright © Vision^n 2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("4.7.2.1")]
+[assembly: AssemblyFileVersion("1.0.1.2")]
