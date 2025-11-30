@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using Microsoft.AspNet.Identity;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Users;
 using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities.Common;
@@ -12,7 +13,7 @@ namespace SpectrumV1.Views.Users
 	public partial class ChangePasswordForm : XtraForm
 	{
 		private UserModel _userModel = new UserModel();
-		private readonly UserRepository _userRepository = new UserRepository();
+		private readonly UserRepository _userRepository = new UserRepository(DatabaseFactory.ProfilePrimary);
 
 		public event EventHandler SendChangedPassword;
 

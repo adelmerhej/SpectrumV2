@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using SpectrumV1.DataLayers.Common.Countries;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Utilities;
 using System;
@@ -13,7 +14,7 @@ namespace SpectrumV1.Views.Common.Countries
 	{
 		private ContinentModel _continentModel = new ContinentModel();
 
-		private readonly ContinentRepository _continentRepository = new ContinentRepository();
+		private readonly ContinentRepository _continentRepository = new ContinentRepository(DatabaseFactory.ProfilePrimary);
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 

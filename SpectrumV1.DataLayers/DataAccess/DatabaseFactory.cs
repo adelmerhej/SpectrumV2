@@ -1,160 +1,161 @@
-﻿using SpectrumV1.DataLayers.DataAccess.Types;
-using SpectrumV1.DataLayers.Properties;
-using SpectrumV1.Models.Administration.Connections;
-using SpectrumV1.Utilities.Enums;
-using System;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Bson;
+using SpectrumV1.DataLayers.DataUtilities;
+using SpectrumV1.Models.Administration.Connections;
+using SpectrumV1.Utilities.Common;
+using System;
 using System.Net; // added for TLS settings
 
 namespace SpectrumV1.DataLayers.DataAccess
 {
 	public class DatabaseFactory
 	{
-		public static IDatabase Get(string application, string databaseType, string databaseHost, int databasePort,
-			string databaseName, string databaseUser, string databasePassword)
+		// Constants for your standard profile names
+		public const string ProfilePrimary = "Primary";
+		public const string ProfileSecondary = "Secondary";
+		public const string ProfileTertiary = "Tertiary";
+
+		/// <summary>
+		/// Saves a connection configuration securely to the user's local profile.
+		/// </summary>
+		/// <param name="model">The UI model containing plain text data.</param>
+		/// <param name="profileName">The key (e.g., "Primary", "Secondary").</param>
+		public static void SaveConnection(ConnectionModel model, string profileName)
 		{
-			switch ((DatabaseTypes)Enum.Parse(typeof(DatabaseTypes), databaseType))
+			var config = ConfigManager.Load(profileName);
+
+			var profile = new ConnectionModel
 			{
-				case DatabaseTypes.MySql:
-					return null;
+				DatabaseType = model.DatabaseType,
+				DatabaseHost = model.DatabaseHost,
+				DatabasePort = model.DatabasePort,
+				DatabaseName = model.DatabaseName,
+				DatabaseUser = model.DatabaseUser,
+				// ENCRYPT: Convert plain text to secure blob
+				EncryptedPassword = SystemUtilities.Protect(model.DatabasePassword),
+				EncryptedConnectionString = SystemUtilities.Protect(model.DatabaseConnectionString)
+			};
 
-				case DatabaseTypes.MongoDb:
-					return (IDatabase)new MongoDbDatabaseModel() { };
-
-				case DatabaseTypes.SqlServer:
-					return new SqlServerDatabaseModel()
-					{
-						Server = databaseHost,
-						Database = databaseName,
-						User = databaseUser,
-						Password = databasePassword
-					};
-
-				default:
-					return null;
-			}
-		}
-
-		public static void ConnectionParamsSet(ConnectionModel connection)
-		{
-			Settings.Default.DatabaseType = connection.DatabaseType;
-			Settings.Default.DatabaseHost = connection.DatabaseHost;
-			Settings.Default.DatabasePort = connection.DatabasePort;
-			Settings.Default.DatabaseName = connection.DatabaseName;
-			Settings.Default.DatabaseUser = connection.DatabaseUser;
-			Settings.Default.DatabasePassword = connection.DatabasePassword;
-			Settings.Default.DatabaseConnectionString = connection.DatabaseConnectionString;
-			Settings.Default.Save();
-		}
-
-		// New: set connection params for primary or backup
-		public static void ConnectionParamsSet(ConnectionModel connection, bool isBackup)
-		{
-			if (!isBackup)
-			{
-				ConnectionParamsSet(connection);
-				return;
-			}
-
-			Settings.Default.BackupDatabaseType = connection.DatabaseType;
-			Settings.Default.BackupDatabaseHost = connection.DatabaseHost;
-			Settings.Default.BackupDatabasePort = connection.DatabasePort;
-			Settings.Default.BackupDatabaseName = connection.DatabaseName;
-			Settings.Default.BackupDatabaseUser = connection.DatabaseUser;
-			Settings.Default.BackupDatabasePassword = connection.DatabasePassword;
-			Settings.Default.BackupDatabaseConnectionString = connection.DatabaseConnectionString;
-			Settings.Default.Save();
-		}
-
-		public static ConnectionModel ConnectionParamsGet(bool secondConnection = false)
-		{
-			ConnectionModel connection = new ConnectionModel();
-
-			if (!secondConnection)
-			{
-				connection.DatabaseType = Settings.Default.DatabaseType;
-				connection.DatabaseHost = Settings.Default.DatabaseHost;
-				connection.DatabasePort = Settings.Default.DatabasePort;
-				connection.DatabaseName = Settings.Default.DatabaseName;
-				connection.DatabaseUser = Settings.Default.DatabaseUser;
-				connection.DatabasePassword = Settings.Default.DatabasePassword;
-				connection.DatabaseConnectionString = Settings.Default.DatabaseConnectionString;
-			}
+			if (config.Connections.ContainsKey(profileName))
+				config.Connections[profileName] = profile;
 			else
-			{
-				connection.DatabaseType = Settings.Default.BackupDatabaseType;
-				connection.DatabaseHost = Settings.Default.BackupDatabaseHost;
-				connection.DatabasePort = Settings.Default.BackupDatabasePort;
-				connection.DatabaseName = Settings.Default.BackupDatabaseName;
-				connection.DatabaseUser = Settings.Default.BackupDatabaseUser;
-				connection.DatabasePassword = Settings.Default.BackupDatabasePassword;
-				connection.DatabaseConnectionString = Settings.Default.BackupDatabaseConnectionString;
-			}
+				config.Connections.Add(profileName, profile);
 
-			// If MongoDB and no explicit connection string, build one from parameters.
-			if (string.IsNullOrWhiteSpace(connection.DatabaseConnectionString) &&
-				!string.IsNullOrWhiteSpace(connection.DatabaseType) &&
-				string.Equals(connection.DatabaseType, DatabaseTypes.MongoDb.ToString(), StringComparison.OrdinalIgnoreCase))
-			{
-				var host = string.IsNullOrWhiteSpace(connection.DatabaseHost) ? "localhost" : connection.DatabaseHost.Trim();
-				var port = connection.DatabasePort > 0 ? connection.DatabasePort : 27017;
-				string userInfo = null;
-				if (!string.IsNullOrWhiteSpace(connection.DatabaseUser) && !string.IsNullOrWhiteSpace(connection.DatabasePassword))
-					userInfo = string.Concat(Uri.EscapeDataString(connection.DatabaseUser), ":", Uri.EscapeDataString(connection.DatabasePassword), "@");
-				string path = !string.IsNullOrWhiteSpace(connection.DatabaseName) ? "/" + connection.DatabaseName.Trim() : string.Empty;
-				string query = userInfo != null ? "?authSource=admin" : string.Empty;
-				connection.DatabaseConnectionString = $"mongodb://{(userInfo ?? string.Empty)}{host}:{port}{path}{query}";
-			}
-			return connection;
+			ConfigManager.Save(config, profileName);
 		}
 
-		public static bool TestDatabaseConnection(string connectionString, string databaseName)
+		/// <summary>
+		/// Retrieves the decrypted connection model for a specific profile.
+		/// </summary>
+		public static ConnectionModel GetConnection(string profileName)
 		{
-			// Handles MongoDB SRV and standard connection strings. Uses provided databaseName override if given.
-			if (string.IsNullOrWhiteSpace(connectionString)) return false;
+			var config = ConfigManager.Load(profileName);
+
+			if (!config.Connections.ContainsKey(profileName))
+				return new ConnectionModel { Name = profileName }; // Return empty container
+
+			var profile = config.Connections[profileName];
+
+			var model = new ConnectionModel
+			{
+				Name = profileName,
+				DatabaseType = profile.DatabaseType,
+				DatabaseHost = profile.DatabaseHost,
+				DatabasePort = profile.DatabasePort,
+				DatabaseName = profile.DatabaseName,
+				DatabaseUser = profile.DatabaseUser,
+				// DECRYPT: Restore plain text for usage
+				DatabasePassword = SystemUtilities.Unprotect(profile.EncryptedPassword),
+				DatabaseConnectionString = SystemUtilities.Unprotect(profile.EncryptedConnectionString)
+			};
+
+			// Auto-generate MongoDB connection string if missing but parameters exist
+			if (string.IsNullOrWhiteSpace(model.DatabaseConnectionString) &&
+				(model.DatabaseType?.IndexOf("Mongo", StringComparison.OrdinalIgnoreCase) >= 0))
+			{
+				model.DatabaseConnectionString = BuildMongoConnectionString(model);
+			}
+
+			return model;
+		}
+
+		/// <summary>
+		/// Gets a usable MongoDB Database object for the requested profile.
+		/// </summary>
+		public static IMongoDatabase GetMongoDatabase(string profileName)
+		{
+			var conn = GetConnection(profileName);
+			if (string.IsNullOrWhiteSpace(conn.DatabaseConnectionString)) return null;
+
 			try
 			{
-				// Ensure TLS 1.2 (Atlas requires TLS; 4.7.2 usually OK but force if downgraded environment)
+				// Ensure TLS 1.2+ for modern Atlas/Cloud connections
 				ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 
-				var trimmed = connectionString.Trim();
-				var url = new MongoUrl(trimmed);
+				var url = new MongoUrl(conn.DatabaseConnectionString);
 				var client = new MongoClient(url);
 
-				// Prefer explicit parameter, then URL database, fallback to "admin".
-				var dbName = !string.IsNullOrWhiteSpace(databaseName) ? databaseName.Trim() : (string.IsNullOrWhiteSpace(url.DatabaseName) ? "admin" : url.DatabaseName);
-				var db = client.GetDatabase(dbName);
-				try
-				{
-					db.RunCommand<BsonDocument>(new BsonDocument("ping", 1));
-					return true;
-				}
-				catch (MongoAuthenticationException authEx)
-				{
-					// Retry with admin if auth failed and we didn't already use admin.
-					if (!string.Equals(dbName, "admin", StringComparison.OrdinalIgnoreCase))
-					{
-						var adminDb = client.GetDatabase("admin");
-						adminDb.RunCommand<BsonDocument>(new BsonDocument("ping", 1));
-						return true;
-					}
-					System.Diagnostics.Debug.WriteLine("MongoDB authentication failure: " + authEx.Message);
-					return false;
-				}
+				// Priority: Explicit DB name -> Connection String DB name -> "admin"
+				var dbName = !string.IsNullOrWhiteSpace(conn.DatabaseName)
+					? conn.DatabaseName
+					: (url.DatabaseName ?? "admin");
+
+				return client.GetDatabase(dbName);
 			}
 			catch (Exception ex)
 			{
-				System.Diagnostics.Debug.WriteLine("MongoDB test connection failed: " + ex.Message + " | ConnString: " + connectionString);
-				return false;
+				System.Diagnostics.Debug.WriteLine($"Failed to create Mongo Client for {profileName}: {ex.Message}");
+				return null;
 			}
 		}
 
-		// New: convenience method to test primary or backup connection stored in settings
-		public static bool TestStoredConnection(bool isBackup)
+		/// <summary>
+		/// Helper to construct standard MongoDB connection strings.
+		/// </summary>
+		private static string BuildMongoConnectionString(ConnectionModel model)
 		{
-			var conn = ConnectionParamsGet(isBackup);
-			return TestDatabaseConnection(conn.DatabaseConnectionString, conn.DatabaseName);
+			var host = string.IsNullOrWhiteSpace(model.DatabaseHost) ? "localhost" : model.DatabaseHost.Trim();
+			var port = model.DatabasePort > 0 ? model.DatabasePort : 27017;
+
+			string userInfo = string.Empty;
+			if (!string.IsNullOrWhiteSpace(model.DatabaseUser) && !string.IsNullOrWhiteSpace(model.DatabasePassword))
+			{
+				userInfo = $"{Uri.EscapeDataString(model.DatabaseUser)}:{Uri.EscapeDataString(model.DatabasePassword)}@";
+			}
+
+			return $"mongodb://{userInfo}{host}:{port}/{model.DatabaseName}?authSource=admin";
+		}
+
+		/// <summary>
+		/// Tests connectivity. Works for both manual params (from UI) or stored params (from Disk).
+		/// </summary>
+		public static bool TestConnection(ConnectionModel model = null, string profileName = null)
+		{
+			// If model provided (e.g. from Settings UI), use it. Otherwise load from disk.
+			var connToCheck = model ?? GetConnection(profileName);
+
+			if (string.IsNullOrWhiteSpace(connToCheck.DatabaseConnectionString) &&
+				string.IsNullOrWhiteSpace(connToCheck.DatabaseHost))
+				return false;
+
+			// If connection string is empty, try to build it temporarily for the test
+			string connString = connToCheck.DatabaseConnectionString;
+			if (string.IsNullOrWhiteSpace(connString))
+				connString = BuildMongoConnectionString(connToCheck);
+
+			try
+			{
+				ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+				var client = new MongoClient(connString);
+				// Ping command is lightweight
+				client.GetDatabase("admin").RunCommand((Command<BsonDocument>)"{ping:1}");
+				return true;
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine($"Connection Test Failed: {ex.Message}");
+				return false;
+			}
 		}
 	}
 }

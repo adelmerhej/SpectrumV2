@@ -3,6 +3,7 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Branches;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Companies;
 using SpectrumV1.Utilities.Interfaces;
 using System;
@@ -19,7 +20,7 @@ namespace SpectrumV1.Views.Common.Companies
 		private BranchModel _branchModel = new BranchModel();
 		private IList<BranchModel> _branches = new List<BranchModel>();
 
-		private readonly BranchRepository _branchRepository = new BranchRepository();
+		private readonly BranchRepository _branchRepository = new BranchRepository(DatabaseFactory.ProfilePrimary);
 
 		//Init permissionvariables
 		private bool _canAdd = true;

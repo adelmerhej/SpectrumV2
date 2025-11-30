@@ -242,7 +242,7 @@ namespace SpectrumV1.Utilities
 		{
 			try
 			{
-				var connectionModel = DatabaseFactory.ConnectionParamsGet();
+				var connectionModel = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
 
 				if (connectionModel == null || string.IsNullOrWhiteSpace(connectionModel.DatabaseHost))
 				{
@@ -254,34 +254,18 @@ namespace SpectrumV1.Utilities
 					};
 				}
 
-				var database = DatabaseFactory.Get(connectionModel.DatabaseName, connectionModel.DatabaseType,
-												 connectionModel.DatabaseHost, connectionModel.DatabasePort, connectionModel.DatabaseName,
-												 connectionModel.DatabaseUser, connectionModel.DatabasePassword);
 
-				var connectionState = database.CheckConnection();
+				var connectionState = DatabaseFactory.TestConnection(connectionModel, DatabaseFactory.ProfilePrimary);
 
-				if (connectionState == ConnectionState.Open)
+				if (connectionState)
 				{
-					if (database.AllowCreateDataBase() && !database.CheckDatabaseExists(connectionModel.DatabaseConnectionString, connectionModel.DatabaseName))
-					{
-						database.CreateDatabase(connectionModel.DatabaseConnectionString, connectionModel.DatabaseName);
-						
-						//return new DatabaseConnectionResult
-						//{
-						//	Status = DatabaseConnectionStatus.Success,
-						//	ConnectionModel = connectionModel,
-						//	Database = database
-						//};
-					}
-
 					// Update current user context on successful connection
 					UpdateUserContext(connectionModel);
 
 					return new DatabaseConnectionResult
 					{
 						Status = DatabaseConnectionStatus.Success,
-						ConnectionModel = connectionModel,
-						Database = database
+						ConnectionModel = connectionModel
 					};
 				}
 
@@ -359,7 +343,7 @@ namespace SpectrumV1.Utilities
 			try
 			{
 				//1- Check collection Companies and add default if empty
-				var companyRepo = new DataLayers.Common.Companies.CompanyRepository();
+				var companyRepo = new DataLayers.Common.Companies.CompanyRepository(DatabaseFactory.ProfilePrimary);
 				var companyCount = companyRepo.GetCountAsync().Result;
 				if (companyCount == 0)
 				{
@@ -384,7 +368,7 @@ namespace SpectrumV1.Utilities
 				}
 
 				//2- Check collection Companies and add default if empty
-				var branchRepo = new DataLayers.Common.Branches.BranchRepository();
+				var branchRepo = new DataLayers.Common.Branches.BranchRepository(DatabaseFactory.ProfilePrimary);
 				var branchCount = branchRepo.GetCountAsync().Result;
 				if (branchCount == 0)
 				{
@@ -403,7 +387,7 @@ namespace SpectrumV1.Utilities
 				}
 
 				//3- Check collection Continents and add default if empty
-				var continentRepo = new DataLayers.Common.Countries.ContinentRepository();
+				var continentRepo = new DataLayers.Common.Countries.ContinentRepository(DatabaseFactory.ProfilePrimary);
 				var continentCount = continentRepo.GetCountAsync().Result;
 				if (continentCount == 0)
 				{
@@ -422,7 +406,7 @@ namespace SpectrumV1.Utilities
 				}
 
 				//4- Check collection Regions and add default if empty
-				var regionRepo = new DataLayers.Common.Countries.RegionRepository();
+				var regionRepo = new DataLayers.Common.Countries.RegionRepository(DatabaseFactory.ProfilePrimary);
 				var regionCount = regionRepo.GetCountAsync().Result;
 				if (regionCount == 0)
 				{
@@ -442,7 +426,7 @@ namespace SpectrumV1.Utilities
 				}
 
 				//5- Check collection Countries and add default if empty
-				var countryRepo = new DataLayers.Common.Countries.CountryRepository();
+				var countryRepo = new DataLayers.Common.Countries.CountryRepository(DatabaseFactory.ProfilePrimary);
 				var countryCount = countryRepo.GetCountAsync().Result;
 				if (countryCount == 0)
 				{
@@ -463,7 +447,7 @@ namespace SpectrumV1.Utilities
 				}
 
 				//6- Check collection Provinces and add default if empty
-				var provinceRepo = new DataLayers.Common.Countries.ProvinceRepository();
+				var provinceRepo = new DataLayers.Common.Countries.ProvinceRepository(DatabaseFactory.ProfilePrimary);
 				var provinceCount = provinceRepo.GetCountAsync().Result;
 				if (provinceCount == 0)
 				{
@@ -485,7 +469,7 @@ namespace SpectrumV1.Utilities
 				}
 
 				//7- Check collection Districts and add default if empty
-				var districtRepo = new DataLayers.Common.Countries.DistrictRepository();
+				var districtRepo = new DataLayers.Common.Countries.DistrictRepository(DatabaseFactory.ProfilePrimary);
 				var districtCount = districtRepo.GetCountAsync().Result;
 				if (districtCount == 0)
 				{
@@ -508,7 +492,7 @@ namespace SpectrumV1.Utilities
 				}
 
 				//8- Check collection Cities and add default if empty
-				var cityRepo = new DataLayers.Common.Countries.CityRepository();
+				var cityRepo = new DataLayers.Common.Countries.CityRepository(DatabaseFactory.ProfilePrimary);
 				var cityCount = cityRepo.GetCountAsync().Result;
 				if (cityCount == 0)
 				{
@@ -532,7 +516,7 @@ namespace SpectrumV1.Utilities
 				}
 
 				//8- Check collection Currencies and add default if empty
-				var currencyRepo = new DataLayers.Common.Currencies.CurrencyRepository();
+				var currencyRepo = new DataLayers.Common.Currencies.CurrencyRepository(DatabaseFactory.ProfilePrimary);
 				var currencyCount = currencyRepo.GetCountAsync().Result;
 				if (currencyCount == 0)
 				{
@@ -568,7 +552,7 @@ namespace SpectrumV1.Utilities
 				}
 
 				//9- Check collection Users and add default if empty
-				var userRepo = new DataLayers.Users.UserRepository();
+				var userRepo = new DataLayers.Users.UserRepository(DatabaseFactory.ProfilePrimary);
 				var userCount = userRepo.GetCountAsync().Result;
 				if (userCount == 0)
 				{

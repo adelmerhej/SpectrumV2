@@ -1,6 +1,6 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
-using SpectrumV1.DataLayers.DataAccess.Types;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Projects;
 using System;
 using System.Collections.Generic;
@@ -14,14 +14,9 @@ namespace SpectrumV1.DataLayers.Projects
 		private readonly IMongoCollection<ProjectModel> _projects;
 		private const string CollectionName = "Projects";
 
-		public ProjectRepository()
+		public ProjectRepository(string profileName)
 		{
-			var connectionString = MongoDbDatabaseModel.BuildConnectionString();
-			var url = new MongoUrl(connectionString);
-			var databaseName = string.IsNullOrWhiteSpace(url.DatabaseName) ? "admin" : url.DatabaseName.Trim();
-
-			var client = new MongoClient(url);
-			var database = client.GetDatabase(databaseName);
+			var database = DatabaseFactory.GetMongoDatabase(profileName);
 			_projects = database.GetCollection<ProjectModel>(CollectionName);
 		}
 

@@ -1,6 +1,7 @@
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Members.Clients;
 using SpectrumV1.DataLayers.Members.Engineers;
 using SpectrumV1.DataLayers.Projects;
@@ -23,9 +24,9 @@ namespace SpectrumV1.Views.Projects
 		private IList<ClientModel> _clients = new List<ClientModel>();
 		private IList<EngineerModel> _engineers = new List<EngineerModel>();
 
-		private readonly ProjectRepository _projectRepository = new ProjectRepository();
-		private readonly ClientRepository _clientRepository = new ClientRepository();
-		private readonly EngineerRepository _engineerRepository = new EngineerRepository();
+		private readonly ProjectRepository _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
+		private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
+		private readonly EngineerRepository _engineerRepository = new EngineerRepository(DatabaseFactory.ProfilePrimary);
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
 		private bool _canAdd = true;

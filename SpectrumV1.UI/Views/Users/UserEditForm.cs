@@ -1,27 +1,28 @@
 ﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
 using Microsoft.AspNet.Identity;
+using SpectrumV1.DataLayers.Common.Companies; // Added for companies repository
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Users;
+using SpectrumV1.Models.Common.Companies; // Added for CompanyModel
 using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Common;
+using SpectrumV1.Utilities.Enums; // Added for RolesType enum
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SpectrumV1.Utilities.Enums; // Added for RolesType enum
-using System.Linq;
-using DevExpress.XtraEditors.Controls;
-using System.Collections.Generic;
-using SpectrumV1.DataLayers.Common.Companies; // Added for companies repository
-using SpectrumV1.Models.Common.Companies; // Added for CompanyModel
 
 namespace SpectrumV1.Views.Users
 {
 	public partial class UserEditForm : XtraForm
 	{
 		private UserModel _userModel = new UserModel();
-		private readonly UserRepository _userRepository = new UserRepository();
-		private readonly CompanyRepository _companyRepository = new CompanyRepository();
+		private readonly UserRepository _userRepository = new UserRepository(DatabaseFactory.ProfilePrimary);
+		private readonly CompanyRepository _companyRepository = new CompanyRepository(DatabaseFactory.ProfilePrimary);
 		private List<CompanyModel> _companies; // cache companies
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();

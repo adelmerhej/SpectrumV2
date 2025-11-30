@@ -1,6 +1,6 @@
 ﻿using DevExpress.XtraEditors;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Members.Engineers;
-using SpectrumV1.Models.Common.Areas;
 using SpectrumV1.Models.Members.Engineers;
 using SpectrumV1.Utilities;
 using System;
@@ -13,7 +13,7 @@ namespace SpectrumV1.Views.Members.Engineers
 	public partial class EngineerEditForm : XtraForm
 	{
 		private EngineerModel _engineerModel = new EngineerModel();
-		private readonly EngineerRepository _engineerRepository = new EngineerRepository();
+		private readonly EngineerRepository _engineerRepository = new EngineerRepository(DatabaseFactory.ProfilePrimary);
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
 		// init permission variables

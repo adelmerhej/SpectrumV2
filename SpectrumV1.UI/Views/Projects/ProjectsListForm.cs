@@ -2,6 +2,7 @@ using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Projects;
 using SpectrumV1.Models.Projects;
 using SpectrumV1.Utilities.Interfaces;
@@ -19,7 +20,7 @@ namespace SpectrumV1.Views.Projects
 		private ProjectModel _projectModel = new ProjectModel();
 		private IList<ProjectModel> _projects = new List<ProjectModel>();
 
-		private readonly ProjectRepository _projectRepository = new ProjectRepository();
+		private readonly ProjectRepository _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
 
 		private bool _canAdd = true;
 		private bool _canEdit = true;

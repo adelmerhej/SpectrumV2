@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using SpectrumV1.DataLayers.Common.Services;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Services;
 using SpectrumV1.Utilities;
 using System;
@@ -13,7 +14,7 @@ namespace SpectrumV1.Views.Common.Services
 	{
 		private ServiceModel _serviceModel = new ServiceModel();
 
-		private readonly ServiceRepository _serviceRepository = new ServiceRepository();
+		private readonly ServiceRepository _serviceRepository = new ServiceRepository(DatabaseFactory.ProfilePrimary);
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 

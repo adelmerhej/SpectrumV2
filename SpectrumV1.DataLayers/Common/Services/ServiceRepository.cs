@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using SpectrumV1.DataLayers.DataAccess.Types;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Services;
 using System;
 using System.Collections.Generic;
@@ -15,15 +15,9 @@ namespace SpectrumV1.DataLayers.Common.Services
 		private const string CollectionName = "Services";
 
 		// Constructor for dependency injection
-		public ServiceRepository()
+		public ServiceRepository(string profileName)
 		{
-			var connectionString = MongoDbDatabaseModel.BuildConnectionString();
-			var url = new MongoUrl(connectionString);
-			// Use database specified in connection string; fall back to "admin" then CollectionName
-			var databaseName = string.IsNullOrWhiteSpace(url.DatabaseName) ? "admin" : url.DatabaseName.Trim();
-
-			var client = new MongoClient(url); // reuse parsed settings
-			var database = client.GetDatabase(databaseName);
+			var database = DatabaseFactory.GetMongoDatabase(profileName);
 			_services = database.GetCollection<ServiceModel>(CollectionName);
 		}
 

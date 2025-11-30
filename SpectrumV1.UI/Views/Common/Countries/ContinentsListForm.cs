@@ -3,6 +3,7 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Countries;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Utilities.Interfaces;
 using System;
@@ -19,7 +20,7 @@ namespace SpectrumV1.Views.Common.Countries
 		private ContinentModel _continentModel = new ContinentModel();
 		private IList<ContinentModel> _continents = new List<ContinentModel>();
 
-		private readonly ContinentRepository _continentRepository = new ContinentRepository();
+		private readonly ContinentRepository _continentRepository = new ContinentRepository(DatabaseFactory.ProfilePrimary);
 
 		//Init permissionvariables
 		private bool _canAdd = true;

@@ -2,12 +2,12 @@
 using DevExpress.XtraEditors.Controls;
 using SpectrumV1.DataLayers.Common.Branches;
 using SpectrumV1.DataLayers.Common.Companies;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Users;
 using SpectrumV1.Models.Common.Companies;
 using SpectrumV1.Models.Users;
 using SpectrumV1.Properties;
 using SpectrumV1.Utilities;
-using SpectrumV1.Utilities.Layout;
 using SpectrumV1.Views.Main;
 using System;
 using System.Collections.Generic;
@@ -25,10 +25,10 @@ namespace SpectrumV1.Views.Users
 		private UserModel _userModel = new UserModel();
 		private IList<CompanyModel> _companies = new List<CompanyModel>();
 
-		private CompanyRepository _companyRepository = new CompanyRepository();
-		private BranchRepository _branchRepository = new BranchRepository();
+		private CompanyRepository _companyRepository = new CompanyRepository(DatabaseFactory.ProfilePrimary);
+		private BranchRepository _branchRepository = new BranchRepository(DatabaseFactory.ProfilePrimary);
 
-		private readonly UserRepository _userRepository = new UserRepository();
+		private readonly UserRepository _userRepository = new UserRepository(DatabaseFactory.ProfilePrimary);
 
 		/// <summary>
 		/// User Permission Role
@@ -123,7 +123,7 @@ namespace SpectrumV1.Views.Users
 
 			try
 			{
-				using (var userRepository = new UserRepository())
+				using (var userRepository = new UserRepository(DatabaseFactory.ProfilePrimary))
 				{
 					var loginService = new SpectrumV1.BusinessLogic.Users.LoginService(userRepository);
 					var user = await loginService.AuthenticateAsync(txtUsername.Text.Trim(), txtPassword.Text);
@@ -147,7 +147,7 @@ namespace SpectrumV1.Views.Users
 
 							if (result != DialogResult.OK)
 							{
-								XtraMessageBox.Show(@"You must change your password before you can continue.", 
+								XtraMessageBox.Show(@"You must change your password before you can continue.",
 									@"Change Password Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 								return;
 							}

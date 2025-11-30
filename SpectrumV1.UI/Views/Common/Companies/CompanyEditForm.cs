@@ -3,6 +3,7 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using SpectrumV1.DataLayers.Common.Branches;
 using SpectrumV1.DataLayers.Common.Companies;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Companies;
 using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities;
@@ -26,8 +27,8 @@ namespace SpectrumV1.Views.Common.Companies
 		private BranchModel _branchModel = new BranchModel();
 		private IList<BranchModel> _branches = new List<BranchModel>();
 
-		private readonly CompanyRepository _companyRepository = new CompanyRepository();
-		private readonly BranchRepository _branchRepository = new BranchRepository();
+		private readonly CompanyRepository _companyRepository = new CompanyRepository(DatabaseFactory.ProfilePrimary);
+		private readonly BranchRepository _branchRepository = new BranchRepository(DatabaseFactory.ProfilePrimary);
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 

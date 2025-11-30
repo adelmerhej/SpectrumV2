@@ -2,6 +2,7 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Members.Engineers;
 using SpectrumV1.Models.Members.Engineers;
 using SpectrumV1.Utilities.Interfaces;
@@ -19,7 +20,7 @@ namespace SpectrumV1.Views.Members.Engineers
 		private EngineerModel _engineerModel = new EngineerModel();
 		private IList<EngineerModel> _engineers = new List<EngineerModel>();
 
-		private readonly EngineerRepository _engineerRepository = new EngineerRepository();
+		private readonly EngineerRepository _engineerRepository = new EngineerRepository(DatabaseFactory.ProfilePrimary);
 
 		// Init permission variables
 		private bool _canAdd = true;

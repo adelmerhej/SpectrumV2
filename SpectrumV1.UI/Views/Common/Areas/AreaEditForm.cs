@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using SpectrumV1.DataLayers.Common.Areas;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Areas;
 using SpectrumV1.Utilities;
 using System;
@@ -13,7 +14,7 @@ namespace SpectrumV1.Views.Common.Areas
 	{
 		private AreaModel _areaModel = new AreaModel();
 
-		private readonly AreaRepository _areaRepository = new AreaRepository();
+		private readonly AreaRepository _areaRepository = new AreaRepository(DatabaseFactory.ProfilePrimary);
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 

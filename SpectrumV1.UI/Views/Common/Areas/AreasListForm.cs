@@ -3,6 +3,7 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Areas;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Areas;
 using SpectrumV1.Utilities.Interfaces;
 using System;
@@ -19,7 +20,7 @@ namespace SpectrumV1.Views.Common.Areas
 		private AreaModel _areaModel = new AreaModel();
 		private IList<AreaModel> _areas = new List<AreaModel>();
 
-		private readonly AreaRepository _areaRepository = new AreaRepository();
+		private readonly AreaRepository _areaRepository = new AreaRepository(DatabaseFactory.ProfilePrimary);
 
 		//Init permissionvariables
 		private bool _canAdd = true;

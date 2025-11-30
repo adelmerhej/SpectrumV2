@@ -27,7 +27,7 @@ namespace SpectrumV1.Views.Main.Connections
 		#region Init preloading Methods
 		private void ConnectionParams()
 		{
-			_connectionModel = DatabaseFactory.ConnectionParamsGet();
+			//_connectionModel = DatabaseFactory.ConnectionParamsGet();
 		}
 
 		private void InitializeBindings()
@@ -72,7 +72,7 @@ namespace SpectrumV1.Views.Main.Connections
 
 				_connectionModel.DatabaseConnectionString = txtConnectionString.Text.Trim();
 
-				DatabaseFactory.ConnectionParamsSet(_connectionModel);
+				//DatabaseFactory.ConnectionParamsSet(_connectionModel);
 
 				DialogResult = DialogResult.OK;
 				Close();
@@ -88,7 +88,7 @@ namespace SpectrumV1.Views.Main.Connections
 			try
 			{
 				//test connection
-				bool isConnected = DatabaseFactory.TestDatabaseConnection(txtConnectionString.Text.Trim(), txtDatabase.Text.Trim());
+				bool isConnected = true; // DatabaseFactory.TestDatabaseConnection(txtConnectionString.Text.Trim(), txtDatabase.Text.Trim());
 
 				if (isConnected)
 				{

@@ -1,8 +1,8 @@
 ﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Users;
-using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities.Interfaces;
 using System;
@@ -18,7 +18,7 @@ namespace SpectrumV1.Views.Users
 		private UserModel _userModel = new UserModel();
 		private IList<UserModel> _users = new List<UserModel>();
 
-		private readonly UserRepository _userRepository = new UserRepository();
+		private readonly UserRepository _userRepository = new UserRepository(DatabaseFactory.ProfilePrimary);
 
 		//Init permissionvariables
 		private bool _canAdd = true;

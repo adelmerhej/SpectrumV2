@@ -1,16 +1,11 @@
-﻿using DevExpress.XtraBars;
-using DevExpress.XtraBars.Ribbon;
+﻿using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using SpectrumV1.DataLayers.Common.Currencies;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Currencies;
 using SpectrumV1.Utilities.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -24,8 +19,8 @@ namespace SpectrumV1.Views.Common.Currencies
 		private CurrencyExchangeModel _currencyExchangeModel = new CurrencyExchangeModel();
 		private IList<CurrencyExchangeModel> _currenciesExchange = new List<CurrencyExchangeModel>();
 
-		private readonly CurrencyRepository _currencyRepository = new CurrencyRepository();
-		private readonly CurrencyExchangeRepository _currencyExchangeRepository = new CurrencyExchangeRepository();
+		private readonly CurrencyRepository _currencyRepository = new CurrencyRepository(DatabaseFactory.ProfilePrimary);
+		private readonly CurrencyExchangeRepository _currencyExchangeRepository = new CurrencyExchangeRepository(DatabaseFactory.ProfilePrimary);
 
 		//Init permissionvariables
 		private bool _canAdd = true;

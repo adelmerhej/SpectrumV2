@@ -3,6 +3,7 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Countries;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Utilities.Interfaces;
 using System;
@@ -19,7 +20,7 @@ namespace SpectrumV1.Views.Common.Countries
 		private ProvinceModel _provinceModel = new ProvinceModel();
 		private IList<ProvinceModel> _provinces = new List<ProvinceModel>();
 
-		private readonly ProvinceRepository _provinceRepository = new ProvinceRepository();
+		private readonly ProvinceRepository _provinceRepository = new ProvinceRepository(DatabaseFactory.ProfilePrimary);
 
 		//Init permissionvariables
 		private bool _canAdd = true;

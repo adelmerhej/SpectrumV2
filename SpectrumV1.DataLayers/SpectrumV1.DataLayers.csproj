@@ -172,14 +172,9 @@
     <Compile Include="Common\Currencies\Interfaces\ICurrencyRepository.cs" />
     <Compile Include="Common\Services\IServiceRepository.cs" />
     <Compile Include="Common\Services\ServiceRepository.cs" />
-    <Compile Include="DataAccess\AbstractDatabaseModel.cs" />
     <Compile Include="DataAccess\DatabaseFactory.cs" />
     <Compile Include="DataAccess\IDatabase.cs" />
-    <Compile Include="DataAccess\Types\MongoDbDatabaseModel.cs" />
-    <Compile Include="DataAccess\Types\SqlServerDatabaseModel.cs" />
     <Compile Include="DataUtilities\ConfigManager.cs" />
-    <Compile Include="DataUtilities\ConnectionHelper.cs" />
-    <Compile Include="DataUtilities\DatabaseSettings.cs" />
     <Compile Include="Members\Clients\ClientRepository.cs" />
     <Compile Include="Members\Clients\IClientRepository.cs" />
     <Compile Include="Members\Engineers\EngineerRepository.cs" />
@@ -207,6 +202,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DataAccess\Types\" />
     <Folder Include="Members\Suppliers\" />
   </ItemGroup>
   <ItemGroup>

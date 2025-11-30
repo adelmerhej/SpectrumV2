@@ -14,17 +14,17 @@ namespace SpectrumV1.DataLayers.DataUtilities
 	{
 		private static readonly string _layoutsFolder = "Connections";
 
-		public static AppConfigModel Load(string companyName)
+		public static AppConfigModel Load(string profileName)
 		{
 			try
 			{
-				if (string.IsNullOrWhiteSpace(companyName) || string.IsNullOrWhiteSpace(companyName)) return null;
+				if (string.IsNullOrWhiteSpace(profileName) || string.IsNullOrWhiteSpace(profileName)) return null;
 				string directoryPath = Path.Combine(
 					GetFolderPath(SpecialFolder.ApplicationData),
-					Sanitize(companyName),
+					Sanitize(profileName),
 					_layoutsFolder);
 
-				string filePath = Path.Combine(directoryPath, companyName, "connections.json");
+				string filePath = Path.Combine(directoryPath, profileName, "connections.json");
 
 				if (!File.Exists(filePath)) return new AppConfigModel();
 
@@ -38,18 +38,18 @@ namespace SpectrumV1.DataLayers.DataUtilities
 			}
 		}
 
-		public static void Save(AppConfigModel config, string companyName)
+		public static void Save(AppConfigModel config, string profileName)
 		{
 			try
 			{
-				if (string.IsNullOrWhiteSpace(companyName) || string.IsNullOrWhiteSpace(companyName)) return;
+				if (string.IsNullOrWhiteSpace(profileName) || string.IsNullOrWhiteSpace(profileName)) return;
 
 				string directoryPath = Path.Combine(
 					GetFolderPath(SpecialFolder.ApplicationData),
-					Sanitize(companyName),
+					Sanitize(profileName),
 					_layoutsFolder);
 
-				string filePath = Path.Combine(directoryPath, companyName, "connections.json");
+				string filePath = Path.Combine(directoryPath, profileName, "connections.json");
 
 				// Pretty print JSON for easier debugging (values are still encrypted)
 				string json = JsonConvert.SerializeObject(config, Formatting.Indented);

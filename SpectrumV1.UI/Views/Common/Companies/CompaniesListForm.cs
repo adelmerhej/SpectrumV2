@@ -3,6 +3,7 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Companies;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Companies;
 using SpectrumV1.Utilities.Interfaces;
 using System;
@@ -19,7 +20,7 @@ namespace SpectrumV1.Views.Common.Companies
 		private CompanyModel _companyModel = new CompanyModel();
 		private IList<CompanyModel> _companies = new List<CompanyModel>();
 
-		private readonly CompanyRepository _companyRepository = new CompanyRepository();
+		private readonly CompanyRepository _companyRepository = new CompanyRepository(DatabaseFactory.ProfilePrimary);
 
 		//Init permissionvariables
 		private bool _canAdd = true;

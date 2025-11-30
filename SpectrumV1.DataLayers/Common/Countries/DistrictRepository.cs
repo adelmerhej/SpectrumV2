@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using SpectrumV1.DataLayers.Common.Countries.Interfaces;
-using SpectrumV1.DataLayers.DataAccess.Types;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Countries;
 using System;
 using System.Collections.Generic;
@@ -16,15 +16,9 @@ namespace SpectrumV1.DataLayers.Common.Countries
 		private const string CollectionName = "Districts";
 
 		// Constructor for dependency injection
-		public DistrictRepository()
+		public DistrictRepository(string profileName)
 		{
-			var connectionString = MongoDbDatabaseModel.BuildConnectionString();
-			var url = new MongoUrl(connectionString);
-			// Use database specified in connection string; fall back to "admin" then CollectionName
-			var databaseName = string.IsNullOrWhiteSpace(url.DatabaseName) ? "admin" : url.DatabaseName.Trim();
-
-			var client = new MongoClient(url); // reuse parsed settings
-			var database = client.GetDatabase(databaseName);
+			var database = DatabaseFactory.GetMongoDatabase(profileName);
 			_districtes = database.GetCollection<DistrictModel>(CollectionName);
 		}
 

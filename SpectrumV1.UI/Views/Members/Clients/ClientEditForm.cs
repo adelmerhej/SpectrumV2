@@ -2,6 +2,7 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using SpectrumV1.DataLayers.Common.Countries;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Members.Clients;
 using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Models.Members.Clients;
@@ -21,9 +22,9 @@ namespace SpectrumV1.Views.Members.Clients
 		private IList<CityModel> _cities = new List<CityModel>();
 		private IList<CountryModel> _countries = new List<CountryModel>();
 
-		private readonly ClientRepository _clientRepository = new ClientRepository();
-		private readonly CountryRepository _countryRepository = new CountryRepository();
-		private readonly CityRepository _cityRepository = new CityRepository();
+		private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
+		private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
+		private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 

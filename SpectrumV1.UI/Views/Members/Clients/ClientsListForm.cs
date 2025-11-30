@@ -2,12 +2,10 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
-using SpectrumV1.DataLayers.Common.Areas;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Members.Clients;
-using SpectrumV1.Models.Common.Areas;
 using SpectrumV1.Models.Members.Clients;
 using SpectrumV1.Utilities.Interfaces;
-using SpectrumV1.Views.Common.Areas;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,7 +20,7 @@ namespace SpectrumV1.Views.Members.Clients
 		private ClientModel _clientModel = new ClientModel();
 		private IList<ClientModel> _clients = new List<ClientModel>();
 
-		private readonly ClientRepository _clientRepository = new ClientRepository();
+		private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
 
 		//Init permission variables
 		private bool _canAdd = true;

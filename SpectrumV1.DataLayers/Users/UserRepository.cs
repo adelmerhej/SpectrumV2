@@ -1,12 +1,11 @@
-﻿using MongoDB.Driver;
-using MongoDB.Driver.Core.Configuration;
-using SpectrumV1.DataLayers.DataAccess.Types;
+﻿using MongoDB.Bson; // for regex
+using MongoDB.Driver;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Users;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using MongoDB.Bson; // for regex
 using System.Text.RegularExpressions; // for case-insensitive matching
+using System.Threading.Tasks;
 
 namespace SpectrumV1.DataLayers.Users
 {
@@ -16,15 +15,9 @@ namespace SpectrumV1.DataLayers.Users
 		private const string CollectionName = "Users";
 
 		// Constructor for dependency injection
-		public UserRepository()
+		public UserRepository(string profileName)
 		{
-			var connectionString = MongoDbDatabaseModel.BuildConnectionString();
-			var url = new MongoUrl(connectionString);
-			// Use database specified in connection string; fall back to "admin" then CollectionName
-			var databaseName = string.IsNullOrWhiteSpace(url.DatabaseName) ? "admin" : url.DatabaseName.Trim();
-
-			var client = new MongoClient(url); // reuse parsed settings
-			var database = client.GetDatabase(databaseName);
+			var database = DatabaseFactory.GetMongoDatabase(profileName);
 			_users = database.GetCollection<UserModel>(CollectionName);
 		}
 

@@ -3,6 +3,7 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Services;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Services;
 using SpectrumV1.Utilities.Interfaces;
 using System;
@@ -19,7 +20,7 @@ namespace SpectrumV1.Views.Common.Services
 		private ServiceModel _serviceModel = new ServiceModel();
 		private IList<ServiceModel> _services = new List<ServiceModel>();
 
-		private readonly ServiceRepository _serviceRepository = new ServiceRepository();
+		private readonly ServiceRepository _serviceRepository = new ServiceRepository(DatabaseFactory.ProfilePrimary);
 
 		//Init permissionvariables
 		private bool _canAdd = true;
