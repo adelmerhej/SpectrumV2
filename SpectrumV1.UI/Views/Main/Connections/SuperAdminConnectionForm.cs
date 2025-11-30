@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Administration.Connections;
 using System;
 using System.Windows.Forms;
@@ -24,7 +25,7 @@ namespace SpectrumV1.Views.Main.Connections
 		#region Init preloading Methods
 		private void ConnectionParams()
 		{
-			//_connectionModel = DatabaseFactory.ConnectionParamsGet(true);
+			_connectionModel = DatabaseFactory.GetConnection(DatabaseFactory.ProfileSecondary);
 		}
 
 		private void InitializeBindings()
@@ -64,7 +65,7 @@ namespace SpectrumV1.Views.Main.Connections
 
 				_connectionModel.DatabaseConnectionString = txtConnectionString.Text.Trim();
 
-				//DatabaseFactory.ConnectionParamsSet(_connectionModel);
+				DatabaseFactory.SaveConnection(_connectionModel, DatabaseFactory.ProfileSecondary);
 
 				DialogResult = DialogResult.OK;
 				Close();
@@ -79,9 +80,21 @@ namespace SpectrumV1.Views.Main.Connections
 		{
 			try
 			{
+				var testConnection = new ConnectionModel();
+
+				int.TryParse(txtPort.Text, out var result);
+
+				testConnection.DatabaseHost = txtHost.Text.Trim();
+				testConnection.DatabasePort = result;
+				testConnection.DatabaseType = _databaseType;
+				testConnection.DatabaseName = txtDatabase.Text.Trim();
+				testConnection.DatabaseUser = txtUsername.Text.Trim();
+				testConnection.DatabasePassword = txtPassword.Text;
+
+				testConnection.DatabaseConnectionString = txtConnectionString.Text.Trim();
+
 				//test connection
-				//bool isConnected = DatabaseFactory.TestDatabaseConnection(txtConnectionString.Text.Trim(), txtDatabase.Text.Trim());
-				bool isConnected = true;
+				bool isConnected = DatabaseFactory.TestConnection(testConnection, DatabaseFactory.ProfileSecondary);
 
 				if (isConnected)
 				{
@@ -97,7 +110,6 @@ namespace SpectrumV1.Views.Main.Connections
 				//log error
 				XtraMessageBox.Show(ex.Message, @"Connection Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-
 		}
 
 		private void txtPassword_ButtonClick(object sender, ButtonPressedEventArgs e)

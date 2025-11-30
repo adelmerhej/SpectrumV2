@@ -87,8 +87,21 @@ namespace SpectrumV1.Views.Main.Connections
 		{
 			try
 			{
+				var testConnection = new ConnectionModel();
+
+				int.TryParse(txtPort.Text, out var result);
+
+				testConnection.DatabaseHost = txtHost.Text.Trim();
+				testConnection.DatabasePort = result;
+				testConnection.DatabaseType = _databaseType;
+				testConnection.DatabaseName = txtDatabase.Text.Trim();
+				testConnection.DatabaseUser = txtUsername.Text.Trim();
+				testConnection.DatabasePassword = txtPassword.Text;
+
+				testConnection.DatabaseConnectionString = txtConnectionString.Text.Trim();
+
 				//test connection
-				bool isConnected = true; // DatabaseFactory.TestDatabaseConnection(txtConnectionString.Text.Trim(), txtDatabase.Text.Trim());
+				bool isConnected = DatabaseFactory.TestConnection(testConnection, DatabaseFactory.ProfilePrimary);
 
 				if (isConnected)
 				{
@@ -104,7 +117,6 @@ namespace SpectrumV1.Views.Main.Connections
 				//log error
 				XtraMessageBox.Show(ex.Message, @"Connection Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-
 		}
 
 		private void txtPassword_ButtonClick(object sender, ButtonPressedEventArgs e)
