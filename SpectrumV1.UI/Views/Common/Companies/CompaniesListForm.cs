@@ -83,7 +83,7 @@ namespace SpectrumV1.Views.Common.Companies
 
 		private void ApplyDefaults()
 		{
-			
+
 		}
 
 		private void ApplyPermissions()

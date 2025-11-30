@@ -251,7 +251,7 @@ namespace SpectrumV1.Views.Common.Countries
 			{
 				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-		}	
+		}
 
 		private async void RcvUpdatedContinentAsync(object sender, EventArgs e)
 		{
@@ -268,7 +268,7 @@ namespace SpectrumV1.Views.Common.Countries
 			{
 				gcContinents.RefreshDataSource();
 				gvContinents.RefreshRow(gvContinents.FocusedRowHandle);
-				gvContinents	.UpdateCurrentRow();
+				gvContinents.UpdateCurrentRow();
 			}
 		}
 

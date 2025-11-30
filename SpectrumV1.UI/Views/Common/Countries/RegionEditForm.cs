@@ -39,7 +39,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 			StartLoading();
 		}
-	
+
 		private async void StartLoading()
 		{
 			await InitializeBindings();

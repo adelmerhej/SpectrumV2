@@ -13,7 +13,6 @@ namespace SpectrumV1.DataLayers.DataAccess
 		// Constants for your standard profile names
 		public const string ProfilePrimary = "Primary";
 		public const string ProfileSecondary = "Secondary";
-		public const string ProfileTertiary = "Tertiary";
 
 		/// <summary>
 		/// Saves a connection configuration securely to the user's local profile.

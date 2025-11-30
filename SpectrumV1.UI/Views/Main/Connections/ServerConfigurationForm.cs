@@ -27,7 +27,7 @@ namespace SpectrumV1.Views.Main.Connections
 		#region Init preloading Methods
 		private void ConnectionParams()
 		{
-			//_connectionModel = DatabaseFactory.ConnectionParamsGet();
+			_connectionModel = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
 		}
 
 		private void InitializeBindings()
@@ -47,7 +47,7 @@ namespace SpectrumV1.Views.Main.Connections
 
 		private void ApplyPermissions()
 		{
-			btnSecondConnection.Visible = CurrentUser.UserName.ToLower() == "admin";
+			btnSecondConnection.Visible = CurrentUser.UserName?.ToLower() == "admin";
 		}
 
 		#endregion
@@ -72,7 +72,7 @@ namespace SpectrumV1.Views.Main.Connections
 
 				_connectionModel.DatabaseConnectionString = txtConnectionString.Text.Trim();
 
-				//DatabaseFactory.ConnectionParamsSet(_connectionModel);
+				DatabaseFactory.SaveConnection(_connectionModel, DatabaseFactory.ProfilePrimary);
 
 				DialogResult = DialogResult.OK;
 				Close();

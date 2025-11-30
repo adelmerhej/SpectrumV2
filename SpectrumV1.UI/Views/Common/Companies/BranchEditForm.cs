@@ -1,12 +1,9 @@
 ﻿using DevExpress.XtraEditors;
-using Microsoft.AspNet.Identity;
 using SpectrumV1.DataLayers.Common.Branches;
 using SpectrumV1.DataLayers.Common.Companies;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Companies;
-using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities;
-using SpectrumV1.Utilities.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;

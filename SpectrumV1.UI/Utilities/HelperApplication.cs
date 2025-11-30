@@ -10,7 +10,6 @@ using SpectrumV1.Views.Main.Connections;
 using SpectrumV1.Views.Main.Update;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
@@ -169,7 +168,7 @@ namespace SpectrumV1.Utilities
 				return "0.0.0.0";
 			}
 		}
-		
+
 		#endregion
 
 		#region Database Connection
