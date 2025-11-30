@@ -47,6 +47,9 @@ namespace SpectrumV1.Views.Main
 
 			UpdateStatus();
 
+			defaultLookAndFeel1.LookAndFeel.SetSkinStyle(Settings.Default.ApplicationSkinName, Settings.Default.ApplicationPalette);
+			LayoutsStyle.LoadLayoutMenu(mainMenu, CurrentUser.UserName, CurrentUser.Company);
+
 			_logOut = true;
 		}
 
@@ -72,7 +75,7 @@ namespace SpectrumV1.Views.Main
 			settings.Palette = UserLookAndFeel.Default.ActiveSvgPaletteName;
 			if (!_resetMenu)
 			{
-				LayoutsStyle.SaveLayoutMenu(mainMenu, CurrentUser.UserName);
+				LayoutsStyle.SaveLayoutMenu(mainMenu, CurrentUser.UserName, CurrentUser.Company);
 			}
 		}
 

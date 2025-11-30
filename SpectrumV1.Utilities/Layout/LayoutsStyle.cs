@@ -1,186 +1,142 @@
-﻿using System.IO;
-using DevExpress.XtraBars.Navigation;
+﻿using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTreeList;
+using System;
+using System.IO;
 using static System.Environment;
 
 namespace SpectrumV1.Utilities.Layout
 {
 	public static class LayoutsStyle
 	{
-		public static bool ResetLayoutMenu(string accordion, string userName)
+		private static readonly string _layoutsFolder = "Layouts";
+
+		private static string BuildDirectory(string companyName, string userName)
 		{
-			//Form form = FindForm(grid);
-			if (accordion == null) return false;
-
-			// Prepare directory
-			string directoryPath =
-				string.Concat(string.Concat(GetFolderPath(SpecialFolder.ApplicationData), "\\VExpAcc\\Layouts\\"),
-					userName + "\\");
-			if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
-			string controlName = string.Concat(directoryPath, accordion, ".xml");
-
-			//accordion.SaveLayoutToXml(controlName);
-			File.Delete(controlName);
-
-			return true;
+			if (string.IsNullOrWhiteSpace(companyName) || string.IsNullOrWhiteSpace(userName)) return null;
+			string directoryPath = Path.Combine(
+				GetFolderPath(SpecialFolder.ApplicationData),
+				Sanitize(companyName),
+				_layoutsFolder,
+				Sanitize(userName));
+			try
+			{
+				if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
+			}
+			catch
+			{
+				return null; // Directory creation failed
+			}
+			return directoryPath;
 		}
 
-		public static bool ResetLayoutMenu(AccordionControl accordion, string userName)
+		private static string GetLayoutFilePath(string controlName, string companyName, string userName)
 		{
-			//Form form = FindForm(grid);
-			if (accordion == null) return false;
-
-			// Prepare directory
-			string directoryPath =
-				string.Concat(string.Concat(GetFolderPath(SpecialFolder.ApplicationData), "\\VExpAcc\\Layouts\\"),
-					userName + "\\");
-			if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
-			string controlName = string.Concat(directoryPath, accordion.Name, ".xml");
-
-			//accordion.SaveLayoutToXml(controlName);
-			File.Delete(controlName);
-
-			return true;
-		}
-		public static bool SaveLayoutMenu(AccordionControl accordion, string userName)
-		{
-			//Form form = FindForm(grid);
-			if (accordion == null) return false;
-
-			// Prepare directory
-			string directoryPath =
-				string.Concat(string.Concat(GetFolderPath(SpecialFolder.ApplicationData), "\\VExpAcc\\Layouts\\"),
-					userName + "\\");
-			if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
-			string controlName = string.Concat(directoryPath, accordion.Name, ".xml");
-
-			accordion.SaveLayoutToXml(controlName);
-
-			return true;
+			if (string.IsNullOrWhiteSpace(controlName)) return null;
+			var directory = BuildDirectory(companyName, userName);
+			if (directory == null) return null;
+			return Path.Combine(directory, controlName + ".xml");
 		}
 
-		public static bool LoadLayoutMenu(AccordionControl accordion, string userName)
+		private static bool SaveLayoutCore(string controlName, Action<string> saveAction, string companyName, string userName)
 		{
-			//Form form = FindForm(grid);
-			if (accordion == null) return false;
-
-			// Prepare directory
-			string directoryPath =
-				string.Concat(string.Concat(GetFolderPath(SpecialFolder.ApplicationData), "\\VExpAcc\\Layouts\\"),
-					userName + "\\");
-
-			string controlName = string.Concat(directoryPath, accordion.Name, ".xml");
-			if (!File.Exists(controlName)) return false;
-
-			accordion.RestoreLayoutFromXml(controlName);
-
-			return true;
+			var path = GetLayoutFilePath(controlName, companyName, userName);
+			if (path == null) return false;
+			try
+			{
+				saveAction(path);
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
 		}
 
-		public static bool SaveLayoutGrid(GridView grid, string userName)
+		private static bool LoadLayoutCore(string controlName, Action<string> loadAction, string companyName, string userName)
 		{
-			//Form form = FindForm(grid);
-			if (grid == null) return false;
-
-			// Prepare directory
-			string directoryPath =
-				string.Concat(string.Concat(GetFolderPath(SpecialFolder.ApplicationData), "\\VExpAcc\\Layouts\\"),
-					 userName + "\\");
-			if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
-			string gridName = string.Concat(directoryPath, grid.Name, ".xml");
-
-			grid.SaveLayoutToXml(gridName);
-
-			return true;
-		}
-		public static bool SaveLayoutTreeList(TreeList grid, string userName)
-		{
-			//Form form = FindForm(grid);
-			if (grid == null) return false;
-
-			// Prepare directory
-			string directoryPath =
-				string.Concat(string.Concat(GetFolderPath(SpecialFolder.ApplicationData), "\\VExpAcc\\Layouts\\"),
-					userName + "\\");
-			if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
-			string gridName = string.Concat(directoryPath, grid.Name, ".xml");
-
-			grid.SaveLayoutToXml(gridName);
-
-			return true;
-		}
-		public static bool LoadLayoutGrid(GridView grid, string userName)
-		{
-			//Form form = FindForm(grid);
-			if (grid == null) return false;
-
-			// Prepare directory
-			string directoryPath =
-				string.Concat(string.Concat(GetFolderPath(SpecialFolder.ApplicationData), "\\VExpAcc\\Layouts\\"),
-					userName + "\\");
-
-			string gridName = string.Concat(directoryPath, grid.Name, ".xml");
-			if (!File.Exists(gridName)) return false;
-
-			grid.RestoreLayoutFromXml(gridName);
-
-			return true;
-		}
-		public static bool LoadLayoutTreeList(TreeList grid, string userName)
-		{
-			//Form form = FindForm(grid);
-			if (grid == null) return false;
-
-			// Prepare directory
-			string directoryPath =
-				string.Concat(string.Concat(GetFolderPath(SpecialFolder.ApplicationData), "\\VExpAcc\\Layouts\\"),
-					userName + "\\");
-
-			string gridName = string.Concat(directoryPath, grid.Name, ".xml");
-			if (!File.Exists(gridName)) return false;
-
-			grid.RestoreLayoutFromXml(gridName);
-
-			return true;
+			var path = GetLayoutFilePath(controlName, companyName, userName);
+			if (path == null || !File.Exists(path)) return false;
+			try
+			{
+				loadAction(path);
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
 		}
 
-		//Reset Grid view
-		public static bool ResetLayoutGrid(GridView grid, string userName)
+		private static bool DeleteLayoutCore(string controlName, string companyName, string userName)
 		{
-			//Form form = FindForm(grid);
-			if (grid == null) return false;
-
-			// Prepare directory
-			string directoryPath =
-				string.Concat(string.Concat(GetFolderPath(SpecialFolder.ApplicationData), "\\VExpAcc\\Layouts\\"),
-					userName + "\\");
-
-			string gridName = string.Concat(directoryPath, grid.Name, ".xml");
-			if (!File.Exists(gridName)) return false;
-
-			File.Delete(gridName);
-
-			return true;
+			var path = GetLayoutFilePath(controlName, companyName, userName);
+			if (path == null || !File.Exists(path)) return false;
+			try
+			{
+				File.Delete(path);
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
 		}
 
-		//Reset Layout view
-		public static bool ResetLayoutTreeList(TreeList grid, string userName)
+		private static string Sanitize(string value)
 		{
-			//Form form = FindForm(grid);
-			if (grid == null) return false;
+			return string.IsNullOrWhiteSpace(value) ? string.Empty : value.Replace(" ", string.Empty);
+		}
 
-			// Prepare directory
-			string directoryPath =
-				string.Concat(string.Concat(GetFolderPath(SpecialFolder.ApplicationData), "\\VExpAcc\\Layouts\\"),
-					userName + "\\");
+		// Menu (AccordionControl) overload with string name
+		public static bool ResetLayoutMenu(string accordion, string userName, string companyName)
+		{
+			return DeleteLayoutCore(accordion, companyName, userName);
+		}
 
-			string gridName = string.Concat(directoryPath, grid.Name, ".xml");
-			if (!File.Exists(gridName)) return false;
+		public static bool ResetLayoutMenu(AccordionControl accordion, string userName, string companyName)
+		{
+			return accordion != null && DeleteLayoutCore(accordion.Name, companyName, userName);
+		}
 
-			File.Delete(gridName);
+		public static bool SaveLayoutMenu(AccordionControl accordion, string userName, string companyName)
+		{
+			return accordion != null && SaveLayoutCore(accordion.Name, accordion.SaveLayoutToXml, companyName, userName);
+		}
 
-			return true;
+		public static bool LoadLayoutMenu(AccordionControl accordion, string userName, string companyName)
+		{
+			return accordion != null && LoadLayoutCore(accordion.Name, accordion.RestoreLayoutFromXml, companyName, userName);
+		}
+
+		public static bool SaveLayoutGrid(GridView grid, string userName, string companyName)
+		{
+			return grid != null && SaveLayoutCore(grid.Name, grid.SaveLayoutToXml, companyName, userName);
+		}
+
+		public static bool LoadLayoutGrid(GridView grid, string userName, string companyName)
+		{
+			return grid != null && LoadLayoutCore(grid.Name, grid.RestoreLayoutFromXml, companyName, userName);
+		}
+
+		public static bool ResetLayoutGrid(GridView grid, string userName, string companyName)
+		{
+			return grid != null && DeleteLayoutCore(grid.Name, companyName, userName);
+		}
+
+		public static bool SaveLayoutTreeList(TreeList grid, string userName, string companyName)
+		{
+			return grid != null && SaveLayoutCore(grid.Name, grid.SaveLayoutToXml, companyName, userName);
+		}
+
+		public static bool LoadLayoutTreeList(TreeList grid, string userName, string companyName)
+		{
+			return grid != null && LoadLayoutCore(grid.Name, grid.RestoreLayoutFromXml, companyName, userName);
+		}
+
+		public static bool ResetLayoutTreeList(TreeList grid, string userName, string companyName)
+		{
+			return grid != null && DeleteLayoutCore(grid.Name, companyName, userName);
 		}
 	}
 }

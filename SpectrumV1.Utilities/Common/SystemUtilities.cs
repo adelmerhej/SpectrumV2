@@ -148,5 +148,43 @@ namespace SpectrumV1.Utilities.Common
 			return flag;
 		}
 
+
+
+		// Encrypts a string into a Base64 secure string
+		public static string Protect(string clearText)
+		{
+			if (string.IsNullOrEmpty(clearText)) return null;
+
+			try
+			{
+				byte[] clearBytes = Encoding.UTF8.GetBytes(clearText);
+				// Scope is set to CurrentUser: Only this user session can decrypt it.
+				byte[] encryptedBytes = ProtectedData.Protect(clearBytes, null, DataProtectionScope.CurrentUser);
+				return Convert.ToBase64String(encryptedBytes);
+			}
+			catch
+			{
+				// Log error in production
+				return null;
+			}
+		}
+
+		// Decrypts a Base64 secure string back to plain text
+		public static string Unprotect(string encryptedText)
+		{
+			if (string.IsNullOrEmpty(encryptedText)) return null;
+
+			try
+			{
+				byte[] encryptedBytes = Convert.FromBase64String(encryptedText);
+				byte[] clearBytes = ProtectedData.Unprotect(encryptedBytes, null, DataProtectionScope.CurrentUser);
+				return Encoding.UTF8.GetString(clearBytes);
+			}
+			catch
+			{
+				// Log error (often happens if data was copied from another machine)
+				return null;
+			}
+		}
 	}
 }
