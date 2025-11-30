@@ -262,6 +262,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.IconOptions.Image = global::SpectrumV1.Properties.Resources.LiveUpdate;
 			this.MaximizeBox = false;
+			this.MinimizeBox = false;
 			this.Name = "CheckForUpdateForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Check for update";

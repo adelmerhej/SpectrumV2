@@ -194,11 +194,11 @@
 			// 
 			// txtDescription
 			// 
-			this.txtDescription.Location = new System.Drawing.Point(106, 54);
+			this.txtDescription.Location = new System.Drawing.Point(28, 54);
 			this.txtDescription.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.txtDescription.Name = "txtDescription";
 			this.txtDescription.Properties.ReadOnly = true;
-			this.txtDescription.Size = new System.Drawing.Size(267, 107);
+			this.txtDescription.Size = new System.Drawing.Size(345, 107);
 			this.txtDescription.StyleController = this.layoutControl4;
 			this.txtDescription.TabIndex = 4;
 			// 
@@ -228,7 +228,7 @@
 			this.lblDescription.Name = "lblDescription";
 			this.lblDescription.Size = new System.Drawing.Size(349, 111);
 			this.lblDescription.Text = "Description";
-			this.lblDescription.TextSize = new System.Drawing.Size(63, 16);
+			this.lblDescription.TextVisible = false;
 			// 
 			// layoutControl3
 			// 
@@ -404,7 +404,7 @@
 			// 
 			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 254);
 			this.emptySpaceItem1.Name = "emptySpaceItem1";
-			this.emptySpaceItem1.Size = new System.Drawing.Size(238, 242);
+			this.emptySpaceItem1.Size = new System.Drawing.Size(255, 242);
 			// 
 			// Root
 			// 
