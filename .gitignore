@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/SpectrumV1.UI/Views/Members/Clients/ClientEditForm_Developer_Guide.md
