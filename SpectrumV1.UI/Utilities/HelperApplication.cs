@@ -1,11 +1,16 @@
-﻿using DevExpress.XtraEditors;
+﻿using DevExpress.Utils;
+using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraEditors.Repository;
 using Microsoft.AspNet.Identity;
 using SpectrumV1.DataLayers.Administration.Update;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Administration.Connections;
 using SpectrumV1.Models.Users;
+using SpectrumV1.Properties;
 using SpectrumV1.Update.Utilities;
 using SpectrumV1.Utilities.Common;
+using SpectrumV1.Utilities.Enums;
 using SpectrumV1.Views.Main.Connections;
 using SpectrumV1.Views.Main.Update;
 using System;
@@ -567,8 +572,13 @@ namespace SpectrumV1.Utilities
 						SecurityStamp = Guid.NewGuid().ToString(),
 						Roles = new List<string> { "admin" },
 						IsLockedOut = false,
+						Company = "Spectrum Lebanon",
+						Branch = "Default Branch",
 						CreatedBy = "admin",
-						CreatedAt = DateTime.UtcNow
+						CreatedAt = DateTime.UtcNow,
+						IsDefault = false,
+						Active = true,
+						WorkingYear = DateTime.Now.Year,
 					};
 					userRepo.AddNewUserAsync(defaultUser).Wait();
 				}
@@ -729,6 +739,40 @@ namespace SpectrumV1.Utilities
 				// If there is a Company attribute, return its value
 				return ((AssemblyCompanyAttribute)attributes[0]).Company;
 			}
+		}
+
+		#endregion
+
+		#region Title ComboBox Initialization
+		public static void InitTitleComboBox(RepositoryItemImageComboBox edit)
+		{
+			var iCollection = new SvgImageCollection();
+			iCollection.Add(Resources.Doctor);
+			iCollection.Add(Resources.Miss);
+			iCollection.Add(Resources.Mr);
+			iCollection.Add(Resources.Mrs);
+			iCollection.Add(Resources.Ms);
+			iCollection.Add(Resources.Professor);
+			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Dr), PersonPrefix.Dr, 0));
+			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Miss), PersonPrefix.Miss, 1));
+			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Mr), PersonPrefix.Mr, 2));
+			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Mrs), PersonPrefix.Mrs, 3));
+			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Ms), PersonPrefix.Ms, 4));
+			edit.SmallImages = iCollection;
+		}
+
+		public static string GetTitleNameByContactTitle(PersonPrefix title)
+		{
+			switch (title)
+			{
+				case PersonPrefix.Dr: return Resources.ContactTitleDr;
+				case PersonPrefix.Miss: return Resources.ContactTitleMiss;
+				case PersonPrefix.Mr: return Resources.ContactTitleMr;
+				case PersonPrefix.Mrs: return Resources.ContactTitleMrs;
+				case PersonPrefix.Ms: return Resources.ContactTitleMs;
+			}
+
+			return string.Empty;
 		}
 
 		#endregion

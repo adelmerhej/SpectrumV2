@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections.Generic;
 
 namespace SpectrumV1.Models.Members.Clients
 {
@@ -7,7 +8,10 @@ namespace SpectrumV1.Models.Members.Clients
 	{
 		[BsonElement("ClientName")]
 		public string ClientName { get; set; }
-		public string ContactPerson { get; set; }
+			
+		[BsonElement("Contacts")]
+		public List<ContactModel> Contacts { get; set; } = new List<ContactModel>();
+		
 		public string Address { get; set; }
 		public string Email { get; set; }
 		public string PhoneNumber1 { get; set; }

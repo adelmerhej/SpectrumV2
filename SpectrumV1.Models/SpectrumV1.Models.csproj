@@ -159,6 +159,7 @@
     <Compile Include="Common\Services\ServiceModel.cs" />
     <Compile Include="EntityObject.cs" />
     <Compile Include="Members\Clients\ClientModel.cs" />
+    <Compile Include="Members\Clients\ContactModel.cs" />
     <Compile Include="Members\Engineers\EngineerModel.cs" />
     <Compile Include="Operations\Projects\FinancialSummaryModel.cs" />
     <Compile Include="Operations\Projects\ProjectAssignmentModel.cs" />
@@ -187,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Members\Clients\README_ContactMigration.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

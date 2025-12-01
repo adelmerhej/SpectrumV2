@@ -175,8 +175,11 @@
     <Compile Include="DataAccess\DatabaseFactory.cs" />
     <Compile Include="DataAccess\IDatabase.cs" />
     <Compile Include="DataUtilities\ConfigManager.cs" />
+    <Compile Include="Members\Clients\ClientContactMigrationHelper.cs" />
     <Compile Include="Members\Clients\ClientRepository.cs" />
+    <Compile Include="Members\Clients\ContactRepository.cs" />
     <Compile Include="Members\Clients\IClientRepository.cs" />
+    <Compile Include="Members\Clients\IContactRepository.cs" />
     <Compile Include="Members\Engineers\EngineerRepository.cs" />
     <Compile Include="Members\Engineers\IEngineerRepository.cs" />
     <Compile Include="Projects\IProjectRepository.cs" />

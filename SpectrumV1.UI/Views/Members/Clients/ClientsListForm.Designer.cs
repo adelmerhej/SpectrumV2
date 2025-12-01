@@ -59,7 +59,6 @@
 			this.gvClients = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colClientName = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colContactPerson = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colAddress = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colEmail = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colPhoneNumber1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -83,6 +82,7 @@
 			this.repMemberOf = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
 			this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.col_contacts = new DevExpress.XtraGrid.Columns.GridColumn();
 			((System.ComponentModel.ISupportInitialize)(this.rcCustomersList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repositoryItemRatingControl1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1)).BeginInit();
@@ -341,7 +341,7 @@
 			this.gcClients.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
 			this.gcClients.EmbeddedNavigator.Buttons.Remove.Visible = false;
 			this.gcClients.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-			this.gcClients.Location = new System.Drawing.Point(14, 14);
+			this.gcClients.Location = new System.Drawing.Point(12, 12);
 			this.gcClients.MainView = this.gvClients;
 			this.gcClients.Margin = new System.Windows.Forms.Padding(14, 16, 14, 16);
 			this.gcClients.Name = "gcClients";
@@ -353,7 +353,7 @@
             this.repUsers,
             this.repMemberOf});
 			this.gcClients.ShowOnlyPredefinedDetails = true;
-			this.gcClients.Size = new System.Drawing.Size(1374, 532);
+			this.gcClients.Size = new System.Drawing.Size(1378, 536);
 			this.gcClients.TabIndex = 4;
 			this.gcClients.UseEmbeddedNavigator = true;
 			this.gcClients.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -367,8 +367,8 @@
 			// 
 			this.gvClients.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id,
+            this.col_contacts,
             this.colClientName,
-            this.colContactPerson,
             this.colAddress,
             this.colEmail,
             this.colPhoneNumber1,
@@ -415,15 +415,6 @@
 			this.colClientName.Visible = true;
 			this.colClientName.VisibleIndex = 0;
 			this.colClientName.Width = 300;
-			// 
-			// colContactPerson
-			// 
-			this.colContactPerson.FieldName = "ContactPerson";
-			this.colContactPerson.MinWidth = 25;
-			this.colContactPerson.Name = "colContactPerson";
-			this.colContactPerson.Visible = true;
-			this.colContactPerson.VisibleIndex = 1;
-			this.colContactPerson.Width = 300;
 			// 
 			// colAddress
 			// 
@@ -647,8 +638,18 @@
 			this.layoutControlItem1.Control = this.gcClients;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(1378, 536);
+			this.layoutControlItem1.Size = new System.Drawing.Size(1382, 540);
 			this.layoutControlItem1.TextVisible = false;
+			// 
+			// col_contacts
+			// 
+			this.col_contacts.Caption = "Contacts";
+			this.col_contacts.FieldName = "Contacts";
+			this.col_contacts.MinWidth = 25;
+			this.col_contacts.Name = "col_contacts";
+			this.col_contacts.Visible = true;
+			this.col_contacts.VisibleIndex = 1;
+			this.col_contacts.Width = 94;
 			// 
 			// ClientsListForm
 			// 
@@ -722,7 +723,6 @@
 		private System.Windows.Forms.BindingSource bsClients;
 		private DevExpress.XtraGrid.Columns.GridColumn col_id;
 		private DevExpress.XtraGrid.Columns.GridColumn colClientName;
-		private DevExpress.XtraGrid.Columns.GridColumn colContactPerson;
 		private DevExpress.XtraGrid.Columns.GridColumn colAddress;
 		private DevExpress.XtraGrid.Columns.GridColumn colEmail;
 		private DevExpress.XtraGrid.Columns.GridColumn colPhoneNumber1;
@@ -741,5 +741,6 @@
 		private DevExpress.XtraEditors.Repository.RepositoryItemRatingControl repositoryItemRatingControl1;
 		private DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit repositoryItemSearchLookUpEdit1;
 		private DevExpress.XtraGrid.Views.Grid.GridView repositoryItemSearchLookUpEdit1View;
+		private DevExpress.XtraGrid.Columns.GridColumn col_contacts;
 	}
 }

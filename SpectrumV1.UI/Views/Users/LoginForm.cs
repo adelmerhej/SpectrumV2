@@ -154,7 +154,6 @@ namespace SpectrumV1.Views.Users
 						}
 					}
 
-
 					// Set current user context
 					CurrentUser.UserName = user.Username;
 					CurrentUser.WorkingYear = DateTime.Now.Year;

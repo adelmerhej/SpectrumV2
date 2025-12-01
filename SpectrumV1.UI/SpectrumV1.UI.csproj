@@ -246,6 +246,12 @@
     <Compile Include="Views\Members\Clients\ClientsListForm.Designer.cs">
       <DependentUpon>ClientsListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Members\Clients\ContactEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Clients\ContactEditForm.Designer.cs">
+      <DependentUpon>ContactEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Members\Engineers\EngineerEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -397,6 +403,9 @@
     <EmbeddedResource Include="Views\Members\Clients\ClientsListForm.resx">
       <DependentUpon>ClientsListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Clients\ContactEditForm.resx">
+      <DependentUpon>ContactEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Members\Engineers\EngineerEditForm.resx">
       <DependentUpon>EngineerEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -438,6 +447,7 @@
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Currencies.ExchangeCurrencyModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Services.ServiceModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Members.Clients.ClientModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Members.Clients.ContactModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Members.Engineers.EngineerModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Users.UserModel.datasource" />
     <None Include="Properties\Settings.settings">
@@ -449,6 +459,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Views\Members\Clients\ClientEditForm_Developer_Guide.md" />
+    <None Include="Views\Members\Clients\ClientEditForm_Refactoring_Summary.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
