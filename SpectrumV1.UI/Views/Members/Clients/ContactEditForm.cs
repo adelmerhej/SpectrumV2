@@ -25,11 +25,12 @@ namespace SpectrumV1.Views.Members.Clients
 
 		public EventHandler SendUpdatedContact;
 
-		public ContactEditForm(ContactModel model)
+		public ContactEditForm(ContactModel model, string id)
 		{
 			InitializeComponent();
 
-			_contactModel = model;
+			_contactModel = model ?? new ContactModel();
+			_contactModel.ClientId = id;
 
 			StartLoading();
 		}

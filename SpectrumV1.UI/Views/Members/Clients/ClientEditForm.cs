@@ -298,7 +298,7 @@ namespace SpectrumV1.Views.Members.Clients
 		{
 			try
 			{
-				var contactEditForm = new ContactEditForm(contact);
+				var contactEditForm = new ContactEditForm(contact, _clientModel._id);
 				contactEditForm.SendUpdatedContact += RcvUpdatedContactAsync;
 				contactEditForm.ShowDialog();
 			}
