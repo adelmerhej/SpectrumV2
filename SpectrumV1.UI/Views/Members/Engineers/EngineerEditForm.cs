@@ -54,6 +54,7 @@ namespace SpectrumV1.Views.Members.Engineers
 			_engineerRepository = new EngineerRepository(DatabaseFactory.ProfilePrimary);
 			_countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
 			_cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
+			_statusRepository = new StatusRepository(DatabaseFactory.ProfilePrimary);
 			_logInfoRepository = new LogInfoRepository();
 
 			StartLoading();
@@ -85,7 +86,7 @@ namespace SpectrumV1.Views.Members.Engineers
 				{
 					LoadCitiesAsync(),
 					LoadCountriesAsync(),
-					LoadSattusAsync(),
+					LoadStatusAsync(),
 				};
 
 				await Task.WhenAll(loadTasks);
@@ -106,7 +107,7 @@ namespace SpectrumV1.Views.Members.Engineers
 			_countries = await _countryRepository.GetCountriesAsync();
 		}
 
-		private async Task LoadSattusAsync()
+		private async Task LoadStatusAsync()
 		{
 			_status = await _statusRepository.GetStatusAsync();
 		}

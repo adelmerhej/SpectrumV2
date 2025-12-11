@@ -30,16 +30,6 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EngineerEditForm));
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions6 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject21 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject22 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject23 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject24 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions7 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject25 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject26 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject27 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject28 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
@@ -60,6 +50,16 @@
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject14 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject15 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject16 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions5 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject17 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject18 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject19 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject20 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions6 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject21 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject22 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject23 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject24 = new DevExpress.Utils.SerializableAppearanceObject();
 			this.ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
 			this.btnSave = new DevExpress.XtraBars.BarButtonItem();
 			this.btnClose = new DevExpress.XtraBars.BarButtonItem();
@@ -83,6 +83,10 @@
 			this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
 			this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
+			this.cboStatus = new DevExpress.XtraEditors.SearchLookUpEdit();
+			this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
+			this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.txtSpecialization = new DevExpress.XtraEditors.TextEdit();
 			this.bsEngineer = new System.Windows.Forms.BindingSource(this.components);
 			this.gcResume = new DevExpress.XtraGrid.GridControl();
@@ -141,6 +145,7 @@
 			this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lblSpecialization = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.lblStatus = new DevExpress.XtraLayout.LayoutControlItem();
 			this.grpResumeDetails = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -149,14 +154,11 @@
 			this.lblProjectsHistory = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblNotes = new DevExpress.XtraLayout.LayoutControlItem();
-			this.cboStatus = new DevExpress.XtraEditors.SearchLookUpEdit();
-			this.lblStatus = new DevExpress.XtraLayout.LayoutControlItem();
-			this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
-			this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
 			((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.cboStatus.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtSpecialization.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bsEngineer)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gcResume)).BeginInit();
@@ -199,6 +201,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblSpecialization)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblStatus)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.grpResumeDetails)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
@@ -207,9 +210,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.lblProjectsHistory)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblNotes)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboStatus.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblStatus)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// ribbonControl
@@ -447,6 +447,50 @@
 			this.mainLayout.TabIndex = 5;
 			this.mainLayout.Text = "layoutControl1";
 			// 
+			// cboStatus
+			// 
+			this.cboStatus.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEngineer, "Status", true));
+			this.cboStatus.Location = new System.Drawing.Point(517, 80);
+			this.cboStatus.MenuManager = this.ribbonControl;
+			this.cboStatus.Name = "cboStatus";
+			this.cboStatus.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+			this.cboStatus.Properties.DisplayMember = "Status";
+			this.cboStatus.Properties.NullText = "";
+			this.cboStatus.Properties.PopupView = this.gridView2;
+			this.cboStatus.Properties.ShowAddNewButton = true;
+			this.cboStatus.Properties.ValueMember = "Status";
+			this.cboStatus.Size = new System.Drawing.Size(281, 22);
+			this.cboStatus.StyleController = this.mainLayout;
+			this.cboStatus.TabIndex = 25;
+			this.cboStatus.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboStatus_AddNewValue);
+			// 
+			// gridView2
+			// 
+			this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn5,
+            this.gridColumn6});
+			this.gridView2.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+			this.gridView2.Name = "gridView2";
+			this.gridView2.OptionsSelection.EnableAppearanceFocusedCell = false;
+			this.gridView2.OptionsView.ShowGroupPanel = false;
+			// 
+			// gridColumn5
+			// 
+			this.gridColumn5.Caption = "Id";
+			this.gridColumn5.FieldName = "_id";
+			this.gridColumn5.Name = "gridColumn5";
+			this.gridColumn5.Width = 214;
+			// 
+			// gridColumn6
+			// 
+			this.gridColumn6.Caption = "Status";
+			this.gridColumn6.FieldName = "Status";
+			this.gridColumn6.Name = "gridColumn6";
+			this.gridColumn6.Visible = true;
+			this.gridColumn6.VisibleIndex = 0;
+			this.gridColumn6.Width = 927;
+			// 
 			// txtSpecialization
 			// 
 			this.txtSpecialization.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEngineer, "Specialization", true));
@@ -681,10 +725,10 @@
 			this.txtPhoneNumber1.Location = new System.Drawing.Point(130, 221);
 			this.txtPhoneNumber1.MenuManager = this.ribbonControl;
 			this.txtPhoneNumber1.Name = "txtPhoneNumber1";
-			editorButtonImageOptions6.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions6.SvgImage")));
-			editorButtonImageOptions6.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
+			editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.txtPhoneNumber1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions6, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject21, serializableAppearanceObject22, serializableAppearanceObject23, serializableAppearanceObject24, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtPhoneNumber1.Size = new System.Drawing.Size(206, 25);
 			this.txtPhoneNumber1.StyleController = this.mainLayout;
 			this.txtPhoneNumber1.TabIndex = 8;
@@ -695,10 +739,10 @@
 			this.txtPhoneNumber2.Location = new System.Drawing.Point(340, 221);
 			this.txtPhoneNumber2.MenuManager = this.ribbonControl;
 			this.txtPhoneNumber2.Name = "txtPhoneNumber2";
-			editorButtonImageOptions7.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions7.SvgImage")));
-			editorButtonImageOptions7.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
+			editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.txtPhoneNumber2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions7, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject25, serializableAppearanceObject26, serializableAppearanceObject27, serializableAppearanceObject28, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtPhoneNumber2.Size = new System.Drawing.Size(216, 25);
 			this.txtPhoneNumber2.StyleController = this.mainLayout;
 			this.txtPhoneNumber2.TabIndex = 9;
@@ -709,10 +753,10 @@
 			this.txtPhoneNumber3.Location = new System.Drawing.Point(560, 221);
 			this.txtPhoneNumber3.MenuManager = this.ribbonControl;
 			this.txtPhoneNumber3.Name = "txtPhoneNumber3";
-			editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
-			editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions3.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions3.SvgImage")));
+			editorButtonImageOptions3.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.txtPhoneNumber3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtPhoneNumber3.Size = new System.Drawing.Size(238, 25);
 			this.txtPhoneNumber3.StyleController = this.mainLayout;
 			this.txtPhoneNumber3.TabIndex = 10;
@@ -723,10 +767,10 @@
 			this.txtEmail.Location = new System.Drawing.Point(130, 290);
 			this.txtEmail.MenuManager = this.ribbonControl;
 			this.txtEmail.Name = "txtEmail";
-			editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
-			editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions4.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions4.SvgImage")));
+			editorButtonImageOptions4.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.txtEmail.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtEmail.Size = new System.Drawing.Size(281, 25);
 			this.txtEmail.StyleController = this.mainLayout;
 			this.txtEmail.TabIndex = 7;
@@ -737,10 +781,10 @@
 			this.txtWebsite.Location = new System.Drawing.Point(517, 290);
 			this.txtWebsite.MenuManager = this.ribbonControl;
 			this.txtWebsite.Name = "txtWebsite";
-			editorButtonImageOptions3.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions3.SvgImage")));
-			editorButtonImageOptions3.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions5.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions5.SvgImage")));
+			editorButtonImageOptions5.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.txtWebsite.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject17, serializableAppearanceObject18, serializableAppearanceObject19, serializableAppearanceObject20, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtWebsite.Size = new System.Drawing.Size(281, 25);
 			this.txtWebsite.StyleController = this.mainLayout;
 			this.txtWebsite.TabIndex = 12;
@@ -835,10 +879,10 @@
 			this.textEdit4.Location = new System.Drawing.Point(130, 250);
 			this.textEdit4.MenuManager = this.ribbonControl;
 			this.textEdit4.Name = "textEdit4";
-			editorButtonImageOptions4.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions4.SvgImage")));
-			editorButtonImageOptions4.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions6.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions6.SvgImage")));
+			editorButtonImageOptions6.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.textEdit4.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions6, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject21, serializableAppearanceObject22, serializableAppearanceObject23, serializableAppearanceObject24, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.textEdit4.Size = new System.Drawing.Size(206, 25);
 			this.textEdit4.StyleController = this.mainLayout;
 			this.textEdit4.TabIndex = 11;
@@ -1052,6 +1096,15 @@
 			this.emptySpaceItem10.Name = "emptySpaceItem10";
 			this.emptySpaceItem10.Size = new System.Drawing.Size(387, 26);
 			// 
+			// lblStatus
+			// 
+			this.lblStatus.Control = this.cboStatus;
+			this.lblStatus.Location = new System.Drawing.Point(387, 26);
+			this.lblStatus.Name = "lblStatus";
+			this.lblStatus.Size = new System.Drawing.Size(387, 26);
+			this.lblStatus.Text = "Status";
+			this.lblStatus.TextSize = new System.Drawing.Size(87, 16);
+			// 
 			// grpResumeDetails
 			// 
 			this.grpResumeDetails.GroupStyle = DevExpress.Utils.GroupStyle.Light;
@@ -1115,58 +1168,6 @@
 			this.lblNotes.Text = "Notes";
 			this.lblNotes.TextSize = new System.Drawing.Size(87, 16);
 			// 
-			// cboStatus
-			// 
-			this.cboStatus.Location = new System.Drawing.Point(517, 80);
-			this.cboStatus.MenuManager = this.ribbonControl;
-			this.cboStatus.Name = "cboStatus";
-			this.cboStatus.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.cboStatus.Properties.DisplayMember = "Status";
-			this.cboStatus.Properties.NullText = "";
-			this.cboStatus.Properties.PopupView = this.gridView2;
-			this.cboStatus.Properties.ShowAddNewButton = true;
-			this.cboStatus.Properties.ValueMember = "Status";
-			this.cboStatus.Size = new System.Drawing.Size(281, 22);
-			this.cboStatus.StyleController = this.mainLayout;
-			this.cboStatus.TabIndex = 25;
-			this.cboStatus.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboStatus_AddNewValue);
-			// 
-			// lblStatus
-			// 
-			this.lblStatus.Control = this.cboStatus;
-			this.lblStatus.Location = new System.Drawing.Point(387, 26);
-			this.lblStatus.Name = "lblStatus";
-			this.lblStatus.Size = new System.Drawing.Size(387, 26);
-			this.lblStatus.Text = "Status";
-			this.lblStatus.TextSize = new System.Drawing.Size(87, 16);
-			// 
-			// gridView2
-			// 
-			this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn5,
-            this.gridColumn6});
-			this.gridView2.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-			this.gridView2.Name = "gridView2";
-			this.gridView2.OptionsSelection.EnableAppearanceFocusedCell = false;
-			this.gridView2.OptionsView.ShowGroupPanel = false;
-			// 
-			// gridColumn5
-			// 
-			this.gridColumn5.Caption = "Id";
-			this.gridColumn5.FieldName = "_id";
-			this.gridColumn5.Name = "gridColumn5";
-			this.gridColumn5.Width = 214;
-			// 
-			// gridColumn6
-			// 
-			this.gridColumn6.Caption = "Status";
-			this.gridColumn6.FieldName = "Status";
-			this.gridColumn6.Name = "gridColumn6";
-			this.gridColumn6.Visible = true;
-			this.gridColumn6.VisibleIndex = 0;
-			this.gridColumn6.Width = 927;
-			// 
 			// EngineerEditForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1183,6 +1184,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.cboStatus.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtSpecialization.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.bsEngineer)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.gcResume)).EndInit();
@@ -1225,6 +1228,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblSpecialization)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblStatus)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.grpResumeDetails)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
@@ -1233,9 +1237,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.lblProjectsHistory)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblNotes)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboStatus.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblStatus)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
