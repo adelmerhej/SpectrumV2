@@ -118,6 +118,7 @@ namespace SpectrumV1.Views.Members.Engineers
 
 			cboCountries.Properties.DataSource = _countries;
 			cboCities.Properties.DataSource = _cities;
+			cboStatus.Properties.DataSource = _status;
 		}
 
 		private void ApplyDefaults()

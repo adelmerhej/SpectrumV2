@@ -30,6 +30,11 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EngineerEditForm));
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions7 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject25 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject26 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject27 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject28 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
@@ -55,11 +60,6 @@
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject18 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject19 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject20 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions6 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject21 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject22 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject23 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject24 = new DevExpress.Utils.SerializableAppearanceObject();
 			this.ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
 			this.btnSave = new DevExpress.XtraBars.BarButtonItem();
 			this.btnClose = new DevExpress.XtraBars.BarButtonItem();
@@ -69,9 +69,9 @@
 			this.btnRefresh = new DevExpress.XtraBars.BarButtonItem();
 			this.btnNew = new DevExpress.XtraBars.BarButtonItem();
 			this.btnMeeting = new DevExpress.XtraBars.BarButtonItem();
-			this.btnAddNewContact = new DevExpress.XtraBars.BarButtonItem();
-			this.btnEditContact = new DevExpress.XtraBars.BarButtonItem();
-			this.btnDeleteContact = new DevExpress.XtraBars.BarButtonItem();
+			this.btnAddNewResume = new DevExpress.XtraBars.BarButtonItem();
+			this.btnEditResume = new DevExpress.XtraBars.BarButtonItem();
+			this.btnDeleteResume = new DevExpress.XtraBars.BarButtonItem();
 			this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
 			this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
 			this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -84,22 +84,16 @@
 			this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
 			this.cboStatus = new DevExpress.XtraEditors.SearchLookUpEdit();
+			this.bsEngineer = new System.Windows.Forms.BindingSource(this.components);
 			this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.txtSpecialization = new DevExpress.XtraEditors.TextEdit();
-			this.bsEngineer = new System.Windows.Forms.BindingSource(this.components);
 			this.gcResume = new DevExpress.XtraGrid.GridControl();
 			this.gvResume = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colClientId = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colTitle = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colContactName = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colDepartment = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colEmail = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colPhoneNumber1 = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colPhoneNumber2 = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colMobileNumber = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colEngineerId = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colResumeDetail = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colIsPrimary = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.repCheckBox = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
 			this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -158,9 +152,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.cboStatus.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsEngineer)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtSpecialization.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsEngineer)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gcResume)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gvResume)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repCheckBox)).BeginInit();
@@ -226,9 +220,9 @@
             this.btnRefresh,
             this.btnNew,
             this.btnMeeting,
-            this.btnAddNewContact,
-            this.btnEditContact,
-            this.btnDeleteContact});
+            this.btnAddNewResume,
+            this.btnEditResume,
+            this.btnDeleteResume});
 			this.ribbonControl.Location = new System.Drawing.Point(0, 0);
 			this.ribbonControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.ribbonControl.MaxItemId = 24;
@@ -319,26 +313,26 @@
 			this.btnMeeting.Name = "btnMeeting";
 			this.btnMeeting.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnMeeting_ItemClick);
 			// 
-			// btnAddNewContact
+			// btnAddNewResume
 			// 
-			this.btnAddNewContact.Caption = "Add New Contact";
-			this.btnAddNewContact.Id = 21;
-			this.btnAddNewContact.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnAddNewContact.ImageOptions.SvgImage")));
-			this.btnAddNewContact.Name = "btnAddNewContact";
+			this.btnAddNewResume.Caption = "Add New Resume";
+			this.btnAddNewResume.Id = 21;
+			this.btnAddNewResume.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnAddNewContact.ImageOptions.SvgImage")));
+			this.btnAddNewResume.Name = "btnAddNewResume";
 			// 
-			// btnEditContact
+			// btnEditResume
 			// 
-			this.btnEditContact.Caption = "Edit Contact";
-			this.btnEditContact.Id = 22;
-			this.btnEditContact.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEditContact.ImageOptions.SvgImage")));
-			this.btnEditContact.Name = "btnEditContact";
+			this.btnEditResume.Caption = "Edit Resume";
+			this.btnEditResume.Id = 22;
+			this.btnEditResume.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEditContact.ImageOptions.SvgImage")));
+			this.btnEditResume.Name = "btnEditResume";
 			// 
-			// btnDeleteContact
+			// btnDeleteResume
 			// 
-			this.btnDeleteContact.Caption = "Delete Contact";
-			this.btnDeleteContact.Id = 23;
-			this.btnDeleteContact.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDeleteContact.ImageOptions.SvgImage")));
-			this.btnDeleteContact.Name = "btnDeleteContact";
+			this.btnDeleteResume.Caption = "Delete Resume";
+			this.btnDeleteResume.Id = 23;
+			this.btnDeleteResume.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDeleteContact.ImageOptions.SvgImage")));
+			this.btnDeleteResume.Name = "btnDeleteResume";
 			// 
 			// ribbonPage1
 			// 
@@ -408,9 +402,9 @@
 			// 
 			// ribbonPageGroup5
 			// 
-			this.ribbonPageGroup5.ItemLinks.Add(this.btnAddNewContact);
-			this.ribbonPageGroup5.ItemLinks.Add(this.btnEditContact);
-			this.ribbonPageGroup5.ItemLinks.Add(this.btnDeleteContact);
+			this.ribbonPageGroup5.ItemLinks.Add(this.btnAddNewResume);
+			this.ribbonPageGroup5.ItemLinks.Add(this.btnEditResume);
+			this.ribbonPageGroup5.ItemLinks.Add(this.btnDeleteResume);
 			this.ribbonPageGroup5.Name = "ribbonPageGroup5";
 			this.ribbonPageGroup5.Text = "Contacts";
 			// 
@@ -465,6 +459,10 @@
 			this.cboStatus.TabIndex = 25;
 			this.cboStatus.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboStatus_AddNewValue);
 			// 
+			// bsEngineer
+			// 
+			this.bsEngineer.DataSource = typeof(SpectrumV1.Models.Members.Engineers.EngineerModel);
+			// 
 			// gridView2
 			// 
 			this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
@@ -501,10 +499,6 @@
 			this.txtSpecialization.StyleController = this.mainLayout;
 			this.txtSpecialization.TabIndex = 23;
 			// 
-			// bsEngineer
-			// 
-			this.bsEngineer.DataSource = typeof(SpectrumV1.Models.Members.Engineers.EngineerModel);
-			// 
 			// gcResume
 			// 
 			this.gcResume.Location = new System.Drawing.Point(840, 54);
@@ -522,14 +516,8 @@
 			// 
 			this.gvResume.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id,
-            this.colClientId,
-            this.colTitle,
-            this.colContactName,
-            this.colDepartment,
-            this.colEmail,
-            this.colPhoneNumber1,
-            this.colPhoneNumber2,
-            this.colMobileNumber,
+            this.colEngineerId,
+            this.colResumeDetail,
             this.colIsPrimary,
             this.colNotes,
             this.colIsDefault,
@@ -552,75 +540,21 @@
 			this.col_id.Name = "col_id";
 			this.col_id.Width = 94;
 			// 
-			// colClientId
+			// colEngineerId
 			// 
-			this.colClientId.FieldName = "ClientId";
-			this.colClientId.MinWidth = 25;
-			this.colClientId.Name = "colClientId";
-			this.colClientId.Width = 94;
+			this.colEngineerId.FieldName = "EngineerId";
+			this.colEngineerId.MinWidth = 25;
+			this.colEngineerId.Name = "colEngineerId";
+			this.colEngineerId.Width = 94;
 			// 
-			// colTitle
+			// colResumeDetail
 			// 
-			this.colTitle.FieldName = "Title";
-			this.colTitle.MinWidth = 25;
-			this.colTitle.Name = "colTitle";
-			this.colTitle.Visible = true;
-			this.colTitle.VisibleIndex = 0;
-			this.colTitle.Width = 100;
-			// 
-			// colContactName
-			// 
-			this.colContactName.FieldName = "ContactName";
-			this.colContactName.MinWidth = 25;
-			this.colContactName.Name = "colContactName";
-			this.colContactName.Visible = true;
-			this.colContactName.VisibleIndex = 1;
-			this.colContactName.Width = 300;
-			// 
-			// colDepartment
-			// 
-			this.colDepartment.FieldName = "Department";
-			this.colDepartment.MinWidth = 25;
-			this.colDepartment.Name = "colDepartment";
-			this.colDepartment.Visible = true;
-			this.colDepartment.VisibleIndex = 2;
-			this.colDepartment.Width = 200;
-			// 
-			// colEmail
-			// 
-			this.colEmail.FieldName = "Email";
-			this.colEmail.MinWidth = 25;
-			this.colEmail.Name = "colEmail";
-			this.colEmail.Visible = true;
-			this.colEmail.VisibleIndex = 3;
-			this.colEmail.Width = 200;
-			// 
-			// colPhoneNumber1
-			// 
-			this.colPhoneNumber1.FieldName = "PhoneNumber1";
-			this.colPhoneNumber1.MinWidth = 25;
-			this.colPhoneNumber1.Name = "colPhoneNumber1";
-			this.colPhoneNumber1.Visible = true;
-			this.colPhoneNumber1.VisibleIndex = 4;
-			this.colPhoneNumber1.Width = 200;
-			// 
-			// colPhoneNumber2
-			// 
-			this.colPhoneNumber2.FieldName = "PhoneNumber2";
-			this.colPhoneNumber2.MinWidth = 25;
-			this.colPhoneNumber2.Name = "colPhoneNumber2";
-			this.colPhoneNumber2.Visible = true;
-			this.colPhoneNumber2.VisibleIndex = 5;
-			this.colPhoneNumber2.Width = 200;
-			// 
-			// colMobileNumber
-			// 
-			this.colMobileNumber.FieldName = "MobileNumber";
-			this.colMobileNumber.MinWidth = 25;
-			this.colMobileNumber.Name = "colMobileNumber";
-			this.colMobileNumber.Visible = true;
-			this.colMobileNumber.VisibleIndex = 6;
-			this.colMobileNumber.Width = 200;
+			this.colResumeDetail.FieldName = "ResumeDetail";
+			this.colResumeDetail.MinWidth = 25;
+			this.colResumeDetail.Name = "colResumeDetail";
+			this.colResumeDetail.Visible = true;
+			this.colResumeDetail.VisibleIndex = 0;
+			this.colResumeDetail.Width = 350;
 			// 
 			// colIsPrimary
 			// 
@@ -629,7 +563,7 @@
 			this.colIsPrimary.MinWidth = 25;
 			this.colIsPrimary.Name = "colIsPrimary";
 			this.colIsPrimary.Visible = true;
-			this.colIsPrimary.VisibleIndex = 7;
+			this.colIsPrimary.VisibleIndex = 1;
 			this.colIsPrimary.Width = 86;
 			// 
 			// repCheckBox
@@ -643,7 +577,7 @@
 			this.colNotes.MinWidth = 25;
 			this.colNotes.Name = "colNotes";
 			this.colNotes.Visible = true;
-			this.colNotes.VisibleIndex = 8;
+			this.colNotes.VisibleIndex = 2;
 			this.colNotes.Width = 300;
 			// 
 			// colIsDefault
@@ -653,7 +587,7 @@
 			this.colIsDefault.MinWidth = 25;
 			this.colIsDefault.Name = "colIsDefault";
 			this.colIsDefault.Visible = true;
-			this.colIsDefault.VisibleIndex = 9;
+			this.colIsDefault.VisibleIndex = 3;
 			this.colIsDefault.Width = 82;
 			// 
 			// colActive
@@ -663,7 +597,7 @@
 			this.colActive.MinWidth = 25;
 			this.colActive.Name = "colActive";
 			this.colActive.Visible = true;
-			this.colActive.VisibleIndex = 10;
+			this.colActive.VisibleIndex = 4;
 			this.colActive.Width = 62;
 			// 
 			// gcProjectsHistory
@@ -725,10 +659,10 @@
 			this.txtPhoneNumber1.Location = new System.Drawing.Point(130, 221);
 			this.txtPhoneNumber1.MenuManager = this.ribbonControl;
 			this.txtPhoneNumber1.Name = "txtPhoneNumber1";
-			editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
-			editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions7.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions7.SvgImage")));
+			editorButtonImageOptions7.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.txtPhoneNumber1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions7, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject25, serializableAppearanceObject26, serializableAppearanceObject27, serializableAppearanceObject28, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtPhoneNumber1.Size = new System.Drawing.Size(206, 25);
 			this.txtPhoneNumber1.StyleController = this.mainLayout;
 			this.txtPhoneNumber1.TabIndex = 8;
@@ -739,10 +673,10 @@
 			this.txtPhoneNumber2.Location = new System.Drawing.Point(340, 221);
 			this.txtPhoneNumber2.MenuManager = this.ribbonControl;
 			this.txtPhoneNumber2.Name = "txtPhoneNumber2";
-			editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
-			editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
+			editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.txtPhoneNumber2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtPhoneNumber2.Size = new System.Drawing.Size(216, 25);
 			this.txtPhoneNumber2.StyleController = this.mainLayout;
 			this.txtPhoneNumber2.TabIndex = 9;
@@ -753,10 +687,10 @@
 			this.txtPhoneNumber3.Location = new System.Drawing.Point(560, 221);
 			this.txtPhoneNumber3.MenuManager = this.ribbonControl;
 			this.txtPhoneNumber3.Name = "txtPhoneNumber3";
-			editorButtonImageOptions3.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions3.SvgImage")));
-			editorButtonImageOptions3.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
+			editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.txtPhoneNumber3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtPhoneNumber3.Size = new System.Drawing.Size(238, 25);
 			this.txtPhoneNumber3.StyleController = this.mainLayout;
 			this.txtPhoneNumber3.TabIndex = 10;
@@ -767,10 +701,10 @@
 			this.txtEmail.Location = new System.Drawing.Point(130, 290);
 			this.txtEmail.MenuManager = this.ribbonControl;
 			this.txtEmail.Name = "txtEmail";
-			editorButtonImageOptions4.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions4.SvgImage")));
-			editorButtonImageOptions4.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions3.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions3.SvgImage")));
+			editorButtonImageOptions3.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.txtEmail.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtEmail.Size = new System.Drawing.Size(281, 25);
 			this.txtEmail.StyleController = this.mainLayout;
 			this.txtEmail.TabIndex = 7;
@@ -781,10 +715,10 @@
 			this.txtWebsite.Location = new System.Drawing.Point(517, 290);
 			this.txtWebsite.MenuManager = this.ribbonControl;
 			this.txtWebsite.Name = "txtWebsite";
-			editorButtonImageOptions5.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions5.SvgImage")));
-			editorButtonImageOptions5.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions4.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions4.SvgImage")));
+			editorButtonImageOptions4.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.txtWebsite.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject17, serializableAppearanceObject18, serializableAppearanceObject19, serializableAppearanceObject20, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtWebsite.Size = new System.Drawing.Size(281, 25);
 			this.txtWebsite.StyleController = this.mainLayout;
 			this.txtWebsite.TabIndex = 12;
@@ -879,10 +813,10 @@
 			this.textEdit4.Location = new System.Drawing.Point(130, 250);
 			this.textEdit4.MenuManager = this.ribbonControl;
 			this.textEdit4.Name = "textEdit4";
-			editorButtonImageOptions6.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions6.SvgImage")));
-			editorButtonImageOptions6.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions5.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions5.SvgImage")));
+			editorButtonImageOptions5.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.textEdit4.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions6, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject21, serializableAppearanceObject22, serializableAppearanceObject23, serializableAppearanceObject24, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject17, serializableAppearanceObject18, serializableAppearanceObject19, serializableAppearanceObject20, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.textEdit4.Size = new System.Drawing.Size(206, 25);
 			this.textEdit4.StyleController = this.mainLayout;
 			this.textEdit4.TabIndex = 11;
@@ -1185,9 +1119,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.cboStatus.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsEngineer)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtSpecialization.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsEngineer)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.gcResume)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.gvResume)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.repCheckBox)).EndInit();
@@ -1253,9 +1187,9 @@
 		private DevExpress.XtraBars.BarButtonItem btnRefresh;
 		private DevExpress.XtraBars.BarButtonItem btnNew;
 		private DevExpress.XtraBars.BarButtonItem btnMeeting;
-		private DevExpress.XtraBars.BarButtonItem btnAddNewContact;
-		private DevExpress.XtraBars.BarButtonItem btnEditContact;
-		private DevExpress.XtraBars.BarButtonItem btnDeleteContact;
+		private DevExpress.XtraBars.BarButtonItem btnAddNewResume;
+		private DevExpress.XtraBars.BarButtonItem btnEditResume;
+		private DevExpress.XtraBars.BarButtonItem btnDeleteResume;
 		private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup8;
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
@@ -1270,14 +1204,8 @@
 		private DevExpress.XtraGrid.GridControl gcResume;
 		private DevExpress.XtraGrid.Views.Grid.GridView gvResume;
 		private DevExpress.XtraGrid.Columns.GridColumn col_id;
-		private DevExpress.XtraGrid.Columns.GridColumn colClientId;
-		private DevExpress.XtraGrid.Columns.GridColumn colTitle;
-		private DevExpress.XtraGrid.Columns.GridColumn colContactName;
-		private DevExpress.XtraGrid.Columns.GridColumn colDepartment;
-		private DevExpress.XtraGrid.Columns.GridColumn colEmail;
-		private DevExpress.XtraGrid.Columns.GridColumn colPhoneNumber1;
-		private DevExpress.XtraGrid.Columns.GridColumn colPhoneNumber2;
-		private DevExpress.XtraGrid.Columns.GridColumn colMobileNumber;
+		private DevExpress.XtraGrid.Columns.GridColumn colEngineerId;
+		private DevExpress.XtraGrid.Columns.GridColumn colResumeDetail;
 		private DevExpress.XtraGrid.Columns.GridColumn colIsPrimary;
 		private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repCheckBox;
 		private DevExpress.XtraGrid.Columns.GridColumn colNotes;
