@@ -11,16 +11,18 @@ using SpectrumV1.Views.Common;
 using SpectrumV1.Views.Common.Areas;
 using SpectrumV1.Views.Common.Companies;
 using SpectrumV1.Views.Common.Countries;
+using SpectrumV1.Views.Common.Departments;
 using SpectrumV1.Views.Common.Services;
 using SpectrumV1.Views.Main.Connections;
 using SpectrumV1.Views.Main.Update;
 using SpectrumV1.Views.Members.Clients;
 using SpectrumV1.Views.Members.Engineers;
+using SpectrumV1.Views.Members.Engineers.Sattus;
+using SpectrumV1.Views.Projects;
 using SpectrumV1.Views.Users;
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using SpectrumV1.Views.Projects;
 
 namespace SpectrumV1.Views.Main
 {
@@ -145,7 +147,13 @@ namespace SpectrumV1.Views.Main
 
 		private void btnResetLayout_ItemClick(object sender, ItemClickEventArgs e)
 		{
-
+			if (XtraMessageBox.Show("This will reset menu layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+				DialogResult.Yes)
+			{
+				_resetMenu = true;
+				LayoutsStyle.ResetLayoutMenu(mainMenu, CurrentUser.UserName, CurrentUser.Company);
+			}
 		}
 
 		#endregion
@@ -354,7 +362,7 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuDepartments_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
+			OpenForm<DepartmentsListForm>();
 		}
 
 		private void mnuRoles_Click(object sender, EventArgs e)
@@ -494,5 +502,9 @@ namespace SpectrumV1.Views.Main
 
 		#endregion
 
+		private void mnuStatus_Click(object sender, EventArgs e)
+		{
+			OpenForm<StatusListForm>();
+		}
 	}
 }

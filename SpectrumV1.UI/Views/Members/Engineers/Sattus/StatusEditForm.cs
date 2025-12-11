@@ -1,26 +1,20 @@
 ﻿using DevExpress.XtraEditors;
-using SpectrumV1.DataLayers.Common.Departments;
 using SpectrumV1.DataLayers.DataAccess;
-using SpectrumV1.DataLayers.Members.Clients;
-using SpectrumV1.Models.Common.Departments;
-using SpectrumV1.Models.Members.Clients;
+using SpectrumV1.DataLayers.Members.Engineers.Status;
+using SpectrumV1.Models.Members.Engineers.Status;
 using SpectrumV1.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SpectrumV1.Views.Members.Clients
+namespace SpectrumV1.Views.Members.Engineers.Sattus
 {
-	public partial class ContactEditForm : XtraForm
+	public partial class StatusEditForm : XtraForm
 	{
-		private ContactModel _contactModel = new ContactModel();
-		private IList<DepartmentModel> _departments = new List<DepartmentModel>();
-		private readonly string _clientId;
+		private StatusModel _statusModel = new StatusModel();
 
-		private readonly ContactRepository _contactRepository = new ContactRepository(DatabaseFactory.ProfilePrimary);
-		private readonly DepartmentRepository _departmentRepository = new DepartmentRepository(DatabaseFactory.ProfilePrimary);
+		private readonly StatusRepository _statusRepository = new StatusRepository(DatabaseFactory.ProfilePrimary);
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
@@ -29,16 +23,13 @@ namespace SpectrumV1.Views.Members.Clients
 		private bool _isAdmin = true;
 		private bool _isProtected = true;
 
-		public EventHandler SendUpdatedContact;
+		public EventHandler SendUpdatedStatus;
 
-		public ContactEditForm(ContactModel model, string id)
+		public StatusEditForm(StatusModel model)
 		{
 			InitializeComponent();
 
-			_clientId = id;
-			_contactModel = model ?? new ContactModel();
-			if (string.IsNullOrEmpty(_contactModel.ClientId))
-				_contactModel.ClientId = _clientId;
+			_statusModel = model;
 
 			StartLoading();
 		}
@@ -64,42 +55,6 @@ namespace SpectrumV1.Views.Members.Clients
 				//		if (isProtected != null) _isProtected = (bool)isProtected;
 				//	}
 				//	//
-
-				// Only load from repository if editing existing user (has id)
-				if (!string.IsNullOrEmpty(_contactModel?._id))
-				{
-					var existing = await _contactRepository.GetContactByIdAsync(_contactModel._id);
-					if (existing != null)
-					{
-						_contactModel = existing;
-						if (string.IsNullOrEmpty(_contactModel.ClientId))
-							_contactModel.ClientId = _clientId;
-					}
-				}
-				else
-				{
-					_contactModel = new ContactModel
-					{
-						ClientId = _clientId
-					};
-				}
-
-				
-
-				try
-				{
-					var loadTasks = new[]
-					{
-					LoadDepartmentsAsync(),
-					LoadTitlesAsync(),
-				};
-
-					await Task.WhenAll(loadTasks);
-				}
-				catch (Exception ex)
-				{
-					throw new Exception("Error loading form data", ex);
-				}
 			}
 			catch (Exception ex)
 			{
@@ -109,7 +64,7 @@ namespace SpectrumV1.Views.Members.Clients
 
 		private void WireUpBindings()
 		{
-			bsContact.DataSource = _contactModel;
+			bsStatus.DataSource = _statusModel;
 		}
 
 		private void ApplyDefaults()
@@ -140,48 +95,30 @@ namespace SpectrumV1.Views.Members.Clients
 			btnSave.Enabled = _isAdmin || _canEdit;
 		}
 
-		#region Loadingdata Events
-
-		private async Task LoadDepartmentsAsync()
-		{
-			_departments = await _departmentRepository.GetDepartmentsAsync();
-		}
-		private async Task LoadTitlesAsync()
-		{
-			HelperApplication.InitTitleComboBox(cboTitles.Properties);
-			await Task.CompletedTask;
-		}
-
-		#endregion
-
-		#region buttons Events
-
 		private async void btnSave_Click(object sender, EventArgs e)
 		{
 			if (!ValidateData()) return;
 
 			try
 			{
-			BindingContext[bsContact].EndCurrentEdit();
-			_contactModel = (ContactModel)bsContact.Current;
-			if (string.IsNullOrEmpty(_contactModel.ClientId))
-				_contactModel.ClientId = _clientId;
+				BindingContext[bsStatus].EndCurrentEdit();
+				_statusModel = (StatusModel)bsStatus.Current;
 
 
-				if (string.IsNullOrEmpty(_contactModel._id))
+				if (string.IsNullOrEmpty(_statusModel._id))
 				{
-					_logInfoRepository.CreateLogInfo(_contactModel);
+					_logInfoRepository.CreateLogInfo(_statusModel);
 
-					var newId = await _contactRepository.AddNewContactAsync(_contactModel);
+					var newId = await _statusRepository.AddNewStatusAsync(_statusModel);
 				}
 				else
 				{
-					_logInfoRepository.UpdateLogInfo(_contactModel);
+					_logInfoRepository.UpdateLogInfo(_statusModel);
 
-					await _contactRepository.UpdateContactAsync(_contactModel);
+					await _statusRepository.UpdateStatusAsync(_statusModel);
 				}
 
-				SendUpdatedContact(_contactModel, EventArgs.Empty);
+				SendUpdatedStatus(_statusModel, EventArgs.Empty);
 				Close();
 			}
 			catch (Exception ex)
@@ -194,8 +131,6 @@ namespace SpectrumV1.Views.Members.Clients
 		{
 			Close();
 		}
-
-		#endregion
 
 		private bool ValidateData()
 		{

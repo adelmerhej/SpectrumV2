@@ -8,10 +8,17 @@ namespace SpectrumV1.Models.Members.Engineers
 		[BsonElement("EngineerName")]
 		public string EngineerName { get; set; }
 		public string Specialization { get; set; }
+		public string Status { get; set; }
 		public string Address { get; set; }
-		public string MobileNumber { get; set; }
-		public string PhoneNumber { get; set; }
 		public string Email { get; set; }
+		public string PhoneNumber1 { get; set; }
+		public string PhoneNumber2 { get; set; }
+		public string PhoneNumber3 { get; set; }
+		public string FaxNumber { get; set; }
+		public string Website { get; set; }
+		public string Activity { get; set; }
+		public string Country { get; set; }
+		public string City { get; set; }
 		public DateTime HiredDate { get; set; }
 
 		#region Implementation of ICloneable

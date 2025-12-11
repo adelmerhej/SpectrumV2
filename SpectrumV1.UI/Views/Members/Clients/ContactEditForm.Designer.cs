@@ -29,18 +29,19 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContactEditForm));
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
+			this.buttonEdit1 = new DevExpress.XtraEditors.ButtonEdit();
 			this.chkIsPrimary = new DevExpress.XtraEditors.CheckEdit();
 			this.txtMobileNumber = new DevExpress.XtraEditors.TextEdit();
 			this.txtEmail = new DevExpress.XtraEditors.TextEdit();
@@ -50,6 +51,9 @@
 			this.btnSave = new DevExpress.XtraEditors.SimpleButton();
 			this.txtName = new DevExpress.XtraEditors.TextEdit();
 			this.cboTitles = new DevExpress.XtraEditors.ImageComboBoxEdit();
+			this.cboNationalities = new DevExpress.XtraEditors.ButtonEdit();
+			this.cboDepartments = new DevExpress.XtraEditors.SearchLookUpEdit();
+			this.searchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -57,7 +61,6 @@
 			this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.grpInfo = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lblName = new DevExpress.XtraLayout.LayoutControlItem();
-			this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lblDepartment = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblEmail = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblPhoneNumber1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -67,16 +70,16 @@
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblTitle = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.lblPhoneNumber2 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.cboNationalities = new DevExpress.XtraEditors.ButtonEdit();
-			this.buttonEdit1 = new DevExpress.XtraEditors.ButtonEdit();
-			this.lblPhoneNumber2 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.cboDepartments = new DevExpress.XtraEditors.SearchLookUpEdit();
-			this.searchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.bsContact = new System.Windows.Forms.BindingSource(this.components);
+			this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkIsPrimary.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtMobileNumber.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).BeginInit();
@@ -84,6 +87,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.cboTitles.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.cboNationalities.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.cboDepartments.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
@@ -91,7 +97,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.grpInfo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblName)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblDepartment)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblEmail)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblPhoneNumber1)).BeginInit();
@@ -101,13 +106,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblTitle)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblPhoneNumber2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboNationalities.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblPhoneNumber2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboDepartments.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.bsContact)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -134,6 +136,19 @@
 			this.mainLayout.Size = new System.Drawing.Size(661, 460);
 			this.mainLayout.TabIndex = 14;
 			this.mainLayout.Text = "layoutControl1";
+			// 
+			// buttonEdit1
+			// 
+			this.buttonEdit1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContact, "PhoneNumber2", true));
+			this.buttonEdit1.Location = new System.Drawing.Point(376, 158);
+			this.buttonEdit1.Name = "buttonEdit1";
+			editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
+			editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(12, 12);
+			this.buttonEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+			this.buttonEdit1.Size = new System.Drawing.Size(257, 25);
+			this.buttonEdit1.StyleController = this.mainLayout;
+			this.buttonEdit1.TabIndex = 21;
 			// 
 			// chkIsPrimary
 			// 
@@ -226,6 +241,44 @@
 			this.cboTitles.StyleController = this.mainLayout;
 			this.cboTitles.TabIndex = 20;
 			// 
+			// cboNationalities
+			// 
+			this.cboNationalities.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContact, "PhoneNumber1", true));
+			this.cboNationalities.Location = new System.Drawing.Point(129, 158);
+			this.cboNationalities.Name = "cboNationalities";
+			editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
+			editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(12, 12);
+			this.cboNationalities.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+			this.cboNationalities.Size = new System.Drawing.Size(243, 25);
+			this.cboNationalities.StyleController = this.mainLayout;
+			this.cboNationalities.TabIndex = 15;
+			// 
+			// cboDepartments
+			// 
+			this.cboDepartments.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContact, "Department", true));
+			this.cboDepartments.Location = new System.Drawing.Point(129, 106);
+			this.cboDepartments.Name = "cboDepartments";
+			this.cboDepartments.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+			this.cboDepartments.Properties.DisplayMember = "DepartmentName";
+			this.cboDepartments.Properties.NullText = "";
+			this.cboDepartments.Properties.PopupView = this.searchLookUpEdit1View;
+			this.cboDepartments.Properties.ValueMember = "DepartmentName";
+			this.cboDepartments.Size = new System.Drawing.Size(504, 22);
+			this.cboDepartments.StyleController = this.mainLayout;
+			this.cboDepartments.TabIndex = 13;
+			// 
+			// searchLookUpEdit1View
+			// 
+			this.searchLookUpEdit1View.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn1,
+            this.gridColumn2});
+			this.searchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+			this.searchLookUpEdit1View.Name = "searchLookUpEdit1View";
+			this.searchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
+			this.searchLookUpEdit1View.OptionsView.ShowGroupPanel = false;
+			// 
 			// layoutControlGroup1
 			// 
 			this.layoutControlGroup1.CustomizationFormText = "Root";
@@ -302,12 +355,6 @@
 			this.lblName.Text = "Name";
 			this.lblName.TextSize = new System.Drawing.Size(86, 16);
 			// 
-			// emptySpaceItem9
-			// 
-			this.emptySpaceItem9.Location = new System.Drawing.Point(348, 159);
-			this.emptySpaceItem9.Name = "emptySpaceItem9";
-			this.emptySpaceItem9.Size = new System.Drawing.Size(142, 28);
-			// 
 			// lblDepartment
 			// 
 			this.lblDepartment.Control = this.cboDepartments;
@@ -381,6 +428,21 @@
 			this.emptySpaceItem3.Name = "emptySpaceItem3";
 			this.emptySpaceItem3.Size = new System.Drawing.Size(305, 26);
 			// 
+			// lblPhoneNumber2
+			// 
+			this.lblPhoneNumber2.Control = this.buttonEdit1;
+			this.lblPhoneNumber2.Location = new System.Drawing.Point(348, 104);
+			this.lblPhoneNumber2.Name = "lblPhoneNumber2";
+			this.lblPhoneNumber2.Size = new System.Drawing.Size(261, 29);
+			this.lblPhoneNumber2.Text = "Phone Number2";
+			this.lblPhoneNumber2.TextVisible = false;
+			// 
+			// emptySpaceItem9
+			// 
+			this.emptySpaceItem9.Location = new System.Drawing.Point(348, 159);
+			this.emptySpaceItem9.Name = "emptySpaceItem9";
+			this.emptySpaceItem9.Size = new System.Drawing.Size(142, 28);
+			// 
 			// layoutControlGroup4
 			// 
 			this.layoutControlGroup4.GroupStyle = DevExpress.Utils.GroupStyle.Light;
@@ -399,64 +461,25 @@
 			this.layoutControlItem6.Size = new System.Drawing.Size(609, 90);
 			this.layoutControlItem6.TextVisible = false;
 			// 
-			// cboNationalities
-			// 
-			this.cboNationalities.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContact, "PhoneNumber1", true));
-			this.cboNationalities.Location = new System.Drawing.Point(129, 158);
-			this.cboNationalities.Name = "cboNationalities";
-			editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
-			editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(12, 12);
-			this.cboNationalities.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
-			this.cboNationalities.Size = new System.Drawing.Size(243, 25);
-			this.cboNationalities.StyleController = this.mainLayout;
-			this.cboNationalities.TabIndex = 15;
-			// 
-			// buttonEdit1
-			// 
-			this.buttonEdit1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContact, "PhoneNumber2", true));
-			this.buttonEdit1.Location = new System.Drawing.Point(376, 158);
-			this.buttonEdit1.Name = "buttonEdit1";
-			editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
-			editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(12, 12);
-			this.buttonEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
-			this.buttonEdit1.Size = new System.Drawing.Size(257, 25);
-			this.buttonEdit1.StyleController = this.mainLayout;
-			this.buttonEdit1.TabIndex = 21;
-			// 
-			// lblPhoneNumber2
-			// 
-			this.lblPhoneNumber2.Control = this.buttonEdit1;
-			this.lblPhoneNumber2.Location = new System.Drawing.Point(348, 104);
-			this.lblPhoneNumber2.Name = "lblPhoneNumber2";
-			this.lblPhoneNumber2.Size = new System.Drawing.Size(261, 29);
-			this.lblPhoneNumber2.Text = "Phone Number2";
-			this.lblPhoneNumber2.TextVisible = false;
-			// 
-			// cboDepartments
-			// 
-			this.cboDepartments.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContact, "Department", true));
-			this.cboDepartments.Location = new System.Drawing.Point(129, 106);
-			this.cboDepartments.Name = "cboDepartments";
-			this.cboDepartments.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.cboDepartments.Properties.NullText = "";
-			this.cboDepartments.Properties.PopupView = this.searchLookUpEdit1View;
-			this.cboDepartments.Size = new System.Drawing.Size(504, 22);
-			this.cboDepartments.StyleController = this.mainLayout;
-			this.cboDepartments.TabIndex = 13;
-			// 
-			// searchLookUpEdit1View
-			// 
-			this.searchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-			this.searchLookUpEdit1View.Name = "searchLookUpEdit1View";
-			this.searchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
-			this.searchLookUpEdit1View.OptionsView.ShowGroupPanel = false;
-			// 
 			// bsContact
 			// 
 			this.bsContact.DataSource = typeof(SpectrumV1.Models.Members.Clients.ContactModel);
+			// 
+			// gridColumn1
+			// 
+			this.gridColumn1.Caption = "Id";
+			this.gridColumn1.FieldName = "_id";
+			this.gridColumn1.Name = "gridColumn1";
+			this.gridColumn1.Width = 166;
+			// 
+			// gridColumn2
+			// 
+			this.gridColumn2.Caption = "Department";
+			this.gridColumn2.FieldName = "DepartmentName";
+			this.gridColumn2.Name = "gridColumn2";
+			this.gridColumn2.Visible = true;
+			this.gridColumn2.VisibleIndex = 0;
+			this.gridColumn2.Width = 975;
 			// 
 			// ContactEditForm
 			// 
@@ -472,6 +495,7 @@
 			this.Text = "Edit Contact";
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.chkIsPrimary.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtMobileNumber.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).EndInit();
@@ -479,6 +503,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.cboTitles.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.cboNationalities.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.cboDepartments.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
@@ -486,7 +513,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.grpInfo)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblName)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblDepartment)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblEmail)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblPhoneNumber1)).EndInit();
@@ -496,13 +522,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblTitle)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblPhoneNumber2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboNationalities.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblPhoneNumber2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboDepartments.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.bsContact)).EndInit();
 			this.ResumeLayout(false);
 
@@ -545,5 +568,7 @@
 		private DevExpress.XtraLayout.LayoutControlItem lblPhoneNumber2;
 		private DevExpress.XtraEditors.SearchLookUpEdit cboDepartments;
 		private DevExpress.XtraGrid.Views.Grid.GridView searchLookUpEdit1View;
+		private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+		private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
 	}
 }

@@ -156,11 +156,13 @@
     <Compile Include="Common\Countries\RegionModel.cs" />
     <Compile Include="Common\Currencies\CurrencyModel.cs" />
     <Compile Include="Common\Currencies\CurrencyExchangeModel.cs" />
+    <Compile Include="Common\Departments\DepartmentModel.cs" />
     <Compile Include="Common\Services\ServiceModel.cs" />
     <Compile Include="EntityObject.cs" />
     <Compile Include="Members\Clients\ClientModel.cs" />
     <Compile Include="Members\Clients\ContactModel.cs" />
     <Compile Include="Members\Engineers\EngineerModel.cs" />
+    <Compile Include="Members\Engineers\Status\StatusModel.cs" />
     <Compile Include="Operations\Projects\FinancialSummaryModel.cs" />
     <Compile Include="Operations\Projects\ProjectAssignmentModel.cs" />
     <Compile Include="Operations\Projects\ProjectCostModel.cs" />
@@ -188,7 +190,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Members\Clients\README_ContactMigration.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -141,6 +141,7 @@
 			this.lblPoBox = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblNotes = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.grpContactDetails = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -149,7 +150,6 @@
 			this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lblProjectsHistory = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
 			((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
@@ -194,6 +194,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.lblPoBox)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblNotes)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.grpContactDetails)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
@@ -202,7 +203,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblProjectsHistory)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// ribbonControl
@@ -902,7 +902,7 @@
 			this.grpClientInfo.Location = new System.Drawing.Point(0, 0);
 			this.grpClientInfo.Name = "grpClientInfo";
 			this.grpClientInfo.Size = new System.Drawing.Size(836, 353);
-			this.grpClientInfo.Text = "Clien Info";
+			this.grpClientInfo.Text = "Client Info";
 			// 
 			// lblClientName
 			// 
@@ -1037,6 +1037,12 @@
 			this.emptySpaceItem7.Name = "emptySpaceItem7";
 			this.emptySpaceItem7.Size = new System.Drawing.Size(482, 29);
 			// 
+			// emptySpaceItem9
+			// 
+			this.emptySpaceItem9.Location = new System.Drawing.Point(0, 156);
+			this.emptySpaceItem9.Name = "emptySpaceItem9";
+			this.emptySpaceItem9.Size = new System.Drawing.Size(808, 10);
+			// 
 			// grpContactDetails
 			// 
 			this.grpContactDetails.GroupStyle = DevExpress.Utils.GroupStyle.Light;
@@ -1097,12 +1103,6 @@
 			this.layoutControlItem2.Size = new System.Drawing.Size(1386, 138);
 			this.layoutControlItem2.TextVisible = false;
 			// 
-			// emptySpaceItem9
-			// 
-			this.emptySpaceItem9.Location = new System.Drawing.Point(0, 156);
-			this.emptySpaceItem9.Name = "emptySpaceItem9";
-			this.emptySpaceItem9.Size = new System.Drawing.Size(808, 10);
-			// 
 			// ClientEditForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1160,6 +1160,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.lblPoBox)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblNotes)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.grpContactDetails)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
@@ -1168,7 +1169,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblProjectsHistory)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

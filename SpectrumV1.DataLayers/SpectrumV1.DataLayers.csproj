@@ -170,6 +170,8 @@
     <Compile Include="Common\Currencies\CurrencyRepository.cs" />
     <Compile Include="Common\Currencies\Interfaces\ICurrencyExchangeRepository.cs" />
     <Compile Include="Common\Currencies\Interfaces\ICurrencyRepository.cs" />
+    <Compile Include="Common\Departments\DepartmentRepository.cs" />
+    <Compile Include="Common\Departments\IDepartmentRepository.cs" />
     <Compile Include="Common\Services\IServiceRepository.cs" />
     <Compile Include="Common\Services\ServiceRepository.cs" />
     <Compile Include="DataAccess\DatabaseFactory.cs" />
@@ -182,6 +184,8 @@
     <Compile Include="Members\Clients\IContactRepository.cs" />
     <Compile Include="Members\Engineers\EngineerRepository.cs" />
     <Compile Include="Members\Engineers\IEngineerRepository.cs" />
+    <Compile Include="Members\Engineers\Status\IStatusRepository.cs" />
+    <Compile Include="Members\Engineers\Status\StatusRepository.cs" />
     <Compile Include="Projects\IProjectRepository.cs" />
     <Compile Include="Projects\ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -746,6 +746,8 @@ namespace SpectrumV1.Utilities
 		#region Title ComboBox Initialization
 		public static void InitTitleComboBox(RepositoryItemImageComboBox edit)
 		{
+			if (edit == null) return;
+			edit.Items.Clear();
 			var iCollection = new SvgImageCollection();
 			iCollection.Add(Resources.Doctor);
 			iCollection.Add(Resources.Miss);
@@ -753,11 +755,11 @@ namespace SpectrumV1.Utilities
 			iCollection.Add(Resources.Mrs);
 			iCollection.Add(Resources.Ms);
 			iCollection.Add(Resources.Professor);
-			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Dr), PersonPrefix.Dr, 0));
-			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Miss), PersonPrefix.Miss, 1));
-			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Mr), PersonPrefix.Mr, 2));
-			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Mrs), PersonPrefix.Mrs, 3));
-			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Ms), PersonPrefix.Ms, 4));
+			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Dr), PersonPrefix.Dr.ToString(), 0));
+			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Miss), PersonPrefix.Miss.ToString(), 1));
+			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Mr), PersonPrefix.Mr.ToString(), 2));
+			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Mrs), PersonPrefix.Mrs.ToString(), 3));
+			edit.Items.Add(new ImageComboBoxItem(GetTitleNameByContactTitle(PersonPrefix.Ms), PersonPrefix.Ms.ToString(), 4));
 			edit.SmallImages = iCollection;
 		}
 
@@ -776,6 +778,7 @@ namespace SpectrumV1.Utilities
 		}
 
 		#endregion
+
 
 	}
 }

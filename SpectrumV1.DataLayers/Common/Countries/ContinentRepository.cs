@@ -12,26 +12,26 @@ namespace SpectrumV1.DataLayers.Common.Countries
 {
 	public class ContinentRepository : IContinentRepository, IDisposable
 	{
-		private readonly IMongoCollection<ContinentModel> _continentes;
+		private readonly IMongoCollection<ContinentModel> _continents;
 		private const string CollectionName = "Continents";
 
 		// Constructor for dependency injection
 		public ContinentRepository(string profileName)
 		{
 			var database = DatabaseFactory.GetMongoDatabase(profileName);
-			_continentes = database.GetCollection<ContinentModel>(CollectionName);
+			_continents = database.GetCollection<ContinentModel>(CollectionName);
 		}
 
 		// Interface async implementations (wrapping legacy sync methods)
 		public async Task<List<ContinentModel>> GetContinentsAsync()
 		{
-			return await _continentes.Find(continent => true).ToListAsync();
+			return await _continents.Find(continent => true).ToListAsync();
 		}
 
 		public async Task<ContinentModel> GetContinentByIdAsync(string id)
 		{
 			var filter = Builders<ContinentModel>.Filter.Eq(u => u._id, id);
-			return await _continentes.Find(filter).FirstOrDefaultAsync();
+			return await _continents.Find(filter).FirstOrDefaultAsync();
 		}
 
 		public async Task<ContinentModel> GetContinentByName(string continentName)
@@ -39,7 +39,7 @@ namespace SpectrumV1.DataLayers.Common.Countries
 			if (string.IsNullOrWhiteSpace(continentName)) return null;
 			var pattern = "^" + Regex.Escape(continentName.Trim()) + "$"; // exact match
 			var filter = Builders<ContinentModel>.Filter.Regex(u => u.ContinentName, new BsonRegularExpression(pattern, "i"));
-			return await _continentes.Find(filter).FirstOrDefaultAsync();
+			return await _continents.Find(filter).FirstOrDefaultAsync();
 		}
 
 		/// <summary>
@@ -51,7 +51,7 @@ namespace SpectrumV1.DataLayers.Common.Countries
 			try
 			{
 				continent.CreatedAt = DateTime.UtcNow;
-				await _continentes.InsertOneAsync(continent);
+				await _continents.InsertOneAsync(continent);
 				return continent._id;
 			}
 			catch (Exception ex)
@@ -67,7 +67,7 @@ namespace SpectrumV1.DataLayers.Common.Countries
 		{
 			try
 			{
-				var result = await _continentes.ReplaceOneAsync(u => u._id == continent._id, continent);
+				var result = await _continents.ReplaceOneAsync(u => u._id == continent._id, continent);
 				return result.IsAcknowledged && result.ModifiedCount > 0;
 			}
 			catch (Exception ex)
@@ -80,7 +80,7 @@ namespace SpectrumV1.DataLayers.Common.Countries
 		{
 			try
 			{
-				var result = await _continentes.DeleteOneAsync(u => u._id == id);
+				var result = await _continents.DeleteOneAsync(u => u._id == id);
 				return result.IsAcknowledged && result.DeletedCount > 0;
 			}
 			catch (Exception ex)
@@ -94,7 +94,7 @@ namespace SpectrumV1.DataLayers.Common.Countries
 		/// </summary>
 		public async Task<long> GetCountAsync()
 		{
-			return await _continentes.CountDocumentsAsync(new BsonDocument());
+			return await _continents.CountDocumentsAsync(new BsonDocument());
 		}
 
 		#region Implementation of IDisposable
