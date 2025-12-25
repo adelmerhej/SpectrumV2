@@ -70,18 +70,18 @@ namespace SpectrumV1.Views.Projects
 		private void WireUpBindings()
 		{
 			bsProject.DataSource = _projectModel;
-			cboClients.Properties.DataSource = null;
-			cboClients.Properties.DataSource = _clients;
-			cboClients.Properties.DisplayMember = "ClientName";
-			cboClients.Properties.ValueMember = "_id";
+			cboClients1.Properties.DataSource = null;
+			cboClients1.Properties.DataSource = _clients;
+			cboClients1.Properties.DisplayMember = "ClientName";
+			cboClients1.Properties.ValueMember = "_id";
 
-			cboEngineers.Properties.DataSource = null;
-			cboEngineers.Properties.DataSource = _engineers;
-			cboEngineers.Properties.DisplayMember = "EngineerName";
-			cboEngineers.Properties.ValueMember = "_id";
+			cboEngineers1.Properties.DataSource = null;
+			cboEngineers1.Properties.DataSource = _engineers;
+			cboEngineers1.Properties.DisplayMember = "EngineerName";
+			cboEngineers1.Properties.ValueMember = "_id";
 
-			cboStatus.Properties.Items.Clear();
-			cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
+			//cboStatus.Properties.Items.Clear();
+			//cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
 		}
 
 		private void ApplyDefaults()
@@ -151,20 +151,20 @@ namespace SpectrumV1.Views.Projects
 				_projectModel = (ProjectModel)bsProject.Current;
 
 				// derive client / engineer names from selected values
-				if (cboClients.EditValue != null)
+				if (cboClients1.EditValue != null)
 				{
-					var selectedClient = _clients.FirstOrDefault(c => c._id == cboClients.EditValue.ToString());
+					var selectedClient = _clients.FirstOrDefault(c => c._id == cboClients1.EditValue.ToString());
 					if (selectedClient != null) _projectModel.ClientName = selectedClient.ClientName;
 				}
-				if (cboEngineers.EditValue != null)
+				if (cboEngineers1.EditValue != null)
 				{
-					var selectedEngineer = _engineers.FirstOrDefault(e => e._id == cboEngineers.EditValue.ToString());
+					var selectedEngineer = _engineers.FirstOrDefault(e => e._id == cboEngineers1.EditValue.ToString());
 					if (selectedEngineer != null) _projectModel.EngineerInCharge = selectedEngineer.EngineerName;
 				}
-				if (!string.IsNullOrEmpty(cboStatus.Text))
-				{
-					if (Enum.TryParse<ProjectStatus>(cboStatus.Text, out var st)) _projectModel.Status = st;
-				}
+				//if (!string.IsNullOrEmpty(cboStatus.Text))
+				//{
+				//	if (Enum.TryParse<ProjectStatus>(cboStatus.Text, out var st)) _projectModel.Status = st;
+				//}
 
 				if (string.IsNullOrEmpty(_projectModel._id))
 				{
@@ -191,16 +191,16 @@ namespace SpectrumV1.Views.Projects
 			var messageNumber = 0;
 			var validateMessage = new StringBuilder();
 
-			if (string.IsNullOrWhiteSpace(txtProjectName.Text))
+			if (string.IsNullOrWhiteSpace(txtProjectName1.Text))
 			{
 				messageNumber += 1; validateMessage.Append("\n- Project Name cannot be empty.");
-				validateReturnValue = false; txtProjectName.Focus();
+				validateReturnValue = false; txtProjectName1.Focus();
 			}
-			if (cboStatus.EditValue == null)
-			{
-				messageNumber += 1; validateMessage.Append("\n- Status cannot be empty.");
-				validateReturnValue = false; cboStatus.Focus();
-			}
+			//if (cboStatus.EditValue == null)
+			//{
+			//	messageNumber += 1; validateMessage.Append("\n- Status cannot be empty.");
+			//	validateReturnValue = false; cboStatus.Focus();
+			//}
 
 			if (!validateReturnValue)
 			{

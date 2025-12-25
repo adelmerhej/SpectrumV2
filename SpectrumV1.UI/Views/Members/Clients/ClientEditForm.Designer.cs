@@ -1010,7 +1010,7 @@
 			this.lblMofNo.Location = new System.Drawing.Point(0, 195);
 			this.lblMofNo.Name = "lblMofNo";
 			this.lblMofNo.Size = new System.Drawing.Size(416, 26);
-			this.lblMofNo.Text = "MofNo";
+			this.lblMofNo.Text = "MOF#";
 			this.lblMofNo.TextSize = new System.Drawing.Size(84, 16);
 			// 
 			// lblPoBox
