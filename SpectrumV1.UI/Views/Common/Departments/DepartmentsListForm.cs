@@ -118,7 +118,7 @@ namespace SpectrumV1.Views.Common.Departments
 		{
 			DepartmentEditForm frm = new DepartmentEditForm(new DepartmentModel());
 			frm.SendUpdatedDepartment += RcvUpdatedDepartmentAsync;
-			frm.ShowDialog();
+			frm.Show();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -135,7 +135,7 @@ namespace SpectrumV1.Views.Common.Departments
 
 				var departmentForm = new DepartmentEditForm(_departmentModel);
 				departmentForm.SendUpdatedDepartment += RcvUpdatedDepartmentAsync;
-				departmentForm.ShowDialog();
+				departmentForm.Show();
 			}
 			catch (Exception exception)
 			{
@@ -245,7 +245,7 @@ namespace SpectrumV1.Views.Common.Departments
 
 				var departmentForm = new DepartmentEditForm(_departmentModel);
 				departmentForm.SendUpdatedDepartment += RcvUpdatedDepartmentAsync;
-				departmentForm.ShowDialog();
+				departmentForm.Show();
 			}
 			catch (Exception exception)
 			{

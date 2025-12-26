@@ -3,8 +3,10 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using SpectrumV1.DataLayers.Common.Branches;
 using SpectrumV1.DataLayers.Common.Companies;
+using SpectrumV1.DataLayers.Common.Countries;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Companies;
+using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Utilities;
 using System;
 using System.Collections.Generic;
@@ -17,14 +19,18 @@ namespace SpectrumV1.Views.Common.Companies
 {
 	public partial class CompanyEditForm : RibbonForm
 	{
-		private IList<CompanyModel> _companies = new List<CompanyModel>();
 		private CompanyModel _companyModel = new CompanyModel();
-
 		private BranchModel _branchModel = new BranchModel();
+
+		private IList<CompanyModel> _companies = new List<CompanyModel>();
 		private IList<BranchModel> _branches = new List<BranchModel>();
+		private IList<CountryModel> _countries = new List<CountryModel>();
+		private IList<CityModel> _cities = new List<CityModel>();
 
 		private readonly CompanyRepository _companyRepository = new CompanyRepository(DatabaseFactory.ProfilePrimary);
 		private readonly BranchRepository _branchRepository = new BranchRepository(DatabaseFactory.ProfilePrimary);
+		private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
+		private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
@@ -70,6 +76,8 @@ namespace SpectrumV1.Views.Common.Companies
 				//	//
 
 				_branches = await _branchRepository.GetBranchesAsync();
+				_countries = await _countryRepository.GetCountriesAsync();
+				_cities = await _cityRepository.GetCitiesAsync();
 			}
 			catch (Exception ex)
 			{
@@ -86,6 +94,12 @@ namespace SpectrumV1.Views.Common.Companies
 
 			repCompanies.DataSource = null;
 			repCompanies.DataSource = _companies;
+
+			cboCountries.Properties.DataSource = null;
+			cboCountries.Properties.DataSource = _countries;
+
+			cboCities.Properties.DataSource = null;
+			cboCities.Properties.DataSource = _cities;
 		}
 
 		private void ApplyDefaults()
@@ -281,5 +295,19 @@ namespace SpectrumV1.Views.Common.Companies
 			gvBranches.RefreshData();
 		}
 
+		private void gvBranches_DoubleClick(object sender, EventArgs e)
+		{
+			if (!_branches.Any()) return;
+
+			var currentRowId = gvBranches.GetFocusedRowCellValue("_id").ToString();
+			if (string.IsNullOrEmpty(currentRowId)) return;
+
+			_branchModel = _branches.SingleOrDefault(x => x._id == currentRowId);
+			if (_branchModel == null) return;
+
+			var frm = new BranchEditForm(_branchModel);
+			frm.SendUpdatedBranch += RcvUpdatedBranchAsync;
+			frm.ShowDialog();
+		}
 	}
 }

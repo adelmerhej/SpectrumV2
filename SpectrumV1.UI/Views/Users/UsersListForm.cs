@@ -116,7 +116,7 @@ namespace SpectrumV1.Views.Users
 		{
 			UserEditForm frm = new UserEditForm(new UserModel());
 			frm.SendUpdatedUser += RcvUpdatedUserAsync;
-			frm.ShowDialog();
+			frm.Show();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -133,7 +133,7 @@ namespace SpectrumV1.Views.Users
 
 				var userForm = new UserEditForm(_userModel);
 				userForm.SendUpdatedUser += RcvUpdatedUserAsync;
-				userForm.ShowDialog();
+				userForm.Show();
 			}
 			catch (Exception exception)
 			{
@@ -225,7 +225,7 @@ namespace SpectrumV1.Views.Users
 
 				var userForm = new UserEditForm(_userModel);
 				userForm.SendUpdatedUser += RcvUpdatedUserAsync;
-				userForm.ShowDialog();
+				userForm.Show();
 			}
 			catch (Exception exception)
 			{

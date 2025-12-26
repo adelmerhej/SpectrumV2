@@ -119,7 +119,7 @@ namespace SpectrumV1.Views.Common.Countries
 		{
 			CountryEditForm frm = new CountryEditForm(new CountryModel());
 			frm.SendUpdatedCountry += RcvUpdatedCountryAsync;
-			frm.ShowDialog();
+			frm.Show();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -136,7 +136,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 				var countryForm = new CountryEditForm(_countryModel);
 				countryForm.SendUpdatedCountry += RcvUpdatedCountryAsync;
-				countryForm.ShowDialog();
+				countryForm.Show();
 			}
 			catch (Exception exception)
 			{
@@ -243,7 +243,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 				var countryForm = new CountryEditForm(_countryModel);
 				countryForm.SendUpdatedCountry += RcvUpdatedCountryAsync;
-				countryForm.ShowDialog();
+				countryForm.Show();
 			}
 			catch (Exception exception)
 			{

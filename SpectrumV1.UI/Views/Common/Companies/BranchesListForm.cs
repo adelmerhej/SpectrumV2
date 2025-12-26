@@ -119,7 +119,7 @@ namespace SpectrumV1.Views.Common.Companies
 		{
 			BranchEditForm frm = new BranchEditForm(new BranchModel());
 			frm.SendUpdatedBranch += RcvUpdatedBranchAsync;
-			frm.ShowDialog();
+			frm.Show();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -136,7 +136,7 @@ namespace SpectrumV1.Views.Common.Companies
 
 				var branchForm = new BranchEditForm(_branchModel);
 				branchForm.SendUpdatedBranch += RcvUpdatedBranchAsync;
-				branchForm.ShowDialog();
+				branchForm.Show();
 			}
 			catch (Exception exception)
 			{
@@ -238,7 +238,7 @@ namespace SpectrumV1.Views.Common.Companies
 
 				var branchForm = new BranchEditForm(_branchModel);
 				branchForm.SendUpdatedBranch += RcvUpdatedBranchAsync;
-				branchForm.ShowDialog();
+				branchForm.Show();
 			}
 			catch (Exception exception)
 			{

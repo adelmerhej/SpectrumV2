@@ -19,6 +19,7 @@ namespace SpectrumV1.Views.Members.Clients
 	{
 		private ClientModel _clientModel = new ClientModel();
 		private IList<ClientModel> _clients = new List<ClientModel>();
+		private ClientEditForm _clientEditForm;
 
 		private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
 
@@ -118,9 +119,7 @@ namespace SpectrumV1.Views.Members.Clients
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			ClientEditForm frm = new ClientEditForm(new ClientModel());
-			frm.SendUpdatedClient += RcvUpdatedClientAsync;
-			frm.ShowDialog();
+			ShowClientEditor(new ClientModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -135,9 +134,7 @@ namespace SpectrumV1.Views.Members.Clients
 				_clientModel = _clients.SingleOrDefault(x => x._id == currentRowId);
 				if (_clientModel == null) return;
 
-				var clientForm = new ClientEditForm(_clientModel);
-				clientForm.SendUpdatedClient += RcvUpdatedClientAsync;
-				clientForm.ShowDialog();
+				ShowClientEditor(_clientModel);
 			}
 			catch (Exception exception)
 			{
@@ -242,14 +239,42 @@ namespace SpectrumV1.Views.Members.Clients
 				_clientModel = _clients.SingleOrDefault(x => x._id == currentRowId);
 				if (_clientModel == null) return;
 
-				var clientForm = new ClientEditForm(_clientModel);
-				clientForm.SendUpdatedClient += RcvUpdatedClientAsync;
-				clientForm.ShowDialog();
+				ShowClientEditor(_clientModel);
 			}
 			catch (Exception exception)
 			{
 				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
+		}
+
+		private void ShowClientEditor(ClientModel model)
+		{
+			if (_clientEditForm == null || _clientEditForm.IsDisposed)
+			{
+				_clientEditForm = new ClientEditForm(model);
+				_clientEditForm.SendUpdatedClient += RcvUpdatedClientAsync;
+				_clientEditForm.FormClosed += ClientEditForm_FormClosed;
+				_clientEditForm.Show(this);
+				return;
+			}
+
+			if (_clientEditForm.WindowState == FormWindowState.Minimized)
+				_clientEditForm.WindowState = FormWindowState.Normal;
+
+			_clientEditForm.Activate();
+			_clientEditForm.BringToFront();
+		}
+
+		private void ClientEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as ClientEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedClient -= RcvUpdatedClientAsync;
+				form.FormClosed -= ClientEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_clientEditForm, sender))
+				_clientEditForm = null;
 		}
 
 		private bool CanDelete()

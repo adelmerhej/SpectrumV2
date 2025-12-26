@@ -100,7 +100,7 @@ namespace SpectrumV1.Views.Members.Engineers
 		{
 			var frm = new EngineerEditForm(new EngineerModel());
 			frm.SendUpdatedEngineer += RcvUpdatedEngineerAsync;
-			frm.ShowDialog();
+			frm.Show();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -119,7 +119,7 @@ namespace SpectrumV1.Views.Members.Engineers
 
 				var frm = new EngineerEditForm(_engineerModel);
 				frm.SendUpdatedEngineer += RcvUpdatedEngineerAsync;
-				frm.ShowDialog();
+				frm.Show();
 			}
 			catch (Exception exception)
 			{
@@ -226,7 +226,7 @@ namespace SpectrumV1.Views.Members.Engineers
 
 				var frm = new EngineerEditForm(_engineerModel);
 				frm.SendUpdatedEngineer += RcvUpdatedEngineerAsync;
-				frm.ShowDialog();
+				frm.Show();
 			}
 			catch (Exception exception)
 			{

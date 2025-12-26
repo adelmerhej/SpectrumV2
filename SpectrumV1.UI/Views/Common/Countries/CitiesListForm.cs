@@ -119,7 +119,7 @@ namespace SpectrumV1.Views.Common.Countries
 		{
 			CityEditForm frm = new CityEditForm(new CityModel());
 			frm.SendUpdatedCity += RcvUpdatedCityAsync;
-			frm.ShowDialog();
+			frm.Show();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -136,7 +136,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 				var cityForm = new CityEditForm(_cityModel);
 				cityForm.SendUpdatedCity += RcvUpdatedCityAsync;
-				cityForm.ShowDialog();
+				cityForm.Show();
 			}
 			catch (Exception exception)
 			{
@@ -243,7 +243,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 				var cityForm = new CityEditForm(_cityModel);
 				cityForm.SendUpdatedCity += RcvUpdatedCityAsync;
-				cityForm.ShowDialog();
+				cityForm.Show();
 			}
 			catch (Exception exception)
 			{

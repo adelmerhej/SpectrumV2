@@ -118,7 +118,7 @@ namespace SpectrumV1.Views.Common.Services
 		{
 			ServiceEditForm frm = new ServiceEditForm(new ServiceModel());
 			frm.SendUpdatedService += RcvUpdatedServiceAsync;
-			frm.ShowDialog();
+			frm.Show();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -135,7 +135,7 @@ namespace SpectrumV1.Views.Common.Services
 
 				var serviceForm = new ServiceEditForm(_serviceModel);
 				serviceForm.SendUpdatedService += RcvUpdatedServiceAsync;
-				serviceForm.ShowDialog();
+				serviceForm.Show();
 			}
 			catch (Exception exception)
 			{
@@ -245,7 +245,7 @@ namespace SpectrumV1.Views.Common.Services
 
 				var serviceForm = new ServiceEditForm(_serviceModel);
 				serviceForm.SendUpdatedService += RcvUpdatedServiceAsync;
-				serviceForm.ShowDialog();
+				serviceForm.Show();
 			}
 			catch (Exception exception)
 			{

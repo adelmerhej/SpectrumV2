@@ -178,6 +178,9 @@ namespace SpectrumV1.Views.Main
 
 		#endregion
 
+
+		#region OpenForm Methods
+
 		/// <summary>
 		/// Opens a form instance, reusing any existing open instance of the same type.
 		/// Pass <paramref name="isDialog"/> to show as modal dialog instead of MDI.
@@ -289,6 +292,7 @@ namespace SpectrumV1.Views.Main
 				Console.WriteLine(exception);
 			}
 		}
+		#endregion
 
 		#region Dashboard Menu
 

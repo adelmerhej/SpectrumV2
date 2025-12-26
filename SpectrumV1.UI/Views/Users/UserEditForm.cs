@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using Microsoft.AspNet.Identity;
+using SpectrumV1.DataLayers.Common.Branches;
 using SpectrumV1.DataLayers.Common.Companies; // Added for companies repository
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Users;
@@ -21,9 +22,12 @@ namespace SpectrumV1.Views.Users
 	public partial class UserEditForm : XtraForm
 	{
 		private UserModel _userModel = new UserModel();
+		private List<CompanyModel> _companies;
+		private List<BranchModel> _branches;
+
 		private readonly UserRepository _userRepository = new UserRepository(DatabaseFactory.ProfilePrimary);
 		private readonly CompanyRepository _companyRepository = new CompanyRepository(DatabaseFactory.ProfilePrimary);
-		private List<CompanyModel> _companies; // cache companies
+		private readonly BranchRepository _branchRepository = new BranchRepository(DatabaseFactory.ProfilePrimary);
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
@@ -67,13 +71,9 @@ namespace SpectrumV1.Views.Users
 
 				// Load companies
 				_companies = await _companyRepository.GetCompaniesAsync();
+				_branches = await _branchRepository.GetBranchesAsync();
 
-				cboCompanies.Properties.DataSource = _companies;
-				cboCompanies.Properties.NullText = string.Empty;
-				if (!string.IsNullOrWhiteSpace(_userModel.Company))
-				{
-					cboCompanies.EditValue = _userModel.Company; // preselect existing company
-				}
+
 			}
 			catch (Exception ex)
 			{
@@ -84,6 +84,20 @@ namespace SpectrumV1.Views.Users
 		private void WireUpBindings()
 		{
 			bsUser.DataSource = _userModel;
+
+			cboCompanies.Properties.DataSource = _companies;
+			cboCompanies.Properties.NullText = string.Empty;
+			if (!string.IsNullOrWhiteSpace(_userModel.Company))
+			{
+				cboCompanies.EditValue = _userModel.Company; // preselect existing company
+			}
+
+			cboBranches.Properties.DataSource = _branches;
+			cboBranches.Properties.NullText = string.Empty;
+			if (!string.IsNullOrWhiteSpace(_userModel.Branch))
+			{
+				cboBranches.EditValue = _userModel.Branch; // preselect existing branch
+			}
 		}
 
 		private void ApplyDefaults()

@@ -119,7 +119,7 @@ namespace SpectrumV1.Views.Common.Areas
 		{
 			AreaEditForm frm = new AreaEditForm(new AreaModel());
 			frm.SendUpdatedArea += RcvUpdatedAreaAsync;
-			frm.ShowDialog();
+			frm.Show();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -136,7 +136,7 @@ namespace SpectrumV1.Views.Common.Areas
 
 				var countryForm = new AreaEditForm(_areaModel);
 				countryForm.SendUpdatedArea += RcvUpdatedAreaAsync;
-				countryForm.ShowDialog();
+				countryForm.Show();
 			}
 			catch (Exception exception)
 			{
@@ -243,7 +243,7 @@ namespace SpectrumV1.Views.Common.Areas
 
 				var countryForm = new AreaEditForm(_areaModel);
 				countryForm.SendUpdatedArea += RcvUpdatedAreaAsync;
-				countryForm.ShowDialog();
+				countryForm.Show();
 			}
 			catch (Exception exception)
 			{

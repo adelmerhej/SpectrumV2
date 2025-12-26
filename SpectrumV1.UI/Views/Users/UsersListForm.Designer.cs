@@ -30,6 +30,7 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UsersListForm));
+			DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
 			this.rcUsersList = new DevExpress.XtraBars.Ribbon.RibbonControl();
 			this.btnNew = new DevExpress.XtraBars.BarButtonItem();
 			this.btnDelete = new DevExpress.XtraBars.BarButtonItem();
@@ -52,27 +53,29 @@
 			this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
 			this.gcUsers = new DevExpress.XtraGrid.GridControl();
-			this.gvUsers = new DevExpress.XtraGrid.Views.Grid.GridView();
-			this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.bsUsers = new System.Windows.Forms.BindingSource(this.components);
+			this.gvUsers = new DevExpress.XtraGrid.Views.Grid.GridView();
+			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colUsername = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colEmail = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colIsLockedOut = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colChangePasswordNextLogon = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colIsLockedOut = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colCompany = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colBranch = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
 			((System.ComponentModel.ISupportInitialize)(this.rcUsersList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gcUsers)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsUsers)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gvUsers)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsUsers)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// rcUsersList
@@ -288,6 +291,10 @@
 			this.gcUsers.EmbeddedNavigator.Buttons.Edit.Visible = false;
 			this.gcUsers.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
 			this.gcUsers.EmbeddedNavigator.Buttons.Remove.Visible = false;
+			gridLevelNode1.LevelTemplate = this.gridView1;
+			gridLevelNode1.RelationName = "Level1";
+			this.gcUsers.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            gridLevelNode1});
 			this.gcUsers.Location = new System.Drawing.Point(14, 14);
 			this.gcUsers.MainView = this.gvUsers;
 			this.gcUsers.Name = "gcUsers";
@@ -295,7 +302,12 @@
 			this.gcUsers.TabIndex = 7;
 			this.gcUsers.UseEmbeddedNavigator = true;
 			this.gcUsers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvUsers});
+            this.gvUsers,
+            this.gridView1});
+			// 
+			// bsUsers
+			// 
+			this.bsUsers.DataSource = typeof(SpectrumV1.Models.Users.UserModel);
 			// 
 			// gvUsers
 			// 
@@ -321,6 +333,85 @@
 			this.gvUsers.OptionsView.ShowGroupPanel = false;
 			this.gvUsers.DoubleClick += new System.EventHandler(this.gvUsers_DoubleClick);
 			// 
+			// col_id
+			// 
+			this.col_id.FieldName = "_id";
+			this.col_id.MinWidth = 25;
+			this.col_id.Name = "col_id";
+			this.col_id.Width = 149;
+			// 
+			// colUsername
+			// 
+			this.colUsername.FieldName = "Username";
+			this.colUsername.MinWidth = 25;
+			this.colUsername.Name = "colUsername";
+			this.colUsername.Visible = true;
+			this.colUsername.VisibleIndex = 0;
+			this.colUsername.Width = 186;
+			// 
+			// colEmail
+			// 
+			this.colEmail.FieldName = "Email";
+			this.colEmail.MinWidth = 25;
+			this.colEmail.Name = "colEmail";
+			this.colEmail.Visible = true;
+			this.colEmail.VisibleIndex = 1;
+			this.colEmail.Width = 286;
+			// 
+			// colChangePasswordNextLogon
+			// 
+			this.colChangePasswordNextLogon.FieldName = "ChangePasswordNextLogon";
+			this.colChangePasswordNextLogon.MinWidth = 25;
+			this.colChangePasswordNextLogon.Name = "colChangePasswordNextLogon";
+			this.colChangePasswordNextLogon.Visible = true;
+			this.colChangePasswordNextLogon.VisibleIndex = 3;
+			this.colChangePasswordNextLogon.Width = 194;
+			// 
+			// colIsLockedOut
+			// 
+			this.colIsLockedOut.FieldName = "IsLockedOut";
+			this.colIsLockedOut.MinWidth = 25;
+			this.colIsLockedOut.Name = "colIsLockedOut";
+			this.colIsLockedOut.Visible = true;
+			this.colIsLockedOut.VisibleIndex = 2;
+			this.colIsLockedOut.Width = 94;
+			// 
+			// colNotes
+			// 
+			this.colNotes.FieldName = "Notes";
+			this.colNotes.MinWidth = 25;
+			this.colNotes.Name = "colNotes";
+			this.colNotes.Visible = true;
+			this.colNotes.VisibleIndex = 4;
+			this.colNotes.Width = 339;
+			// 
+			// colCompany
+			// 
+			this.colCompany.FieldName = "Company";
+			this.colCompany.MinWidth = 25;
+			this.colCompany.Name = "colCompany";
+			this.colCompany.Visible = true;
+			this.colCompany.VisibleIndex = 5;
+			this.colCompany.Width = 242;
+			// 
+			// colBranch
+			// 
+			this.colBranch.FieldName = "Branch";
+			this.colBranch.MinWidth = 25;
+			this.colBranch.Name = "colBranch";
+			this.colBranch.Visible = true;
+			this.colBranch.VisibleIndex = 6;
+			this.colBranch.Width = 136;
+			// 
+			// colActive
+			// 
+			this.colActive.FieldName = "Active";
+			this.colActive.MinWidth = 25;
+			this.colActive.Name = "colActive";
+			this.colActive.Visible = true;
+			this.colActive.VisibleIndex = 7;
+			this.colActive.Width = 94;
+			// 
 			// Root
 			// 
 			this.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -339,90 +430,10 @@
 			this.layoutControlItem1.Size = new System.Drawing.Size(1409, 541);
 			this.layoutControlItem1.TextVisible = false;
 			// 
-			// bsUsers
+			// gridView1
 			// 
-			this.bsUsers.DataSource = typeof(SpectrumV1.Models.Users.UserModel);
-			// 
-			// colUsername
-			// 
-			this.colUsername.FieldName = "Username";
-			this.colUsername.MinWidth = 25;
-			this.colUsername.Name = "colUsername";
-			this.colUsername.Visible = true;
-			this.colUsername.VisibleIndex = 1;
-			this.colUsername.Width = 186;
-			// 
-			// colEmail
-			// 
-			this.colEmail.FieldName = "Email";
-			this.colEmail.MinWidth = 25;
-			this.colEmail.Name = "colEmail";
-			this.colEmail.Visible = true;
-			this.colEmail.VisibleIndex = 2;
-			this.colEmail.Width = 286;
-			// 
-			// colIsLockedOut
-			// 
-			this.colIsLockedOut.FieldName = "IsLockedOut";
-			this.colIsLockedOut.MinWidth = 25;
-			this.colIsLockedOut.Name = "colIsLockedOut";
-			this.colIsLockedOut.Visible = true;
-			this.colIsLockedOut.VisibleIndex = 3;
-			this.colIsLockedOut.Width = 94;
-			// 
-			// colChangePasswordNextLogon
-			// 
-			this.colChangePasswordNextLogon.FieldName = "ChangePasswordNextLogon";
-			this.colChangePasswordNextLogon.MinWidth = 25;
-			this.colChangePasswordNextLogon.Name = "colChangePasswordNextLogon";
-			this.colChangePasswordNextLogon.Visible = true;
-			this.colChangePasswordNextLogon.VisibleIndex = 4;
-			this.colChangePasswordNextLogon.Width = 194;
-			// 
-			// col_id
-			// 
-			this.col_id.FieldName = "_id";
-			this.col_id.MinWidth = 25;
-			this.col_id.Name = "col_id";
-			this.col_id.Visible = true;
-			this.col_id.VisibleIndex = 0;
-			this.col_id.Width = 149;
-			// 
-			// colNotes
-			// 
-			this.colNotes.FieldName = "Notes";
-			this.colNotes.MinWidth = 25;
-			this.colNotes.Name = "colNotes";
-			this.colNotes.Visible = true;
-			this.colNotes.VisibleIndex = 5;
-			this.colNotes.Width = 339;
-			// 
-			// colCompany
-			// 
-			this.colCompany.FieldName = "Company";
-			this.colCompany.MinWidth = 25;
-			this.colCompany.Name = "colCompany";
-			this.colCompany.Visible = true;
-			this.colCompany.VisibleIndex = 6;
-			this.colCompany.Width = 242;
-			// 
-			// colBranch
-			// 
-			this.colBranch.FieldName = "Branch";
-			this.colBranch.MinWidth = 25;
-			this.colBranch.Name = "colBranch";
-			this.colBranch.Visible = true;
-			this.colBranch.VisibleIndex = 7;
-			this.colBranch.Width = 136;
-			// 
-			// colActive
-			// 
-			this.colActive.FieldName = "Active";
-			this.colActive.MinWidth = 25;
-			this.colActive.Name = "colActive";
-			this.colActive.Visible = true;
-			this.colActive.VisibleIndex = 8;
-			this.colActive.Width = 94;
+			this.gridView1.GridControl = this.gcUsers;
+			this.gridView1.Name = "gridView1";
 			// 
 			// UsersListForm
 			// 
@@ -441,10 +452,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.gcUsers)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsUsers)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.gvUsers)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsUsers)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -487,5 +499,6 @@
 		private DevExpress.XtraGrid.Columns.GridColumn colCompany;
 		private DevExpress.XtraGrid.Columns.GridColumn colBranch;
 		private DevExpress.XtraGrid.Columns.GridColumn colActive;
+		private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
 	}
 }

@@ -118,7 +118,7 @@ namespace SpectrumV1.Views.Common.Companies
 		{
 			CompanyEditForm frm = new CompanyEditForm(new CompanyModel());
 			frm.SendUpdatedCompany += RcvUpdatedCompanyAsync;
-			frm.ShowDialog();
+			frm.Show();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -135,7 +135,7 @@ namespace SpectrumV1.Views.Common.Companies
 
 				CompanyEditForm companyForm = new CompanyEditForm(_companyModel);
 				companyForm.SendUpdatedCompany += RcvUpdatedCompanyAsync;
-				companyForm.ShowDialog();
+				companyForm.Show();
 			}
 			catch (Exception exception)
 			{
@@ -220,7 +220,7 @@ namespace SpectrumV1.Views.Common.Companies
 
 				CompanyEditForm companyForm = new CompanyEditForm(_companyModel);
 				companyForm.SendUpdatedCompany += RcvUpdatedCompanyAsync;
-				companyForm.ShowDialog();
+				companyForm.Show();
 			}
 			catch (Exception exception)
 			{

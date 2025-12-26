@@ -30,11 +30,6 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CompanyEditForm));
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
@@ -60,6 +55,11 @@
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject22 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject23 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject24 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions7 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject25 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject26 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject27 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject28 = new DevExpress.Utils.SerializableAppearanceObject();
 			this.ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
 			this.btnSave = new DevExpress.XtraBars.BarButtonItem();
 			this.btnClose = new DevExpress.XtraBars.BarButtonItem();
@@ -82,6 +82,7 @@
 			this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
 			this.mainLayout = new DevExpress.XtraDataLayout.DataLayoutControl();
 			this.cboCities = new DevExpress.XtraEditors.SearchLookUpEdit();
+			this.bsCompany = new System.Windows.Forms.BindingSource(this.components);
 			this.searchLookUpEdit2View = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -95,9 +96,14 @@
 			this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
 			this.txtNotes = new DevExpress.XtraEditors.MemoEdit();
 			this.gcBranches = new DevExpress.XtraGrid.GridControl();
+			this.bsBranches = new System.Windows.Forms.BindingSource(this.components);
 			this.gvBranches = new DevExpress.XtraGrid.Views.Grid.GridView();
-			this.repCompanies = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colBranchName = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.repChexkBox = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+			this.repCompanies = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
 			this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -128,9 +134,6 @@
 			this.lblPhoneNumber1 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblPhoneNumber2 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblAddress = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lblForeignCurrencies = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lblVatInfo = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lblLocalCurrencies = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblCompanyName = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblCompanyDisclaimer = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -142,20 +145,20 @@
 			this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblShortName = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblPoBox = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lblBankAccount = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblCountries = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblCities = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lblBankAccount = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lblVatInfo = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lblLocalCurrencies = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lblForeignCurrencies = new DevExpress.XtraLayout.LayoutControlItem();
 			this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.bsCompany = new System.Windows.Forms.BindingSource(this.components);
-			this.bsBranches = new System.Windows.Forms.BindingSource(this.components);
-			this.colBranchName = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
 			((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.cboCities.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsCompany)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit2View)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.cboCountries.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
@@ -166,9 +169,10 @@
 			this.layoutControl2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gcBranches)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsBranches)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gvBranches)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.repCompanies)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repChexkBox)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.repCompanies)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
@@ -200,9 +204,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.lblPhoneNumber1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblPhoneNumber2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblAddress)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblForeignCurrencies)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblVatInfo)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblLocalCurrencies)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblCompanyName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblCompanyDisclaimer)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
@@ -214,12 +215,15 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblShortName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblPoBox)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblBankAccount)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblCountries)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblCities)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblBankAccount)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblVatInfo)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblLocalCurrencies)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblForeignCurrencies)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsCompany)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsBranches)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// ribbonControl
@@ -458,7 +462,7 @@
 			// cboCities
 			// 
 			this.cboCities.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsCompany, "City", true));
-			this.cboCities.Location = new System.Drawing.Point(436, 51);
+			this.cboCities.Location = new System.Drawing.Point(492, 51);
 			this.cboCities.MenuManager = this.ribbonControl;
 			this.cboCities.Name = "cboCities";
 			this.cboCities.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -466,10 +470,14 @@
 			this.cboCities.Properties.DisplayMember = "CityName";
 			this.cboCities.Properties.NullText = "";
 			this.cboCities.Properties.PopupView = this.searchLookUpEdit2View;
-			this.cboCities.Properties.ValueMember = "Id";
-			this.cboCities.Size = new System.Drawing.Size(250, 22);
+			this.cboCities.Properties.ValueMember = "CityName";
+			this.cboCities.Size = new System.Drawing.Size(194, 22);
 			this.cboCities.StyleController = this.mainLayout;
 			this.cboCities.TabIndex = 36;
+			// 
+			// bsCompany
+			// 
+			this.bsCompany.DataSource = typeof(SpectrumV1.Models.Common.Companies.CompanyModel);
 			// 
 			// searchLookUpEdit2View
 			// 
@@ -484,10 +492,8 @@
 			// gridColumn3
 			// 
 			this.gridColumn3.Caption = "Id";
-			this.gridColumn3.FieldName = "Id";
+			this.gridColumn3.FieldName = "_id";
 			this.gridColumn3.Name = "gridColumn3";
-			this.gridColumn3.Visible = true;
-			this.gridColumn3.VisibleIndex = 0;
 			this.gridColumn3.Width = 123;
 			// 
 			// gridColumn4
@@ -496,7 +502,7 @@
 			this.gridColumn4.FieldName = "CityName";
 			this.gridColumn4.Name = "gridColumn4";
 			this.gridColumn4.Visible = true;
-			this.gridColumn4.VisibleIndex = 1;
+			this.gridColumn4.VisibleIndex = 0;
 			this.gridColumn4.Width = 1085;
 			// 
 			// cboCountries
@@ -510,7 +516,7 @@
 			this.cboCountries.Properties.DisplayMember = "CountryName";
 			this.cboCountries.Properties.NullText = "";
 			this.cboCountries.Properties.PopupView = this.searchLookUpEdit1View;
-			this.cboCountries.Properties.ValueMember = "Id";
+			this.cboCountries.Properties.ValueMember = "CountryName";
 			this.cboCountries.Size = new System.Drawing.Size(245, 22);
 			this.cboCountries.StyleController = this.mainLayout;
 			this.cboCountries.TabIndex = 35;
@@ -528,10 +534,8 @@
 			// gridColumn1
 			// 
 			this.gridColumn1.Caption = "Id";
-			this.gridColumn1.FieldName = "Id";
+			this.gridColumn1.FieldName = "_id";
 			this.gridColumn1.Name = "gridColumn1";
-			this.gridColumn1.Visible = true;
-			this.gridColumn1.VisibleIndex = 0;
 			this.gridColumn1.Width = 115;
 			// 
 			// gridColumn2
@@ -540,7 +544,7 @@
 			this.gridColumn2.FieldName = "CountryName";
 			this.gridColumn2.Name = "gridColumn2";
 			this.gridColumn2.Visible = true;
-			this.gridColumn2.VisibleIndex = 1;
+			this.gridColumn2.VisibleIndex = 0;
 			this.gridColumn2.Width = 1093;
 			// 
 			// txtBankAccount
@@ -610,6 +614,10 @@
 			this.gcBranches.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvBranches});
 			// 
+			// bsBranches
+			// 
+			this.bsBranches.DataSource = typeof(SpectrumV1.Models.Common.Companies.BranchModel);
+			// 
 			// gvBranches
 			// 
 			this.gvBranches.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
@@ -627,6 +635,46 @@
 			this.gvBranches.OptionsView.ShowErrorPanel = DevExpress.Utils.DefaultBoolean.False;
 			this.gvBranches.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
 			this.gvBranches.OptionsView.ShowGroupPanel = false;
+			this.gvBranches.DoubleClick += new System.EventHandler(this.gvBranches_DoubleClick);
+			// 
+			// col_id
+			// 
+			this.col_id.FieldName = "_id";
+			this.col_id.MinWidth = 25;
+			this.col_id.Name = "col_id";
+			this.col_id.Width = 94;
+			// 
+			// colBranchName
+			// 
+			this.colBranchName.FieldName = "BranchName";
+			this.colBranchName.MinWidth = 25;
+			this.colBranchName.Name = "colBranchName";
+			this.colBranchName.Visible = true;
+			this.colBranchName.VisibleIndex = 0;
+			this.colBranchName.Width = 215;
+			// 
+			// colNotes
+			// 
+			this.colNotes.FieldName = "Notes";
+			this.colNotes.MinWidth = 25;
+			this.colNotes.Name = "colNotes";
+			this.colNotes.Visible = true;
+			this.colNotes.VisibleIndex = 1;
+			this.colNotes.Width = 298;
+			// 
+			// colActive
+			// 
+			this.colActive.FieldName = "Active";
+			this.colActive.MinWidth = 25;
+			this.colActive.Name = "colActive";
+			this.colActive.Visible = true;
+			this.colActive.VisibleIndex = 2;
+			this.colActive.Width = 94;
+			// 
+			// repChexkBox
+			// 
+			this.repChexkBox.AutoHeight = false;
+			this.repChexkBox.Name = "repChexkBox";
 			// 
 			// repCompanies
 			// 
@@ -640,11 +688,6 @@
 			this.repCompanies.Name = "repCompanies";
 			this.repCompanies.NullText = "";
 			this.repCompanies.ValueMember = "Id";
-			// 
-			// repChexkBox
-			// 
-			this.repChexkBox.AutoHeight = false;
-			this.repChexkBox.Name = "repChexkBox";
 			// 
 			// layoutControlGroup3
 			// 
@@ -754,9 +797,9 @@
 			this.txtPhoneNumber1.Location = new System.Drawing.Point(161, 179);
 			this.txtPhoneNumber1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.txtPhoneNumber1.Name = "txtPhoneNumber1";
-			editorButtonImageOptions1.ImageUri.Uri = "icon%20builder/business_phone;Size16x16";
+			editorButtonImageOptions2.ImageUri.Uri = "icon%20builder/business_phone;Size16x16";
 			this.txtPhoneNumber1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtPhoneNumber1.Properties.ValidateOnEnterKey = true;
 			this.txtPhoneNumber1.Size = new System.Drawing.Size(155, 30);
 			this.txtPhoneNumber1.StyleController = this.mainLayout;
@@ -769,11 +812,11 @@
 			this.txtFaxNumber.Location = new System.Drawing.Point(161, 213);
 			this.txtFaxNumber.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.txtFaxNumber.Name = "txtFaxNumber";
-			editorButtonImageOptions2.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.MobilePhone.svg";
-			editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
-			editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(16, 16);
+			editorButtonImageOptions3.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.MobilePhone.svg";
+			editorButtonImageOptions3.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions3.SvgImage")));
+			editorButtonImageOptions3.SvgImageSize = new System.Drawing.Size(16, 16);
 			this.txtFaxNumber.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtFaxNumber.Properties.ValidateOnEnterKey = true;
 			this.txtFaxNumber.Size = new System.Drawing.Size(525, 30);
 			this.txtFaxNumber.StyleController = this.mainLayout;
@@ -786,11 +829,11 @@
 			this.txtEmail.Location = new System.Drawing.Point(161, 247);
 			this.txtEmail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.txtEmail.Name = "txtEmail";
-			editorButtonImageOptions3.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Mail.svg";
-			editorButtonImageOptions3.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions3.SvgImage")));
-			editorButtonImageOptions3.SvgImageSize = new System.Drawing.Size(16, 16);
+			editorButtonImageOptions4.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Mail.svg";
+			editorButtonImageOptions4.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions4.SvgImage")));
+			editorButtonImageOptions4.SvgImageSize = new System.Drawing.Size(16, 16);
 			this.txtEmail.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtEmail.Properties.ValidateOnEnterKey = true;
 			this.txtEmail.Size = new System.Drawing.Size(525, 30);
 			this.txtEmail.StyleController = this.mainLayout;
@@ -803,11 +846,11 @@
 			this.txtWebsite.Location = new System.Drawing.Point(161, 281);
 			this.txtWebsite.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.txtWebsite.Name = "txtWebsite";
-			editorButtonImageOptions4.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Skype.svg";
-			editorButtonImageOptions4.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions4.SvgImage")));
-			editorButtonImageOptions4.SvgImageSize = new System.Drawing.Size(16, 16);
+			editorButtonImageOptions5.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Skype.svg";
+			editorButtonImageOptions5.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions5.SvgImage")));
+			editorButtonImageOptions5.SvgImageSize = new System.Drawing.Size(16, 16);
 			this.txtWebsite.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject17, serializableAppearanceObject18, serializableAppearanceObject19, serializableAppearanceObject20, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtWebsite.Properties.ValidateOnEnterKey = true;
 			this.txtWebsite.Size = new System.Drawing.Size(525, 30);
 			this.txtWebsite.StyleController = this.mainLayout;
@@ -820,9 +863,9 @@
 			this.txtPhoneNumber2.Location = new System.Drawing.Point(320, 179);
 			this.txtPhoneNumber2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.txtPhoneNumber2.Name = "txtPhoneNumber2";
-			editorButtonImageOptions5.ImageUri.Uri = "icon%20builder/business_phone;Size16x16";
+			editorButtonImageOptions6.ImageUri.Uri = "icon%20builder/business_phone;Size16x16";
 			this.txtPhoneNumber2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject17, serializableAppearanceObject18, serializableAppearanceObject19, serializableAppearanceObject20, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions6, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject21, serializableAppearanceObject22, serializableAppearanceObject23, serializableAppearanceObject24, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtPhoneNumber2.Properties.ValidateOnEnterKey = true;
 			this.txtPhoneNumber2.Size = new System.Drawing.Size(193, 30);
 			this.txtPhoneNumber2.StyleController = this.mainLayout;
@@ -835,9 +878,9 @@
 			this.txtPhoneNumber3.Location = new System.Drawing.Point(517, 179);
 			this.txtPhoneNumber3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.txtPhoneNumber3.Name = "txtPhoneNumber3";
-			editorButtonImageOptions6.ImageUri.Uri = "icon%20builder/business_phone;Size16x16";
+			editorButtonImageOptions7.ImageUri.Uri = "icon%20builder/business_phone;Size16x16";
 			this.txtPhoneNumber3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions6, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject21, serializableAppearanceObject22, serializableAppearanceObject23, serializableAppearanceObject24, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions7, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject25, serializableAppearanceObject26, serializableAppearanceObject27, serializableAppearanceObject28, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.txtPhoneNumber3.Properties.ValidateOnEnterKey = true;
 			this.txtPhoneNumber3.Size = new System.Drawing.Size(169, 30);
 			this.txtPhoneNumber3.StyleController = this.mainLayout;
@@ -867,9 +910,9 @@
 			// 
 			this.txtShortName.CausesValidation = false;
 			this.txtShortName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsCompany, "ShortName", true));
-			this.txtShortName.Location = new System.Drawing.Point(489, 14);
+			this.txtShortName.Location = new System.Drawing.Point(492, 14);
 			this.txtShortName.Name = "txtShortName";
-			this.txtShortName.Size = new System.Drawing.Size(197, 22);
+			this.txtShortName.Size = new System.Drawing.Size(194, 22);
 			this.txtShortName.StyleController = this.mainLayout;
 			this.txtShortName.TabIndex = 2;
 			// 
@@ -879,7 +922,7 @@
 			this.txtCompanyName.Location = new System.Drawing.Point(161, 14);
 			this.txtCompanyName.Name = "txtCompanyName";
 			this.txtCompanyName.Properties.UseAdvancedMode = DevExpress.Utils.DefaultBoolean.True;
-			this.txtCompanyName.Size = new System.Drawing.Size(251, 22);
+			this.txtCompanyName.Size = new System.Drawing.Size(244, 22);
 			this.txtCompanyName.StyleController = this.mainLayout;
 			this.txtCompanyName.TabIndex = 1;
 			// 
@@ -945,7 +988,9 @@
             this.lblBankAccount,
             this.lblVatInfo,
             this.lblLocalCurrencies,
-            this.lblForeignCurrencies});
+            this.lblForeignCurrencies,
+            this.emptySpaceItem5,
+            this.emptySpaceItem6});
 			this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlGroup2.Name = "autoGeneratedGroup0";
 			this.layoutControlGroup2.Size = new System.Drawing.Size(1299, 301);
@@ -1032,41 +1077,12 @@
 			this.lblAddress.Text = "Address";
 			this.lblAddress.TextSize = new System.Drawing.Size(116, 16);
 			// 
-			// lblForeignCurrencies
-			// 
-			this.lblForeignCurrencies.Control = this.cboForeignCurrencies;
-			this.lblForeignCurrencies.Location = new System.Drawing.Point(845, 78);
-			this.lblForeignCurrencies.Name = "lblForeignCurrencies";
-			this.lblForeignCurrencies.Size = new System.Drawing.Size(454, 26);
-			this.lblForeignCurrencies.Text = "Foreign Currency";
-			this.lblForeignCurrencies.TextSize = new System.Drawing.Size(116, 16);
-			// 
-			// lblVatInfo
-			// 
-			this.lblVatInfo.AllowHtmlStringInCaption = true;
-			this.lblVatInfo.Control = this.txtVatInfo;
-			this.lblVatInfo.Location = new System.Drawing.Point(845, 26);
-			this.lblVatInfo.Name = "lblVatInfo";
-			this.lblVatInfo.Size = new System.Drawing.Size(454, 26);
-			this.lblVatInfo.Tag = "IsRequired";
-			this.lblVatInfo.Text = "VAT Info";
-			this.lblVatInfo.TextSize = new System.Drawing.Size(116, 16);
-			// 
-			// lblLocalCurrencies
-			// 
-			this.lblLocalCurrencies.Control = this.cboLocalCurrencies;
-			this.lblLocalCurrencies.Location = new System.Drawing.Point(845, 52);
-			this.lblLocalCurrencies.Name = "lblLocalCurrencies";
-			this.lblLocalCurrencies.Size = new System.Drawing.Size(454, 26);
-			this.lblLocalCurrencies.Text = "Local Currency";
-			this.lblLocalCurrencies.TextSize = new System.Drawing.Size(116, 16);
-			// 
 			// lblCompanyName
 			// 
 			this.lblCompanyName.Control = this.txtCompanyName;
 			this.lblCompanyName.Location = new System.Drawing.Point(0, 0);
 			this.lblCompanyName.Name = "lblCompanyName";
-			this.lblCompanyName.Size = new System.Drawing.Size(402, 26);
+			this.lblCompanyName.Size = new System.Drawing.Size(395, 26);
 			this.lblCompanyName.Text = "Company Name";
 			this.lblCompanyName.TextSize = new System.Drawing.Size(116, 16);
 			// 
@@ -1132,9 +1148,9 @@
 			// lblShortName
 			// 
 			this.lblShortName.Control = this.txtShortName;
-			this.lblShortName.Location = new System.Drawing.Point(402, 0);
+			this.lblShortName.Location = new System.Drawing.Point(405, 0);
 			this.lblShortName.Name = "lblShortName";
-			this.lblShortName.Size = new System.Drawing.Size(274, 26);
+			this.lblShortName.Size = new System.Drawing.Size(271, 26);
 			this.lblShortName.Text = "Short Name";
 			this.lblShortName.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
 			this.lblShortName.TextSize = new System.Drawing.Size(68, 16);
@@ -1146,17 +1162,8 @@
 			this.lblPoBox.Location = new System.Drawing.Point(0, 63);
 			this.lblPoBox.Name = "lblPoBox";
 			this.lblPoBox.Size = new System.Drawing.Size(676, 26);
-			this.lblPoBox.Text = "POBox";
+			this.lblPoBox.Text = "PO Box";
 			this.lblPoBox.TextSize = new System.Drawing.Size(116, 16);
-			// 
-			// lblBankAccount
-			// 
-			this.lblBankAccount.Control = this.txtBankAccount;
-			this.lblBankAccount.Location = new System.Drawing.Point(845, 0);
-			this.lblBankAccount.Name = "lblBankAccount";
-			this.lblBankAccount.Size = new System.Drawing.Size(454, 26);
-			this.lblBankAccount.Text = "Bank Account";
-			this.lblBankAccount.TextSize = new System.Drawing.Size(116, 16);
 			// 
 			// lblCountries
 			// 
@@ -1170,13 +1177,51 @@
 			// lblCities
 			// 
 			this.lblCities.Control = this.cboCities;
-			this.lblCities.Location = new System.Drawing.Point(396, 37);
+			this.lblCities.Location = new System.Drawing.Point(453, 37);
 			this.lblCities.Name = "lblCities";
-			this.lblCities.Size = new System.Drawing.Size(280, 26);
+			this.lblCities.Size = new System.Drawing.Size(223, 26);
 			this.lblCities.Text = "City";
 			this.lblCities.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
 			this.lblCities.TextSize = new System.Drawing.Size(21, 16);
-			this.lblCities.TextToControlDistance = 5;
+			this.lblCities.TextToControlDistance = 4;
+			// 
+			// lblBankAccount
+			// 
+			this.lblBankAccount.Control = this.txtBankAccount;
+			this.lblBankAccount.Location = new System.Drawing.Point(845, 0);
+			this.lblBankAccount.Name = "lblBankAccount";
+			this.lblBankAccount.Size = new System.Drawing.Size(454, 26);
+			this.lblBankAccount.Text = "Bank Account";
+			this.lblBankAccount.TextSize = new System.Drawing.Size(116, 16);
+			// 
+			// lblVatInfo
+			// 
+			this.lblVatInfo.AllowHtmlStringInCaption = true;
+			this.lblVatInfo.Control = this.txtVatInfo;
+			this.lblVatInfo.Location = new System.Drawing.Point(845, 26);
+			this.lblVatInfo.Name = "lblVatInfo";
+			this.lblVatInfo.Size = new System.Drawing.Size(454, 26);
+			this.lblVatInfo.Tag = "IsRequired";
+			this.lblVatInfo.Text = "VAT Info";
+			this.lblVatInfo.TextSize = new System.Drawing.Size(116, 16);
+			// 
+			// lblLocalCurrencies
+			// 
+			this.lblLocalCurrencies.Control = this.cboLocalCurrencies;
+			this.lblLocalCurrencies.Location = new System.Drawing.Point(845, 52);
+			this.lblLocalCurrencies.Name = "lblLocalCurrencies";
+			this.lblLocalCurrencies.Size = new System.Drawing.Size(454, 26);
+			this.lblLocalCurrencies.Text = "Local Currency";
+			this.lblLocalCurrencies.TextSize = new System.Drawing.Size(116, 16);
+			// 
+			// lblForeignCurrencies
+			// 
+			this.lblForeignCurrencies.Control = this.cboForeignCurrencies;
+			this.lblForeignCurrencies.Location = new System.Drawing.Point(845, 78);
+			this.lblForeignCurrencies.Name = "lblForeignCurrencies";
+			this.lblForeignCurrencies.Size = new System.Drawing.Size(454, 26);
+			this.lblForeignCurrencies.Text = "Foreign Currency";
+			this.lblForeignCurrencies.TextSize = new System.Drawing.Size(116, 16);
 			// 
 			// layoutControlItem10
 			// 
@@ -1186,47 +1231,17 @@
 			this.layoutControlItem10.Size = new System.Drawing.Size(1299, 240);
 			this.layoutControlItem10.TextVisible = false;
 			// 
-			// bsCompany
+			// emptySpaceItem5
 			// 
-			this.bsCompany.DataSource = typeof(SpectrumV1.Models.Common.Companies.CompanyModel);
+			this.emptySpaceItem5.Location = new System.Drawing.Point(396, 37);
+			this.emptySpaceItem5.Name = "emptySpaceItem5";
+			this.emptySpaceItem5.Size = new System.Drawing.Size(52, 26);
 			// 
-			// bsBranches
+			// emptySpaceItem6
 			// 
-			this.bsBranches.DataSource = typeof(SpectrumV1.Models.Common.Companies.BranchModel);
-			// 
-			// colBranchName
-			// 
-			this.colBranchName.FieldName = "BranchName";
-			this.colBranchName.MinWidth = 25;
-			this.colBranchName.Name = "colBranchName";
-			this.colBranchName.Visible = true;
-			this.colBranchName.VisibleIndex = 0;
-			this.colBranchName.Width = 215;
-			// 
-			// col_id
-			// 
-			this.col_id.FieldName = "_id";
-			this.col_id.MinWidth = 25;
-			this.col_id.Name = "col_id";
-			this.col_id.Width = 94;
-			// 
-			// colNotes
-			// 
-			this.colNotes.FieldName = "Notes";
-			this.colNotes.MinWidth = 25;
-			this.colNotes.Name = "colNotes";
-			this.colNotes.Visible = true;
-			this.colNotes.VisibleIndex = 1;
-			this.colNotes.Width = 298;
-			// 
-			// colActive
-			// 
-			this.colActive.FieldName = "Active";
-			this.colActive.MinWidth = 25;
-			this.colActive.Name = "colActive";
-			this.colActive.Visible = true;
-			this.colActive.VisibleIndex = 2;
-			this.colActive.Width = 94;
+			this.emptySpaceItem6.Location = new System.Drawing.Point(395, 0);
+			this.emptySpaceItem6.Name = "emptySpaceItem6";
+			this.emptySpaceItem6.Size = new System.Drawing.Size(10, 26);
 			// 
 			// CompanyEditForm
 			// 
@@ -1245,6 +1260,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.cboCities.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsCompany)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit2View)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.cboCountries.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).EndInit();
@@ -1255,9 +1271,10 @@
 			this.layoutControl2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.gcBranches)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.bsBranches)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.gvBranches)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.repCompanies)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.repChexkBox)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.repCompanies)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
@@ -1289,9 +1306,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.lblPhoneNumber1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblPhoneNumber2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblAddress)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblForeignCurrencies)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblVatInfo)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblLocalCurrencies)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblCompanyName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblCompanyDisclaimer)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
@@ -1303,12 +1317,15 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblShortName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblPoBox)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblBankAccount)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblCountries)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblCities)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblBankAccount)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblVatInfo)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblLocalCurrencies)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblForeignCurrencies)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsCompany)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsBranches)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1408,5 +1425,7 @@
 		private DevExpress.XtraGrid.Columns.GridColumn colBranchName;
 		private DevExpress.XtraGrid.Columns.GridColumn colNotes;
 		private DevExpress.XtraGrid.Columns.GridColumn colActive;
+		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
+		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
 	}
 }

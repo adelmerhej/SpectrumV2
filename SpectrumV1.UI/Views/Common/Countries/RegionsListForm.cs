@@ -118,7 +118,7 @@ namespace SpectrumV1.Views.Common.Countries
 		{
 			RegionEditForm frm = new RegionEditForm(new RegionModel());
 			frm.SendUpdatedRegion += RcvUpdatedRegionAsync;
-			frm.ShowDialog();
+			frm.Show();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -135,7 +135,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 				var regionForm = new RegionEditForm(_regionModel);
 				regionForm.SendUpdatedRegion += RcvUpdatedRegionAsync;
-				regionForm.ShowDialog();
+				regionForm.Show();
 			}
 			catch (Exception exception)
 			{
@@ -245,7 +245,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 				var regionForm = new RegionEditForm(_regionModel);
 				regionForm.SendUpdatedRegion += RcvUpdatedRegionAsync;
-				regionForm.ShowDialog();
+				regionForm.Show();
 			}
 			catch (Exception exception)
 			{

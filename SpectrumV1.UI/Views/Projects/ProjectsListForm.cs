@@ -80,7 +80,7 @@ namespace SpectrumV1.Views.Projects
 			{
 				ProjectEditForm frm = new ProjectEditForm(new ProjectModel());
 				frm.SendUpdatedProject += RcvUpdatedProjectAsync;
-				frm.ShowDialog();
+				frm.Show();
 			}
 			catch (Exception ex)
 			{
@@ -101,7 +101,7 @@ namespace SpectrumV1.Views.Projects
 				if (_projectModel == null) return;
 				var projectForm = new ProjectEditForm(_projectModel);
 				projectForm.SendUpdatedProject += RcvUpdatedProjectAsync;
-				projectForm.ShowDialog();
+				projectForm.Show();
 			}
 			catch (Exception exception)
 			{
@@ -177,7 +177,7 @@ namespace SpectrumV1.Views.Projects
 				if (_projectModel == null) return;
 				var projectForm = new ProjectEditForm(_projectModel);
 				projectForm.SendUpdatedProject += RcvUpdatedProjectAsync;
-				projectForm.ShowDialog();
+				projectForm.Show();
 			}
 			catch (Exception exception)
 			{
