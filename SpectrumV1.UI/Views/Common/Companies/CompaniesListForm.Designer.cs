@@ -135,7 +135,6 @@
 			this.btnNew.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.NewCustomer.svg";
 			this.btnNew.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnNew.ImageOptions.SvgImage")));
 			this.btnNew.Name = "btnNew";
-			this.btnNew.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNew_ItemClick);
 			// 
 			// btnDelete
 			// 
@@ -146,7 +145,6 @@
 			this.btnDelete.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Delete.svg";
 			this.btnDelete.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDelete.ImageOptions.SvgImage")));
 			this.btnDelete.Name = "btnDelete";
-			this.btnDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDelete_ItemClick);
 			// 
 			// btnEdit
 			// 
@@ -157,7 +155,6 @@
 			this.btnEdit.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Edit.svg";
 			this.btnEdit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEdit.ImageOptions.SvgImage")));
 			this.btnEdit.Name = "btnEdit";
-			this.btnEdit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnEdit_ItemClick);
 			// 
 			// btnPrint
 			// 
@@ -168,7 +165,6 @@
 			this.btnPrint.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.SalesAnalysis.svg";
 			this.btnPrint.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPrint.ImageOptions.SvgImage")));
 			this.btnPrint.Name = "btnPrint";
-			this.btnPrint.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPrint_ItemClick);
 			// 
 			// barButtonItem13
 			// 
@@ -207,7 +203,6 @@
 			this.btnRefresh.Id = 37;
 			this.btnRefresh.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRefresh.ImageOptions.SvgImage")));
 			this.btnRefresh.Name = "btnRefresh";
-			this.btnRefresh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnRefresh_ItemClick);
 			// 
 			// btnClose
 			// 
@@ -215,7 +210,6 @@
 			this.btnClose.Id = 38;
 			this.btnClose.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnClose.ImageOptions.SvgImage")));
 			this.btnClose.Name = "btnClose";
-			this.btnClose.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClose_ItemClick);
 			// 
 			// btnResetGridStyle
 			// 
@@ -312,7 +306,7 @@
 			this.gcCompanies.EmbeddedNavigator.Buttons.Edit.Visible = false;
 			this.gcCompanies.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
 			this.gcCompanies.EmbeddedNavigator.Buttons.Remove.Visible = false;
-			this.gcCompanies.Location = new System.Drawing.Point(16, 17);
+			this.gcCompanies.Location = new System.Drawing.Point(19, 21);
 			this.gcCompanies.MainView = this.gvCompanies;
 			this.gcCompanies.Name = "gcCompanies";
 			this.gcCompanies.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -321,7 +315,7 @@
             this.repCities,
             this.repLocalCurrencies,
             this.repForeignCurrencies});
-			this.gcCompanies.Size = new System.Drawing.Size(1397, 509);
+			this.gcCompanies.Size = new System.Drawing.Size(1391, 501);
 			this.gcCompanies.TabIndex = 9;
 			this.gcCompanies.UseEmbeddedNavigator = true;
 			this.gcCompanies.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -366,8 +360,6 @@
 			this.gvCompanies.OptionsView.ColumnAutoWidth = false;
 			this.gvCompanies.OptionsView.ShowGroupedColumns = true;
 			this.gvCompanies.OptionsView.ShowGroupPanel = false;
-			this.gvCompanies.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvCompanies_RowCellStyle);
-			this.gvCompanies.DoubleClick += new System.EventHandler(this.gvCompanies_DoubleClick);
 			// 
 			// col_id
 			// 
@@ -621,7 +613,7 @@
 			this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1});
 			this.layoutControlGroup1.Name = "Root";
-			this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(14, 14, 15, 15);
+			this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(17, 17, 19, 19);
 			this.layoutControlGroup1.Size = new System.Drawing.Size(1429, 543);
 			this.layoutControlGroup1.TextVisible = false;
 			// 
@@ -630,7 +622,7 @@
 			this.layoutControlItem1.Control = this.gcCompanies;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(1401, 513);
+			this.layoutControlItem1.Size = new System.Drawing.Size(1395, 505);
 			this.layoutControlItem1.TextVisible = false;
 			// 
 			// CompaniesListForm

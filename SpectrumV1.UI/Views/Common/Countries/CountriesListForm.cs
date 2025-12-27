@@ -17,6 +17,7 @@ namespace SpectrumV1.Views.Common.Countries
 {
 	public partial class CountriesListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
 		private CountryModel _countryModel = new CountryModel();
 		private IList<CountryModel> _countries = new List<CountryModel>();
 

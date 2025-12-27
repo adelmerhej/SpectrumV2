@@ -15,6 +15,7 @@ namespace SpectrumV1.Views.Users
 {
 	public partial class UsersListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
 		private UserModel _userModel = new UserModel();
 		private IList<UserModel> _users = new List<UserModel>();
 

@@ -5,7 +5,9 @@ using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Areas;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Areas;
+using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities.Interfaces;
+using SpectrumV1.Utilities.Layout;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,6 +19,7 @@ namespace SpectrumV1.Views.Common.Areas
 {
 	public partial class AreasListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
 		private AreaModel _areaModel = new AreaModel();
 		private IList<AreaModel> _areas = new List<AreaModel>();
 
@@ -41,6 +44,17 @@ namespace SpectrumV1.Views.Common.Areas
 		public AreasListForm()
 		{
 			InitializeComponent();
+
+			// wire events
+			btnNew.ItemClick += btnNew_ItemClick;
+			btnEdit.ItemClick += btnEdit_ItemClick;
+			btnDelete.ItemClick += btnDelete_ItemClick;
+			btnPrint.ItemClick += btnPrint_ItemClick;
+			btnRefresh.ItemClick += btnRefresh_ItemClick;
+			btnClose.ItemClick += btnClose_ItemClick;
+			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+			gvAreas.DoubleClick += gvAreas_DoubleClick;
+			gvAreas.RowCellStyle += gvAreas_RowCellStyle;
 
 			StartLoading();
 		}
@@ -207,7 +221,13 @@ namespace SpectrumV1.Views.Common.Areas
 
 		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
 		{
-
+			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+				DialogResult.Yes)
+			{
+				_resetMenu = true;
+				LayoutsStyle.ResetLayoutGrid(gvAreas, CurrentUser.UserName, CurrentUser.Company);
+			}
 		}
 
 		#endregion

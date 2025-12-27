@@ -17,6 +17,7 @@ namespace SpectrumV1.Views.Common.Countries
 {
 	public partial class DistrictsListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
 		private DistrictModel _districtModel = new DistrictModel();
 		private IList<DistrictModel> _districts = new List<DistrictModel>();
 

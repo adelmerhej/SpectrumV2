@@ -17,6 +17,7 @@ namespace SpectrumV1.Views.Common.Companies
 {
 	public partial class CompaniesListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
 		private CompanyModel _companyModel = new CompanyModel();
 		private IList<CompanyModel> _companies = new List<CompanyModel>();
 
@@ -41,6 +42,17 @@ namespace SpectrumV1.Views.Common.Companies
 		public CompaniesListForm()
 		{
 			InitializeComponent();
+
+			// wire events
+			btnNew.ItemClick += btnNew_ItemClick;
+			btnEdit.ItemClick += btnEdit_ItemClick;
+			btnDelete.ItemClick += btnDelete_ItemClick;
+			btnPrint.ItemClick += btnPrint_ItemClick;
+			btnRefresh.ItemClick += btnRefresh_ItemClick;
+			btnClose.ItemClick += btnClose_ItemClick;
+			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+			gvCompanies.DoubleClick += gvCompanies_DoubleClick;
+			gvCompanies.RowCellStyle += gvCompanies_RowCellStyle;
 
 			StartLoading();
 		}
@@ -203,6 +215,12 @@ namespace SpectrumV1.Views.Common.Companies
 		{
 			Close();
 		}
+
+		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
+		{
+
+		}
+
 
 		#endregion
 

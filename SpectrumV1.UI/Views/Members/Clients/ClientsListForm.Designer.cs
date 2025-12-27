@@ -58,6 +58,7 @@
 			this.bsClients = new System.Windows.Forms.BindingSource(this.components);
 			this.gvClients = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.col_contacts = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colClientName = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colAddress = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colEmail = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -82,7 +83,6 @@
 			this.repMemberOf = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
 			this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.col_contacts = new DevExpress.XtraGrid.Columns.GridColumn();
 			((System.ComponentModel.ISupportInitialize)(this.rcCustomersList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repositoryItemRatingControl1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1)).BeginInit();
@@ -144,7 +144,6 @@
 			this.btnNew.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.NewCustomer.svg";
 			this.btnNew.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnNew.ImageOptions.SvgImage")));
 			this.btnNew.Name = "btnNew";
-			this.btnNew.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNew_ItemClick);
 			// 
 			// btnDelete
 			// 
@@ -155,7 +154,6 @@
 			this.btnDelete.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Delete.svg";
 			this.btnDelete.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDelete.ImageOptions.SvgImage")));
 			this.btnDelete.Name = "btnDelete";
-			this.btnDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDelete_ItemClick);
 			// 
 			// btnEdit
 			// 
@@ -166,7 +164,6 @@
 			this.btnEdit.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Edit.svg";
 			this.btnEdit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEdit.ImageOptions.SvgImage")));
 			this.btnEdit.Name = "btnEdit";
-			this.btnEdit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnEdit_ItemClick);
 			// 
 			// btnPrint
 			// 
@@ -177,7 +174,6 @@
 			this.btnPrint.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.SalesAnalysis.svg";
 			this.btnPrint.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPrint.ImageOptions.SvgImage")));
 			this.btnPrint.Name = "btnPrint";
-			this.btnPrint.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPrint_ItemClick);
 			// 
 			// barButtonItem13
 			// 
@@ -216,7 +212,6 @@
 			this.btnRefresh.Id = 37;
 			this.btnRefresh.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRefresh.ImageOptions.SvgImage")));
 			this.btnRefresh.Name = "btnRefresh";
-			this.btnRefresh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnRefresh_ItemClick);
 			// 
 			// btnClose
 			// 
@@ -224,7 +219,6 @@
 			this.btnClose.Id = 38;
 			this.btnClose.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnClose.ImageOptions.SvgImage")));
 			this.btnClose.Name = "btnClose";
-			this.btnClose.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClose_ItemClick);
 			// 
 			// btnResetGridStyle
 			// 
@@ -232,7 +226,6 @@
 			this.btnResetGridStyle.Id = 43;
 			this.btnResetGridStyle.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnResetGridStyle.ImageOptions.SvgImage")));
 			this.btnResetGridStyle.Name = "btnResetGridStyle";
-			this.btnResetGridStyle.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResetGridStyle_ItemClick);
 			// 
 			// rpCustomersList
 			// 
@@ -341,7 +334,7 @@
 			this.gcClients.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
 			this.gcClients.EmbeddedNavigator.Buttons.Remove.Visible = false;
 			this.gcClients.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-			this.gcClients.Location = new System.Drawing.Point(12, 12);
+			this.gcClients.Location = new System.Drawing.Point(14, 14);
 			this.gcClients.MainView = this.gvClients;
 			this.gcClients.Margin = new System.Windows.Forms.Padding(14, 16, 14, 16);
 			this.gcClients.Name = "gcClients";
@@ -353,7 +346,7 @@
             this.repUsers,
             this.repMemberOf});
 			this.gcClients.ShowOnlyPredefinedDetails = true;
-			this.gcClients.Size = new System.Drawing.Size(1378, 536);
+			this.gcClients.Size = new System.Drawing.Size(1374, 532);
 			this.gcClients.TabIndex = 4;
 			this.gcClients.UseEmbeddedNavigator = true;
 			this.gcClients.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -397,8 +390,6 @@
 			this.gvClients.OptionsView.ShowGroupPanel = false;
 			this.gvClients.OptionsView.ShowIndicator = false;
 			this.gvClients.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
-			this.gvClients.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvClients_RowCellStyle);
-			this.gvClients.DoubleClick += new System.EventHandler(this.gvClients_DoubleClick);
 			// 
 			// col_id
 			// 
@@ -406,6 +397,16 @@
 			this.col_id.MinWidth = 25;
 			this.col_id.Name = "col_id";
 			this.col_id.Width = 94;
+			// 
+			// col_contacts
+			// 
+			this.col_contacts.Caption = "Contacts";
+			this.col_contacts.FieldName = "Contacts";
+			this.col_contacts.MinWidth = 25;
+			this.col_contacts.Name = "col_contacts";
+			this.col_contacts.Visible = true;
+			this.col_contacts.VisibleIndex = 1;
+			this.col_contacts.Width = 94;
 			// 
 			// colClientName
 			// 
@@ -638,18 +639,8 @@
 			this.layoutControlItem1.Control = this.gcClients;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(1382, 540);
+			this.layoutControlItem1.Size = new System.Drawing.Size(1378, 536);
 			this.layoutControlItem1.TextVisible = false;
-			// 
-			// col_contacts
-			// 
-			this.col_contacts.Caption = "Contacts";
-			this.col_contacts.FieldName = "Contacts";
-			this.col_contacts.MinWidth = 25;
-			this.col_contacts.Name = "col_contacts";
-			this.col_contacts.Visible = true;
-			this.col_contacts.VisibleIndex = 1;
-			this.col_contacts.Width = 94;
 			// 
 			// ClientsListForm
 			// 

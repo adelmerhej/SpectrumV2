@@ -17,6 +17,7 @@ namespace SpectrumV1.Views.Common.Services
 {
 	public partial class ServicesListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
 		private ServiceModel _serviceModel = new ServiceModel();
 		private IList<ServiceModel> _services = new List<ServiceModel>();
 

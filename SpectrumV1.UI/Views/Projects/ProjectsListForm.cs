@@ -17,6 +17,7 @@ namespace SpectrumV1.Views.Projects
 {
 	public partial class ProjectsListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
 		private ProjectModel _projectModel = new ProjectModel();
 		private IList<ProjectModel> _projects = new List<ProjectModel>();
 

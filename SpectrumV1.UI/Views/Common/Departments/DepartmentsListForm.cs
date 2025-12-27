@@ -17,6 +17,7 @@ namespace SpectrumV1.Views.Common.Departments
 {
 	public partial class DepartmentsListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
 		private DepartmentModel _departmentModel = new DepartmentModel();
 		private IList<DepartmentModel> _departments = new List<DepartmentModel>();
 

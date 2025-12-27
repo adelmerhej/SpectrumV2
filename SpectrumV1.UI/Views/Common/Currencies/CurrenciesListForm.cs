@@ -13,6 +13,7 @@ namespace SpectrumV1.Views.Common.Currencies
 {
 	public partial class CurrenciesListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
 		private CurrencyModel _currencyModel = new CurrencyModel();
 		private IList<CurrencyModel> _currencies = new List<CurrencyModel>();
 

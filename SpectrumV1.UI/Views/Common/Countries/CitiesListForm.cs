@@ -17,6 +17,7 @@ namespace SpectrumV1.Views.Common.Countries
 {
 	public partial class CitiesListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
 		private CityModel _cityModel = new CityModel();
 		private IList<CityModel> _cities = new List<CityModel>();
 
@@ -41,6 +42,17 @@ namespace SpectrumV1.Views.Common.Countries
 		public CitiesListForm()
 		{
 			InitializeComponent();
+
+			// wire events
+			btnNew.ItemClick += btnNew_ItemClick;
+			btnEdit.ItemClick += btnEdit_ItemClick;
+			btnDelete.ItemClick += btnDelete_ItemClick;
+			btnPrint.ItemClick += btnPrint_ItemClick;
+			btnRefresh.ItemClick += btnRefresh_ItemClick;
+			btnClose.ItemClick += btnClose_ItemClick;
+			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+			gvCities.DoubleClick += gvCities_DoubleClick;
+			gvCities.RowCellStyle += gvCities_RowCellStyle;
 
 			StartLoading();
 		}
@@ -124,24 +136,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			if (!_cities.Any()) return;
 
-			try
-			{
-				string currentRowId = gvCities.GetFocusedRowCellValue("_id").ToString();
-				if (string.IsNullOrEmpty(currentRowId)) return;
-
-				_cityModel = _cities.SingleOrDefault(x => x._id == currentRowId);
-				if (_cityModel == null) return;
-
-				var cityForm = new CityEditForm(_cityModel);
-				cityForm.SendUpdatedCity += RcvUpdatedCityAsync;
-				cityForm.Show();
-			}
-			catch (Exception exception)
-			{
-				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
 		}
 
 		private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
@@ -156,48 +151,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			if (!CanDelete()) return;
 
-			try
-			{
-				string id = gvCities.GetFocusedRowCellValue("_id").ToString();
-				string name = gvCities.GetFocusedRowCellValue("CityName").ToString();
-
-				if (!string.IsNullOrEmpty(id))
-				{
-					if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
-							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-					{
-						_cityModel = gvCities.GetFocusedRow() as CityModel;
-						if (_cityModel == null)
-						{
-							return;
-						}
-						_cityModel.Deleted = true;
-
-						//delete the record
-						await _cityRepository.DeleteCityAsync(_cityModel._id);
-						RcvUpdatedCityAsync(_cityModel, EventArgs.Empty);
-					}
-				}
-
-			}
-			catch (Exception exception)
-			{
-				switch (exception.Message)
-				{
-					case "-2146233088":
-						XtraMessageBox.Show("This record is linked to one or more transactions, delete all links first.",
-							"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						break;
-
-					default:
-						XtraMessageBox.Show(exception.Message,
-							"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						break;
-				}
-			}
 		}
 
 		private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
@@ -207,7 +161,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
 		{
-
+			
 		}
 
 		#endregion
@@ -229,7 +183,7 @@ namespace SpectrumV1.Views.Common.Countries
 			}
 		}
 
-		private void gvCountries_DoubleClick(object sender, EventArgs e)
+		private void gvCities_DoubleClick(object sender, EventArgs e)
 		{
 			if (!_cities.Any()) return;
 
@@ -278,8 +232,8 @@ namespace SpectrumV1.Views.Common.Countries
 			GridView view = sender as GridView;
 			if (e.RowHandle >= 0)
 			{
-				bool isActive = (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
+				bool isActive = view != null && (bool)view.GetRowCellValue(e.RowHandle, "Active");
+				bool isDefault = view != null && (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
 				if (isDefault)
 				{
 					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);

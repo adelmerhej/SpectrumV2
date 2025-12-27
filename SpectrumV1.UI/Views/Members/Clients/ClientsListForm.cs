@@ -17,6 +17,7 @@ namespace SpectrumV1.Views.Members.Clients
 {
 	public partial class ClientsListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
 		private ClientModel _clientModel = new ClientModel();
 		private IList<ClientModel> _clients = new List<ClientModel>();
 		private ClientEditForm _clientEditForm;
@@ -43,6 +44,17 @@ namespace SpectrumV1.Views.Members.Clients
 		public ClientsListForm()
 		{
 			InitializeComponent();
+
+			// wire events
+			btnNew.ItemClick += btnNew_ItemClick;
+			btnEdit.ItemClick += btnEdit_ItemClick;
+			btnDelete.ItemClick += btnDelete_ItemClick;
+			btnPrint.ItemClick += btnPrint_ItemClick;
+			btnRefresh.ItemClick += btnRefresh_ItemClick;
+			btnClose.ItemClick += btnClose_ItemClick;
+			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+			gvClients.DoubleClick += gvClients_DoubleClick;
+			gvClients.RowCellStyle += gvClients_RowCellStyle;
 
 			StartLoading();
 		}
@@ -114,7 +126,6 @@ namespace SpectrumV1.Views.Members.Clients
 			btnDelete.Enabled = _isAdmin || _canDelete;
 		}
 
-
 		#region Buttons Events
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
@@ -159,7 +170,7 @@ namespace SpectrumV1.Views.Members.Clients
 			try
 			{
 				string id = gvClients.GetFocusedRowCellValue("_id").ToString();
-				string name = gvClients.GetFocusedRowCellValue("AreaName").ToString();
+				string name = gvClients.GetFocusedRowCellValue("ClientName").ToString();
 
 				if (!string.IsNullOrEmpty(id))
 				{

@@ -17,8 +17,10 @@ namespace SpectrumV1.Views.Members.Engineers
 {
 	public partial class EngineersListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
 		private EngineerModel _engineerModel = new EngineerModel();
 		private IList<EngineerModel> _engineers = new List<EngineerModel>();
+		private EngineerEditForm _engineerEditForm;
 
 		private readonly EngineerRepository _engineerRepository = new EngineerRepository(DatabaseFactory.ProfilePrimary);
 
@@ -48,6 +50,7 @@ namespace SpectrumV1.Views.Members.Engineers
 			btnPrint.ItemClick += btnPrint_ItemClick;
 			btnRefresh.ItemClick += btnRefresh_ItemClick;
 			btnClose.ItemClick += btnClose_ItemClick;
+			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
 			gvEngineers.DoubleClick += gvEngineers_DoubleClick;
 			gvEngineers.RowCellStyle += gvEngineers_RowCellStyle;
 
@@ -98,9 +101,7 @@ namespace SpectrumV1.Views.Members.Engineers
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			var frm = new EngineerEditForm(new EngineerModel());
-			frm.SendUpdatedEngineer += RcvUpdatedEngineerAsync;
-			frm.Show();
+			ShowEngineerEditor(new EngineerModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -109,17 +110,13 @@ namespace SpectrumV1.Views.Members.Engineers
 
 			try
 			{
-				var currentRowIdObj = gvEngineers.GetFocusedRowCellValue("_id");
-				if (currentRowIdObj == null) return;
-				string currentRowId = currentRowIdObj.ToString();
+				string currentRowId = gvEngineers.GetFocusedRowCellValue("_id").ToString();
 				if (string.IsNullOrEmpty(currentRowId)) return;
 
 				_engineerModel = _engineers.SingleOrDefault(x => x._id == currentRowId);
 				if (_engineerModel == null) return;
 
-				var frm = new EngineerEditForm(_engineerModel);
-				frm.SendUpdatedEngineer += RcvUpdatedEngineerAsync;
-				frm.Show();
+				ShowEngineerEditor(new EngineerModel());
 			}
 			catch (Exception exception)
 			{
@@ -216,22 +213,48 @@ namespace SpectrumV1.Views.Members.Engineers
 
 			try
 			{
-				var currentRowIdObj = gvEngineers.GetFocusedRowCellValue("_id");
-				if (currentRowIdObj == null) return;
-				string currentRowId = currentRowIdObj.ToString();
+				string currentRowId = gvEngineers.GetFocusedRowCellValue("_id").ToString();
 				if (string.IsNullOrEmpty(currentRowId)) return;
 
 				_engineerModel = _engineers.SingleOrDefault(x => x._id == currentRowId);
 				if (_engineerModel == null) return;
 
-				var frm = new EngineerEditForm(_engineerModel);
-				frm.SendUpdatedEngineer += RcvUpdatedEngineerAsync;
-				frm.Show();
+				ShowEngineerEditor(new EngineerModel());
 			}
 			catch (Exception exception)
 			{
 				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
+		}
+
+		private void ShowEngineerEditor(EngineerModel model)
+		{
+			if (_engineerEditForm == null || _engineerEditForm.IsDisposed)
+			{
+				_engineerEditForm = new EngineerEditForm(model);
+				_engineerEditForm.SendUpdatedEngineer += RcvUpdatedEngineerAsync;
+				_engineerEditForm.FormClosed += EngineerEditForm_FormClosed;
+				_engineerEditForm.Show(this);
+				return;
+			}
+
+			if (_engineerEditForm.WindowState == FormWindowState.Minimized)
+				_engineerEditForm.WindowState = FormWindowState.Normal;
+
+			_engineerEditForm.Activate();
+			_engineerEditForm.BringToFront();
+		}
+
+		private void EngineerEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as EngineerEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedEngineer -= RcvUpdatedEngineerAsync;
+				form.FormClosed -= EngineerEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_engineerEditForm, sender))
+				_engineerEditForm = null;
 		}
 
 		private bool CanDelete()

@@ -17,6 +17,7 @@ namespace SpectrumV1.Views.Common.Companies
 {
 	public partial class BranchesListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
 		private BranchModel _branchModel = new BranchModel();
 		private IList<BranchModel> _branches = new List<BranchModel>();
 
@@ -41,6 +42,17 @@ namespace SpectrumV1.Views.Common.Companies
 		public BranchesListForm()
 		{
 			InitializeComponent();
+
+			// wire events
+			btnNew.ItemClick += btnNew_ItemClick;
+			btnEdit.ItemClick += btnEdit_ItemClick;
+			btnDelete.ItemClick += btnDelete_ItemClick;
+			btnPrint.ItemClick += btnPrint_ItemClick;
+			btnRefresh.ItemClick += btnRefresh_ItemClick;
+			btnClose.ItemClick += btnClose_ItemClick;
+			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+			gvBranches.DoubleClick += gvBranches_DoubleClick;
+			gvBranches.RowCellStyle += gvBranches_RowCellStyle;
 
 			StartLoading();
 		}
@@ -124,24 +136,7 @@ namespace SpectrumV1.Views.Common.Companies
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			if (!_branches.Any()) return;
 
-			try
-			{
-				string currentRowId = gvBranches.GetFocusedRowCellValue("_id").ToString();
-				if (string.IsNullOrEmpty(currentRowId)) return;
-
-				_branchModel = _branches.SingleOrDefault(x => x._id == currentRowId);
-				if (_branchModel == null) return;
-
-				var branchForm = new BranchEditForm(_branchModel);
-				branchForm.SendUpdatedBranch += RcvUpdatedBranchAsync;
-				branchForm.Show();
-			}
-			catch (Exception exception)
-			{
-				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
 		}
 
 		private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
@@ -156,53 +151,17 @@ namespace SpectrumV1.Views.Common.Companies
 
 		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			if (!CanDelete()) return;
 
-			try
-			{
-				string id = gvBranches.GetFocusedRowCellValue("_id").ToString();
-				string name = gvBranches.GetFocusedRowCellValue("BranchName").ToString();
-
-				if (!string.IsNullOrEmpty(id))
-				{
-					if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
-							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-					{
-						_branchModel = gvBranches.GetFocusedRow() as BranchModel;
-						if (_branchModel == null)
-						{
-							return;
-						}
-						_branchModel.Deleted = true;
-
-						//delete the record
-						await _branchRepository.DeleteBranchAsync(_branchModel._id);
-						RcvUpdatedBranchAsync(_branchModel, EventArgs.Empty);
-					}
-				}
-
-			}
-			catch (Exception exception)
-			{
-				switch (exception.Message)
-				{
-					case "-2146233088":
-						XtraMessageBox.Show("This record is linked to one or more transactions, delete all links first.",
-							"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						break;
-
-					default:
-						XtraMessageBox.Show(exception.Message,
-							"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						break;
-				}
-			}
 		}
 
 		private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			Close();
+		}
+
+		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
+		{
+
 		}
 
 		#endregion
@@ -226,24 +185,7 @@ namespace SpectrumV1.Views.Common.Companies
 
 		private void gvBranches_DoubleClick(object sender, EventArgs e)
 		{
-			if (!_branches.Any()) return;
 
-			try
-			{
-				string currentRowId = gvBranches.GetFocusedRowCellValue("_id").ToString();
-				if (string.IsNullOrEmpty(currentRowId)) return;
-
-				_branchModel = _branches.SingleOrDefault(x => x._id == currentRowId);
-				if (_branchModel == null) return;
-
-				var branchForm = new BranchEditForm(_branchModel);
-				branchForm.SendUpdatedBranch += RcvUpdatedBranchAsync;
-				branchForm.Show();
-			}
-			catch (Exception exception)
-			{
-				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
 		}
 
 		private bool CanDelete()
@@ -270,21 +212,7 @@ namespace SpectrumV1.Views.Common.Companies
 
 		private void gvBranches_RowCellStyle(object sender, RowCellStyleEventArgs e)
 		{
-			GridView view = sender as GridView;
-			if (e.RowHandle >= 0)
-			{
-				bool isActive = (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
-				if (isDefault)
-				{
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-				}
-				if (!isActive)
-				{
-					e.Appearance.ForeColor = Color.Gray;
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-				}
-			}
+
 		}
 	}
 }
