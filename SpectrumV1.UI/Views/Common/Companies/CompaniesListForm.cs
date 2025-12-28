@@ -5,7 +5,9 @@ using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Companies;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Companies;
+using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities.Interfaces;
+using SpectrumV1.Utilities.Layout;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -218,6 +220,13 @@ namespace SpectrumV1.Views.Common.Companies
 
 		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
 		{
+			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+				DialogResult.Yes)
+			{
+				_resetMenu = true;
+				LayoutsStyle.ResetLayoutGrid(gvCompanies, CurrentUser.UserName, CurrentUser.Company);
+			}
 
 		}
 

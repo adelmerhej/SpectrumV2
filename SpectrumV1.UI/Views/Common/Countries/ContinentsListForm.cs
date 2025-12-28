@@ -3,9 +3,11 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Countries;
+using SpectrumV1.DataLayers.Common.Countries.Interfaces;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Models.Users;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
 using SpectrumV1.Utilities.Layout;
 using System;
@@ -20,6 +22,8 @@ namespace SpectrumV1.Views.Common.Countries
 	public partial class ContinentsListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
+		private ContinentEditForm _continentEditForm;
+
 		private ContinentModel _continentModel = new ContinentModel();
 		private IList<ContinentModel> _continents = new List<ContinentModel>();
 
@@ -130,14 +134,27 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			ContinentEditForm frm = new ContinentEditForm(new ContinentModel());
-			frm.SendUpdatedContinent += RcvUpdatedContinentAsync;
-			frm.Show();
+			ShowContinentEditor(new ContinentModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
 		{
+			if (!_continents.Any()) return;
 
+			try
+			{
+				string currentRowId = gvContinents.GetFocusedRowCellValue("_id").ToString();
+				if (string.IsNullOrEmpty(currentRowId)) return;
+
+				_continentModel = _continents.SingleOrDefault(x => x._id == currentRowId);
+				if (_continentModel == null) return;
+
+				ShowContinentEditor(_continentModel);
+			}
+			catch (Exception exception)
+			{
+				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
@@ -152,7 +169,47 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
 		{
+			if (!CanDelete()) return;
 
+			try
+			{
+				string id = gvContinents.GetFocusedRowCellValue("_id").ToString();
+				string name = gvContinents.GetFocusedRowCellValue("ContinentName").ToString();
+
+				if (!string.IsNullOrEmpty(id))
+				{
+					if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
+							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+					{
+						_continentModel = gvContinents.GetFocusedRow() as ContinentModel;
+						if (_continentModel == null)
+						{
+							return;
+						}
+						_continentModel.Deleted = true;
+
+						//delete the record
+						await _continentRepository.DeleteContinentAsync(_continentModel._id);
+						RcvUpdatedContinentAsync(_continentModel, EventArgs.Empty);
+					}
+				}
+			}
+			catch (Exception exception)
+			{
+				switch (exception.Message)
+				{
+					case "-2146233088":
+						XtraMessageBox.Show("This record is linked to one or more transactions, delete all links first.",
+							"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						break;
+
+					default:
+						XtraMessageBox.Show(exception.Message,
+							"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						break;
+				}
+			}
 		}
 
 		private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
@@ -171,17 +228,26 @@ namespace SpectrumV1.Views.Common.Countries
 			}
 		}
 
-
-		private void gvContinents_RowCellStyle(object sender, RowCellStyleEventArgs e)
-		{
-
-		}
-
 		#endregion
 
 		private void gvContinents_DoubleClick(object sender, EventArgs e)
 		{
+			if (!_continents.Any()) return;
 
+			try
+			{
+				string currentRowId = gvContinents.GetFocusedRowCellValue("_id").ToString();
+				if (string.IsNullOrEmpty(currentRowId)) return;
+
+				_continentModel = _continents.SingleOrDefault(x => x._id == currentRowId);
+				if (_continentModel == null) return;
+
+				ShowContinentEditor(_continentModel);
+			}
+			catch (Exception exception)
+			{
+				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		private async void RcvUpdatedContinentAsync(object sender, EventArgs e)
@@ -223,6 +289,53 @@ namespace SpectrumV1.Views.Common.Countries
 			}
 
 			return true;
+		}
+
+		private void ShowContinentEditor(ContinentModel model)
+		{
+			if (_continentEditForm == null || _continentEditForm.IsDisposed)
+			{
+				_continentEditForm = new ContinentEditForm(model);
+				_continentEditForm.SendUpdatedContinent += RcvUpdatedContinentAsync;
+				_continentEditForm.FormClosed += ContinentEditForm_FormClosed;
+				_continentEditForm.Show(this);
+				return;
+			}
+
+			if (_continentEditForm.WindowState == FormWindowState.Minimized)
+				_continentEditForm.WindowState = FormWindowState.Normal;
+
+			_continentEditForm.Activate();
+			_continentEditForm.BringToFront();
+		}
+
+		private void ContinentEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as ContinentEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedContinent -= RcvUpdatedContinentAsync;
+				form.FormClosed -= ContinentEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_continentEditForm, sender))
+				_continentEditForm = null;
+		}
+
+		private void gvContinents_RowCellStyle(object sender, RowCellStyleEventArgs e)
+		{
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
+			{
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+			}
 		}
 	}
 }

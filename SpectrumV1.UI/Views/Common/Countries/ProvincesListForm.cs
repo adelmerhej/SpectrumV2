@@ -5,7 +5,10 @@ using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Countries;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Countries;
+using SpectrumV1.Models.Users;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
+using SpectrumV1.Utilities.Layout;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,6 +21,8 @@ namespace SpectrumV1.Views.Common.Countries
 	public partial class ProvincesListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
+		private ProvinceEditForm _provinceEditForm;
+
 		private ProvinceModel _provinceModel = new ProvinceModel();
 		private IList<ProvinceModel> _provinces = new List<ProvinceModel>();
 
@@ -42,6 +47,17 @@ namespace SpectrumV1.Views.Common.Countries
 		public ProvincesListForm()
 		{
 			InitializeComponent();
+
+			// wire events
+			btnNew.ItemClick += btnNew_ItemClick;
+			btnEdit.ItemClick += btnEdit_ItemClick;
+			btnDelete.ItemClick += btnDelete_ItemClick;
+			btnPrint.ItemClick += btnPrint_ItemClick;
+			btnRefresh.ItemClick += btnRefresh_ItemClick;
+			btnClose.ItemClick += btnClose_ItemClick;
+			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+			gvProvinces.DoubleClick += gvProvinces_DoubleClick;
+			gvProvinces.RowCellStyle += gvProvinces_RowCellStyle;
 
 			StartLoading();
 		}
@@ -118,9 +134,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			ProvinceEditForm frm = new ProvinceEditForm(new ProvinceModel());
-			frm.SendUpdatedProvince += RcvUpdatedProvinceAsync;
-			frm.Show();
+			ShowProvinceEditor(new ProvinceModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -135,9 +149,7 @@ namespace SpectrumV1.Views.Common.Countries
 				_provinceModel = _provinces.SingleOrDefault(x => x._id == currentRowId);
 				if (_provinceModel == null) return;
 
-				var cityForm = new ProvinceEditForm(_provinceModel);
-				cityForm.SendUpdatedProvince += RcvUpdatedProvinceAsync;
-				cityForm.Show();
+				ShowProvinceEditor(_provinceModel);
 			}
 			catch (Exception exception)
 			{
@@ -208,7 +220,14 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
 		{
-
+			// reset settings if needed
+			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+				DialogResult.Yes)
+			{
+				_resetMenu = true;
+				LayoutsStyle.ResetLayoutGrid(gvProvinces, CurrentUser.UserName, CurrentUser.Company);
+			}
 		}
 
 		#endregion
@@ -242,9 +261,7 @@ namespace SpectrumV1.Views.Common.Countries
 				_provinceModel = _provinces.SingleOrDefault(x => x._id == currentRowId);
 				if (_provinceModel == null) return;
 
-				var cityForm = new ProvinceEditForm(_provinceModel);
-				cityForm.SendUpdatedProvince += RcvUpdatedProvinceAsync;
-				cityForm.Show();
+				ShowProvinceEditor(_provinceModel);
 			}
 			catch (Exception exception)
 			{
@@ -274,22 +291,50 @@ namespace SpectrumV1.Views.Common.Countries
 			return true;
 		}
 
+		private void ShowProvinceEditor(ProvinceModel model)
+		{
+			if (_provinceEditForm == null || _provinceEditForm.IsDisposed)
+			{
+				_provinceEditForm = new ProvinceEditForm(model);
+				_provinceEditForm.SendUpdatedProvince += RcvUpdatedProvinceAsync;
+				_provinceEditForm.FormClosed += ProvinceEditForm_FormClosed;
+				_provinceEditForm.Show(this);
+				return;
+			}
+
+			if (_provinceEditForm.WindowState == FormWindowState.Minimized)
+				_provinceEditForm.WindowState = FormWindowState.Normal;
+
+			_provinceEditForm.Activate();
+			_provinceEditForm.BringToFront();
+		}
+
+		private void ProvinceEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as ProvinceEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedProvince -= RcvUpdatedProvinceAsync;
+				form.FormClosed -= ProvinceEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_provinceEditForm, sender))
+				_provinceEditForm = null;
+		}
+
 		private void gvProvinces_RowCellStyle(object sender, RowCellStyleEventArgs e)
 		{
-			GridView view = sender as GridView;
-			if (e.RowHandle >= 0)
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
 			{
-				bool isActive = (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
-				if (isDefault)
-				{
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-				}
-				if (!isActive)
-				{
-					e.Appearance.ForeColor = Color.Gray;
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-				}
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
 			}
 		}
 	}

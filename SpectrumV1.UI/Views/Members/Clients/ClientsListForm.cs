@@ -5,6 +5,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Members.Clients;
 using SpectrumV1.Models.Members.Clients;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -312,20 +313,18 @@ namespace SpectrumV1.Views.Members.Clients
 
 		private void gvClients_RowCellStyle(object sender, RowCellStyleEventArgs e)
 		{
-			GridView view = sender as GridView;
-			if (e.RowHandle >= 0)
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
 			{
-				bool isActive = (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
-				if (isDefault)
-				{
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-				}
-				if (!isActive)
-				{
-					e.Appearance.ForeColor = Color.Gray;
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-				}
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
 			}
 		}
 	}

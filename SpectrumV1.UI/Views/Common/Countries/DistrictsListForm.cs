@@ -5,7 +5,10 @@ using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Countries;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Countries;
+using SpectrumV1.Models.Users;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
+using SpectrumV1.Utilities.Layout;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,6 +21,8 @@ namespace SpectrumV1.Views.Common.Countries
 	public partial class DistrictsListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
+		private DistrictEditForm _districtEditForm;
+
 		private DistrictModel _districtModel = new DistrictModel();
 		private IList<DistrictModel> _districts = new List<DistrictModel>();
 
@@ -42,6 +47,17 @@ namespace SpectrumV1.Views.Common.Countries
 		public DistrictsListForm()
 		{
 			InitializeComponent();
+
+			// wire events
+			btnNew.ItemClick += btnNew_ItemClick;
+			btnEdit.ItemClick += btnEdit_ItemClick;
+			btnDelete.ItemClick += btnDelete_ItemClick;
+			btnPrint.ItemClick += btnPrint_ItemClick;
+			btnRefresh.ItemClick += btnRefresh_ItemClick;
+			btnClose.ItemClick += btnClose_ItemClick;
+			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+			gvDistricts.DoubleClick += gvDistricts_DoubleClick;
+			gvDistricts.RowCellStyle += gvDistricts_RowCellStyle;
 
 			StartLoading();
 		}
@@ -118,9 +134,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			DistrictEditForm frm = new DistrictEditForm(new DistrictModel());
-			frm.SendUpdatedDistrict += RcvUpdatedDistrictAsync;
-			frm.Show();
+			ShowDistrictEditor(new DistrictModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -135,9 +149,7 @@ namespace SpectrumV1.Views.Common.Countries
 				_districtModel = _districts.SingleOrDefault(x => x._id == currentRowId);
 				if (_districtModel == null) return;
 
-				var cityForm = new DistrictEditForm(_districtModel);
-				cityForm.SendUpdatedDistrict += RcvUpdatedDistrictAsync;
-				cityForm.Show();
+				ShowDistrictEditor(_districtModel);
 			}
 			catch (Exception exception)
 			{
@@ -162,7 +174,7 @@ namespace SpectrumV1.Views.Common.Countries
 			try
 			{
 				string id = gvDistricts.GetFocusedRowCellValue("_id").ToString();
-				string name = gvDistricts.GetFocusedRowCellValue("CityName").ToString();
+				string name = gvDistricts.GetFocusedRowCellValue("DistrictName").ToString();
 
 				if (!string.IsNullOrEmpty(id))
 				{
@@ -206,11 +218,6 @@ namespace SpectrumV1.Views.Common.Countries
 			Close();
 		}
 
-		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
-		{
-
-		}
-
 		#endregion
 
 
@@ -230,7 +237,7 @@ namespace SpectrumV1.Views.Common.Countries
 			}
 		}
 
-		private void gvCountries_DoubleClick(object sender, EventArgs e)
+		private void gvDistricts_DoubleClick(object sender, EventArgs e)
 		{
 			if (!_districts.Any()) return;
 
@@ -242,13 +249,23 @@ namespace SpectrumV1.Views.Common.Countries
 				_districtModel = _districts.SingleOrDefault(x => x._id == currentRowId);
 				if (_districtModel == null) return;
 
-				var cityForm = new DistrictEditForm(_districtModel);
-				cityForm.SendUpdatedDistrict += RcvUpdatedDistrictAsync;
-				cityForm.Show();
+				ShowDistrictEditor(_districtModel);
 			}
 			catch (Exception exception)
 			{
 				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
+		{
+			// reset settings if needed
+			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+				DialogResult.Yes)
+			{
+				_resetMenu = true;
+				LayoutsStyle.ResetLayoutGrid(gvDistricts, CurrentUser.UserName, CurrentUser.Company);
 			}
 		}
 
@@ -274,22 +291,50 @@ namespace SpectrumV1.Views.Common.Countries
 			return true;
 		}
 
+		private void ShowDistrictEditor(DistrictModel model)
+		{
+			if (_districtEditForm == null || _districtEditForm.IsDisposed)
+			{
+				_districtEditForm = new DistrictEditForm(model);
+				_districtEditForm.SendUpdatedDistrict += RcvUpdatedDistrictAsync;
+				_districtEditForm.FormClosed += DistrictEditForm_FormClosed;
+				_districtEditForm.Show(this);
+				return;
+			}
+
+			if (_districtEditForm.WindowState == FormWindowState.Minimized)
+				_districtEditForm.WindowState = FormWindowState.Normal;
+
+			_districtEditForm.Activate();
+			_districtEditForm.BringToFront();
+		}
+
+		private void DistrictEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as DistrictEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedDistrict -= RcvUpdatedDistrictAsync;
+				form.FormClosed -= DistrictEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_districtEditForm, sender))
+				_districtEditForm = null;
+		}
+
 		private void gvDistricts_RowCellStyle(object sender, RowCellStyleEventArgs e)
 		{
-			GridView view = sender as GridView;
-			if (e.RowHandle >= 0)
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
 			{
-				bool isActive = (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
-				if (isDefault)
-				{
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-				}
-				if (!isActive)
-				{
-					e.Appearance.ForeColor = Color.Gray;
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-				}
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
 			}
 		}
 	}

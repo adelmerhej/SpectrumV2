@@ -4,8 +4,13 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Departments;
 using SpectrumV1.DataLayers.DataAccess;
+using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Models.Common.Departments;
+using SpectrumV1.Models.Users;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
+using SpectrumV1.Utilities.Layout;
+using SpectrumV1.Views.Common.Countries;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,6 +23,8 @@ namespace SpectrumV1.Views.Common.Departments
 	public partial class DepartmentsListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
+		private DepartmentEditForm _departmentEditForm;
+
 		private DepartmentModel _departmentModel = new DepartmentModel();
 		private IList<DepartmentModel> _departments = new List<DepartmentModel>();
 
@@ -42,6 +49,17 @@ namespace SpectrumV1.Views.Common.Departments
 		public DepartmentsListForm()
 		{
 			InitializeComponent();
+
+			// wire events
+			btnNew.ItemClick += btnNew_ItemClick;
+			btnEdit.ItemClick += btnEdit_ItemClick;
+			btnDelete.ItemClick += btnDelete_ItemClick;
+			btnPrint.ItemClick += btnPrint_ItemClick;
+			btnRefresh.ItemClick += btnRefresh_ItemClick;
+			btnClose.ItemClick += btnClose_ItemClick;
+			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+			gvDepartments.DoubleClick += gvDepartments_DoubleClick;
+			gvDepartments.RowCellStyle += gvDepartments_RowCellStyle;
 
 			StartLoading();
 		}
@@ -117,9 +135,7 @@ namespace SpectrumV1.Views.Common.Departments
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			DepartmentEditForm frm = new DepartmentEditForm(new DepartmentModel());
-			frm.SendUpdatedDepartment += RcvUpdatedDepartmentAsync;
-			frm.Show();
+			ShowDepartmentEditor(new DepartmentModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -134,9 +150,7 @@ namespace SpectrumV1.Views.Common.Departments
 				_departmentModel = _departments.SingleOrDefault(x => x._id == currentRowId);
 				if (_departmentModel == null) return;
 
-				var departmentForm = new DepartmentEditForm(_departmentModel);
-				departmentForm.SendUpdatedDepartment += RcvUpdatedDepartmentAsync;
-				departmentForm.Show();
+				ShowDepartmentEditor(_departmentModel);
 			}
 			catch (Exception exception)
 			{
@@ -144,7 +158,7 @@ namespace SpectrumV1.Views.Common.Departments
 			}
 		}
 
-		private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
+        private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			StartLoading();
 		}
@@ -165,7 +179,7 @@ namespace SpectrumV1.Views.Common.Departments
 
 				if (!string.IsNullOrEmpty(id))
 				{
-					if (XtraMessageBox.Show($"Are you sure you want to delete: `{name}`?",
+					if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
 							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
 							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
 					{
@@ -177,12 +191,10 @@ namespace SpectrumV1.Views.Common.Departments
 						_departmentModel.Deleted = true;
 
 						//delete the record
-						bool deleted = await _departmentRepository.DeleteDepartmentAsync(id);
-						if (!deleted) return;
+						await _departmentRepository.DeleteDepartmentAsync(_departmentModel._id);
 						RcvUpdatedDepartmentAsync(_departmentModel, EventArgs.Empty);
 					}
 				}
-
 			}
 			catch (Exception exception)
 			{
@@ -201,38 +213,26 @@ namespace SpectrumV1.Views.Common.Departments
 			}
 		}
 
-		private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
+        private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			Close();
 		}
 
 		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
 		{
-
-		}
-
-		private void gvDepartments_RowCellStyle(object sender, RowCellStyleEventArgs e)
-		{
-			GridView view = sender as GridView;
-			if (e.RowHandle >= 0)
+			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+				DialogResult.Yes)
 			{
-				bool isActive = view != null && (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = view != null && (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
-				if (isDefault)
-				{
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-				}
-				if (!isActive)
-				{
-					e.Appearance.ForeColor = Color.Gray;
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-				}
+				_resetMenu = true;
+				LayoutsStyle.ResetLayoutGrid(gvDepartments, CurrentUser.UserName, CurrentUser.Company);
 			}
 		}
 
-		#endregion
 
-		private void gvDepartments_DoubleClick(object sender, EventArgs e)
+        #endregion
+
+        private void gvDepartments_DoubleClick(object sender, EventArgs e)
 		{
 			if (!_departments.Any()) return;
 
@@ -244,9 +244,7 @@ namespace SpectrumV1.Views.Common.Departments
 				_departmentModel = _departments.SingleOrDefault(x => x._id == currentRowId);
 				if (_departmentModel == null) return;
 
-				var departmentForm = new DepartmentEditForm(_departmentModel);
-				departmentForm.SendUpdatedDepartment += RcvUpdatedDepartmentAsync;
-				departmentForm.Show();
+				ShowDepartmentEditor(_departmentModel);
 			}
 			catch (Exception exception)
 			{
@@ -254,7 +252,7 @@ namespace SpectrumV1.Views.Common.Departments
 			}
 		}
 
-		private async void RcvUpdatedDepartmentAsync(object sender, EventArgs e)
+        private async void RcvUpdatedDepartmentAsync(object sender, EventArgs e)
 		{
 			if (sender == null) return;
 			_departmentModel = sender as DepartmentModel;
@@ -293,6 +291,52 @@ namespace SpectrumV1.Views.Common.Departments
 			}
 
 			return true;
+		}
+
+		private void ShowDepartmentEditor(DepartmentModel model)
+		{
+			if (_departmentEditForm == null || _departmentEditForm.IsDisposed)
+			{
+				_departmentEditForm = new DepartmentEditForm(model);
+				_departmentEditForm.SendUpdatedDepartment += RcvUpdatedDepartmentAsync;
+				_departmentEditForm.FormClosed += DepartmentEditForm_FormClosed;
+				_departmentEditForm.Show(this);
+				return;
+			}
+
+			if (_departmentEditForm.WindowState == FormWindowState.Minimized)
+				_departmentEditForm.WindowState = FormWindowState.Normal;
+
+			_departmentEditForm.Activate();
+			_departmentEditForm.BringToFront();
+		}
+
+		private void DepartmentEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as DepartmentEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedDepartment -= RcvUpdatedDepartmentAsync;
+				form.FormClosed -= DepartmentEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_departmentEditForm, sender))
+				_departmentEditForm = null;
+		}
+		private void gvDepartments_RowCellStyle(object sender, RowCellStyleEventArgs e)
+		{
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
+			{
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+			}
 		}
 	}
 }

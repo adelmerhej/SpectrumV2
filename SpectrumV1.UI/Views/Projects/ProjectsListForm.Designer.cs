@@ -102,7 +102,6 @@ namespace SpectrumV1.Views.Projects
 			this.btnNew.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.NewCustomer.svg";
 			this.btnNew.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnNew.ImageOptions.SvgImage")));
 			this.btnNew.Name = "btnNew";
-			this.btnNew.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNew_ItemClick);
 			// 
 			// btnDelete
 			// 
@@ -113,7 +112,6 @@ namespace SpectrumV1.Views.Projects
 			this.btnDelete.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Delete.svg";
 			this.btnDelete.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDelete.ImageOptions.SvgImage")));
 			this.btnDelete.Name = "btnDelete";
-			this.btnDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDelete_ItemClick);
 			// 
 			// btnEdit
 			// 
@@ -124,7 +122,6 @@ namespace SpectrumV1.Views.Projects
 			this.btnEdit.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Edit.svg";
 			this.btnEdit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEdit.ImageOptions.SvgImage")));
 			this.btnEdit.Name = "btnEdit";
-			this.btnEdit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnEdit_ItemClick);
 			// 
 			// btnPrint
 			// 
@@ -135,7 +132,6 @@ namespace SpectrumV1.Views.Projects
 			this.btnPrint.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.SalesAnalysis.svg";
 			this.btnPrint.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPrint.ImageOptions.SvgImage")));
 			this.btnPrint.Name = "btnPrint";
-			this.btnPrint.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPrint_ItemClick);
 			// 
 			// barButtonItem13
 			// 
@@ -174,7 +170,6 @@ namespace SpectrumV1.Views.Projects
 			this.btnRefresh.Id = 37;
 			this.btnRefresh.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRefresh.ImageOptions.SvgImage")));
 			this.btnRefresh.Name = "btnRefresh";
-			this.btnRefresh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnRefresh_ItemClick);
 			// 
 			// btnClose
 			// 
@@ -182,7 +177,6 @@ namespace SpectrumV1.Views.Projects
 			this.btnClose.Id = 38;
 			this.btnClose.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnClose.ImageOptions.SvgImage")));
 			this.btnClose.Name = "btnClose";
-			this.btnClose.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClose_ItemClick);
 			// 
 			// btnResetGridStyle
 			// 
@@ -190,7 +184,6 @@ namespace SpectrumV1.Views.Projects
 			this.btnResetGridStyle.Id = 43;
 			this.btnResetGridStyle.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnResetGridStyle.ImageOptions.SvgImage")));
 			this.btnResetGridStyle.Name = "btnResetGridStyle";
-			this.btnResetGridStyle.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResetGridStyle_ItemClick);
 			// 
 			// rpProjectsList
 			// 
@@ -298,8 +291,6 @@ namespace SpectrumV1.Views.Projects
 			this.gvProjects.OptionsFind.AlwaysVisible = true;
 			this.gvProjects.OptionsView.ColumnAutoWidth = false;
 			this.gvProjects.OptionsView.ShowGroupPanel = false;
-			this.gvProjects.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvProjects_RowCellStyle);
-			this.gvProjects.DoubleClick += new System.EventHandler(this.gvProjects_DoubleClick);
 			// 
 			// col_id
 			// 

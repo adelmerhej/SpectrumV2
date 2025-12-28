@@ -1,12 +1,16 @@
 ﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Users;
 using SpectrumV1.Models.Users;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
+using SpectrumV1.Utilities.Layout;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,6 +20,8 @@ namespace SpectrumV1.Views.Users
 	public partial class UsersListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
+		private UserEditForm _userEditForm;
+
 		private UserModel _userModel = new UserModel();
 		private IList<UserModel> _users = new List<UserModel>();
 
@@ -40,6 +46,18 @@ namespace SpectrumV1.Views.Users
 		public UsersListForm()
 		{
 			InitializeComponent();
+
+			// wire events
+			btnNew.ItemClick += btnNew_ItemClick;
+			btnEdit.ItemClick += btnEdit_ItemClick;
+			btnDelete.ItemClick += btnDelete_ItemClick;
+			btnPrint.ItemClick += btnPrint_ItemClick;
+			btnRefresh.ItemClick += btnRefresh_ItemClick;
+			btnClose.ItemClick += btnClose_ItemClick;
+			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+			FormClosing += UsersListForm_FormClosing;
+			gvUsers.DoubleClick += gvUsers_DoubleClick;
+			gvUsers.RowCellStyle += gvUsers_RowCellStyle;
 
 			StartLoading();
 		}
@@ -111,13 +129,19 @@ namespace SpectrumV1.Views.Users
 			btnDelete.Enabled = _isAdmin || _canDelete;
 		}
 
-		#region Buttons Event
+		private void UsersListForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (!_resetMenu)
+			{
+				LayoutsStyle.SaveLayoutGrid(gvUsers, CurrentUser.UserName, CurrentUser.Company);
+			}
+		}
+
+		#region Buttons Events
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			UserEditForm frm = new UserEditForm(new UserModel());
-			frm.SendUpdatedUser += RcvUpdatedUserAsync;
-			frm.Show();
+			ShowUserEditor(new UserModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -132,9 +156,7 @@ namespace SpectrumV1.Views.Users
 				_userModel = _users.SingleOrDefault(x => x._id == currentRowId);
 				if (_userModel == null) return;
 
-				var userForm = new UserEditForm(_userModel);
-				userForm.SendUpdatedUser += RcvUpdatedUserAsync;
-				userForm.Show();
+				ShowUserEditor(_userModel);
 			}
 			catch (Exception exception)
 			{
@@ -159,11 +181,11 @@ namespace SpectrumV1.Views.Users
 			try
 			{
 				string id = gvUsers.GetFocusedRowCellValue("_id").ToString();
-				string name = gvUsers.GetFocusedRowCellValue("Username").ToString();
+				string name = gvUsers.GetFocusedRowCellValue("UserName").ToString();
 
 				if (!string.IsNullOrEmpty(id))
 				{
-					if (XtraMessageBox.Show($"Are you sure you want to delete: `{name}`?",
+					if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
 							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
 							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
 					{
@@ -175,8 +197,7 @@ namespace SpectrumV1.Views.Users
 						_userModel.Deleted = true;
 
 						//delete the record
-						bool deleted = await _userRepository.DeleteUserAsync(id);
-						if (!deleted) return;
+						await _userRepository.DeleteUserAsync(_userModel._id);
 						RcvUpdatedUserAsync(_userModel, EventArgs.Empty);
 					}
 				}
@@ -206,9 +227,15 @@ namespace SpectrumV1.Views.Users
 
 		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
 		{
-
+			// reset settings if needed
+			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+				DialogResult.Yes)
+			{
+				_resetMenu = true;
+				LayoutsStyle.ResetLayoutGrid(gvUsers, CurrentUser.UserName, CurrentUser.Company);
+			}
 		}
-
 
 		#endregion
 
@@ -224,9 +251,7 @@ namespace SpectrumV1.Views.Users
 				_userModel = _users.SingleOrDefault(x => x._id == currentRowId);
 				if (_userModel == null) return;
 
-				var userForm = new UserEditForm(_userModel);
-				userForm.SendUpdatedUser += RcvUpdatedUserAsync;
-				userForm.Show();
+				ShowUserEditor(_userModel);
 			}
 			catch (Exception exception)
 			{
@@ -270,6 +295,54 @@ namespace SpectrumV1.Views.Users
 			}
 
 			return true;
+		}
+
+
+		private void ShowUserEditor(UserModel model)
+		{
+			if (_userEditForm == null || _userEditForm.IsDisposed)
+			{
+				_userEditForm = new UserEditForm(model);
+				_userEditForm.SendUpdatedUser += RcvUpdatedUserAsync;
+				_userEditForm.FormClosed += UserEditForm_FormClosed;
+				_userEditForm.Show(this);
+				return;
+			}
+
+			if (_userEditForm.WindowState == FormWindowState.Minimized)
+				_userEditForm.WindowState = FormWindowState.Normal;
+
+			_userEditForm.Activate();
+			_userEditForm.BringToFront();
+		}
+
+		private void UserEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as UserEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedUser -= RcvUpdatedUserAsync;
+				form.FormClosed -= UserEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_userEditForm, sender))
+				_userEditForm = null;
+		}
+
+		private void gvUsers_RowCellStyle(object sender, RowCellStyleEventArgs e)
+		{
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
+			{
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+			}
 		}
 	}
 }

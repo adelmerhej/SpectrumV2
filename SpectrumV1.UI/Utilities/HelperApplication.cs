@@ -780,6 +780,63 @@ namespace SpectrumV1.Utilities
 		#endregion
 
 
+		#region Convert Permission Values
+
+		// Safely convert a permission value (bool/int/string) to bool
+		public static bool? ConvertToBool(object value)
+		{
+			if (value == null) return null;
+			if (value is bool b) return b;
+			if (value is int i) return i != 0;
+			if (value is string s)
+			{
+				if (bool.TryParse(s, out var sb)) return sb;
+				if (int.TryParse(s, out var si)) return si != 0;
+			}
+			return null;
+		}
+
+		#endregion
+
+
+		#region handler implementations
+
+		public static class DateHelper
+		{
+			public static DateTime? GetNullableDate(object editValue)
+			{
+				return DateTime.TryParse(editValue?.ToString(), out var date) ? date : (DateTime?)null;
+			}
+		}
+
+		public static class ErrorHandler
+		{
+			//Error
+			public static void ShowError(string message)
+			{
+				HelperApplication.SafeShowMessageBox(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+
+			//Question
+			public static void ShowQuestion(string message)
+			{
+				HelperApplication.SafeShowMessageBox(message, "Question", MessageBoxButtons.OK, MessageBoxIcon.Question);
+			}
+
+			//Exclamation
+			public static void ShowExclamation(string message)
+			{
+				HelperApplication.SafeShowMessageBox(message, "Exclamation", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+			}
+
+			//Information
+			public static void ShowInformation(string message)
+			{
+				HelperApplication.SafeShowMessageBox(message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+		}
+		#endregion
+
 	}
 }
 

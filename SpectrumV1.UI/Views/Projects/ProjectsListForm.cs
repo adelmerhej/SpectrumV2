@@ -5,7 +5,9 @@ using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Projects;
 using SpectrumV1.Models.Projects;
+using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities.Interfaces;
+using SpectrumV1.Utilities.Layout;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -36,6 +38,18 @@ namespace SpectrumV1.Views.Projects
 		public ProjectsListForm()
 		{
 			InitializeComponent();
+
+			// wire events
+			btnNew.ItemClick += btnNew_ItemClick;
+			btnEdit.ItemClick += btnEdit_ItemClick;
+			btnDelete.ItemClick += btnDelete_ItemClick;
+			btnPrint.ItemClick += btnPrint_ItemClick;
+			btnRefresh.ItemClick += btnRefresh_ItemClick;
+			btnClose.ItemClick += btnClose_ItemClick;
+			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+			gvProjects.DoubleClick += gvProjects_DoubleClick;
+			gvProjects.RowCellStyle += gvProjects_RowCellStyle;
+
 			StartLoading();
 		}
 
@@ -77,37 +91,12 @@ namespace SpectrumV1.Views.Projects
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			try
-			{
-				ProjectEditForm frm = new ProjectEditForm(new ProjectModel());
-				frm.SendUpdatedProject += RcvUpdatedProjectAsync;
-				frm.Show();
-			}
-			catch (Exception ex)
-			{
-
-				XtraMessageBox.Show(ex.Message);
-			}
 
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			if (!_projects.Any()) return;
-			try
-			{
-				string currentRowId = gvProjects.GetFocusedRowCellValue("_id").ToString();
-				if (string.IsNullOrEmpty(currentRowId)) return;
-				_projectModel = _projects.SingleOrDefault(x => x._id == currentRowId);
-				if (_projectModel == null) return;
-				var projectForm = new ProjectEditForm(_projectModel);
-				projectForm.SendUpdatedProject += RcvUpdatedProjectAsync;
-				projectForm.Show();
-			}
-			catch (Exception exception)
-			{
-				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
+
 		}
 
 		private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
@@ -122,34 +111,23 @@ namespace SpectrumV1.Views.Projects
 
 		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			if (!CanDelete()) return;
-			try
-			{
-				string id = gvProjects.GetFocusedRowCellValue("_id").ToString();
-				string name = gvProjects.GetFocusedRowCellValue("ProjectName").ToString();
-				if (!string.IsNullOrEmpty(id))
-				{
-					if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
-							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-					{
-						_projectModel = gvProjects.GetFocusedRow() as ProjectModel;
-						if (_projectModel == null) return;
-						_projectModel.Deleted = true;
-						await _projectRepository.DeleteProjectAsync(_projectModel._id);
-						RcvUpdatedProjectAsync(_projectModel, EventArgs.Empty);
-					}
-				}
-			}
-			catch (Exception exception)
-			{
-				XtraMessageBox.Show(exception.Message, "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
+
 		}
 
 		private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			Close();
+		}
+
+		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
+		{
+			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+				DialogResult.Yes)
+			{
+				_resetMenu = true;
+				LayoutsStyle.ResetLayoutGrid(gvProjects, CurrentUser.UserName, CurrentUser.Company);
+			}
 		}
 
 		private async void RcvUpdatedProjectAsync(object sender, EventArgs e)
@@ -169,21 +147,7 @@ namespace SpectrumV1.Views.Projects
 
 		private void gvProjects_DoubleClick(object sender, EventArgs e)
 		{
-			if (!_projects.Any()) return;
-			try
-			{
-				string currentRowId = gvProjects.GetFocusedRowCellValue("_id").ToString();
-				if (string.IsNullOrEmpty(currentRowId)) return;
-				_projectModel = _projects.SingleOrDefault(x => x._id == currentRowId);
-				if (_projectModel == null) return;
-				var projectForm = new ProjectEditForm(_projectModel);
-				projectForm.SendUpdatedProject += RcvUpdatedProjectAsync;
-				projectForm.Show();
-			}
-			catch (Exception exception)
-			{
-				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
+
 		}
 
 		private bool CanDelete()
@@ -206,25 +170,6 @@ namespace SpectrumV1.Views.Projects
 		}
 
 		private void gvProjects_RowCellStyle(object sender, RowCellStyleEventArgs e)
-		{
-			GridView view = sender as GridView;
-			if (e.RowHandle >= 0)
-			{
-				bool isActive = (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
-				if (isDefault)
-				{
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-				}
-				if (!isActive)
-				{
-					e.Appearance.ForeColor = Color.Gray;
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-				}
-			}
-		}
-
-		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
 		{
 
 		}

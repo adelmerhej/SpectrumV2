@@ -5,7 +5,10 @@ using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Countries;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Countries;
+using SpectrumV1.Models.Users;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
+using SpectrumV1.Utilities.Layout;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,6 +21,8 @@ namespace SpectrumV1.Views.Common.Countries
 	public partial class CountriesListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
+		private CountryEditForm _countryEditForm;
+
 		private CountryModel _countryModel = new CountryModel();
 		private IList<CountryModel> _countries = new List<CountryModel>();
 
@@ -42,6 +47,17 @@ namespace SpectrumV1.Views.Common.Countries
 		public CountriesListForm()
 		{
 			InitializeComponent();
+
+			// wire events
+			btnNew.ItemClick += btnNew_ItemClick;
+			btnEdit.ItemClick += btnEdit_ItemClick;
+			btnDelete.ItemClick += btnDelete_ItemClick;
+			btnPrint.ItemClick += btnPrint_ItemClick;
+			btnRefresh.ItemClick += btnRefresh_ItemClick;
+			btnClose.ItemClick += btnClose_ItemClick;
+			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+			gvCountries.DoubleClick += gvCountries_DoubleClick;
+			gvCountries.RowCellStyle += gvCountries_RowCellStyle;
 
 			StartLoading();
 		}
@@ -118,9 +134,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			CountryEditForm frm = new CountryEditForm(new CountryModel());
-			frm.SendUpdatedCountry += RcvUpdatedCountryAsync;
-			frm.Show();
+			ShowCountryEditor(new CountryModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -135,9 +149,7 @@ namespace SpectrumV1.Views.Common.Countries
 				_countryModel = _countries.SingleOrDefault(x => x._id == currentRowId);
 				if (_countryModel == null) return;
 
-				var countryForm = new CountryEditForm(_countryModel);
-				countryForm.SendUpdatedCountry += RcvUpdatedCountryAsync;
-				countryForm.Show();
+				ShowCountryEditor(_countryModel);
 			}
 			catch (Exception exception)
 			{
@@ -182,7 +194,6 @@ namespace SpectrumV1.Views.Common.Countries
 						RcvUpdatedCountryAsync(_countryModel, EventArgs.Empty);
 					}
 				}
-
 			}
 			catch (Exception exception)
 			{
@@ -208,7 +219,13 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
 		{
-
+			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+				DialogResult.Yes)
+			{
+				_resetMenu = true;
+				LayoutsStyle.ResetLayoutGrid(gvCountries, CurrentUser.UserName, CurrentUser.Company);
+			}
 		}
 
 		#endregion
@@ -242,9 +259,7 @@ namespace SpectrumV1.Views.Common.Countries
 				_countryModel = _countries.SingleOrDefault(x => x._id == currentRowId);
 				if (_countryModel == null) return;
 
-				var countryForm = new CountryEditForm(_countryModel);
-				countryForm.SendUpdatedCountry += RcvUpdatedCountryAsync;
-				countryForm.Show();
+				ShowCountryEditor(_countryModel);
 			}
 			catch (Exception exception)
 			{
@@ -274,22 +289,50 @@ namespace SpectrumV1.Views.Common.Countries
 			return true;
 		}
 
+		private void ShowCountryEditor(CountryModel model)
+		{
+			if (_countryEditForm == null || _countryEditForm.IsDisposed)
+			{
+				_countryEditForm = new CountryEditForm(model);
+				_countryEditForm.SendUpdatedCountry += RcvUpdatedCountryAsync;
+				_countryEditForm.FormClosed += CountryEditForm_FormClosed;
+				_countryEditForm.Show(this);
+				return;
+			}
+
+			if (_countryEditForm.WindowState == FormWindowState.Minimized)
+				_countryEditForm.WindowState = FormWindowState.Normal;
+
+			_countryEditForm.Activate();
+			_countryEditForm.BringToFront();
+		}
+
+		private void CountryEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as CountryEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedCountry -= RcvUpdatedCountryAsync;
+				form.FormClosed -= CountryEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_countryEditForm, sender))
+				_countryEditForm = null;
+		}
+
 		private void gvCountries_RowCellStyle(object sender, RowCellStyleEventArgs e)
 		{
-			GridView view = sender as GridView;
-			if (e.RowHandle >= 0)
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
 			{
-				bool isActive = (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
-				if (isDefault)
-				{
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-				}
-				if (!isActive)
-				{
-					e.Appearance.ForeColor = Color.Gray;
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-				}
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
 			}
 		}
 	}

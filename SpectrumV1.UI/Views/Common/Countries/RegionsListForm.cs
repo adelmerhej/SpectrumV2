@@ -5,7 +5,10 @@ using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Countries;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Countries;
+using SpectrumV1.Models.Users;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
+using SpectrumV1.Utilities.Layout;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,6 +21,8 @@ namespace SpectrumV1.Views.Common.Countries
 	public partial class RegionsListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
+		private RegionEditForm _regionEditForm;
+
 		private RegionModel _regionModel = new RegionModel();
 		private IList<RegionModel> _regions = new List<RegionModel>();
 
@@ -42,6 +47,17 @@ namespace SpectrumV1.Views.Common.Countries
 		public RegionsListForm()
 		{
 			InitializeComponent();
+
+			// wire events
+			btnNew.ItemClick += btnNew_ItemClick;
+			btnEdit.ItemClick += btnEdit_ItemClick;
+			btnDelete.ItemClick += btnDelete_ItemClick;
+			btnPrint.ItemClick += btnPrint_ItemClick;
+			btnRefresh.ItemClick += btnRefresh_ItemClick;
+			btnClose.ItemClick += btnClose_ItemClick;
+			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+			gvRegions.DoubleClick += gvRegions_DoubleClick;
+			gvRegions.RowCellStyle += gvRegions_RowCellStyle;
 
 			StartLoading();
 		}
@@ -117,9 +133,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			RegionEditForm frm = new RegionEditForm(new RegionModel());
-			frm.SendUpdatedRegion += RcvUpdatedRegionAsync;
-			frm.Show();
+			ShowRegionEditor(new RegionModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -134,9 +148,7 @@ namespace SpectrumV1.Views.Common.Countries
 				_regionModel = _regions.SingleOrDefault(x => x._id == currentRowId);
 				if (_regionModel == null) return;
 
-				var regionForm = new RegionEditForm(_regionModel);
-				regionForm.SendUpdatedRegion += RcvUpdatedRegionAsync;
-				regionForm.Show();
+				ShowRegionEditor(_regionModel);
 			}
 			catch (Exception exception)
 			{
@@ -165,7 +177,7 @@ namespace SpectrumV1.Views.Common.Countries
 
 				if (!string.IsNullOrEmpty(id))
 				{
-					if (XtraMessageBox.Show($"Are you sure you want to delete: `{name}`?",
+					if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
 							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
 							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
 					{
@@ -177,12 +189,10 @@ namespace SpectrumV1.Views.Common.Countries
 						_regionModel.Deleted = true;
 
 						//delete the record
-						bool deleted = await _regionRepository.DeleteRegionAsync(id);
-						if (!deleted) return;
+						await _regionRepository.DeleteRegionAsync(_regionModel._id);
 						RcvUpdatedRegionAsync(_regionModel, EventArgs.Empty);
 					}
 				}
-
 			}
 			catch (Exception exception)
 			{
@@ -208,25 +218,12 @@ namespace SpectrumV1.Views.Common.Countries
 
 		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
 		{
-
-		}
-
-		private void gvRegions_RowCellStyle(object sender, RowCellStyleEventArgs e)
-		{
-			GridView view = sender as GridView;
-			if (e.RowHandle >= 0)
+			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+				DialogResult.Yes)
 			{
-				bool isActive = view != null && (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = view != null && (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
-				if (isDefault)
-				{
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-				}
-				if (!isActive)
-				{
-					e.Appearance.ForeColor = Color.Gray;
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-				}
+				_resetMenu = true;
+				LayoutsStyle.ResetLayoutGrid(gvRegions, CurrentUser.UserName, CurrentUser.Company);
 			}
 		}
 
@@ -244,9 +241,7 @@ namespace SpectrumV1.Views.Common.Countries
 				_regionModel = _regions.SingleOrDefault(x => x._id == currentRowId);
 				if (_regionModel == null) return;
 
-				var regionForm = new RegionEditForm(_regionModel);
-				regionForm.SendUpdatedRegion += RcvUpdatedRegionAsync;
-				regionForm.Show();
+				ShowRegionEditor(_regionModel);
 			}
 			catch (Exception exception)
 			{
@@ -291,6 +286,53 @@ namespace SpectrumV1.Views.Common.Countries
 			}
 
 			return true;
+		}
+
+		private void ShowRegionEditor(RegionModel model)
+		{
+			if (_regionEditForm == null || _regionEditForm.IsDisposed)
+			{
+				_regionEditForm = new RegionEditForm(model);
+				_regionEditForm.SendUpdatedRegion += RcvUpdatedRegionAsync;
+				_regionEditForm.FormClosed += RegionEditForm_FormClosed;
+				_regionEditForm.Show(this);
+				return;
+			}
+
+			if (_regionEditForm.WindowState == FormWindowState.Minimized)
+				_regionEditForm.WindowState = FormWindowState.Normal;
+
+			_regionEditForm.Activate();
+			_regionEditForm.BringToFront();
+		}
+
+		private void RegionEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as RegionEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedRegion -= RcvUpdatedRegionAsync;
+				form.FormClosed -= RegionEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_regionEditForm, sender))
+				_regionEditForm = null;
+		}
+
+		private void gvRegions_RowCellStyle(object sender, RowCellStyleEventArgs e)
+		{
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
+			{
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+			}
 		}
 	}
 }

@@ -6,8 +6,10 @@ using SpectrumV1.DataLayers.Common.Areas;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Areas;
 using SpectrumV1.Models.Users;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
 using SpectrumV1.Utilities.Layout;
+using SpectrumV1.Views.Users;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -20,6 +22,8 @@ namespace SpectrumV1.Views.Common.Areas
 	public partial class AreasListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
+		private AreaEditForm _areaEditForm;
+
 		private AreaModel _areaModel = new AreaModel();
 		private IList<AreaModel> _areas = new List<AreaModel>();
 
@@ -53,6 +57,7 @@ namespace SpectrumV1.Views.Common.Areas
 			btnRefresh.ItemClick += btnRefresh_ItemClick;
 			btnClose.ItemClick += btnClose_ItemClick;
 			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+			FormClosing += AreasListForm_FormClosing;
 			gvAreas.DoubleClick += gvAreas_DoubleClick;
 			gvAreas.RowCellStyle += gvAreas_RowCellStyle;
 
@@ -126,14 +131,19 @@ namespace SpectrumV1.Views.Common.Areas
 			btnDelete.Enabled = _isAdmin || _canDelete;
 		}
 
+		private void AreasListForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (!_resetMenu)
+			{
+				LayoutsStyle.SaveLayoutGrid(gvAreas, CurrentUser.UserName, CurrentUser.Company);
+			}
+		}
 
 		#region Buttons Events
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			AreaEditForm frm = new AreaEditForm(new AreaModel());
-			frm.SendUpdatedArea += RcvUpdatedAreaAsync;
-			frm.Show();
+			ShowAreaEditor(new AreaModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -148,9 +158,7 @@ namespace SpectrumV1.Views.Common.Areas
 				_areaModel = _areas.SingleOrDefault(x => x._id == currentRowId);
 				if (_areaModel == null) return;
 
-				var countryForm = new AreaEditForm(_areaModel);
-				countryForm.SendUpdatedArea += RcvUpdatedAreaAsync;
-				countryForm.Show();
+				ShowAreaEditor(_areaModel);
 			}
 			catch (Exception exception)
 			{
@@ -261,9 +269,7 @@ namespace SpectrumV1.Views.Common.Areas
 				_areaModel = _areas.SingleOrDefault(x => x._id == currentRowId);
 				if (_areaModel == null) return;
 
-				var countryForm = new AreaEditForm(_areaModel);
-				countryForm.SendUpdatedArea += RcvUpdatedAreaAsync;
-				countryForm.Show();
+				ShowAreaEditor(_areaModel);
 			}
 			catch (Exception exception)
 			{
@@ -293,22 +299,51 @@ namespace SpectrumV1.Views.Common.Areas
 			return true;
 		}
 
+		private void ShowAreaEditor(AreaModel model)
+		{
+			if (_areaEditForm == null || _areaEditForm.IsDisposed)
+			{
+				_areaEditForm = new AreaEditForm(model);
+				_areaEditForm.SendUpdatedArea += RcvUpdatedAreaAsync;
+				_areaEditForm.FormClosed += AreaEditForm_FormClosed;
+				_areaEditForm.Show(this);
+				return;
+			}
+
+			if (_areaEditForm.WindowState == FormWindowState.Minimized)
+				_areaEditForm.WindowState = FormWindowState.Normal;
+
+			_areaEditForm.Activate();
+			_areaEditForm.BringToFront();
+		}
+
+		private void AreaEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as AreaEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedArea -= RcvUpdatedAreaAsync;
+				form.FormClosed -= AreaEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_areaEditForm, sender))
+				_areaEditForm = null;
+		}
+
+
 		private void gvAreas_RowCellStyle(object sender, RowCellStyleEventArgs e)
 		{
-			GridView view = sender as GridView;
-			if (e.RowHandle >= 0)
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
 			{
-				bool isActive = (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
-				if (isDefault)
-				{
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-				}
-				if (!isActive)
-				{
-					e.Appearance.ForeColor = Color.Gray;
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-				}
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
 			}
 		}
 	}
