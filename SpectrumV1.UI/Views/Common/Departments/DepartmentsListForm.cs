@@ -4,13 +4,11 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Departments;
 using SpectrumV1.DataLayers.DataAccess;
-using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Models.Common.Departments;
 using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
 using SpectrumV1.Utilities.Layout;
-using SpectrumV1.Views.Common.Countries;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -158,7 +156,7 @@ namespace SpectrumV1.Views.Common.Departments
 			}
 		}
 
-        private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
+		private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			StartLoading();
 		}
@@ -213,7 +211,7 @@ namespace SpectrumV1.Views.Common.Departments
 			}
 		}
 
-        private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
+		private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			Close();
 		}
@@ -230,9 +228,9 @@ namespace SpectrumV1.Views.Common.Departments
 		}
 
 
-        #endregion
+		#endregion
 
-        private void gvDepartments_DoubleClick(object sender, EventArgs e)
+		private void gvDepartments_DoubleClick(object sender, EventArgs e)
 		{
 			if (!_departments.Any()) return;
 
@@ -252,7 +250,7 @@ namespace SpectrumV1.Views.Common.Departments
 			}
 		}
 
-        private async void RcvUpdatedDepartmentAsync(object sender, EventArgs e)
+		private async void RcvUpdatedDepartmentAsync(object sender, EventArgs e)
 		{
 			if (sender == null) return;
 			_departmentModel = sender as DepartmentModel;

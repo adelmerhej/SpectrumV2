@@ -5,7 +5,10 @@ using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.Common.Services;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Services;
+using SpectrumV1.Models.Users;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
+using SpectrumV1.Utilities.Layout;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,6 +21,8 @@ namespace SpectrumV1.Views.Common.Services
 	public partial class ServicesListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
+		private ServiceEditForm _serviceEditForm;
+
 		private ServiceModel _serviceModel = new ServiceModel();
 		private IList<ServiceModel> _services = new List<ServiceModel>();
 
@@ -128,9 +133,7 @@ namespace SpectrumV1.Views.Common.Services
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			ServiceEditForm frm = new ServiceEditForm(new ServiceModel());
-			frm.SendUpdatedService += RcvUpdatedServiceAsync;
-			frm.Show();
+			ShowServiceEditor(new ServiceModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -145,9 +148,7 @@ namespace SpectrumV1.Views.Common.Services
 				_serviceModel = _services.SingleOrDefault(x => x._id == currentRowId);
 				if (_serviceModel == null) return;
 
-				var serviceForm = new ServiceEditForm(_serviceModel);
-				serviceForm.SendUpdatedService += RcvUpdatedServiceAsync;
-				serviceForm.Show();
+				ShowServiceEditor(_serviceModel);
 			}
 			catch (Exception exception)
 			{
@@ -176,7 +177,7 @@ namespace SpectrumV1.Views.Common.Services
 
 				if (!string.IsNullOrEmpty(id))
 				{
-					if (XtraMessageBox.Show($"Are you sure you want to delete: `{name}`?",
+					if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
 							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
 							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
 					{
@@ -188,12 +189,10 @@ namespace SpectrumV1.Views.Common.Services
 						_serviceModel.Deleted = true;
 
 						//delete the record
-						bool deleted = await _serviceRepository.DeleteServiceAsync(id);
-						if (!deleted) return;
+						await _serviceRepository.DeleteServiceAsync(_serviceModel._id);
 						RcvUpdatedServiceAsync(_serviceModel, EventArgs.Empty);
 					}
 				}
-
 			}
 			catch (Exception exception)
 			{
@@ -219,25 +218,12 @@ namespace SpectrumV1.Views.Common.Services
 
 		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
 		{
-
-		}
-
-		private void gvServices_RowCellStyle(object sender, RowCellStyleEventArgs e)
-		{
-			GridView view = sender as GridView;
-			if (e.RowHandle >= 0)
+			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+				DialogResult.Yes)
 			{
-				bool isActive = view != null && (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = view != null && (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
-				if (isDefault)
-				{
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-				}
-				if (!isActive)
-				{
-					e.Appearance.ForeColor = Color.Gray;
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-				}
+				_resetMenu = true;
+				LayoutsStyle.ResetLayoutGrid(gvServices, CurrentUser.UserName, CurrentUser.Company);
 			}
 		}
 
@@ -255,9 +241,7 @@ namespace SpectrumV1.Views.Common.Services
 				_serviceModel = _services.SingleOrDefault(x => x._id == currentRowId);
 				if (_serviceModel == null) return;
 
-				var serviceForm = new ServiceEditForm(_serviceModel);
-				serviceForm.SendUpdatedService += RcvUpdatedServiceAsync;
-				serviceForm.Show();
+				ShowServiceEditor(_serviceModel);
 			}
 			catch (Exception exception)
 			{
@@ -304,6 +288,53 @@ namespace SpectrumV1.Views.Common.Services
 			}
 
 			return true;
+		}
+
+		private void ShowServiceEditor(ServiceModel model)
+		{
+			if (_serviceEditForm == null || _serviceEditForm.IsDisposed)
+			{
+				_serviceEditForm = new ServiceEditForm(model);
+				_serviceEditForm.SendUpdatedService += RcvUpdatedServiceAsync;
+				_serviceEditForm.FormClosed += ServiceEditForm_FormClosed;
+				_serviceEditForm.Show(this);
+				return;
+			}
+
+			if (_serviceEditForm.WindowState == FormWindowState.Minimized)
+				_serviceEditForm.WindowState = FormWindowState.Normal;
+
+			_serviceEditForm.Activate();
+			_serviceEditForm.BringToFront();
+		}
+
+		private void ServiceEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as ServiceEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedService -= RcvUpdatedServiceAsync;
+				form.FormClosed -= ServiceEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_serviceEditForm, sender))
+				_serviceEditForm = null;
+		}
+
+		private void gvServices_RowCellStyle(object sender, RowCellStyleEventArgs e)
+		{
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
+			{
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+			}
 		}
 	}
 }

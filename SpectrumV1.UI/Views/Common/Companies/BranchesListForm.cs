@@ -6,6 +6,7 @@ using SpectrumV1.DataLayers.Common.Branches;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Companies;
 using SpectrumV1.Models.Users;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
 using SpectrumV1.Utilities.Layout;
 using System;
@@ -20,6 +21,8 @@ namespace SpectrumV1.Views.Common.Companies
 	public partial class BranchesListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
+		private BranchEditForm _branchEditForm;
+
 		private BranchModel _branchModel = new BranchModel();
 		private IList<BranchModel> _branches = new List<BranchModel>();
 
@@ -131,14 +134,27 @@ namespace SpectrumV1.Views.Common.Companies
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			BranchEditForm frm = new BranchEditForm(new BranchModel());
-			frm.SendUpdatedBranch += RcvUpdatedBranchAsync;
-			frm.Show();
+			ShowBranchEditor(new BranchModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
 		{
+			if (!_branches.Any()) return;
 
+			try
+			{
+				string currentRowId = gvBranches.GetFocusedRowCellValue("_id").ToString();
+				if (string.IsNullOrEmpty(currentRowId)) return;
+
+				_branchModel = _branches.SingleOrDefault(x => x._id == currentRowId);
+				if (_branchModel == null) return;
+
+				ShowBranchEditor(_branchModel);
+			}
+			catch (Exception exception)
+			{
+				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
@@ -153,7 +169,47 @@ namespace SpectrumV1.Views.Common.Companies
 
 		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
 		{
+			if (!CanDelete()) return;
 
+			try
+			{
+				string id = gvBranches.GetFocusedRowCellValue("_id").ToString();
+				string name = gvBranches.GetFocusedRowCellValue("BranchName").ToString();
+
+				if (!string.IsNullOrEmpty(id))
+				{
+					if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
+							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+					{
+						_branchModel = gvBranches.GetFocusedRow() as BranchModel;
+						if (_branchModel == null)
+						{
+							return;
+						}
+						_branchModel.Deleted = true;
+
+						//delete the record
+						await _branchRepository.DeleteBranchAsync(_branchModel._id);
+						RcvUpdatedBranchAsync(_branchModel, EventArgs.Empty);
+					}
+				}
+			}
+			catch (Exception exception)
+			{
+				switch (exception.Message)
+				{
+					case "-2146233088":
+						XtraMessageBox.Show("This record is linked to one or more transactions, delete all links first.",
+							"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						break;
+
+					default:
+						XtraMessageBox.Show(exception.Message,
+							"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						break;
+				}
+			}
 		}
 
 		private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
@@ -166,7 +222,7 @@ namespace SpectrumV1.Views.Common.Companies
 			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
 				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
 				DialogResult.Yes)
-						{
+			{
 				_resetMenu = true;
 				LayoutsStyle.ResetLayoutGrid(gvBranches, CurrentUser.UserName, CurrentUser.Company);
 			}
@@ -194,7 +250,22 @@ namespace SpectrumV1.Views.Common.Companies
 
 		private void gvBranches_DoubleClick(object sender, EventArgs e)
 		{
+			if (!_branches.Any()) return;
 
+			try
+			{
+				string currentRowId = gvBranches.GetFocusedRowCellValue("_id").ToString();
+				if (string.IsNullOrEmpty(currentRowId)) return;
+
+				_branchModel = _branches.SingleOrDefault(x => x._id == currentRowId);
+				if (_branchModel == null) return;
+
+				ShowBranchEditor(_branchModel);
+			}
+			catch (Exception exception)
+			{
+				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		private bool CanDelete()
@@ -219,9 +290,51 @@ namespace SpectrumV1.Views.Common.Companies
 			return true;
 		}
 
+		private void ShowBranchEditor(BranchModel model)
+		{
+			if (_branchEditForm == null || _branchEditForm.IsDisposed)
+			{
+				_branchEditForm = new BranchEditForm(model);
+				_branchEditForm.SendUpdatedBranch += RcvUpdatedBranchAsync;
+				_branchEditForm.FormClosed += BranchEditForm_FormClosed;
+				_branchEditForm.Show(this);
+				return;
+			}
+
+			if (_branchEditForm.WindowState == FormWindowState.Minimized)
+				_branchEditForm.WindowState = FormWindowState.Normal;
+
+			_branchEditForm.Activate();
+			_branchEditForm.BringToFront();
+		}
+
+		private void BranchEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as BranchEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedBranch -= RcvUpdatedBranchAsync;
+				form.FormClosed -= BranchEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_branchEditForm, sender))
+				_branchEditForm = null;
+		}
+
 		private void gvBranches_RowCellStyle(object sender, RowCellStyleEventArgs e)
 		{
-
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
+			{
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+			}
 		}
 	}
 }

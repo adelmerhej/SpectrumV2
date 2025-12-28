@@ -5,7 +5,10 @@ using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Members.Engineers.Status;
 using SpectrumV1.Models.Members.Engineers.Status;
+using SpectrumV1.Models.Users;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
+using SpectrumV1.Utilities.Layout;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,6 +20,9 @@ namespace SpectrumV1.Views.Members.Engineers.Sattus
 {
 	public partial class StatusListForm : RibbonForm, IFormWithRibbon
 	{
+		private bool _resetMenu;
+		private StatusEditForm _statusEditForm;
+
 		private StatusModel _statusModel = new StatusModel();
 		private IList<StatusModel> _status = new List<StatusModel>();
 
@@ -128,9 +134,7 @@ namespace SpectrumV1.Views.Members.Engineers.Sattus
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			StatusEditForm frm = new StatusEditForm(new StatusModel());
-			frm.SendUpdatedStatus += RcvUpdatedStatusAsync;
-			frm.ShowDialog();
+			ShowStatusEditor(new StatusModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -145,9 +149,7 @@ namespace SpectrumV1.Views.Members.Engineers.Sattus
 				_statusModel = _status.SingleOrDefault(x => x._id == currentRowId);
 				if (_statusModel == null) return;
 
-				var statusForm = new StatusEditForm(_statusModel);
-				statusForm.SendUpdatedStatus += RcvUpdatedStatusAsync;
-				statusForm.ShowDialog();
+				ShowStatusEditor(_statusModel);
 			}
 			catch (Exception exception)
 			{
@@ -219,25 +221,12 @@ namespace SpectrumV1.Views.Members.Engineers.Sattus
 
 		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
 		{
-
-		}
-
-		private void gvStatus_RowCellStyle(object sender, RowCellStyleEventArgs e)
-		{
-			GridView view = sender as GridView;
-			if (e.RowHandle >= 0)
+			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+				DialogResult.Yes)
 			{
-				bool isActive = view != null && (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = view != null && (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
-				if (isDefault)
-				{
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-				}
-				if (!isActive)
-				{
-					e.Appearance.ForeColor = Color.Gray;
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-				}
+				_resetMenu = true;
+				LayoutsStyle.ResetLayoutGrid(gvStatus, CurrentUser.UserName, CurrentUser.Company);
 			}
 		}
 
@@ -255,9 +244,7 @@ namespace SpectrumV1.Views.Members.Engineers.Sattus
 				_statusModel = _status.SingleOrDefault(x => x._id == currentRowId);
 				if (_statusModel == null) return;
 
-				var statusForm = new StatusEditForm(_statusModel);
-				statusForm.SendUpdatedStatus += RcvUpdatedStatusAsync;
-				statusForm.ShowDialog();
+				ShowStatusEditor(_statusModel);
 			}
 			catch (Exception exception)
 			{
@@ -304,6 +291,53 @@ namespace SpectrumV1.Views.Members.Engineers.Sattus
 			}
 
 			return true;
+		}
+
+		private void ShowStatusEditor(StatusModel model)
+		{
+			if (_statusEditForm == null || _statusEditForm.IsDisposed)
+			{
+				_statusEditForm = new StatusEditForm(model);
+				_statusEditForm.SendUpdatedStatus += RcvUpdatedStatusAsync;
+				_statusEditForm.FormClosed += StatusEditForm_FormClosed;
+				_statusEditForm.Show(this);
+				return;
+			}
+
+			if (_statusEditForm.WindowState == FormWindowState.Minimized)
+				_statusEditForm.WindowState = FormWindowState.Normal;
+
+			_statusEditForm.Activate();
+			_statusEditForm.BringToFront();
+		}
+
+		private void StatusEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as StatusEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedStatus -= RcvUpdatedStatusAsync;
+				form.FormClosed -= StatusEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_statusEditForm, sender))
+				_statusEditForm = null;
+		}
+
+		private void gvStatus_RowCellStyle(object sender, RowCellStyleEventArgs e)
+		{
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
+			{
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+			}
 		}
 	}
 }

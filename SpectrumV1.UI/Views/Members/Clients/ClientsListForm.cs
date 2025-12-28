@@ -7,6 +7,7 @@ using SpectrumV1.DataLayers.Members.Clients;
 using SpectrumV1.Models.Members.Clients;
 using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
+using SpectrumV1.Views.Common.Countries;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -19,10 +20,11 @@ namespace SpectrumV1.Views.Members.Clients
 	public partial class ClientsListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
-		private ClientModel _clientModel = new ClientModel();
-		private IList<ClientModel> _clients = new List<ClientModel>();
 		private ClientEditForm _clientEditForm;
 
+		private ClientModel _clientModel = new ClientModel();
+		private IList<ClientModel> _clients = new List<ClientModel>();
+		
 		private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
 
 		//Init permission variables

@@ -6,6 +6,7 @@ using SpectrumV1.DataLayers.Common.Companies;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.Models.Common.Companies;
 using SpectrumV1.Models.Users;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
 using SpectrumV1.Utilities.Layout;
 using System;
@@ -20,6 +21,8 @@ namespace SpectrumV1.Views.Common.Companies
 	public partial class CompaniesListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
+		private CompanyEditForm _companyEditForm;
+
 		private CompanyModel _companyModel = new CompanyModel();
 		private IList<CompanyModel> _companies = new List<CompanyModel>();
 
@@ -130,9 +133,7 @@ namespace SpectrumV1.Views.Common.Companies
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			CompanyEditForm frm = new CompanyEditForm(new CompanyModel());
-			frm.SendUpdatedCompany += RcvUpdatedCompanyAsync;
-			frm.Show();
+			ShowCompanyEditor(new CompanyModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
@@ -147,9 +148,7 @@ namespace SpectrumV1.Views.Common.Companies
 				_companyModel = _companies.SingleOrDefault(x => x._id == currentRowId);
 				if (_companyModel == null) return;
 
-				CompanyEditForm companyForm = new CompanyEditForm(_companyModel);
-				companyForm.SendUpdatedCompany += RcvUpdatedCompanyAsync;
-				companyForm.Show();
+				ShowCompanyEditor(_companyModel);
 			}
 			catch (Exception exception)
 			{
@@ -227,9 +226,7 @@ namespace SpectrumV1.Views.Common.Companies
 				_resetMenu = true;
 				LayoutsStyle.ResetLayoutGrid(gvCompanies, CurrentUser.UserName, CurrentUser.Company);
 			}
-
 		}
-
 
 		#endregion
 
@@ -245,9 +242,7 @@ namespace SpectrumV1.Views.Common.Companies
 				_companyModel = _companies.SingleOrDefault(x => x._id == currentRowId);
 				if (_companyModel == null) return;
 
-				CompanyEditForm companyForm = new CompanyEditForm(_companyModel);
-				companyForm.SendUpdatedCompany += RcvUpdatedCompanyAsync;
-				companyForm.Show();
+				ShowCompanyEditor(_companyModel);
 			}
 			catch (Exception exception)
 			{
@@ -268,25 +263,6 @@ namespace SpectrumV1.Views.Common.Companies
 			else
 			{
 				gvCompanies.UpdateCurrentRow();
-			}
-		}
-
-		private void gvCompanies_RowCellStyle(object sender, RowCellStyleEventArgs e)
-		{
-			GridView view = sender as GridView;
-			if (e.RowHandle >= 0)
-			{
-				bool isActive = (bool)view.GetRowCellValue(e.RowHandle, "Active");
-				bool isDefault = (bool)view.GetRowCellValue(e.RowHandle, "IsDefault");
-				if (isDefault)
-				{
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-				}
-				if (!isActive)
-				{
-					e.Appearance.ForeColor = Color.Gray;
-					e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-				}
 			}
 		}
 
@@ -312,5 +288,51 @@ namespace SpectrumV1.Views.Common.Companies
 			return true;
 		}
 
+		private void ShowCompanyEditor(CompanyModel model)
+		{
+			if (_companyEditForm == null || _companyEditForm.IsDisposed)
+			{
+				_companyEditForm = new CompanyEditForm(model);
+				_companyEditForm.SendUpdatedCompany += RcvUpdatedCompanyAsync;
+				_companyEditForm.FormClosed += CompanyEditForm_FormClosed;
+				_companyEditForm.Show(this);
+				return;
+			}
+
+			if (_companyEditForm.WindowState == FormWindowState.Minimized)
+				_companyEditForm.WindowState = FormWindowState.Normal;
+
+			_companyEditForm.Activate();
+			_companyEditForm.BringToFront();
+		}
+
+		private void CompanyEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as CompanyEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedCompany -= RcvUpdatedCompanyAsync;
+				form.FormClosed -= CompanyEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_companyEditForm, sender))
+				_companyEditForm = null;
+		}
+
+		private void gvCompanies_RowCellStyle(object sender, RowCellStyleEventArgs e)
+		{
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
+			{
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+			}
+		}
 	}
 }

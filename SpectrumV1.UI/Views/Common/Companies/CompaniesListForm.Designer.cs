@@ -306,7 +306,7 @@
 			this.gcCompanies.EmbeddedNavigator.Buttons.Edit.Visible = false;
 			this.gcCompanies.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
 			this.gcCompanies.EmbeddedNavigator.Buttons.Remove.Visible = false;
-			this.gcCompanies.Location = new System.Drawing.Point(19, 21);
+			this.gcCompanies.Location = new System.Drawing.Point(23, 26);
 			this.gcCompanies.MainView = this.gvCompanies;
 			this.gcCompanies.Name = "gcCompanies";
 			this.gcCompanies.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -315,7 +315,7 @@
             this.repCities,
             this.repLocalCurrencies,
             this.repForeignCurrencies});
-			this.gcCompanies.Size = new System.Drawing.Size(1391, 501);
+			this.gcCompanies.Size = new System.Drawing.Size(1383, 491);
 			this.gcCompanies.TabIndex = 9;
 			this.gcCompanies.UseEmbeddedNavigator = true;
 			this.gcCompanies.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -613,7 +613,7 @@
 			this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1});
 			this.layoutControlGroup1.Name = "Root";
-			this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(17, 17, 19, 19);
+			this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(21, 21, 24, 24);
 			this.layoutControlGroup1.Size = new System.Drawing.Size(1429, 543);
 			this.layoutControlGroup1.TextVisible = false;
 			// 
@@ -622,7 +622,7 @@
 			this.layoutControlItem1.Control = this.gcCompanies;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(1395, 505);
+			this.layoutControlItem1.Size = new System.Drawing.Size(1387, 495);
 			this.layoutControlItem1.TextVisible = false;
 			// 
 			// CompaniesListForm

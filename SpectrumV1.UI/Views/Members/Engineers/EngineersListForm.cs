@@ -18,10 +18,11 @@ namespace SpectrumV1.Views.Members.Engineers
 	public partial class EngineersListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
-		private EngineerModel _engineerModel = new EngineerModel();
-		private IList<EngineerModel> _engineers = new List<EngineerModel>();
 		private EngineerEditForm _engineerEditForm;
 
+		private EngineerModel _engineerModel = new EngineerModel();
+		private IList<EngineerModel> _engineers = new List<EngineerModel>();
+		
 		private readonly EngineerRepository _engineerRepository = new EngineerRepository(DatabaseFactory.ProfilePrimary);
 
 		// Init permission variables

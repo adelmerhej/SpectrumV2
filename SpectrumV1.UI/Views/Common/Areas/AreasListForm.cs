@@ -9,7 +9,6 @@ using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
 using SpectrumV1.Utilities.Layout;
-using SpectrumV1.Views.Users;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
