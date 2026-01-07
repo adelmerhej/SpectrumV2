@@ -37,8 +37,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v25.1.Core, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.Desktop.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataAccess.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Drawing.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Images.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v25.1.Core, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -215,6 +217,18 @@
     </Compile>
     <Compile Include="Views\Common\Services\ServicesListForm.Designer.cs">
       <DependentUpon>ServicesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\Dashboard1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Dashboard\Dashboard1.Designer.cs">
+      <DependentUpon>Dashboard1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\DashboardActivitiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Dashboard\DashboardActivitiesForm.Designer.cs">
+      <DependentUpon>DashboardActivitiesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Main\AboutForm.cs">
       <SubType>Form</SubType>

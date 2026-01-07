@@ -13,6 +13,7 @@ using SpectrumV1.Views.Common.Companies;
 using SpectrumV1.Views.Common.Countries;
 using SpectrumV1.Views.Common.Departments;
 using SpectrumV1.Views.Common.Services;
+using SpectrumV1.Views.Dashboard;
 using SpectrumV1.Views.Main.Connections;
 using SpectrumV1.Views.Main.Update;
 using SpectrumV1.Views.Members.Clients;
@@ -298,7 +299,7 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuDashboardActivities_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
+			OpenForm<DashboardActivitiesForm>();
 		}
 
 		#endregion
