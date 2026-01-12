@@ -14,6 +14,7 @@ using SpectrumV1.Views.Common.Countries;
 using SpectrumV1.Views.Common.Departments;
 using SpectrumV1.Views.Common.Services;
 using SpectrumV1.Views.Dashboard;
+using SpectrumV1.Views.HumanResources.JobPositions;
 using SpectrumV1.Views.Main.Connections;
 using SpectrumV1.Views.Main.Update;
 using SpectrumV1.Views.Members.Clients;
@@ -515,6 +516,11 @@ namespace SpectrumV1.Views.Main
 		private void mnuLocations_Click(object sender, EventArgs e)
 		{
 			OpenForm<LocationsListForm>();
+		}
+
+		private void mnuJobPositions_Click(object sender, EventArgs e)
+		{
+			OpenForm<JobPositionsListForm>();
 		}
 	}
 }

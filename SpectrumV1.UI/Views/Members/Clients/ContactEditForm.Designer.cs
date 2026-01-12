@@ -52,7 +52,7 @@
 			this.txtName = new DevExpress.XtraEditors.TextEdit();
 			this.cboTitles = new DevExpress.XtraEditors.ImageComboBoxEdit();
 			this.cboNationalities = new DevExpress.XtraEditors.ButtonEdit();
-			this.cboDepartments = new DevExpress.XtraEditors.SearchLookUpEdit();
+			this.cboJobPositions = new DevExpress.XtraEditors.SearchLookUpEdit();
 			this.searchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -61,7 +61,7 @@
 			this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.grpInfo = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lblName = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lblDepartment = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lblJobPositions = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblEmail = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblPhoneNumber1 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lblMobileNumber = new DevExpress.XtraLayout.LayoutControlItem();
@@ -88,7 +88,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.cboTitles.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.cboNationalities.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboDepartments.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.cboJobPositions.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
@@ -97,7 +97,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.grpInfo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblName)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblDepartment)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblJobPositions)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblEmail)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblPhoneNumber1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblMobileNumber)).BeginInit();
@@ -126,7 +126,7 @@
 			this.mainLayout.Controls.Add(this.txtName);
 			this.mainLayout.Controls.Add(this.cboTitles);
 			this.mainLayout.Controls.Add(this.cboNationalities);
-			this.mainLayout.Controls.Add(this.cboDepartments);
+			this.mainLayout.Controls.Add(this.cboJobPositions);
 			this.mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.mainLayout.Location = new System.Drawing.Point(0, 0);
 			this.mainLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -254,20 +254,20 @@
 			this.cboNationalities.StyleController = this.mainLayout;
 			this.cboNationalities.TabIndex = 15;
 			// 
-			// cboDepartments
+			// cboJobPositions
 			// 
-			this.cboDepartments.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContact, "Department", true));
-			this.cboDepartments.Location = new System.Drawing.Point(129, 106);
-			this.cboDepartments.Name = "cboDepartments";
-			this.cboDepartments.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+			this.cboJobPositions.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContact, "Department", true));
+			this.cboJobPositions.Location = new System.Drawing.Point(129, 106);
+			this.cboJobPositions.Name = "cboJobPositions";
+			this.cboJobPositions.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.cboDepartments.Properties.DisplayMember = "DepartmentName";
-			this.cboDepartments.Properties.NullText = "";
-			this.cboDepartments.Properties.PopupView = this.searchLookUpEdit1View;
-			this.cboDepartments.Properties.ValueMember = "DepartmentName";
-			this.cboDepartments.Size = new System.Drawing.Size(504, 22);
-			this.cboDepartments.StyleController = this.mainLayout;
-			this.cboDepartments.TabIndex = 13;
+			this.cboJobPositions.Properties.DisplayMember = "PositionName";
+			this.cboJobPositions.Properties.NullText = "";
+			this.cboJobPositions.Properties.PopupView = this.searchLookUpEdit1View;
+			this.cboJobPositions.Properties.ValueMember = "PositionName";
+			this.cboJobPositions.Size = new System.Drawing.Size(504, 22);
+			this.cboJobPositions.StyleController = this.mainLayout;
+			this.cboJobPositions.TabIndex = 13;
 			// 
 			// searchLookUpEdit1View
 			// 
@@ -330,7 +330,7 @@
 			this.grpInfo.GroupStyle = DevExpress.Utils.GroupStyle.Light;
 			this.grpInfo.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lblName,
-            this.lblDepartment,
+            this.lblJobPositions,
             this.lblEmail,
             this.lblPhoneNumber1,
             this.lblMobileNumber,
@@ -355,14 +355,14 @@
 			this.lblName.Text = "Name";
 			this.lblName.TextSize = new System.Drawing.Size(86, 16);
 			// 
-			// lblDepartment
+			// lblJobPositions
 			// 
-			this.lblDepartment.Control = this.cboDepartments;
-			this.lblDepartment.Location = new System.Drawing.Point(0, 52);
-			this.lblDepartment.Name = "lblDepartment";
-			this.lblDepartment.Size = new System.Drawing.Size(609, 26);
-			this.lblDepartment.Text = "Department";
-			this.lblDepartment.TextSize = new System.Drawing.Size(86, 16);
+			this.lblJobPositions.Control = this.cboJobPositions;
+			this.lblJobPositions.Location = new System.Drawing.Point(0, 52);
+			this.lblJobPositions.Name = "lblJobPositions";
+			this.lblJobPositions.Size = new System.Drawing.Size(609, 26);
+			this.lblJobPositions.Text = "Job Position";
+			this.lblJobPositions.TextSize = new System.Drawing.Size(86, 16);
 			// 
 			// lblEmail
 			// 
@@ -474,8 +474,8 @@
 			// 
 			// gridColumn2
 			// 
-			this.gridColumn2.Caption = "Department";
-			this.gridColumn2.FieldName = "DepartmentName";
+			this.gridColumn2.Caption = "Position Name";
+			this.gridColumn2.FieldName = "PositionName";
 			this.gridColumn2.Name = "gridColumn2";
 			this.gridColumn2.Visible = true;
 			this.gridColumn2.VisibleIndex = 0;
@@ -504,7 +504,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.cboTitles.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.cboNationalities.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.cboDepartments.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.cboJobPositions.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
@@ -513,7 +513,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.grpInfo)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblName)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lblDepartment)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lblJobPositions)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblEmail)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblPhoneNumber1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lblMobileNumber)).EndInit();
@@ -551,7 +551,7 @@
 		private DevExpress.XtraLayout.LayoutControlItem lblName;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem9;
-		private DevExpress.XtraLayout.LayoutControlItem lblDepartment;
+		private DevExpress.XtraLayout.LayoutControlItem lblJobPositions;
 		private DevExpress.XtraLayout.LayoutControlItem lblEmail;
 		private DevExpress.XtraLayout.LayoutControlItem lblPhoneNumber1;
 		private DevExpress.XtraLayout.LayoutControlItem lblMobileNumber;
@@ -566,7 +566,7 @@
 		private DevExpress.XtraEditors.ButtonEdit buttonEdit1;
 		private DevExpress.XtraEditors.ButtonEdit cboNationalities;
 		private DevExpress.XtraLayout.LayoutControlItem lblPhoneNumber2;
-		private DevExpress.XtraEditors.SearchLookUpEdit cboDepartments;
+		private DevExpress.XtraEditors.SearchLookUpEdit cboJobPositions;
 		private DevExpress.XtraGrid.Views.Grid.GridView searchLookUpEdit1View;
 		private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
 		private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;

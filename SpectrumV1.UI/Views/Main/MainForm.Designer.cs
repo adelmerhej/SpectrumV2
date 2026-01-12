@@ -117,6 +117,7 @@
 			this.mnuServicesList = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuAreas = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuStatus = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+			this.mnuLocations = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuCountriesListMenu = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuCountries = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuCities = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -139,7 +140,7 @@
 			this.grpReadingPane = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.dockRight = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.showPendingJobs = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-			this.mnuLocations = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+			this.mnuJobPositions = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			((System.ComponentModel.ISupportInitialize)(this.ribbonMainForm)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
@@ -834,7 +835,8 @@
             this.mnuServicesList,
             this.mnuAreas,
             this.mnuStatus,
-            this.mnuLocations});
+            this.mnuLocations,
+            this.mnuJobPositions});
 			this.mnuCommon.Expanded = true;
 			this.mnuCommon.Name = "mnuCommon";
 			this.mnuCommon.Text = "Common";
@@ -883,6 +885,15 @@
 			this.mnuStatus.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.mnuStatus.Text = "Status";
 			this.mnuStatus.Click += new System.EventHandler(this.mnuStatus_Click);
+			// 
+			// mnuLocations
+			// 
+			this.mnuLocations.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuLocations.ImageOptions.SvgImage")));
+			this.mnuLocations.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+			this.mnuLocations.Name = "mnuLocations";
+			this.mnuLocations.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+			this.mnuLocations.Text = "Location";
+			this.mnuLocations.Click += new System.EventHandler(this.mnuLocations_Click);
 			// 
 			// mnuCountriesListMenu
 			// 
@@ -1109,14 +1120,14 @@
 			this.showPendingJobs.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.showPendingJobs.Text = "Show Pending Jobs";
 			// 
-			// mnuLocations
+			// mnuJobPositions
 			// 
-			this.mnuLocations.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuLocations.ImageOptions.SvgImage")));
-			this.mnuLocations.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-			this.mnuLocations.Name = "mnuLocations";
-			this.mnuLocations.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-			this.mnuLocations.Text = "Location";
-			this.mnuLocations.Click += new System.EventHandler(this.mnuLocations_Click);
+			this.mnuJobPositions.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuJobPositions.ImageOptions.SvgImage")));
+			this.mnuJobPositions.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+			this.mnuJobPositions.Name = "mnuJobPositions";
+			this.mnuJobPositions.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+			this.mnuJobPositions.Text = "Job Positions";
+			this.mnuJobPositions.Click += new System.EventHandler(this.mnuJobPositions_Click);
 			// 
 			// MainForm
 			// 
@@ -1263,5 +1274,6 @@
 		private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator3;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuStatus;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuLocations;
+		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuJobPositions;
 	}
 }

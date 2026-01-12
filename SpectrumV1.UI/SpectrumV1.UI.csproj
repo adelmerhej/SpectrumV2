@@ -245,6 +245,18 @@
     <Compile Include="Views\Dashboard\DashboardActivitiesForm.Designer.cs">
       <DependentUpon>DashboardActivitiesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\HumanResources\JobPositions\JobPositionEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\JobPositions\JobPositionEditForm.Designer.cs">
+      <DependentUpon>JobPositionEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HumanResources\JobPositions\JobPositionsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\JobPositions\JobPositionsListForm.Designer.cs">
+      <DependentUpon>JobPositionsListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -453,6 +465,12 @@
     <EmbeddedResource Include="Views\Common\Services\ServicesListForm.resx">
       <DependentUpon>ServicesListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\JobPositions\JobPositionEditForm.resx">
+      <DependentUpon>JobPositionEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\JobPositions\JobPositionsListForm.resx">
+      <DependentUpon>JobPositionsListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -528,10 +546,12 @@
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Currencies.ExchangeCurrencyModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Departments.DepartmentModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Services.ServiceModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.JobPositions.JobPositionModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Members.Clients.ClientModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Members.Clients.ContactModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Members.Engineers.EngineerModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Members.Engineers.Status.StatusModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Operations.Projects.ProjectModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Users.UserModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -601,6 +621,7 @@
     <None Include="Resources\professor.svg" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\HumanResources\Employees\" />
     <Folder Include="Views\Members\Suppliers\" />
   </ItemGroup>
   <ItemGroup>
