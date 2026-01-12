@@ -29,17 +29,17 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContactEditForm));
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
 			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-			DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
 			this.buttonEdit1 = new DevExpress.XtraEditors.ButtonEdit();
 			this.chkIsPrimary = new DevExpress.XtraEditors.CheckEdit();
@@ -142,10 +142,10 @@
 			this.buttonEdit1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContact, "PhoneNumber2", true));
 			this.buttonEdit1.Location = new System.Drawing.Point(376, 158);
 			this.buttonEdit1.Name = "buttonEdit1";
-			editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
-			editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions3.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions3.SvgImage")));
+			editorButtonImageOptions3.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.buttonEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.buttonEdit1.Size = new System.Drawing.Size(257, 25);
 			this.buttonEdit1.StyleController = this.mainLayout;
 			this.buttonEdit1.TabIndex = 21;
@@ -246,17 +246,17 @@
 			this.cboNationalities.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContact, "PhoneNumber1", true));
 			this.cboNationalities.Location = new System.Drawing.Point(129, 158);
 			this.cboNationalities.Name = "cboNationalities";
-			editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
-			editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(12, 12);
+			editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
+			editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(12, 12);
 			this.cboNationalities.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
 			this.cboNationalities.Size = new System.Drawing.Size(243, 25);
 			this.cboNationalities.StyleController = this.mainLayout;
 			this.cboNationalities.TabIndex = 15;
 			// 
 			// cboJobPositions
 			// 
-			this.cboJobPositions.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContact, "Department", true));
+			this.cboJobPositions.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContact, "JobPosition", true));
 			this.cboJobPositions.Location = new System.Drawing.Point(129, 106);
 			this.cboJobPositions.Name = "cboJobPositions";
 			this.cboJobPositions.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -264,10 +264,12 @@
 			this.cboJobPositions.Properties.DisplayMember = "PositionName";
 			this.cboJobPositions.Properties.NullText = "";
 			this.cboJobPositions.Properties.PopupView = this.searchLookUpEdit1View;
+			this.cboJobPositions.Properties.ShowAddNewButton = true;
 			this.cboJobPositions.Properties.ValueMember = "PositionName";
 			this.cboJobPositions.Size = new System.Drawing.Size(504, 22);
 			this.cboJobPositions.StyleController = this.mainLayout;
 			this.cboJobPositions.TabIndex = 13;
+			this.cboJobPositions.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboJobPositions_AddNewValue);
 			// 
 			// searchLookUpEdit1View
 			// 

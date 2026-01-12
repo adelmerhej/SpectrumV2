@@ -183,7 +183,7 @@
 			this.colClientId = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colTitle = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colContactName = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colDepartment = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colJobPosition = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colEmail = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colPhoneNumber1 = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colPhoneNumber2 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -1350,7 +1350,7 @@
             this.colClientId,
             this.colTitle,
             this.colContactName,
-            this.colDepartment,
+            this.colJobPosition,
             this.colEmail,
             this.colPhoneNumber1,
             this.colPhoneNumber2,
@@ -1404,14 +1404,14 @@
 			this.colContactName.VisibleIndex = 1;
 			this.colContactName.Width = 300;
 			// 
-			// colDepartment
+			// colJobPosition
 			// 
-			this.colDepartment.FieldName = "Department";
-			this.colDepartment.MinWidth = 25;
-			this.colDepartment.Name = "colDepartment";
-			this.colDepartment.Visible = true;
-			this.colDepartment.VisibleIndex = 2;
-			this.colDepartment.Width = 200;
+			this.colJobPosition.FieldName = "JobPosition";
+			this.colJobPosition.MinWidth = 25;
+			this.colJobPosition.Name = "colJobPosition";
+			this.colJobPosition.Visible = true;
+			this.colJobPosition.VisibleIndex = 2;
+			this.colJobPosition.Width = 200;
 			// 
 			// colEmail
 			// 
@@ -2042,7 +2042,7 @@
 		private DevExpress.XtraGrid.Columns.GridColumn colClientId;
 		private DevExpress.XtraGrid.Columns.GridColumn colContactName;
 		private DevExpress.XtraGrid.Columns.GridColumn colTitle;
-		private DevExpress.XtraGrid.Columns.GridColumn colDepartment;
+		private DevExpress.XtraGrid.Columns.GridColumn colJobPosition;
 		private DevExpress.XtraGrid.Columns.GridColumn colEmail;
 		private DevExpress.XtraGrid.Columns.GridColumn colPhoneNumber1;
 		private DevExpress.XtraGrid.Columns.GridColumn colPhoneNumber2;

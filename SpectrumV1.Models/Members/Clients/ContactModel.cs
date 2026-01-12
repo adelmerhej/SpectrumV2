@@ -14,7 +14,7 @@ namespace SpectrumV1.Models.Members.Clients
 		public string ContactName { get; set; }
 
 		public string Title { get; set; }
-		public string Department { get; set; }
+		public string JobPosition { get; set; }
 		public string Email { get; set; }
 		public string PhoneNumber1 { get; set; }
 		public string PhoneNumber2 { get; set; }

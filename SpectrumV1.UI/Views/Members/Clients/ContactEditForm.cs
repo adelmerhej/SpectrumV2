@@ -1,11 +1,12 @@
 ﻿using DevExpress.XtraEditors;
-using SpectrumV1.DataLayers.Common.Departments;
+using DevExpress.XtraEditors.Controls;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.HumanResources.JobPositions;
 using SpectrumV1.DataLayers.Members.Clients;
 using SpectrumV1.Models.HumanResources.JobPositions;
 using SpectrumV1.Models.Members.Clients;
 using SpectrumV1.Utilities;
+using SpectrumV1.Views.HumanResources.JobPositions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,6 +18,7 @@ namespace SpectrumV1.Views.Members.Clients
 	public partial class ContactEditForm : XtraForm
 	{
 		private ContactModel _contactModel = new ContactModel();
+		private JobPositionModel _jobPositionModel = new JobPositionModel();
 		private IList<JobPositionModel> _jobPositions = new List<JobPositionModel>();
 		private readonly string _clientId;
 
@@ -224,6 +226,25 @@ namespace SpectrumV1.Views.Members.Clients
 			}
 
 			return validateReturnValue;
+		}
+
+		private void cboJobPositions_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			JobPositionEditForm frm = new JobPositionEditForm(new JobPositionModel());
+			frm.SendUpdatedJobPosition += RcvUpdatedJobPositionAsync;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedJobPositionAsync(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_jobPositionModel = sender as JobPositionModel;
+
+			_jobPositions.Add(_jobPositionModel);
+
+			cboJobPositions.Properties.DataSource = null;
+			cboJobPositions.Properties.DataSource = _jobPositions;
+			if (_jobPositionModel != null) cboJobPositions.EditValue = _jobPositionModel._id;
 		}
 	}
 }
