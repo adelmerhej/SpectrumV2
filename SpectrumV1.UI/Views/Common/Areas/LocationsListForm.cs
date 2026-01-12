@@ -2,9 +2,9 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
+using SpectrumV1.DataLayers.Common.Locations;
 using SpectrumV1.DataLayers.DataAccess;
-using SpectrumV1.DataLayers.Members.Clients;
-using SpectrumV1.Models.Members.Clients;
+using SpectrumV1.Models.Common.Areas;
 using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
@@ -16,49 +16,38 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SpectrumV1.Views.Members.Clients
+namespace SpectrumV1.Views.Common.Areas
 {
-	public partial class ClientsListForm : RibbonForm, IFormWithRibbon
+	public partial class LocationsListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
-		private ClientEditForm _clientEditForm;
+		private LocationEditForm _locationEditForm;
 
-		private ClientModel _clientModel = new ClientModel();
-		private IList<ClientModel> _clients = new List<ClientModel>();
+		private LocationModel _locationModel = new LocationModel();
+		private IList<LocationModel> _locations = new List<LocationModel>();
 
-		private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
+		private readonly LocationRepository _locationRepository = new LocationRepository(DatabaseFactory.ProfilePrimary);
 
-		//Init permission variables
+		//Init permissionvariables
 		private bool _canAdd = true;
 		private bool _canEdit = true;
 		private bool _canDelete = true;
 		private bool _canPrint = true;
 		private bool _isAdmin = true;
 		private bool _isProtected = true;
-		private bool _isLimitedView = true;
 
 		#region Implementation of IFormWithRibbon
 
-		public RibbonControl MainRibbon => rcCustomersList;
-		public RibbonPage DefaultPage => rpCustomersList;
+		public RibbonControl MainRibbon => rcLocations;
+		public RibbonPage DefaultPage => rpLocations;
 
 
 		#endregion
 
-		public ClientsListForm()
+
+		public LocationsListForm()
 		{
 			InitializeComponent();
-
-			// wire events
-			btnNew.ItemClick += btnNew_ItemClick;
-			btnEdit.ItemClick += btnEdit_ItemClick;
-			btnDelete.ItemClick += btnDelete_ItemClick;
-			btnPrint.ItemClick += btnPrint_ItemClick;
-			btnRefresh.ItemClick += btnRefresh_ItemClick;
-			btnClose.ItemClick += btnClose_ItemClick;
-			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
-			gvClients.DoubleClick += gvClients_DoubleClick;
-			gvClients.RowCellStyle += gvClients_RowCellStyle;
 
 			StartLoading();
 		}
@@ -85,7 +74,7 @@ namespace SpectrumV1.Views.Members.Clients
 				//	}
 				//	//
 
-				_clients = await _clientRepository.GetClientsAsync();
+				_locations = await _locationRepository.GetLocationsAsync();
 			}
 			catch (Exception ex)
 			{
@@ -95,8 +84,8 @@ namespace SpectrumV1.Views.Members.Clients
 
 		private void WireUpBindings()
 		{
-			gcClients.DataSource = null;
-			gcClients.DataSource = _clients;
+			gcLocations.DataSource = null;
+			gcLocations.DataSource = _locations;
 		}
 
 		private void ApplyDefaults()
@@ -130,26 +119,34 @@ namespace SpectrumV1.Views.Members.Clients
 			btnDelete.Enabled = _isAdmin || _canDelete;
 		}
 
-		#region Buttons Events
+		private void LocationsListForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (!_resetMenu)
+			{
+				LayoutsStyle.SaveLayoutGrid(gvLocations, CurrentUser.UserName, CurrentUser.Company);
+			}
+		}
+
+		#region Buttons Event
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			ShowClientEditor(new ClientModel());
+			ShowLocationEditor(new LocationModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			if (!_clients.Any()) return;
+			if (!_locations.Any()) return;
 
 			try
 			{
-				string currentRowId = gvClients.GetFocusedRowCellValue("_id").ToString();
+				string currentRowId = gvLocations.GetFocusedRowCellValue("_id").ToString();
 				if (string.IsNullOrEmpty(currentRowId)) return;
 
-				_clientModel = _clients.SingleOrDefault(x => x._id == currentRowId);
-				if (_clientModel == null) return;
+				_locationModel = _locations.SingleOrDefault(x => x._id == currentRowId);
+				if (_locationModel == null) return;
 
-				ShowClientEditor(_clientModel);
+				ShowLocationEditor(_locationModel);
 			}
 			catch (Exception exception)
 			{
@@ -164,7 +161,7 @@ namespace SpectrumV1.Views.Members.Clients
 
 		private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			gcClients.ShowRibbonPrintPreview();
+			gcLocations.ShowRibbonPrintPreview();
 		}
 
 		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
@@ -173,8 +170,8 @@ namespace SpectrumV1.Views.Members.Clients
 
 			try
 			{
-				string id = gvClients.GetFocusedRowCellValue("_id").ToString();
-				string name = gvClients.GetFocusedRowCellValue("ClientName").ToString();
+				string id = gvLocations.GetFocusedRowCellValue("_id").ToString();
+				string name = gvLocations.GetFocusedRowCellValue("LocationName").ToString();
 
 				if (!string.IsNullOrEmpty(id))
 				{
@@ -182,16 +179,16 @@ namespace SpectrumV1.Views.Members.Clients
 							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
 							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
 					{
-						_clientModel = gvClients.GetFocusedRow() as ClientModel;
-						if (_clientModel == null)
+						_locationModel = gvLocations.GetFocusedRow() as LocationModel;
+						if (_locationModel == null)
 						{
 							return;
 						}
-						_clientModel.Deleted = true;
+						_locationModel.Deleted = true;
 
 						//delete the record
-						await _clientRepository.DeleteClientAsync(_clientModel._id);
-						RcvUpdatedClientAsync(_clientModel, EventArgs.Empty);
+						await _locationRepository.DeleteLocationAsync(_locationModel._id);
+						RcvUpdatedLocationAsync(_locationModel, EventArgs.Empty);
 					}
 				}
 
@@ -221,46 +218,45 @@ namespace SpectrumV1.Views.Members.Clients
 		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
-	MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
-	DialogResult.Yes)
+				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+				DialogResult.Yes)
 			{
 				_resetMenu = true;
-				LayoutsStyle.ResetLayoutGrid(gvClients, CurrentUser.UserName, CurrentUser.Company);
+				LayoutsStyle.ResetLayoutGrid(gvLocations, CurrentUser.UserName, CurrentUser.Company);
 			}
 		}
 
 		#endregion
 
-
-		private async void RcvUpdatedClientAsync(object sender, EventArgs e)
+		private async void RcvUpdatedLocationAsync(object sender, EventArgs e)
 		{
 			if (sender == null) return;
-			_clientModel = sender as ClientModel;
+			_locationModel = sender as LocationModel;
 
-			if (_clientModel != null && (_clientModel.LastModifiedDate == null || _clientModel.Deleted))
+			if (_locationModel != null && (_locationModel.LastModifiedDate == null || _locationModel.Deleted))
 			{
 				await InitializeBindings();
 				WireUpBindings();
 			}
 			else
 			{
-				gvClients.UpdateCurrentRow();
+				gvLocations.UpdateCurrentRow();
 			}
 		}
 
-		private void gvClients_DoubleClick(object sender, EventArgs e)
+		private void gvLocations_DoubleClick(object sender, EventArgs e)
 		{
-			if (!_clients.Any()) return;
+			if (!_locations.Any()) return;
 
 			try
 			{
-				string currentRowId = gvClients.GetFocusedRowCellValue("_id").ToString();
+				string currentRowId = gvLocations.GetFocusedRowCellValue("_id").ToString();
 				if (string.IsNullOrEmpty(currentRowId)) return;
 
-				_clientModel = _clients.SingleOrDefault(x => x._id == currentRowId);
-				if (_clientModel == null) return;
+				_locationModel = _locations.SingleOrDefault(x => x._id == currentRowId);
+				if (_locationModel == null) return;
 
-				ShowClientEditor(_clientModel);
+				ShowLocationEditor(_locationModel);
 			}
 			catch (Exception exception)
 			{
@@ -268,42 +264,12 @@ namespace SpectrumV1.Views.Members.Clients
 			}
 		}
 
-		private void ShowClientEditor(ClientModel model)
-		{
-			if (_clientEditForm == null || _clientEditForm.IsDisposed)
-			{
-				_clientEditForm = new ClientEditForm(model);
-				_clientEditForm.SendUpdatedClient += RcvUpdatedClientAsync;
-				_clientEditForm.FormClosed += ClientEditForm_FormClosed;
-				_clientEditForm.Show(this);
-				return;
-			}
-
-			if (_clientEditForm.WindowState == FormWindowState.Minimized)
-				_clientEditForm.WindowState = FormWindowState.Normal;
-
-			_clientEditForm.Activate();
-			_clientEditForm.BringToFront();
-		}
-
-		private void ClientEditForm_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			var form = sender as ClientEditForm;
-			if (form != null)
-			{
-				form.SendUpdatedClient -= RcvUpdatedClientAsync;
-				form.FormClosed -= ClientEditForm_FormClosed;
-			}
-			if (ReferenceEquals(_clientEditForm, sender))
-				_clientEditForm = null;
-		}
-
 		private bool CanDelete()
 		{
-			ClientModel dataBoundItem = gvClients.GetFocusedRow() as ClientModel;
+			LocationModel dataBoundItem = gvLocations.GetFocusedRow() as LocationModel;
 
-			if (gvClients == null || gvClients.SelectedRowsCount == 0) return false;
-			if (gvClients.SelectedRowsCount > 1)
+			if (gvLocations == null || gvLocations.SelectedRowsCount == 0) return false;
+			if (gvLocations.SelectedRowsCount > 1)
 			{
 				XtraMessageBox.Show("Only one record can be selected at a time, please try again",
 					"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -320,7 +286,38 @@ namespace SpectrumV1.Views.Members.Clients
 			return true;
 		}
 
-		private void gvClients_RowCellStyle(object sender, RowCellStyleEventArgs e)
+		private void ShowLocationEditor(LocationModel model)
+		{
+			if (_locationEditForm == null || _locationEditForm.IsDisposed)
+			{
+				_locationEditForm = new LocationEditForm(model);
+				_locationEditForm.SendUpdatedLocation += RcvUpdatedLocationAsync;
+				_locationEditForm.FormClosed += LocationEditForm_FormClosed;
+				_locationEditForm.Show(this);
+				return;
+			}
+
+			if (_locationEditForm.WindowState == FormWindowState.Minimized)
+				_locationEditForm.WindowState = FormWindowState.Normal;
+
+			_locationEditForm.Activate();
+			_locationEditForm.BringToFront();
+		}
+
+		private void LocationEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as LocationEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedLocation -= RcvUpdatedLocationAsync;
+				form.FormClosed -= LocationEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_locationEditForm, sender))
+				_locationEditForm = null;
+		}
+
+
+		private void gvLocations_RowCellStyle(object sender, RowCellStyleEventArgs e)
 		{
 			var view = sender as GridView;
 			if (view == null || e.RowHandle < 0) return;

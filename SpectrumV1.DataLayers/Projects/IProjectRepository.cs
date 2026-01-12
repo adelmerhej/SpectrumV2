@@ -8,6 +8,8 @@ namespace SpectrumV1.DataLayers.Projects
 	{
 		Task<List<ProjectModel>> GetProjectsAsync();
 		Task<ProjectModel> GetProjectByIdAsync(string id);
+		Task<List<ProjectModel>> GetProjectsByClientIdAsync(string clientId);
+		Task<List<ProjectModel>> GetProjectsByClientNameAsync(string clientName);
 		Task<ProjectModel> GetProjectByNameAsync(string name);
 		Task<string> AddNewProjectAsync(ProjectModel project);
 		Task<bool> UpdateProjectAsync(ProjectModel project);

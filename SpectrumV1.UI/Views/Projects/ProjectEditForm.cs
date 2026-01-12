@@ -1,14 +1,19 @@
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Members.Clients;
 using SpectrumV1.DataLayers.Members.Engineers;
 using SpectrumV1.DataLayers.Projects;
+using SpectrumV1.DataLayers.Users;
+using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Models.Members.Clients;
 using SpectrumV1.Models.Members.Engineers;
 using SpectrumV1.Models.Projects;
+using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities;
+using SpectrumV1.Views.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +28,13 @@ namespace SpectrumV1.Views.Projects
 		private ProjectModel _projectModel = new ProjectModel();
 		private IList<ClientModel> _clients = new List<ClientModel>();
 		private IList<EngineerModel> _engineers = new List<EngineerModel>();
+		private UserModel _userModel = new UserModel();
+		private IList<UserModel> _users = new List<UserModel>();
 
 		private readonly ProjectRepository _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
 		private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
 		private readonly EngineerRepository _engineerRepository = new EngineerRepository(DatabaseFactory.ProfilePrimary);
+		private readonly UserRepository _userRepository = new UserRepository(DatabaseFactory.ProfilePrimary);
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
 		private bool _canAdd = true;
@@ -60,6 +68,7 @@ namespace SpectrumV1.Views.Projects
 			{
 				_clients = await _clientRepository.GetClientsAsync();
 				_engineers = await _engineerRepository.GetEngineersAsync();
+				_users = await _userRepository.GetUsersAsync();
 			}
 			catch (Exception ex)
 			{
@@ -72,13 +81,18 @@ namespace SpectrumV1.Views.Projects
 			bsProject.DataSource = _projectModel;
 			cboClients.Properties.DataSource = null;
 			cboClients.Properties.DataSource = _clients;
-			cboClients.Properties.DisplayMember = "ClientName";
-			cboClients.Properties.ValueMember = "_id";
 
 			cboEngineers.Properties.DataSource = null;
 			cboEngineers.Properties.DataSource = _engineers;
-			cboEngineers.Properties.DisplayMember = "EngineerName";
-			cboEngineers.Properties.ValueMember = "_id";
+
+			cboUsers.Properties.DataSource = null;
+			cboUsers.Properties.DataSource = _users;
+
+			cboPersonInCharge.Properties.DataSource = null;
+			cboPersonInCharge.Properties.DataSource = _users;
+
+			cboOperatingUsers.Properties.DataSource = null;
+			cboOperatingUsers.Properties.DataSource = _users;
 
 			//cboStatus.Properties.Items.Clear();
 			//cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
@@ -211,5 +225,68 @@ namespace SpectrumV1.Views.Projects
 			}
 			return validateReturnValue;
 		}
+
+
+		#region Add new data
+		private void cboPersonInCharge_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			UserEditForm frm = new UserEditForm(new UserModel());
+			frm.SendUpdatedUser += RcvUpdatedPersonInChargeAsync;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedPersonInChargeAsync(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_userModel = sender as UserModel;
+
+			_users.Add(_userModel);
+
+			cboUsers.Properties.DataSource = null;
+			cboUsers.Properties.DataSource = _users;
+			if (_userModel != null) cboUsers.EditValue = _userModel._id;
+		}
+
+		private void cboOperatingUsers_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			UserEditForm frm = new UserEditForm(new UserModel());
+			frm.SendUpdatedUser += RcvOperatingUserAsync;
+			frm.ShowDialog();
+		}
+
+		private void RcvOperatingUserAsync(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_userModel = sender as UserModel;
+
+			_users.Add(_userModel);
+
+			cboOperatingUsers.Properties.DataSource = null;
+			cboOperatingUsers.Properties.DataSource = _users;
+			if (_userModel != null) cboOperatingUsers.EditValue = _userModel._id;
+		}
+
+		private void cboUsers_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			UserEditForm frm = new UserEditForm(new UserModel());
+			frm.SendUpdatedUser += RcvUpdatedUserAsync;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedUserAsync(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_userModel = sender as UserModel;
+
+			_users.Add(_userModel);
+
+			cboUsers.Properties.DataSource = null;
+			cboUsers.Properties.DataSource = _users;
+			if (_userModel != null) cboUsers.EditValue = _userModel._id;
+		}
+
+		#endregion
+
+
 	}
 }

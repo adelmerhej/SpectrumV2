@@ -2,19 +2,26 @@
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
 using SpectrumV1.DataLayers.Common.Countries;
+using SpectrumV1.DataLayers.Common.Locations;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Members.Clients;
+using SpectrumV1.DataLayers.Projects;
+using SpectrumV1.Models.Common.Areas;
 using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Models.Members.Clients;
+using SpectrumV1.Models.Projects;
 using SpectrumV1.Utilities;
+using SpectrumV1.Views.Common.Areas;
+using SpectrumV1.Views.Common.Countries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-	
+
 namespace SpectrumV1.Views.Members.Clients
 {
 	public partial class ClientEditForm : RibbonForm
@@ -24,14 +31,23 @@ namespace SpectrumV1.Views.Members.Clients
 		private ClientModel _clientModel;
 		private ContactModel _contactModel;
 
+		private CityModel _cityModel = new CityModel();
 		private IList<CityModel> _cities = new List<CityModel>();
+		private CountryModel _countryModel = new CountryModel();
 		private IList<CountryModel> _countries = new List<CountryModel>();
+
+		private LocationModel _locationModel = new LocationModel();
+		private IList<LocationModel> _locations = new List<LocationModel>();
+
 		private IList<ContactModel> _contacts = new List<ContactModel>();
+		private IList<ProjectModel> _projects = new List<ProjectModel>();
 
 		private readonly ClientRepository _clientRepository;
 		private readonly CountryRepository _countryRepository;
 		private readonly CityRepository _cityRepository;
+		private readonly LocationRepository _locationRepository;
 		private readonly ContactRepository _contactRepository;
+		private readonly ProjectRepository _projectRepository;
 		private readonly LogInfoRepository _logInfoRepository;
 
 		private bool _canAdd = true;
@@ -53,11 +69,13 @@ namespace SpectrumV1.Views.Members.Clients
 			InitializeComponent();
 
 			_clientModel = model ?? new ClientModel();
-			
+
 			_clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
 			_countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
 			_cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
+			_locationRepository = new LocationRepository(DatabaseFactory.ProfilePrimary);
 			_contactRepository = new ContactRepository(DatabaseFactory.ProfilePrimary);
+			_projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
 			_logInfoRepository = new LogInfoRepository();
 
 			StartLoading();
@@ -87,11 +105,13 @@ namespace SpectrumV1.Views.Members.Clients
 		{
 			try
 			{
-				var loadTasks = new []
+				var loadTasks = new[]
 				{
 					LoadCitiesAsync(),
 					LoadCountriesAsync(),
-					LoadContactsForClientAsync()
+					LoadContactsForClientAsync(),
+					LoadLocationsAsync(),
+					LoadProjectsAsync(),
 				};
 
 				await Task.WhenAll(loadTasks);
@@ -123,14 +143,39 @@ namespace SpectrumV1.Views.Members.Clients
 				_contacts = await _contactRepository.GetContactsByClientIdAsync(_clientModel._id);
 			}
 		}
+		private async Task LoadLocationsAsync()
+		{
+			_locations = await _locationRepository.GetLocationsAsync();
+		}
+
+		private async Task LoadProjectsAsync()
+		{
+			if (string.IsNullOrEmpty(_clientModel?._id))
+			{
+				_projects = new List<ProjectModel>();
+			}
+			else
+			{
+				_projects = await _projectRepository.GetProjectsByClientIdAsync(_clientModel._id);
+			}
+		}
 
 		private void WireUpBindings()
 		{
 			bsClient.DataSource = _clientModel;
 
-			cboCountries.Properties.DataSource = _countries;
-			cboCities.Properties.DataSource = _cities;
+			cboCountries1.Properties.DataSource = _countries;
+			cboCities1.Properties.DataSource = _cities;
+
+			cboCountries2.Properties.DataSource = _countries;
+			cboCities2.Properties.DataSource = _cities;
+
+			cboLocations1.Properties.DataSource = _locations;
+			cboLocations2.Properties.DataSource = _locations;
+
 			gcContacts.DataSource = _contacts;
+
+			gcRelatedProjects.DataSource = _projects;
 		}
 
 		private void ApplyDefaults()
@@ -410,7 +455,7 @@ namespace SpectrumV1.Views.Members.Clients
 			_logInfoRepository.CreateLogInfo(_clientModel);
 
 			var newClientId = await _clientRepository.AddNewClientAsync(_clientModel);
-			
+
 			if (string.IsNullOrEmpty(newClientId))
 			{
 				throw new Exception($"Error while saving client: {txtClientName.Text}");
@@ -457,48 +502,48 @@ namespace SpectrumV1.Views.Members.Clients
 
 		private void ValidateCountry(List<string> errors)
 		{
-			if (string.IsNullOrWhiteSpace(cboCountries.Text))
+			if (string.IsNullOrWhiteSpace(cboCountries1.Text))
 			{
 				errors.Add("Country Name cannot be empty.");
 				if (!errors.Any(e => e.Contains("Client Name")))
 				{
-					cboCountries.Focus();
+					cboCountries1.Focus();
 				}
 			}
 		}
 
 		private void ValidateCity(List<string> errors)
 		{
-			if (string.IsNullOrWhiteSpace(cboCities.Text))
+			if (string.IsNullOrWhiteSpace(cboCities1.Text))
 			{
 				errors.Add("City Region Name cannot be empty.");
 				if (errors.Count == 1)
 				{
-					cboCities.Focus();
+					cboCities1.Focus();
 				}
 			}
 		}
 
 		private void ValidateAddress(List<string> errors)
 		{
-			if (string.IsNullOrWhiteSpace(txtAddress.Text))
+			if (string.IsNullOrWhiteSpace(txtAddress1.Text))
 			{
 				errors.Add("Address Name cannot be empty.");
 				if (errors.Count == 1)
 				{
-					txtAddress.Focus();
+					txtAddress1.Focus();
 				}
 			}
 		}
 
 		private void ValidatePhoneNumber(List<string> errors)
 		{
-			if (string.IsNullOrWhiteSpace(txtPhoneNumber1.Text))
+			if (string.IsNullOrWhiteSpace(txtPhoneNumberFirst1.Text))
 			{
 				errors.Add("At least one phone number is required.");
 				if (errors.Count == 1)
 				{
-					txtPhoneNumber1.Focus();
+					txtPhoneNumberFirst1.Focus();
 				}
 			}
 		}
@@ -506,8 +551,8 @@ namespace SpectrumV1.Views.Members.Clients
 		private void ShowValidationErrors(List<string> errors)
 		{
 			var messageBuilder = new StringBuilder();
-			messageBuilder.AppendLine(errors.Count > 1 
-				? "The followings need your attention:" 
+			messageBuilder.AppendLine(errors.Count > 1
+				? "The followings need your attention:"
 				: "The following need your attention:");
 
 			foreach (var error in errors)
@@ -562,5 +607,119 @@ namespace SpectrumV1.Views.Members.Clients
 
 		#endregion
 
+		private void cboCountries1_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			CountryEditForm frm = new CountryEditForm(new CountryModel());
+			frm.SendUpdatedCountry += RcvUpdatedCountryAsync;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedCountryAsync(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_countryModel = sender as CountryModel;
+
+			_countries.Add(_countryModel);
+
+			cboCountries1.Properties.DataSource = null;
+			cboCountries1.Properties.DataSource = _countries;
+			if (_countryModel != null) cboCountries1.EditValue = _countryModel._id;
+		}
+
+		private void cboCities1_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			CityEditForm frm = new CityEditForm(new CityModel());
+			frm.SendUpdatedCity += RcvUpdatedCityAsync;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedCityAsync(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_cityModel = sender as CityModel;
+
+			_cities.Add(_cityModel);
+
+			cboCities1.Properties.DataSource = null;
+			cboCities1.Properties.DataSource = _cities;
+			if (_cityModel != null) cboCities1.EditValue = _cityModel._id;
+		}
+
+		private void cboCountries2_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			CountryEditForm frm = new CountryEditForm(new CountryModel());
+			frm.SendUpdatedCountry += RcvUpdatedCountry2Async;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedCountry2Async(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_countryModel = sender as CountryModel;
+
+			_countries.Add(_countryModel);
+
+			cboCountries2.Properties.DataSource = null;
+			cboCountries2.Properties.DataSource = _countries;
+			if (_countryModel != null) cboCountries2.EditValue = _countryModel._id;
+		}
+
+
+		private void cboCities2_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			CityEditForm frm = new CityEditForm(new CityModel());
+			frm.SendUpdatedCity += RcvUpdatedCity2Async;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedCity2Async(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_cityModel = sender as CityModel;
+
+			_cities.Add(_cityModel);
+
+			cboCities2.Properties.DataSource = null;
+			cboCities2.Properties.DataSource = _cities;
+			if (_cityModel != null) cboCities2.EditValue = _cityModel._id;
+		}
+
+		private void cboLocations1_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			LocationEditForm frm = new LocationEditForm(new LocationModel());
+			frm.SendUpdatedLocation += RcvUpdatedLocation1Async;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedLocation1Async(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_locationModel = sender as LocationModel;
+
+			_locations.Add(_locationModel);
+
+			cboLocations1.Properties.DataSource = null;
+			cboLocations1.Properties.DataSource = _locations;
+			if (_locationModel != null) cboLocations1.EditValue = _locationModel._id;
+		}
+
+		private void cboLocations2_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			LocationEditForm frm = new LocationEditForm(new LocationModel());
+			frm.SendUpdatedLocation += RcvUpdatedLocation2Async;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedLocation2Async(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_locationModel = sender as LocationModel;
+
+			_locations.Add(_locationModel);
+
+			cboLocations2.Properties.DataSource = null;
+			cboLocations2.Properties.DataSource = _locations;
+			if (_locationModel != null) cboLocations2.EditValue = _locationModel._id;
+		}
 	}
 }

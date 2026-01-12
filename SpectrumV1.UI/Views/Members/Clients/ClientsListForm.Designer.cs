@@ -58,7 +58,7 @@
 			this.bsClients = new System.Windows.Forms.BindingSource(this.components);
 			this.gvClients = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.col_contacts = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.col_initial = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colClientName = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colAddress = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colEmail = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -360,7 +360,7 @@
 			// 
 			this.gvClients.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id,
-            this.col_contacts,
+            this.col_initial,
             this.colClientName,
             this.colAddress,
             this.colEmail,
@@ -398,15 +398,15 @@
 			this.col_id.Name = "col_id";
 			this.col_id.Width = 94;
 			// 
-			// col_contacts
+			// col_initial
 			// 
-			this.col_contacts.Caption = "Contacts";
-			this.col_contacts.FieldName = "Contacts";
-			this.col_contacts.MinWidth = 25;
-			this.col_contacts.Name = "col_contacts";
-			this.col_contacts.Visible = true;
-			this.col_contacts.VisibleIndex = 1;
-			this.col_contacts.Width = 94;
+			this.col_initial.Caption = "Initial";
+			this.col_initial.FieldName = "ClientInitial";
+			this.col_initial.MinWidth = 25;
+			this.col_initial.Name = "col_initial";
+			this.col_initial.Visible = true;
+			this.col_initial.VisibleIndex = 1;
+			this.col_initial.Width = 94;
 			// 
 			// colClientName
 			// 
@@ -419,7 +419,7 @@
 			// 
 			// colAddress
 			// 
-			this.colAddress.FieldName = "Address";
+			this.colAddress.FieldName = "Address1";
 			this.colAddress.MinWidth = 25;
 			this.colAddress.Name = "colAddress";
 			this.colAddress.Visible = true;
@@ -437,7 +437,7 @@
 			// 
 			// colPhoneNumber1
 			// 
-			this.colPhoneNumber1.FieldName = "PhoneNumber1";
+			this.colPhoneNumber1.FieldName = "PhoneNumberFirst1";
 			this.colPhoneNumber1.MinWidth = 25;
 			this.colPhoneNumber1.Name = "colPhoneNumber1";
 			this.colPhoneNumber1.Visible = true;
@@ -446,7 +446,7 @@
 			// 
 			// colPhoneNumber2
 			// 
-			this.colPhoneNumber2.FieldName = "PhoneNumber2";
+			this.colPhoneNumber2.FieldName = "PhoneNumberFirst2";
 			this.colPhoneNumber2.MinWidth = 25;
 			this.colPhoneNumber2.Name = "colPhoneNumber2";
 			this.colPhoneNumber2.Visible = true;
@@ -455,7 +455,7 @@
 			// 
 			// colPhoneNumber3
 			// 
-			this.colPhoneNumber3.FieldName = "PhoneNumber3";
+			this.colPhoneNumber3.FieldName = "PhoneNumberFirst3";
 			this.colPhoneNumber3.MinWidth = 25;
 			this.colPhoneNumber3.Name = "colPhoneNumber3";
 			this.colPhoneNumber3.Visible = true;
@@ -464,7 +464,7 @@
 			// 
 			// colFaxNumber
 			// 
-			this.colFaxNumber.FieldName = "FaxNumber";
+			this.colFaxNumber.FieldName = "FaxNumberFirst";
 			this.colFaxNumber.MinWidth = 25;
 			this.colFaxNumber.Name = "colFaxNumber";
 			this.colFaxNumber.Visible = true;
@@ -482,7 +482,7 @@
 			// 
 			// colPoBox
 			// 
-			this.colPoBox.FieldName = "PoBox";
+			this.colPoBox.FieldName = "PoBox1";
 			this.colPoBox.MinWidth = 25;
 			this.colPoBox.Name = "colPoBox";
 			this.colPoBox.Visible = true;
@@ -510,7 +510,7 @@
 			// colCountry
 			// 
 			this.colCountry.Caption = "Country";
-			this.colCountry.FieldName = "Country";
+			this.colCountry.FieldName = "Country1";
 			this.colCountry.MinWidth = 25;
 			this.colCountry.Name = "colCountry";
 			this.colCountry.Visible = true;
@@ -520,7 +520,7 @@
 			// colCity
 			// 
 			this.colCity.Caption = "City";
-			this.colCity.FieldName = "City";
+			this.colCity.FieldName = "City1";
 			this.colCity.MinWidth = 25;
 			this.colCity.Name = "colCity";
 			this.colCity.Visible = true;
@@ -732,6 +732,6 @@
 		private DevExpress.XtraEditors.Repository.RepositoryItemRatingControl repositoryItemRatingControl1;
 		private DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit repositoryItemSearchLookUpEdit1;
 		private DevExpress.XtraGrid.Views.Grid.GridView repositoryItemSearchLookUpEdit1View;
-		private DevExpress.XtraGrid.Columns.GridColumn col_contacts;
+		private DevExpress.XtraGrid.Columns.GridColumn col_initial;
 	}
 }

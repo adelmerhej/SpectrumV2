@@ -6,6 +6,7 @@ using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Projects;
 using SpectrumV1.Models.Projects;
 using SpectrumV1.Models.Users;
+using SpectrumV1.Utilities;
 using SpectrumV1.Utilities.Interfaces;
 using SpectrumV1.Utilities.Layout;
 using System;
@@ -20,6 +21,8 @@ namespace SpectrumV1.Views.Projects
 	public partial class ProjectsListForm : RibbonForm, IFormWithRibbon
 	{
 		private bool _resetMenu;
+		private ProjectEditForm _projectEditForm;
+
 		private ProjectModel _projectModel = new ProjectModel();
 		private IList<ProjectModel> _projects = new List<ProjectModel>();
 
@@ -91,12 +94,27 @@ namespace SpectrumV1.Views.Projects
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-
+			ShowProjectEditor(new ProjectModel());
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
 		{
+			if (!_projects.Any()) return;
 
+			try
+			{
+				string currentRowId = gvProjects.GetFocusedRowCellValue("_id").ToString();
+				if (string.IsNullOrEmpty(currentRowId)) return;
+
+				_projectModel = _projects.SingleOrDefault(x => x._id == currentRowId);
+				if (_projectModel == null) return;
+
+				ShowProjectEditor(_projectModel);
+			}
+			catch (Exception exception)
+			{
+				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
@@ -111,7 +129,47 @@ namespace SpectrumV1.Views.Projects
 
 		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
 		{
+			if (!CanDelete()) return;
 
+			try
+			{
+				string id = gvProjects.GetFocusedRowCellValue("_id").ToString();
+				string name = gvProjects.GetFocusedRowCellValue("ProjectName").ToString();
+
+				if (!string.IsNullOrEmpty(id))
+				{
+					if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
+							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+					{
+						_projectModel = gvProjects.GetFocusedRow() as ProjectModel;
+						if (_projectModel == null)
+						{
+							return;
+						}
+						_projectModel.Deleted = true;
+
+						//delete the record
+						await _projectRepository.DeleteProjectAsync(_projectModel._id);
+						RcvUpdatedProjectAsync(_projectModel, EventArgs.Empty);
+					}
+				}
+			}
+			catch (Exception exception)
+			{
+				switch (exception.Message)
+				{
+					case "-2146233088":
+						XtraMessageBox.Show("This record is linked to one or more transactions, delete all links first.",
+							"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						break;
+
+					default:
+						XtraMessageBox.Show(exception.Message,
+							"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						break;
+				}
+			}
 		}
 
 		private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
@@ -147,7 +205,22 @@ namespace SpectrumV1.Views.Projects
 
 		private void gvProjects_DoubleClick(object sender, EventArgs e)
 		{
+			if (!_projects.Any()) return;
 
+			try
+			{
+				string currentRowId = gvProjects.GetFocusedRowCellValue("_id").ToString();
+				if (string.IsNullOrEmpty(currentRowId)) return;
+
+				_projectModel = _projects.SingleOrDefault(x => x._id == currentRowId);
+				if (_projectModel == null) return;
+
+				ShowProjectEditor(_projectModel);
+			}
+			catch (Exception exception)
+			{
+				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		private bool CanDelete()
@@ -169,9 +242,51 @@ namespace SpectrumV1.Views.Projects
 			return true;
 		}
 
+		private void ShowProjectEditor(ProjectModel model)
+		{
+			if (_projectEditForm == null || _projectEditForm.IsDisposed)
+			{
+				_projectEditForm = new ProjectEditForm(model);
+				_projectEditForm.SendUpdatedProject += RcvUpdatedProjectAsync;
+				_projectEditForm.FormClosed += ProjectEditForm_FormClosed;
+				_projectEditForm.Show(this);
+				return;
+			}
+
+			if (_projectEditForm.WindowState == FormWindowState.Minimized)
+				_projectEditForm.WindowState = FormWindowState.Normal;
+
+			_projectEditForm.Activate();
+			_projectEditForm.BringToFront();
+		}
+
+		private void ProjectEditForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			var form = sender as ProjectEditForm;
+			if (form != null)
+			{
+				form.SendUpdatedProject -= RcvUpdatedProjectAsync;
+				form.FormClosed -= ProjectEditForm_FormClosed;
+			}
+			if (ReferenceEquals(_projectEditForm, sender))
+				_projectEditForm = null;
+		}
+
 		private void gvProjects_RowCellStyle(object sender, RowCellStyleEventArgs e)
 		{
-
+			var view = sender as GridView;
+			if (view == null || e.RowHandle < 0) return;
+			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+			if (!isActive)
+			{
+				e.Appearance.ForeColor = Color.Gray;
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+			}
+			if (isDefault)
+			{
+				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+			}
 		}
 	}
 }

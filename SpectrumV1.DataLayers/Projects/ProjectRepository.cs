@@ -31,6 +31,22 @@ namespace SpectrumV1.DataLayers.Projects
 			return await _projects.Find(filter).FirstOrDefaultAsync();
 		}
 
+		public async Task<List<ProjectModel>> GetProjectsByClientIdAsync(string clientId)
+		{
+			if (string.IsNullOrWhiteSpace(clientId)) return new List<ProjectModel>();
+			if (!ObjectId.TryParse(clientId, out var objectId)) return new List<ProjectModel>();
+			var filter = Builders<ProjectModel>.Filter.Eq(u => u.ClientId, objectId);
+			return await _projects.Find(filter).ToListAsync();
+		}
+
+		public async Task<List<ProjectModel>> GetProjectsByClientNameAsync(string clientName)
+		{
+			if (string.IsNullOrWhiteSpace(clientName)) return new List<ProjectModel>();
+			var pattern = "^" + Regex.Escape(clientName.Trim()) + "$";
+			var filter = Builders<ProjectModel>.Filter.Regex(u => u.ClientName, new BsonRegularExpression(pattern, "i"));
+			return await _projects.Find(filter).ToListAsync();
+		}
+
 		public async Task<ProjectModel> GetProjectByNameAsync(string projectName)
 		{
 			if (string.IsNullOrWhiteSpace(projectName)) return null;

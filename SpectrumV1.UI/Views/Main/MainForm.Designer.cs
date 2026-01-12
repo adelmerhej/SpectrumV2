@@ -139,6 +139,7 @@
 			this.grpReadingPane = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.dockRight = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.showPendingJobs = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+			this.mnuLocations = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			((System.ComponentModel.ISupportInitialize)(this.ribbonMainForm)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
@@ -660,6 +661,7 @@
             this.mnuTransactions,
             this.mnuFiles,
             this.mnuStatements});
+			this.mnuMainAccounting.Expanded = true;
 			this.mnuMainAccounting.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuMainAccounting.ImageOptions.SvgImage")));
 			this.mnuMainAccounting.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
 			this.mnuMainAccounting.Name = "mnuMainAccounting";
@@ -831,7 +833,8 @@
             this.mnuBranches,
             this.mnuServicesList,
             this.mnuAreas,
-            this.mnuStatus});
+            this.mnuStatus,
+            this.mnuLocations});
 			this.mnuCommon.Expanded = true;
 			this.mnuCommon.Name = "mnuCommon";
 			this.mnuCommon.Text = "Common";
@@ -1106,6 +1109,15 @@
 			this.showPendingJobs.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.showPendingJobs.Text = "Show Pending Jobs";
 			// 
+			// mnuLocations
+			// 
+			this.mnuLocations.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuLocations.ImageOptions.SvgImage")));
+			this.mnuLocations.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+			this.mnuLocations.Name = "mnuLocations";
+			this.mnuLocations.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+			this.mnuLocations.Text = "Location";
+			this.mnuLocations.Click += new System.EventHandler(this.mnuLocations_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1250,5 +1262,6 @@
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuMembers;
 		private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator3;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuStatus;
+		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuLocations;
 	}
 }

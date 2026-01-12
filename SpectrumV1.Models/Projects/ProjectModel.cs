@@ -44,6 +44,32 @@ namespace SpectrumV1.Models.Projects
 		[BsonRepresentation(BsonType.ObjectId)]
 		public ObjectId? EngineerId { get; set; }
 
+		// Personnel / Username
+		//------------------------------------------------
+		[BsonElement("Username ")]                          // "The user who created this record is responsible for assigning tasks."
+		public string Username { get; set; }
+
+		[BsonElement("UserId")]                                 // optional ref to first User in User collection
+		[BsonRepresentation(BsonType.ObjectId)]
+		public ObjectId? UserId { get; set; }
+
+		// Personnel / Ownership
+		//------------------------------------------------
+		[BsonElement("OperatingUser ")]                          // "Ownership"
+		public string OperatingUser { get; set; }
+
+		[BsonElement("OperatingUserId")]                                 // optional ref to OperatingUser in User collection
+		[BsonRepresentation(BsonType.ObjectId)]
+		public ObjectId? OperatingUserId { get; set; }
+
+		// Personnel / Ownership
+		//------------------------------------------------
+		[BsonElement("PersonInCharge ")]                          // "Ownership"
+		public string PersonInCharge { get; set; }
+
+		[BsonElement("PersonInChargeId")]                                 // optional ref to PersonInCharge in User collection
+		[BsonRepresentation(BsonType.ObjectId)]
+		public ObjectId? PersonInChargeId { get; set; }
 
 		// Location
 		//------------------------------------------------

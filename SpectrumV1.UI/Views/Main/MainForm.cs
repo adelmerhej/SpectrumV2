@@ -511,5 +511,10 @@ namespace SpectrumV1.Views.Main
 		{
 			OpenForm<StatusListForm>();
 		}
+
+		private void mnuLocations_Click(object sender, EventArgs e)
+		{
+			OpenForm<LocationsListForm>();
+		}
 	}
 }

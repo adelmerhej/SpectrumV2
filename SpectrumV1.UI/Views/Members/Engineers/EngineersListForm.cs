@@ -1,10 +1,13 @@
-﻿using DevExpress.XtraBars;
+﻿
+using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Members.Engineers;
+using SpectrumV1.DataLayers.Users;
 using SpectrumV1.Models.Members.Engineers;
+using SpectrumV1.Models.Users;
 using SpectrumV1.Utilities.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -24,6 +27,15 @@ namespace SpectrumV1.Views.Members.Engineers
 		private IList<EngineerModel> _engineers = new List<EngineerModel>();
 		
 		private readonly EngineerRepository _engineerRepository = new EngineerRepository(DatabaseFactory.ProfilePrimary);
+
+		private IList<UserModel> _users;
+		private IList<UserModel> _sales;
+
+		/// <summary>
+		/// User Permission Role
+		/// </summary>
+		private IList<UserPermissionModel> _userPermission = new List<UserPermissionModel>();
+		private readonly UserPermissionRepository _userPermissionRepository = new UserPermissionRepository();
 
 		// Init permission variables
 		private bool _canAdd = true;
