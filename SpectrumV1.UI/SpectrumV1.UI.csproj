@@ -347,6 +347,18 @@
     <Compile Include="Views\Projects\ProjectsListForm.Designer.cs">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Transactions\Invoices\InvoiceEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Transactions\Invoices\InvoiceEditForm.Designer.cs">
+      <DependentUpon>InvoiceEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transactions\Invoices\InvoicesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Transactions\Invoices\InvoicesListForm.Designer.cs">
+      <DependentUpon>InvoicesListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Users\ChangePasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -517,6 +529,12 @@
     <EmbeddedResource Include="Views\Projects\ProjectsListForm.resx">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Transactions\Invoices\InvoiceEditForm.resx">
+      <DependentUpon>InvoiceEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Transactions\Invoices\InvoicesListForm.resx">
+      <DependentUpon>InvoicesListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Users\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -552,6 +570,7 @@
     <None Include="Properties\DataSources\SpectrumV1.Models.Members.Engineers.EngineerModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Members.Engineers.Status.StatusModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Operations.Projects.ProjectModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Projects.InvoiceModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Users.UserModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -621,6 +640,7 @@
     <None Include="Resources\professor.svg" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Accounting\" />
     <Folder Include="Views\HumanResources\Employees\" />
     <Folder Include="Views\Members\Suppliers\" />
   </ItemGroup>

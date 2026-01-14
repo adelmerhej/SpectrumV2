@@ -21,6 +21,7 @@ using SpectrumV1.Views.Members.Clients;
 using SpectrumV1.Views.Members.Engineers;
 using SpectrumV1.Views.Members.Engineers.Sattus;
 using SpectrumV1.Views.Projects;
+using SpectrumV1.Views.Transactions.Invoices;
 using SpectrumV1.Views.Users;
 using System;
 using System.Linq;
@@ -316,7 +317,7 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuInvoices_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
+			OpenForm<InvoicesListForm>();
 		}
 
 		private void mnuInvoicesExpenses_Click(object sender, EventArgs e)

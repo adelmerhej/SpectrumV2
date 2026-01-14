@@ -1,8 +1,11 @@
-﻿using DevExpress.XtraEditors;
+﻿using DevExpress.Utils;
+using DevExpress.XtraEditors;
 using SpectrumV1.DataLayers.Common.Countries;
 using SpectrumV1.DataLayers.DataAccess;
+using SpectrumV1.Models.Common.Areas;
 using SpectrumV1.Models.Common.Countries;
 using SpectrumV1.Utilities;
+using SpectrumV1.Views.Common.Areas;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -189,5 +192,44 @@ namespace SpectrumV1.Views.Common.Countries
 
 			return validateReturnValue;
 		}
+
+		private void cboRegions_AddNewValue(object sender, DevExpress.XtraEditors.Controls.AddNewValueEventArgs e)
+		{
+			RegionEditForm frm = new RegionEditForm(new RegionModel());
+			frm.SendUpdatedRegion += RcvUpdatedRegionAsync;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedRegionAsync(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_regionModel = sender as RegionModel;
+
+			_regions.Add(_regionModel);
+
+			cboRegions.Properties.DataSource = null;
+			cboRegions.Properties.DataSource = _regions;
+			if (_regionModel != null) cboRegions.EditValue = _regionModel._id;
+		}
+
+		private void cboContinents_AddNewValue(object sender, DevExpress.XtraEditors.Controls.AddNewValueEventArgs e)
+		{
+			ContinentEditForm frm = new ContinentEditForm(new ContinentModel());
+			frm.SendUpdatedContinent += RcvUpdatedContinentAsync;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedContinentAsync(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_continentModel = sender as ContinentModel;
+
+			_continents.Add(_continentModel);
+
+			cboContinents.Properties.DataSource = null;
+			cboContinents.Properties.DataSource = _continents;
+			if (_continentModel != null) cboContinents.EditValue = _continentModel._id;
+		}
+
 	}
 }

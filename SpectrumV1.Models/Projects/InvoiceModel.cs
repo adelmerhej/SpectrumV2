@@ -6,6 +6,7 @@ namespace SpectrumV1.Models.Projects
 {
 	public class InvoiceModel : EntityObject, ICloneable
 	{
+		public string ProjectName { get; set; }
 		public string InvoiceNumber { get; set; }
 		public DateTime? InvoiceDate { get; set; }
 

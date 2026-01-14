@@ -721,5 +721,10 @@ namespace SpectrumV1.Views.Members.Clients
 			cboLocations2.Properties.DataSource = _locations;
 			if (_locationModel != null) cboLocations2.EditValue = _locationModel._id;
 		}
+
+		private void gvRelatedProjects_DoubleClick(object sender, EventArgs e)
+		{
+
+		}
 	}
 }
