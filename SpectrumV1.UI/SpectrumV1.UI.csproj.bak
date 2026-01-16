@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -32,21 +32,37 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.BonusSkins.v25.1, Version=25.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Data.Desktop.v25.1, Version=25.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Data.v25.1, Version=25.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Drawing.v25.1, Version=25.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Printing.v25.1.Core, Version=25.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Utils.v25.1, Version=25.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraBars.v25.1, Version=25.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraEditors.v25.1, Version=25.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraGrid.v25.1, Version=25.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraLayout.v25.1, Version=25.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraPrinting.v25.1, Version=25.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraTreeList.v25.1, Version=25.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Accessibility" />
+    <Reference Include="DevExpress.BonusSkins.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v25.1.Core, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.Desktop.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataAccess.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Drawing.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Images.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v25.1.Core, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v25.1.Core, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v25.1, Version=25.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,12 +76,204 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BusinessLogic\Users\LoginService.cs" />
     <Compile Include="Utilities\HelperApplication.cs" />
+    <Compile Include="Utilities\Interfaces\IFormWithRibbon.cs" />
+    <Compile Include="Utilities\LogInfoRepository.cs" />
+    <Compile Include="Views\Common\Areas\AreaEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Areas\AreaEditForm.Designer.cs">
+      <DependentUpon>AreaEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Areas\AreasListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Areas\AreasListForm.Designer.cs">
+      <DependentUpon>AreasListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Areas\LocationEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Areas\LocationEditForm.Designer.cs">
+      <DependentUpon>LocationEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Areas\LocationsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Areas\LocationsListForm.Designer.cs">
+      <DependentUpon>LocationsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Companies\BranchEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Companies\BranchEditForm.Designer.cs">
+      <DependentUpon>BranchEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Companies\BranchesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Companies\BranchesListForm.Designer.cs">
+      <DependentUpon>BranchesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Companies\CompaniesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Companies\CompaniesListForm.Designer.cs">
+      <DependentUpon>CompaniesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Companies\CompanyEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Companies\CompanyEditForm.Designer.cs">
+      <DependentUpon>CompanyEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CitiesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CitiesListForm.Designer.cs">
+      <DependentUpon>CitiesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CityEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CityEditForm.Designer.cs">
+      <DependentUpon>CityEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ContinentEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ContinentEditForm.Designer.cs">
+      <DependentUpon>ContinentEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ContinentsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ContinentsListForm.Designer.cs">
+      <DependentUpon>ContinentsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CountriesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CountriesListForm.Designer.cs">
+      <DependentUpon>CountriesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CountryEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\CountryEditForm.Designer.cs">
+      <DependentUpon>CountryEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\DistrictEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\DistrictEditForm.Designer.cs">
+      <DependentUpon>DistrictEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\DistrictsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\DistrictsListForm.Designer.cs">
+      <DependentUpon>DistrictsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ProvinceEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ProvinceEditForm.Designer.cs">
+      <DependentUpon>ProvinceEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ProvincesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\ProvincesListForm.Designer.cs">
+      <DependentUpon>ProvincesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\RegionEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\RegionEditForm.Designer.cs">
+      <DependentUpon>RegionEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Countries\RegionsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Countries\RegionsListForm.Designer.cs">
+      <DependentUpon>RegionsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Currencies\CurrenciesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Currencies\CurrenciesListForm.Designer.cs">
+      <DependentUpon>CurrenciesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Currencies\CurrencyEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Currencies\CurrencyEditForm.Designer.cs">
+      <DependentUpon>CurrencyEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Departments\DepartmentEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Departments\DepartmentEditForm.Designer.cs">
+      <DependentUpon>DepartmentEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Departments\DepartmentsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Departments\DepartmentsListForm.Designer.cs">
+      <DependentUpon>DepartmentsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\FeatureUnderDevelopmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Services\ServiceEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Services\ServiceEditForm.Designer.cs">
+      <DependentUpon>ServiceEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Services\ServicesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Services\ServicesListForm.Designer.cs">
+      <DependentUpon>ServicesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\DashboardActivitiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Dashboard\DashboardActivitiesForm.Designer.cs">
+      <DependentUpon>DashboardActivitiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HumanResources\JobPositions\JobPositionEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\JobPositions\JobPositionEditForm.Designer.cs">
+      <DependentUpon>JobPositionEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HumanResources\JobPositions\JobPositionsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\JobPositions\JobPositionsListForm.Designer.cs">
+      <DependentUpon>JobPositionsListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Main\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Main\Connections\ServerConfigurationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Main\Connections\ServerConfigurationForm.Designer.cs">
+      <DependentUpon>ServerConfigurationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Main\Connections\SuperAdminConnectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Main\Connections\SuperAdminConnectionForm.Designer.cs">
+      <DependentUpon>SuperAdminConnectionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Main\MainForm.cs">
       <SubType>Form</SubType>
@@ -73,17 +281,113 @@
     <Compile Include="Views\Main\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Main\Update\LiveUpdateForm.cs">
+    <Compile Include="Views\Main\Update\CheckForUpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Main\Update\LiveUpdateForm.Designer.cs">
-      <DependentUpon>LiveUpdateForm.cs</DependentUpon>
+    <Compile Include="Views\Main\Update\CheckForUpdateForm.Designer.cs">
+      <DependentUpon>CheckForUpdateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Main\WaitForm1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Main\WaitForm1.Designer.cs">
       <DependentUpon>WaitForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Clients\ClientEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Clients\ClientEditForm.Designer.cs">
+      <DependentUpon>ClientEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Clients\ClientsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Clients\ClientsListForm.Designer.cs">
+      <DependentUpon>ClientsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Clients\ContactEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Clients\ContactEditForm.Designer.cs">
+      <DependentUpon>ContactEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Engineers\EngineerEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Engineers\EngineerEditForm.Designer.cs">
+      <DependentUpon>EngineerEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Engineers\EngineersListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Engineers\EngineersListForm.Designer.cs">
+      <DependentUpon>EngineersListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Engineers\Sattus\StatusEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Engineers\Sattus\StatusEditForm.Designer.cs">
+      <DependentUpon>StatusEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Engineers\Sattus\StatusListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Engineers\Sattus\StatusListForm.Designer.cs">
+      <DependentUpon>StatusListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\ProjectEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\ProjectEditForm.Designer.cs">
+      <DependentUpon>ProjectEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\ProjectsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\ProjectsListForm.Designer.cs">
+      <DependentUpon>ProjectsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transactions\Invoices\InvoiceEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Transactions\Invoices\InvoiceEditForm.Designer.cs">
+      <DependentUpon>InvoiceEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transactions\Invoices\InvoicesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Transactions\Invoices\InvoicesListForm.Designer.cs">
+      <DependentUpon>InvoicesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\ChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Users\ChangePasswordForm.Designer.cs">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\CreateNewPasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Users\CreateNewPasswordForm.Designer.cs">
+      <DependentUpon>CreateNewPasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Users\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\UserEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Users\UserEditForm.Designer.cs">
+      <DependentUpon>UserEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\UsersListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Users\UsersListForm.Designer.cs">
+      <DependentUpon>UsersListForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -95,18 +399,179 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\Common\Areas\AreaEditForm.resx">
+      <DependentUpon>AreaEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Areas\AreasListForm.resx">
+      <DependentUpon>AreasListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Areas\LocationEditForm.resx">
+      <DependentUpon>LocationEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Areas\LocationsListForm.resx">
+      <DependentUpon>LocationsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Companies\BranchEditForm.resx">
+      <DependentUpon>BranchEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Companies\BranchesListForm.resx">
+      <DependentUpon>BranchesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Companies\CompaniesListForm.resx">
+      <DependentUpon>CompaniesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Companies\CompanyEditForm.resx">
+      <DependentUpon>CompanyEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\CitiesListForm.resx">
+      <DependentUpon>CitiesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\CityEditForm.resx">
+      <DependentUpon>CityEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\ContinentEditForm.resx">
+      <DependentUpon>ContinentEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\ContinentsListForm.resx">
+      <DependentUpon>ContinentsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\CountriesListForm.resx">
+      <DependentUpon>CountriesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\CountryEditForm.resx">
+      <DependentUpon>CountryEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\DistrictEditForm.resx">
+      <DependentUpon>DistrictEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\DistrictsListForm.resx">
+      <DependentUpon>DistrictsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\ProvinceEditForm.resx">
+      <DependentUpon>ProvinceEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\ProvincesListForm.resx">
+      <DependentUpon>ProvincesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\RegionEditForm.resx">
+      <DependentUpon>RegionEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Countries\RegionsListForm.resx">
+      <DependentUpon>RegionsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Currencies\CurrenciesListForm.resx">
+      <DependentUpon>CurrenciesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Currencies\CurrencyEditForm.resx">
+      <DependentUpon>CurrencyEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Departments\DepartmentEditForm.resx">
+      <DependentUpon>DepartmentEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Departments\DepartmentsListForm.resx">
+      <DependentUpon>DepartmentsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Services\ServiceEditForm.resx">
+      <DependentUpon>ServiceEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Services\ServicesListForm.resx">
+      <DependentUpon>ServicesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\JobPositions\JobPositionEditForm.resx">
+      <DependentUpon>JobPositionEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\JobPositions\JobPositionsListForm.resx">
+      <DependentUpon>JobPositionsListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Main\Connections\ServerConfigurationForm.resx">
+      <DependentUpon>ServerConfigurationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Main\Connections\SuperAdminConnectionForm.resx">
+      <DependentUpon>SuperAdminConnectionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Main\Update\LiveUpdateForm.resx">
-      <DependentUpon>LiveUpdateForm.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Main\Update\CheckForUpdateForm.resx">
+      <DependentUpon>CheckForUpdateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\WaitForm1.resx">
       <DependentUpon>WaitForm1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Clients\ClientEditForm.resx">
+      <DependentUpon>ClientEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Clients\ClientsListForm.resx">
+      <DependentUpon>ClientsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Clients\ContactEditForm.resx">
+      <DependentUpon>ContactEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Engineers\EngineerEditForm.resx">
+      <DependentUpon>EngineerEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Engineers\EngineersListForm.resx">
+      <DependentUpon>EngineersListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Engineers\Sattus\StatusEditForm.resx">
+      <DependentUpon>StatusEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Engineers\Sattus\StatusListForm.resx">
+      <DependentUpon>StatusListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Projects\ProjectEditForm.resx">
+      <DependentUpon>ProjectEditForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Projects\ProjectsListForm.resx">
+      <DependentUpon>ProjectsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Transactions\Invoices\InvoiceEditForm.resx">
+      <DependentUpon>InvoiceEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Transactions\Invoices\InvoicesListForm.resx">
+      <DependentUpon>InvoicesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Users\ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Users\CreateNewPasswordForm.resx">
+      <DependentUpon>CreateNewPasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Users\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Users\UserEditForm.resx">
+      <DependentUpon>UserEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Users\UsersListForm.resx">
+      <DependentUpon>UsersListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Areas.AreaModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Areas.LocationModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Companies.BranchModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Companies.CompanyModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.CityModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.ContinentModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.CountryModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.DistrictModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.ProvinceModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.RegionModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Currencies.CurrencyModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Currencies.ExchangeCurrencyModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Departments.DepartmentModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Services.ServiceModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.JobPositions.JobPositionModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Members.Clients.ClientModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Members.Clients.ContactModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Members.Engineers.EngineerModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Members.Engineers.Status.StatusModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Operations.Projects.ProjectModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Projects.InvoiceModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Users.UserModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -175,9 +640,23 @@
     <None Include="Resources\professor.svg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Utilities\Interfaces\" />
+    <Folder Include="Views\Accounting\" />
+    <Folder Include="Views\HumanResources\Employees\" />
+    <Folder Include="Views\Members\Suppliers\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SpectrumV1.DataLayers\SpectrumV1.DataLayers.csproj">
+      <Project>{c358f497-16b5-42ca-8c46-6fead2528018}</Project>
+      <Name>SpectrumV1.DataLayers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpectrumV1.Models\SpectrumV1.Models.csproj">
+      <Project>{2dd2c5d0-7eae-44aa-aaf5-409141391579}</Project>
+      <Name>SpectrumV1.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpectrumV1.Reports\SpectrumV1.Reports.csproj">
+      <Project>{5c62bd1d-cf7e-4606-b313-6a24beabf497}</Project>
+      <Name>SpectrumV1.Reports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SpectrumV1.Update\SpectrumV1.Update.csproj">
       <Project>{d9750722-a1ed-4646-9e6e-2ac0a20e1b05}</Project>
       <Name>SpectrumV1.Update</Name>
@@ -188,4 +667,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Analyzer Include="C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.data\25.1.6\analyzers\dotnet\DevExpress.Generator.dll" Visible="false" Condition="Exists('C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.data\25.1.6\analyzers\dotnet\DevExpress.Generator.dll')" />
+  </ItemGroup>
 </Project>
