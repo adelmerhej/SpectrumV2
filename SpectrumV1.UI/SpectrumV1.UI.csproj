@@ -80,6 +80,18 @@
     <Compile Include="Utilities\HelperApplication.cs" />
     <Compile Include="Utilities\Interfaces\IFormWithRibbon.cs" />
     <Compile Include="Utilities\LogInfoRepository.cs" />
+    <Compile Include="Views\Accounting\Charts\ChartEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\Charts\ChartEditForm.Designer.cs">
+      <DependentUpon>ChartEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounting\Charts\ChartsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\Charts\ChartsListForm.Designer.cs">
+      <DependentUpon>ChartsListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Common\Areas\AreaEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -347,6 +359,12 @@
     <Compile Include="Views\Projects\ProjectsListForm.Designer.cs">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Transactions\Expenses\ExpensesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Transactions\Expenses\ExpensesListForm.Designer.cs">
+      <DependentUpon>ExpensesListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Transactions\Invoices\InvoiceEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -358,6 +376,24 @@
     </Compile>
     <Compile Include="Views\Transactions\Invoices\InvoicesListForm.Designer.cs">
       <DependentUpon>InvoicesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transactions\Receipts\ReceiptEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Transactions\Receipts\ReceiptEditForm.Designer.cs">
+      <DependentUpon>ReceiptEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transactions\Receipts\ReceiptsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Transactions\Receipts\ReceiptsListForm.Designer.cs">
+      <DependentUpon>ReceiptsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transactions\Statements\StatementOfAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Transactions\Statements\StatementOfAccountForm.Designer.cs">
+      <DependentUpon>StatementOfAccountForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\ChangePasswordForm.cs">
       <SubType>Form</SubType>
@@ -399,6 +435,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\Accounting\Charts\ChartEditForm.resx">
+      <DependentUpon>ChartEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\Charts\ChartsListForm.resx">
+      <DependentUpon>ChartsListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Common\Areas\AreaEditForm.resx">
       <DependentUpon>AreaEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -529,11 +571,23 @@
     <EmbeddedResource Include="Views\Projects\ProjectsListForm.resx">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Transactions\Expenses\ExpensesListForm.resx">
+      <DependentUpon>ExpensesListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Transactions\Invoices\InvoiceEditForm.resx">
       <DependentUpon>InvoiceEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Transactions\Invoices\InvoicesListForm.resx">
       <DependentUpon>InvoicesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Transactions\Receipts\ReceiptEditForm.resx">
+      <DependentUpon>ReceiptEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Transactions\Receipts\ReceiptsListForm.resx">
+      <DependentUpon>ReceiptsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Transactions\Statements\StatementOfAccountForm.resx">
+      <DependentUpon>StatementOfAccountForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Users\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
@@ -640,7 +694,14 @@
     <None Include="Resources\professor.svg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Accounting\" />
+    <Folder Include="Views\Accounting\Banks\" />
+    <Folder Include="Views\Accounting\CostCenter\" />
+    <Folder Include="Views\Accounting\FlowType\" />
+    <Folder Include="Views\Accounting\Journals\" />
+    <Folder Include="Views\Accounting\JournalType\" />
+    <Folder Include="Views\Accounting\Reports\" />
+    <Folder Include="Views\Accounting\Settings\" />
+    <Folder Include="Views\Accounting\Statements\" />
     <Folder Include="Views\HumanResources\Employees\" />
     <Folder Include="Views\Members\Suppliers\" />
   </ItemGroup>

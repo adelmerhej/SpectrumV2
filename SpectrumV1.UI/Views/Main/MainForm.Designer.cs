@@ -118,6 +118,7 @@
 			this.mnuAreas = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuStatus = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuLocations = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+			this.mnuJobPositions = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuCountriesListMenu = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuCountries = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.mnuCities = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -140,7 +141,6 @@
 			this.grpReadingPane = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.dockRight = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			this.showPendingJobs = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-			this.mnuJobPositions = new DevExpress.XtraBars.Navigation.AccordionControlElement();
 			((System.ComponentModel.ISupportInitialize)(this.ribbonMainForm)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
@@ -568,7 +568,7 @@
 			this.mnuInvoicesExpenses.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
 			this.mnuInvoicesExpenses.Name = "mnuInvoicesExpenses";
 			this.mnuInvoicesExpenses.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-			this.mnuInvoicesExpenses.Text = "Expenses Invoicing";
+			this.mnuInvoicesExpenses.Text = "Expenses";
 			this.mnuInvoicesExpenses.Click += new System.EventHandler(this.mnuInvoicesExpenses_Click);
 			// 
 			// mnuAccountsStatement
@@ -895,6 +895,15 @@
 			this.mnuLocations.Text = "Location";
 			this.mnuLocations.Click += new System.EventHandler(this.mnuLocations_Click);
 			// 
+			// mnuJobPositions
+			// 
+			this.mnuJobPositions.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuJobPositions.ImageOptions.SvgImage")));
+			this.mnuJobPositions.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+			this.mnuJobPositions.Name = "mnuJobPositions";
+			this.mnuJobPositions.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+			this.mnuJobPositions.Text = "Job Positions";
+			this.mnuJobPositions.Click += new System.EventHandler(this.mnuJobPositions_Click);
+			// 
 			// mnuCountriesListMenu
 			// 
 			this.mnuCountriesListMenu.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
@@ -1120,15 +1129,6 @@
 			this.showPendingJobs.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
 			this.showPendingJobs.Text = "Show Pending Jobs";
 			// 
-			// mnuJobPositions
-			// 
-			this.mnuJobPositions.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuJobPositions.ImageOptions.SvgImage")));
-			this.mnuJobPositions.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-			this.mnuJobPositions.Name = "mnuJobPositions";
-			this.mnuJobPositions.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-			this.mnuJobPositions.Text = "Job Positions";
-			this.mnuJobPositions.Click += new System.EventHandler(this.mnuJobPositions_Click);
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1136,8 +1136,8 @@
 			this.ClientSize = new System.Drawing.Size(1441, 789);
 			this.Controls.Add(this.accordionSettings);
 			this.Controls.Add(this.mainMenu);
-			this.Controls.Add(this.ribbonStatusBar);
 			this.Controls.Add(this.ribbonMainForm);
+			this.Controls.Add(this.ribbonStatusBar);
 			this.IsMdiContainer = true;
 			this.Name = "MainForm";
 			this.Ribbon = this.ribbonMainForm;

@@ -147,6 +147,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting\Charts\ChartDetailRepository.cs" />
+    <Compile Include="Accounting\Charts\ChartRepository.cs" />
+    <Compile Include="Accounting\Charts\IChartDetailRepository.cs" />
+    <Compile Include="Accounting\Charts\IChartRepository.cs" />
     <Compile Include="Administration\Update\LiveUpdateSettingsProvider.cs" />
     <Compile Include="Common\Areas\AreaRepository.cs" />
     <Compile Include="Common\Areas\IAreaRepository.cs" />
@@ -175,7 +179,9 @@
     <Compile Include="Common\Departments\DepartmentRepository.cs" />
     <Compile Include="Common\Departments\IDepartmentRepository.cs" />
     <Compile Include="Common\Services\IServiceRepository.cs" />
+    <Compile Include="Common\Services\IServiceTypeRepository.cs" />
     <Compile Include="Common\Services\ServiceRepository.cs" />
+    <Compile Include="Common\Services\ServiceTypeRepository.cs" />
     <Compile Include="DataAccess\DatabaseFactory.cs" />
     <Compile Include="DataAccess\IDatabase.cs" />
     <Compile Include="DataUtilities\ConfigManager.cs" />

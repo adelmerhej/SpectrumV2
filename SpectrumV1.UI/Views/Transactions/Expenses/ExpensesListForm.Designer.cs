@@ -1,6 +1,6 @@
-﻿namespace SpectrumV1.Views.Transactions.Invoices
+﻿namespace SpectrumV1.Views.Transactions.Expenses
 {
-	partial class InvoicesListForm
+	partial class ExpensesListForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,9 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoicesListForm));
-			this.rcInvoices = new DevExpress.XtraBars.Ribbon.RibbonControl();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExpensesListForm));
+			this.rcExpenses = new DevExpress.XtraBars.Ribbon.RibbonControl();
 			this.btnNew = new DevExpress.XtraBars.BarButtonItem();
 			this.btnDelete = new DevExpress.XtraBars.BarButtonItem();
 			this.btnEdit = new DevExpress.XtraBars.BarButtonItem();
@@ -38,7 +37,7 @@
 			this.btnRefresh = new DevExpress.XtraBars.BarButtonItem();
 			this.btnClose = new DevExpress.XtraBars.BarButtonItem();
 			this.btnResetGridStyle = new DevExpress.XtraBars.BarButtonItem();
-			this.rpInvoices = new DevExpress.XtraBars.Ribbon.RibbonPage();
+			this.rpExpenses = new DevExpress.XtraBars.Ribbon.RibbonPage();
 			this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
 			this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
 			this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -47,13 +46,12 @@
 			this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
 			this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
 			this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
-			this.gcJobPositions = new DevExpress.XtraGrid.GridControl();
-			this.bsInvoices = new System.Windows.Forms.BindingSource(this.components);
-			this.gvJobPositions = new DevExpress.XtraGrid.Views.Grid.GridView();
+			this.gcExpenses = new DevExpress.XtraGrid.GridControl();
+			this.gvExpenses = new DevExpress.XtraGrid.Views.Grid.GridView();
 			this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colProjectName = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colInvoiceNumber = new DevExpress.XtraGrid.Columns.GridColumn();
-			this.colInvoiceDate = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colExpensesNumber = new DevExpress.XtraGrid.Columns.GridColumn();
+			this.colExpensesDate = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colAmount = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colVAT = new DevExpress.XtraGrid.Columns.GridColumn();
 			this.colPaid = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -64,23 +62,22 @@
 			this.repCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
 			this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-			((System.ComponentModel.ISupportInitialize)(this.rcInvoices)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.rcExpenses)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
 			this.mainLayout.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.gcJobPositions)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsInvoices)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.gvJobPositions)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gcExpenses)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.gvExpenses)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// rcInvoices
+			// rcExpenses
 			// 
-			this.rcInvoices.EmptyAreaImageOptions.ImagePadding = new System.Windows.Forms.Padding(35, 39, 35, 39);
-			this.rcInvoices.ExpandCollapseItem.Id = 0;
-			this.rcInvoices.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
-            this.rcInvoices.ExpandCollapseItem,
+			this.rcExpenses.EmptyAreaImageOptions.ImagePadding = new System.Windows.Forms.Padding(35, 39, 35, 39);
+			this.rcExpenses.ExpandCollapseItem.Id = 0;
+			this.rcExpenses.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.rcExpenses.ExpandCollapseItem,
             this.btnNew,
             this.btnDelete,
             this.btnEdit,
@@ -88,21 +85,22 @@
             this.btnRefresh,
             this.btnClose,
             this.btnResetGridStyle});
-			this.rcInvoices.Location = new System.Drawing.Point(0, 0);
-			this.rcInvoices.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-			this.rcInvoices.MaxItemId = 42;
-			this.rcInvoices.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
-			this.rcInvoices.Name = "rcInvoices";
-			this.rcInvoices.OptionsMenuMinWidth = 385;
-			this.rcInvoices.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
-            this.rpInvoices,
+			this.rcExpenses.Location = new System.Drawing.Point(0, 0);
+			this.rcExpenses.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			this.rcExpenses.MaxItemId = 42;
+			this.rcExpenses.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
+			this.rcExpenses.Name = "rcExpenses";
+			this.rcExpenses.OptionsMenuMinWidth = 385;
+			this.rcExpenses.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
+            this.rpExpenses,
             this.rpViewSettings});
-			this.rcInvoices.Size = new System.Drawing.Size(1381, 193);
-			this.rcInvoices.StatusBar = this.ribbonStatusBar1;
+			this.rcExpenses.Size = new System.Drawing.Size(1381, 193);
+			this.rcExpenses.StatusBar = this.ribbonStatusBar1;
 			// 
 			// btnNew
 			// 
 			this.btnNew.Caption = "Add New";
+			this.btnNew.Enabled = false;
 			this.btnNew.Id = 1;
 			this.btnNew.ImageOptions.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.False;
 			this.btnNew.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.NewCustomer.svg";
@@ -113,6 +111,7 @@
 			// btnDelete
 			// 
 			this.btnDelete.Caption = "Delete";
+			this.btnDelete.Enabled = false;
 			this.btnDelete.Id = 3;
 			this.btnDelete.ImageOptions.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.False;
 			this.btnDelete.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Delete.svg";
@@ -123,6 +122,7 @@
 			// btnEdit
 			// 
 			this.btnEdit.Caption = "Edit";
+			this.btnEdit.Enabled = false;
 			this.btnEdit.Id = 13;
 			this.btnEdit.ImageOptions.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.False;
 			this.btnEdit.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Edit.svg";
@@ -133,6 +133,7 @@
 			// btnPrint
 			// 
 			this.btnPrint.Caption = "Print View";
+			this.btnPrint.Enabled = false;
 			this.btnPrint.Id = 16;
 			this.btnPrint.ImageOptions.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.False;
 			this.btnPrint.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.SalesAnalysis.svg";
@@ -164,15 +165,15 @@
 			this.btnResetGridStyle.Name = "btnResetGridStyle";
 			this.btnResetGridStyle.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResetGridStyle_ItemClick);
 			// 
-			// rpInvoices
+			// rpExpenses
 			// 
-			this.rpInvoices.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+			this.rpExpenses.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup1,
             this.ribbonPageGroup6,
             this.ribbonPageGroup8,
             this.ribbonPageGroup11});
-			this.rpInvoices.Name = "rpInvoices";
-			this.rpInvoices.Text = "INVOICES";
+			this.rpExpenses.Name = "rpExpenses";
+			this.rpExpenses.Text = "EXPENSES";
 			// 
 			// ribbonPageGroup1
 			// 
@@ -227,50 +228,45 @@
 			// 
 			this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 765);
 			this.ribbonStatusBar1.Name = "ribbonStatusBar1";
-			this.ribbonStatusBar1.Ribbon = this.rcInvoices;
+			this.ribbonStatusBar1.Ribbon = this.rcExpenses;
 			this.ribbonStatusBar1.Size = new System.Drawing.Size(1381, 30);
 			// 
 			// mainLayout
 			// 
-			this.mainLayout.Controls.Add(this.gcJobPositions);
+			this.mainLayout.Controls.Add(this.gcExpenses);
 			this.mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.mainLayout.Location = new System.Drawing.Point(0, 193);
 			this.mainLayout.Name = "mainLayout";
 			this.mainLayout.Root = this.Root;
 			this.mainLayout.Size = new System.Drawing.Size(1381, 572);
-			this.mainLayout.TabIndex = 6;
+			this.mainLayout.TabIndex = 8;
 			this.mainLayout.Text = "layoutControl1";
 			// 
-			// gcJobPositions
+			// gcExpenses
 			// 
-			this.gcJobPositions.DataSource = this.bsInvoices;
-			this.gcJobPositions.EmbeddedNavigator.Buttons.Append.Visible = false;
-			this.gcJobPositions.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
-			this.gcJobPositions.EmbeddedNavigator.Buttons.Edit.Visible = false;
-			this.gcJobPositions.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
-			this.gcJobPositions.EmbeddedNavigator.Buttons.Remove.Visible = false;
-			this.gcJobPositions.Location = new System.Drawing.Point(14, 14);
-			this.gcJobPositions.MainView = this.gvJobPositions;
-			this.gcJobPositions.Name = "gcJobPositions";
-			this.gcJobPositions.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+			this.gcExpenses.EmbeddedNavigator.Buttons.Append.Visible = false;
+			this.gcExpenses.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
+			this.gcExpenses.EmbeddedNavigator.Buttons.Edit.Visible = false;
+			this.gcExpenses.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
+			this.gcExpenses.EmbeddedNavigator.Buttons.Remove.Visible = false;
+			this.gcExpenses.Location = new System.Drawing.Point(14, 14);
+			this.gcExpenses.MainView = this.gvExpenses;
+			this.gcExpenses.Name = "gcExpenses";
+			this.gcExpenses.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repCheckEdit});
-			this.gcJobPositions.Size = new System.Drawing.Size(1353, 544);
-			this.gcJobPositions.TabIndex = 8;
-			this.gcJobPositions.UseEmbeddedNavigator = true;
-			this.gcJobPositions.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvJobPositions});
+			this.gcExpenses.Size = new System.Drawing.Size(1353, 544);
+			this.gcExpenses.TabIndex = 8;
+			this.gcExpenses.UseEmbeddedNavigator = true;
+			this.gcExpenses.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvExpenses});
 			// 
-			// bsInvoices
+			// gvExpenses
 			// 
-			this.bsInvoices.DataSource = typeof(SpectrumV1.Models.Projects.InvoiceModel);
-			// 
-			// gvJobPositions
-			// 
-			this.gvJobPositions.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+			this.gvExpenses.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id,
             this.colProjectName,
-            this.colInvoiceNumber,
-            this.colInvoiceDate,
+            this.colExpensesNumber,
+            this.colExpensesDate,
             this.colAmount,
             this.colVAT,
             this.colPaid,
@@ -278,16 +274,16 @@
             this.colBank,
             this.colNotes,
             this.colActive});
-			this.gvJobPositions.GridControl = this.gcJobPositions;
-			this.gvJobPositions.Name = "gvJobPositions";
-			this.gvJobPositions.OptionsBehavior.AllowFixedGroups = DevExpress.Utils.DefaultBoolean.True;
-			this.gvJobPositions.OptionsBehavior.AutoExpandAllGroups = true;
-			this.gvJobPositions.OptionsBehavior.Editable = false;
-			this.gvJobPositions.OptionsBehavior.ReadOnly = true;
-			this.gvJobPositions.OptionsFind.AlwaysVisible = true;
-			this.gvJobPositions.OptionsView.ColumnAutoWidth = false;
-			this.gvJobPositions.OptionsView.ShowGroupedColumns = true;
-			this.gvJobPositions.OptionsView.ShowGroupPanel = false;
+			this.gvExpenses.GridControl = this.gcExpenses;
+			this.gvExpenses.Name = "gvExpenses";
+			this.gvExpenses.OptionsBehavior.AllowFixedGroups = DevExpress.Utils.DefaultBoolean.True;
+			this.gvExpenses.OptionsBehavior.AutoExpandAllGroups = true;
+			this.gvExpenses.OptionsBehavior.Editable = false;
+			this.gvExpenses.OptionsBehavior.ReadOnly = true;
+			this.gvExpenses.OptionsFind.AlwaysVisible = true;
+			this.gvExpenses.OptionsView.ColumnAutoWidth = false;
+			this.gvExpenses.OptionsView.ShowGroupedColumns = true;
+			this.gvExpenses.OptionsView.ShowGroupPanel = false;
 			// 
 			// col_id
 			// 
@@ -306,23 +302,25 @@
 			this.colProjectName.VisibleIndex = 0;
 			this.colProjectName.Width = 143;
 			// 
-			// colInvoiceNumber
+			// colExpensesNumber
 			// 
-			this.colInvoiceNumber.FieldName = "InvoiceNumber";
-			this.colInvoiceNumber.MinWidth = 25;
-			this.colInvoiceNumber.Name = "colInvoiceNumber";
-			this.colInvoiceNumber.Visible = true;
-			this.colInvoiceNumber.VisibleIndex = 1;
-			this.colInvoiceNumber.Width = 125;
+			this.colExpensesNumber.Caption = "Number";
+			this.colExpensesNumber.FieldName = "ExpenseNumber";
+			this.colExpensesNumber.MinWidth = 25;
+			this.colExpensesNumber.Name = "colExpensesNumber";
+			this.colExpensesNumber.Visible = true;
+			this.colExpensesNumber.VisibleIndex = 1;
+			this.colExpensesNumber.Width = 125;
 			// 
-			// colInvoiceDate
+			// colExpensesDate
 			// 
-			this.colInvoiceDate.FieldName = "InvoiceDate";
-			this.colInvoiceDate.MinWidth = 25;
-			this.colInvoiceDate.Name = "colInvoiceDate";
-			this.colInvoiceDate.Visible = true;
-			this.colInvoiceDate.VisibleIndex = 2;
-			this.colInvoiceDate.Width = 135;
+			this.colExpensesDate.Caption = "Date";
+			this.colExpensesDate.FieldName = "Date";
+			this.colExpensesDate.MinWidth = 25;
+			this.colExpensesDate.Name = "colExpensesDate";
+			this.colExpensesDate.Visible = true;
+			this.colExpensesDate.VisibleIndex = 2;
+			this.colExpensesDate.Width = 135;
 			// 
 			// colAmount
 			// 
@@ -404,31 +402,30 @@
 			// 
 			// layoutControlItem1
 			// 
-			this.layoutControlItem1.Control = this.gcJobPositions;
+			this.layoutControlItem1.Control = this.gcExpenses;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem1.Name = "layoutControlItem1";
 			this.layoutControlItem1.Size = new System.Drawing.Size(1357, 548);
 			this.layoutControlItem1.TextVisible = false;
 			// 
-			// InvoicesListForm
+			// ExpensesListForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1381, 795);
 			this.Controls.Add(this.mainLayout);
-			this.Controls.Add(this.rcInvoices);
+			this.Controls.Add(this.rcExpenses);
 			this.Controls.Add(this.ribbonStatusBar1);
-			this.Name = "InvoicesListForm";
-			this.Ribbon = this.rcInvoices;
+			this.Name = "ExpensesListForm";
+			this.Ribbon = this.rcExpenses;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.StatusBar = this.ribbonStatusBar1;
-			this.Text = "Invoices List";
-			((System.ComponentModel.ISupportInitialize)(this.rcInvoices)).EndInit();
+			this.Text = "Expenses List";
+			((System.ComponentModel.ISupportInitialize)(this.rcExpenses)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.gcJobPositions)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.bsInvoices)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.gvJobPositions)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gcExpenses)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.gvExpenses)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
@@ -438,7 +435,8 @@
 		}
 
 		#endregion
-		public DevExpress.XtraBars.Ribbon.RibbonControl rcInvoices;
+
+		public DevExpress.XtraBars.Ribbon.RibbonControl rcExpenses;
 		private DevExpress.XtraBars.BarButtonItem btnNew;
 		private DevExpress.XtraBars.BarButtonItem btnDelete;
 		private DevExpress.XtraBars.BarButtonItem btnEdit;
@@ -446,7 +444,7 @@
 		private DevExpress.XtraBars.BarButtonItem btnRefresh;
 		private DevExpress.XtraBars.BarButtonItem btnClose;
 		private DevExpress.XtraBars.BarButtonItem btnResetGridStyle;
-		private DevExpress.XtraBars.Ribbon.RibbonPage rpInvoices;
+		private DevExpress.XtraBars.Ribbon.RibbonPage rpExpenses;
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup8;
@@ -455,15 +453,12 @@
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
 		private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar1;
 		private DevExpress.XtraLayout.LayoutControl mainLayout;
-		private DevExpress.XtraGrid.GridControl gcJobPositions;
-		private DevExpress.XtraGrid.Views.Grid.GridView gvJobPositions;
-		private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repCheckEdit;
-		private DevExpress.XtraLayout.LayoutControlGroup Root;
-		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-		private System.Windows.Forms.BindingSource bsInvoices;
+		private DevExpress.XtraGrid.GridControl gcExpenses;
+		private DevExpress.XtraGrid.Views.Grid.GridView gvExpenses;
 		private DevExpress.XtraGrid.Columns.GridColumn col_id;
-		private DevExpress.XtraGrid.Columns.GridColumn colInvoiceNumber;
-		private DevExpress.XtraGrid.Columns.GridColumn colInvoiceDate;
+		private DevExpress.XtraGrid.Columns.GridColumn colProjectName;
+		private DevExpress.XtraGrid.Columns.GridColumn colExpensesNumber;
+		private DevExpress.XtraGrid.Columns.GridColumn colExpensesDate;
 		private DevExpress.XtraGrid.Columns.GridColumn colAmount;
 		private DevExpress.XtraGrid.Columns.GridColumn colVAT;
 		private DevExpress.XtraGrid.Columns.GridColumn colPaid;
@@ -471,6 +466,8 @@
 		private DevExpress.XtraGrid.Columns.GridColumn colBank;
 		private DevExpress.XtraGrid.Columns.GridColumn colNotes;
 		private DevExpress.XtraGrid.Columns.GridColumn colActive;
-		private DevExpress.XtraGrid.Columns.GridColumn colProjectName;
+		private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repCheckEdit;
+		private DevExpress.XtraLayout.LayoutControlGroup Root;
+		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
 	}
 }

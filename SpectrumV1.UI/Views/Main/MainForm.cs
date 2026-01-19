@@ -21,7 +21,10 @@ using SpectrumV1.Views.Members.Clients;
 using SpectrumV1.Views.Members.Engineers;
 using SpectrumV1.Views.Members.Engineers.Sattus;
 using SpectrumV1.Views.Projects;
+using SpectrumV1.Views.Transactions.Expenses;
 using SpectrumV1.Views.Transactions.Invoices;
+using SpectrumV1.Views.Transactions.Receipts;
+using SpectrumV1.Views.Transactions.Statements;
 using SpectrumV1.Views.Users;
 using System;
 using System.Linq;
@@ -322,17 +325,19 @@ namespace SpectrumV1.Views.Main
 
 		private void mnuInvoicesExpenses_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
+			OpenForm<ExpensesListForm>();
+			//
 		}
 
 		private void mnuReceipts_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
+			OpenForm<ReceiptsListForm>();
 		}
 
 		private void mnuAccountsStatement_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
+			StatementOfAccountForm frm = new StatementOfAccountForm();
+			frm.ShowDialog();
 		}
 
 
@@ -390,6 +395,7 @@ namespace SpectrumV1.Views.Main
 		private void mnuChartsOfAccount_Click(object sender, EventArgs e)
 		{
 			ShowFeatureUnderDevelopment();
+			//ChartsListForm
 		}
 
 		private void mnuCostCenter_Click(object sender, EventArgs e)

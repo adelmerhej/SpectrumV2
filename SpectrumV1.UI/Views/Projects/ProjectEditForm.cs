@@ -2,12 +2,13 @@ using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using SpectrumV1.DataLayers.Common.Services;
 using SpectrumV1.DataLayers.DataAccess;
 using SpectrumV1.DataLayers.Members.Clients;
 using SpectrumV1.DataLayers.Members.Engineers;
 using SpectrumV1.DataLayers.Projects;
 using SpectrumV1.DataLayers.Users;
-using SpectrumV1.Models.Common.Countries;
+using SpectrumV1.Models.Common.Services;
 using SpectrumV1.Models.Members.Clients;
 using SpectrumV1.Models.Members.Engineers;
 using SpectrumV1.Models.Projects;
@@ -31,10 +32,16 @@ namespace SpectrumV1.Views.Projects
 		private UserModel _userModel = new UserModel();
 		private IList<UserModel> _users = new List<UserModel>();
 
+		private IList<ServiceModel> _services = new List<ServiceModel>();
+		private IList<ServiceTypeModel> _serviceTypes = new List<ServiceTypeModel>();
+
 		private readonly ProjectRepository _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
 		private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
 		private readonly EngineerRepository _engineerRepository = new EngineerRepository(DatabaseFactory.ProfilePrimary);
 		private readonly UserRepository _userRepository = new UserRepository(DatabaseFactory.ProfilePrimary);
+		private readonly ServiceRepository _serviceRepository = new ServiceRepository(DatabaseFactory.ProfilePrimary);
+		private readonly ServiceTypeRepository _serviceTypeRepository = new ServiceTypeRepository(DatabaseFactory.ProfilePrimary);
+
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
 		private bool _canAdd = true;
@@ -69,6 +76,8 @@ namespace SpectrumV1.Views.Projects
 				_clients = await _clientRepository.GetClientsAsync();
 				_engineers = await _engineerRepository.GetEngineersAsync();
 				_users = await _userRepository.GetUsersAsync();
+				_services = await _serviceRepository.GetServicesAsync();
+				_serviceTypes = await _serviceTypeRepository.GetServiceTypesAsync();
 			}
 			catch (Exception ex)
 			{
@@ -94,6 +103,18 @@ namespace SpectrumV1.Views.Projects
 			cboOperatingUsers.Properties.DataSource = null;
 			cboOperatingUsers.Properties.DataSource = _users;
 
+			lstServices.DataSource = null;
+			lstServices.DataSource = _services;
+
+			lstServicesProvided.DataSource = null;
+			lstServicesProvided.DataSource = _services;
+
+			lstProjectType.DataSource = null;
+			lstProjectType.DataSource = _serviceTypes;
+
+			lstServicesType.DataSource = null;
+			lstServicesType.DataSource = _serviceTypes;
+
 			//cboStatus.Properties.Items.Clear();
 			//cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
 		}
@@ -103,7 +124,7 @@ namespace SpectrumV1.Views.Projects
 			if (string.IsNullOrEmpty(_projectModel._id))
 			{
 				_projectModel.Status = ProjectStatus.Active;
-				_projectModel.IssuanceDate = DateTime.Today;
+				_projectModel.ProjectDate = DateTime.Today;
 			}
 		}
 

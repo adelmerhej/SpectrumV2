@@ -8,11 +8,6 @@ using SpectrumV1.Utilities.Interfaces;
 using SpectrumV1.Views.HumanResources.JobPositions;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -123,7 +118,8 @@ namespace SpectrumV1.Views.Transactions.Invoices
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-
+			InvoiceEditForm frm = new InvoiceEditForm();
+			frm.ShowDialog();
 		}
 
 		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)

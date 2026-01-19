@@ -14,18 +14,23 @@ namespace SpectrumV1.Models.Projects
 		// References: Storing IDs for related collections (Area, Engineer, Client, etc.).
 		// Use string for MongoDB ObjectId references.
 
-		[BsonElement("Area")]
-		public string Area { get; set; }                            // "Area"
+		[BsonElement("Reference ")]                                 // "Project Reference "
+		public string Reference { get; set; }
 
 		[BsonElement("ProjectName")]                               // "Project Name"
 		public string ProjectName { get; set; }
 
-		[BsonElement("QuotationReferenceId")]                       // Optional Reference to the Quotation document
+		[BsonElement("TentativeReference ")]                                 // "Tentative Project Reference "
+		public string TentativeReference { get; set; }
+
+		[BsonElement("ContractReferenceId")]                       // Optional Reference to the Quotation document
 		[BsonRepresentation(BsonType.ObjectId)]
 		public ObjectId? QuotationReferenceId { get; set; }
 
-		[BsonElement("Reference ")]                                 // "Quotation Reference "
-		public string Reference { get; set; }
+		[BsonElement("Contract ")]                                 // "Quotation Reference "
+		public string Contract { get; set; }
+
+		public string JointVenture { get; set; }
 
 		[BsonElement("ClientId")]                                   // Optional ref to Clients collection
 		[BsonRepresentation(BsonType.ObjectId)]
@@ -33,6 +38,20 @@ namespace SpectrumV1.Models.Projects
 
 		[BsonElement("ClientName ")]                                // denormalized client name
 		public string ClientName { get; set; }
+
+
+		[BsonElement("ContactId")]                                   // Optional ref to Clients Contact Collection
+		[BsonRepresentation(BsonType.ObjectId)]
+		public ObjectId? ContactId { get; set; }
+		[BsonElement("ClientContact ")]                                // denormalized client Contact
+		public string ClientContact { get; set; }
+
+
+		[BsonElement("FundedById")]                                   // Optional ref to Funded By Collection
+		[BsonRepresentation(BsonType.ObjectId)]
+		public ObjectId? FundedById { get; set; }
+		[BsonElement("FundedBy ")]                                // denormalized Funded By
+		public string FundedBy { get; set; }
 
 
 		// Personnel / Ownership
@@ -53,29 +72,13 @@ namespace SpectrumV1.Models.Projects
 		[BsonRepresentation(BsonType.ObjectId)]
 		public ObjectId? UserId { get; set; }
 
-		// Personnel / Ownership
-		//------------------------------------------------
-		[BsonElement("OperatingUser ")]                          // "Ownership"
-		public string OperatingUser { get; set; }
-
-		[BsonElement("OperatingUserId")]                                 // optional ref to OperatingUser in User collection
-		[BsonRepresentation(BsonType.ObjectId)]
-		public ObjectId? OperatingUserId { get; set; }
-
-		// Personnel / Ownership
-		//------------------------------------------------
-		[BsonElement("PersonInCharge ")]                          // "Ownership"
-		public string PersonInCharge { get; set; }
-
-		[BsonElement("PersonInChargeId")]                                 // optional ref to PersonInCharge in User collection
-		[BsonRepresentation(BsonType.ObjectId)]
-		public ObjectId? PersonInChargeId { get; set; }
-
 		// Location
 		//------------------------------------------------
 		[BsonElement("Location ")]                                  // Location
 		public LocationInfoModel Location { get; set; }
 
+		[BsonElement("Area")]
+		public string Area { get; set; }                            // "Area"
 
 		// Dates & status
 		//------------------------------------------------
@@ -84,23 +87,25 @@ namespace SpectrumV1.Models.Projects
 		[BsonRepresentation(BsonType.Int32)]
 		public int? YearOfIssuance { get; set; }                    // "Year of Issuance"
 
-		public DateTime? IssuanceDate { get; set; }                  // "Issuance Date"
+		public DateTime? ProjectDate { get; set; }                  // "ProjectDate Date"
+		public DateTime? SignatureDate { get; set; }                  // "Signature Date"
+
 
 		public DateTime? ExpiryDate { get; set; }                    // "Expiry Date"
 
 		[BsonRepresentation(BsonType.String)]
 		public ProjectStatus Status { get; set; }                   // "Status"
 
-		// Description & free text   
+		// Contract Link   
 		//------------------------------------------------
-		[BsonElement("Description")]
-		public string Description { get; set; }
+		[BsonElement("ContractLink")]
+		public string ContractLink { get; set; }
 
 
-		// Contract & financials (single, canonical contract)
+		// Services (Design, Supervision...)
 		//------------------------------------------------
-		[BsonElement("Contract")]
-		public ContractInfoModel Contract { get; set; }
+		[BsonElement("Services")]
+		public ContractInfoModel Services { get; set; }
 
 
 		// Repeating financial adjustments (addendums) -> dynamic list

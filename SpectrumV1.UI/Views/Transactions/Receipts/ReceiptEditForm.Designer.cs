@@ -1,6 +1,6 @@
-﻿namespace SpectrumV1.Views.Transactions.Invoices
+﻿namespace SpectrumV1.Views.Transactions.Receipts
 {
-	partial class InvoiceEditForm
+	partial class ReceiptEditForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoiceEditForm));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptEditForm));
 			DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup3 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
 			DevExpress.Skins.SkinPaddingEdges skinPaddingEdges3 = new DevExpress.Skins.SkinPaddingEdges();
 			DevExpress.Skins.SkinPaddingEdges skinPaddingEdges4 = new DevExpress.Skins.SkinPaddingEdges();
@@ -380,15 +380,15 @@
 			galleryItem8.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage1")));
 			galleryItem8.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
 			galleryItem8.Value = 1;
-			galleryItem9.Caption = "Edit Invoice";
+			galleryItem9.Caption = "Edit Receipt";
 			galleryItem9.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage2")));
 			galleryItem9.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
 			galleryItem9.Value = 2;
-			galleryItem10.Caption = "Cancel Invoice";
+			galleryItem10.Caption = "Cancel Receipt";
 			galleryItem10.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage3")));
 			galleryItem10.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
 			galleryItem10.Value = 3;
-			galleryItem11.Caption = "ReOpen Invoice";
+			galleryItem11.Caption = "ReOpen Receipt";
 			galleryItem11.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage4")));
 			galleryItem11.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
 			galleryItem11.Value = 4;
@@ -429,7 +429,7 @@
             this.ribbonPageGroup3,
             this.ribbonPageGroup9});
 			this.rpMain.Name = "rpMain";
-			this.rpMain.Text = "INVOICE";
+			this.rpMain.Text = "RECEIPT";
 			// 
 			// ribbonPageGroup8
 			// 
@@ -558,8 +558,8 @@
 			this.tablePanel2.Rows.AddRange(new DevExpress.Utils.Layout.TablePanelRow[] {
             new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 30F),
             new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 30F),
-            new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 9.200003F),
-            new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 34.8F),
+            new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 8.400002F),
+            new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 26.79998F),
             new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Absolute, 30F)});
 			this.tablePanel2.Size = new System.Drawing.Size(369, 249);
 			this.tablePanel2.TabIndex = 4;
@@ -568,7 +568,7 @@
 			// txtGrandTotal
 			// 
 			this.tablePanel2.SetColumn(this.txtGrandTotal, 1);
-			this.txtGrandTotal.Location = new System.Drawing.Point(140, 164);
+			this.txtGrandTotal.Location = new System.Drawing.Point(140, 159);
 			this.txtGrandTotal.MenuManager = this.ribbonControl;
 			this.txtGrandTotal.Name = "txtGrandTotal";
 			this.txtGrandTotal.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -586,7 +586,7 @@
 			// txtTotalVAT
 			// 
 			this.tablePanel2.SetColumn(this.txtTotalVAT, 1);
-			this.txtTotalVAT.Location = new System.Drawing.Point(140, 87);
+			this.txtTotalVAT.Location = new System.Drawing.Point(140, 82);
 			this.txtTotalVAT.MenuManager = this.ribbonControl;
 			this.txtTotalVAT.Name = "txtTotalVAT";
 			this.txtTotalVAT.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
@@ -636,7 +636,7 @@
 			this.lblGrandTotal.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblGrandTotal.Appearance.Options.UseFont = true;
 			this.tablePanel2.SetColumn(this.lblGrandTotal, 0);
-			this.lblGrandTotal.Location = new System.Drawing.Point(15, 167);
+			this.lblGrandTotal.Location = new System.Drawing.Point(15, 162);
 			this.lblGrandTotal.Name = "lblGrandTotal";
 			this.tablePanel2.SetRow(this.lblGrandTotal, 4);
 			this.lblGrandTotal.Size = new System.Drawing.Size(87, 18);
@@ -646,7 +646,7 @@
 			// lblTotalVat
 			// 
 			this.tablePanel2.SetColumn(this.lblTotalVat, 0);
-			this.lblTotalVat.Location = new System.Drawing.Point(15, 90);
+			this.lblTotalVat.Location = new System.Drawing.Point(15, 85);
 			this.lblTotalVat.Name = "lblTotalVat";
 			this.tablePanel2.SetRow(this.lblTotalVat, 3);
 			this.lblTotalVat.Size = new System.Drawing.Size(57, 16);
@@ -961,7 +961,7 @@
 			this.tabInvoiceInfo.Controls.Add(this.layoutControl1);
 			this.tabInvoiceInfo.Name = "tabInvoiceInfo";
 			this.tabInvoiceInfo.Size = new System.Drawing.Size(917, 247);
-			this.tabInvoiceInfo.Text = "Invoice Info";
+			this.tabInvoiceInfo.Text = "Receipt Info";
 			// 
 			// layoutControl1
 			// 
@@ -1115,9 +1115,9 @@
 			this.lblInvocieNo.Location = new System.Drawing.Point(3, 8);
 			this.lblInvocieNo.Name = "lblInvocieNo";
 			this.InvoiceInfoTablePanel.SetRow(this.lblInvocieNo, 0);
-			this.lblInvocieNo.Size = new System.Drawing.Size(59, 16);
+			this.lblInvocieNo.Size = new System.Drawing.Size(61, 16);
 			this.lblInvocieNo.TabIndex = 8;
-			this.lblInvocieNo.Text = "Invocie No";
+			this.lblInvocieNo.Text = "Receipt No";
 			// 
 			// cboMemebrs
 			// 
@@ -1247,7 +1247,7 @@
 			this.layoutControlItem1.Size = new System.Drawing.Size(1354, 534);
 			this.layoutControlItem1.TextVisible = false;
 			// 
-			// InvoiceEditForm
+			// ReceiptEditForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1255,11 +1255,11 @@
 			this.Controls.Add(this.mainLayout);
 			this.Controls.Add(this.ribbonControl);
 			this.Controls.Add(this.ribbonStatusBar1);
-			this.Name = "InvoiceEditForm";
+			this.Name = "ReceiptEditForm";
 			this.Ribbon = this.ribbonControl;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.StatusBar = this.ribbonStatusBar1;
-			this.Text = "Edit Invoice";
+			this.Text = "Edit Receipt";
 			((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
 			this.mainLayout.ResumeLayout(false);
