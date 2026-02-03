@@ -104,9 +104,13 @@ namespace SpectrumV1.Views.Projects
 			cboOperatingUsers.Properties.DataSource = _users;
 
 			lstServices.DataSource = null;
+			lstServices.DisplayMember = "ServiceName";
+			lstServices.ValueMember = "ServiceCode";
 			lstServices.DataSource = _services;
 
 			lstServicesProvided.DataSource = null;
+			lstServicesProvided.DisplayMember = "ServiceName";
+			lstServicesProvided.ValueMember = "ServiceCode";
 			lstServicesProvided.DataSource = _services;
 
 			lstProjectType.DataSource = null;

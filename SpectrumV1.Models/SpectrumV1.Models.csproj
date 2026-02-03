@@ -191,6 +191,7 @@
   <ItemGroup>
     <Folder Include="HumanResources\Employees\" />
     <Folder Include="Members\Suppliers\" />
+    <Folder Include="Operations\Invoices\" />
     <Folder Include="Operations\Quotations\" />
   </ItemGroup>
   <ItemGroup>

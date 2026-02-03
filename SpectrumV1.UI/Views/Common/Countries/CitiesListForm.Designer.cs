@@ -437,8 +437,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1425, 726);
 			this.Controls.Add(this.mainLayout);
-			this.Controls.Add(this.ribbonStatusBar1);
 			this.Controls.Add(this.rcCitiesList);
+			this.Controls.Add(this.ribbonStatusBar1);
 			this.Name = "CitiesListForm";
 			this.Ribbon = this.rcCitiesList;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
