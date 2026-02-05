@@ -1,0 +1,187 @@
+﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
+using Spectrum.DataLayers.DataAccess;
+using Spectrum.Models.Administration.Connections;
+using Spectrum.Models.Users;
+using System;
+using System.Windows.Forms;
+
+namespace Spectrum.Views.Main.Connections
+{
+	public partial class ServerConfigurationForm : XtraForm
+	{
+		private ConnectionModel _connectionModel = new ConnectionModel();
+		private const string _databaseType = "MongoDb";
+		private const string _authDb = "admin";
+
+		public ServerConfigurationForm()
+		{
+			InitializeComponent();
+
+			ConnectionParams();
+			InitializeBindings();
+			WireUpBindings();
+			ApplyPermissions();
+		}
+
+		#region Init preloading Methods
+		private void ConnectionParams()
+		{
+			_connectionModel = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
+		}
+
+		private void InitializeBindings()
+		{
+
+		}
+
+		private void WireUpBindings()
+		{
+			txtHost.Text = string.IsNullOrWhiteSpace(_connectionModel.DatabaseHost) ? "localhost" : _connectionModel.DatabaseHost;
+			txtPort.Value = _connectionModel.DatabasePort == 0 ? 27017 : _connectionModel.DatabasePort;
+			txtDatabase.Text = string.IsNullOrWhiteSpace(_connectionModel.DatabaseName) ? "spectrumdb" : _connectionModel.DatabaseName;
+			txtUsername.Text = _connectionModel.DatabaseUser ?? string.Empty;
+			txtPassword.Text = _connectionModel.DatabasePassword ?? string.Empty;
+			txtConnectionString.Text = _connectionModel.DatabaseConnectionString ?? string.Empty;
+		}
+
+		private void ApplyPermissions()
+		{
+			btnSecondConnection.Visible = CurrentUser.UserName?.ToLower() == "admin";
+		}
+
+		#endregion
+
+		private void btnCancel_Click(object sender, System.EventArgs e)
+		{
+			Close();
+		}
+
+		private void btnSave_Click(object sender, System.EventArgs e)
+		{
+			try
+			{
+				int.TryParse(txtPort.Text, out var result);
+
+				_connectionModel.DatabaseHost = txtHost.Text.Trim();
+				_connectionModel.DatabasePort = result;
+				_connectionModel.DatabaseType = _databaseType;
+				_connectionModel.DatabaseName = txtDatabase.Text.Trim();
+				_connectionModel.DatabaseUser = txtUsername.Text.Trim();
+				_connectionModel.DatabasePassword = txtPassword.Text;
+
+				_connectionModel.DatabaseConnectionString = txtConnectionString.Text.Trim();
+
+				DatabaseFactory.SaveConnection(_connectionModel, DatabaseFactory.ProfilePrimary);
+
+				DialogResult = DialogResult.OK;
+				Close();
+			}
+			catch (Exception)
+			{
+				DialogResult = DialogResult.Cancel;
+			}
+		}
+
+		private void btnTest_Click(object sender, System.EventArgs e)
+		{
+			try
+			{
+				var testConnection = new ConnectionModel();
+
+				int.TryParse(txtPort.Text, out var result);
+
+				testConnection.DatabaseHost = txtHost.Text.Trim();
+				testConnection.DatabasePort = result;
+				testConnection.DatabaseType = _databaseType;
+				testConnection.DatabaseName = txtDatabase.Text.Trim();
+				testConnection.DatabaseUser = txtUsername.Text.Trim();
+				testConnection.DatabasePassword = txtPassword.Text;
+
+				testConnection.DatabaseConnectionString = txtConnectionString.Text.Trim();
+
+				//test connection
+				bool isConnected = DatabaseFactory.TestConnection(testConnection, DatabaseFactory.ProfilePrimary);
+
+				if (isConnected)
+				{
+					XtraMessageBox.Show("Connection Successful!", "Connection Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+				else
+				{
+					XtraMessageBox.Show("Connection Failed!", "Connection Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			}
+			catch (Exception ex)
+			{
+				//log error
+				XtraMessageBox.Show(ex.Message, @"Connection Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		private void txtPassword_ButtonClick(object sender, ButtonPressedEventArgs e)
+		{
+			ButtonEdit edit = sender as ButtonEdit;
+			if (edit != null) edit.Properties.PasswordChar = (edit.Properties.PasswordChar == '*') ? '\0' : '*';
+		}
+
+		private void txtPassword_MouseLeave(object sender, EventArgs e)
+		{
+			ButtonEdit edit = sender as ButtonEdit;
+			if (edit != null) edit.Properties.PasswordChar = edit.Properties.PasswordChar = '*';
+		}
+
+		private void txtHost_EditValueChanged(object sender, EventArgs e)
+		{
+			BuildAndUpdateConnectionString();
+		}
+
+
+		private void BuildAndUpdateConnectionString()
+		{
+			int.TryParse(txtPort.Text, out var result);
+			var host = string.IsNullOrWhiteSpace(txtHost.Text) ? "localhost" : txtHost.Text.Trim();
+			var port = result == 0 ? 27017 : result;
+			var database = string.IsNullOrWhiteSpace(txtDatabase.Text) ? "spectrumdb" : txtDatabase.Text.Trim();
+			var username = txtUsername.Text.Trim();
+			var password = txtPassword.Text;
+			string connectionString;
+			if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
+			{
+				connectionString = $"mongodb://{username}:{password}@{host}:{port}/{database}?authSource={_authDb}";
+			}
+			else
+			{
+				connectionString = $"mongodb://{host}:{port}/{database}";
+			}
+			txtConnectionString.Text = connectionString;
+
+		}
+
+		private void txtPort_EditValueChanged(object sender, EventArgs e)
+		{
+			BuildAndUpdateConnectionString();
+		}
+
+		private void txtDatabase_EditValueChanged(object sender, EventArgs e)
+		{
+			BuildAndUpdateConnectionString();
+		}
+
+		private void txtUsername_EditValueChanged(object sender, EventArgs e)
+		{
+			BuildAndUpdateConnectionString();
+		}
+
+		private void txtPassword_EditValueChanged(object sender, EventArgs e)
+		{
+			BuildAndUpdateConnectionString();
+		}
+
+		private void btnSecondConnection_Click(object sender, EventArgs e)
+		{
+			SuperAdminConnectionForm frm = new SuperAdminConnectionForm();
+			frm.ShowDialog();
+		}
+	}
+}
