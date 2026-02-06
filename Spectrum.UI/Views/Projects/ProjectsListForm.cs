@@ -38,6 +38,8 @@ namespace Spectrum.Views.Projects
 		public RibbonControl MainRibbon => rcProjectsList;
 		public RibbonPage DefaultPage => rpProjectsList;
 
+
+
 		public ProjectsListForm()
 		{
 			InitializeComponent();
@@ -288,5 +290,5 @@ namespace Spectrum.Views.Projects
 				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
 			}
 		}
-	}
+    }
 }

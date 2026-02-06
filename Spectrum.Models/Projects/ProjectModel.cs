@@ -107,6 +107,12 @@ namespace Spectrum.Models.Projects
 		[BsonElement("Services")]
 		public ContractInfoModel Services { get; set; }
 
+		[BsonElement("ServicesProvided")]
+		public List<string> ServicesProvided { get; set; } = new List<string>();
+
+		[BsonElement("ServiceTypes")]
+		public List<string> ServiceTypes { get; set; } = new List<string>();
+
 
 		// Repeating financial adjustments (addendums) -> dynamic list
 		//------------------------------------------------

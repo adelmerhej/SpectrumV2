@@ -2,18 +2,23 @@ using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.Common.Services;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.DataLayers.Members.Clients;
 using Spectrum.DataLayers.Members.Engineers;
 using Spectrum.DataLayers.Projects;
 using Spectrum.DataLayers.Users;
+using Spectrum.Models.Common.Countries;
 using Spectrum.Models.Common.Services;
 using Spectrum.Models.Members.Clients;
 using Spectrum.Models.Members.Engineers;
 using Spectrum.Models.Projects;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
+using Spectrum.Views.Common.Countries;
+using Spectrum.Views.Members.Clients;
+using Spectrum.Views.Members.Engineers;
 using Spectrum.Views.Users;
 using System;
 using System.Collections.Generic;
@@ -27,20 +32,33 @@ namespace Spectrum.Views.Projects
 	public partial class ProjectEditForm : RibbonForm
 	{
 		private ProjectModel _projectModel = new ProjectModel();
+		
 		private IList<ClientModel> _clients = new List<ClientModel>();
+		private ClientModel _clientModel = new ClientModel();
+		
 		private IList<EngineerModel> _engineers = new List<EngineerModel>();
+		private EngineerModel _engineerModel = new EngineerModel();
+
 		private UserModel _userModel = new UserModel();
 		private IList<UserModel> _users = new List<UserModel>();
 
+		private IList<CountryModel> _countries = new List<CountryModel>();
+		private CountryModel _countryModel = new CountryModel();
+
+        private IList<CityModel> _cities = new List<CityModel>();
+        private CityModel _cityModel = new CityModel();
+        
 		private IList<ServiceModel> _services = new List<ServiceModel>();
 		private IList<ServiceTypeModel> _serviceTypes = new List<ServiceTypeModel>();
-
+			
 		private readonly ProjectRepository _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
 		private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
 		private readonly EngineerRepository _engineerRepository = new EngineerRepository(DatabaseFactory.ProfilePrimary);
 		private readonly UserRepository _userRepository = new UserRepository(DatabaseFactory.ProfilePrimary);
 		private readonly ServiceRepository _serviceRepository = new ServiceRepository(DatabaseFactory.ProfilePrimary);
 		private readonly ServiceTypeRepository _serviceTypeRepository = new ServiceTypeRepository(DatabaseFactory.ProfilePrimary);
+		private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
+		private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
@@ -103,25 +121,30 @@ namespace Spectrum.Views.Projects
 			cboOperatingUsers.Properties.DataSource = null;
 			cboOperatingUsers.Properties.DataSource = _users;
 
-			lstServices.DataSource = null;
-			lstServices.DisplayMember = "ServiceName";
-			lstServices.ValueMember = "ServiceCode";
-			lstServices.DataSource = _services;
+		cboServicesProvided.Properties.DataSource = null;
+		cboServicesProvided.Properties.DisplayMember = "ServiceName";
+		cboServicesProvided.Properties.ValueMember = "ServiceName";
+		cboServicesProvided.Properties.DataSource = _services;
 
-			lstServicesProvided.DataSource = null;
-			lstServicesProvided.DisplayMember = "ServiceName";
-			lstServicesProvided.ValueMember = "ServiceCode";
-			lstServicesProvided.DataSource = _services;
+		cboServicesType.Properties.DataSource = null;
+		cboServicesType.Properties.DisplayMember = "ServiceType";
+		cboServicesType.Properties.ValueMember = "ServiceType";
+		cboServicesType.Properties.DataSource = _serviceTypes;
 
-			lstProjectType.DataSource = null;
-			lstProjectType.DataSource = _serviceTypes;
-
-			lstServicesType.DataSource = null;
-			lstServicesType.DataSource = _serviceTypes;
-
-			//cboStatus.Properties.Items.Clear();
-			//cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
+		// Load checked items from project model
+		if (_projectModel.ServicesProvided != null && _projectModel.ServicesProvided.Any())
+		{
+			cboServicesProvided.EditValue = string.Join(", ", _projectModel.ServicesProvided);
 		}
+
+		if (_projectModel.ServiceTypes != null && _projectModel.ServiceTypes.Any())
+		{
+			cboServicesType.EditValue = string.Join(", ", _projectModel.ServiceTypes);
+		}
+
+		//cboStatus.Properties.Items.Clear();
+		//cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
+	}
 
 		private void ApplyDefaults()
 		{
@@ -172,10 +195,10 @@ namespace Spectrum.Views.Projects
 				"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
 				MessageBoxDefaultButton.Button2) == DialogResult.Yes)
 			{
-				await _projectRepository.DeleteProjectAsync(_projectModel._id);
-				_projectModel.Deleted = true;
-				SendUpdatedProject(_projectModel, EventArgs.Empty);
-				Close();
+			await _projectRepository.DeleteProjectAsync(_projectModel._id);
+			_projectModel.Deleted = true;
+			SendUpdatedProject?.Invoke(_projectModel, EventArgs.Empty);
+			Close();
 			}
 		}
 
@@ -189,21 +212,35 @@ namespace Spectrum.Views.Projects
 				BindingContext[bsProject].EndCurrentEdit();
 				_projectModel = (ProjectModel)bsProject.Current;
 
-				// derive client / engineer names from selected values
-				if (cboClients.EditValue != null)
-				{
-					var selectedClient = _clients.FirstOrDefault(c => c._id == cboClients.EditValue.ToString());
-					if (selectedClient != null) _projectModel.ClientName = selectedClient.ClientName;
-				}
-				if (cboEngineers.EditValue != null)
-				{
-					var selectedEngineer = _engineers.FirstOrDefault(e => e._id == cboEngineers.EditValue.ToString());
-					if (selectedEngineer != null) _projectModel.EngineerInCharge = selectedEngineer.EngineerName;
-				}
-				//if (!string.IsNullOrEmpty(cboStatus.Text))
-				//{
-				//	if (Enum.TryParse<ProjectStatus>(cboStatus.Text, out var st)) _projectModel.Status = st;
-				//}
+			// derive client / engineer names from selected values
+			if (cboClients.EditValue != null)
+			{
+				var selectedClient = _clients.FirstOrDefault(c => c._id == cboClients.EditValue.ToString());
+				if (selectedClient != null) _projectModel.ClientName = selectedClient.ClientName;
+			}
+			if (cboEngineers.EditValue != null)
+			{
+				var selectedEngineer = _engineers.FirstOrDefault(e => e._id == cboEngineers.EditValue.ToString());
+				if (selectedEngineer != null) _projectModel.EngineerInCharge = selectedEngineer.EngineerName;
+			}
+
+			// Save selected services and service types
+			if (cboServicesProvided.EditValue != null)
+			{
+				var servicesString = cboServicesProvided.EditValue.ToString();
+				_projectModel.ServicesProvided = servicesString.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+			}
+
+			if (cboServicesType.EditValue != null)
+			{
+				var serviceTypesString = cboServicesType.EditValue.ToString();
+				_projectModel.ServiceTypes = serviceTypesString.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+			}
+
+			//if (!string.IsNullOrEmpty(cboStatus.Text))
+			//{
+			//	if (Enum.TryParse<ProjectStatus>(cboStatus.Text, out var st)) _projectModel.Status = st;
+			//}
 
 				if (string.IsNullOrEmpty(_projectModel._id))
 				{
@@ -211,14 +248,14 @@ namespace Spectrum.Views.Projects
 					var newId = await _projectRepository.AddNewProjectAsync(_projectModel);
 					if (string.IsNullOrEmpty(newId)) throw new Exception($"Error while saving : {_projectModel.ProjectName}");
 				}
-				else
-				{
-					_logInfoRepository.UpdateLogInfo(_projectModel);
-					await _projectRepository.UpdateProjectAsync(_projectModel);
-				}
-				SendUpdatedProject(_projectModel, EventArgs.Empty);
+			else
+			{
+				_logInfoRepository.UpdateLogInfo(_projectModel);
+				await _projectRepository.UpdateProjectAsync(_projectModel);
 			}
-			catch (Exception exception)
+			SendUpdatedProject?.Invoke(_projectModel, EventArgs.Empty);
+		}
+		catch (Exception exception)
 			{
 				XtraMessageBox.Show(exception.Message, "Project save error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
@@ -310,8 +347,84 @@ namespace Spectrum.Views.Projects
 			if (_userModel != null) cboUsers.EditValue = _userModel._id;
 		}
 
-		#endregion
 
+        #endregion
 
-	}
+        private void cboCountries_AddNewValue(object sender, AddNewValueEventArgs e)
+        {
+            CountryEditForm frm = new CountryEditForm(new CountryModel());
+            frm.SendUpdatedCountry += RcvUpdatedCountry;
+            frm.ShowDialog();
+        }
+
+        private void cboCities_AddNewValue(object sender, AddNewValueEventArgs e)
+        {
+            CityEditForm frm = new CityEditForm(new CityModel());
+            frm.SendUpdatedCity += RcvUpdatedCity;
+            frm.ShowDialog();
+        }
+
+        private void RcvUpdatedCountry(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _countryModel = sender as CountryModel;
+
+            _countries.Add(_countryModel);
+
+            cboCountries.Properties.DataSource = null;
+            cboCountries.Properties.DataSource = _countries;
+            if (_countryModel != null) cboCountries.EditValue = _countryModel.CountryName;
+        }
+
+        private void RcvUpdatedCity(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _cityModel = sender as CityModel;
+
+            _cities.Add(_cityModel);
+
+            cboCities.Properties.DataSource = null;
+            cboCities.Properties.DataSource = _cities;
+            if (_cityModel != null) cboCities.EditValue = _cityModel.CityName;
+        }
+
+        private void cboEngineers_AddNewValue(object sender, AddNewValueEventArgs e)
+        {
+            EngineerEditForm frm = new EngineerEditForm(new EngineerModel());
+            frm.SendUpdatedEngineer += RcvUpdatedEngineer;
+            frm.ShowDialog();
+        }
+
+        private void cboClients_AddNewValue(object sender, AddNewValueEventArgs e)
+        {
+            ClientEditForm frm = new ClientEditForm(new ClientModel());
+            frm.SendUpdatedClient += RcvUpdatedClient;
+            frm.ShowDialog();
+        }
+
+        private void RcvUpdatedEngineer(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _engineerModel = sender as EngineerModel;
+
+            _engineers.Add(_engineerModel);
+
+            cboEngineers.Properties.DataSource = null;
+            cboEngineers.Properties.DataSource = _engineers;
+            if (_engineerModel != null) cboEngineers.EditValue = _engineerModel.EngineerName;
+        }
+
+        private void RcvUpdatedClient(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _clientModel = sender as ClientModel;
+
+            _clients.Add(_clientModel);
+
+            cboClients.Properties.DataSource = null;
+            cboClients.Properties.DataSource = _clients;
+            if (_clientModel != null) cboClients.EditValue = _clientModel.ClientName;
+        }
+
+    }
 }

@@ -146,6 +146,7 @@
     <Compile Include="Accounting\Charts\ChartModel.cs" />
     <Compile Include="Administration\Connections\AppConfigModel.cs" />
     <Compile Include="Administration\Connections\ConnectionModel.cs" />
+    <Compile Include="Administration\Dashboard\ActivityDataModel.cs" />
     <Compile Include="Administration\Update\LiveUpdateSettingsModel.cs" />
     <Compile Include="Common\Areas\AreaModel.cs" />
     <Compile Include="Common\Areas\LocationModel.cs" />

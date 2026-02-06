@@ -1,0 +1,700 @@
+using DevExpress.XtraBars.Ribbon;
+using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraLayout;
+using Spectrum.Utilities.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace Spectrum.Views.Dashboard
+{
+	public partial class DashboardActivitiesForm : RibbonForm, IFormWithRibbon
+	{
+		private LayoutControl layoutControl;
+
+		// Grids
+		private GridControl gcActivities;
+		private GridView gvActivities;
+		private GridControl gcProjectsByStatus;
+		private GridView gvProjectsByStatus;
+		private GridControl gcMonthlyRevenue;
+		private GridView gvMonthlyRevenue;
+		private GridControl gcTopProjects;
+		private GridView gvTopProjects;
+
+		// KPI Labels
+		private LabelControl lblRevenueValue;
+		private LabelControl lblProjectsValue;
+		private LabelControl lblEngineersValue;
+		private LabelControl lblClientsValue;
+
+		public RibbonControl MainRibbon => rcDashboard;
+		public RibbonPage DefaultPage => rpDashboard;
+
+		public DashboardActivitiesForm()
+		{
+			InitializeComponent();
+			InitializeDashboardLayout();
+			LoadSampleData();
+		}
+
+		private void InitializeDashboardLayout()
+		{
+			layoutControl = new LayoutControl
+			{
+				Dock = DockStyle.Fill,
+				AllowCustomization = false
+			};
+			this.Controls.Add(layoutControl);
+			layoutControl.BringToFront();
+
+			layoutControl.Root.GroupBordersVisible = false;
+			layoutControl.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(12);
+
+			CreateGridControls();
+			ArrangeBentoLayout();
+		}
+
+		private void CreateGridControls()
+		{
+			// Activities Grid
+			gcActivities = new GridControl();
+			gvActivities = new GridView(gcActivities);
+			gcActivities.MainView = gvActivities;
+			ConfigureGridView(gvActivities);
+			gvActivities.OptionsView.ShowFooter = true;
+
+			// Projects by Status Grid
+			gcProjectsByStatus = new GridControl();
+			gvProjectsByStatus = new GridView(gcProjectsByStatus);
+			gcProjectsByStatus.MainView = gvProjectsByStatus;
+			ConfigureGridView(gvProjectsByStatus);
+			gvProjectsByStatus.Appearance.Row.Font = new Font("Segoe UI", 10);
+
+			// Monthly Revenue Grid
+			gcMonthlyRevenue = new GridControl();
+			gvMonthlyRevenue = new GridView(gcMonthlyRevenue);
+			gcMonthlyRevenue.MainView = gvMonthlyRevenue;
+			ConfigureGridView(gvMonthlyRevenue);
+
+			// Top Projects Grid
+			gcTopProjects = new GridControl();
+			gvTopProjects = new GridView(gcTopProjects);
+			gcTopProjects.MainView = gvTopProjects;
+			ConfigureGridView(gvTopProjects);
+		}
+
+		private void ConfigureGridView(GridView gridView)
+		{
+			gridView.OptionsView.ShowGroupPanel = false;
+			gridView.OptionsView.ShowIndicator = false;
+			gridView.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
+			gridView.OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.False;
+			gridView.OptionsBehavior.Editable = false;
+			gridView.OptionsBehavior.ReadOnly = true;
+			gridView.BorderStyle = BorderStyles.NoBorder;
+			gridView.Appearance.HeaderPanel.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+			gridView.Appearance.HeaderPanel.Options.UseFont = true;
+			gridView.Appearance.Row.Font = new Font("Segoe UI", 9);
+			gridView.Appearance.Row.Options.UseFont = true;
+			gridView.OptionsView.RowAutoHeight = true;
+		}
+
+		private void ArrangeBentoLayout()
+		{
+			// Create KPI Cards
+			var pnlRevenue = CreateModernKpiPanel("$283,000", "Total Revenue", "? 12.5%", Color.FromArgb(76, 175, 80), out lblRevenueValue);
+			var pnlProjects = CreateModernKpiPanel("104", "Active Projects", "? 8 new", Color.FromArgb(33, 150, 243), out lblProjectsValue);
+			var pnlEngineers = CreateModernKpiPanel("168", "Engineers", "? No change", Color.FromArgb(255, 152, 0), out lblEngineersValue);
+			var pnlClients = CreateModernKpiPanel("12", "Clients", "? 3 new", Color.FromArgb(156, 39, 176), out lblClientsValue);
+
+			// Configure layout to table mode
+			layoutControl.Root.BeginUpdate();
+			layoutControl.Root.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
+
+			// Define 6 columns for flexible layout
+			layoutControl.Root.OptionsTableLayoutGroup.ColumnDefinitions.Clear();
+			for (int i = 0; i < 6; i++)
+			{
+				layoutControl.Root.OptionsTableLayoutGroup.ColumnDefinitions.Add(
+					new ColumnDefinition { SizeType = SizeType.Percent, Width = 16.66f });
+			}
+
+			// Define rows
+			layoutControl.Root.OptionsTableLayoutGroup.RowDefinitions.Clear();
+			layoutControl.Root.OptionsTableLayoutGroup.RowDefinitions.Add(new RowDefinition { SizeType = SizeType.Absolute, Height = 120 });
+			layoutControl.Root.OptionsTableLayoutGroup.RowDefinitions.Add(new RowDefinition { SizeType = SizeType.Percent, Height = 30 });
+			layoutControl.Root.OptionsTableLayoutGroup.RowDefinitions.Add(new RowDefinition { SizeType = SizeType.Percent, Height = 40 });
+			layoutControl.Root.OptionsTableLayoutGroup.RowDefinitions.Add(new RowDefinition { SizeType = SizeType.Percent, Height = 30 });
+
+			// Add KPI Cards - Row 0
+			AddLayoutItem(pnlRevenue, "Revenue", 0, 0, 1, 1, false);
+			AddLayoutItem(pnlProjects, "Projects", 0, 1, 1, 1, false);
+			AddLayoutItem(pnlEngineers, "Engineers", 0, 2, 1, 2, false);
+			AddLayoutItem(pnlClients, "Clients", 0, 4, 1, 2, false);
+
+			// Add Status Summary - Row 1, spans 2 columns
+			var liStatusSummary = AddLayoutItem(gcProjectsByStatus, "Projects by Status", 1, 0, 1, 2, true);
+			StyleGridContainer(liStatusSummary);
+
+			// Add Top Projects - Row 1, spans 4 columns
+			var liTopProjects = AddLayoutItem(gcTopProjects, "Top Performing Projects", 1, 2, 1, 4, true);
+			StyleGridContainer(liTopProjects);
+
+			// Add Monthly Revenue - Row 2, spans 3 columns
+			var liMonthlyRevenue = AddLayoutItem(gcMonthlyRevenue, "Monthly Revenue Trend", 2, 0, 1, 3, true);
+			StyleGridContainer(liMonthlyRevenue);
+
+			// Add Recent Activities - Row 2-3, spans 3 columns
+			var liActivities = AddLayoutItem(gcActivities, "Recent Activities", 2, 3, 2, 3, true);
+			StyleGridContainer(liActivities);
+
+			// Add Status Summary extension - Row 3, spans 3 columns
+			var pnlQuickStats = CreateQuickStatsPanel();
+			AddLayoutItem(pnlQuickStats, "Quick Statistics", 3, 0, 1, 3, false);
+
+			layoutControl.Root.EndUpdate();
+		}
+
+		private LayoutControlItem AddLayoutItem(Control control, string text, int row, int col, int rowSpan, int colSpan, bool showText)
+		{
+			var item = layoutControl.AddItem(text, control);
+			item.TextVisible = showText;
+			if (showText)
+			{
+				item.TextLocation = DevExpress.Utils.Locations.Top;
+				item.AppearanceItemCaption.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+				item.AppearanceItemCaption.ForeColor = Color.FromArgb(64, 64, 64);
+			}
+			item.Padding = new DevExpress.XtraLayout.Utils.Padding(4);
+			item.OptionsTableLayoutItem.RowIndex = row;
+			item.OptionsTableLayoutItem.ColumnIndex = col;
+			item.OptionsTableLayoutItem.RowSpan = rowSpan;
+			item.OptionsTableLayoutItem.ColumnSpan = colSpan;
+
+			return item;
+		}
+
+		private void StyleGridContainer(LayoutControlItem item)
+		{
+			item.Control.BackColor = Color.White;
+			if (item.Control is GridControl gc)
+			{
+				gc.BorderStyle = BorderStyles.NoBorder;
+			}
+		}
+
+		private PanelControl CreateModernKpiPanel(string value, string title, string trend, Color accentColor, out LabelControl valueLabel)
+		{
+			var panel = new PanelControl
+			{
+				BorderStyle = BorderStyles.Simple,
+				Padding = new Padding(16),
+				BackColor = Color.White
+			};
+			panel.Appearance.BorderColor = Color.FromArgb(230, 230, 230);
+
+			// Accent indicator
+			var accentIndicator = new PanelControl
+			{
+				Width = 4,
+				Dock = DockStyle.Left,
+				BackColor = accentColor,
+				BorderStyle = BorderStyles.NoBorder
+			};
+			panel.Controls.Add(accentIndicator);
+
+			// Container for content
+			var contentPanel = new PanelControl
+			{
+				Dock = DockStyle.Fill,
+				BorderStyle = BorderStyles.NoBorder,
+				Padding = new Padding(12, 0, 0, 0)
+			};
+			panel.Controls.Add(contentPanel);
+
+			// Title
+			var lblTitle = new LabelControl
+			{
+				Text = title,
+				Font = new Font("Segoe UI", 9, FontStyle.Regular),
+				ForeColor = Color.FromArgb(120, 120, 120),
+				AutoSizeMode = LabelAutoSizeMode.None,
+				Dock = DockStyle.Top,
+				Height = 22
+			};
+			contentPanel.Controls.Add(lblTitle);
+
+			// Value
+			valueLabel = new LabelControl
+			{
+				Text = value,
+				Font = new Font("Segoe UI", 24, FontStyle.Bold),
+				ForeColor = accentColor,
+				AutoSizeMode = LabelAutoSizeMode.None,
+				Dock = DockStyle.Top,
+				Height = 50
+			};
+			contentPanel.Controls.Add(valueLabel);
+
+			// Trend
+			var lblTrend = new LabelControl
+			{
+				Text = trend,
+				Font = new Font("Segoe UI", 9, FontStyle.Regular),
+				ForeColor = trend.StartsWith("?") ? Color.FromArgb(76, 175, 80) : Color.FromArgb(150, 150, 150),
+				AutoSizeMode = LabelAutoSizeMode.None,
+				Dock = DockStyle.Bottom,
+				Height = 22
+			};
+			contentPanel.Controls.Add(lblTrend);
+
+			return panel;
+		}
+
+		private PanelControl CreateQuickStatsPanel()
+		{
+			var panel = new PanelControl
+			{
+				BorderStyle = BorderStyles.Simple,
+				Padding = new Padding(20),
+				BackColor = Color.FromArgb(250, 250, 250)
+			};
+			panel.Appearance.BorderColor = Color.FromArgb(230, 230, 230);
+
+			var layout = new LayoutControl
+			{
+				Dock = DockStyle.Fill
+			};
+			layout.Root.GroupBordersVisible = false;
+			layout.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(0);
+			panel.Controls.Add(layout);
+
+			// Add quick stat items
+			AddQuickStatItem(layout, "Avg. Project Value", "$27,211", Color.FromArgb(33, 150, 243));
+			AddQuickStatItem(layout, "Completion Rate", "87.5%", Color.FromArgb(76, 175, 80));
+			AddQuickStatItem(layout, "Pending Tasks", "23", Color.FromArgb(255, 152, 0));
+
+			return panel;
+		}
+
+		private void AddQuickStatItem(LayoutControl layout, string label, string value, Color color)
+		{
+			var itemPanel = new PanelControl
+			{
+				BorderStyle = BorderStyles.NoBorder,
+				Height = 30
+			};
+
+			var lblLabel = new LabelControl
+			{
+				Text = label,
+				Font = new Font("Segoe UI", 9),
+				ForeColor = Color.FromArgb(100, 100, 100),
+				Dock = DockStyle.Left,
+				Width = 150
+			};
+			itemPanel.Controls.Add(lblLabel);
+
+			var lblValue = new LabelControl
+			{
+				Text = value,
+				Font = new Font("Segoe UI", 10, FontStyle.Bold),
+				ForeColor = color,
+				Dock = DockStyle.Right,
+				AutoSizeMode = LabelAutoSizeMode.Horizontal
+			};
+			itemPanel.Controls.Add(lblValue);
+
+			var item = layout.AddItem(string.Empty, itemPanel);
+			item.TextVisible = false;
+			item.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 5, 5);
+		}
+
+		private void LoadSampleData()
+		{
+			var activities = GetSampleActivities();
+
+			// Configure and bind activities grid
+			ConfigureActivitiesGrid();
+			gcActivities.DataSource = activities;
+
+			// Configure and bind status summary
+			ConfigureStatusSummaryGrid();
+			var statusSummary = activities
+				.GroupBy(a => a.Status)
+				.Select(g => new StatusSummary
+				{
+					Status = g.Key,
+					ProjectCount = g.Count(),
+					TotalRevenue = g.Sum(x => x.Revenue),
+					AvgRevenue = g.Average(x => x.Revenue)
+				})
+				.OrderByDescending(s => s.TotalRevenue)
+				.ToList();
+			gcProjectsByStatus.DataSource = statusSummary;
+
+			// Configure and bind monthly revenue
+			ConfigureMonthlyRevenueGrid();
+			var monthlyRevenue = activities
+				.GroupBy(a => a.Month)
+				.Select(g => new MonthlyRevenueSummary
+				{
+					Month = g.Key,
+					Revenue = g.Sum(x => x.Revenue),
+					ProjectCount = g.Count(),
+					GrowthRate = GetRandomGrowth()
+				})
+				.ToList();
+			gcMonthlyRevenue.DataSource = monthlyRevenue;
+
+			// Configure and bind top projects
+			ConfigureTopProjectsGrid();
+			var topProjects = activities
+				.OrderByDescending(a => a.Revenue)
+				.Take(5)
+				.Select(a => new TopProject
+				{
+					ProjectName = a.ActivityName,
+					Revenue = a.Revenue,
+					Status = a.Status,
+					Progress = GetRandomProgress(a.Status)
+				})
+				.ToList();
+			gcTopProjects.DataSource = topProjects;
+
+			// Update KPI values
+			UpdateKpiValues(activities);
+		}
+
+		private void ConfigureActivitiesGrid()
+		{
+			gvActivities.Columns.Clear();
+
+			var colProject = gvActivities.Columns.AddField("ActivityName");
+			colProject.Caption = "Project Name";
+			colProject.Visible = true;
+			colProject.Width = 200;
+
+			var colStatus = gvActivities.Columns.AddField("Status");
+			colStatus.Caption = "Status";
+			colStatus.Visible = true;
+			colStatus.Width = 100;
+
+			var colMonth = gvActivities.Columns.AddField("Month");
+			colMonth.Caption = "Period";
+			colMonth.Visible = true;
+			colMonth.Width = 100;
+
+			var colRevenue = gvActivities.Columns.AddField("Revenue");
+			colRevenue.Caption = "Revenue";
+			colRevenue.Visible = true;
+			colRevenue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+			colRevenue.DisplayFormat.FormatString = "c0";
+			colRevenue.Width = 120;
+
+			var colEngineers = gvActivities.Columns.AddField("EngineersCount");
+			colEngineers.Caption = "Engineers";
+			colEngineers.Visible = true;
+			colEngineers.Width = 90;
+
+			var colActivities = gvActivities.Columns.AddField("ActivityCount");
+			colActivities.Caption = "Activities";
+			colActivities.Visible = true;
+			colActivities.Width = 90;
+
+			gvActivities.RowCellStyle += (s, e) =>
+			{
+				if (e.Column.FieldName == "Status")
+				{
+					var status = e.CellValue?.ToString();
+					if (status == "Active")
+						e.Appearance.ForeColor = Color.FromArgb(76, 175, 80);
+					else if (status == "On Hold")
+						e.Appearance.ForeColor = Color.FromArgb(255, 152, 0);
+					else if (status == "Completed")
+						e.Appearance.ForeColor = Color.FromArgb(158, 158, 158);
+				}
+			};
+		}
+
+		private void ConfigureStatusSummaryGrid()
+		{
+			gvProjectsByStatus.Columns.Clear();
+
+			var colStatus = gvProjectsByStatus.Columns.AddField("Status");
+			colStatus.Caption = "Status";
+			colStatus.Visible = true;
+			colStatus.Width = 120;
+
+			var colCount = gvProjectsByStatus.Columns.AddField("ProjectCount");
+			colCount.Caption = "Projects";
+			colCount.Visible = true;
+			colCount.Width = 80;
+
+			var colRevenue = gvProjectsByStatus.Columns.AddField("TotalRevenue");
+			colRevenue.Caption = "Total Revenue";
+			colRevenue.Visible = true;
+			colRevenue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+			colRevenue.DisplayFormat.FormatString = "c0";
+			colRevenue.Width = 130;
+
+			var colAvg = gvProjectsByStatus.Columns.AddField("AvgRevenue");
+			colAvg.Caption = "Avg Revenue";
+			colAvg.Visible = true;
+			colAvg.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+			colAvg.DisplayFormat.FormatString = "c0";
+			colAvg.Width = 130;
+
+			gvProjectsByStatus.Appearance.Row.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+		}
+
+		private void ConfigureMonthlyRevenueGrid()
+		{
+			gvMonthlyRevenue.Columns.Clear();
+
+			var colMonth = gvMonthlyRevenue.Columns.AddField("Month");
+			colMonth.Caption = "Month";
+			colMonth.Visible = true;
+			colMonth.Width = 100;
+
+			var colRevenue = gvMonthlyRevenue.Columns.AddField("Revenue");
+			colRevenue.Caption = "Revenue";
+			colRevenue.Visible = true;
+			colRevenue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+			colRevenue.DisplayFormat.FormatString = "c0";
+			colRevenue.Width = 120;
+
+			var colProjects = gvMonthlyRevenue.Columns.AddField("ProjectCount");
+			colProjects.Caption = "Projects";
+			colProjects.Visible = true;
+			colProjects.Width = 80;
+
+			var colGrowth = gvMonthlyRevenue.Columns.AddField("GrowthRate");
+			colGrowth.Caption = "Growth";
+			colGrowth.Visible = true;
+			colGrowth.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+			colGrowth.DisplayFormat.FormatString = "0.0'%'";
+			colGrowth.Width = 80;
+
+			gvMonthlyRevenue.RowCellStyle += (s, e) =>
+			{
+				if (e.Column.FieldName == "GrowthRate")
+				{
+					if (e.CellValue != null && (decimal)e.CellValue > 0)
+						e.Appearance.ForeColor = Color.FromArgb(76, 175, 80);
+					else if (e.CellValue != null && (decimal)e.CellValue < 0)
+						e.Appearance.ForeColor = Color.FromArgb(244, 67, 54);
+				}
+			};
+		}
+
+		private void ConfigureTopProjectsGrid()
+		{
+			gvTopProjects.Columns.Clear();
+
+			var colProject = gvTopProjects.Columns.AddField("ProjectName");
+			colProject.Caption = "Project";
+			colProject.Visible = true;
+			colProject.Width = 180;
+
+			var colRevenue = gvTopProjects.Columns.AddField("Revenue");
+			colRevenue.Caption = "Revenue";
+			colRevenue.Visible = true;
+			colRevenue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+			colRevenue.DisplayFormat.FormatString = "c0";
+			colRevenue.Width = 110;
+
+			var colStatus = gvTopProjects.Columns.AddField("Status");
+			colStatus.Caption = "Status";
+			colStatus.Visible = true;
+			colStatus.Width = 90;
+
+			var colProgress = gvTopProjects.Columns.AddField("Progress");
+			colProgress.Caption = "Progress";
+			colProgress.Visible = true;
+			colProgress.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+			colProgress.DisplayFormat.FormatString = "0'%'";
+			colProgress.Width = 80;
+
+			gvTopProjects.RowCellStyle += (s, e) =>
+			{
+				if (e.Column.FieldName == "Status")
+				{
+					var status = e.CellValue?.ToString();
+					if (status == "Active")
+						e.Appearance.ForeColor = Color.FromArgb(76, 175, 80);
+					else if (status == "On Hold")
+						e.Appearance.ForeColor = Color.FromArgb(255, 152, 0);
+					else if (status == "Completed")
+						e.Appearance.ForeColor = Color.FromArgb(158, 158, 158);
+				}
+			};
+		}
+
+		private void UpdateKpiValues(List<ActivityData> activities)
+		{
+			var totalRevenue = activities.Sum(a => a.Revenue);
+			var activeProjects = activities.Count(a => a.Status == "Active");
+			var totalEngineers = activities.Sum(a => a.EngineersCount);
+			var uniqueClients = activities.Select(a => a.Month).Distinct().Count();
+
+			if (lblRevenueValue != null)
+				lblRevenueValue.Text = totalRevenue.ToString("c0");
+			if (lblProjectsValue != null)
+				lblProjectsValue.Text = activeProjects.ToString();
+			if (lblEngineersValue != null)
+				lblEngineersValue.Text = totalEngineers.ToString();
+			if (lblClientsValue != null)
+				lblClientsValue.Text = uniqueClients.ToString();
+		}
+
+		private decimal GetRandomGrowth()
+		{
+			var random = new Random(Guid.NewGuid().GetHashCode());
+			return (decimal)(random.NextDouble() * 30 - 10);
+		}
+
+		private int GetRandomProgress(string status)
+		{
+			var random = new Random(Guid.NewGuid().GetHashCode());
+			if (status == "Completed") return 100;
+			if (status == "On Hold") return random.Next(20, 50);
+			return random.Next(50, 95);
+		}
+
+		private List<ActivityData> GetSampleActivities()
+		{
+			return new List<ActivityData>
+			{
+				new ActivityData { ActivityName = "Project Alpha", Status = "Active", Month = "January", Revenue = 15000, ProjectCount = 5, EngineersCount = 12, ActivityCount = 45 },
+				new ActivityData { ActivityName = "Project Beta", Status = "Active", Month = "February", Revenue = 22000, ProjectCount = 8, EngineersCount = 15, ActivityCount = 62 },
+				new ActivityData { ActivityName = "Project Gamma", Status = "Completed", Month = "March", Revenue = 18500, ProjectCount = 6, EngineersCount = 10, ActivityCount = 38 },
+				new ActivityData { ActivityName = "Project Delta", Status = "Active", Month = "April", Revenue = 31000, ProjectCount = 12, EngineersCount = 18, ActivityCount = 75 },
+				new ActivityData { ActivityName = "Project Epsilon", Status = "On Hold", Month = "May", Revenue = 9500, ProjectCount = 3, EngineersCount = 8, ActivityCount = 22 },
+				new ActivityData { ActivityName = "Project Zeta", Status = "Active", Month = "June", Revenue = 27500, ProjectCount = 10, EngineersCount = 14, ActivityCount = 58 },
+				new ActivityData { ActivityName = "Project Eta", Status = "Completed", Month = "July", Revenue = 21000, ProjectCount = 7, EngineersCount = 11, ActivityCount = 41 },
+				new ActivityData { ActivityName = "Project Theta", Status = "Active", Month = "August", Revenue = 35000, ProjectCount = 15, EngineersCount = 20, ActivityCount = 82 },
+				new ActivityData { ActivityName = "Project Iota", Status = "On Hold", Month = "September", Revenue = 12000, ProjectCount = 4, EngineersCount = 9, ActivityCount = 28 },
+				new ActivityData { ActivityName = "Project Kappa", Status = "Active", Month = "October", Revenue = 29000, ProjectCount = 11, EngineersCount = 16, ActivityCount = 67 },
+				new ActivityData { ActivityName = "Project Lambda", Status = "Completed", Month = "November", Revenue = 24500, ProjectCount = 9, EngineersCount = 13, ActivityCount = 52 },
+				new ActivityData { ActivityName = "Project Mu", Status = "Active", Month = "December", Revenue = 38000, ProjectCount = 14, EngineersCount = 22, ActivityCount = 91 }
+			};
+		}
+
+		private void btnClose_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+		{
+			Close();
+		}
+
+		private void btnRefresh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+		{
+			LoadSampleData();
+		}
+	}
+
+	public class ActivityData
+	{
+		public string ActivityName { get; set; }
+		public string Status { get; set; }
+		public string Month { get; set; }
+		public decimal Revenue { get; set; }
+		public int ProjectCount { get; set; }
+		public int EngineersCount { get; set; }
+		public int ActivityCount { get; set; }
+	}
+
+	public class StatusSummary
+	{
+		public string Status { get; set; }
+		public int ProjectCount { get; set; }
+		public decimal TotalRevenue { get; set; }
+		public decimal AvgRevenue { get; set; }
+	}
+
+	public class MonthlyRevenueSummary
+	{
+		public string Month { get; set; }
+		public decimal Revenue { get; set; }
+		public int ProjectCount { get; set; }
+		public decimal GrowthRate { get; set; }
+	}
+
+	public class TopProject
+	{
+		public string ProjectName { get; set; }
+		public decimal Revenue { get; set; }
+		public string Status { get; set; }
+		public int Progress { get; set; }
+	}
+}
+
+		private void LoadSampleData()
+		{
+			var activities = GetSampleActivities();
+
+			// Bind activities grid
+			gcActivities.DataSource = activities;
+
+			// Create summary by status
+			var statusSummary = activities
+				.GroupBy(a => a.Status)
+				.Select(g => new
+				{
+					Status = g.Key,
+					ProjectCount = g.Sum(x => x.ProjectCount),
+					TotalRevenue = g.Sum(x => x.Revenue),
+					EngineersCount = g.Sum(x => x.EngineersCount)
+				})
+				.ToList();
+
+			gcProjectsByStatus.DataSource = statusSummary;
+		}
+
+		private List<ActivityData> GetSampleActivities()
+		{
+			return new List<ActivityData>
+			{
+				new ActivityData { ActivityName = "Project Alpha", Status = "Active", Month = "January", Revenue = 15000, ProjectCount = 5, EngineersCount = 12, ActivityCount = 45 },
+				new ActivityData { ActivityName = "Project Beta", Status = "Active", Month = "February", Revenue = 22000, ProjectCount = 8, EngineersCount = 15, ActivityCount = 62 },
+				new ActivityData { ActivityName = "Project Gamma", Status = "Completed", Month = "March", Revenue = 18500, ProjectCount = 6, EngineersCount = 10, ActivityCount = 38 },
+				new ActivityData { ActivityName = "Project Delta", Status = "Active", Month = "April", Revenue = 31000, ProjectCount = 12, EngineersCount = 18, ActivityCount = 75 },
+				new ActivityData { ActivityName = "Project Epsilon", Status = "On Hold", Month = "May", Revenue = 9500, ProjectCount = 3, EngineersCount = 8, ActivityCount = 22 },
+				new ActivityData { ActivityName = "Project Zeta", Status = "Active", Month = "June", Revenue = 27500, ProjectCount = 10, EngineersCount = 14, ActivityCount = 58 },
+				new ActivityData { ActivityName = "Project Eta", Status = "Completed", Month = "July", Revenue = 21000, ProjectCount = 7, EngineersCount = 11, ActivityCount = 41 },
+				new ActivityData { ActivityName = "Project Theta", Status = "Active", Month = "August", Revenue = 35000, ProjectCount = 15, EngineersCount = 20, ActivityCount = 82 },
+				new ActivityData { ActivityName = "Project Iota", Status = "On Hold", Month = "September", Revenue = 12000, ProjectCount = 4, EngineersCount = 9, ActivityCount = 28 },
+				new ActivityData { ActivityName = "Project Kappa", Status = "Active", Month = "October", Revenue = 29000, ProjectCount = 11, EngineersCount = 16, ActivityCount = 67 },
+				new ActivityData { ActivityName = "Project Lambda", Status = "Completed", Month = "November", Revenue = 24500, ProjectCount = 9, EngineersCount = 13, ActivityCount = 52 },
+				new ActivityData { ActivityName = "Project Mu", Status = "Active", Month = "December", Revenue = 38000, ProjectCount = 14, EngineersCount = 22, ActivityCount = 91 }
+			};
+		}
+
+		private void btnClose_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+		{
+			Close();
+		}
+
+		private void btnRefresh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+		{
+			LoadSampleData();
+		}
+	}
+
+	public class ActivityData
+	{
+		public string ActivityName { get; set; }
+		public string Status { get; set; }
+		public string Month { get; set; }
+		public decimal Revenue { get; set; }
+		public int ProjectCount { get; set; }
+		public int EngineersCount { get; set; }
+		public int ActivityCount { get; set; }
+	}
+}

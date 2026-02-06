@@ -304,7 +304,7 @@ namespace Spectrum.Views.Main
 
 		private void mnuDashboardActivities_Click(object sender, EventArgs e)
 		{
-			OpenForm<DashboardActivitiesForm>();
+			//OpenForm<DashboardActivitiesForm1>();
 		}
 
 		#endregion

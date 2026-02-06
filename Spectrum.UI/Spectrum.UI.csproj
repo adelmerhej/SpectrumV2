@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{64964BF9-6CE6-4240-9747-5D89397500FD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SpectrumV1</RootNamespace>
+    <RootNamespace>Spectrum</RootNamespace>
     <AssemblyName>SpectrumLive</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -256,6 +256,9 @@
     </Compile>
     <Compile Include="Views\Dashboard\DashboardActivitiesForm.Designer.cs">
       <DependentUpon>DashboardActivitiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\DashboardActivitiesForm1.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\HumanResources\JobPositions\JobPositionEditForm.cs">
       <SubType>Form</SubType>
@@ -528,6 +531,9 @@
     <EmbeddedResource Include="Views\Dashboard\DashboardActivitiesForm.resx">
       <DependentUpon>DashboardActivitiesForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Dashboard\DashboardActivitiesForm1.resx">
+      <DependentUpon>DashboardActivitiesForm1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\JobPositions\JobPositionEditForm.resx">
       <DependentUpon>JobPositionEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -617,28 +623,28 @@
     <EmbeddedResource Include="Views\Users\UsersListForm.resx">
       <DependentUpon>UsersListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Areas.AreaModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Areas.LocationModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Companies.BranchModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Companies.CompanyModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.CityModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.ContinentModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.CountryModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.DistrictModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.ProvinceModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Countries.RegionModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Currencies.CurrencyModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Currencies.ExchangeCurrencyModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Departments.DepartmentModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Services.ServiceModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.JobPositions.JobPositionModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Members.Clients.ClientModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Members.Clients.ContactModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Members.Engineers.EngineerModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Members.Engineers.Status.StatusModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Operations.Projects.ProjectModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Projects.InvoiceModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Users.UserModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Areas.AreaModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Areas.LocationModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Companies.BranchModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Companies.CompanyModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.CityModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.ContinentModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.CountryModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.DistrictModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.ProvinceModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.RegionModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Currencies.CurrencyModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Currencies.ExchangeCurrencyModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Departments.DepartmentModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Services.ServiceModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.JobPositions.JobPositionModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Clients.ClientModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Clients.ContactModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Engineers.EngineerModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Engineers.Status.StatusModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Operations.Projects.ProjectModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Projects.InvoiceModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Users.UserModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
