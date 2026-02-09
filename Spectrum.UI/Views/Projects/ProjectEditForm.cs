@@ -121,25 +121,25 @@ namespace Spectrum.Views.Projects
 			cboOperatingUsers.Properties.DataSource = null;
 			cboOperatingUsers.Properties.DataSource = _users;
 
-		cboServicesProvided.Properties.DataSource = null;
-		cboServicesProvided.Properties.DisplayMember = "ServiceName";
-		cboServicesProvided.Properties.ValueMember = "ServiceName";
-		cboServicesProvided.Properties.DataSource = _services;
+			cboServicesProvided.Properties.DataSource = null;
+			cboServicesProvided.Properties.DisplayMember = "ServiceName";
+			cboServicesProvided.Properties.ValueMember = "ServiceName";
+			cboServicesProvided.Properties.DataSource = _services;
 
-		cboServicesType.Properties.DataSource = null;
-		cboServicesType.Properties.DisplayMember = "ServiceType";
-		cboServicesType.Properties.ValueMember = "ServiceType";
-		cboServicesType.Properties.DataSource = _serviceTypes;
+			cboServicesType.Properties.DataSource = null;
+			cboServicesType.Properties.DisplayMember = "ServiceType";
+			cboServicesType.Properties.ValueMember = "ServiceType";
+			cboServicesType.Properties.DataSource = _serviceTypes;
 
 		// Load checked items from project model
 		if (_projectModel.ServicesProvided != null && _projectModel.ServicesProvided.Any())
 		{
-			cboServicesProvided.EditValue = string.Join(", ", _projectModel.ServicesProvided);
+			cboServicesProvided.EditValue = _projectModel.ServicesProvided;
 		}
 
 		if (_projectModel.ServiceTypes != null && _projectModel.ServiceTypes.Any())
 		{
-			cboServicesType.EditValue = string.Join(", ", _projectModel.ServiceTypes);
+			cboServicesType.EditValue = _projectModel.ServiceTypes;
 		}
 
 		//cboStatus.Properties.Items.Clear();
@@ -225,16 +225,21 @@ namespace Spectrum.Views.Projects
 			}
 
 			// Save selected services and service types
-			if (cboServicesProvided.EditValue != null)
+			
+				if (cboServicesProvided.EditValue != null)
 			{
-				var servicesString = cboServicesProvided.EditValue.ToString();
-				_projectModel.ServicesProvided = servicesString.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+				if (cboServicesProvided.EditValue is List<string> servicesList)
+				{
+					_projectModel.ServicesProvided = servicesList;
+				}
 			}
 
 			if (cboServicesType.EditValue != null)
 			{
-				var serviceTypesString = cboServicesType.EditValue.ToString();
-				_projectModel.ServiceTypes = serviceTypesString.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+				if (cboServicesType.EditValue is List<string> serviceTypesList)
+				{
+					_projectModel.ServiceTypes = serviceTypesList;
+				}
 			}
 
 			//if (!string.IsNullOrEmpty(cboStatus.Text))
@@ -426,5 +431,28 @@ namespace Spectrum.Views.Projects
             if (_clientModel != null) cboClients.EditValue = _clientModel.ClientName;
         }
 
+        private void tabDetails_Click(object sender, EventArgs e)
+        {
+            switch (tabDetails.SelectedPage.Name)
+            {
+                case "tabSellingGroup":
+                    rpInvoices.Visible = true;
+                    rpExpenses.Visible = false;
+                    rcMain.SelectPage(rpInvoices);
+                    break;
+
+                case "tabCostGroup":
+                    rpInvoices.Visible = false;
+                    rpExpenses.Visible = true;
+                    rcMain.SelectPage(rpExpenses);
+                    break;
+
+                default:
+                    rpInvoices.Visible = false;
+                    rpExpenses.Visible = false;
+                    rcMain.SelectPage(rpMain);
+                    break;
+            }
+        }
     }
 }
