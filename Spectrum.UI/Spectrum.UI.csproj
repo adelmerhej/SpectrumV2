@@ -260,6 +260,18 @@
     <Compile Include="Views\Dashboard\DashboardActivitiesForm1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Views\HumanResources\Common\BloodTypes\BloodTypeEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\Common\BloodTypes\BloodTypeEditForm.Designer.cs">
+      <DependentUpon>BloodTypeEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HumanResources\Common\BloodTypes\BloodTypesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\Common\BloodTypes\BloodTypesListForm.Designer.cs">
+      <DependentUpon>BloodTypesListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\HumanResources\Employees\EmployeeEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -546,6 +558,12 @@
     <EmbeddedResource Include="Views\Dashboard\DashboardActivitiesForm1.resx">
       <DependentUpon>DashboardActivitiesForm1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\Common\BloodTypes\BloodTypeEditForm.resx">
+      <DependentUpon>BloodTypeEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\Common\BloodTypes\BloodTypesListForm.resx">
+      <DependentUpon>BloodTypesListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\Employees\EmployeeEditForm.resx">
       <DependentUpon>EmployeeEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -655,7 +673,13 @@
     <None Include="Properties\DataSources\Spectrum.Models.Common.Currencies.ExchangeCurrencyModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Common.Departments.DepartmentModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Common.Services.ServiceModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.CnssInfo.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmergencyContactInfo.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmployeeContactInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmployeeModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.SyndicatInfo.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkExperienceInfo.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkingPermitInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.JobPositions.JobPositionModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Members.Clients.ClientModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Members.Clients.ContactModel.datasource" />
@@ -664,6 +688,7 @@
     <None Include="Properties\DataSources\Spectrum.Models.Operations.Projects.ProjectModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.InvoiceModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Users.UserModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.BloodTypes.BloodTypeModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

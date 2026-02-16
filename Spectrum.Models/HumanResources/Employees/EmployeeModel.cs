@@ -80,6 +80,12 @@ namespace Spectrum.Models.HumanResources.Employees
         [BsonElement("DocumentLink")]
         public string DocumentLink { get; set; }
 
+
+        public string FullName
+        {
+            get { return $"{FirstName} {LastName}"; }
+        }
+
         #region Implementation of ICloneable
 
         public object Clone()

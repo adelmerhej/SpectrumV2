@@ -333,36 +333,25 @@
         VjI2eiIgY2xhc3M9IkJsYWNrIiAvPg0KPC9zdmc+Cw==
 </value>
   </data>
-  <data name="btnMeeting.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v25.2" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFlEZXZFeHByZXNzLkRhdGEudjI1LjIsIFZlcnNpb249MjUuMi40
-        LjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjg4ZDE3NTRkNzAwZTQ5YQUBAAAAHURl
-        dkV4cHJlc3MuVXRpbHMuU3ZnLlN2Z0ltYWdlAQAAAAREYXRhBwICAAAACQMAAAAPAwAAALEFAAAC77u/
-        PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz4NCjxzdmcgeD0iMHB4IiB5PSIwcHgi
-        IHZpZXdCb3g9IjAgMCAzMiAzMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-        MjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3Bh
-        Y2U9InByZXNlcnZlIiBpZD0iTGF5ZXJfMSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAg
-        MzIgMzIiPg0KICA8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLlllbGxvd3tmaWxsOiNGRkIxMTU7fQoJ
-        LlJlZHtmaWxsOiNEMTFDMUM7fQoJLkJsdWV7ZmlsbDojMTE3N0Q3O30KCS5HcmVlbntmaWxsOiMwMzlD
-        MjM7fQoJLkJsYWNre2ZpbGw6IzcyNzI3Mjt9CgkuV2hpdGV7ZmlsbDojRkZGRkZGO30KCS5zdDB7b3Bh
-        Y2l0eTowLjU7fQoJLnN0MXtkaXNwbGF5Om5vbmU7fQoJLnN0MntkaXNwbGF5OmlubGluZTtmaWxsOiMw
-        MzlDMjM7fQoJLnN0M3tkaXNwbGF5OmlubGluZTtmaWxsOiNEMTFDMUM7fQoJLnN0NHtkaXNwbGF5Omlu
-        bGluZTtmaWxsOiM3MjcyNzI7fQo8L3N0eWxlPg0KICA8ZyBpZD0iTWVldGluZyI+DQogICAgPHJlY3Qg
-        eD0iMTAiIHk9IjE0IiB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBjbGFzcz0iUmVkIiAvPg0KICAgIDxnIGNs
-        YXNzPSJzdDAiPg0KICAgICAgPHBhdGggZD0iTTE0LDI0aC00di00aDRWMjR6IE0yMCwyMGgtNHY0aDRW
-        MjB6IE0yNiw4aC00djRoNFY4eiBNMjAsMTRoLTR2NGg0VjE0eiBNMjAsOGgtNHY0aDRWOHogTTE0LDho
-        LTR2NGg0Vjh6ICAgICBNOCw4SDR2NGg0Vjh6IE04LDE0SDR2NGg0VjE0eiBNOCwyMEg0djRoNFYyMHoi
-        IGNsYXNzPSJCbGFjayIgLz4NCiAgICA8L2c+DQogICAgPHBhdGggZD0iTTE4LjYsMjZIMlY2aDI2djYu
-        NGMwLjksMC4zLDEuNSwwLjgsMiwxLjNWM2MwLTAuNi0wLjQtMS0xLTFIMUMwLjQsMiwwLDIuNCwwLDN2
-        MjRjMCwwLjYsMC40LDEsMSwxaDE3LjEgICBDMTguMSwyNy4yLDE4LjMsMjYuNSwxOC42LDI2eiIgY2xh
-        c3M9IkJsYWNrIiAvPg0KICAgIDxwYXRoIGQ9Ik0zMiwyOS4xVjMwSDIwdi0wLjljMC00LDIuMy0zLjMs
-        My42LTQuNmMwLjUsMC44LDEuMywxLjUsMi40LDEuNWMxLjEsMCwxLjktMC42LDIuNS0xLjQgICBDMjku
-        OCwyNS44LDMyLDI1LjEsMzIsMjkuMXogTTIyLjksMjAuOHYwLjFjMC40LDEuNSwxLjMsMy4xLDMuMSwz
-        LjFzMi44LTEuNiwzLjItMy4xdi0wLjFjMC43LDAsMC40LTAuNywwLjYtMXMwLjMtMC41LDAuMi0wLjkg
-        ICBjLTAuMS0wLjMtMC4zLTAuMi0wLjQtMC4yYzEuMi0zLjEtMC43LTIuOS0wLjctMi45UzI4LjcsMTQs
-        MjUuMiwxNGMtMy4yLDAtMy42LDIuNS0yLjksNC43YzAsMC4xLTAuMiwwLjEtMC4zLDAuMiAgIGMtMC4x
-        LDAuNCwwLjEsMC42LDAuMywwLjlTMjIuMiwyMC44LDIyLjksMjAuOHoiIGNsYXNzPSJCbHVlIiAvPg0K
-        ICA8L2c+DQo8L3N2Zz4L
-</value>
-  </data>
+  <metadata name="bsSyndicat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>539, 13</value>
+  </metadata>
+  <metadata name="bsEmployee.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="bsWorkingpermit.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>158, 17</value>
+  </metadata>
+  <metadata name="bsEmergencyContact.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>332, 17</value>
+  </metadata>
+  <metadata name="bsEmployeeContactInfo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>955, 13</value>
+  </metadata>
+  <metadata name="bsCnss.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>851, 13</value>
+  </metadata>
+  <metadata name="bsWorkExperience.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>670, 13</value>
+  </metadata>
 </root>

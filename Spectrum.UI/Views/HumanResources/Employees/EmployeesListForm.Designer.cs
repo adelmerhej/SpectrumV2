@@ -42,6 +42,7 @@
             this.btnRefresh = new DevExpress.XtraBars.BarButtonItem();
             this.btnClose = new DevExpress.XtraBars.BarButtonItem();
             this.customersRating = new DevExpress.XtraBars.BarEditItem();
+            this.repCustomersRating = new DevExpress.XtraEditors.Repository.RepositoryItemRatingControl();
             this.btnResetGridStyle = new DevExpress.XtraBars.BarButtonItem();
             this.rpEmployeesList = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -52,19 +53,11 @@
             this.rpViewSettings = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            this.repCustomersRating = new DevExpress.XtraEditors.Repository.RepositoryItemRatingControl();
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
             this.gcEmployees = new DevExpress.XtraGrid.GridControl();
-            this.gvEmployees = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.repDateFormat = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.repCountries = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.repCities = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.repCheckBox = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
-            this.repMemberOf = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.repUsers = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.bsEmployees = new System.Windows.Forms.BindingSource(this.components);
+            this.gvEmployees = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colEmployeeNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFirstName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colLastName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -88,7 +81,6 @@
             this.colFinancial = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colWorkExperience = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDocumentLink = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCompany = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBranch = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -102,22 +94,30 @@
             this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colLocked = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDeleted = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repDateFormat = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
+            this.repCountries = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.repCities = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.repCheckBox = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.repUsers = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.repMemberOf = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.rcEmployeesList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCustomersRating)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcEmployees)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsEmployees)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvEmployees)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repDateFormat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repDateFormat.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCountries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCities)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCheckBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repMemberOf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repUsers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repMemberOf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsEmployees)).BeginInit();
             this.SuspendLayout();
             // 
             // rcEmployeesList
@@ -161,6 +161,7 @@
             this.btnNew.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.NewCustomer.svg";
             this.btnNew.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnNew.ImageOptions.SvgImage")));
             this.btnNew.Name = "btnNew";
+            this.btnNew.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNew_ItemClick);
             // 
             // btnDelete
             // 
@@ -171,6 +172,7 @@
             this.btnDelete.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Delete.svg";
             this.btnDelete.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDelete.ImageOptions.SvgImage")));
             this.btnDelete.Name = "btnDelete";
+            this.btnDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDelete_ItemClick);
             // 
             // btnEdit
             // 
@@ -181,6 +183,7 @@
             this.btnEdit.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Edit.svg";
             this.btnEdit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEdit.ImageOptions.SvgImage")));
             this.btnEdit.Name = "btnEdit";
+            this.btnEdit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnEdit_ItemClick);
             // 
             // btnPrint
             // 
@@ -191,6 +194,7 @@
             this.btnPrint.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.SalesAnalysis.svg";
             this.btnPrint.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPrint.ImageOptions.SvgImage")));
             this.btnPrint.Name = "btnPrint";
+            this.btnPrint.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPrint_ItemClick);
             // 
             // barButtonItem13
             // 
@@ -229,6 +233,7 @@
             this.btnRefresh.Id = 37;
             this.btnRefresh.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRefresh.ImageOptions.SvgImage")));
             this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnRefresh_ItemClick);
             // 
             // btnClose
             // 
@@ -236,6 +241,7 @@
             this.btnClose.Id = 38;
             this.btnClose.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnClose.ImageOptions.SvgImage")));
             this.btnClose.Name = "btnClose";
+            this.btnClose.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClose_ItemClick);
             // 
             // customersRating
             // 
@@ -244,6 +250,12 @@
             this.customersRating.Id = 42;
             this.customersRating.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("customersRating.ImageOptions.SvgImage")));
             this.customersRating.Name = "customersRating";
+            this.customersRating.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.customersRating_ItemClick);
+            // 
+            // repCustomersRating
+            // 
+            this.repCustomersRating.AutoHeight = false;
+            this.repCustomersRating.Name = "repCustomersRating";
             // 
             // btnResetGridStyle
             // 
@@ -251,6 +263,7 @@
             this.btnResetGridStyle.Id = 43;
             this.btnResetGridStyle.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnResetGridStyle.ImageOptions.SvgImage")));
             this.btnResetGridStyle.Name = "btnResetGridStyle";
+            this.btnResetGridStyle.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResetGridStyle_ItemClick);
             // 
             // rpEmployeesList
             // 
@@ -325,11 +338,6 @@
             this.ribbonStatusBar1.Ribbon = this.rcEmployeesList;
             this.ribbonStatusBar1.Size = new System.Drawing.Size(1433, 30);
             // 
-            // repCustomersRating
-            // 
-            this.repCustomersRating.AutoHeight = false;
-            this.repCustomersRating.Name = "repCustomersRating";
-            // 
             // mainLayout
             // 
             this.mainLayout.Controls.Add(this.gcEmployees);
@@ -367,6 +375,10 @@
             this.gcEmployees.UseEmbeddedNavigator = true;
             this.gcEmployees.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvEmployees});
+            // 
+            // bsEmployees
+            // 
+            this.bsEmployees.DataSource = typeof(Spectrum.Models.HumanResources.Employees.EmployeeModel);
             // 
             // gvEmployees
             // 
@@ -421,6 +433,338 @@
             this.gvEmployees.OptionsView.ShowGroupPanel = false;
             this.gvEmployees.OptionsView.ShowIndicator = false;
             this.gvEmployees.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
+            this.gvEmployees.DoubleClick += new System.EventHandler(this.gvCities_DoubleClick);
+            // 
+            // col_id
+            // 
+            this.col_id.FieldName = "_id";
+            this.col_id.MinWidth = 25;
+            this.col_id.Name = "col_id";
+            this.col_id.Width = 94;
+            // 
+            // colEmployeeNo
+            // 
+            this.colEmployeeNo.FieldName = "EmployeeNo";
+            this.colEmployeeNo.MinWidth = 25;
+            this.colEmployeeNo.Name = "colEmployeeNo";
+            this.colEmployeeNo.Visible = true;
+            this.colEmployeeNo.VisibleIndex = 0;
+            this.colEmployeeNo.Width = 90;
+            // 
+            // colFirstName
+            // 
+            this.colFirstName.FieldName = "FirstName";
+            this.colFirstName.MinWidth = 25;
+            this.colFirstName.Name = "colFirstName";
+            this.colFirstName.Visible = true;
+            this.colFirstName.VisibleIndex = 1;
+            this.colFirstName.Width = 153;
+            // 
+            // colLastName
+            // 
+            this.colLastName.FieldName = "LastName";
+            this.colLastName.MinWidth = 25;
+            this.colLastName.Name = "colLastName";
+            this.colLastName.Visible = true;
+            this.colLastName.VisibleIndex = 2;
+            this.colLastName.Width = 142;
+            // 
+            // colFatherName
+            // 
+            this.colFatherName.FieldName = "FatherName";
+            this.colFatherName.MinWidth = 25;
+            this.colFatherName.Name = "colFatherName";
+            this.colFatherName.Visible = true;
+            this.colFatherName.VisibleIndex = 3;
+            this.colFatherName.Width = 183;
+            // 
+            // colMotherFullName
+            // 
+            this.colMotherFullName.FieldName = "MotherFullName";
+            this.colMotherFullName.MinWidth = 25;
+            this.colMotherFullName.Name = "colMotherFullName";
+            this.colMotherFullName.Visible = true;
+            this.colMotherFullName.VisibleIndex = 4;
+            this.colMotherFullName.Width = 167;
+            // 
+            // colBloodType
+            // 
+            this.colBloodType.FieldName = "BloodType";
+            this.colBloodType.MinWidth = 25;
+            this.colBloodType.Name = "colBloodType";
+            this.colBloodType.Visible = true;
+            this.colBloodType.VisibleIndex = 6;
+            this.colBloodType.Width = 126;
+            // 
+            // colDateOfBirth
+            // 
+            this.colDateOfBirth.FieldName = "DateOfBirth";
+            this.colDateOfBirth.MinWidth = 25;
+            this.colDateOfBirth.Name = "colDateOfBirth";
+            this.colDateOfBirth.Visible = true;
+            this.colDateOfBirth.VisibleIndex = 5;
+            this.colDateOfBirth.Width = 152;
+            // 
+            // colPlaceOfBirth
+            // 
+            this.colPlaceOfBirth.FieldName = "PlaceOfBirth";
+            this.colPlaceOfBirth.MinWidth = 25;
+            this.colPlaceOfBirth.Name = "colPlaceOfBirth";
+            this.colPlaceOfBirth.Visible = true;
+            this.colPlaceOfBirth.VisibleIndex = 7;
+            this.colPlaceOfBirth.Width = 114;
+            // 
+            // colRecordRegister
+            // 
+            this.colRecordRegister.FieldName = "RecordRegister";
+            this.colRecordRegister.MinWidth = 25;
+            this.colRecordRegister.Name = "colRecordRegister";
+            this.colRecordRegister.Visible = true;
+            this.colRecordRegister.VisibleIndex = 8;
+            this.colRecordRegister.Width = 238;
+            // 
+            // colNationality
+            // 
+            this.colNationality.FieldName = "Nationality";
+            this.colNationality.MinWidth = 25;
+            this.colNationality.Name = "colNationality";
+            this.colNationality.Visible = true;
+            this.colNationality.VisibleIndex = 9;
+            this.colNationality.Width = 167;
+            // 
+            // colIdCardOrPassportNo
+            // 
+            this.colIdCardOrPassportNo.FieldName = "IdCardOrPassportNo";
+            this.colIdCardOrPassportNo.MinWidth = 25;
+            this.colIdCardOrPassportNo.Name = "colIdCardOrPassportNo";
+            this.colIdCardOrPassportNo.Visible = true;
+            this.colIdCardOrPassportNo.VisibleIndex = 10;
+            this.colIdCardOrPassportNo.Width = 179;
+            // 
+            // colFamilyStatus
+            // 
+            this.colFamilyStatus.FieldName = "FamilyStatus";
+            this.colFamilyStatus.MinWidth = 25;
+            this.colFamilyStatus.Name = "colFamilyStatus";
+            this.colFamilyStatus.Visible = true;
+            this.colFamilyStatus.VisibleIndex = 11;
+            this.colFamilyStatus.Width = 154;
+            // 
+            // colEmployeeType
+            // 
+            this.colEmployeeType.FieldName = "EmployeeType";
+            this.colEmployeeType.MinWidth = 25;
+            this.colEmployeeType.Name = "colEmployeeType";
+            this.colEmployeeType.Visible = true;
+            this.colEmployeeType.VisibleIndex = 12;
+            this.colEmployeeType.Width = 157;
+            // 
+            // colSpecialization
+            // 
+            this.colSpecialization.FieldName = "Specialization";
+            this.colSpecialization.MinWidth = 25;
+            this.colSpecialization.Name = "colSpecialization";
+            this.colSpecialization.Visible = true;
+            this.colSpecialization.VisibleIndex = 13;
+            this.colSpecialization.Width = 159;
+            // 
+            // colLeftWork
+            // 
+            this.colLeftWork.FieldName = "LeftWork";
+            this.colLeftWork.MinWidth = 25;
+            this.colLeftWork.Name = "colLeftWork";
+            this.colLeftWork.Visible = true;
+            this.colLeftWork.VisibleIndex = 14;
+            this.colLeftWork.Width = 101;
+            // 
+            // colContactInfo
+            // 
+            this.colContactInfo.FieldName = "ContactInfo";
+            this.colContactInfo.MinWidth = 25;
+            this.colContactInfo.Name = "colContactInfo";
+            this.colContactInfo.Visible = true;
+            this.colContactInfo.VisibleIndex = 15;
+            this.colContactInfo.Width = 126;
+            // 
+            // colEmergencyContact
+            // 
+            this.colEmergencyContact.FieldName = "EmergencyContact";
+            this.colEmergencyContact.MinWidth = 25;
+            this.colEmergencyContact.Name = "colEmergencyContact";
+            this.colEmergencyContact.Visible = true;
+            this.colEmergencyContact.VisibleIndex = 16;
+            this.colEmergencyContact.Width = 198;
+            // 
+            // colCnss
+            // 
+            this.colCnss.FieldName = "Cnss";
+            this.colCnss.MinWidth = 25;
+            this.colCnss.Name = "colCnss";
+            this.colCnss.Visible = true;
+            this.colCnss.VisibleIndex = 17;
+            this.colCnss.Width = 136;
+            // 
+            // colSyndicat
+            // 
+            this.colSyndicat.FieldName = "Syndicat";
+            this.colSyndicat.MinWidth = 25;
+            this.colSyndicat.Name = "colSyndicat";
+            this.colSyndicat.Visible = true;
+            this.colSyndicat.VisibleIndex = 18;
+            this.colSyndicat.Width = 120;
+            // 
+            // colWorkingPermit
+            // 
+            this.colWorkingPermit.FieldName = "WorkingPermit";
+            this.colWorkingPermit.MinWidth = 25;
+            this.colWorkingPermit.Name = "colWorkingPermit";
+            this.colWorkingPermit.Visible = true;
+            this.colWorkingPermit.VisibleIndex = 19;
+            this.colWorkingPermit.Width = 151;
+            // 
+            // colFinancial
+            // 
+            this.colFinancial.FieldName = "Financial";
+            this.colFinancial.MinWidth = 25;
+            this.colFinancial.Name = "colFinancial";
+            this.colFinancial.Visible = true;
+            this.colFinancial.VisibleIndex = 20;
+            this.colFinancial.Width = 129;
+            // 
+            // colWorkExperience
+            // 
+            this.colWorkExperience.FieldName = "WorkExperience";
+            this.colWorkExperience.MinWidth = 25;
+            this.colWorkExperience.Name = "colWorkExperience";
+            this.colWorkExperience.Visible = true;
+            this.colWorkExperience.VisibleIndex = 21;
+            this.colWorkExperience.Width = 145;
+            // 
+            // colDocumentLink
+            // 
+            this.colDocumentLink.FieldName = "DocumentLink";
+            this.colDocumentLink.MinWidth = 25;
+            this.colDocumentLink.Name = "colDocumentLink";
+            this.colDocumentLink.Visible = true;
+            this.colDocumentLink.VisibleIndex = 22;
+            this.colDocumentLink.Width = 126;
+            // 
+            // colNotes
+            // 
+            this.colNotes.FieldName = "Notes";
+            this.colNotes.MinWidth = 25;
+            this.colNotes.Name = "colNotes";
+            this.colNotes.Visible = true;
+            this.colNotes.VisibleIndex = 23;
+            this.colNotes.Width = 268;
+            // 
+            // colCompany
+            // 
+            this.colCompany.FieldName = "Company";
+            this.colCompany.MinWidth = 25;
+            this.colCompany.Name = "colCompany";
+            this.colCompany.Visible = true;
+            this.colCompany.VisibleIndex = 24;
+            this.colCompany.Width = 123;
+            // 
+            // colBranch
+            // 
+            this.colBranch.FieldName = "Branch";
+            this.colBranch.MinWidth = 25;
+            this.colBranch.Name = "colBranch";
+            this.colBranch.Visible = true;
+            this.colBranch.VisibleIndex = 25;
+            this.colBranch.Width = 124;
+            // 
+            // colCreatedBy
+            // 
+            this.colCreatedBy.FieldName = "CreatedBy";
+            this.colCreatedBy.MinWidth = 25;
+            this.colCreatedBy.Name = "colCreatedBy";
+            this.colCreatedBy.Visible = true;
+            this.colCreatedBy.VisibleIndex = 26;
+            this.colCreatedBy.Width = 94;
+            // 
+            // colCreatedAt
+            // 
+            this.colCreatedAt.FieldName = "CreatedAt";
+            this.colCreatedAt.MinWidth = 25;
+            this.colCreatedAt.Name = "colCreatedAt";
+            this.colCreatedAt.Visible = true;
+            this.colCreatedAt.VisibleIndex = 27;
+            this.colCreatedAt.Width = 94;
+            // 
+            // colLastModifiedBy
+            // 
+            this.colLastModifiedBy.FieldName = "LastModifiedBy";
+            this.colLastModifiedBy.MinWidth = 25;
+            this.colLastModifiedBy.Name = "colLastModifiedBy";
+            this.colLastModifiedBy.Visible = true;
+            this.colLastModifiedBy.VisibleIndex = 28;
+            this.colLastModifiedBy.Width = 123;
+            // 
+            // colLastModifiedDate
+            // 
+            this.colLastModifiedDate.FieldName = "LastModifiedDate";
+            this.colLastModifiedDate.MinWidth = 25;
+            this.colLastModifiedDate.Name = "colLastModifiedDate";
+            this.colLastModifiedDate.Visible = true;
+            this.colLastModifiedDate.VisibleIndex = 29;
+            this.colLastModifiedDate.Width = 117;
+            // 
+            // colWorkingYear
+            // 
+            this.colWorkingYear.FieldName = "WorkingYear";
+            this.colWorkingYear.MinWidth = 25;
+            this.colWorkingYear.Name = "colWorkingYear";
+            this.colWorkingYear.Visible = true;
+            this.colWorkingYear.VisibleIndex = 30;
+            this.colWorkingYear.Width = 127;
+            // 
+            // colIsProtected
+            // 
+            this.colIsProtected.FieldName = "IsProtected";
+            this.colIsProtected.MinWidth = 25;
+            this.colIsProtected.Name = "colIsProtected";
+            this.colIsProtected.Visible = true;
+            this.colIsProtected.VisibleIndex = 31;
+            this.colIsProtected.Width = 94;
+            // 
+            // colIsDefault
+            // 
+            this.colIsDefault.FieldName = "IsDefault";
+            this.colIsDefault.MinWidth = 25;
+            this.colIsDefault.Name = "colIsDefault";
+            this.colIsDefault.Visible = true;
+            this.colIsDefault.VisibleIndex = 32;
+            this.colIsDefault.Width = 94;
+            // 
+            // colActive
+            // 
+            this.colActive.FieldName = "Active";
+            this.colActive.MinWidth = 25;
+            this.colActive.Name = "colActive";
+            this.colActive.Visible = true;
+            this.colActive.VisibleIndex = 33;
+            this.colActive.Width = 94;
+            // 
+            // colLocked
+            // 
+            this.colLocked.FieldName = "Locked";
+            this.colLocked.MinWidth = 25;
+            this.colLocked.Name = "colLocked";
+            this.colLocked.Visible = true;
+            this.colLocked.VisibleIndex = 34;
+            this.colLocked.Width = 94;
+            // 
+            // colDeleted
+            // 
+            this.colDeleted.FieldName = "Deleted";
+            this.colDeleted.MinWidth = 25;
+            this.colDeleted.Name = "colDeleted";
+            this.colDeleted.Visible = true;
+            this.colDeleted.VisibleIndex = 35;
+            this.colDeleted.Width = 94;
             // 
             // repDateFormat
             // 
@@ -466,19 +810,6 @@
             this.repCheckBox.AutoHeight = false;
             this.repCheckBox.Name = "repCheckBox";
             // 
-            // repMemberOf
-            // 
-            this.repMemberOf.AutoHeight = false;
-            this.repMemberOf.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repMemberOf.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Id", "Id", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("CustomerName", "Name", 60, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default)});
-            this.repMemberOf.DisplayMember = "CustomerName";
-            this.repMemberOf.Name = "repMemberOf";
-            this.repMemberOf.NullText = "";
-            this.repMemberOf.ValueMember = "Id";
-            // 
             // repUsers
             // 
             this.repUsers.AutoHeight = false;
@@ -491,6 +822,19 @@
             this.repUsers.Name = "repUsers";
             this.repUsers.NullText = "";
             this.repUsers.ValueMember = "Id";
+            // 
+            // repMemberOf
+            // 
+            this.repMemberOf.AutoHeight = false;
+            this.repMemberOf.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repMemberOf.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Id", "Id", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("CustomerName", "Name", 60, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default)});
+            this.repMemberOf.DisplayMember = "CustomerName";
+            this.repMemberOf.Name = "repMemberOf";
+            this.repMemberOf.NullText = "";
+            this.repMemberOf.ValueMember = "Id";
             // 
             // Root
             // 
@@ -510,343 +854,6 @@
             this.layoutControlItem1.Size = new System.Drawing.Size(1409, 483);
             this.layoutControlItem1.TextVisible = false;
             // 
-            // bsEmployees
-            // 
-            this.bsEmployees.DataSource = typeof(Spectrum.Models.HumanResources.Employees.EmployeeModel);
-            // 
-            // colEmployeeNo
-            // 
-            this.colEmployeeNo.FieldName = "EmployeeNo";
-            this.colEmployeeNo.MinWidth = 25;
-            this.colEmployeeNo.Name = "colEmployeeNo";
-            this.colEmployeeNo.Visible = true;
-            this.colEmployeeNo.VisibleIndex = 1;
-            this.colEmployeeNo.Width = 90;
-            // 
-            // colFirstName
-            // 
-            this.colFirstName.FieldName = "FirstName";
-            this.colFirstName.MinWidth = 25;
-            this.colFirstName.Name = "colFirstName";
-            this.colFirstName.Visible = true;
-            this.colFirstName.VisibleIndex = 2;
-            this.colFirstName.Width = 153;
-            // 
-            // colLastName
-            // 
-            this.colLastName.FieldName = "LastName";
-            this.colLastName.MinWidth = 25;
-            this.colLastName.Name = "colLastName";
-            this.colLastName.Visible = true;
-            this.colLastName.VisibleIndex = 3;
-            this.colLastName.Width = 142;
-            // 
-            // colFatherName
-            // 
-            this.colFatherName.FieldName = "FatherName";
-            this.colFatherName.MinWidth = 25;
-            this.colFatherName.Name = "colFatherName";
-            this.colFatherName.Visible = true;
-            this.colFatherName.VisibleIndex = 4;
-            this.colFatherName.Width = 183;
-            // 
-            // colMotherFullName
-            // 
-            this.colMotherFullName.FieldName = "MotherFullName";
-            this.colMotherFullName.MinWidth = 25;
-            this.colMotherFullName.Name = "colMotherFullName";
-            this.colMotherFullName.Visible = true;
-            this.colMotherFullName.VisibleIndex = 5;
-            this.colMotherFullName.Width = 167;
-            // 
-            // colBloodType
-            // 
-            this.colBloodType.FieldName = "BloodType";
-            this.colBloodType.MinWidth = 25;
-            this.colBloodType.Name = "colBloodType";
-            this.colBloodType.Visible = true;
-            this.colBloodType.VisibleIndex = 7;
-            this.colBloodType.Width = 126;
-            // 
-            // colDateOfBirth
-            // 
-            this.colDateOfBirth.FieldName = "DateOfBirth";
-            this.colDateOfBirth.MinWidth = 25;
-            this.colDateOfBirth.Name = "colDateOfBirth";
-            this.colDateOfBirth.Visible = true;
-            this.colDateOfBirth.VisibleIndex = 6;
-            this.colDateOfBirth.Width = 152;
-            // 
-            // colPlaceOfBirth
-            // 
-            this.colPlaceOfBirth.FieldName = "PlaceOfBirth";
-            this.colPlaceOfBirth.MinWidth = 25;
-            this.colPlaceOfBirth.Name = "colPlaceOfBirth";
-            this.colPlaceOfBirth.Visible = true;
-            this.colPlaceOfBirth.VisibleIndex = 8;
-            this.colPlaceOfBirth.Width = 114;
-            // 
-            // colRecordRegister
-            // 
-            this.colRecordRegister.FieldName = "RecordRegister";
-            this.colRecordRegister.MinWidth = 25;
-            this.colRecordRegister.Name = "colRecordRegister";
-            this.colRecordRegister.Visible = true;
-            this.colRecordRegister.VisibleIndex = 9;
-            this.colRecordRegister.Width = 238;
-            // 
-            // colNationality
-            // 
-            this.colNationality.FieldName = "Nationality";
-            this.colNationality.MinWidth = 25;
-            this.colNationality.Name = "colNationality";
-            this.colNationality.Visible = true;
-            this.colNationality.VisibleIndex = 10;
-            this.colNationality.Width = 167;
-            // 
-            // colIdCardOrPassportNo
-            // 
-            this.colIdCardOrPassportNo.FieldName = "IdCardOrPassportNo";
-            this.colIdCardOrPassportNo.MinWidth = 25;
-            this.colIdCardOrPassportNo.Name = "colIdCardOrPassportNo";
-            this.colIdCardOrPassportNo.Visible = true;
-            this.colIdCardOrPassportNo.VisibleIndex = 11;
-            this.colIdCardOrPassportNo.Width = 179;
-            // 
-            // colFamilyStatus
-            // 
-            this.colFamilyStatus.FieldName = "FamilyStatus";
-            this.colFamilyStatus.MinWidth = 25;
-            this.colFamilyStatus.Name = "colFamilyStatus";
-            this.colFamilyStatus.Visible = true;
-            this.colFamilyStatus.VisibleIndex = 12;
-            this.colFamilyStatus.Width = 154;
-            // 
-            // colEmployeeType
-            // 
-            this.colEmployeeType.FieldName = "EmployeeType";
-            this.colEmployeeType.MinWidth = 25;
-            this.colEmployeeType.Name = "colEmployeeType";
-            this.colEmployeeType.Visible = true;
-            this.colEmployeeType.VisibleIndex = 13;
-            this.colEmployeeType.Width = 157;
-            // 
-            // colSpecialization
-            // 
-            this.colSpecialization.FieldName = "Specialization";
-            this.colSpecialization.MinWidth = 25;
-            this.colSpecialization.Name = "colSpecialization";
-            this.colSpecialization.Visible = true;
-            this.colSpecialization.VisibleIndex = 14;
-            this.colSpecialization.Width = 159;
-            // 
-            // colLeftWork
-            // 
-            this.colLeftWork.FieldName = "LeftWork";
-            this.colLeftWork.MinWidth = 25;
-            this.colLeftWork.Name = "colLeftWork";
-            this.colLeftWork.Visible = true;
-            this.colLeftWork.VisibleIndex = 15;
-            this.colLeftWork.Width = 101;
-            // 
-            // colContactInfo
-            // 
-            this.colContactInfo.FieldName = "ContactInfo";
-            this.colContactInfo.MinWidth = 25;
-            this.colContactInfo.Name = "colContactInfo";
-            this.colContactInfo.Visible = true;
-            this.colContactInfo.VisibleIndex = 16;
-            this.colContactInfo.Width = 126;
-            // 
-            // colEmergencyContact
-            // 
-            this.colEmergencyContact.FieldName = "EmergencyContact";
-            this.colEmergencyContact.MinWidth = 25;
-            this.colEmergencyContact.Name = "colEmergencyContact";
-            this.colEmergencyContact.Visible = true;
-            this.colEmergencyContact.VisibleIndex = 17;
-            this.colEmergencyContact.Width = 198;
-            // 
-            // colCnss
-            // 
-            this.colCnss.FieldName = "Cnss";
-            this.colCnss.MinWidth = 25;
-            this.colCnss.Name = "colCnss";
-            this.colCnss.Visible = true;
-            this.colCnss.VisibleIndex = 18;
-            this.colCnss.Width = 136;
-            // 
-            // colSyndicat
-            // 
-            this.colSyndicat.FieldName = "Syndicat";
-            this.colSyndicat.MinWidth = 25;
-            this.colSyndicat.Name = "colSyndicat";
-            this.colSyndicat.Visible = true;
-            this.colSyndicat.VisibleIndex = 19;
-            this.colSyndicat.Width = 120;
-            // 
-            // colWorkingPermit
-            // 
-            this.colWorkingPermit.FieldName = "WorkingPermit";
-            this.colWorkingPermit.MinWidth = 25;
-            this.colWorkingPermit.Name = "colWorkingPermit";
-            this.colWorkingPermit.Visible = true;
-            this.colWorkingPermit.VisibleIndex = 20;
-            this.colWorkingPermit.Width = 151;
-            // 
-            // colFinancial
-            // 
-            this.colFinancial.FieldName = "Financial";
-            this.colFinancial.MinWidth = 25;
-            this.colFinancial.Name = "colFinancial";
-            this.colFinancial.Visible = true;
-            this.colFinancial.VisibleIndex = 21;
-            this.colFinancial.Width = 129;
-            // 
-            // colWorkExperience
-            // 
-            this.colWorkExperience.FieldName = "WorkExperience";
-            this.colWorkExperience.MinWidth = 25;
-            this.colWorkExperience.Name = "colWorkExperience";
-            this.colWorkExperience.Visible = true;
-            this.colWorkExperience.VisibleIndex = 22;
-            this.colWorkExperience.Width = 145;
-            // 
-            // colDocumentLink
-            // 
-            this.colDocumentLink.FieldName = "DocumentLink";
-            this.colDocumentLink.MinWidth = 25;
-            this.colDocumentLink.Name = "colDocumentLink";
-            this.colDocumentLink.Visible = true;
-            this.colDocumentLink.VisibleIndex = 23;
-            this.colDocumentLink.Width = 126;
-            // 
-            // col_id
-            // 
-            this.col_id.FieldName = "_id";
-            this.col_id.MinWidth = 25;
-            this.col_id.Name = "col_id";
-            this.col_id.Visible = true;
-            this.col_id.VisibleIndex = 0;
-            this.col_id.Width = 94;
-            // 
-            // colNotes
-            // 
-            this.colNotes.FieldName = "Notes";
-            this.colNotes.MinWidth = 25;
-            this.colNotes.Name = "colNotes";
-            this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 24;
-            this.colNotes.Width = 268;
-            // 
-            // colCompany
-            // 
-            this.colCompany.FieldName = "Company";
-            this.colCompany.MinWidth = 25;
-            this.colCompany.Name = "colCompany";
-            this.colCompany.Visible = true;
-            this.colCompany.VisibleIndex = 25;
-            this.colCompany.Width = 123;
-            // 
-            // colBranch
-            // 
-            this.colBranch.FieldName = "Branch";
-            this.colBranch.MinWidth = 25;
-            this.colBranch.Name = "colBranch";
-            this.colBranch.Visible = true;
-            this.colBranch.VisibleIndex = 26;
-            this.colBranch.Width = 124;
-            // 
-            // colCreatedBy
-            // 
-            this.colCreatedBy.FieldName = "CreatedBy";
-            this.colCreatedBy.MinWidth = 25;
-            this.colCreatedBy.Name = "colCreatedBy";
-            this.colCreatedBy.Visible = true;
-            this.colCreatedBy.VisibleIndex = 27;
-            this.colCreatedBy.Width = 94;
-            // 
-            // colCreatedAt
-            // 
-            this.colCreatedAt.FieldName = "CreatedAt";
-            this.colCreatedAt.MinWidth = 25;
-            this.colCreatedAt.Name = "colCreatedAt";
-            this.colCreatedAt.Visible = true;
-            this.colCreatedAt.VisibleIndex = 28;
-            this.colCreatedAt.Width = 94;
-            // 
-            // colLastModifiedBy
-            // 
-            this.colLastModifiedBy.FieldName = "LastModifiedBy";
-            this.colLastModifiedBy.MinWidth = 25;
-            this.colLastModifiedBy.Name = "colLastModifiedBy";
-            this.colLastModifiedBy.Visible = true;
-            this.colLastModifiedBy.VisibleIndex = 29;
-            this.colLastModifiedBy.Width = 123;
-            // 
-            // colLastModifiedDate
-            // 
-            this.colLastModifiedDate.FieldName = "LastModifiedDate";
-            this.colLastModifiedDate.MinWidth = 25;
-            this.colLastModifiedDate.Name = "colLastModifiedDate";
-            this.colLastModifiedDate.Visible = true;
-            this.colLastModifiedDate.VisibleIndex = 30;
-            this.colLastModifiedDate.Width = 117;
-            // 
-            // colWorkingYear
-            // 
-            this.colWorkingYear.FieldName = "WorkingYear";
-            this.colWorkingYear.MinWidth = 25;
-            this.colWorkingYear.Name = "colWorkingYear";
-            this.colWorkingYear.Visible = true;
-            this.colWorkingYear.VisibleIndex = 31;
-            this.colWorkingYear.Width = 127;
-            // 
-            // colIsProtected
-            // 
-            this.colIsProtected.FieldName = "IsProtected";
-            this.colIsProtected.MinWidth = 25;
-            this.colIsProtected.Name = "colIsProtected";
-            this.colIsProtected.Visible = true;
-            this.colIsProtected.VisibleIndex = 32;
-            this.colIsProtected.Width = 94;
-            // 
-            // colIsDefault
-            // 
-            this.colIsDefault.FieldName = "IsDefault";
-            this.colIsDefault.MinWidth = 25;
-            this.colIsDefault.Name = "colIsDefault";
-            this.colIsDefault.Visible = true;
-            this.colIsDefault.VisibleIndex = 33;
-            this.colIsDefault.Width = 94;
-            // 
-            // colActive
-            // 
-            this.colActive.FieldName = "Active";
-            this.colActive.MinWidth = 25;
-            this.colActive.Name = "colActive";
-            this.colActive.Visible = true;
-            this.colActive.VisibleIndex = 34;
-            this.colActive.Width = 94;
-            // 
-            // colLocked
-            // 
-            this.colLocked.FieldName = "Locked";
-            this.colLocked.MinWidth = 25;
-            this.colLocked.Name = "colLocked";
-            this.colLocked.Visible = true;
-            this.colLocked.VisibleIndex = 35;
-            this.colLocked.Width = 94;
-            // 
-            // colDeleted
-            // 
-            this.colDeleted.FieldName = "Deleted";
-            this.colDeleted.MinWidth = 25;
-            this.colDeleted.Name = "colDeleted";
-            this.colDeleted.Visible = true;
-            this.colDeleted.VisibleIndex = 36;
-            this.colDeleted.Width = 94;
-            // 
             // EmployeesListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -865,17 +872,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcEmployees)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsEmployees)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvEmployees)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repDateFormat.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repDateFormat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCountries)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCities)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCheckBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repMemberOf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repUsers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repMemberOf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsEmployees)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

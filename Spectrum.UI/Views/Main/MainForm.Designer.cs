@@ -133,6 +133,7 @@
             this.grpReadingPane = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.dockRight = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.showPendingJobs = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuBloodType = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonMainForm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
@@ -549,7 +550,8 @@
             this.mnuHrCVs,
             this.mnuEmployees,
             this.mnuDepartments,
-            this.mnuRoles});
+            this.mnuRoles,
+            this.mnuBloodType});
             this.mnuHumanResources.Expanded = true;
             this.mnuHumanResources.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuHumanResources.ImageOptions.SvgImage")));
             this.mnuHumanResources.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
@@ -1065,6 +1067,14 @@
             this.showPendingJobs.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.showPendingJobs.Text = "Show Pending Jobs";
             // 
+            // mnuBloodType
+            // 
+            this.mnuBloodType.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuBloodType.ImageOptions.SvgImage")));
+            this.mnuBloodType.Name = "mnuBloodType";
+            this.mnuBloodType.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.mnuBloodType.Text = "Blood Type";
+            this.mnuBloodType.Click += new System.EventHandler(this.mnuBloodType_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1203,5 +1213,6 @@
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuStatus;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuLocations;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuJobPositions;
-	}
+        private DevExpress.XtraBars.Navigation.AccordionControlElement mnuBloodType;
+    }
 }

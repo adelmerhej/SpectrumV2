@@ -14,6 +14,8 @@ using Spectrum.Views.Common.Countries;
 using Spectrum.Views.Common.Departments;
 using Spectrum.Views.Common.Services;
 using Spectrum.Views.Dashboard;
+using Spectrum.Views.HumanResources.Common.BloodTypes;
+using Spectrum.Views.HumanResources.Employees;
 using Spectrum.Views.HumanResources.JobPositions;
 using Spectrum.Views.Main.Connections;
 using Spectrum.Views.Main.Update;
@@ -374,8 +376,8 @@ namespace Spectrum.Views.Main
 
 		private void mnuEmployees_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
-		}
+            OpenForm<EmployeesListForm>();
+        }
 
 		private void mnuDepartments_Click(object sender, EventArgs e)
 		{
@@ -534,5 +536,10 @@ namespace Spectrum.Views.Main
 		{
 			OpenForm<JobPositionsListForm>();
 		}
-	}
+
+        private void mnuBloodType_Click(object sender, EventArgs e)
+        {
+            OpenForm<BloodTypesListForm>();
+        }
+    }
 }

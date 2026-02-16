@@ -185,6 +185,10 @@
     <Compile Include="DataAccess\DatabaseFactory.cs" />
     <Compile Include="DataAccess\IDatabase.cs" />
     <Compile Include="DataUtilities\ConfigManager.cs" />
+    <Compile Include="HumanResources\BloodTypes\BloodTypeRepository.cs" />
+    <Compile Include="HumanResources\BloodTypes\IBloodTypeRepository.cs" />
+    <Compile Include="HumanResources\Employees\EmployeeRepository.cs" />
+    <Compile Include="HumanResources\Employees\IEmployeeRepository.cs" />
     <Compile Include="HumanResources\JobPositions\IJobPositionRepository.cs" />
     <Compile Include="HumanResources\JobPositions\JobPositionRepository.cs" />
     <Compile Include="Members\Clients\ClientContactMigrationHelper.cs" />
@@ -220,7 +224,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataAccess\Types\" />
-    <Folder Include="HumanResources\Employees\" />
     <Folder Include="Members\Suppliers\" />
   </ItemGroup>
   <ItemGroup>

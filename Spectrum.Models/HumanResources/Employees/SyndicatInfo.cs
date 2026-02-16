@@ -15,8 +15,5 @@ namespace Spectrum.Models.HumanResources.Employees
 
         [BsonElement("RegistrationPlace")]
         public string RegistrationPlace { get; set; }
-
-        [BsonElement("RegistrationNo")]
-        public string RegistrationNo { get; set; }
     }
 }

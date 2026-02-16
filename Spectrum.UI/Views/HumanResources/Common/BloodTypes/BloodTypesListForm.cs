@@ -3,12 +3,12 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using Spectrum.DataLayers.DataAccess;
-using Spectrum.Models.HumanResources.Employees;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
-using SpectrumV1.DataLayers.HumanResources.Employees;
+using SpectrumV1.DataLayers.HumanResources.BloodTypes;
+using SpectrumV1.Models.HumanResources.BloodTypes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,17 +16,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spectrum.Views.HumanResources.Employees
+namespace Spectrum.Views.HumanResources.Common.BloodTypes
 {
-    public partial class EmployeesListForm : RibbonForm, IFormWithRibbon
+    public partial class BloodTypesListForm : RibbonForm, IFormWithRibbon
     {
         private bool _resetMenu;
-        private EmployeeEditForm _employeeEditForm;
+        private BloodTypeEditForm _bloodTypeEditForm;
 
-        private EmployeeModel _employeeModel = new EmployeeModel();
-        private IList<EmployeeModel> _employees = new List<EmployeeModel>();
+        private BloodTypeModel _bloodTypeModel = new BloodTypeModel();
+        private IList<BloodTypeModel> _bloodTypes = new List<BloodTypeModel>();
 
-        private readonly EmployeeRepository _employeeRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
+        private readonly BloodTypeRepository _bloodTypeRepository = new BloodTypeRepository(DatabaseFactory.ProfilePrimary);
 
         //Init permissionvariables
         private bool _canAdd = true;
@@ -38,13 +38,13 @@ namespace Spectrum.Views.HumanResources.Employees
 
         #region Implementation of IFormWithRibbon
 
-        public RibbonControl MainRibbon => rcEmployeesList;
-        public RibbonPage DefaultPage => rpEmployeesList;
+        public RibbonControl MainRibbon => rcBloodTypeList;
+        public RibbonPage DefaultPage => rpBloodTypeList;
 
 
         #endregion
 
-        public EmployeesListForm()
+        public BloodTypesListForm()
         {
             InitializeComponent();
 
@@ -73,7 +73,7 @@ namespace Spectrum.Views.HumanResources.Employees
                 //	}
                 //	//
 
-                _employees = await _employeeRepository.GetEmployeesAsync();
+                _bloodTypes = await _bloodTypeRepository.GetBloodTypesAsync();
             }
             catch (Exception ex)
             {
@@ -83,8 +83,8 @@ namespace Spectrum.Views.HumanResources.Employees
 
         private void WireUpBindings()
         {
-            gcEmployees.DataSource = null;
-            gcEmployees.DataSource = _employees;
+            gcBloodTypes.DataSource = null;
+            gcBloodTypes.DataSource = _bloodTypes;
         }
 
         private void ApplyDefaults()
@@ -118,27 +118,26 @@ namespace Spectrum.Views.HumanResources.Employees
             btnDelete.Enabled = _isAdmin || _canDelete;
         }
 
-
         #region Button Events
 
         private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ShowEmployeeEditor(new EmployeeModel());
+            ShowBloodTypeEditor(new BloodTypeModel());
         }
 
         private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (!_employees.Any()) return;
+            if (!_bloodTypes.Any()) return;
 
             try
             {
-                string currentRowId = gvEmployees.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvBloodTypes.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _employeeModel = _employees.SingleOrDefault(x => x._id == currentRowId);
-                if (_employeeModel == null) return;
+                _bloodTypeModel = _bloodTypes.SingleOrDefault(x => x._id == currentRowId);
+                if (_bloodTypeModel == null) return;
 
-                ShowEmployeeEditor(_employeeModel);
+                ShowBloodTypeEditor(_bloodTypeModel);
             }
             catch (Exception exception)
             {
@@ -153,7 +152,7 @@ namespace Spectrum.Views.HumanResources.Employees
 
         private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
         {
-            gcEmployees.ShowRibbonPrintPreview();
+            gcBloodTypes.ShowRibbonPrintPreview();
         }
 
         private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
@@ -162,8 +161,8 @@ namespace Spectrum.Views.HumanResources.Employees
 
             try
             {
-                string id = gvEmployees.GetFocusedRowCellValue("_id").ToString();
-                string name = gvEmployees.GetFocusedRowCellValue("EmployeeName").ToString();
+                string id = gvBloodTypes.GetFocusedRowCellValue("_id").ToString();
+                string name = gvBloodTypes.GetFocusedRowCellValue("BloodTypeName").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -171,16 +170,16 @@ namespace Spectrum.Views.HumanResources.Employees
                             "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                             MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        _employeeModel = gvEmployees.GetFocusedRow() as EmployeeModel;
-                        if (_employeeModel == null)
+                        _bloodTypeModel = gvBloodTypes.GetFocusedRow() as BloodTypeModel;
+                        if (_bloodTypeModel == null)
                         {
                             return;
                         }
-                        _employeeModel.Deleted = true;
+                        _bloodTypeModel.Deleted = true;
 
                         //delete the record
-                        await _employeeRepository.DeleteEmployeeAsync(_employeeModel._id);
-                        RcvUpdatedEmployeeAsync(_employeeModel, EventArgs.Empty);
+                        await _bloodTypeRepository.DeleteBloodTypeAsync(_bloodTypeModel._id);
+                        RcvUpdatedBloodTypeAsync(_bloodTypeModel, EventArgs.Empty);
                     }
                 }
             }
@@ -201,11 +200,6 @@ namespace Spectrum.Views.HumanResources.Employees
             }
         }
 
-        private void customersRating_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
-        }
-
         private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
         {
             Close();
@@ -218,42 +212,27 @@ namespace Spectrum.Views.HumanResources.Employees
                 DialogResult.Yes)
             {
                 _resetMenu = true;
-                LayoutsStyle.ResetLayoutGrid(gvEmployees, CurrentUser.UserName, CurrentUser.Company);
+                LayoutsStyle.ResetLayoutGrid(gvBloodTypes, CurrentUser.UserName, CurrentUser.Company);
             }
+
         }
+
+
         #endregion
 
-
-
-        private async void RcvUpdatedEmployeeAsync(object sender, EventArgs e)
+        private void gvBloodTypes_DoubleClick(object sender, EventArgs e)
         {
-            if (sender == null) return;
-            _employeeModel = sender as EmployeeModel;
-
-            if (_employeeModel != null && (_employeeModel.LastModifiedDate == null || _employeeModel.Deleted))
-            {
-                await InitializeBindings();
-                WireUpBindings();
-            }
-            else
-            {
-                gvEmployees.UpdateCurrentRow();
-            }
-        }
-
-        private void gvCities_DoubleClick(object sender, EventArgs e)
-        {
-            if (!_employees.Any()) return;
+            if (!_bloodTypes.Any()) return;
 
             try
             {
-                string currentRowId = gvEmployees.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvBloodTypes.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _employeeModel = _employees.SingleOrDefault(x => x._id == currentRowId);
-                if (_employeeModel == null) return;
+                _bloodTypeModel = _bloodTypes.SingleOrDefault(x => x._id == currentRowId);
+                if (_bloodTypeModel == null) return;
 
-                ShowEmployeeEditor(_employeeModel);
+                ShowBloodTypeEditor(_bloodTypeModel);
             }
             catch (Exception exception)
             {
@@ -261,12 +240,31 @@ namespace Spectrum.Views.HumanResources.Employees
             }
         }
 
+        private async void RcvUpdatedBloodTypeAsync(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _bloodTypeModel = sender as BloodTypeModel;
+            if (_bloodTypeModel == null) return;
+
+            if (_bloodTypeModel.Deleted || _bloodTypeModel.LastModifiedDate == null)
+            {
+                await InitializeBindings();
+                WireUpBindings();
+            }
+            else
+            {
+                gcBloodTypes.RefreshDataSource();
+                gvBloodTypes.RefreshRow(gvBloodTypes.FocusedRowHandle);
+                gvBloodTypes.UpdateCurrentRow();
+            }
+        }
+
         private bool CanDelete()
         {
-            EmployeeModel dataBoundItem = gvEmployees.GetFocusedRow() as EmployeeModel;
+            BloodTypeModel dataBoundItem = gvBloodTypes.GetFocusedRow() as BloodTypeModel;
 
-            if (gvEmployees == null || gvEmployees.SelectedRowsCount == 0) return false;
-            if (gvEmployees.SelectedRowsCount > 1)
+            if (gvBloodTypes == null || gvBloodTypes.SelectedRowsCount == 0) return false;
+            if (gvBloodTypes.SelectedRowsCount > 1)
             {
                 XtraMessageBox.Show("Only one record can be selected at a time, please try again",
                     "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -283,37 +281,37 @@ namespace Spectrum.Views.HumanResources.Employees
             return true;
         }
 
-        private void ShowEmployeeEditor(EmployeeModel model)
+        private void ShowBloodTypeEditor(BloodTypeModel model)
         {
-            if (_employeeEditForm == null || _employeeEditForm.IsDisposed)
+            if (_bloodTypeEditForm == null || _bloodTypeEditForm.IsDisposed)
             {
-                _employeeEditForm = new EmployeeEditForm(model);
-                _employeeEditForm.SendUpdatedEmployee += RcvUpdatedEmployeeAsync;
-                _employeeEditForm.FormClosed += EmployeeEditForm_FormClosed;
-                _employeeEditForm.Show(this);
+                _bloodTypeEditForm = new BloodTypeEditForm(model);
+                _bloodTypeEditForm.SendUpdatedBloodType += RcvUpdatedBloodTypeAsync;
+                _bloodTypeEditForm.FormClosed += BloodTypeEditForm_FormClosed;
+                _bloodTypeEditForm.Show(this);
                 return;
             }
 
-            if (_employeeEditForm.WindowState == FormWindowState.Minimized)
-                _employeeEditForm.WindowState = FormWindowState.Normal;
+            if (_bloodTypeEditForm.WindowState == FormWindowState.Minimized)
+                _bloodTypeEditForm.WindowState = FormWindowState.Normal;
 
-            _employeeEditForm.Activate();
-            _employeeEditForm.BringToFront();
+            _bloodTypeEditForm.Activate();
+            _bloodTypeEditForm.BringToFront();
         }
 
-        private void EmployeeEditForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void BloodTypeEditForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var form = sender as EmployeeEditForm;
+            var form = sender as BloodTypeEditForm;
             if (form != null)
             {
-                form.SendUpdatedEmployee -= RcvUpdatedEmployeeAsync;
-                form.FormClosed -= EmployeeEditForm_FormClosed;
+                form.SendUpdatedBloodType -= RcvUpdatedBloodTypeAsync;
+                form.FormClosed -= BloodTypeEditForm_FormClosed;
             }
-            if (ReferenceEquals(_employeeEditForm, sender))
-                _employeeEditForm = null;
+            if (ReferenceEquals(_bloodTypeEditForm, sender))
+                _bloodTypeEditForm = null;
         }
 
-        private void gvCities_RowCellStyle(object sender, RowCellStyleEventArgs e)
+        private void gvBloodTypes_RowCellStyle(object sender, RowCellStyleEventArgs e)
         {
             var view = sender as GridView;
             if (view == null || e.RowHandle < 0) return;
