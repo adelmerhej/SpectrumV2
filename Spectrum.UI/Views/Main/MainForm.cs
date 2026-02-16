@@ -16,7 +16,9 @@ using Spectrum.Views.Common.Services;
 using Spectrum.Views.Dashboard;
 using Spectrum.Views.HumanResources.Common.BloodTypes;
 using Spectrum.Views.HumanResources.Employees;
+using Spectrum.Views.HumanResources.HRCVs;
 using Spectrum.Views.HumanResources.JobPositions;
+using Spectrum.Views.HumanResources.Roles;
 using Spectrum.Views.Main.Connections;
 using Spectrum.Views.Main.Update;
 using Spectrum.Views.Members.Clients;
@@ -371,8 +373,8 @@ namespace Spectrum.Views.Main
 
 		private void mnuHrCVs_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
-		}
+            OpenForm<HrCvsListForm>();
+        }
 
 		private void mnuEmployees_Click(object sender, EventArgs e)
 		{
@@ -386,8 +388,8 @@ namespace Spectrum.Views.Main
 
 		private void mnuRoles_Click(object sender, EventArgs e)
 		{
-			ShowFeatureUnderDevelopment();
-		}
+            OpenForm<RolesListForm>();
+        }
 
 
 		#endregion

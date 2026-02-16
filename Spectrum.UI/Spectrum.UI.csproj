@@ -284,6 +284,12 @@
     <Compile Include="Views\HumanResources\Employees\EmployeesListForm.Designer.cs">
       <DependentUpon>EmployeesListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\HumanResources\HRCVs\HrCvsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\HRCVs\HrCvsListForm.Designer.cs">
+      <DependentUpon>HrCvsListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\HumanResources\JobPositions\JobPositionEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -295,6 +301,12 @@
     </Compile>
     <Compile Include="Views\HumanResources\JobPositions\JobPositionsListForm.Designer.cs">
       <DependentUpon>JobPositionsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HumanResources\Roles\RolesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\Roles\RolesListForm.Designer.cs">
+      <DependentUpon>RolesListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Main\AboutForm.cs">
       <SubType>Form</SubType>
@@ -570,11 +582,17 @@
     <EmbeddedResource Include="Views\HumanResources\Employees\EmployeesListForm.resx">
       <DependentUpon>EmployeesListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\HRCVs\HrCvsListForm.resx">
+      <DependentUpon>HrCvsListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\JobPositions\JobPositionEditForm.resx">
       <DependentUpon>JobPositionEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\JobPositions\JobPositionsListForm.resx">
       <DependentUpon>JobPositionsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\Roles\RolesListForm.resx">
+      <DependentUpon>RolesListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>

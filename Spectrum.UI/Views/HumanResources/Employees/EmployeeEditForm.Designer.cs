@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeEditForm));
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup2 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges3 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges4 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges1 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges2 = new DevExpress.Skins.SkinPaddingEdges();
             this.ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
             this.btnClose = new DevExpress.XtraBars.BarButtonItem();
@@ -499,16 +499,16 @@
             // 
             this.galleryQuickLetters.Gallery.ColumnCount = 2;
             this.galleryQuickLetters.Gallery.DrawImageBackground = false;
-            galleryItemGroup2.Caption = "Group1";
+            galleryItemGroup1.Caption = "Group1";
             this.galleryQuickLetters.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup2});
+            galleryItemGroup1});
             this.galleryQuickLetters.Gallery.ItemImageLocation = DevExpress.Utils.Locations.Left;
-            skinPaddingEdges3.Bottom = -4;
-            skinPaddingEdges3.Top = -4;
-            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges3;
-            skinPaddingEdges4.Bottom = -1;
-            skinPaddingEdges4.Top = -1;
-            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges4;
+            skinPaddingEdges1.Bottom = -4;
+            skinPaddingEdges1.Top = -4;
+            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges1;
+            skinPaddingEdges2.Bottom = -1;
+            skinPaddingEdges2.Top = -1;
+            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges2;
             this.galleryQuickLetters.Gallery.ShowItemText = true;
             this.galleryQuickLetters.Id = 14;
             this.galleryQuickLetters.Name = "galleryQuickLetters";
@@ -1994,7 +1994,7 @@
             // 
             this.tabDocumentLink.Controls.Add(this.layoutControl4);
             this.tabDocumentLink.Name = "tabDocumentLink";
-            this.tabDocumentLink.Size = new System.Drawing.Size(1192, 556);
+            this.tabDocumentLink.Size = new System.Drawing.Size(1196, 560);
             this.tabDocumentLink.Text = "Document Link";
             // 
             // layoutControl4
@@ -2004,7 +2004,7 @@
             this.layoutControl4.Location = new System.Drawing.Point(0, 0);
             this.layoutControl4.Name = "layoutControl4";
             this.layoutControl4.Root = this.layoutControlGroup9;
-            this.layoutControl4.Size = new System.Drawing.Size(1192, 556);
+            this.layoutControl4.Size = new System.Drawing.Size(1196, 560);
             this.layoutControl4.TabIndex = 0;
             this.layoutControl4.Text = "layoutControl4";
             // 
@@ -2016,7 +2016,7 @@
             this.txtDocumentLink.Name = "txtDocumentLink";
             this.txtDocumentLink.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Plus)});
-            this.txtDocumentLink.Size = new System.Drawing.Size(1065, 22);
+            this.txtDocumentLink.Size = new System.Drawing.Size(1069, 22);
             this.txtDocumentLink.StyleController = this.layoutControl4;
             this.txtDocumentLink.TabIndex = 4;
             this.txtDocumentLink.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.txtDocumentLink_ButtonClick);
@@ -2029,7 +2029,7 @@
             this.lblDocumentLink,
             this.emptySpaceItem4});
             this.layoutControlGroup9.Name = "layoutControlGroup9";
-            this.layoutControlGroup9.Size = new System.Drawing.Size(1192, 556);
+            this.layoutControlGroup9.Size = new System.Drawing.Size(1196, 560);
             this.layoutControlGroup9.TextVisible = false;
             // 
             // lblDocumentLink
@@ -2037,7 +2037,7 @@
             this.lblDocumentLink.Control = this.txtDocumentLink;
             this.lblDocumentLink.Location = new System.Drawing.Point(0, 0);
             this.lblDocumentLink.Name = "lblDocumentLink";
-            this.lblDocumentLink.Size = new System.Drawing.Size(1168, 26);
+            this.lblDocumentLink.Size = new System.Drawing.Size(1172, 26);
             this.lblDocumentLink.Text = "Document Link";
             this.lblDocumentLink.TextSize = new System.Drawing.Size(84, 16);
             // 
@@ -2045,7 +2045,7 @@
             // 
             this.emptySpaceItem4.Location = new System.Drawing.Point(0, 26);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(1168, 506);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(1172, 510);
             // 
             // Root
             // 
