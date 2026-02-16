@@ -779,6 +779,18 @@ namespace Spectrum.Utilities
 
 		#endregion
 
+		#region Gender ComboBox Initialization
+		public static void InitGenderComboBox(RepositoryItemComboBox edit)
+		{
+			if (edit == null) return;
+			edit.Items.Clear();
+			foreach (var value in Enum.GetValues(typeof(Gender)))
+			{
+				edit.Items.Add(value.ToString());
+			}
+		}
+		#endregion
+
 
 		#region Convert Permission Values
 

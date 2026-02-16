@@ -165,6 +165,9 @@
     <Compile Include="Common\Services\ServiceTypeModel.cs" />
     <Compile Include="EntityObject.cs" />
     <Compile Include="HumanResources\BloodTypes\BloodTypeModel.cs" />
+    <Compile Include="HumanResources\Candidates\CandidateModel.cs" />
+    <Compile Include="HumanResources\Candidates\EducationEntryModel.cs" />
+    <Compile Include="HumanResources\Candidates\WorkExperienceModel.cs" />
     <Compile Include="HumanResources\Employees\CnssInfo.cs" />
     <Compile Include="HumanResources\Employees\EducationInfo.cs" />
     <Compile Include="HumanResources\Employees\EmergencyContactInfo.cs" />

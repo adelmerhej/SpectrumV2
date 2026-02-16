@@ -1,6 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using Spectrum.Models;
-using Spectrum.Models.Common.Countries;
 using System;
 
 namespace SpectrumV1.Models.HumanResources.BloodTypes
@@ -16,7 +15,7 @@ namespace SpectrumV1.Models.HumanResources.BloodTypes
         /// <returns>A new object that is a copy of this instance.</returns>
         public object Clone()
         {
-            var recordModel = (ContinentModel)MemberwiseClone();
+            var recordModel = (BloodTypeModel)MemberwiseClone();
             return recordModel;
         }
 

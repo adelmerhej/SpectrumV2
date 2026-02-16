@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HrCvsListForm));
             this.rcHrCvsList = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnNew = new DevExpress.XtraBars.BarButtonItem();
@@ -46,15 +47,30 @@
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
-            this.gcHrCvs = new DevExpress.XtraGrid.GridControl();
-            this.gvHrCvs = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gcCandidates = new DevExpress.XtraGrid.GridControl();
+            this.bsCandidates = new System.Windows.Forms.BindingSource(this.components);
+            this.gvCandidates = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFirstName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colLastName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateOfBirth = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colEmail = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPhone = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colConfidence = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colRawInsights = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.rcHrCvsList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gcHrCvs)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvHrCvs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCandidates)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsCandidates)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCandidates)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             this.SuspendLayout();
@@ -220,7 +236,7 @@
             // 
             // mainLayout
             // 
-            this.mainLayout.Controls.Add(this.gcHrCvs);
+            this.mainLayout.Controls.Add(this.gcCandidates);
             this.mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainLayout.Location = new System.Drawing.Point(0, 193);
             this.mainLayout.Name = "mainLayout";
@@ -229,34 +245,159 @@
             this.mainLayout.TabIndex = 5;
             this.mainLayout.Text = "layoutControl1";
             // 
-            // gcHrCvs
+            // gcCandidates
             // 
-            this.gcHrCvs.EmbeddedNavigator.Buttons.Append.Visible = false;
-            this.gcHrCvs.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
-            this.gcHrCvs.EmbeddedNavigator.Buttons.Edit.Visible = false;
-            this.gcHrCvs.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
-            this.gcHrCvs.EmbeddedNavigator.Buttons.Remove.Visible = false;
-            this.gcHrCvs.Location = new System.Drawing.Point(14, 14);
-            this.gcHrCvs.MainView = this.gvHrCvs;
-            this.gcHrCvs.Name = "gcHrCvs";
-            this.gcHrCvs.Size = new System.Drawing.Size(1317, 519);
-            this.gcHrCvs.TabIndex = 8;
-            this.gcHrCvs.UseEmbeddedNavigator = true;
-            this.gcHrCvs.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvHrCvs});
+            this.gcCandidates.DataSource = this.bsCandidates;
+            this.gcCandidates.EmbeddedNavigator.Buttons.Append.Visible = false;
+            this.gcCandidates.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
+            this.gcCandidates.EmbeddedNavigator.Buttons.Edit.Visible = false;
+            this.gcCandidates.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
+            this.gcCandidates.EmbeddedNavigator.Buttons.Remove.Visible = false;
+            this.gcCandidates.Location = new System.Drawing.Point(14, 14);
+            this.gcCandidates.MainView = this.gvCandidates;
+            this.gcCandidates.Name = "gcCandidates";
+            this.gcCandidates.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repCheckEdit});
+            this.gcCandidates.Size = new System.Drawing.Size(1317, 519);
+            this.gcCandidates.TabIndex = 8;
+            this.gcCandidates.UseEmbeddedNavigator = true;
+            this.gcCandidates.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvCandidates});
             // 
-            // gvHrCvs
+            // bsCandidates
             // 
-            this.gvHrCvs.GridControl = this.gcHrCvs;
-            this.gvHrCvs.Name = "gvHrCvs";
-            this.gvHrCvs.OptionsBehavior.AllowFixedGroups = DevExpress.Utils.DefaultBoolean.True;
-            this.gvHrCvs.OptionsBehavior.AutoExpandAllGroups = true;
-            this.gvHrCvs.OptionsBehavior.Editable = false;
-            this.gvHrCvs.OptionsBehavior.ReadOnly = true;
-            this.gvHrCvs.OptionsFind.AlwaysVisible = true;
-            this.gvHrCvs.OptionsView.ColumnAutoWidth = false;
-            this.gvHrCvs.OptionsView.ShowGroupedColumns = true;
-            this.gvHrCvs.OptionsView.ShowGroupPanel = false;
+            this.bsCandidates.DataSource = typeof(SpectrumV1.Models.HumanResources.Candidates.CandidateModel);
+            // 
+            // gvCandidates
+            // 
+            this.gvCandidates.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.col_id,
+            this.colFirstName,
+            this.colLastName,
+            this.colDateOfBirth,
+            this.colEmail,
+            this.colPhone,
+            this.colConfidence,
+            this.colRawInsights,
+            this.colNotes,
+            this.colIsDefault,
+            this.colActive});
+            this.gvCandidates.GridControl = this.gcCandidates;
+            this.gvCandidates.Name = "gvCandidates";
+            this.gvCandidates.OptionsBehavior.AllowFixedGroups = DevExpress.Utils.DefaultBoolean.True;
+            this.gvCandidates.OptionsBehavior.AutoExpandAllGroups = true;
+            this.gvCandidates.OptionsBehavior.Editable = false;
+            this.gvCandidates.OptionsBehavior.ReadOnly = true;
+            this.gvCandidates.OptionsFind.AlwaysVisible = true;
+            this.gvCandidates.OptionsView.ColumnAutoWidth = false;
+            this.gvCandidates.OptionsView.ShowGroupedColumns = true;
+            this.gvCandidates.OptionsView.ShowGroupPanel = false;
+            this.gvCandidates.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvCandidates_RowCellStyle);
+            this.gvCandidates.DoubleClick += new System.EventHandler(this.gvCandidates_DoubleClick);
+            // 
+            // col_id
+            // 
+            this.col_id.FieldName = "_id";
+            this.col_id.MinWidth = 25;
+            this.col_id.Name = "col_id";
+            this.col_id.Width = 94;
+            // 
+            // colFirstName
+            // 
+            this.colFirstName.FieldName = "FirstName";
+            this.colFirstName.MinWidth = 25;
+            this.colFirstName.Name = "colFirstName";
+            this.colFirstName.Visible = true;
+            this.colFirstName.VisibleIndex = 0;
+            this.colFirstName.Width = 204;
+            // 
+            // colLastName
+            // 
+            this.colLastName.FieldName = "LastName";
+            this.colLastName.MinWidth = 25;
+            this.colLastName.Name = "colLastName";
+            this.colLastName.Visible = true;
+            this.colLastName.VisibleIndex = 1;
+            this.colLastName.Width = 227;
+            // 
+            // colDateOfBirth
+            // 
+            this.colDateOfBirth.FieldName = "DateOfBirth";
+            this.colDateOfBirth.MinWidth = 25;
+            this.colDateOfBirth.Name = "colDateOfBirth";
+            this.colDateOfBirth.Visible = true;
+            this.colDateOfBirth.VisibleIndex = 2;
+            this.colDateOfBirth.Width = 189;
+            // 
+            // colEmail
+            // 
+            this.colEmail.FieldName = "Email";
+            this.colEmail.MinWidth = 25;
+            this.colEmail.Name = "colEmail";
+            this.colEmail.Visible = true;
+            this.colEmail.VisibleIndex = 3;
+            this.colEmail.Width = 205;
+            // 
+            // colPhone
+            // 
+            this.colPhone.FieldName = "Phone";
+            this.colPhone.MinWidth = 25;
+            this.colPhone.Name = "colPhone";
+            this.colPhone.Visible = true;
+            this.colPhone.VisibleIndex = 4;
+            this.colPhone.Width = 212;
+            // 
+            // colConfidence
+            // 
+            this.colConfidence.FieldName = "Confidence";
+            this.colConfidence.MinWidth = 25;
+            this.colConfidence.Name = "colConfidence";
+            this.colConfidence.Visible = true;
+            this.colConfidence.VisibleIndex = 5;
+            this.colConfidence.Width = 94;
+            // 
+            // colRawInsights
+            // 
+            this.colRawInsights.FieldName = "RawInsights";
+            this.colRawInsights.MinWidth = 25;
+            this.colRawInsights.Name = "colRawInsights";
+            this.colRawInsights.Visible = true;
+            this.colRawInsights.VisibleIndex = 6;
+            this.colRawInsights.Width = 94;
+            // 
+            // colNotes
+            // 
+            this.colNotes.FieldName = "Notes";
+            this.colNotes.MinWidth = 25;
+            this.colNotes.Name = "colNotes";
+            this.colNotes.Visible = true;
+            this.colNotes.VisibleIndex = 7;
+            this.colNotes.Width = 94;
+            // 
+            // colIsDefault
+            // 
+            this.colIsDefault.ColumnEdit = this.repCheckEdit;
+            this.colIsDefault.FieldName = "IsDefault";
+            this.colIsDefault.MinWidth = 25;
+            this.colIsDefault.Name = "colIsDefault";
+            this.colIsDefault.Visible = true;
+            this.colIsDefault.VisibleIndex = 8;
+            this.colIsDefault.Width = 94;
+            // 
+            // repCheckEdit
+            // 
+            this.repCheckEdit.AutoHeight = false;
+            this.repCheckEdit.Name = "repCheckEdit";
+            // 
+            // colActive
+            // 
+            this.colActive.ColumnEdit = this.repCheckEdit;
+            this.colActive.FieldName = "Active";
+            this.colActive.MinWidth = 25;
+            this.colActive.Name = "colActive";
+            this.colActive.Visible = true;
+            this.colActive.VisibleIndex = 9;
+            this.colActive.Width = 94;
             // 
             // Root
             // 
@@ -270,7 +411,7 @@
             // 
             // layoutControlItem1
             // 
-            this.layoutControlItem1.Control = this.gcHrCvs;
+            this.layoutControlItem1.Control = this.gcCandidates;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(1321, 523);
@@ -289,11 +430,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.StatusBar = this.ribbonStatusBar1;
             this.Text = "HR CVs Review List";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.HrCvsListForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.rcHrCvsList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gcHrCvs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvHrCvs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCandidates)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsCandidates)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCandidates)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             this.ResumeLayout(false);
@@ -320,9 +464,22 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar1;
         private DevExpress.XtraLayout.LayoutControl mainLayout;
-        private DevExpress.XtraGrid.GridControl gcHrCvs;
-        private DevExpress.XtraGrid.Views.Grid.GridView gvHrCvs;
+        private DevExpress.XtraGrid.GridControl gcCandidates;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvCandidates;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private System.Windows.Forms.BindingSource bsCandidates;
+        private DevExpress.XtraGrid.Columns.GridColumn col_id;
+        private DevExpress.XtraGrid.Columns.GridColumn colFirstName;
+        private DevExpress.XtraGrid.Columns.GridColumn colLastName;
+        private DevExpress.XtraGrid.Columns.GridColumn colDateOfBirth;
+        private DevExpress.XtraGrid.Columns.GridColumn colEmail;
+        private DevExpress.XtraGrid.Columns.GridColumn colPhone;
+        private DevExpress.XtraGrid.Columns.GridColumn colConfidence;
+        private DevExpress.XtraGrid.Columns.GridColumn colRawInsights;
+        private DevExpress.XtraGrid.Columns.GridColumn colNotes;
+        private DevExpress.XtraGrid.Columns.GridColumn colIsDefault;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repCheckEdit;
+        private DevExpress.XtraGrid.Columns.GridColumn colActive;
     }
 }

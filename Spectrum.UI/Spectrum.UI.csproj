@@ -284,6 +284,12 @@
     <Compile Include="Views\HumanResources\Employees\EmployeesListForm.Designer.cs">
       <DependentUpon>EmployeesListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\HumanResources\HRCVs\HrCvEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\HRCVs\HrCvEditForm.Designer.cs">
+      <DependentUpon>HrCvEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\HumanResources\HRCVs\HrCvsListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -582,6 +588,9 @@
     <EmbeddedResource Include="Views\HumanResources\Employees\EmployeesListForm.resx">
       <DependentUpon>EmployeesListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\HRCVs\HrCvEditForm.resx">
+      <DependentUpon>HrCvEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\HRCVs\HrCvsListForm.resx">
       <DependentUpon>HrCvsListForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -707,6 +716,7 @@
     <None Include="Properties\DataSources\Spectrum.Models.Projects.InvoiceModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Users.UserModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.BloodTypes.BloodTypeModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.Candidates.CandidateModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
