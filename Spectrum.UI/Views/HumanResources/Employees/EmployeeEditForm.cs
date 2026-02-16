@@ -2,6 +2,7 @@
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.DataLayers.Members.Engineers.Status;
@@ -329,5 +330,19 @@ namespace Spectrum.Views.HumanResources.Employees
             }
         }
 
+        private void txtDocumentLink_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select a Document";
+                openFileDialog.Filter = "All Files (*.*)|*.*|PDF Files (*.pdf)|*.pdf|Word Documents (*.docx)|*.docx|Images (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg";
+                openFileDialog.FilterIndex = 1;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    txtDocumentLink.Text = openFileDialog.FileName;
+                }
+            }
+        }
     }
 }
