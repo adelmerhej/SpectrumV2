@@ -119,12 +119,38 @@ namespace Spectrum.Views.HumanResources.Employees
         //_bloodTypeRepository
         private void WireUpBindings()
         {
+            EnsureSubObjectsInitialized();
+
             bsEmployee.DataSource = _employeeModel;
+            bsWorkingpermit.DataSource = _employeeModel.WorkingPermit;
+            bsSyndicat.DataSource = _employeeModel.Syndicat;
+            bsEmergencyContact.DataSource = _employeeModel.EmergencyContact;
+            bsEmployeeContactInfo.DataSource = _employeeModel.ContactInfo;
+            bsCnss.DataSource = _employeeModel.Cnss;
+            bsWorkExperience.DataSource = _employeeModel.WorkExperience;
 
             cboNationality.Properties.DataSource = _countries;
             cboPlaceOfBirth.Properties.DataSource = _cities;
             cboEmployeeType.Properties.DataSource = _status;
             cboBloodType.Properties.DataSource = _bloodTypes;
+        }
+
+        private void EnsureSubObjectsInitialized()
+        {
+            if (_employeeModel.WorkingPermit == null)
+                _employeeModel.WorkingPermit = new WorkingPermitInfo();
+            if (_employeeModel.Syndicat == null)
+                _employeeModel.Syndicat = new SyndicatInfo();
+            if (_employeeModel.EmergencyContact == null)
+                _employeeModel.EmergencyContact = new EmergencyContactInfo();
+            if (_employeeModel.ContactInfo == null)
+                _employeeModel.ContactInfo = new EmployeeContactInfo();
+            if (_employeeModel.Cnss == null)
+                _employeeModel.Cnss = new CnssInfo();
+            if (_employeeModel.WorkExperience == null)
+                _employeeModel.WorkExperience = new WorkExperienceInfo();
+            if (_employeeModel.Financial == null)
+                _employeeModel.Financial = new FinancialInfo();
         }
 
         private void ApplyDefaults()
@@ -274,6 +300,13 @@ namespace Spectrum.Views.HumanResources.Employees
             try
             {
                 BindingContext[bsEmployee].EndCurrentEdit();
+                BindingContext[bsWorkingpermit].EndCurrentEdit();
+                BindingContext[bsSyndicat].EndCurrentEdit();
+                BindingContext[bsEmergencyContact].EndCurrentEdit();
+                BindingContext[bsEmployeeContactInfo].EndCurrentEdit();
+                BindingContext[bsCnss].EndCurrentEdit();
+                BindingContext[bsWorkExperience].EndCurrentEdit();
+
                 _employeeModel = (EmployeeModel)bsEmployee.Current;
 
                 bool isNewEmployee = string.IsNullOrEmpty(_employeeModel._id);

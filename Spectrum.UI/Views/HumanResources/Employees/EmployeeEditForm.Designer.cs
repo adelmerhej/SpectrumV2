@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeEditForm));
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges1 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges2 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup2 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges3 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges4 = new DevExpress.Skins.SkinPaddingEdges();
             this.ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
             this.btnClose = new DevExpress.XtraBars.BarButtonItem();
@@ -499,16 +499,16 @@
             // 
             this.galleryQuickLetters.Gallery.ColumnCount = 2;
             this.galleryQuickLetters.Gallery.DrawImageBackground = false;
-            galleryItemGroup1.Caption = "Group1";
+            galleryItemGroup2.Caption = "Group1";
             this.galleryQuickLetters.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup1});
+            galleryItemGroup2});
             this.galleryQuickLetters.Gallery.ItemImageLocation = DevExpress.Utils.Locations.Left;
-            skinPaddingEdges1.Bottom = -4;
-            skinPaddingEdges1.Top = -4;
-            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges1;
-            skinPaddingEdges2.Bottom = -1;
-            skinPaddingEdges2.Top = -1;
-            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges2;
+            skinPaddingEdges3.Bottom = -4;
+            skinPaddingEdges3.Top = -4;
+            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges3;
+            skinPaddingEdges4.Bottom = -1;
+            skinPaddingEdges4.Top = -1;
+            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges4;
             this.galleryQuickLetters.Gallery.ShowItemText = true;
             this.galleryQuickLetters.Id = 14;
             this.galleryQuickLetters.Name = "galleryQuickLetters";
@@ -1804,7 +1804,7 @@
             // 
             this.tabEducationTraining.Controls.Add(this.layoutControl3);
             this.tabEducationTraining.Name = "tabEducationTraining";
-            this.tabEducationTraining.Size = new System.Drawing.Size(1196, 560);
+            this.tabEducationTraining.Size = new System.Drawing.Size(1192, 556);
             this.tabEducationTraining.Text = "Education / Training";
             // 
             // layoutControl3
@@ -1819,7 +1819,7 @@
             this.layoutControl3.Location = new System.Drawing.Point(0, 0);
             this.layoutControl3.Name = "layoutControl3";
             this.layoutControl3.Root = this.layoutControlGroup8;
-            this.layoutControl3.Size = new System.Drawing.Size(1196, 560);
+            this.layoutControl3.Size = new System.Drawing.Size(1192, 556);
             this.layoutControl3.TabIndex = 0;
             this.layoutControl3.Text = "layoutControl3";
             // 
@@ -1829,7 +1829,7 @@
             this.txtWorkLocation.Location = new System.Drawing.Point(175, 144);
             this.txtWorkLocation.MenuManager = this.ribbonControl;
             this.txtWorkLocation.Name = "txtWorkLocation";
-            this.txtWorkLocation.Size = new System.Drawing.Size(515, 22);
+            this.txtWorkLocation.Size = new System.Drawing.Size(512, 22);
             this.txtWorkLocation.StyleController = this.layoutControl3;
             this.txtWorkLocation.TabIndex = 9;
             // 
@@ -1843,7 +1843,7 @@
             this.txtYearsAtSpectrum.Location = new System.Drawing.Point(175, 118);
             this.txtYearsAtSpectrum.MenuManager = this.ribbonControl;
             this.txtYearsAtSpectrum.Name = "txtYearsAtSpectrum";
-            this.txtYearsAtSpectrum.Size = new System.Drawing.Size(515, 22);
+            this.txtYearsAtSpectrum.Size = new System.Drawing.Size(512, 22);
             this.txtYearsAtSpectrum.StyleController = this.layoutControl3;
             this.txtYearsAtSpectrum.TabIndex = 8;
             // 
@@ -1853,7 +1853,7 @@
             this.txtTotalYearsOfExperience.Location = new System.Drawing.Point(175, 66);
             this.txtTotalYearsOfExperience.MenuManager = this.ribbonControl;
             this.txtTotalYearsOfExperience.Name = "txtTotalYearsOfExperience";
-            this.txtTotalYearsOfExperience.Size = new System.Drawing.Size(515, 22);
+            this.txtTotalYearsOfExperience.Size = new System.Drawing.Size(512, 22);
             this.txtTotalYearsOfExperience.StyleController = this.layoutControl3;
             this.txtTotalYearsOfExperience.TabIndex = 6;
             // 
@@ -1863,7 +1863,7 @@
             this.txtWorkingPosition.Location = new System.Drawing.Point(175, 40);
             this.txtWorkingPosition.MenuManager = this.ribbonControl;
             this.txtWorkingPosition.Name = "txtWorkingPosition";
-            this.txtWorkingPosition.Size = new System.Drawing.Size(515, 22);
+            this.txtWorkingPosition.Size = new System.Drawing.Size(512, 22);
             this.txtWorkingPosition.StyleController = this.layoutControl3;
             this.txtWorkingPosition.TabIndex = 5;
             // 
@@ -1873,7 +1873,7 @@
             this.txtOfficialWorkingDay.Location = new System.Drawing.Point(175, 14);
             this.txtOfficialWorkingDay.MenuManager = this.ribbonControl;
             this.txtOfficialWorkingDay.Name = "txtOfficialWorkingDay";
-            this.txtOfficialWorkingDay.Size = new System.Drawing.Size(515, 22);
+            this.txtOfficialWorkingDay.Size = new System.Drawing.Size(512, 22);
             this.txtOfficialWorkingDay.StyleController = this.layoutControl3;
             this.txtOfficialWorkingDay.TabIndex = 4;
             // 
@@ -1896,7 +1896,7 @@
             this.dtSpectrumWorkingDate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtSpectrumWorkingDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
             this.dtSpectrumWorkingDate.Properties.UseMaskAsDisplayFormat = true;
-            this.dtSpectrumWorkingDate.Size = new System.Drawing.Size(213, 22);
+            this.dtSpectrumWorkingDate.Size = new System.Drawing.Size(211, 22);
             this.dtSpectrumWorkingDate.StyleController = this.layoutControl3;
             this.dtSpectrumWorkingDate.TabIndex = 7;
             // 
@@ -1915,7 +1915,7 @@
             this.emptySpaceItem16,
             this.emptySpaceItem14});
             this.layoutControlGroup8.Name = "layoutControlGroup8";
-            this.layoutControlGroup8.Size = new System.Drawing.Size(1196, 560);
+            this.layoutControlGroup8.Size = new System.Drawing.Size(1192, 556);
             this.layoutControlGroup8.TextVisible = false;
             // 
             // lblOfficialWorkingDay
@@ -1923,7 +1923,7 @@
             this.lblOfficialWorkingDay.Control = this.txtOfficialWorkingDay;
             this.lblOfficialWorkingDay.Location = new System.Drawing.Point(0, 0);
             this.lblOfficialWorkingDay.Name = "lblOfficialWorkingDay";
-            this.lblOfficialWorkingDay.Size = new System.Drawing.Size(680, 26);
+            this.lblOfficialWorkingDay.Size = new System.Drawing.Size(677, 26);
             this.lblOfficialWorkingDay.Text = "Official Working Day";
             this.lblOfficialWorkingDay.TextSize = new System.Drawing.Size(146, 16);
             // 
@@ -1932,7 +1932,7 @@
             this.lblWorkingPosition.Control = this.txtWorkingPosition;
             this.lblWorkingPosition.Location = new System.Drawing.Point(0, 26);
             this.lblWorkingPosition.Name = "lblWorkingPosition";
-            this.lblWorkingPosition.Size = new System.Drawing.Size(680, 26);
+            this.lblWorkingPosition.Size = new System.Drawing.Size(677, 26);
             this.lblWorkingPosition.Text = "Working Position";
             this.lblWorkingPosition.TextSize = new System.Drawing.Size(146, 16);
             // 
@@ -1941,7 +1941,7 @@
             this.lblTotalYearsOfExperience.Control = this.txtTotalYearsOfExperience;
             this.lblTotalYearsOfExperience.Location = new System.Drawing.Point(0, 52);
             this.lblTotalYearsOfExperience.Name = "lblTotalYearsOfExperience";
-            this.lblTotalYearsOfExperience.Size = new System.Drawing.Size(680, 26);
+            this.lblTotalYearsOfExperience.Size = new System.Drawing.Size(677, 26);
             this.lblTotalYearsOfExperience.Text = "Total Years of Experience";
             this.lblTotalYearsOfExperience.TextSize = new System.Drawing.Size(146, 16);
             // 
@@ -1950,7 +1950,7 @@
             this.lblSpectrumWorkingDate.Control = this.dtSpectrumWorkingDate;
             this.lblSpectrumWorkingDate.Location = new System.Drawing.Point(0, 78);
             this.lblSpectrumWorkingDate.Name = "lblSpectrumWorkingDate";
-            this.lblSpectrumWorkingDate.Size = new System.Drawing.Size(378, 26);
+            this.lblSpectrumWorkingDate.Size = new System.Drawing.Size(376, 26);
             this.lblSpectrumWorkingDate.Text = "Spectrum Working Date";
             this.lblSpectrumWorkingDate.TextSize = new System.Drawing.Size(146, 16);
             // 
@@ -1959,7 +1959,7 @@
             this.lblYearsAtSpectrum.Control = this.txtYearsAtSpectrum;
             this.lblYearsAtSpectrum.Location = new System.Drawing.Point(0, 104);
             this.lblYearsAtSpectrum.Name = "lblYearsAtSpectrum";
-            this.lblYearsAtSpectrum.Size = new System.Drawing.Size(680, 26);
+            this.lblYearsAtSpectrum.Size = new System.Drawing.Size(677, 26);
             this.lblYearsAtSpectrum.Text = "Years at Spectrum";
             this.lblYearsAtSpectrum.TextSize = new System.Drawing.Size(146, 16);
             // 
@@ -1968,27 +1968,27 @@
             this.lblWorkLocation.Control = this.txtWorkLocation;
             this.lblWorkLocation.Location = new System.Drawing.Point(0, 130);
             this.lblWorkLocation.Name = "lblWorkLocation";
-            this.lblWorkLocation.Size = new System.Drawing.Size(680, 26);
+            this.lblWorkLocation.Size = new System.Drawing.Size(677, 26);
             this.lblWorkLocation.Text = "Work Location";
             this.lblWorkLocation.TextSize = new System.Drawing.Size(146, 16);
             // 
             // emptySpaceItem15
             // 
-            this.emptySpaceItem15.Location = new System.Drawing.Point(680, 0);
+            this.emptySpaceItem15.Location = new System.Drawing.Point(677, 0);
             this.emptySpaceItem15.Name = "emptySpaceItem15";
-            this.emptySpaceItem15.Size = new System.Drawing.Size(492, 536);
+            this.emptySpaceItem15.Size = new System.Drawing.Size(491, 532);
             // 
             // emptySpaceItem16
             // 
             this.emptySpaceItem16.Location = new System.Drawing.Point(0, 156);
             this.emptySpaceItem16.Name = "emptySpaceItem16";
-            this.emptySpaceItem16.Size = new System.Drawing.Size(680, 380);
+            this.emptySpaceItem16.Size = new System.Drawing.Size(677, 376);
             // 
             // emptySpaceItem14
             // 
-            this.emptySpaceItem14.Location = new System.Drawing.Point(378, 78);
+            this.emptySpaceItem14.Location = new System.Drawing.Point(376, 78);
             this.emptySpaceItem14.Name = "emptySpaceItem14";
-            this.emptySpaceItem14.Size = new System.Drawing.Size(302, 26);
+            this.emptySpaceItem14.Size = new System.Drawing.Size(301, 26);
             // 
             // tabDocumentLink
             // 
