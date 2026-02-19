@@ -129,7 +129,7 @@ namespace Spectrum.Views.Members.Engineers
 				_engineerModel = _engineers.SingleOrDefault(x => x._id == currentRowId);
 				if (_engineerModel == null) return;
 
-				ShowEngineerEditor(new EngineerModel());
+				ShowEngineerEditor(_engineerModel);
 			}
 			catch (Exception exception)
 			{
@@ -232,7 +232,7 @@ namespace Spectrum.Views.Members.Engineers
 				_engineerModel = _engineers.SingleOrDefault(x => x._id == currentRowId);
 				if (_engineerModel == null) return;
 
-				ShowEngineerEditor(new EngineerModel());
+				ShowEngineerEditor(_engineerModel);
 			}
 			catch (Exception exception)
 			{

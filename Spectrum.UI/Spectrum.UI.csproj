@@ -80,6 +80,7 @@
     <Compile Include="Utilities\HelperApplication.cs" />
     <Compile Include="Utilities\Interfaces\IFormWithRibbon.cs" />
     <Compile Include="Utilities\LogInfoRepository.cs" />
+    <Compile Include="Utilities\PeopleDirectory.cs" />
     <Compile Include="Views\Accounting\Charts\ChartEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,6 +251,12 @@
     </Compile>
     <Compile Include="Views\Common\Services\ServicesListForm.Designer.cs">
       <DependentUpon>ServicesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Services\ServiceTypeEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Services\ServiceTypeEditForm.Designer.cs">
+      <DependentUpon>ServiceTypeEditForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Dashboard\DashboardActivitiesForm.cs">
       <SubType>Form</SubType>

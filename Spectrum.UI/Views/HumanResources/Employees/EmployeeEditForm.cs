@@ -14,6 +14,12 @@ using Spectrum.Utilities;
 using SpectrumV1.DataLayers.HumanResources.BloodTypes;
 using SpectrumV1.DataLayers.HumanResources.Employees;
 using SpectrumV1.Models.HumanResources.BloodTypes;
+using Spectrum.Views.Common.Countries;
+using Spectrum.Views.Members.Engineers.Sattus;
+using Spectrum.Models.Members.Engineers.Status;
+using Spectrum.DataLayers.HumanResources.JobPositions;
+using Spectrum.Models.HumanResources.JobPositions;
+using Spectrum.Views.HumanResources.JobPositions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,12 +38,116 @@ namespace Spectrum.Views.HumanResources.Employees
         private IList<CityModel> _cities = new List<CityModel>();
         private IList<StatusModel> _status = new List<StatusModel>();
         private IList<BloodTypeModel> _bloodTypes = new List<BloodTypeModel>();
+		private IList<JobPositionModel> _jobPositions = new List<JobPositionModel>();
+
+		private sealed class FamilyStatusItem
+		{
+			public string Name { get; set; }
+		}
+
+		private void cboPlaceOfBirth_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			var frm = new CityEditForm(new CityModel());
+			frm.SendUpdatedCity += RcvUpdatedPlaceOfBirthCity;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedPlaceOfBirthCity(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			var city = sender as CityModel;
+			if (city == null) return;
+
+			_cities.Add(city);
+			cboPlaceOfBirth.Properties.DataSource = null;
+			cboPlaceOfBirth.Properties.DataSource = _cities;
+			cboPlaceOfBirth.EditValue = city.CityName;
+		}
+
+		private void cboNationality_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			var frm = new CountryEditForm(new CountryModel());
+			frm.SendUpdatedCountry += RcvUpdatedNationalityCountry;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedNationalityCountry(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			var country = sender as CountryModel;
+			if (country == null) return;
+
+			_countries.Add(country);
+			cboNationality.Properties.DataSource = null;
+			cboNationality.Properties.DataSource = _countries;
+			cboNationality.EditValue = country.CountryName;
+		}
+
+		private void cboEmployeeType_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			var frm = new StatusEditForm(new StatusModel());
+			frm.SendUpdatedStatus += RcvUpdatedEmployeeType;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedEmployeeType(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			var statusModel = sender as StatusModel;
+			if (statusModel == null) return;
+
+			_status.Add(statusModel);
+			cboEmployeeType.Properties.DataSource = null;
+			cboEmployeeType.Properties.DataSource = _status;
+			cboEmployeeType.EditValue = statusModel.Status;
+		}
+
+		private void cboRegistrationPlace_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			var frm = new CityEditForm(new CityModel());
+			frm.SendUpdatedCity += RcvUpdatedRegistrationPlaceCity;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedRegistrationPlaceCity(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			var city = sender as CityModel;
+			if (city == null) return;
+
+			_cities.Add(city);
+			cboRegistrationPlace.Properties.DataSource = null;
+			cboRegistrationPlace.Properties.DataSource = _cities;
+			cboRegistrationPlace.EditValue = city.CityName;
+		}
+
+		private void cboActualPosition_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			var frm = new JobPositionEditForm(new JobPositionModel());
+			frm.SendUpdatedJobPosition += RcvUpdatedActualPosition;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedActualPosition(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			var pos = sender as JobPositionModel;
+			if (pos == null) return;
+
+			_jobPositions.Add(pos);
+			cboActualPosition.Properties.DataSource = null;
+			cboActualPosition.Properties.DataSource = _jobPositions;
+			cboActualPosition.EditValue = pos.PositionName;
+		}
+
+		private IList<FamilyStatusItem> _familyStatuses = new List<FamilyStatusItem>();
 
         private readonly EmployeeRepository _employeeRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
         private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
         private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
         private readonly StatusRepository _statusRepository = new StatusRepository(DatabaseFactory.ProfilePrimary);
         private readonly BloodTypeRepository _bloodTypeRepository = new BloodTypeRepository(DatabaseFactory.ProfilePrimary);
+		private readonly JobPositionRepository _jobPositionRepository = new JobPositionRepository(DatabaseFactory.ProfilePrimary);
         private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
         //Init permissionvariables
@@ -86,6 +196,8 @@ namespace Spectrum.Views.HumanResources.Employees
                     LoadCitiesAsync(),
                     LoadStatusAsync(),
                     LoadBloodTypeAsync(),
+					LoadFamilyStatusAsync(),
+					LoadJobPositionsAsync(),
                 };
 
                 await Task.WhenAll(loadTasks);
@@ -116,6 +228,33 @@ namespace Spectrum.Views.HumanResources.Employees
             _bloodTypes = await _bloodTypeRepository.GetBloodTypesAsync();
         }
 
+		private async Task LoadJobPositionsAsync()
+		{
+			_jobPositions = await _jobPositionRepository.GetJobPositionsAsync();
+		}
+
+		private Task LoadFamilyStatusAsync()
+		{
+			// Underlying model stores a string (EmployeeModel.FamilyStatus).
+			// Synchronize list with Engineers Status values (Status collection), since the app reuses the same lookup.
+			var set = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+			foreach (var st in _status ?? new List<StatusModel>())
+			{
+				if (!string.IsNullOrWhiteSpace(st?.Status)) set.Add(st.Status);
+			}
+
+			if (!string.IsNullOrWhiteSpace(_employeeModel?.FamilyStatus))
+				set.Add(_employeeModel.FamilyStatus);
+
+			_familyStatuses = set
+				.Where(s => !string.IsNullOrWhiteSpace(s))
+				.OrderBy(s => s)
+				.Select(s => new FamilyStatusItem { Name = s })
+				.ToList();
+
+			return Task.CompletedTask;
+		}
+
 
         //_bloodTypeRepository
         private void WireUpBindings()
@@ -134,7 +273,36 @@ namespace Spectrum.Views.HumanResources.Employees
             cboPlaceOfBirth.Properties.DataSource = _cities;
             cboEmployeeType.Properties.DataSource = _status;
             cboBloodType.Properties.DataSource = _bloodTypes;
+			cboRegistrationPlace.Properties.DataSource = _cities;
+			cboActualPosition.Properties.DataSource = _jobPositions;
+			cboFamilyStatus.Properties.DataSource = _familyStatuses;
+
+			cboFamilyStatus.ProcessNewValue -= cboFamilyStatus_ProcessNewValue;
+			cboFamilyStatus.ProcessNewValue += cboFamilyStatus_ProcessNewValue;
         }
+
+		private void cboFamilyStatus_ProcessNewValue(object sender, ProcessNewValueEventArgs e)
+		{
+			try
+			{
+				var value = e?.DisplayValue?.ToString();
+				if (string.IsNullOrWhiteSpace(value)) return;
+
+				value = value.Trim();
+				if (_familyStatuses == null) _familyStatuses = new List<FamilyStatusItem>();
+				if (_familyStatuses.Any(x => string.Equals(x.Name, value, StringComparison.OrdinalIgnoreCase))) return;
+
+				_familyStatuses.Add(new FamilyStatusItem { Name = value });
+				cboFamilyStatus.Properties.DataSource = null;
+				cboFamilyStatus.Properties.DataSource = _familyStatuses;
+				cboFamilyStatus.EditValue = value;
+				e.Handled = true;
+			}
+			catch
+			{
+				// ignore
+			}
+		}
 
         private void EnsureSubObjectsInitialized()
         {

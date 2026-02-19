@@ -84,6 +84,7 @@
             this.mnuEmployees = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuDepartments = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuRoles = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuBloodType = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuMainAccounting = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuTransactions = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuJournals = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -133,7 +134,6 @@
             this.grpReadingPane = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.dockRight = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.showPendingJobs = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuBloodType = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonMainForm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
@@ -417,7 +417,7 @@
             this.mainMenu.RootDisplayMode = DevExpress.XtraBars.Navigation.AccordionControlRootDisplayMode.Footer;
             this.mainMenu.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Fluent;
             this.mainMenu.ShowFilterControl = DevExpress.XtraBars.Navigation.ShowFilterControl.Always;
-            this.mainMenu.Size = new System.Drawing.Size(287, 566);
+            this.mainMenu.Size = new System.Drawing.Size(1095, 566);
             this.mainMenu.TabIndex = 54;
             // 
             // mnuNavigation
@@ -593,6 +593,14 @@
             this.mnuRoles.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.mnuRoles.Text = "Roles";
             this.mnuRoles.Click += new System.EventHandler(this.mnuRoles_Click);
+            // 
+            // mnuBloodType
+            // 
+            this.mnuBloodType.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuBloodType.ImageOptions.SvgImage")));
+            this.mnuBloodType.Name = "mnuBloodType";
+            this.mnuBloodType.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.mnuBloodType.Text = "Blood Type";
+            this.mnuBloodType.Click += new System.EventHandler(this.mnuBloodType_Click);
             // 
             // mnuMainAccounting
             // 
@@ -963,17 +971,17 @@
             this.grpSettings,
             this.grpReadingPane});
             this.accordionSettings.ExpandGroupOnHeaderClick = false;
-            this.accordionSettings.Location = new System.Drawing.Point(1093, 193);
+            this.accordionSettings.Location = new System.Drawing.Point(112, 193);
             this.accordionSettings.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.accordionSettings.Name = "accordionSettings";
             this.accordionSettings.ShowGroupExpandButtons = false;
-            this.accordionSettings.Size = new System.Drawing.Size(348, 566);
+            this.accordionSettings.Size = new System.Drawing.Size(1329, 566);
             this.accordionSettings.TabIndex = 55;
             this.accordionSettings.Visible = false;
             // 
             // tsRight
             // 
-            this.tsRight.Location = new System.Drawing.Point(140, 247);
+            this.tsRight.Location = new System.Drawing.Point(1121, 247);
             this.tsRight.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.tsRight.Name = "tsRight";
             this.tsRight.Properties.OffText = "Off";
@@ -983,7 +991,7 @@
             // 
             // tsViewPendingJobs
             // 
-            this.tsViewPendingJobs.Location = new System.Drawing.Point(195, 281);
+            this.tsViewPendingJobs.Location = new System.Drawing.Point(1176, 281);
             this.tsViewPendingJobs.Margin = new System.Windows.Forms.Padding(4);
             this.tsViewPendingJobs.MenuManager = this.ribbonMainForm;
             this.tsViewPendingJobs.Name = "tsViewPendingJobs";
@@ -1066,14 +1074,6 @@
             this.showPendingJobs.Name = "showPendingJobs";
             this.showPendingJobs.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.showPendingJobs.Text = "Show Pending Jobs";
-            // 
-            // mnuBloodType
-            // 
-            this.mnuBloodType.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuBloodType.ImageOptions.SvgImage")));
-            this.mnuBloodType.Name = "mnuBloodType";
-            this.mnuBloodType.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.mnuBloodType.Text = "Blood Type";
-            this.mnuBloodType.Click += new System.EventHandler(this.mnuBloodType_Click);
             // 
             // MainForm
             // 

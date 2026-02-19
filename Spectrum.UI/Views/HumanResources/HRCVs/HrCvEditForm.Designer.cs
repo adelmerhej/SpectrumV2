@@ -63,10 +63,10 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.txtSummary = new DevExpress.XtraEditors.TextEdit();
             this.txtSkills = new DevExpress.XtraEditors.TextEdit();
+            this.bsCandidate = new System.Windows.Forms.BindingSource(this.components);
             this.txtYearsOfExperience = new DevExpress.XtraEditors.TextEdit();
             this.txtPosition = new DevExpress.XtraEditors.TextEdit();
             this.txtPhoneNumber = new DevExpress.XtraEditors.TextEdit();
-            this.bsCandidate = new System.Windows.Forms.BindingSource(this.components);
             this.txtEmail = new DevExpress.XtraEditors.TextEdit();
             this.txtLastName = new DevExpress.XtraEditors.TextEdit();
             this.txtFirstName = new DevExpress.XtraEditors.TextEdit();
@@ -120,10 +120,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSummary.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSkills.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsCandidate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtYearsOfExperience.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPosition.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPhoneNumber.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsCandidate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLastName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFirstName.Properties)).BeginInit();
@@ -498,6 +498,10 @@
             this.txtSkills.StyleController = this.layoutControl1;
             this.txtSkills.TabIndex = 16;
             // 
+            // bsCandidate
+            // 
+            this.bsCandidate.DataSource = typeof(SpectrumV1.Models.HumanResources.Candidates.CandidateModel);
+            // 
             // txtYearsOfExperience
             // 
             this.txtYearsOfExperience.Location = new System.Drawing.Point(156, 315);
@@ -525,10 +529,6 @@
             this.txtPhoneNumber.Size = new System.Drawing.Size(501, 22);
             this.txtPhoneNumber.StyleController = this.layoutControl1;
             this.txtPhoneNumber.TabIndex = 10;
-            // 
-            // bsCandidate
-            // 
-            this.bsCandidate.DataSource = typeof(SpectrumV1.Models.HumanResources.Candidates.CandidateModel);
             // 
             // txtEmail
             // 
@@ -1006,10 +1006,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSummary.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSkills.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsCandidate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtYearsOfExperience.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPosition.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPhoneNumber.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsCandidate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLastName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFirstName.Properties)).EndInit();

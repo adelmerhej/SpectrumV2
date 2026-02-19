@@ -14,6 +14,7 @@ namespace SpectrumV1.DataLayers.HumanResources.Candidates
         private readonly IMongoCollection<CandidateModel> _candidate;
         private const string CollectionName = "Candidates";
 
+
         // Constructor for dependency injection
         public CandidateRepository(string profileName)
         {
@@ -53,9 +54,10 @@ namespace SpectrumV1.DataLayers.HumanResources.Candidates
                 await _candidate.InsertOneAsync(employee);
                 return employee._id;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                // preserve original stack trace
+                throw;
             }
         }
 
@@ -69,9 +71,9 @@ namespace SpectrumV1.DataLayers.HumanResources.Candidates
                 var result = await _candidate.ReplaceOneAsync(u => u._id == employee._id, employee);
                 return result.IsAcknowledged && result.ModifiedCount > 0;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                throw;
             }
         }
 
@@ -82,9 +84,9 @@ namespace SpectrumV1.DataLayers.HumanResources.Candidates
                 var result = await _candidate.DeleteOneAsync(u => u._id == id);
                 return result.IsAcknowledged && result.DeletedCount > 0;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                throw;
             }
         }
 
@@ -99,6 +101,8 @@ namespace SpectrumV1.DataLayers.HumanResources.Candidates
         #region Implementation of IDisposable
         public void Dispose()
         {
+            // No unmanaged resources to dispose. If DatabaseFactory or IMongoClient requires disposal,
+            // handle it here or inject a disposable client to this repository.
         }
         #endregion
     }

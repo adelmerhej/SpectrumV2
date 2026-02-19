@@ -11,6 +11,7 @@ using Spectrum.Models.Common.Countries;
 using Spectrum.Models.Members.Engineers;
 using Spectrum.Models.Members.Engineers.Status;
 using Spectrum.Utilities;
+using Spectrum.Views.Members.Engineers.Sattus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -401,7 +402,21 @@ namespace Spectrum.Views.Members.Engineers
 
 		private void cboStatus_AddNewValue(object sender, AddNewValueEventArgs e)
 		{
+			StatusEditForm frm = new StatusEditForm(new StatusModel());
+			frm.SendUpdatedStatus += RcvUpdatedStatusAsync;
+			frm.ShowDialog();
+		}
 
+		private void RcvUpdatedStatusAsync(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			var statusModel = sender as StatusModel;
+
+			_status.Add(statusModel);
+
+			cboStatus.Properties.DataSource = null;
+			cboStatus.Properties.DataSource = _status;
+			if (statusModel != null) cboStatus.EditValue = statusModel._id;
 		}
 	}
 }
