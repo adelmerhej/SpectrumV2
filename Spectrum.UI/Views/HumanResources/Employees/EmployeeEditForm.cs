@@ -1,15 +1,11 @@
-﻿using DevExpress.Utils.Menu;
-using DevExpress.XtraBars;
+﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
-using Spectrum.DataLayers.Members.Engineers.Status;
 using Spectrum.Models.Common.Countries;
 using Spectrum.Models.HumanResources.Employees;
-using Spectrum.Models.Members.Engineers;
-using Spectrum.Models.Members.Engineers.Status;
 using Spectrum.Utilities;
 using SpectrumV1.DataLayers.EmployeeTypes;
 using SpectrumV1.DataLayers.HumanResources.BloodTypes;
@@ -22,7 +18,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace Spectrum.Views.HumanResources.Employees
 {
@@ -69,7 +64,7 @@ namespace Spectrum.Views.HumanResources.Employees
             {
                 await InitializeBindings();
                 WireUpBindings();
-                ApplyDefaults();
+                await ApplyDefaultsAsync();
                 ApplyPermissions();
             }
             catch (Exception ex)
@@ -124,6 +119,11 @@ namespace Spectrum.Views.HumanResources.Employees
         {
             EnsureSubObjectsInitialized();
 
+            if (_employeeModel.EmployeeType != null)
+            {
+                _employeeModel.EmployeeType = _employeeTypes.FirstOrDefault(x => x._id == _employeeModel.EmployeeType._id) ?? _employeeModel.EmployeeType;
+            }
+
             bsEmployee.DataSource = _employeeModel;
             bsWorkingpermit.DataSource = _employeeModel.WorkingPermit;
             bsSyndicat.DataSource = _employeeModel.Syndicat;
@@ -157,9 +157,14 @@ namespace Spectrum.Views.HumanResources.Employees
                 _employeeModel.Financial = new FinancialInfo();
         }
 
-        private void ApplyDefaults()
+        private async Task ApplyDefaultsAsync()
         {
-
+            if (string.IsNullOrEmpty(_employeeModel._id))
+            {
+                int latestNo = await _employeeRepository.GetLatestEmployeeNoAsync();
+                _employeeModel.EmployeeNo = latestNo + 1;
+                bsEmployee.ResetBindings(false);
+            }
         }
 
         private void ApplyPermissions()

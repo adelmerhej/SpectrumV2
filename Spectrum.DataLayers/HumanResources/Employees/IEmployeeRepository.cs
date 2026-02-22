@@ -16,5 +16,6 @@ namespace SpectrumV1.DataLayers.HumanResources.Employees
         // A custom query example
         Task<EmployeeModel> GetEmployeeByName(string name);
         Task<long> GetCountAsync();
+        Task<int> GetLatestEmployeeNoAsync();
     }
 }

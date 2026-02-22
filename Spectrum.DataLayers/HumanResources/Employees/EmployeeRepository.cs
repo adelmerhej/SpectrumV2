@@ -96,6 +96,15 @@ namespace SpectrumV1.DataLayers.HumanResources.Employees
             return await _employees.CountDocumentsAsync(new BsonDocument());
         }
 
+        public async Task<int> GetLatestEmployeeNoAsync()
+        {
+            var latestEmployee = await _employees.Find(new BsonDocument())
+                                                 .SortByDescending(e => e.EmployeeNo)
+                                                 .Limit(1)
+                                                 .FirstOrDefaultAsync();
+            return latestEmployee?.EmployeeNo ?? 0;
+        }
+
         #region Implementation of IDisposable
         public void Dispose()
         {
