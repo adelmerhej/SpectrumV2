@@ -7,6 +7,7 @@ using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
+using Spectrum.UI.Utilities;
 using SpectrumV1.DataLayers.HumanResources.Candidates;
 using SpectrumV1.Models.HumanResources.Candidates;
 using System;
@@ -25,6 +26,7 @@ namespace Spectrum.Views.HumanResources.HRCVs
 
         private CandidateModel _candidateModel = new CandidateModel();
         private IList<CandidateModel> _candidates = new List<CandidateModel>();
+		private IList<PeopleDirectory.PersonLookup> _people = new List<PeopleDirectory.PersonLookup>();
 
         private readonly CandidateRepository _candidateRepository = new CandidateRepository(DatabaseFactory.ProfilePrimary);
 
@@ -73,7 +75,12 @@ namespace Spectrum.Views.HumanResources.HRCVs
                 //	}
                 //	//
 
-                _candidates = await _candidateRepository.GetCandidatesAsync();
+				var candidatesTask = _candidateRepository.GetCandidatesAsync();
+				var peopleTask = PeopleDirectory.GetPeopleAsync();
+				await Task.WhenAll(candidatesTask, peopleTask);
+
+				_candidates = candidatesTask.Result;
+				_people = peopleTask.Result;
             }
             catch (Exception ex)
             {
@@ -83,8 +90,10 @@ namespace Spectrum.Views.HumanResources.HRCVs
 
         private void WireUpBindings()
         {
-            gcCandidates.DataSource = null;
-            gcCandidates.DataSource = _candidates;
+			gcCandidates.DataSource = null;
+			gcCandidates.DataSource = _candidates;
+
+			// People list is loaded for future filtering/enrichment, without changing CandidateModel.
         }
 
         private void ApplyDefaults()
@@ -160,7 +169,9 @@ namespace Spectrum.Views.HumanResources.HRCVs
             try
             {
                 string id = gvCandidates.GetFocusedRowCellValue("_id").ToString();
-                string name = gvCandidates.GetFocusedRowCellValue("CandidateName").ToString();
+				var firstName = gvCandidates.GetFocusedRowCellValue("FirstName")?.ToString();
+				var lastName = gvCandidates.GetFocusedRowCellValue("LastName")?.ToString();
+				var name = string.Join(" ", new[] { firstName, lastName }.Where(x => !string.IsNullOrWhiteSpace(x)));
 
                 if (!string.IsNullOrEmpty(id))
                 {

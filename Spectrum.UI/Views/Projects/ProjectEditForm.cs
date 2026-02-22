@@ -3,6 +3,8 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using Spectrum.DataLayers.Common.Countries;
+using Spectrum.DataLayers.Common.Locations;
+using Spectrum.DataLayers.Common.Areas;
 using Spectrum.DataLayers.Common.Services;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.DataLayers.Members.Clients;
@@ -10,6 +12,7 @@ using Spectrum.DataLayers.Members.Engineers;
 using Spectrum.DataLayers.Projects;
 using Spectrum.DataLayers.Users;
 using Spectrum.Models.Common.Countries;
+using Spectrum.Models.Common.Areas;
 using Spectrum.Models.Common.Services;
 using Spectrum.Models.Members.Clients;
 using Spectrum.Models.Members.Engineers;
@@ -17,6 +20,7 @@ using Spectrum.Models.Projects;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Views.Common.Countries;
+using Spectrum.Views.Common.Services;
 using Spectrum.Views.Members.Clients;
 using Spectrum.Views.Members.Engineers;
 using Spectrum.Views.Users;
@@ -47,6 +51,11 @@ namespace Spectrum.Views.Projects
 
         private IList<CityModel> _cities = new List<CityModel>();
         private CityModel _cityModel = new CityModel();
+
+        private IList<AreaModel> _areas = new List<AreaModel>();
+        private AreaModel _areaModel = new AreaModel();
+		private IList<LocationModel> _locations = new List<LocationModel>();
+		private LocationModel _locationModel = new LocationModel();
         
 		private IList<ServiceModel> _services = new List<ServiceModel>();
 		private IList<ServiceTypeModel> _serviceTypes = new List<ServiceTypeModel>();
@@ -59,6 +68,8 @@ namespace Spectrum.Views.Projects
 		private readonly ServiceTypeRepository _serviceTypeRepository = new ServiceTypeRepository(DatabaseFactory.ProfilePrimary);
 		private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
 		private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
+		private readonly LocationRepository _locationRepository = new LocationRepository(DatabaseFactory.ProfilePrimary);
+		private readonly AreaRepository _areaRepository = new AreaRepository(DatabaseFactory.ProfilePrimary);
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
@@ -79,6 +90,63 @@ namespace Spectrum.Views.Projects
 			StartLoading();
 		}
 
+		private void SyncContractClientFromProjectClient()
+		{
+			try
+			{
+				if (cboContractClient == null) return;
+				if (cboClients == null) return;
+
+				var editValue = cboClients.EditValue;
+				if (editValue == null)
+				{
+					cboContractClient.EditValue = null;
+					return;
+				}
+
+				// Preferred behavior: both combos use client _id as EditValue.
+				var value = editValue.ToString();
+				if (_clients == null) return;
+
+				var client = _clients.FirstOrDefault(c => c._id == value)
+					?? _clients.FirstOrDefault(c => string.Equals(c.ClientName, value, StringComparison.OrdinalIgnoreCase))
+					?? _clients.FirstOrDefault(c => string.Equals(c.ClientName, cboClients.Text, StringComparison.OrdinalIgnoreCase));
+
+				if (client != null) cboContractClient.EditValue = client._id;
+			}
+			catch
+			{
+				// ignore
+			}
+		}
+
+		private void cboLocations_EditValueChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				if (cboLocations.EditValue == null) return;
+				var id = cboLocations.EditValue.ToString();
+				var selected = _locations.FirstOrDefault(x => x._id == id);
+				if (selected == null) return;
+
+				// set project model Location (type is LocationInfoModel). Since we don't have a
+				// strong reference to its definition here, populate it using reflection.
+				var locationInfoType = typeof(ProjectModel).Assembly.GetType("Spectrum.Models.Projects.LocationInfoModel");
+				if (locationInfoType == null) return;
+
+				var locationInfo = Activator.CreateInstance(locationInfoType);
+				locationInfoType.GetProperty("_id")?.SetValue(locationInfo, selected._id);
+				locationInfoType.GetProperty("LocationCode")?.SetValue(locationInfo, selected.LocationCode);
+				locationInfoType.GetProperty("LocationName")?.SetValue(locationInfo, selected.LocationName);
+
+				typeof(ProjectModel).GetProperty("Location")?.SetValue(_projectModel, locationInfo);
+			}
+			catch
+			{
+				// ignore
+			}
+		}
+
 		private async void StartLoading()
 		{
 			await InitializeBindings();
@@ -96,6 +164,10 @@ namespace Spectrum.Views.Projects
 				_users = await _userRepository.GetUsersAsync();
 				_services = await _serviceRepository.GetServicesAsync();
 				_serviceTypes = await _serviceTypeRepository.GetServiceTypesAsync();
+                _locations = await _locationRepository.GetLocationsAsync();
+				_areas = await _areaRepository.GetAreasAsync();
+                _countries = await _countryRepository.GetCountriesAsync();
+                _cities = await _cityRepository.GetCitiesAsync();
 			}
 			catch (Exception ex)
 			{
@@ -108,6 +180,11 @@ namespace Spectrum.Views.Projects
 			bsProject.DataSource = _projectModel;
 			cboClients.Properties.DataSource = null;
 			cboClients.Properties.DataSource = _clients;
+
+			// Contract management should share the same Client list as Project Information.
+			// Keep it using the same key (client _id) so newly added clients are available immediately.
+			cboContractClient.Properties.DataSource = null;
+			cboContractClient.Properties.DataSource = _clients;
 
 			cboEngineers.Properties.DataSource = null;
 			cboEngineers.Properties.DataSource = _engineers;
@@ -131,20 +208,72 @@ namespace Spectrum.Views.Projects
 			cboServicesType.Properties.ValueMember = "ServiceType";
 			cboServicesType.Properties.DataSource = _serviceTypes;
 
-		// Load checked items from project model
-		if (_projectModel.ServicesProvided != null && _projectModel.ServicesProvided.Any())
-		{
-			cboServicesProvided.EditValue = _projectModel.ServicesProvided;
-		}
+			cboAreas.Properties.DataSource = null;
+			cboAreas.Properties.DisplayMember = "AreaCode";
+			cboAreas.Properties.ValueMember = "AreaCode";
+			cboAreas.Properties.DataSource = _areas;
 
-		if (_projectModel.ServiceTypes != null && _projectModel.ServiceTypes.Any())
-		{
-			cboServicesType.EditValue = _projectModel.ServiceTypes;
-		}
+			cboLocations.Properties.DataSource = null;
+			cboLocations.Properties.DisplayMember = "LocationName";
+			cboLocations.Properties.ValueMember = "_id";
+			cboLocations.Properties.DataSource = _locations;
+
+			// Set initial selection from project model (if any)
+			try
+			{
+				var locProp = _projectModel.GetType().GetProperty("Location");
+				if (locProp != null)
+				{
+					var locVal = locProp.GetValue(_projectModel);
+					if (locVal != null)
+					{
+						var idProp = locVal.GetType().GetProperty("_id");
+						if (idProp != null)
+						{
+							var id = idProp.GetValue(locVal) as string;
+							if (!string.IsNullOrEmpty(id)) cboLocations.EditValue = id;
+						}
+						else
+						{
+							var nameProp = locVal.GetType().GetProperty("LocationName");
+							if (nameProp != null)
+							{
+								var name = nameProp.GetValue(locVal) as string;
+								if (!string.IsNullOrEmpty(name))
+								{
+									var match = _locations.FirstOrDefault(x => x.LocationName == name);
+									if (match != null) cboLocations.EditValue = match._id;
+								}
+							}
+						}
+					}
+				}
+			}
+			catch
+			{
+				// ignore any reflection errors and leave selection unset
+			}
+
+			// Whenever user changes selection, update project model Location via reflection
+			cboLocations.EditValueChanged += cboLocations_EditValueChanged;
+
+			// Keep contract client in sync with project client.
+			cboClients.EditValueChanged -= cboClients_EditValueChanged;
+			cboClients.EditValueChanged += cboClients_EditValueChanged;
+			SyncContractClientFromProjectClient();
+
+		// Load checked items from project model
+		SetCheckedItems(cboServicesProvided, _projectModel.ServicesProvided);
+		SetCheckedItems(cboServicesType, _projectModel.ServiceTypes);
 
 		//cboStatus.Properties.Items.Clear();
 		//cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
 	}
+
+		private void cboClients_EditValueChanged(object sender, EventArgs e)
+		{
+			SyncContractClientFromProjectClient();
+		}
 
 		private void ApplyDefaults()
 		{
@@ -225,22 +354,8 @@ namespace Spectrum.Views.Projects
 			}
 
 			// Save selected services and service types
-			
-				if (cboServicesProvided.EditValue != null)
-			{
-				if (cboServicesProvided.EditValue is List<string> servicesList)
-				{
-					_projectModel.ServicesProvided = servicesList;
-				}
-			}
-
-			if (cboServicesType.EditValue != null)
-			{
-				if (cboServicesType.EditValue is List<string> serviceTypesList)
-				{
-					_projectModel.ServiceTypes = serviceTypesList;
-				}
-			}
+			_projectModel.ServicesProvided = GetCheckedItems(cboServicesProvided);
+			_projectModel.ServiceTypes = GetCheckedItems(cboServicesType);
 
 			//if (!string.IsNullOrEmpty(cboStatus.Text))
 			//{
@@ -291,6 +406,56 @@ namespace Spectrum.Views.Projects
 					"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
 			return validateReturnValue;
+		}
+
+		private static List<string> GetCheckedItems(CheckedComboBoxEdit edit)
+		{
+			if (edit == null) return new List<string>();
+			try
+			{
+				var items = edit.Properties.Items;
+				var checkedValues = new List<string>();
+				for (var i = 0; i < items.Count; i++)
+				{
+					if (!items[i].CheckState.HasFlag(CheckState.Checked)) continue;
+					var value = items[i].Value;
+					if (value == null) continue;
+					checkedValues.Add(value.ToString());
+				}
+				return checkedValues;
+			}
+			catch
+			{
+				return new List<string>();
+			}
+		}
+
+		private static void SetCheckedItems(CheckedComboBoxEdit edit, IEnumerable<string> values)
+		{
+			if (edit == null) return;
+			try
+			{
+				edit.Properties.Items.BeginUpdate();
+				try
+				{
+					var valuesSet = new HashSet<string>((values ?? Enumerable.Empty<string>()).Where(v => !string.IsNullOrWhiteSpace(v)));
+					for (var i = 0; i < edit.Properties.Items.Count; i++)
+					{
+						var itemValue = edit.Properties.Items[i].Value?.ToString();
+						edit.Properties.Items[i].CheckState = (!string.IsNullOrEmpty(itemValue) && valuesSet.Contains(itemValue))
+							? CheckState.Checked
+							: CheckState.Unchecked;
+					}
+				}
+				finally
+				{
+					edit.Properties.Items.EndUpdate();
+				}
+			}
+			catch
+			{
+				// ignore
+			}
 		}
 
 
@@ -369,6 +534,55 @@ namespace Spectrum.Views.Projects
             frm.ShowDialog();
         }
 
+		private void cboLocations_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+			Spectrum.Views.Common.Areas.LocationEditForm frm = new Spectrum.Views.Common.Areas.LocationEditForm(new Spectrum.Models.Common.Areas.LocationModel());
+			frm.SendUpdatedLocation += RcvUpdatedLocation;
+			frm.ShowDialog();
+		}
+
+		private void cboServicesProvided_ButtonClick(object sender, ButtonPressedEventArgs e)
+		{
+			if (e.Button.Kind != ButtonPredefines.Plus) return;
+			var frm = new ServiceEditForm(new ServiceModel());
+			frm.SendUpdatedService += RcvUpdatedService;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedService(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			var service = sender as ServiceModel;
+			if (service == null) return;
+
+			_services.Add(service);
+			cboServicesProvided.Properties.DataSource = null;
+			cboServicesProvided.Properties.DataSource = _services;
+
+			cboServicesProvided.Properties.Items.Add(service.ServiceName, true);
+		}
+
+		private void cboServicesType_ButtonClick(object sender, ButtonPressedEventArgs e)
+		{
+			if (e.Button.Kind != ButtonPredefines.Plus) return;
+			var frm = new ServiceTypeEditForm(new ServiceTypeModel());
+			frm.SendUpdatedServiceType += RcvUpdatedServiceType;
+			frm.ShowDialog();
+		}
+
+		private void RcvUpdatedServiceType(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			var serviceType = sender as ServiceTypeModel;
+			if (serviceType == null) return;
+
+			_serviceTypes.Add(serviceType);
+			cboServicesType.Properties.DataSource = null;
+			cboServicesType.Properties.DataSource = _serviceTypes;
+
+			cboServicesType.Properties.Items.Add(serviceType.ServiceType, true);
+		}
+
         private void RcvUpdatedCountry(object sender, EventArgs e)
         {
             if (sender == null) return;
@@ -400,6 +614,37 @@ namespace Spectrum.Views.Projects
             frm.ShowDialog();
         }
 
+        private void cboAreas_AddNewValue(object sender, DevExpress.XtraEditors.Controls.AddNewValueEventArgs e)
+        {
+            Spectrum.Views.Common.Areas.AreaEditForm frm = new Spectrum.Views.Common.Areas.AreaEditForm(new Spectrum.Models.Common.Areas.AreaModel());
+            frm.SendUpdatedArea += RcvUpdatedArea;
+            frm.ShowDialog();
+        }
+
+        private void RcvUpdatedArea(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _areaModel = sender as AreaModel;
+
+            _areas.Add(_areaModel);
+
+            cboAreas.Properties.DataSource = null;
+            cboAreas.Properties.DataSource = _areas;
+            if (_areaModel != null) cboAreas.EditValue = _areaModel.AreaCode;
+        }
+
+		private void RcvUpdatedLocation(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+			_locationModel = sender as LocationModel;
+
+			_locations.Add(_locationModel);
+
+			cboLocations.Properties.DataSource = null;
+			cboLocations.Properties.DataSource = _locations;
+			if (_locationModel != null) cboLocations.EditValue = _locationModel._id;
+		}
+
         private void cboClients_AddNewValue(object sender, AddNewValueEventArgs e)
         {
             ClientEditForm frm = new ClientEditForm(new ClientModel());
@@ -428,7 +673,17 @@ namespace Spectrum.Views.Projects
 
             cboClients.Properties.DataSource = null;
             cboClients.Properties.DataSource = _clients;
-            if (_clientModel != null) cboClients.EditValue = _clientModel.ClientName;
+
+			// Refresh contract management client lookup as well
+			cboContractClient.Properties.DataSource = null;
+			cboContractClient.Properties.DataSource = _clients;
+
+			if (_clientModel != null)
+			{
+				// Prefer selecting by id (ValueMember is typically _id on these lookups)
+				cboClients.EditValue = _clientModel._id;
+				SyncContractClientFromProjectClient();
+			}
         }
 
         private void tabDetails_Click(object sender, EventArgs e)

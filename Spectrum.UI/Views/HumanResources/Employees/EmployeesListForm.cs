@@ -8,6 +8,7 @@ using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
+using Spectrum.UI.Utilities;
 using SpectrumV1.DataLayers.HumanResources.Employees;
 using System;
 using System.Collections.Generic;
@@ -73,13 +74,63 @@ namespace Spectrum.Views.HumanResources.Employees
                 //	}
                 //	//
 
-                _employees = await _employeeRepository.GetEmployeesAsync();
+				var employeesTask = _employeeRepository.GetEmployeesAsync();
+				var peopleTask = PeopleDirectory.GetPeopleAsync();
+				await Task.WhenAll(employeesTask, peopleTask);
+				_employees = employeesTask.Result ?? new List<EmployeeModel>();
+
+				// Add engineers that are not already in employees (display-only rows)
+				var people = peopleTask.Result ?? new List<PeopleDirectory.PersonLookup>();
+				var employeeKeys = new HashSet<string>(
+					(_employees ?? new List<EmployeeModel>()).Select(e => NormalizeKey(e.FullName)),
+					StringComparer.OrdinalIgnoreCase);
+
+				foreach (var p in people.Where(x => x.EngineerId != null))
+				{
+					if (string.IsNullOrWhiteSpace(p.FullName)) continue;
+					if (employeeKeys.Contains(p.Key)) continue;
+
+					var parts = p.FullName.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+					var firstName = parts.Length > 0 ? parts[0] : p.FullName;
+					var lastName = parts.Length > 1 ? string.Join(" ", parts.Skip(1)) : string.Empty;
+
+					_employees.Add(new EmployeeModel
+					{
+						_id = p.EngineerId,
+						FirstName = firstName,
+						LastName = lastName,
+						EmployeeType = "Engineer",
+						Nationality = p.Country,
+						PlaceOfBirth = p.City,
+						IdCardOrPassportNo = null,
+						Specialization = p.Specialization,
+						FamilyStatus = p.Status,
+						ContactInfo = new Spectrum.Models.HumanResources.Employees.EmployeeContactInfo
+						{
+							Email = p.Email,
+							LocalMobileNo = p.Phone1,
+							AbroadMobileNo = p.Phone2,
+							LocalFixPhone = p.Phone3
+						}
+					});
+				}
             }
             catch (Exception ex)
             {
                 XtraMessageBox.Show(ex.Message, @"Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+		private static string NormalizeKey(string name)
+		{
+			if (string.IsNullOrWhiteSpace(name)) return null;
+			var cleaned = new string(name
+				.Trim()
+				.ToUpperInvariant()
+				.Where(ch => char.IsLetterOrDigit(ch) || char.IsWhiteSpace(ch))
+				.ToArray());
+			return string.Join(" ", cleaned.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+		}
 
         private void WireUpBindings()
         {
