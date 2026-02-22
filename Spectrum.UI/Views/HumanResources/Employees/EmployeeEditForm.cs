@@ -11,9 +11,11 @@ using Spectrum.Models.HumanResources.Employees;
 using Spectrum.Models.Members.Engineers;
 using Spectrum.Models.Members.Engineers.Status;
 using Spectrum.Utilities;
+using SpectrumV1.DataLayers.EmployeeTypes;
 using SpectrumV1.DataLayers.HumanResources.BloodTypes;
 using SpectrumV1.DataLayers.HumanResources.Employees;
 using SpectrumV1.Models.HumanResources.BloodTypes;
+using SpectrumV1.Models.HumanResources.EmployeeTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,13 +32,13 @@ namespace Spectrum.Views.HumanResources.Employees
 
         private IList<CountryModel> _countries = new List<CountryModel>();
         private IList<CityModel> _cities = new List<CityModel>();
-        private IList<StatusModel> _status = new List<StatusModel>();
+        private IList<EmployeeTypeModel> _employeeTypes = new List<EmployeeTypeModel>();
         private IList<BloodTypeModel> _bloodTypes = new List<BloodTypeModel>();
 
         private readonly EmployeeRepository _employeeRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
         private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
         private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
-        private readonly StatusRepository _statusRepository = new StatusRepository(DatabaseFactory.ProfilePrimary);
+        private readonly EmployeeTypeRepository _employeeTypeRepository = new EmployeeTypeRepository(DatabaseFactory.ProfilePrimary);
         private readonly BloodTypeRepository _bloodTypeRepository = new BloodTypeRepository(DatabaseFactory.ProfilePrimary);
         private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
@@ -108,7 +110,7 @@ namespace Spectrum.Views.HumanResources.Employees
 
         private async Task LoadStatusAsync()
         {
-            _status = await _statusRepository.GetStatusAsync();
+            _employeeTypes = await _employeeTypeRepository.GetEmployeeTypesAsync();
         }
 
         private async Task LoadBloodTypeAsync()
@@ -132,7 +134,8 @@ namespace Spectrum.Views.HumanResources.Employees
 
             cboNationality.Properties.DataSource = _countries;
             cboPlaceOfBirth.Properties.DataSource = _cities;
-            cboEmployeeType.Properties.DataSource = _status;
+            cboRegistrationPlace.Properties.DataSource = _cities;
+            cboEmployeeType.Properties.DataSource = _employeeTypes;
             cboBloodType.Properties.DataSource = _bloodTypes;
         }
 

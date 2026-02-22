@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
+using SpectrumV1.Models.HumanResources.EmployeeTypes;
 using System;
 using System.Collections.Generic;
 
@@ -45,7 +46,7 @@ namespace Spectrum.Models.HumanResources.Employees
         public string FamilyStatus { get; set; }
 
         [BsonElement("EmployeeType")]
-        public string EmployeeType { get; set; }
+        public EmployeeTypeModel EmployeeType { get; set; }
 
         [BsonElement("Specialization")]
         public string Specialization { get; set; }

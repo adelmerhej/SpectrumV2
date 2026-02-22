@@ -272,6 +272,18 @@
     <Compile Include="Views\HumanResources\Common\BloodTypes\BloodTypesListForm.Designer.cs">
       <DependentUpon>BloodTypesListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\HumanResources\Common\EmployeeTypes\EmployeeTypeEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\Common\EmployeeTypes\EmployeeTypeEditForm.Designer.cs">
+      <DependentUpon>EmployeeTypeEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HumanResources\Common\EmployeeTypes\EmployeeTypesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\Common\EmployeeTypes\EmployeeTypesListForm.Designer.cs">
+      <DependentUpon>EmployeeTypesListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\HumanResources\Employees\EmployeeEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -295,6 +307,12 @@
     </Compile>
     <Compile Include="Views\HumanResources\HRCVs\HrCvsListForm.Designer.cs">
       <DependentUpon>HrCvsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HumanResources\HRCVs\TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\HRCVs\TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\HumanResources\JobPositions\JobPositionEditForm.cs">
       <SubType>Form</SubType>
@@ -582,6 +600,12 @@
     <EmbeddedResource Include="Views\HumanResources\Common\BloodTypes\BloodTypesListForm.resx">
       <DependentUpon>BloodTypesListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\Common\EmployeeTypes\EmployeeTypeEditForm.resx">
+      <DependentUpon>EmployeeTypeEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\Common\EmployeeTypes\EmployeeTypesListForm.resx">
+      <DependentUpon>EmployeeTypesListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\Employees\EmployeeEditForm.resx">
       <DependentUpon>EmployeeEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -593,6 +617,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\HRCVs\HrCvsListForm.resx">
       <DependentUpon>HrCvsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\HRCVs\TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\JobPositions\JobPositionEditForm.resx">
       <DependentUpon>JobPositionEditForm.cs</DependentUpon>
@@ -717,6 +744,7 @@
     <None Include="Properties\DataSources\Spectrum.Models.Users.UserModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.BloodTypes.BloodTypeModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.Candidates.CandidateModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.EmployeeTypes.EmployeeTypeModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

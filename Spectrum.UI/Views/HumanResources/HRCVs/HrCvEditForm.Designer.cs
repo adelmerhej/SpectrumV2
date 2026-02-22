@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HrCvEditForm));
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges1 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges2 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup2 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges3 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges4 = new DevExpress.Skins.SkinPaddingEdges();
             this.ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
             this.btnClose = new DevExpress.XtraBars.BarButtonItem();
@@ -63,10 +63,10 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.txtSummary = new DevExpress.XtraEditors.TextEdit();
             this.txtSkills = new DevExpress.XtraEditors.TextEdit();
+            this.bsCandidate = new System.Windows.Forms.BindingSource(this.components);
             this.txtYearsOfExperience = new DevExpress.XtraEditors.TextEdit();
             this.txtPosition = new DevExpress.XtraEditors.TextEdit();
             this.txtPhoneNumber = new DevExpress.XtraEditors.TextEdit();
-            this.bsCandidate = new System.Windows.Forms.BindingSource(this.components);
             this.txtEmail = new DevExpress.XtraEditors.TextEdit();
             this.txtLastName = new DevExpress.XtraEditors.TextEdit();
             this.txtFirstName = new DevExpress.XtraEditors.TextEdit();
@@ -120,10 +120,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSummary.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSkills.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsCandidate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtYearsOfExperience.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPosition.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPhoneNumber.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsCandidate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLastName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFirstName.Properties)).BeginInit();
@@ -316,16 +316,16 @@
             // 
             this.galleryQuickLetters.Gallery.ColumnCount = 2;
             this.galleryQuickLetters.Gallery.DrawImageBackground = false;
-            galleryItemGroup1.Caption = "Group1";
+            galleryItemGroup2.Caption = "Group1";
             this.galleryQuickLetters.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup1});
+            galleryItemGroup2});
             this.galleryQuickLetters.Gallery.ItemImageLocation = DevExpress.Utils.Locations.Left;
-            skinPaddingEdges1.Bottom = -4;
-            skinPaddingEdges1.Top = -4;
-            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges1;
-            skinPaddingEdges2.Bottom = -1;
-            skinPaddingEdges2.Top = -1;
-            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges2;
+            skinPaddingEdges3.Bottom = -4;
+            skinPaddingEdges3.Top = -4;
+            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges3;
+            skinPaddingEdges4.Bottom = -1;
+            skinPaddingEdges4.Top = -1;
+            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges4;
             this.galleryQuickLetters.Gallery.ShowItemText = true;
             this.galleryQuickLetters.Id = 14;
             this.galleryQuickLetters.Name = "galleryQuickLetters";
@@ -498,6 +498,10 @@
             this.txtSkills.StyleController = this.layoutControl1;
             this.txtSkills.TabIndex = 16;
             // 
+            // bsCandidate
+            // 
+            this.bsCandidate.DataSource = typeof(SpectrumV1.Models.HumanResources.Candidates.CandidateModel);
+            // 
             // txtYearsOfExperience
             // 
             this.txtYearsOfExperience.Location = new System.Drawing.Point(156, 315);
@@ -525,10 +529,6 @@
             this.txtPhoneNumber.Size = new System.Drawing.Size(501, 22);
             this.txtPhoneNumber.StyleController = this.layoutControl1;
             this.txtPhoneNumber.TabIndex = 10;
-            // 
-            // bsCandidate
-            // 
-            this.bsCandidate.DataSource = typeof(SpectrumV1.Models.HumanResources.Candidates.CandidateModel);
             // 
             // txtEmail
             // 
@@ -562,6 +562,7 @@
             // 
             // txtUploadCv
             // 
+            this.txtUploadCv.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsCandidate, "DocumentLink", true));
             this.txtUploadCv.Location = new System.Drawing.Point(142, 14);
             this.txtUploadCv.MenuManager = this.ribbonControl;
             this.txtUploadCv.Name = "txtUploadCv";
@@ -626,6 +627,7 @@
             this.cboNationality.Properties.DisplayMember = "CountryName";
             this.cboNationality.Properties.NullText = "";
             this.cboNationality.Properties.PopupView = this.searchLookUpEdit1View;
+            this.cboNationality.Properties.ShowAddNewButton = true;
             this.cboNationality.Properties.ValueMember = "CountryName";
             this.cboNationality.Size = new System.Drawing.Size(510, 22);
             this.cboNationality.StyleController = this.layoutControl1;
@@ -681,6 +683,7 @@
             this.cboCities.Properties.DisplayMember = "CityName";
             this.cboCities.Properties.NullText = "";
             this.cboCities.Properties.PopupView = this.gridView2;
+            this.cboCities.Properties.ShowAddNewButton = true;
             this.cboCities.Properties.ValueMember = "CityName";
             this.cboCities.Size = new System.Drawing.Size(501, 22);
             this.cboCities.StyleController = this.layoutControl1;
@@ -1006,10 +1009,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSummary.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSkills.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsCandidate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtYearsOfExperience.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPosition.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPhoneNumber.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsCandidate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLastName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFirstName.Properties)).EndInit();

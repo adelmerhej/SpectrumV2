@@ -15,6 +15,7 @@ using Spectrum.Views.Common.Departments;
 using Spectrum.Views.Common.Services;
 using Spectrum.Views.Dashboard;
 using Spectrum.Views.HumanResources.Common.BloodTypes;
+using Spectrum.Views.HumanResources.Common.EmployeeTypes;
 using Spectrum.Views.HumanResources.Employees;
 using Spectrum.Views.HumanResources.HRCVs;
 using Spectrum.Views.HumanResources.JobPositions;
@@ -542,6 +543,11 @@ namespace Spectrum.Views.Main
         private void mnuBloodType_Click(object sender, EventArgs e)
         {
             OpenForm<BloodTypesListForm>();
+        }
+
+        private void mnuEmployeeTypes_Click(object sender, EventArgs e)
+        {
+            OpenForm<EmployeeTypesListForm>();
         }
     }
 }

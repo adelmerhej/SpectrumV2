@@ -177,6 +177,7 @@
     <Compile Include="HumanResources\Employees\SyndicatInfo.cs" />
     <Compile Include="HumanResources\Employees\WorkExperienceInfo.cs" />
     <Compile Include="HumanResources\Employees\WorkingPermitInfo.cs" />
+    <Compile Include="HumanResources\EmployeeTypes\EmployeeTypeModel.cs" />
     <Compile Include="HumanResources\JobPositions\JobPositionModel.cs" />
     <Compile Include="Members\Clients\ClientModel.cs" />
     <Compile Include="Members\Clients\ContactModel.cs" />
