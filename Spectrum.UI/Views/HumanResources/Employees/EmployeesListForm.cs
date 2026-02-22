@@ -16,6 +16,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SpectrumV1.Models.HumanResources.EmployeeTypes;
 
 namespace Spectrum.Views.HumanResources.Employees
 {
@@ -99,7 +100,7 @@ namespace Spectrum.Views.HumanResources.Employees
 						_id = p.EngineerId,
 						FirstName = firstName,
 						LastName = lastName,
-						EmployeeType = "Engineer",
+						EmployeeType = new EmployeeTypeModel { TypeName = "Engineer" },
 						Nationality = p.Country,
 						PlaceOfBirth = p.City,
 						IdCardOrPassportNo = null,

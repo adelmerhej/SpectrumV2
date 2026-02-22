@@ -831,6 +831,10 @@
     <Folder Include="Views\Members\Suppliers\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Spectrum.DataLayers\Spectrum.DataLayers.csproj">
+      <Project>{c358f497-16b5-42ca-8c46-6fead2528018}</Project>
+      <Name>Spectrum.DataLayers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Spectrum.Models\Spectrum.Models.csproj">
       <Project>{2dd2c5d0-7eae-44aa-aaf5-409141391579}</Project>
       <Name>Spectrum.Models</Name>
