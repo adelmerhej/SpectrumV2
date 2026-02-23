@@ -17,6 +17,9 @@ namespace Spectrum.Models.HumanResources.Employees
         [BsonElement("LastName")]
         public string LastName { get; set; }
 
+        [BsonElement("Specialization")]
+        public string Specialization { get; set; }
+
         [BsonElement("FatherName")]
         public string FatherName { get; set; }
 
@@ -38,6 +41,9 @@ namespace Spectrum.Models.HumanResources.Employees
 
         [BsonElement("Nationality")]
         public string Nationality { get; set; }
+        
+        [BsonElement("Address")]
+        public string Address { get; set; }
 
         [BsonElement("IdCardOrPassportNo")]
         public string IdCardOrPassportNo { get; set; }
@@ -48,8 +54,9 @@ namespace Spectrum.Models.HumanResources.Employees
         [BsonElement("EmployeeType")]
         public EmployeeTypeModel EmployeeType { get; set; }
 
-        [BsonElement("Specialization")]
-        public string Specialization { get; set; }
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        [BsonElement("HiredDate")]
+        public DateTime HiredDate { get; set; }
 
         [BsonElement("LeftWork")]
         public bool LeftWork { get; set; }

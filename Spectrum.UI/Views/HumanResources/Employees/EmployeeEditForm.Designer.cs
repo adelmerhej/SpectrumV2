@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeEditForm));
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup2 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges3 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges4 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges1 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges2 = new DevExpress.Skins.SkinPaddingEdges();
             this.ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
             this.btnClose = new DevExpress.XtraBars.BarButtonItem();
@@ -140,6 +140,7 @@
             this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.tabEmployeeContactInfo = new DevExpress.XtraTab.XtraTabPage();
             this.layoutControl5 = new DevExpress.XtraLayout.LayoutControl();
+            this.txtAddress = new DevExpress.XtraEditors.MemoEdit();
             this.txtEmail = new DevExpress.XtraEditors.TextEdit();
             this.bsEmployeeContactInfo = new System.Windows.Forms.BindingSource(this.components);
             this.txtAbroadMobileNo = new DevExpress.XtraEditors.TextEdit();
@@ -147,11 +148,13 @@
             this.txtLocalFixPhone = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlGroup10 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lblLocalFixPhone = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem17 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lblLocalMobileNo = new DevExpress.XtraLayout.LayoutControlItem();
             this.lblAbroadMobileNo = new DevExpress.XtraLayout.LayoutControlItem();
             this.lblEmail = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem18 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.lblAddress = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem19 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem17 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.tabCNSSDetails = new DevExpress.XtraTab.XtraTabPage();
             this.layoutControl2 = new DevExpress.XtraLayout.LayoutControl();
             this.txtSpouseRegistration = new DevExpress.XtraEditors.TextEdit();
@@ -285,6 +288,7 @@
             this.tabEmployeeContactInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl5)).BeginInit();
             this.layoutControl5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAddress.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsEmployeeContactInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAbroadMobileNo.Properties)).BeginInit();
@@ -292,11 +296,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtLocalFixPhone.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblLocalFixPhone)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblLocalMobileNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAbroadMobileNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblEmail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem18)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblAddress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem17)).BeginInit();
             this.tabCNSSDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).BeginInit();
             this.layoutControl2.SuspendLayout();
@@ -499,16 +505,16 @@
             // 
             this.galleryQuickLetters.Gallery.ColumnCount = 2;
             this.galleryQuickLetters.Gallery.DrawImageBackground = false;
-            galleryItemGroup2.Caption = "Group1";
+            galleryItemGroup1.Caption = "Group1";
             this.galleryQuickLetters.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup2});
+            galleryItemGroup1});
             this.galleryQuickLetters.Gallery.ItemImageLocation = DevExpress.Utils.Locations.Left;
-            skinPaddingEdges3.Bottom = -4;
-            skinPaddingEdges3.Top = -4;
-            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges3;
-            skinPaddingEdges4.Bottom = -1;
-            skinPaddingEdges4.Top = -1;
-            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges4;
+            skinPaddingEdges1.Bottom = -4;
+            skinPaddingEdges1.Top = -4;
+            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges1;
+            skinPaddingEdges2.Bottom = -1;
+            skinPaddingEdges2.Top = -1;
+            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges2;
             this.galleryQuickLetters.Gallery.ShowItemText = true;
             this.galleryQuickLetters.Id = 14;
             this.galleryQuickLetters.Name = "galleryQuickLetters";
@@ -815,6 +821,9 @@
             this.txtEmployeeNo.Location = new System.Drawing.Point(142, 14);
             this.txtEmployeeNo.MenuManager = this.ribbonControl;
             this.txtEmployeeNo.Name = "txtEmployeeNo";
+            this.txtEmployeeNo.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
+            this.txtEmployeeNo.Properties.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
+            this.txtEmployeeNo.Properties.MaskSettings.Set("mask", "d");
             this.txtEmployeeNo.Size = new System.Drawing.Size(96, 22);
             this.txtEmployeeNo.StyleController = this.layoutControl1;
             this.txtEmployeeNo.TabIndex = 4;
@@ -1469,11 +1478,12 @@
             // 
             this.tabEmployeeContactInfo.Controls.Add(this.layoutControl5);
             this.tabEmployeeContactInfo.Name = "tabEmployeeContactInfo";
-            this.tabEmployeeContactInfo.Size = new System.Drawing.Size(1192, 556);
+            this.tabEmployeeContactInfo.Size = new System.Drawing.Size(1196, 560);
             this.tabEmployeeContactInfo.Text = "Employee Contact Info";
             // 
             // layoutControl5
             // 
+            this.layoutControl5.Controls.Add(this.txtAddress);
             this.layoutControl5.Controls.Add(this.txtEmail);
             this.layoutControl5.Controls.Add(this.txtAbroadMobileNo);
             this.layoutControl5.Controls.Add(this.txtLocalMobileNo);
@@ -1482,9 +1492,18 @@
             this.layoutControl5.Location = new System.Drawing.Point(0, 0);
             this.layoutControl5.Name = "layoutControl5";
             this.layoutControl5.Root = this.layoutControlGroup10;
-            this.layoutControl5.Size = new System.Drawing.Size(1192, 556);
+            this.layoutControl5.Size = new System.Drawing.Size(1196, 560);
             this.layoutControl5.TabIndex = 0;
             this.layoutControl5.Text = "layoutControl5";
+            // 
+            // txtAddress
+            // 
+            this.txtAddress.Location = new System.Drawing.Point(130, 128);
+            this.txtAddress.MenuManager = this.ribbonControl;
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(565, 93);
+            this.txtAddress.StyleController = this.layoutControl5;
+            this.txtAddress.TabIndex = 8;
             // 
             // txtEmail
             // 
@@ -1492,7 +1511,7 @@
             this.txtEmail.Location = new System.Drawing.Point(130, 92);
             this.txtEmail.MenuManager = this.ribbonControl;
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(562, 22);
+            this.txtEmail.Size = new System.Drawing.Size(565, 22);
             this.txtEmail.StyleController = this.layoutControl5;
             this.txtEmail.TabIndex = 7;
             // 
@@ -1506,7 +1525,7 @@
             this.txtAbroadMobileNo.Location = new System.Drawing.Point(130, 66);
             this.txtAbroadMobileNo.MenuManager = this.ribbonControl;
             this.txtAbroadMobileNo.Name = "txtAbroadMobileNo";
-            this.txtAbroadMobileNo.Size = new System.Drawing.Size(562, 22);
+            this.txtAbroadMobileNo.Size = new System.Drawing.Size(565, 22);
             this.txtAbroadMobileNo.StyleController = this.layoutControl5;
             this.txtAbroadMobileNo.TabIndex = 6;
             // 
@@ -1516,7 +1535,7 @@
             this.txtLocalMobileNo.Location = new System.Drawing.Point(130, 40);
             this.txtLocalMobileNo.MenuManager = this.ribbonControl;
             this.txtLocalMobileNo.Name = "txtLocalMobileNo";
-            this.txtLocalMobileNo.Size = new System.Drawing.Size(562, 22);
+            this.txtLocalMobileNo.Size = new System.Drawing.Size(565, 22);
             this.txtLocalMobileNo.StyleController = this.layoutControl5;
             this.txtLocalMobileNo.TabIndex = 5;
             // 
@@ -1526,7 +1545,7 @@
             this.txtLocalFixPhone.Location = new System.Drawing.Point(130, 14);
             this.txtLocalFixPhone.MenuManager = this.ribbonControl;
             this.txtLocalFixPhone.Name = "txtLocalFixPhone";
-            this.txtLocalFixPhone.Size = new System.Drawing.Size(562, 22);
+            this.txtLocalFixPhone.Size = new System.Drawing.Size(565, 22);
             this.txtLocalFixPhone.StyleController = this.layoutControl5;
             this.txtLocalFixPhone.TabIndex = 4;
             // 
@@ -1536,13 +1555,15 @@
             this.layoutControlGroup10.GroupBordersVisible = false;
             this.layoutControlGroup10.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lblLocalFixPhone,
-            this.emptySpaceItem17,
             this.lblLocalMobileNo,
             this.lblAbroadMobileNo,
             this.lblEmail,
-            this.emptySpaceItem18});
+            this.emptySpaceItem18,
+            this.lblAddress,
+            this.emptySpaceItem19,
+            this.emptySpaceItem17});
             this.layoutControlGroup10.Name = "layoutControlGroup10";
-            this.layoutControlGroup10.Size = new System.Drawing.Size(1192, 556);
+            this.layoutControlGroup10.Size = new System.Drawing.Size(1196, 560);
             this.layoutControlGroup10.TextVisible = false;
             // 
             // lblLocalFixPhone
@@ -1550,22 +1571,16 @@
             this.lblLocalFixPhone.Control = this.txtLocalFixPhone;
             this.lblLocalFixPhone.Location = new System.Drawing.Point(0, 0);
             this.lblLocalFixPhone.Name = "lblLocalFixPhone";
-            this.lblLocalFixPhone.Size = new System.Drawing.Size(682, 26);
+            this.lblLocalFixPhone.Size = new System.Drawing.Size(685, 26);
             this.lblLocalFixPhone.Text = "Local Fix Phone";
             this.lblLocalFixPhone.TextSize = new System.Drawing.Size(101, 16);
-            // 
-            // emptySpaceItem17
-            // 
-            this.emptySpaceItem17.Location = new System.Drawing.Point(0, 104);
-            this.emptySpaceItem17.Name = "emptySpaceItem17";
-            this.emptySpaceItem17.Size = new System.Drawing.Size(682, 428);
             // 
             // lblLocalMobileNo
             // 
             this.lblLocalMobileNo.Control = this.txtLocalMobileNo;
             this.lblLocalMobileNo.Location = new System.Drawing.Point(0, 26);
             this.lblLocalMobileNo.Name = "lblLocalMobileNo";
-            this.lblLocalMobileNo.Size = new System.Drawing.Size(682, 26);
+            this.lblLocalMobileNo.Size = new System.Drawing.Size(685, 26);
             this.lblLocalMobileNo.Text = "Local Mobile No";
             this.lblLocalMobileNo.TextSize = new System.Drawing.Size(101, 16);
             // 
@@ -1574,7 +1589,7 @@
             this.lblAbroadMobileNo.Control = this.txtAbroadMobileNo;
             this.lblAbroadMobileNo.Location = new System.Drawing.Point(0, 52);
             this.lblAbroadMobileNo.Name = "lblAbroadMobileNo";
-            this.lblAbroadMobileNo.Size = new System.Drawing.Size(682, 26);
+            this.lblAbroadMobileNo.Size = new System.Drawing.Size(685, 26);
             this.lblAbroadMobileNo.Text = "Abroad Mobile No";
             this.lblAbroadMobileNo.TextSize = new System.Drawing.Size(101, 16);
             // 
@@ -1583,15 +1598,36 @@
             this.lblEmail.Control = this.txtEmail;
             this.lblEmail.Location = new System.Drawing.Point(0, 78);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(682, 26);
+            this.lblEmail.Size = new System.Drawing.Size(685, 26);
             this.lblEmail.Text = "Email";
             this.lblEmail.TextSize = new System.Drawing.Size(101, 16);
             // 
             // emptySpaceItem18
             // 
-            this.emptySpaceItem18.Location = new System.Drawing.Point(682, 0);
+            this.emptySpaceItem18.Location = new System.Drawing.Point(685, 0);
             this.emptySpaceItem18.Name = "emptySpaceItem18";
-            this.emptySpaceItem18.Size = new System.Drawing.Size(486, 532);
+            this.emptySpaceItem18.Size = new System.Drawing.Size(487, 536);
+            // 
+            // lblAddress
+            // 
+            this.lblAddress.Control = this.txtAddress;
+            this.lblAddress.Location = new System.Drawing.Point(0, 114);
+            this.lblAddress.Name = "lblAddress";
+            this.lblAddress.Size = new System.Drawing.Size(685, 97);
+            this.lblAddress.Text = "Address";
+            this.lblAddress.TextSize = new System.Drawing.Size(101, 16);
+            // 
+            // emptySpaceItem19
+            // 
+            this.emptySpaceItem19.Location = new System.Drawing.Point(0, 211);
+            this.emptySpaceItem19.Name = "emptySpaceItem19";
+            this.emptySpaceItem19.Size = new System.Drawing.Size(685, 325);
+            // 
+            // emptySpaceItem17
+            // 
+            this.emptySpaceItem17.Location = new System.Drawing.Point(0, 104);
+            this.emptySpaceItem17.Name = "emptySpaceItem17";
+            this.emptySpaceItem17.Size = new System.Drawing.Size(685, 10);
             // 
             // tabCNSSDetails
             // 
@@ -2167,6 +2203,7 @@
             this.tabEmployeeContactInfo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl5)).EndInit();
             this.layoutControl5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txtAddress.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsEmployeeContactInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAbroadMobileNo.Properties)).EndInit();
@@ -2174,11 +2211,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtLocalFixPhone.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblLocalFixPhone)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblLocalMobileNo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAbroadMobileNo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblEmail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem18)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblAddress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem17)).EndInit();
             this.tabCNSSDetails.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).EndInit();
             this.layoutControl2.ResumeLayout(false);
@@ -2405,5 +2444,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
+        private DevExpress.XtraEditors.MemoEdit txtAddress;
+        private DevExpress.XtraLayout.LayoutControlItem lblAddress;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem19;
     }
 }
