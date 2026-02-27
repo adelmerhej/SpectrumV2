@@ -11,7 +11,14 @@ namespace Spectrum.Utilities.Enums
 		SqLite
 	}
 
-	public enum PersonPrefix
+    public enum IconSizeType
+    {
+        Medium = 0,
+        Small = 1,
+        Large = 2,
+        ExtraLarge = 4
+    }
+    public enum PersonPrefix
 	{
 		Dr,
 		Mr,

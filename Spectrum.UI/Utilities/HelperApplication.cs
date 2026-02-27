@@ -15,6 +15,7 @@ using Spectrum.Views.Main.Connections;
 using Spectrum.Views.Main.Update;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
@@ -847,8 +848,18 @@ namespace Spectrum.Utilities
 				HelperApplication.SafeShowMessageBox(message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 		}
-		#endregion
+        #endregion
 
-	}
+        #region Image events
+
+        public static Image GetFileExtensionImage(string ext, IconSizeType sizeType, Size itemSize)
+        {
+            return FileSystemImageCache.Cache.GetFileExtensionImage(ext, sizeType, itemSize);
+        }
+
+
+        #endregion
+
+    }
 }
 

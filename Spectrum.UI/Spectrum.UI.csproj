@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Spectrum</RootNamespace>
     <AssemblyName>SpectrumLive</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -77,6 +78,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BusinessLogic\Users\LoginService.cs" />
+    <Compile Include="Utilities\FileSystemImageCache.cs" />
+    <Compile Include="Utilities\FileSystemImageHelper.cs" />
     <Compile Include="Utilities\HelperApplication.cs" />
     <Compile Include="Utilities\Interfaces\IFormWithRibbon.cs" />
     <Compile Include="Utilities\LogInfoRepository.cs" />

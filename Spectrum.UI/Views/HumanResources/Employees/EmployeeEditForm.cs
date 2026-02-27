@@ -2,6 +2,8 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.WinExplorer;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Common.Countries;
@@ -10,10 +12,13 @@ using Spectrum.Utilities;
 using SpectrumV1.DataLayers.EmployeeTypes;
 using SpectrumV1.DataLayers.HumanResources.BloodTypes;
 using SpectrumV1.DataLayers.HumanResources.Employees;
+using SpectrumV1.Models.Common.Documents;
 using SpectrumV1.Models.HumanResources.BloodTypes;
 using SpectrumV1.Models.HumanResources.EmployeeTypes;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -165,6 +170,18 @@ namespace Spectrum.Views.HumanResources.Employees
                 _employeeModel.EmployeeNo = latestNo + 1;
                 bsEmployee.ResetBindings(false);
             }
+
+            gvDocuments.GetThumbnailImage += TileView1_GetThumbnailImage;
+            gvDocuments.OptionsImageLoad.RandomShow = true;
+            gvDocuments.OptionsImageLoad.LoadThumbnailImagesFromDataSource = false;
+            gvDocuments.OptionsImageLoad.AsyncLoad = true;
+        }
+
+        private void TileView1_GetThumbnailImage(object sender, ThumbnailImageEventArgs e)
+        {
+            var fileName = (string)gvDocuments.GetRowCellValue(e.DataSourceIndex, colName);
+            var ext = Path.GetExtension(fileName);
+            e.ThumbnailImage = HelperApplication.GetFileExtensionImage(ext, IconSizeType.Large, new Size(64, 64));
         }
 
         private void ApplyPermissions()
@@ -338,18 +355,110 @@ namespace Spectrum.Views.HumanResources.Employees
             }
         }
 
-        private void txtDocumentLink_ButtonClick(object sender, ButtonPressedEventArgs e)
+        private void gvDocuments_ContextButtonCustomize(object sender, WinExplorerViewContextButtonCustomizeEventArgs e)
         {
-            using (var openFileDialog = new OpenFileDialog())
+            if (gvDocuments.FocusedRowHandle == e.RowHandle)
             {
-                openFileDialog.Title = "Select a Document";
-                openFileDialog.Filter = "All Files (*.*)|*.*|PDF Files (*.pdf)|*.pdf|Word Documents (*.docx)|*.docx|Images (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg";
-                openFileDialog.FilterIndex = 1;
+                e.Item.AppearanceNormal.ForeColor = Color.White;
+                e.Item.AppearanceHover.ForeColor = Color.White;
+            }
+        }
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+        private void gvDocuments_FocusedRowChanged(object sender, FocusedRowChangedEventArgs e)
+        {
+            gvDocuments.RefreshContextButtons();
+        }
+
+        private void openDocuments_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            try
+            {
+                // Select one or more files to attach
+                var ofd = new OpenFileDialog
                 {
-                    txtDocumentLink.Text = openFileDialog.FileName;
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    Multiselect = true,
+                    Filter = @"All Files (*.*)|*.*" +
+                             @"|PDF Portable Document Format (*.pdf)|*.pdf" +
+                             @"|PNG Portable Network Graphics (*.png)|*.png" +
+                             @"|JPEG File Interchange Format (*.jpg *.jpeg *jfif)|*.jpg;*.jpeg;*.jfif" +
+                             @"|BMP Windows Bitmap (*.bmp)|*.bmp" +
+                             @"|TIF Tagged Imaged File Format (*.tif *.tiff)|*.tif;*.tiff" +
+                             @"|GIF Graphics Interchange Format (*.gif)|*.gif"
+                };
+
+                if (ofd.ShowDialog() != DialogResult.OK) return;
+
+                // Prepare destination folder: Documents\SpectrumApp\Employees\<fullname>
+                string firstName = !string.IsNullOrWhiteSpace(txtFirstName.Text)
+                    ? txtFirstName.Text
+                    : _employeeModel.FirstName;
+                string lastName = !string.IsNullOrWhiteSpace(txtLastName.Text)
+                    ? txtLastName.Text
+                    : _employeeModel.LastName;
+
+                string Sanitize(string value)
+                {
+                    if (string.IsNullOrWhiteSpace(value)) return "Unknown";
+                    var invalid = Path.GetInvalidFileNameChars();
+                    foreach (var c in invalid)
+                    {
+                        value = value.Replace(c.ToString(), "_");
+                    }
+                    return value.Trim();
                 }
+                string fullName = $"{firstName}_{lastName}";
+
+                fullName = Sanitize(fullName);
+
+                string baseFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpectrumApp", "Employees", fullName);
+                Directory.CreateDirectory(baseFolder);
+
+                foreach (var file in ofd.FileNames)
+                {
+                    try
+                    {
+                        string fileName = Path.GetFileName(file);
+                        string destinationPath = Path.Combine(baseFolder, fileName);
+
+                        if (File.Exists(destinationPath))
+                        {
+                            var result = XtraMessageBox.Show($"File '{fileName}' already exists. Overwrite?", "Confirm Overwrite", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                            if (result == DialogResult.Cancel)
+                            {
+                                break;
+                            }
+                            if (result == DialogResult.No)
+                            {
+                                continue;
+                            }
+                            // Yes -> overwrite below
+                        }
+
+                        File.Copy(file, destinationPath, true);
+
+                        // Create document model and add to binding source
+                        var newDocument = new DocumentModel
+                        {
+                            DocumentName = Path.GetFileName(destinationPath),
+                            OriginPath = destinationPath,
+                            DocumentDate = File.GetCreationTime(destinationPath),
+                            StreamedDate = DateTime.Now,
+                            DocumentContent = File.ReadAllBytes(destinationPath)
+                        };
+
+                        bsDocuments.Add(newDocument);
+                    }
+                    catch (Exception ex)
+                    {
+                        XtraMessageBox.Show(ex.Message, @"Copy Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

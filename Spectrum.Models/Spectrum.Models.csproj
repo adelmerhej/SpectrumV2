@@ -9,11 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SpectrumV1.Models</RootNamespace>
     <AssemblyName>SpectrumV1.Models</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -161,6 +162,7 @@
     <Compile Include="Common\Currencies\CurrencyModel.cs" />
     <Compile Include="Common\Currencies\CurrencyExchangeModel.cs" />
     <Compile Include="Common\Departments\DepartmentModel.cs" />
+    <Compile Include="Common\Documents\DocumentModel.cs" />
     <Compile Include="Common\Services\ServiceModel.cs" />
     <Compile Include="Common\Services\ServiceTypeModel.cs" />
     <Compile Include="EntityObject.cs" />
