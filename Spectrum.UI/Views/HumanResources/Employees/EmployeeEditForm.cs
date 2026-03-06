@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraBars;
+﻿using DevExpress.Utils;
+using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
@@ -9,6 +10,7 @@ using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Common.Countries;
 using Spectrum.Models.HumanResources.Employees;
 using Spectrum.Utilities;
+using Spectrum.Utilities.Enums;
 using SpectrumV1.DataLayers.EmployeeTypes;
 using SpectrumV1.DataLayers.HumanResources.BloodTypes;
 using SpectrumV1.DataLayers.HumanResources.Employees;
