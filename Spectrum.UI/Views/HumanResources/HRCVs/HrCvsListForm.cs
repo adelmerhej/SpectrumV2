@@ -229,14 +229,17 @@ namespace Spectrum.Views.HumanResources.HRCVs
         {
             if (sender == null) return;
             _candidateModel = sender as CandidateModel;
+            if (_candidateModel == null) return;
 
-            if (_candidateModel != null && (_candidateModel.LastModifiedDate == null || _candidateModel.Deleted))
+            if (_candidateModel != null && (_candidateModel.LastModifiedDate == null))
             {
                 await InitializeBindings();
                 WireUpBindings();
             }
             else
             {
+                gcCandidates.RefreshDataSource();
+                gvCandidates.RefreshRow(gvCandidates.FocusedRowHandle);
                 gvCandidates.UpdateCurrentRow();
             }
         }
@@ -264,7 +267,7 @@ namespace Spectrum.Views.HumanResources.HRCVs
             var form = sender as HrCvEditForm;
             if (form != null)
             {
-                form.SendUpdatedCandidate -= RcvUpdatedCandidateAsync;
+                //form.SendUpdatedCandidate -= RcvUpdatedCandidateAsync;
                 form.FormClosed -= HrCvEditForm_FormClosed;
             }
             if (ReferenceEquals(_hrCvEditForm, sender))

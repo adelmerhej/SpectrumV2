@@ -9,6 +9,7 @@ using SpectrumV1.DataLayers.HumanResources.Candidates;
 using SpectrumV1.Models.HumanResources.Candidates;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +23,12 @@ namespace Spectrum.Views.HumanResources.HRCVs
         private IList<CountryModel> _countries = new List<CountryModel>();
         private IList<CityModel> _cities = new List<CityModel>();
 
-        private readonly CandidateRepository _candidateRepository = new CandidateRepository(DatabaseFactory.ProfilePrimary);
+        private CandidateRepository _candidateRepository;
 
-        private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
-        private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
+        private CountryRepository _countryRepository;
+        private CityRepository _cityRepository;
 
-        private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
+        private LogInfoRepository _logInfoRepository;
 
         //Init permissionvariables
         private bool _canAdd = true;
@@ -39,14 +40,33 @@ namespace Spectrum.Views.HumanResources.HRCVs
 
         public EventHandler SendUpdatedCandidate;
 
+        /// <summary>
+        /// Required for WinForms designer support. Do not use directly.
+        /// </summary>
+        public HrCvEditForm()
+        {
+            InitializeComponent();
+        }
+
         public HrCvEditForm(CandidateModel model)
         {
             InitializeComponent();
 
             _candidateModel = model ?? new CandidateModel();
 
-            StartLoading();
+            if (!DesignMode && LicenseManager.UsageMode != LicenseUsageMode.Designtime)
+            {
+                InitializeRepositories();
+                StartLoading();
+            }
+        }
 
+        private void InitializeRepositories()
+        {
+            _candidateRepository = new CandidateRepository(DatabaseFactory.ProfilePrimary);
+            _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
+            _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
+            _logInfoRepository = new LogInfoRepository();
         }
         #region Initialization
 
@@ -145,20 +165,23 @@ namespace Spectrum.Views.HumanResources.HRCVs
             StartLoading();
         }
 
-        private void btnSave_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnSave_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (ValidateData())
             {
-                SaveData();
+                await SaveDataAsync();
             }
         }
 
-        private void btnSaveAndClose_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnSaveAndClose_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (ValidateData())
             {
-                SaveData();
-                Close();
+                var saved = await SaveDataAsync();
+                if (saved)
+                {
+                    Close();
+                }
             }
         }
 
@@ -245,13 +268,17 @@ namespace Spectrum.Views.HumanResources.HRCVs
                 "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
-        private async void SaveData()
+        private async Task<bool> SaveDataAsync()
         {
             try
             {
                 BindingContext[bsCandidate].EndCurrentEdit();
 
-                _candidateModel = (CandidateModel)bsCandidate.Current;
+                _candidateModel = bsCandidate.Current as CandidateModel;
+                if (_candidateModel == null)
+                {
+                    throw new InvalidOperationException("Candidate data is not available for saving.");
+                }
 
                 bool isNewCandidate = string.IsNullOrEmpty(_candidateModel._id);
 
@@ -265,11 +292,14 @@ namespace Spectrum.Views.HumanResources.HRCVs
                     _logInfoRepository.UpdateLogInfo(_candidateModel);
                     await _candidateRepository.UpdateCandidateAsync(_candidateModel);
                 }
-                SendUpdatedCandidate?.Invoke(this, EventArgs.Empty);
+
+                SendUpdatedCandidate(_candidateModel, EventArgs.Empty);
+                return true;
             }
             catch (Exception ex)
             {
                 ShowError("Error saving employee data", ex);
+                return false;
             }
         }
 

@@ -3,6 +3,7 @@ using Spectrum.DataLayers.Common.Areas;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Common.Areas;
 using Spectrum.Utilities;
+using SpectrumV1.Models.HumanResources.Candidates;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -117,9 +118,8 @@ namespace Spectrum.Views.Common.Areas
 
 					await _areaRepository.UpdateAreaAsync(_areaModel);
 				}
-
-				SendUpdatedArea(_areaModel, EventArgs.Empty);
-				Close();
+                SendUpdatedArea(_areaModel, EventArgs.Empty);
+                Close();
 			}
 			catch (Exception ex)
 			{

@@ -19,6 +19,7 @@ using SpectrumV1.DataLayers.HumanResources.Employees;
 using SpectrumV1.DataLayers.HumanResources.Employees.EmployeeStatus;
 using SpectrumV1.Models.Common.Documents;
 using SpectrumV1.Models.HumanResources.BloodTypes;
+using SpectrumV1.Models.HumanResources.Candidates;
 using SpectrumV1.Models.HumanResources.Employees.EmployeeStatus;
 using SpectrumV1.Models.HumanResources.EmployeeTypes;
 using System;
@@ -51,7 +52,7 @@ namespace Spectrum.Views.HumanResources.Employees
         private readonly StatusRepository _statusRepository = new StatusRepository(DatabaseFactory.ProfilePrimary);
         private readonly JobPositionRepository _jobPositionRepository = new JobPositionRepository(DatabaseFactory.ProfilePrimary);
         private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
-
+    
         //Init permissionvariables
         private bool _canAdd = true;
         private bool _canEdit = true;
@@ -229,20 +230,23 @@ namespace Spectrum.Views.HumanResources.Employees
             StartLoading();
         }
 
-        private void btnSave_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnSave_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (ValidateData())
             {
-                SaveData();
+                await SaveDataAsync();
             }
         }
 
-        private void btnSaveAndClose_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnSaveAndClose_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (ValidateData())
             {
-                SaveData();
-                Close();
+                var saved = await SaveDataAsync();
+                if (saved)
+                {
+                    Close();
+                }
             }
         }
 
@@ -345,7 +349,7 @@ namespace Spectrum.Views.HumanResources.Employees
                 "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
-        private async void SaveData()
+        private async Task<bool> SaveDataAsync()
         {
             try
             {
@@ -357,7 +361,11 @@ namespace Spectrum.Views.HumanResources.Employees
                 BindingContext[bsCnss].EndCurrentEdit();
                 BindingContext[bsWorkExperience].EndCurrentEdit();
 
-                _employeeModel = (EmployeeModel)bsEmployee.Current;
+                _employeeModel = bsEmployee.Current as EmployeeModel;
+                if (_employeeModel == null)
+                {
+                    throw new InvalidOperationException("Employee data is not available for saving.");
+                }
 
                 bool isNewEmployee = string.IsNullOrEmpty(_employeeModel._id);
 
@@ -371,11 +379,14 @@ namespace Spectrum.Views.HumanResources.Employees
                     _logInfoRepository.UpdateLogInfo(_employeeModel);
                     await _employeeRepository.UpdateEmployeeAsync(_employeeModel);
                 }
-                SendUpdatedEmployee?.Invoke(this, EventArgs.Empty);
+
+                SendUpdatedEmployee(_employeeModel, EventArgs.Empty);
+                return true;
             }
             catch (Exception ex)
             {
                 ShowError("Error saving employee data", ex);
+                return false;
             }
         }
 

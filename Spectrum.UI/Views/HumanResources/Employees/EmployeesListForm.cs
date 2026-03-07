@@ -215,7 +215,7 @@ namespace Spectrum.Views.HumanResources.Employees
             try
             {
                 string id = gvEmployees.GetFocusedRowCellValue("_id").ToString();
-                string name = gvEmployees.GetFocusedRowCellValue("EmployeeName").ToString();
+                string name = gvEmployees.GetFocusedRowCellValue("FullName").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -358,7 +358,7 @@ namespace Spectrum.Views.HumanResources.Employees
             var form = sender as EmployeeEditForm;
             if (form != null)
             {
-                form.SendUpdatedEmployee -= RcvUpdatedEmployeeAsync;
+                //form.SendUpdatedEmployee -= RcvUpdatedEmployeeAsync;
                 form.FormClosed -= EmployeeEditForm_FormClosed;
             }
             if (ReferenceEquals(_employeeEditForm, sender))

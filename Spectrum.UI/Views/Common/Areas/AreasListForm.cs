@@ -321,7 +321,7 @@ namespace Spectrum.Views.Common.Areas
 			var form = sender as AreaEditForm;
 			if (form != null)
 			{
-				form.SendUpdatedArea -= RcvUpdatedAreaAsync;
+				//form.SendUpdatedArea -= RcvUpdatedAreaAsync;
 				form.FormClosed -= AreaEditForm_FormClosed;
 			}
 			if (ReferenceEquals(_areaEditForm, sender))
@@ -345,5 +345,5 @@ namespace Spectrum.Views.Common.Areas
 				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
 			}
 		}
-	}
+    }
 }
