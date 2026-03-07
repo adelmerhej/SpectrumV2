@@ -1,5 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
+using Spectrum.Utilities.Enums;
 using SpectrumV1.Models.HumanResources.EmployeeTypes;
+using SpectrumV1.Models.Projects.Serializers;
 using System;
 using System.Collections.Generic;
 
@@ -36,14 +38,17 @@ namespace Spectrum.Models.HumanResources.Employees
         [BsonElement("PlaceOfBirth")]
         public string PlaceOfBirth { get; set; }
 
+        [BsonElement("ActualPosition")]
+        public string ActualPosition { get; set; }
+
+        [BsonElement("Address")]
+        public string Address { get; set; }
+
         [BsonElement("RecordRegister")]
         public string RecordRegister { get; set; }
 
         [BsonElement("Nationality")]
         public string Nationality { get; set; }
-        
-        [BsonElement("Address")]
-        public string Address { get; set; }
 
         [BsonElement("IdCardOrPassportNo")]
         public string IdCardOrPassportNo { get; set; }
@@ -52,11 +57,22 @@ namespace Spectrum.Models.HumanResources.Employees
         public string FamilyStatus { get; set; }
 
         [BsonElement("EmployeeType")]
-        public EmployeeTypeModel EmployeeType { get; set; }
+        public string EmployeeType { get; set; }
+
+        [BsonElement("EnumEmployeeType")]
+        public EnumEmployeeType EnumEmployeeType { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
         [BsonElement("HiredDate")]
         public DateTime HiredDate { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        [BsonElement("WorkingDate")]
+        public DateTime? WorkingDate { get; set; }
+
+        [BsonElement("YearsOfExperience")]
+        [BsonSerializer(typeof(SafeInt32Serializer))]
+        public int YearsOfExperience { get; set; }
 
         [BsonElement("LeftWork")]
         public bool LeftWork { get; set; }

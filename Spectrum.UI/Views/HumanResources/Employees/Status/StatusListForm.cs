@@ -3,32 +3,30 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using Spectrum.DataLayers.DataAccess;
-using Spectrum.Models.HumanResources.Employees;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
-using Spectrum.UI.Utilities;
-using SpectrumV1.DataLayers.HumanResources.Employees;
+using SpectrumV1.DataLayers.HumanResources.Employees.EmployeeStatus;
+using SpectrumV1.Models.HumanResources.Employees.EmployeeStatus;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SpectrumV1.Models.HumanResources.EmployeeTypes;
 
-namespace Spectrum.Views.HumanResources.Employees
+namespace Spectrum.Views.HumanResources.Employees.Status
 {
-    public partial class EmployeesListForm : RibbonForm, IFormWithRibbon
+    public partial class StatusListForm : RibbonForm, IFormWithRibbon
     {
         private bool _resetMenu;
-        private EmployeeEditForm _employeeEditForm;
+        private StatusEditForm _statusEditForm;
 
-        private EmployeeModel _employeeModel = new EmployeeModel();
-        private IList<EmployeeModel> _employees = new List<EmployeeModel>();
+        private StatusModel _statusModel = new StatusModel();
+        private IList<StatusModel> _status = new List<StatusModel>();
 
-        private readonly EmployeeRepository _employeeRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
+        private readonly StatusRepository _statusRepository = new StatusRepository(DatabaseFactory.ProfilePrimary);
 
         //Init permissionvariables
         private bool _canAdd = true;
@@ -40,15 +38,27 @@ namespace Spectrum.Views.HumanResources.Employees
 
         #region Implementation of IFormWithRibbon
 
-        public RibbonControl MainRibbon => rcEmployeesList;
-        public RibbonPage DefaultPage => rpEmployeesList;
+        public RibbonControl MainRibbon => rcStatus;
+        public RibbonPage DefaultPage => rpStatus;
 
 
         #endregion
 
-        public EmployeesListForm()
+
+        public StatusListForm()
         {
             InitializeComponent();
+
+            // wire events
+            btnNew.ItemClick += btnNew_ItemClick;
+            btnEdit.ItemClick += btnEdit_ItemClick;
+            btnDelete.ItemClick += btnDelete_ItemClick;
+            btnPrint.ItemClick += btnPrint_ItemClick;
+            btnRefresh.ItemClick += btnRefresh_ItemClick;
+            btnClose.ItemClick += btnClose_ItemClick;
+            btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
+            gvStatus.DoubleClick += gvStatus_DoubleClick;
+            gvStatus.RowCellStyle += gvStatus_RowCellStyle;
 
             StartLoading();
         }
@@ -75,46 +85,7 @@ namespace Spectrum.Views.HumanResources.Employees
                 //	}
                 //	//
 
-				var employeesTask = _employeeRepository.GetEmployeesAsync();
-				var peopleTask = PeopleDirectory.GetPeopleAsync();
-				await Task.WhenAll(employeesTask, peopleTask);
-				_employees = await employeesTask ?? new List<EmployeeModel>();
-
-				// Add engineers that are not already in employees (display-only rows)
-				var people = await peopleTask ?? new List<PeopleDirectory.PersonLookup>();
-				var employeeKeys = new HashSet<string>(
-					(_employees ?? new List<EmployeeModel>()).Select(e => NormalizeKey(e.FullName)),
-					StringComparer.OrdinalIgnoreCase);
-
-				foreach (var p in people.Where(x => x.EngineerId != null))
-				{
-					if (string.IsNullOrWhiteSpace(p.FullName)) continue;
-					if (employeeKeys.Contains(p.Key)) continue;
-
-					var parts = p.FullName.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-					var firstName = parts.Length > 0 ? parts[0] : p.FullName;
-					var lastName = parts.Length > 1 ? string.Join(" ", parts.Skip(1)) : string.Empty;
-
-					_employees.Add(new EmployeeModel
-					{
-						_id = p.EngineerId,
-						FirstName = firstName,
-						LastName = lastName,
-						EmployeeType = "Engineer",
-						Nationality = p.Country,
-						PlaceOfBirth = p.City,
-						IdCardOrPassportNo = null,
-						Specialization = p.Specialization,
-						FamilyStatus = p.Status,
-						ContactInfo = new Spectrum.Models.HumanResources.Employees.EmployeeContactInfo
-						{
-							Email = p.Email,
-							LocalMobileNo = p.Phone1,
-							AbroadMobileNo = p.Phone2,
-							LocalFixPhone = p.Phone3
-						}
-					});
-				}
+                _status = await _statusRepository.GetStatusAsync();
             }
             catch (Exception ex)
             {
@@ -122,21 +93,10 @@ namespace Spectrum.Views.HumanResources.Employees
             }
         }
 
-		private static string NormalizeKey(string name)
-		{
-			if (string.IsNullOrWhiteSpace(name)) return null;
-			var cleaned = new string(name
-				.Trim()
-				.ToUpperInvariant()
-				.Where(ch => char.IsLetterOrDigit(ch) || char.IsWhiteSpace(ch))
-				.ToArray());
-			return string.Join(" ", cleaned.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
-		}
-
         private void WireUpBindings()
         {
-            gcEmployees.DataSource = null;
-            gcEmployees.DataSource = _employees;
+            gcStatus.DataSource = null;
+            gcStatus.DataSource = _status;
         }
 
         private void ApplyDefaults()
@@ -170,27 +130,26 @@ namespace Spectrum.Views.HumanResources.Employees
             btnDelete.Enabled = _isAdmin || _canDelete;
         }
 
-
-        #region Button Events
+        #region Buttons Event
 
         private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ShowEmployeeEditor(new EmployeeModel());
+            ShowStatusEditor(new StatusModel());
         }
 
         private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (!_employees.Any()) return;
+            if (!_status.Any()) return;
 
             try
             {
-                string currentRowId = gvEmployees.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvStatus.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _employeeModel = _employees.SingleOrDefault(x => x._id == currentRowId);
-                if (_employeeModel == null) return;
+                _statusModel = _status.SingleOrDefault(x => x._id == currentRowId);
+                if (_statusModel == null) return;
 
-                ShowEmployeeEditor(_employeeModel);
+                ShowStatusEditor(_statusModel);
             }
             catch (Exception exception)
             {
@@ -205,7 +164,7 @@ namespace Spectrum.Views.HumanResources.Employees
 
         private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
         {
-            gcEmployees.ShowRibbonPrintPreview();
+            gcStatus.ShowRibbonPrintPreview();
         }
 
         private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
@@ -214,27 +173,29 @@ namespace Spectrum.Views.HumanResources.Employees
 
             try
             {
-                string id = gvEmployees.GetFocusedRowCellValue("_id").ToString();
-                string name = gvEmployees.GetFocusedRowCellValue("EmployeeName").ToString();
+                string id = gvStatus.GetFocusedRowCellValue("_id").ToString();
+                string name = gvStatus.GetFocusedRowCellValue("Status").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {
-                    if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
+                    if (XtraMessageBox.Show($"Are you sure you want to delete: `{name}`?",
                             "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                             MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        _employeeModel = gvEmployees.GetFocusedRow() as EmployeeModel;
-                        if (_employeeModel == null)
+                        _statusModel = gvStatus.GetFocusedRow() as StatusModel;
+                        if (_statusModel == null)
                         {
                             return;
                         }
-                        _employeeModel.Deleted = true;
+                        _statusModel.Deleted = true;
 
                         //delete the record
-                        await _employeeRepository.DeleteEmployeeAsync(_employeeModel._id);
-                        RcvUpdatedEmployeeAsync(_employeeModel, EventArgs.Empty);
+                        bool deleted = await _statusRepository.DeleteStatusAsync(id);
+                        if (!deleted) return;
+                        RcvUpdatedStatusAsync(_statusModel, EventArgs.Empty);
                     }
                 }
+
             }
             catch (Exception exception)
             {
@@ -253,11 +214,6 @@ namespace Spectrum.Views.HumanResources.Employees
             }
         }
 
-        private void customersRating_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
-        }
-
         private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
         {
             Close();
@@ -270,42 +226,25 @@ namespace Spectrum.Views.HumanResources.Employees
                 DialogResult.Yes)
             {
                 _resetMenu = true;
-                LayoutsStyle.ResetLayoutGrid(gvEmployees, CurrentUser.UserName, CurrentUser.Company);
+                LayoutsStyle.ResetLayoutGrid(gvStatus, CurrentUser.UserName, CurrentUser.Company);
             }
         }
+
         #endregion
 
-
-
-        private async void RcvUpdatedEmployeeAsync(object sender, EventArgs e)
+        private void gvStatus_DoubleClick(object sender, EventArgs e)
         {
-            if (sender == null) return;
-            _employeeModel = sender as EmployeeModel;
-
-            if (_employeeModel != null && (_employeeModel.LastModifiedDate == null || _employeeModel.Deleted))
-            {
-                await InitializeBindings();
-                WireUpBindings();
-            }
-            else
-            {
-                gvEmployees.UpdateCurrentRow();
-            }
-        }
-
-        private void gvCities_DoubleClick(object sender, EventArgs e)
-        {
-            if (!_employees.Any()) return;
+            if (!_status.Any()) return;
 
             try
             {
-                string currentRowId = gvEmployees.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvStatus.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _employeeModel = _employees.SingleOrDefault(x => x._id == currentRowId);
-                if (_employeeModel == null) return;
+                _statusModel = _status.SingleOrDefault(x => x._id == currentRowId);
+                if (_statusModel == null) return;
 
-                ShowEmployeeEditor(_employeeModel);
+                ShowStatusEditor(_statusModel);
             }
             catch (Exception exception)
             {
@@ -313,12 +252,31 @@ namespace Spectrum.Views.HumanResources.Employees
             }
         }
 
+        private async void RcvUpdatedStatusAsync(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _statusModel = sender as StatusModel;
+            if (_statusModel == null) return;
+
+            if (_statusModel.Deleted || _statusModel.LastModifiedDate == null)
+            {
+                await InitializeBindings();
+                WireUpBindings();
+            }
+            else
+            {
+                gcStatus.RefreshDataSource();
+                gvStatus.RefreshRow(gvStatus.FocusedRowHandle);
+                gvStatus.UpdateCurrentRow();
+            }
+        }
+
         private bool CanDelete()
         {
-            EmployeeModel dataBoundItem = gvEmployees.GetFocusedRow() as EmployeeModel;
+            StatusModel dataBoundItem = gvStatus.GetFocusedRow() as StatusModel;
 
-            if (gvEmployees == null || gvEmployees.SelectedRowsCount == 0) return false;
-            if (gvEmployees.SelectedRowsCount > 1)
+            if (gvStatus == null || gvStatus.SelectedRowsCount == 0) return false;
+            if (gvStatus.SelectedRowsCount > 1)
             {
                 XtraMessageBox.Show("Only one record can be selected at a time, please try again",
                     "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -335,37 +293,37 @@ namespace Spectrum.Views.HumanResources.Employees
             return true;
         }
 
-        private void ShowEmployeeEditor(EmployeeModel model)
+        private void ShowStatusEditor(StatusModel model)
         {
-            if (_employeeEditForm == null || _employeeEditForm.IsDisposed)
+            if (_statusEditForm == null || _statusEditForm.IsDisposed)
             {
-                _employeeEditForm = new EmployeeEditForm(model);
-                _employeeEditForm.SendUpdatedEmployee += RcvUpdatedEmployeeAsync;
-                _employeeEditForm.FormClosed += EmployeeEditForm_FormClosed;
-                _employeeEditForm.Show(this);
+                _statusEditForm = new StatusEditForm(model);
+                _statusEditForm.SendUpdatedStatus += RcvUpdatedStatusAsync;
+                _statusEditForm.FormClosed += StatusEditForm_FormClosed;
+                _statusEditForm.Show(this);
                 return;
             }
 
-            if (_employeeEditForm.WindowState == FormWindowState.Minimized)
-                _employeeEditForm.WindowState = FormWindowState.Normal;
+            if (_statusEditForm.WindowState == FormWindowState.Minimized)
+                _statusEditForm.WindowState = FormWindowState.Normal;
 
-            _employeeEditForm.Activate();
-            _employeeEditForm.BringToFront();
+            _statusEditForm.Activate();
+            _statusEditForm.BringToFront();
         }
 
-        private void EmployeeEditForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void StatusEditForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var form = sender as EmployeeEditForm;
+            var form = sender as StatusEditForm;
             if (form != null)
             {
-                form.SendUpdatedEmployee -= RcvUpdatedEmployeeAsync;
-                form.FormClosed -= EmployeeEditForm_FormClosed;
+                form.SendUpdatedStatus -= RcvUpdatedStatusAsync;
+                form.FormClosed -= StatusEditForm_FormClosed;
             }
-            if (ReferenceEquals(_employeeEditForm, sender))
-                _employeeEditForm = null;
+            if (ReferenceEquals(_statusEditForm, sender))
+                _statusEditForm = null;
         }
 
-        private void gvCities_RowCellStyle(object sender, RowCellStyleEventArgs e)
+        private void gvStatus_RowCellStyle(object sender, RowCellStyleEventArgs e)
         {
             var view = sender as GridView;
             if (view == null || e.RowHandle < 0) return;

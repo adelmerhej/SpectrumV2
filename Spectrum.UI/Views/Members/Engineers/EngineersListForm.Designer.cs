@@ -317,7 +317,7 @@
             // 
             // bsEngineers
             // 
-            this.bsEngineers.DataSource = typeof(Spectrum.Models.Members.Engineers.EngineerModel);
+            this.bsEngineers.DataSource = typeof(Spectrum.Models.HumanResources.Employees.EmployeeModel);
             // 
             // gvEngineers
             // 

@@ -5,13 +5,12 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
-using Spectrum.DataLayers.Members.Engineers;
-using Spectrum.DataLayers.Members.Engineers.Status;
 using Spectrum.Models.Common.Countries;
-using Spectrum.Models.Members.Engineers;
-using Spectrum.Models.Members.Engineers.Status;
+using Spectrum.Models.HumanResources.Employees;
 using Spectrum.Utilities;
+using Spectrum.Utilities.Enums;
 using SpectrumV1.DataLayers.EmployeeTypes;
+using SpectrumV1.DataLayers.HumanResources.Employees;
 using SpectrumV1.Models.HumanResources.EmployeeTypes;
 using System;
 using System.Collections.Generic;
@@ -24,18 +23,16 @@ namespace Spectrum.Views.Members.Engineers
 {
     public partial class EngineerEditForm : RibbonForm
     {
-        private EngineerModel _engineerModel = new EngineerModel();
+        private EmployeeModel _employeeModel = new EmployeeModel();
 
         private IList<CityModel> _cities = new List<CityModel>();
         private IList<CountryModel> _countries = new List<CountryModel>();
-        private IList<StatusModel> _status = new List<StatusModel>();
 
-        private readonly EngineerRepository _engineerRepository;
-        private readonly CountryRepository _countryRepository;
-        private readonly CityRepository _cityRepository;
-        private readonly StatusRepository _statusRepository;
-        private readonly LogInfoRepository _logInfoRepository;
-        private readonly EmployeeTypeRepository _employeeTypeRepository;
+        private readonly EmployeeRepository _employeeRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
+        private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
+        private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
+        private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
+        private readonly EmployeeTypeRepository _employeeTypeRepository = new EmployeeTypeRepository(DatabaseFactory.ProfilePrimary);
 
         // init permission variables
         private bool _canAdd = true;
@@ -48,18 +45,11 @@ namespace Spectrum.Views.Members.Engineers
 
         public EventHandler SendUpdatedEngineer;
 
-        public EngineerEditForm(EngineerModel model)
+        public EngineerEditForm(EmployeeModel model)
         {
             InitializeComponent();
 
-            _engineerModel = model ?? new EngineerModel();
-
-            _engineerRepository = new EngineerRepository(DatabaseFactory.ProfilePrimary);
-            _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
-            _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
-            _statusRepository = new StatusRepository(DatabaseFactory.ProfilePrimary);
-            _logInfoRepository = new LogInfoRepository();
-            _employeeTypeRepository = new EmployeeTypeRepository(DatabaseFactory.ProfilePrimary);
+            _employeeModel = model ?? new EmployeeModel();
 
             StartLoading();
         }
@@ -90,7 +80,6 @@ namespace Spectrum.Views.Members.Engineers
                 {
                     LoadCitiesAsync(),
                     LoadCountriesAsync(),
-                    LoadStatusAsync(),
                 };
 
                 await Task.WhenAll(loadTasks);
@@ -111,14 +100,9 @@ namespace Spectrum.Views.Members.Engineers
             _countries = await _countryRepository.GetCountriesAsync();
         }
 
-        private async Task LoadStatusAsync()
-        {
-            _status = await _statusRepository.GetStatusAsync();
-        }
-
         private void WireUpBindings()
         {
-            bsEngineer.DataSource = _engineerModel;
+            bsEngineer.DataSource = _employeeModel;
 
             cboNationality.Properties.DataSource = _countries;
             cboPlaceOfBirth.Properties.DataSource = _cities;
@@ -126,15 +110,16 @@ namespace Spectrum.Views.Members.Engineers
 
         private async Task ApplyDefaultsAsync()
         {
-            if (_engineerModel.EmployeeType == null || _engineerModel.EmployeeType.TypeName != "Engineer")
+            if (_employeeModel.EmployeeType == null || _employeeModel.EnumEmployeeType != EnumEmployeeType.Engineer)
             {
-                var employeeType = await _employeeTypeRepository.GetEmployeeTypeByName("Engineer");
+                var employeeType = await _employeeTypeRepository.GetEmployeeTypeByType(EnumEmployeeType.Engineer);
                 if (employeeType == null)
                 {
-                    employeeType = new EmployeeTypeModel { TypeName = "Engineer" };
+                    employeeType = new EmployeeTypeModel { TypeName = EnumEmployeeType.Engineer.ToString() };
                     await _employeeTypeRepository.AddNewEmployeeTypeAsync(employeeType);
                 }
-                _engineerModel.EmployeeType = employeeType;
+                _employeeModel.EmployeeType = employeeType.TypeName;
+                _employeeModel.EnumEmployeeType = EnumEmployeeType.Engineer;
             }
         }
 
@@ -181,7 +166,7 @@ namespace Spectrum.Views.Members.Engineers
 
         private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
         {
-            _engineerModel = new EngineerModel();
+            _employeeModel = new EmployeeModel();
             StartLoading();
         }
 
@@ -233,9 +218,11 @@ namespace Spectrum.Views.Members.Engineers
             try
             {
                 BindingContext[bsEngineer].EndCurrentEdit();
-                _engineerModel = (EngineerModel)bsEngineer.Current;
+                _employeeModel = (EmployeeModel)bsEngineer.Current;
 
-                bool isNewEngineer = string.IsNullOrEmpty(_engineerModel._id);
+                SplitFullName(txtName.Text);
+
+                bool isNewEngineer = string.IsNullOrEmpty(_employeeModel._id);
 
                 if (isNewEngineer)
                 {
@@ -246,7 +233,7 @@ namespace Spectrum.Views.Members.Engineers
                     await UpdateExistingEngineerAsync();
                 }
 
-                SendUpdatedEngineer?.Invoke(_engineerModel, EventArgs.Empty);
+                SendUpdatedEngineer?.Invoke(_employeeModel, EventArgs.Empty);
             }
             catch (Exception ex)
             {
@@ -256,9 +243,9 @@ namespace Spectrum.Views.Members.Engineers
 
         private async Task CreateNewEngineerAsync()
         {
-            _logInfoRepository.CreateLogInfo(_engineerModel);
+            _logInfoRepository.CreateLogInfo(_employeeModel);
 
-            var newEngineerId = await _engineerRepository.AddNewEngineerAsync(_engineerModel);
+            var newEngineerId = await _employeeRepository.AddNewEmployeeAsync(_employeeModel);
 
             if (string.IsNullOrEmpty(newEngineerId))
             {
@@ -268,8 +255,8 @@ namespace Spectrum.Views.Members.Engineers
 
         private async Task UpdateExistingEngineerAsync()
         {
-            _logInfoRepository.UpdateLogInfo(_engineerModel);
-            await _engineerRepository.UpdateEngineerAsync(_engineerModel);
+            _logInfoRepository.UpdateLogInfo(_employeeModel);
+            await _employeeRepository.UpdateEmployeeAsync(_employeeModel);
         }
 
         #endregion
@@ -373,6 +360,22 @@ namespace Spectrum.Views.Members.Engineers
         #endregion
 
         #region Helper Methods
+
+        private void SplitFullName(string fullName)
+        {
+            var trimmed = (fullName ?? string.Empty).Trim();
+            var spaceIndex = trimmed.IndexOf(' ');
+            if (spaceIndex > 0)
+            {
+                _employeeModel.FirstName = trimmed.Substring(0, spaceIndex);
+                _employeeModel.LastName = trimmed.Substring(spaceIndex + 1).Trim();
+            }
+            else
+            {
+                _employeeModel.FirstName = trimmed;
+                _employeeModel.LastName = string.Empty;
+            }
+        }
 
         private bool ConfirmDelete(string itemName)
         {

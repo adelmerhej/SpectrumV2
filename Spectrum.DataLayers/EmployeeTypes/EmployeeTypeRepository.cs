@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.Utilities.Enums;
 using SpectrumV1.Models.HumanResources.EmployeeTypes;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,14 @@ namespace SpectrumV1.DataLayers.EmployeeTypes
         {
             if (string.IsNullOrWhiteSpace(employeeTypeName)) return null;
             var pattern = "^" + Regex.Escape(employeeTypeName.Trim()) + "$"; // exact match
+            var filter = Builders<EmployeeTypeModel>.Filter.Regex(u => u.TypeName, new BsonRegularExpression(pattern, "i"));
+            return await _employeeType.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<EmployeeTypeModel> GetEmployeeTypeByType(EnumEmployeeType employeeType)
+        {
+            var typeName = employeeType.ToString();
+            var pattern = "^" + Regex.Escape(typeName) + "$"; // exact match
             var filter = Builders<EmployeeTypeModel>.Filter.Regex(u => u.TypeName, new BsonRegularExpression(pattern, "i"));
             return await _employeeType.Find(filter).FirstOrDefaultAsync();
         }

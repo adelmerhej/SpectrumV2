@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.HumanResources.Employees;
+using Spectrum.Utilities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -11,7 +12,7 @@ namespace SpectrumV1.DataLayers.HumanResources.Employees
 {
     public class EmployeeRepository : IEmployeeRepository, IDisposable
     {
-        private readonly IMongoCollection<EmployeeModel> _employees;
+        private readonly IMongoCollection<EmployeeModel> _employees;    
         private const string CollectionName = "Employees";
 
         // Constructor for dependency injection
@@ -24,13 +25,22 @@ namespace SpectrumV1.DataLayers.HumanResources.Employees
         // Interface async implementations (wrapping legacy sync methods)
         public async Task<List<EmployeeModel>> GetEmployeesAsync()
         {
-            return await _employees.Find(employee => true).ToListAsync();
+            return await _employees
+                .Find(FilterDefinition<EmployeeModel>.Empty)
+                .ToListAsync()
+                .ConfigureAwait(false);
+        }
+
+        public async Task<List<EmployeeModel>> GetEmployeesAsync(EnumEmployeeType employeeType)
+        {
+            var filter = Builders<EmployeeModel>.Filter.Eq(e => e.EnumEmployeeType, employeeType);
+            return await _employees.Find(filter).ToListAsync().ConfigureAwait(false);
         }
 
         public async Task<EmployeeModel> GetEmployeeByIdAsync(string id)
         {
             var filter = Builders<EmployeeModel>.Filter.Eq(u => u._id, id);
-            return await _employees.Find(filter).FirstOrDefaultAsync();
+            return await _employees.Find(filter).FirstOrDefaultAsync().ConfigureAwait(false);
         }
 
         public async Task<EmployeeModel> GetEmployeeByName(string employeeName)
@@ -38,7 +48,7 @@ namespace SpectrumV1.DataLayers.HumanResources.Employees
             if (string.IsNullOrWhiteSpace(employeeName)) return null;
             var pattern = "^" + Regex.Escape(employeeName.Trim()) + "$"; // exact match
             var filter = Builders<EmployeeModel>.Filter.Regex(u => u.FirstName, new BsonRegularExpression(pattern, "i"));
-            return await _employees.Find(filter).FirstOrDefaultAsync();
+            return await _employees.Find(filter).FirstOrDefaultAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -50,7 +60,7 @@ namespace SpectrumV1.DataLayers.HumanResources.Employees
             try
             {
                 employee.CreatedAt = DateTime.UtcNow;
-                await _employees.InsertOneAsync(employee);
+                await _employees.InsertOneAsync(employee).ConfigureAwait(false);
                 return employee._id;
             }
             catch (Exception ex)
@@ -66,7 +76,7 @@ namespace SpectrumV1.DataLayers.HumanResources.Employees
         {
             try
             {
-                var result = await _employees.ReplaceOneAsync(u => u._id == employee._id, employee);
+                var result = await _employees.ReplaceOneAsync(u => u._id == employee._id, employee).ConfigureAwait(false);
                 return result.IsAcknowledged && result.ModifiedCount > 0;
             }
             catch (Exception ex)
@@ -79,7 +89,7 @@ namespace SpectrumV1.DataLayers.HumanResources.Employees
         {
             try
             {
-                var result = await _employees.DeleteOneAsync(u => u._id == id);
+                var result = await _employees.DeleteOneAsync(u => u._id == id).ConfigureAwait(false);
                 return result.IsAcknowledged && result.DeletedCount > 0;
             }
             catch (Exception ex)
@@ -93,7 +103,7 @@ namespace SpectrumV1.DataLayers.HumanResources.Employees
         /// </summary>
         public async Task<long> GetCountAsync()
         {
-            return await _employees.CountDocumentsAsync(new BsonDocument());
+            return await _employees.CountDocumentsAsync(new BsonDocument()).ConfigureAwait(false);
         }
 
         public async Task<int> GetLatestEmployeeNoAsync()
@@ -101,7 +111,8 @@ namespace SpectrumV1.DataLayers.HumanResources.Employees
             var latestEmployee = await _employees.Find(new BsonDocument())
                                                  .SortByDescending(e => e.EmployeeNo)
                                                  .Limit(1)
-                                                 .FirstOrDefaultAsync();
+                                                 .FirstOrDefaultAsync()
+                                                 .ConfigureAwait(false);
             return latestEmployee?.EmployeeNo ?? 0;
         }
 

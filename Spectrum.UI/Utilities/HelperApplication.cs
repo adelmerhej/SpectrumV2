@@ -438,6 +438,7 @@ namespace Spectrum.Utilities
 					var defaultCountry = new Models.Common.Countries.CountryModel
 					{
 						CountryName = "Lebanon",
+						CountryCode = "LB",
 						Region = "Middle East",
 						Continent = "Asia",
 						Company = "Spectrum Lebanon",
@@ -568,7 +569,7 @@ namespace Spectrum.Utilities
 					var defaultUser = new Models.Users.UserModel
 					{
 						Username = "admin",
-						Email = "admin@spectrum-lb.com",
+						Email = "admin@spectrumlb.com",
 						PasswordHash = temporaryAdminPassword,
 						SecurityStamp = Guid.NewGuid().ToString(),
 						Roles = new List<string> { "admin" },

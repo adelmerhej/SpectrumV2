@@ -306,6 +306,18 @@
     <Compile Include="Views\HumanResources\Employees\EmployeesListForm.Designer.cs">
       <DependentUpon>EmployeesListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\HumanResources\Employees\Status\StatusEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\Employees\Status\StatusEditForm.Designer.cs">
+      <DependentUpon>StatusEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HumanResources\Employees\Status\StatusListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\Employees\Status\StatusListForm.Designer.cs">
+      <DependentUpon>StatusListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\HumanResources\HRCVs\HrCvEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -407,18 +419,6 @@
     </Compile>
     <Compile Include="Views\Members\Engineers\EngineersListForm.Designer.cs">
       <DependentUpon>EngineersListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Members\Engineers\Sattus\StatusEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Members\Engineers\Sattus\StatusEditForm.Designer.cs">
-      <DependentUpon>StatusEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Members\Engineers\Sattus\StatusListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Members\Engineers\Sattus\StatusListForm.Designer.cs">
-      <DependentUpon>StatusListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\ProjectEditForm.cs">
       <SubType>Form</SubType>
@@ -622,6 +622,12 @@
     <EmbeddedResource Include="Views\HumanResources\Employees\EmployeesListForm.resx">
       <DependentUpon>EmployeesListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\Employees\Status\StatusEditForm.resx">
+      <DependentUpon>StatusEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\Employees\Status\StatusListForm.resx">
+      <DependentUpon>StatusListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\HRCVs\HrCvEditForm.resx">
       <DependentUpon>HrCvEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -672,12 +678,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Members\Engineers\EngineersListForm.resx">
       <DependentUpon>EngineersListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Members\Engineers\Sattus\StatusEditForm.resx">
-      <DependentUpon>StatusEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Members\Engineers\Sattus\StatusListForm.resx">
-      <DependentUpon>StatusListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Projects\ProjectEditForm.resx">
       <DependentUpon>ProjectEditForm.cs</DependentUpon>
@@ -831,6 +831,7 @@
     <Folder Include="Views\Accounting\Reports\" />
     <Folder Include="Views\Accounting\Settings\" />
     <Folder Include="Views\Accounting\Statements\" />
+    <Folder Include="Views\Members\Engineers\Sattus\" />
     <Folder Include="Views\Members\Suppliers\" />
   </ItemGroup>
   <ItemGroup>

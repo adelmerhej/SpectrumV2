@@ -194,6 +194,8 @@
     <Compile Include="HumanResources\Candidates\CandidateRepository.cs" />
     <Compile Include="HumanResources\Candidates\ICandidateRepository.cs" />
     <Compile Include="HumanResources\Employees\EmployeeRepository.cs" />
+    <Compile Include="HumanResources\Employees\EmployeeStatus\IStatusRepository.cs" />
+    <Compile Include="HumanResources\Employees\EmployeeStatus\StatusRepository.cs" />
     <Compile Include="HumanResources\Employees\IEmployeeRepository.cs" />
     <Compile Include="HumanResources\JobPositions\IJobPositionRepository.cs" />
     <Compile Include="HumanResources\JobPositions\JobPositionRepository.cs" />
@@ -202,10 +204,6 @@
     <Compile Include="Members\Clients\ContactRepository.cs" />
     <Compile Include="Members\Clients\IClientRepository.cs" />
     <Compile Include="Members\Clients\IContactRepository.cs" />
-    <Compile Include="Members\Engineers\EngineerRepository.cs" />
-    <Compile Include="Members\Engineers\IEngineerRepository.cs" />
-    <Compile Include="Members\Engineers\Status\IStatusRepository.cs" />
-    <Compile Include="Members\Engineers\Status\StatusRepository.cs" />
     <Compile Include="Projects\IProjectRepository.cs" />
     <Compile Include="Projects\ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

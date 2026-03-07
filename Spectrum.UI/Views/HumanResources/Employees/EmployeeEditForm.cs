@@ -7,15 +7,19 @@ using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.WinExplorer;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.DataLayers.HumanResources.JobPositions;
 using Spectrum.Models.Common.Countries;
 using Spectrum.Models.HumanResources.Employees;
+using Spectrum.Models.HumanResources.JobPositions;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Enums;
 using SpectrumV1.DataLayers.EmployeeTypes;
 using SpectrumV1.DataLayers.HumanResources.BloodTypes;
 using SpectrumV1.DataLayers.HumanResources.Employees;
+using SpectrumV1.DataLayers.HumanResources.Employees.EmployeeStatus;
 using SpectrumV1.Models.Common.Documents;
 using SpectrumV1.Models.HumanResources.BloodTypes;
+using SpectrumV1.Models.HumanResources.Employees.EmployeeStatus;
 using SpectrumV1.Models.HumanResources.EmployeeTypes;
 using System;
 using System.Collections.Generic;
@@ -36,12 +40,16 @@ namespace Spectrum.Views.HumanResources.Employees
         private IList<CityModel> _cities = new List<CityModel>();
         private IList<EmployeeTypeModel> _employeeTypes = new List<EmployeeTypeModel>();
         private IList<BloodTypeModel> _bloodTypes = new List<BloodTypeModel>();
+        private IList<StatusModel> _status = new List<StatusModel>();
+        private IList<JobPositionModel> _jobPositions = new List<JobPositionModel>();
 
         private readonly EmployeeRepository _employeeRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
         private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
         private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
         private readonly EmployeeTypeRepository _employeeTypeRepository = new EmployeeTypeRepository(DatabaseFactory.ProfilePrimary);
         private readonly BloodTypeRepository _bloodTypeRepository = new BloodTypeRepository(DatabaseFactory.ProfilePrimary);
+        private readonly StatusRepository _statusRepository = new StatusRepository(DatabaseFactory.ProfilePrimary);
+        private readonly JobPositionRepository _jobPositionRepository = new JobPositionRepository(DatabaseFactory.ProfilePrimary);
         private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
         //Init permissionvariables
@@ -90,6 +98,8 @@ namespace Spectrum.Views.HumanResources.Employees
                     LoadCitiesAsync(),
                     LoadStatusAsync(),
                     LoadBloodTypeAsync(),
+                    LoadEmployeeTypesAsync(),
+                    LoadJobPositionsAsync(),
                 };
 
                 await Task.WhenAll(loadTasks);
@@ -112,12 +122,22 @@ namespace Spectrum.Views.HumanResources.Employees
 
         private async Task LoadStatusAsync()
         {
-            _employeeTypes = await _employeeTypeRepository.GetEmployeeTypesAsync();
+            _status = await _statusRepository.GetStatusAsync();
         }
 
         private async Task LoadBloodTypeAsync()
         {
             _bloodTypes = await _bloodTypeRepository.GetBloodTypesAsync();
+        }
+
+        private async Task LoadEmployeeTypesAsync()
+        {
+            _employeeTypes = await _employeeTypeRepository.GetEmployeeTypesAsync();
+        }
+
+        private async Task LoadJobPositionsAsync()
+        {
+            _jobPositions = await _jobPositionRepository.GetJobPositionsAsync();
         }
 
 
@@ -128,7 +148,8 @@ namespace Spectrum.Views.HumanResources.Employees
 
             if (_employeeModel.EmployeeType != null)
             {
-                _employeeModel.EmployeeType = _employeeTypes.FirstOrDefault(x => x._id == _employeeModel.EmployeeType._id) ?? _employeeModel.EmployeeType;
+                var matchedType = _employeeTypes.FirstOrDefault(x => x.TypeName == _employeeModel.EmployeeType);
+                _employeeModel.EmployeeType = matchedType?.TypeName ?? _employeeModel.EmployeeType;
             }
 
             bsEmployee.DataSource = _employeeModel;
@@ -144,6 +165,7 @@ namespace Spectrum.Views.HumanResources.Employees
             cboRegistrationPlace.Properties.DataSource = _cities;
             cboEmployeeType.Properties.DataSource = _employeeTypes;
             cboBloodType.Properties.DataSource = _bloodTypes;
+            cboFamilyStatus.Properties.DataSource = _status;
         }
 
         private void EnsureSubObjectsInitialized()

@@ -11,6 +11,12 @@ namespace Spectrum.Utilities.Enums
 		SqLite
 	}
 
+    public enum EnumEmployeeType
+    {
+        Employee = 1,
+        Engineer = 2
+    }
+
     public enum IconSizeType
     {
         Medium = 0,
