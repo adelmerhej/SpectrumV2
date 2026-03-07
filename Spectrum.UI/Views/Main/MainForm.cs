@@ -16,6 +16,7 @@ using Spectrum.Views.Common.Services;
 using Spectrum.Views.HumanResources.Common.BloodTypes;
 using Spectrum.Views.HumanResources.Common.EmployeeTypes;
 using Spectrum.Views.HumanResources.Employees;
+using Spectrum.Views.HumanResources.Employees.Status;
 using Spectrum.Views.HumanResources.HRCVs;
 using Spectrum.Views.HumanResources.JobPositions;
 using Spectrum.Views.HumanResources.Roles;
@@ -525,7 +526,7 @@ namespace Spectrum.Views.Main
 
         private void mnuStatus_Click(object sender, EventArgs e)
         {
-            //OpenForm<StatusListForm>();
+            OpenForm<StatusListForm>();
         }
 
         private void mnuLocations_Click(object sender, EventArgs e)

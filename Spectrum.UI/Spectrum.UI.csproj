@@ -330,12 +330,6 @@
     <Compile Include="Views\HumanResources\HRCVs\HrCvsListForm.Designer.cs">
       <DependentUpon>HrCvsListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\HumanResources\HRCVs\TestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\HRCVs\TestForm.Designer.cs">
-      <DependentUpon>TestForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\HumanResources\JobPositions\JobPositionEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -633,9 +627,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\HRCVs\HrCvsListForm.resx">
       <DependentUpon>HrCvsListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HumanResources\HRCVs\TestForm.resx">
-      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\JobPositions\JobPositionEditForm.resx">
       <DependentUpon>JobPositionEditForm.cs</DependentUpon>

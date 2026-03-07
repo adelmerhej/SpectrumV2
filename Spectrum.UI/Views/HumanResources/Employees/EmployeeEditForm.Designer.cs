@@ -85,7 +85,6 @@
             this.txtFirstName = new DevExpress.XtraEditors.TextEdit();
             this.txtEmployeeNo = new DevExpress.XtraEditors.TextEdit();
             this.dtDateOfBirth = new DevExpress.XtraEditors.DateEdit();
-            this.cboFamilyStatus = new DevExpress.XtraEditors.LookUpEdit();
             this.cboBloodType = new DevExpress.XtraEditors.LookUpEdit();
             this.cboPlaceOfBirth = new DevExpress.XtraEditors.SearchLookUpEdit();
             this.searchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -106,6 +105,10 @@
             this.dtWorkingDate = new DevExpress.XtraEditors.DateEdit();
             this.cboActualPosition = new DevExpress.XtraEditors.SearchLookUpEdit();
             this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.cboFamilyStatus = new DevExpress.XtraEditors.SearchLookUpEdit();
+            this.gridView5 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lblEmployeeNo = new DevExpress.XtraLayout.LayoutControlItem();
             this.lblFirstName = new DevExpress.XtraLayout.LayoutControlItem();
@@ -242,7 +245,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtEmployeeNo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateOfBirth.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateOfBirth.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboFamilyStatus.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBloodType.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboPlaceOfBirth.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
@@ -260,6 +262,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtWorkingDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboActualPosition.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboFamilyStatus.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblEmployeeNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblFirstName)).BeginInit();
@@ -678,7 +682,6 @@
             this.layoutControl1.Controls.Add(this.txtFirstName);
             this.layoutControl1.Controls.Add(this.txtEmployeeNo);
             this.layoutControl1.Controls.Add(this.dtDateOfBirth);
-            this.layoutControl1.Controls.Add(this.cboFamilyStatus);
             this.layoutControl1.Controls.Add(this.cboBloodType);
             this.layoutControl1.Controls.Add(this.cboPlaceOfBirth);
             this.layoutControl1.Controls.Add(this.cboNationality);
@@ -688,6 +691,7 @@
             this.layoutControl1.Controls.Add(this.cboRegistrationPlace);
             this.layoutControl1.Controls.Add(this.dtWorkingDate);
             this.layoutControl1.Controls.Add(this.cboActualPosition);
+            this.layoutControl1.Controls.Add(this.cboFamilyStatus);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
@@ -869,19 +873,6 @@
             this.dtDateOfBirth.Size = new System.Drawing.Size(148, 22);
             this.dtDateOfBirth.StyleController = this.layoutControl1;
             this.dtDateOfBirth.TabIndex = 12;
-            // 
-            // cboFamilyStatus
-            // 
-            this.cboFamilyStatus.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "FamilyStatus", true));
-            this.cboFamilyStatus.Location = new System.Drawing.Point(156, 194);
-            this.cboFamilyStatus.MenuManager = this.ribbonControl;
-            this.cboFamilyStatus.Name = "cboFamilyStatus";
-            this.cboFamilyStatus.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cboFamilyStatus.Properties.NullText = "";
-            this.cboFamilyStatus.Size = new System.Drawing.Size(437, 22);
-            this.cboFamilyStatus.StyleController = this.layoutControl1;
-            this.cboFamilyStatus.TabIndex = 10;
             // 
             // cboBloodType
             // 
@@ -1136,6 +1127,49 @@
             this.gridView4.Name = "gridView4";
             this.gridView4.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridView4.OptionsView.ShowGroupPanel = false;
+            // 
+            // cboFamilyStatus
+            // 
+            this.cboFamilyStatus.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "FamilyStatus", true));
+            this.cboFamilyStatus.Location = new System.Drawing.Point(156, 194);
+            this.cboFamilyStatus.MenuManager = this.ribbonControl;
+            this.cboFamilyStatus.Name = "cboFamilyStatus";
+            this.cboFamilyStatus.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboFamilyStatus.Properties.DisplayMember = "Status";
+            this.cboFamilyStatus.Properties.NullText = "";
+            this.cboFamilyStatus.Properties.PopupView = this.gridView5;
+            this.cboFamilyStatus.Properties.ShowAddNewButton = true;
+            this.cboFamilyStatus.Properties.ValueMember = "Status";
+            this.cboFamilyStatus.Size = new System.Drawing.Size(437, 22);
+            this.cboFamilyStatus.StyleController = this.layoutControl1;
+            this.cboFamilyStatus.TabIndex = 10;
+            // 
+            // gridView5
+            // 
+            this.gridView5.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn7,
+            this.gridColumn8});
+            this.gridView5.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView5.Name = "gridView5";
+            this.gridView5.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView5.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn7
+            // 
+            this.gridColumn7.Caption = "Id";
+            this.gridColumn7.FieldName = "_id";
+            this.gridColumn7.Name = "gridColumn7";
+            this.gridColumn7.Width = 215;
+            // 
+            // gridColumn8
+            // 
+            this.gridColumn8.Caption = "Status";
+            this.gridColumn8.FieldName = "Status";
+            this.gridColumn8.Name = "gridColumn8";
+            this.gridColumn8.Visible = true;
+            this.gridColumn8.VisibleIndex = 0;
+            this.gridColumn8.Width = 926;
             // 
             // layoutControlGroup1
             // 
@@ -2243,7 +2277,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtEmployeeNo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateOfBirth.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateOfBirth.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboFamilyStatus.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBloodType.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboPlaceOfBirth.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).EndInit();
@@ -2261,6 +2294,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtWorkingDate.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboActualPosition.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboFamilyStatus.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblEmployeeNo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblFirstName)).EndInit();
@@ -2450,7 +2485,6 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
         private DevExpress.XtraEditors.TextEdit txtRegistrationNo;
         private DevExpress.XtraLayout.LayoutControlItem lblRegistrationNo;
-        private DevExpress.XtraEditors.LookUpEdit cboFamilyStatus;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
         private DevExpress.XtraEditors.LookUpEdit cboBloodType;
         private DevExpress.XtraEditors.SearchLookUpEdit cboPlaceOfBirth;
@@ -2557,5 +2591,9 @@
         private DevExpress.XtraGrid.Columns.GridColumn colDate1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private System.Windows.Forms.BindingSource bsDocuments;
+        private DevExpress.XtraEditors.SearchLookUpEdit cboFamilyStatus;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView5;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
     }
 }
