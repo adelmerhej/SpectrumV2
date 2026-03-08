@@ -180,6 +180,8 @@
     <Compile Include="Common\Currencies\Interfaces\ICurrencyRepository.cs" />
     <Compile Include="Common\Departments\DepartmentRepository.cs" />
     <Compile Include="Common\Departments\IDepartmentRepository.cs" />
+    <Compile Include="Common\Roles\IRoleRepository.cs" />
+    <Compile Include="Common\Roles\RoleRepository.cs" />
     <Compile Include="Common\Services\IServiceRepository.cs" />
     <Compile Include="Common\Services\IServiceTypeRepository.cs" />
     <Compile Include="Common\Services\ServiceRepository.cs" />

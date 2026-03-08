@@ -342,6 +342,12 @@
     <Compile Include="Views\HumanResources\JobPositions\JobPositionsListForm.Designer.cs">
       <DependentUpon>JobPositionsListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\HumanResources\Roles\RoleEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HumanResources\Roles\RoleEditForm.Designer.cs">
+      <DependentUpon>RoleEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\HumanResources\Roles\RolesListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -634,6 +640,9 @@
     <EmbeddedResource Include="Views\HumanResources\JobPositions\JobPositionsListForm.resx">
       <DependentUpon>JobPositionsListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\HumanResources\Roles\RoleEditForm.resx">
+      <DependentUpon>RoleEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\Roles\RolesListForm.resx">
       <DependentUpon>RolesListForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -743,6 +752,7 @@
     <None Include="Properties\DataSources\Spectrum.Models.Operations.Projects.ProjectModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.InvoiceModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Users.UserModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Roles.RoleModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.BloodTypes.BloodTypeModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.Candidates.CandidateModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.EmployeeTypes.EmployeeTypeModel.datasource" />

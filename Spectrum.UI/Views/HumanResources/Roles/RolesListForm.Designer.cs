@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RolesListForm));
             this.rcRolesList = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnNew = new DevExpress.XtraBars.BarButtonItem();
@@ -50,6 +51,12 @@
             this.gvRoles = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.bsRoles = new System.Windows.Forms.BindingSource(this.components);
+            this.colRoleName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.rcRolesList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
@@ -57,6 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvRoles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsRoles)).BeginInit();
             this.SuspendLayout();
             // 
             // rcRolesList
@@ -231,6 +239,7 @@
             // 
             // gcRoles
             // 
+            this.gcRoles.DataSource = this.bsRoles;
             this.gcRoles.EmbeddedNavigator.Buttons.Append.Visible = false;
             this.gcRoles.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
             this.gcRoles.EmbeddedNavigator.Buttons.Edit.Visible = false;
@@ -247,6 +256,12 @@
             // 
             // gvRoles
             // 
+            this.gvRoles.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.col_id,
+            this.colRoleName,
+            this.colNotes,
+            this.colIsDefault,
+            this.colActive});
             this.gvRoles.GridControl = this.gcRoles;
             this.gvRoles.Name = "gvRoles";
             this.gvRoles.OptionsBehavior.AllowFixedGroups = DevExpress.Utils.DefaultBoolean.True;
@@ -257,6 +272,8 @@
             this.gvRoles.OptionsView.ColumnAutoWidth = false;
             this.gvRoles.OptionsView.ShowGroupedColumns = true;
             this.gvRoles.OptionsView.ShowGroupPanel = false;
+            this.gvRoles.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvRoles_RowCellStyle);
+            this.gvRoles.DoubleClick += new System.EventHandler(this.gvRoles_DoubleClick);
             // 
             // Root
             // 
@@ -275,6 +292,53 @@
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(1339, 540);
             this.layoutControlItem1.TextVisible = false;
+            // 
+            // bsRoles
+            // 
+            this.bsRoles.DataSource = typeof(SpectrumV1.Models.Common.Roles.RoleModel);
+            // 
+            // colRoleName
+            // 
+            this.colRoleName.FieldName = "RoleName";
+            this.colRoleName.MinWidth = 25;
+            this.colRoleName.Name = "colRoleName";
+            this.colRoleName.Visible = true;
+            this.colRoleName.VisibleIndex = 0;
+            this.colRoleName.Width = 310;
+            // 
+            // col_id
+            // 
+            this.col_id.FieldName = "_id";
+            this.col_id.MinWidth = 25;
+            this.col_id.Name = "col_id";
+            this.col_id.Width = 94;
+            // 
+            // colNotes
+            // 
+            this.colNotes.FieldName = "Notes";
+            this.colNotes.MinWidth = 25;
+            this.colNotes.Name = "colNotes";
+            this.colNotes.Visible = true;
+            this.colNotes.VisibleIndex = 1;
+            this.colNotes.Width = 396;
+            // 
+            // colIsDefault
+            // 
+            this.colIsDefault.FieldName = "IsDefault";
+            this.colIsDefault.MinWidth = 25;
+            this.colIsDefault.Name = "colIsDefault";
+            this.colIsDefault.Visible = true;
+            this.colIsDefault.VisibleIndex = 2;
+            this.colIsDefault.Width = 94;
+            // 
+            // colActive
+            // 
+            this.colActive.FieldName = "Active";
+            this.colActive.MinWidth = 25;
+            this.colActive.Name = "colActive";
+            this.colActive.Visible = true;
+            this.colActive.VisibleIndex = 3;
+            this.colActive.Width = 94;
             // 
             // RolesListForm
             // 
@@ -296,6 +360,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvRoles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsRoles)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -324,5 +389,11 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gvRoles;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private System.Windows.Forms.BindingSource bsRoles;
+        private DevExpress.XtraGrid.Columns.GridColumn col_id;
+        private DevExpress.XtraGrid.Columns.GridColumn colRoleName;
+        private DevExpress.XtraGrid.Columns.GridColumn colNotes;
+        private DevExpress.XtraGrid.Columns.GridColumn colIsDefault;
+        private DevExpress.XtraGrid.Columns.GridColumn colActive;
     }
 }
