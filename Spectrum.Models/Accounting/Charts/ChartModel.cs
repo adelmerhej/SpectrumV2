@@ -8,7 +8,7 @@ namespace Spectrum.Models.Accounting.Charts
 		public string Number { get; set; }
 		public string Serial { get; set; }
 		public string AccountName { get; set; }
-		public string ChartType { get; set; }
+		public string AccountType { get; set; }
 		public double LAmountOpening { get; set; }
 		public double LAmountDebit { get; set; }
 		public double LAmountCredit { get; set; }

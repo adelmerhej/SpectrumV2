@@ -7,6 +7,8 @@ using Spectrum.Properties;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
+using Spectrum.Views.Accounting.Banks;
+using Spectrum.Views.Accounting.Charts;
 using Spectrum.Views.Common;
 using Spectrum.Views.Common.Areas;
 using Spectrum.Views.Common.Companies;
@@ -403,8 +405,7 @@ namespace Spectrum.Views.Main
 
         private void mnuChartsOfAccount_Click(object sender, EventArgs e)
         {
-            ShowFeatureUnderDevelopment();
-            //ChartsListForm
+            OpenForm<ChartsListForm>();
         }
 
         private void mnuCostCenter_Click(object sender, EventArgs e)
@@ -429,7 +430,7 @@ namespace Spectrum.Views.Main
 
         private void mnuBanksList_Click(object sender, EventArgs e)
         {
-            ShowFeatureUnderDevelopment();
+            OpenForm<BanksListForm>();
         }
 
         private void mnuStatementOfAccount_Click(object sender, EventArgs e)

@@ -283,6 +283,7 @@
             this.chartTreeList.TabIndex = 6;
             this.chartTreeList.TreeLevelWidth = 21;
             this.chartTreeList.TreeViewColumn = this.colParentId;
+            this.chartTreeList.DoubleClick += new System.EventHandler(this.chartTreeList_DoubleClick);
             // 
             // treeListBand5
             // 
@@ -518,6 +519,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.StatusBar = this.ribbonStatusBar1;
             this.Text = "Charts List";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChartsListForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.rcCharts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);

@@ -2,8 +2,10 @@
 using MongoDB.Driver;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Accounting.Charts;
+using Spectrum.Utilities.Enums;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -12,13 +14,16 @@ namespace Spectrum.DataLayers.Accounting.Charts
 	public class ChartRepository : IChartRepository, IDisposable
 	{
 		private readonly IMongoCollection<ChartModel> _charts;
+		private readonly IMongoCollection<BsonDocument> _journal;
 		private const string CollectionName = "Charts";
+		private const string JournalCollectionName = "Journal";
 
 		// Constructor for dependency injection
 		public ChartRepository(string profileName)
 		{
 			var database = DatabaseFactory.GetMongoDatabase(profileName);
 			_charts = database.GetCollection<ChartModel>(CollectionName);
+			_journal = database.GetCollection<BsonDocument>(JournalCollectionName);
 		}
 
 		// Interface async implementations (wrapping legacy sync methods)
@@ -49,11 +54,42 @@ namespace Spectrum.DataLayers.Accounting.Charts
 			return await _charts.Find(filter).FirstOrDefaultAsync();
 		}
 
-		/// <summary>
-		/// Adds a new chart to the database.
-		/// </summary>
-		/// <returns>The newly generated Id of the chart.</returns>
-		public async Task<string> AddNewChartAsync(ChartModel chart)
+		public string GetNewSerial(string accountNumber, string company)
+		{
+			var accountType = AccountType.R.ToString();
+
+			if (string.IsNullOrWhiteSpace(accountNumber) || string.IsNullOrWhiteSpace(company)) return "1";
+
+			var numberPattern = "^" + Regex.Escape(accountNumber.Trim()) + "$";
+			var companyPattern = "^" + Regex.Escape(company.Trim()) + "$";
+
+			var filter = Builders<ChartModel>.Filter.And(
+				Builders<ChartModel>.Filter.Regex(x => x.Number, new BsonRegularExpression(numberPattern, "i")),
+				Builders<ChartModel>.Filter.Regex(x => x.AccountType, new BsonRegularExpression("^" + accountType + "$", "i")),
+				Builders<ChartModel>.Filter.Regex(x => x.Company, new BsonRegularExpression(companyPattern, "i")));
+
+			var serials = _charts
+				.Find(filter)
+				.Project(x => x.Serial)
+				.ToList();
+
+			var maxSerial = serials
+				.Select(serial =>
+				{
+					int parsedSerial;
+					return int.TryParse(serial, out parsedSerial) ? parsedSerial : 0;
+				})
+				.DefaultIfEmpty(0)
+				.Max();
+
+			return (maxSerial + 1).ToString();
+		}
+
+        /// <summary>
+        /// Adds a new chart to the database.
+        /// </summary>
+        /// <returns>The newly generated Id of the chart.</returns>
+        public async Task<string> AddNewChartAsync(ChartModel chart)
 		{
 			try
 			{
@@ -94,6 +130,16 @@ namespace Spectrum.DataLayers.Accounting.Charts
 			{
 				throw new Exception(ex.Message);
 			}
+		}
+
+		public bool ValidateAccountInJournal(string accountNumber)
+		{
+			if (string.IsNullOrWhiteSpace(accountNumber)) return false;
+
+			var pattern = "^" + Regex.Escape(accountNumber.Trim()) + "$";
+			var filter = Builders<BsonDocument>.Filter.Regex("AccountNumber", new BsonRegularExpression(pattern, "i"));
+
+			return _journal.Find(filter).Limit(1).Any();
 		}
 
 		/// <summary>

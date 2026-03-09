@@ -84,6 +84,18 @@
     <Compile Include="Utilities\Interfaces\IFormWithRibbon.cs" />
     <Compile Include="Utilities\LogInfoRepository.cs" />
     <Compile Include="Utilities\PeopleDirectory.cs" />
+    <Compile Include="Views\Accounting\Banks\BankEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\Banks\BankEditForm.Designer.cs">
+      <DependentUpon>BankEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounting\Banks\BanksListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\Banks\BanksListForm.Designer.cs">
+      <DependentUpon>BanksListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Accounting\Charts\ChartEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +107,18 @@
     </Compile>
     <Compile Include="Views\Accounting\Charts\ChartsListForm.Designer.cs">
       <DependentUpon>ChartsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounting\CostCenter\CostCenterEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\CostCenter\CostCenterEditForm.Designer.cs">
+      <DependentUpon>CostCenterEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounting\CostCenter\CostCentersListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\CostCenter\CostCentersListForm.Designer.cs">
+      <DependentUpon>CostCentersListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Common\Areas\AreaEditForm.cs">
       <SubType>Form</SubType>
@@ -514,11 +538,23 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\Accounting\Banks\BankEditForm.resx">
+      <DependentUpon>BankEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\Banks\BanksListForm.resx">
+      <DependentUpon>BanksListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\Charts\ChartEditForm.resx">
       <DependentUpon>ChartEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\Charts\ChartsListForm.resx">
       <DependentUpon>ChartsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\CostCenter\CostCenterEditForm.resx">
+      <DependentUpon>CostCenterEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\CostCenter\CostCentersListForm.resx">
+      <DependentUpon>CostCentersListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Common\Areas\AreaEditForm.resx">
       <DependentUpon>AreaEditForm.cs</DependentUpon>
@@ -723,6 +759,8 @@
     <EmbeddedResource Include="Views\Users\UsersListForm.resx">
       <DependentUpon>UsersListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartDetailModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Common.Areas.AreaModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Common.Areas.LocationModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Common.Companies.BranchModel.datasource" />
@@ -752,6 +790,7 @@
     <None Include="Properties\DataSources\Spectrum.Models.Operations.Projects.ProjectModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.InvoiceModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Users.UserModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.Banks.BankModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Roles.RoleModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.BloodTypes.BloodTypeModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.Candidates.CandidateModel.datasource" />
@@ -824,8 +863,6 @@
     <None Include="Resources\professor.svg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Accounting\Banks\" />
-    <Folder Include="Views\Accounting\CostCenter\" />
     <Folder Include="Views\Accounting\FlowType\" />
     <Folder Include="Views\Accounting\Journals\" />
     <Folder Include="Views\Accounting\JournalType\" />

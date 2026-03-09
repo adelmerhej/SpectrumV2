@@ -15,6 +15,8 @@ namespace Spectrum.DataLayers.Accounting.Charts
 
 		// A custom query example
 		Task<ChartModel> GetChartByName(string name);
+		string GetNewSerial(string accountNumber, string company);
+		bool ValidateAccountInJournal(string accountNumber);
 		Task<long> GetCountAsync();
 	}
 }

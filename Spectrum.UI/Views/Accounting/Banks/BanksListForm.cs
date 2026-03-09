@@ -2,15 +2,13 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
-using Spectrum.DataLayers.Accounting.Charts;
 using Spectrum.DataLayers.DataAccess;
-using Spectrum.Models.Accounting.Charts;
-using Spectrum.Models.Common.Countries;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
-using Spectrum.Views.Common.Countries;
+using SpectrumV1.DataLayers.Accounting.Banks;
+using SpectrumV1.Models.Accounting.Banks;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,17 +16,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spectrum.Views.Accounting.Charts
+namespace Spectrum.Views.Accounting.Banks
 {
-    public partial class ChartsListForm : RibbonForm, IFormWithRibbon
+    public partial class BanksListForm : RibbonForm, IFormWithRibbon
     {
         private bool _resetMenu;
-        private ChartEditForm _chartEditForm;
+        private BankEditForm _bankEditForm;
 
-        private ChartModel _chartModel = new ChartModel();
-        private IList<ChartModel> _charts = new List<ChartModel>();
+        private BankModel _bankModel = new BankModel();
+        private IList<BankModel> _banks = new List<BankModel>();
 
-        private readonly ChartRepository _chartRepository = new ChartRepository(DatabaseFactory.ProfilePrimary);
+        private readonly BankRepository _bankRepository = new BankRepository(DatabaseFactory.ProfilePrimary);
 
         //Init permissionvariables
         private bool _canAdd = true;
@@ -40,13 +38,13 @@ namespace Spectrum.Views.Accounting.Charts
 
         #region Implementation of IFormWithRibbon
 
-        public RibbonControl MainRibbon => rcCharts;
-        public RibbonPage DefaultPage => rpCharts;
+        public RibbonControl MainRibbon => rcBanks;
+        public RibbonPage DefaultPage => rpBanks;
 
 
         #endregion
 
-        public ChartsListForm()
+        public BanksListForm()
         {
             InitializeComponent();
 
@@ -75,7 +73,7 @@ namespace Spectrum.Views.Accounting.Charts
                 //	}
                 //	//
 
-                _charts = await _chartRepository.GetChartsAsync();
+                _banks = await _bankRepository.GetBanksAsync();
             }
             catch (Exception ex)
             {
@@ -85,13 +83,13 @@ namespace Spectrum.Views.Accounting.Charts
 
         private void WireUpBindings()
         {
-            chartTreeList.DataSource = null;
-            chartTreeList.DataSource = _charts;
+            gcBanks.DataSource = null;
+            gcBanks.DataSource = _banks;
         }
 
         private void ApplyDefaults()
         {
-            LayoutsStyle.LoadLayoutTreeList(chartTreeList, CurrentUser.UserName, CurrentUser.Company);
+
         }
 
         private void ApplyPermissions()
@@ -120,27 +118,27 @@ namespace Spectrum.Views.Accounting.Charts
             btnDelete.Enabled = _isAdmin || _canDelete;
         }
 
-        #region button events
 
+        #region Butons Events
 
         private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ShowChartEditor(new ChartModel());
+            ShowBankEditor(new BankModel());
         }
 
         private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (!_charts.Any()) return;
+            if (!_banks.Any()) return;
 
             try
             {
-                string currentRowId = chartTreeList.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvBanks.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _chartModel = _charts.SingleOrDefault(x => x._id == currentRowId);
-                if (_chartModel == null) return;
+                _bankModel = _banks.SingleOrDefault(x => x._id == currentRowId);
+                if (_bankModel == null) return;
 
-                ShowChartEditor(_chartModel);
+                ShowBankEditor(_bankModel);
             }
             catch (Exception exception)
             {
@@ -155,7 +153,7 @@ namespace Spectrum.Views.Accounting.Charts
 
         private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
         {
-            chartTreeList.ShowRibbonPrintPreview();
+            gcBanks.ShowRibbonPrintPreview();
         }
 
         private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
@@ -164,8 +162,8 @@ namespace Spectrum.Views.Accounting.Charts
 
             try
             {
-                string id = chartTreeList.GetFocusedRowCellValue("_id").ToString();
-                string name = chartTreeList.GetFocusedRowCellValue("ChartName").ToString();
+                string id = gvBanks.GetFocusedRowCellValue("_id").ToString();
+                string name = gvBanks.GetFocusedRowCellValue("BankName").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -173,16 +171,16 @@ namespace Spectrum.Views.Accounting.Charts
                             "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                             MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        _chartModel = chartTreeList.GetFocusedRow() as ChartModel;
-                        if (_chartModel == null)
+                        _bankModel = gvBanks.GetFocusedRow() as BankModel;
+                        if (_bankModel == null)
                         {
                             return;
                         }
-                        _chartModel.Deleted = true;
+                        _bankModel.Deleted = true;
 
                         //delete the record
-                        await _chartRepository.DeleteChartAsync(_chartModel._id);
-                        RcvUpdatedChartAsync(_chartModel, EventArgs.Empty);
+                        await _bankRepository.DeleteBankAsync(_bankModel._id);
+                        RcvUpdatedBankAsync(_bankModel, EventArgs.Empty);
                     }
                 }
             }
@@ -215,26 +213,26 @@ namespace Spectrum.Views.Accounting.Charts
                 DialogResult.Yes)
             {
                 _resetMenu = true;
-                LayoutsStyle.ResetLayoutTreeList(chartTreeList, CurrentUser.UserName, CurrentUser.Company);
+                LayoutsStyle.ResetLayoutGrid(gvBanks, CurrentUser.UserName, CurrentUser.Company);
             }
+
         }
 
         #endregion
 
-
-        private void chartTreeList_DoubleClick(object sender, EventArgs e)
+        private void gvBanks_DoubleClick(object sender, EventArgs e)
         {
-            if (!_charts.Any()) return;
+            if (!_banks.Any()) return;
 
             try
             {
-                string currentRowId = chartTreeList.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvBanks.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _chartModel = _charts.SingleOrDefault(x => x._id == currentRowId);
-                if (_chartModel == null) return;
+                _bankModel = _banks.SingleOrDefault(x => x._id == currentRowId);
+                if (_bankModel == null) return;
 
-                ShowChartEditor(_chartModel);
+                ShowBankEditor(_bankModel);
             }
             catch (Exception exception)
             {
@@ -242,36 +240,33 @@ namespace Spectrum.Views.Accounting.Charts
             }
         }
 
-        private async void RcvUpdatedChartAsync(object sender, EventArgs e)
+        private async void RcvUpdatedBankAsync(object sender, EventArgs e)
         {
             if (sender == null) return;
-            _chartModel = sender as ChartModel;
-            if (_chartModel == null) return;
+            _bankModel = sender as BankModel;
+            if (_bankModel == null) return;
 
-            if (_chartModel.Deleted || _chartModel.LastModifiedDate == null || _chartModel.Deleted)
+            if (_bankModel.Deleted || _bankModel.LastModifiedDate == null)
             {
                 await InitializeBindings();
                 WireUpBindings();
             }
             else
             {
-                chartTreeList.Update();
+                gcBanks.RefreshDataSource();
+                gvBanks.RefreshRow(gvBanks.FocusedRowHandle);
+                gvBanks.UpdateCurrentRow();
             }
         }
 
         private bool CanDelete()
         {
-            ChartModel dataBoundItem = chartTreeList.GetFocusedRow() as ChartModel;
-            if (!_charts.Any()) return false;
+            BankModel dataBoundItem = gvBanks.GetFocusedRow() as BankModel;
 
-            if (chartTreeList == null) return false;
-            int currentRowId = (int)chartTreeList.GetFocusedRowCellValue("Id");
-            string accountNumber = chartTreeList.GetFocusedRowCellValue("AccountNumber").ToString();
-            if (currentRowId == 0) return false;
-
-            if (_chartRepository.ValidateAccountInJournal(accountNumber))
+            if (gvBanks == null || gvBanks.SelectedRowsCount == 0) return false;
+            if (gvBanks.SelectedRowsCount > 1)
             {
-                XtraMessageBox.Show($"There is one or more transaction related to `{accountNumber}`, cannot be deleted.",
+                XtraMessageBox.Show("Only one record can be selected at a time, please try again",
                     "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -283,42 +278,40 @@ namespace Spectrum.Views.Accounting.Charts
                 return false;
             }
 
-            if (HasTransactions()) return false;
-
             return true;
         }
 
-        private void ShowChartEditor(ChartModel model)
+        private void ShowBankEditor(BankModel model)
         {
-            if (_chartEditForm == null || _chartEditForm.IsDisposed)
+            if (_bankEditForm == null || _bankEditForm.IsDisposed)
             {
-                _chartEditForm = new ChartEditForm(model);
-                _chartEditForm.SendUpdatedChartAccount += RcvUpdatedChartAsync;
-                _chartEditForm.FormClosed += ChartEditForm_FormClosed;
-                _chartEditForm.Show(this);
+                _bankEditForm = new BankEditForm(model);
+                _bankEditForm.SendUpdatedBank += RcvUpdatedBankAsync;
+                _bankEditForm.FormClosed += BankEditForm_FormClosed;
+                _bankEditForm.Show(this);
                 return;
             }
 
-            if (_chartEditForm.WindowState == FormWindowState.Minimized)
-                _chartEditForm.WindowState = FormWindowState.Normal;
+            if (_bankEditForm.WindowState == FormWindowState.Minimized)
+                _bankEditForm.WindowState = FormWindowState.Normal;
 
-            _chartEditForm.Activate();
-            _chartEditForm.BringToFront();
+            _bankEditForm.Activate();
+            _bankEditForm.BringToFront();
         }
 
-        private void ChartEditForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void BankEditForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var form = sender as ChartEditForm;
+            var form = sender as BankEditForm;
             if (form != null)
             {
-                form.SendUpdatedChartAccount -= RcvUpdatedChartAsync;
-                form.FormClosed -= ChartEditForm_FormClosed;
+                form.SendUpdatedBank -= RcvUpdatedBankAsync;
+                form.FormClosed -= BankEditForm_FormClosed;
             }
-            if (ReferenceEquals(_chartEditForm, sender))
-                _chartEditForm = null;
+            if (ReferenceEquals(_bankEditForm, sender))
+                _bankEditForm = null;
         }
 
-        private void chartTreeList_RowCellStyle(object sender, RowCellStyleEventArgs e)
+        private void gvBanks_RowCellStyle(object sender, RowCellStyleEventArgs e)
         {
             var view = sender as GridView;
             if (view == null || e.RowHandle < 0) return;
@@ -333,43 +326,6 @@ namespace Spectrum.Views.Accounting.Charts
             {
                 e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
             }
-        }
-
-        private void ChartsListForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (!_resetMenu)
-            {
-                LayoutsStyle.SaveLayoutTreeList(chartTreeList, CurrentUser.UserName, CurrentUser.Company);
-            }
-        }
-
-        private bool HasTransactions()
-        {
-            try
-            {
-                //if (!_charts.Any()) return;
-
-                //int currentRowId = (int)chartTreeList.GetFocusedRowCellValue("Id");
-                //if (currentRowId == 0) return;
-
-                //_chartModel = _charts.SingleOrDefault(x => x.Id == currentRowId);
-                //if (_chartModel == null) return;
-
-                //var frm = new ChartEditForm(_chartModel);
-                //frm.SendUpdatedChartAccount += RcvUpdatedChartAccount;
-                //frm.ShowDialog();
-
-                if (!_charts.Any()) return false;
-
-                //_chartRepository.SelectChartsByNumber();
-
-                return false;
-            }
-            catch (Exception e)
-            {
-                XtraMessageBox.Show(e.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return false;
         }
     }
 }

@@ -149,10 +149,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting\Banks\BankRepository.cs" />
+    <Compile Include="Accounting\Banks\IBankRepository.cs" />
     <Compile Include="Accounting\Charts\ChartDetailRepository.cs" />
     <Compile Include="Accounting\Charts\ChartRepository.cs" />
     <Compile Include="Accounting\Charts\IChartDetailRepository.cs" />
     <Compile Include="Accounting\Charts\IChartRepository.cs" />
+    <Compile Include="Accounting\CostCenter\CostCenterRepository.cs" />
+    <Compile Include="Accounting\CostCenter\ICostCenterRepository.cs" />
+    <Compile Include="Accounting\FlowType\FlowTypeRepository.cs" />
+    <Compile Include="Accounting\FlowType\IFlowTypeRepository.cs" />
     <Compile Include="Administration\Update\LiveUpdateSettingsProvider.cs" />
     <Compile Include="Common\Areas\AreaRepository.cs" />
     <Compile Include="Common\Areas\IAreaRepository.cs" />
@@ -229,6 +235,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Accounting\Journals\" />
+    <Folder Include="Accounting\JournalType\" />
+    <Folder Include="Accounting\Reports\" />
+    <Folder Include="Accounting\Settings\" />
+    <Folder Include="Accounting\Statements\" />
     <Folder Include="DataAccess\Types\" />
     <Folder Include="Members\Suppliers\" />
   </ItemGroup>

@@ -143,8 +143,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting\Banks\BankModel.cs" />
     <Compile Include="Accounting\Charts\ChartDetailModel.cs" />
     <Compile Include="Accounting\Charts\ChartModel.cs" />
+    <Compile Include="Accounting\CostCenter\CostCenterModel.cs" />
+    <Compile Include="Accounting\FlowType\FlowTypeModel.cs" />
     <Compile Include="Administration\Connections\AppConfigModel.cs" />
     <Compile Include="Administration\Connections\ConnectionModel.cs" />
     <Compile Include="Administration\Dashboard\ActivityDataModel.cs" />
@@ -207,6 +210,11 @@
     <Compile Include="Users\UserPermissionModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Accounting\Journals\" />
+    <Folder Include="Accounting\JournalType\" />
+    <Folder Include="Accounting\Reports\" />
+    <Folder Include="Accounting\Settings\" />
+    <Folder Include="Accounting\Statements\" />
     <Folder Include="Members\Suppliers\" />
     <Folder Include="Operations\Invoices\" />
     <Folder Include="Operations\Quotations\" />

@@ -32,16 +32,19 @@ namespace Spectrum.Utilities.Enums
 		Miss,
 		Mrs,
 	}
+
 	public enum ChartType
 	{
-		T = 1,
-		R = 2
+		T,
+		R
 	}
+
 	public enum EnumDebCred
 	{
-		D = 1,
-		C = 2
+		D,
+		C
 	}
+
 	public enum Periodicity
 	{
 		Monthly,
@@ -307,7 +310,7 @@ public enum PostStatus
 	All = 2
 }
 
-public enum ChartType
+public enum AccountType
 {
 	T = 1,
 	R = 2

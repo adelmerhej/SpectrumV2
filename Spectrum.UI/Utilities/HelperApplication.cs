@@ -791,13 +791,26 @@ namespace Spectrum.Utilities
 				edit.Items.Add(value.ToString());
 			}
 		}
-		#endregion
+        #endregion
+
+        #region Chart Type ComboBox Initialization
+        public static void InitAccountTypeComboBox(RepositoryItemComboBox edit)
+        {
+            if (edit == null) return;
+            edit.Items.Clear();
+            foreach (var value in Enum.GetValues(typeof(ChartType)))
+            {
+                edit.Items.Add(value.ToString());
+            }
+        }
+
+        #endregion
 
 
-		#region Convert Permission Values
+        #region Convert Permission Values
 
-		// Safely convert a permission value (bool/int/string) to bool
-		public static bool? ConvertToBool(object value)
+        // Safely convert a permission value (bool/int/string) to bool
+        public static bool? ConvertToBool(object value)
 		{
 			if (value == null) return null;
 			if (value is bool b) return b;
