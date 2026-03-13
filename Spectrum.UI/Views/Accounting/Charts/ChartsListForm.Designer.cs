@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChartsListForm));
             this.rcCharts = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnNew = new DevExpress.XtraBars.BarButtonItem();
@@ -53,25 +54,27 @@
             this.colSerial = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.treeListBand6 = new DevExpress.XtraTreeList.Columns.TreeListBand();
             this.colAccountName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.colChartTypeId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.colAccountTypeId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.treeListBand7 = new DevExpress.XtraTreeList.Columns.TreeListBand();
-            this.treeListBand8 = new DevExpress.XtraTreeList.Columns.TreeListBand();
-            this.colNotes = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.colChartId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.treeListBand2 = new DevExpress.XtraTreeList.Columns.TreeListBand();
             this.colLAmountOpening = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.colLAmountDebit = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.colLAmountCredit = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.treeListBand3 = new DevExpress.XtraTreeList.Columns.TreeListBand();
             this.colFAmountOpening = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.colFAmountDebit = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.colFAmountCredit = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.repType = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.treeListBand8 = new DevExpress.XtraTreeList.Columns.TreeListBand();
+            this.colNotes = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.colChartId = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.bsCharts = new System.Windows.Forms.BindingSource(this.components);
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.rcCharts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartTreeList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsCharts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             this.SuspendLayout();
@@ -243,7 +246,7 @@
             this.mainLayout.Name = "mainLayout";
             this.mainLayout.Root = this.Root;
             this.mainLayout.Size = new System.Drawing.Size(1412, 565);
-            this.mainLayout.TabIndex = 5;
+            this.mainLayout.TabIndex = 8;
             this.mainLayout.Text = "layoutControl1";
             // 
             // chartTreeList
@@ -254,12 +257,12 @@
             this.treeListBand7,
             this.treeListBand8});
             this.chartTreeList.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
-            this.colParentId,
             this.colChartId,
+            this.colParentId,
             this.colNumber,
             this.colSerial,
             this.colAccountName,
-            this.colChartTypeId,
+            this.colAccountTypeId,
             this.colLAmountOpening,
             this.colLAmountDebit,
             this.colLAmountCredit,
@@ -267,30 +270,26 @@
             this.colFAmountDebit,
             this.colFAmountCredit,
             this.colNotes});
+            this.chartTreeList.DataSource = this.bsCharts;
             this.chartTreeList.KeyFieldName = "Id";
-            this.chartTreeList.Location = new System.Drawing.Point(14, 14);
-            this.chartTreeList.Margin = new System.Windows.Forms.Padding(4);
+            this.chartTreeList.Location = new System.Drawing.Point(12, 12);
+            this.chartTreeList.MenuManager = this.rcCharts;
             this.chartTreeList.MinWidth = 23;
             this.chartTreeList.Name = "chartTreeList";
             this.chartTreeList.OptionsBehavior.Editable = false;
+            this.chartTreeList.OptionsBehavior.PopulateServiceColumns = true;
             this.chartTreeList.OptionsFind.AlwaysVisible = true;
             this.chartTreeList.OptionsView.AutoWidth = false;
             this.chartTreeList.OptionsView.ShowTreeLines = DevExpress.Utils.DefaultBoolean.True;
             this.chartTreeList.ParentFieldName = "ParentId";
-            this.chartTreeList.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repType});
-            this.chartTreeList.Size = new System.Drawing.Size(1384, 537);
-            this.chartTreeList.TabIndex = 6;
+            this.chartTreeList.Size = new System.Drawing.Size(1388, 541);
+            this.chartTreeList.TabIndex = 4;
             this.chartTreeList.TreeLevelWidth = 21;
             this.chartTreeList.TreeViewColumn = this.colParentId;
             this.chartTreeList.DoubleClick += new System.EventHandler(this.chartTreeList_DoubleClick);
             // 
             // treeListBand5
             // 
-            this.treeListBand5.AppearanceHeader.FontStyleDelta = System.Drawing.FontStyle.Bold;
-            this.treeListBand5.AppearanceHeader.Options.UseFont = true;
-            this.treeListBand5.AppearanceHeader.Options.UseTextOptions = true;
-            this.treeListBand5.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.treeListBand5.Caption = "Account Number";
             this.treeListBand5.Columns.Add(this.colParentId);
             this.treeListBand5.Columns.Add(this.colNumber);
@@ -331,13 +330,9 @@
             // 
             // treeListBand6
             // 
-            this.treeListBand6.AppearanceHeader.FontStyleDelta = System.Drawing.FontStyle.Bold;
-            this.treeListBand6.AppearanceHeader.Options.UseFont = true;
-            this.treeListBand6.AppearanceHeader.Options.UseTextOptions = true;
-            this.treeListBand6.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.treeListBand6.Caption = "Account Information";
             this.treeListBand6.Columns.Add(this.colAccountName);
-            this.treeListBand6.Columns.Add(this.colChartTypeId);
+            this.treeListBand6.Columns.Add(this.colAccountTypeId);
             this.treeListBand6.MinWidth = 23;
             this.treeListBand6.Name = "treeListBand6";
             this.treeListBand6.Width = 370;
@@ -353,61 +348,42 @@
             this.colAccountName.VisibleIndex = 3;
             this.colAccountName.Width = 266;
             // 
-            // colChartTypeId
+            // colAccountTypeId
             // 
-            this.colChartTypeId.Caption = "Type";
-            this.colChartTypeId.FieldName = "ChartType";
-            this.colChartTypeId.Name = "colChartTypeId";
-            this.colChartTypeId.OptionsColumn.AllowSort = true;
-            this.colChartTypeId.Visible = true;
-            this.colChartTypeId.VisibleIndex = 4;
-            this.colChartTypeId.Width = 104;
+            this.colAccountTypeId.Caption = "Type";
+            this.colAccountTypeId.FieldName = "AccountType";
+            this.colAccountTypeId.Name = "colAccountTypeId";
+            this.colAccountTypeId.OptionsColumn.AllowSort = true;
+            this.colAccountTypeId.Visible = true;
+            this.colAccountTypeId.VisibleIndex = 4;
+            this.colAccountTypeId.Width = 104;
             // 
             // treeListBand7
             // 
-            this.treeListBand7.AppearanceHeader.FontStyleDelta = System.Drawing.FontStyle.Bold;
+            this.treeListBand7.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
             this.treeListBand7.AppearanceHeader.Options.UseFont = true;
             this.treeListBand7.AppearanceHeader.Options.UseTextOptions = true;
             this.treeListBand7.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.treeListBand7.Bands.AddRange(new DevExpress.XtraTreeList.Columns.TreeListBand[] {
+            this.treeListBand2,
+            this.treeListBand3});
             this.treeListBand7.Caption = "Account Figures";
             this.treeListBand7.MinWidth = 23;
             this.treeListBand7.Name = "treeListBand7";
             this.treeListBand7.Width = 682;
             // 
-            // treeListBand8
+            // treeListBand2
             // 
-            this.treeListBand8.AppearanceHeader.FontStyleDelta = System.Drawing.FontStyle.Bold;
-            this.treeListBand8.AppearanceHeader.Options.UseFont = true;
-            this.treeListBand8.Caption = "Misc";
-            this.treeListBand8.Columns.Add(this.colNotes);
-            this.treeListBand8.Columns.Add(this.colChartId);
-            this.treeListBand8.MinWidth = 23;
-            this.treeListBand8.Name = "treeListBand8";
-            this.treeListBand8.Width = 325;
-            // 
-            // colNotes
-            // 
-            this.colNotes.FieldName = "Notes";
-            this.colNotes.MinWidth = 23;
-            this.colNotes.Name = "colNotes";
-            this.colNotes.OptionsColumn.AllowEdit = false;
-            this.colNotes.OptionsColumn.AllowSort = true;
-            this.colNotes.SortOrder = System.Windows.Forms.SortOrder.Ascending;
-            this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 5;
-            this.colNotes.Width = 271;
-            // 
-            // colChartId
-            // 
-            this.colChartId.Caption = "Id";
-            this.colChartId.FieldName = "Id";
-            this.colChartId.MinWidth = 23;
-            this.colChartId.Name = "colChartId";
-            this.colChartId.OptionsColumn.AllowEdit = false;
-            this.colChartId.OptionsColumn.AllowSort = true;
-            this.colChartId.Visible = true;
-            this.colChartId.VisibleIndex = 6;
-            this.colChartId.Width = 54;
+            this.treeListBand2.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.treeListBand2.AppearanceHeader.Options.UseFont = true;
+            this.treeListBand2.AppearanceHeader.Options.UseTextOptions = true;
+            this.treeListBand2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.treeListBand2.Caption = "Amount L.L.";
+            this.treeListBand2.Columns.Add(this.colLAmountOpening);
+            this.treeListBand2.Columns.Add(this.colLAmountDebit);
+            this.treeListBand2.Columns.Add(this.colLAmountCredit);
+            this.treeListBand2.Name = "treeListBand2";
+            this.treeListBand2.Width = 360;
             // 
             // colLAmountOpening
             // 
@@ -444,6 +420,19 @@
             this.colLAmountCredit.VisibleIndex = 7;
             this.colLAmountCredit.Width = 99;
             // 
+            // treeListBand3
+            // 
+            this.treeListBand3.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.treeListBand3.AppearanceHeader.Options.UseFont = true;
+            this.treeListBand3.AppearanceHeader.Options.UseTextOptions = true;
+            this.treeListBand3.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.treeListBand3.Caption = "Amount USD";
+            this.treeListBand3.Columns.Add(this.colFAmountOpening);
+            this.treeListBand3.Columns.Add(this.colFAmountDebit);
+            this.treeListBand3.Columns.Add(this.colFAmountCredit);
+            this.treeListBand3.Name = "treeListBand3";
+            this.treeListBand3.Width = 322;
+            // 
             // colFAmountOpening
             // 
             this.colFAmountOpening.Caption = "Opening USD";
@@ -478,15 +467,42 @@
             this.colFAmountCredit.VisibleIndex = 10;
             this.colFAmountCredit.Width = 81;
             // 
-            // repType
+            // treeListBand8
             // 
-            this.repType.AutoHeight = false;
-            this.repType.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repType.Items.AddRange(new object[] {
-            "T",
-            "R"});
-            this.repType.Name = "repType";
+            this.treeListBand8.Caption = "Misc";
+            this.treeListBand8.Columns.Add(this.colNotes);
+            this.treeListBand8.Columns.Add(this.colChartId);
+            this.treeListBand8.MinWidth = 23;
+            this.treeListBand8.Name = "treeListBand8";
+            this.treeListBand8.Width = 325;
+            // 
+            // colNotes
+            // 
+            this.colNotes.FieldName = "Notes";
+            this.colNotes.MinWidth = 23;
+            this.colNotes.Name = "colNotes";
+            this.colNotes.OptionsColumn.AllowEdit = false;
+            this.colNotes.OptionsColumn.AllowSort = true;
+            this.colNotes.SortOrder = System.Windows.Forms.SortOrder.Ascending;
+            this.colNotes.Visible = true;
+            this.colNotes.VisibleIndex = 11;
+            this.colNotes.Width = 271;
+            // 
+            // colChartId
+            // 
+            this.colChartId.Caption = "Id";
+            this.colChartId.FieldName = "_id";
+            this.colChartId.MinWidth = 23;
+            this.colChartId.Name = "colChartId";
+            this.colChartId.OptionsColumn.AllowEdit = false;
+            this.colChartId.OptionsColumn.AllowSort = true;
+            this.colChartId.Visible = true;
+            this.colChartId.VisibleIndex = 12;
+            this.colChartId.Width = 54;
+            // 
+            // bsCharts
+            // 
+            this.bsCharts.DataSource = typeof(Spectrum.Models.Accounting.Charts.ChartModel);
             // 
             // Root
             // 
@@ -503,7 +519,7 @@
             this.layoutControlItem1.Control = this.chartTreeList;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1388, 541);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1392, 545);
             this.layoutControlItem1.TextVisible = false;
             // 
             // ChartsListForm
@@ -524,7 +540,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartTreeList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsCharts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             this.ResumeLayout(false);
@@ -550,27 +566,29 @@
 		private DevExpress.XtraBars.Ribbon.RibbonPage rpViewSettings;
 		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
 		private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar1;
-		private DevExpress.XtraLayout.LayoutControl mainLayout;
-		public DevExpress.XtraTreeList.TreeList chartTreeList;
-		private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand5;
-		private DevExpress.XtraTreeList.Columns.TreeListColumn colParentId;
-		private DevExpress.XtraTreeList.Columns.TreeListColumn colNumber;
-		private DevExpress.XtraTreeList.Columns.TreeListColumn colSerial;
-		private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand6;
-		private DevExpress.XtraTreeList.Columns.TreeListColumn colAccountName;
-		private DevExpress.XtraTreeList.Columns.TreeListColumn colChartTypeId;
-		private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand7;
-		private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand8;
-		private DevExpress.XtraTreeList.Columns.TreeListColumn colNotes;
-		private DevExpress.XtraTreeList.Columns.TreeListColumn colChartId;
-		private DevExpress.XtraTreeList.Columns.TreeListColumn colLAmountOpening;
-		private DevExpress.XtraTreeList.Columns.TreeListColumn colLAmountDebit;
-		private DevExpress.XtraTreeList.Columns.TreeListColumn colLAmountCredit;
-		private DevExpress.XtraTreeList.Columns.TreeListColumn colFAmountOpening;
-		private DevExpress.XtraTreeList.Columns.TreeListColumn colFAmountDebit;
-		private DevExpress.XtraTreeList.Columns.TreeListColumn colFAmountCredit;
-		private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repType;
-		private DevExpress.XtraLayout.LayoutControlGroup Root;
-		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-	}
+        private DevExpress.XtraLayout.LayoutControl mainLayout;
+        private DevExpress.XtraTreeList.TreeList chartTreeList;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colParentId;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colNumber;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colSerial;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colAccountName;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colAccountTypeId;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colLAmountOpening;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colLAmountDebit;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colLAmountCredit;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colFAmountOpening;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colFAmountDebit;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colFAmountCredit;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colNotes;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn colChartId;
+        private DevExpress.XtraLayout.LayoutControlGroup Root;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private System.Windows.Forms.BindingSource bsCharts;
+        private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand5;
+        private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand6;
+        private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand7;
+        private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand2;
+        private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand3;
+        private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand8;
+    }
 }

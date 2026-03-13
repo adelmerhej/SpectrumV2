@@ -1,6 +1,6 @@
-﻿namespace Spectrum.Views.Accounting.CostCenter
+﻿namespace Spectrum.Views.Accounting.FlowType
 {
-    partial class CostCentersListForm
+    partial class FlowTypeListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CostCentersListForm));
-            this.rcCostCenters = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlowTypeListForm));
+            this.rcFlowTypes = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnNew = new DevExpress.XtraBars.BarButtonItem();
             this.btnDelete = new DevExpress.XtraBars.BarButtonItem();
             this.btnEdit = new DevExpress.XtraBars.BarButtonItem();
@@ -37,7 +37,7 @@
             this.btnRefresh = new DevExpress.XtraBars.BarButtonItem();
             this.btnClose = new DevExpress.XtraBars.BarButtonItem();
             this.btnResetGridStyle = new DevExpress.XtraBars.BarButtonItem();
-            this.rpCostCenters = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.rpFlowTypes = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -45,15 +45,15 @@
             this.rpViewSettings = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            ((System.ComponentModel.ISupportInitialize)(this.rcCostCenters)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rcFlowTypes)).BeginInit();
             this.SuspendLayout();
             // 
-            // rcCostCenters
+            // rcFlowTypes
             // 
-            this.rcCostCenters.EmptyAreaImageOptions.ImagePadding = new System.Windows.Forms.Padding(35, 39, 35, 39);
-            this.rcCostCenters.ExpandCollapseItem.Id = 0;
-            this.rcCostCenters.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
-            this.rcCostCenters.ExpandCollapseItem,
+            this.rcFlowTypes.EmptyAreaImageOptions.ImagePadding = new System.Windows.Forms.Padding(35, 39, 35, 39);
+            this.rcFlowTypes.ExpandCollapseItem.Id = 0;
+            this.rcFlowTypes.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.rcFlowTypes.ExpandCollapseItem,
             this.btnNew,
             this.btnDelete,
             this.btnEdit,
@@ -61,17 +61,17 @@
             this.btnRefresh,
             this.btnClose,
             this.btnResetGridStyle});
-            this.rcCostCenters.Location = new System.Drawing.Point(0, 0);
-            this.rcCostCenters.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rcCostCenters.MaxItemId = 42;
-            this.rcCostCenters.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
-            this.rcCostCenters.Name = "rcCostCenters";
-            this.rcCostCenters.OptionsMenuMinWidth = 385;
-            this.rcCostCenters.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
-            this.rpCostCenters,
+            this.rcFlowTypes.Location = new System.Drawing.Point(0, 0);
+            this.rcFlowTypes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.rcFlowTypes.MaxItemId = 42;
+            this.rcFlowTypes.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
+            this.rcFlowTypes.Name = "rcFlowTypes";
+            this.rcFlowTypes.OptionsMenuMinWidth = 385;
+            this.rcFlowTypes.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
+            this.rpFlowTypes,
             this.rpViewSettings});
-            this.rcCostCenters.Size = new System.Drawing.Size(1362, 193);
-            this.rcCostCenters.StatusBar = this.ribbonStatusBar1;
+            this.rcFlowTypes.Size = new System.Drawing.Size(1360, 193);
+            this.rcFlowTypes.StatusBar = this.ribbonStatusBar1;
             // 
             // btnNew
             // 
@@ -134,15 +134,15 @@
             this.btnResetGridStyle.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnResetGridStyle.ImageOptions.SvgImage")));
             this.btnResetGridStyle.Name = "btnResetGridStyle";
             // 
-            // rpCostCenters
+            // rpFlowTypes
             // 
-            this.rpCostCenters.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.rpFlowTypes.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup1,
             this.ribbonPageGroup6,
             this.ribbonPageGroup8,
             this.ribbonPageGroup11});
-            this.rpCostCenters.Name = "rpCostCenters";
-            this.rpCostCenters.Text = "Cost Centers";
+            this.rpFlowTypes.Name = "rpFlowTypes";
+            this.rpFlowTypes.Text = "Flow Types";
             // 
             // ribbonPageGroup1
             // 
@@ -195,24 +195,24 @@
             // 
             // ribbonStatusBar1
             // 
-            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 757);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 756);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
-            this.ribbonStatusBar1.Ribbon = this.rcCostCenters;
-            this.ribbonStatusBar1.Size = new System.Drawing.Size(1362, 30);
+            this.ribbonStatusBar1.Ribbon = this.rcFlowTypes;
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(1360, 30);
             // 
-            // CostCentersListForm
+            // FlowTypeListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1362, 787);
-            this.Controls.Add(this.rcCostCenters);
+            this.ClientSize = new System.Drawing.Size(1360, 786);
+            this.Controls.Add(this.rcFlowTypes);
             this.Controls.Add(this.ribbonStatusBar1);
-            this.Name = "CostCentersListForm";
-            this.Ribbon = this.rcCostCenters;
+            this.Name = "FlowTypeListForm";
+            this.Ribbon = this.rcFlowTypes;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.StatusBar = this.ribbonStatusBar1;
-            this.Text = "Cost Centers";
-            ((System.ComponentModel.ISupportInitialize)(this.rcCostCenters)).EndInit();
+            this.Text = "Flow Type List";
+            ((System.ComponentModel.ISupportInitialize)(this.rcFlowTypes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,7 +220,7 @@
 
         #endregion
 
-        public DevExpress.XtraBars.Ribbon.RibbonControl rcCostCenters;
+        public DevExpress.XtraBars.Ribbon.RibbonControl rcFlowTypes;
         private DevExpress.XtraBars.BarButtonItem btnNew;
         private DevExpress.XtraBars.BarButtonItem btnDelete;
         private DevExpress.XtraBars.BarButtonItem btnEdit;
@@ -228,7 +228,7 @@
         private DevExpress.XtraBars.BarButtonItem btnRefresh;
         private DevExpress.XtraBars.BarButtonItem btnClose;
         private DevExpress.XtraBars.BarButtonItem btnResetGridStyle;
-        private DevExpress.XtraBars.Ribbon.RibbonPage rpCostCenters;
+        private DevExpress.XtraBars.Ribbon.RibbonPage rpFlowTypes;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup8;

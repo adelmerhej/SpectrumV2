@@ -120,6 +120,24 @@
     <Compile Include="Views\Accounting\CostCenter\CostCentersListForm.Designer.cs">
       <DependentUpon>CostCentersListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Accounting\FlowType\FlowTypeListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\FlowType\FlowTypeListForm.Designer.cs">
+      <DependentUpon>FlowTypeListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounting\Journals\JournalsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\Journals\JournalsListForm.Designer.cs">
+      <DependentUpon>JournalsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounting\JournalType\JournalTypesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\JournalType\JournalTypesListForm.Designer.cs">
+      <DependentUpon>JournalTypesListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Common\Areas\AreaEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -556,6 +574,15 @@
     <EmbeddedResource Include="Views\Accounting\CostCenter\CostCentersListForm.resx">
       <DependentUpon>CostCentersListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\FlowType\FlowTypeListForm.resx">
+      <DependentUpon>FlowTypeListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\Journals\JournalsListForm.resx">
+      <DependentUpon>JournalsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\JournalType\JournalTypesListForm.resx">
+      <DependentUpon>JournalTypesListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Common\Areas\AreaEditForm.resx">
       <DependentUpon>AreaEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -863,9 +890,6 @@
     <None Include="Resources\professor.svg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Accounting\FlowType\" />
-    <Folder Include="Views\Accounting\Journals\" />
-    <Folder Include="Views\Accounting\JournalType\" />
     <Folder Include="Views\Accounting\Reports\" />
     <Folder Include="Views\Accounting\Settings\" />
     <Folder Include="Views\Accounting\Statements\" />

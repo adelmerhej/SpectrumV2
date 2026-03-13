@@ -11,22 +11,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spectrum.Views.Accounting.CostCenter
+namespace Spectrum.Views.Accounting.JournalType
 {
-    public partial class CostCentersListForm : RibbonForm, IFormWithRibbon
+    public partial class JournalTypesListForm : RibbonForm, IFormWithRibbon
     {
+
 
 
         #region Implementation of IFormWithRibbon
 
-        public RibbonControl MainRibbon => rcCostCenters;
-        public RibbonPage DefaultPage => rpCostCenters;
+        public RibbonControl MainRibbon => rcJournalTypes;
+        public RibbonPage DefaultPage => rpJournalTypes;
 
 
         #endregion
 
 
-        public CostCentersListForm()
+        public JournalTypesListForm()
         {
             InitializeComponent();
         }

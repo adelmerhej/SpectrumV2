@@ -20,6 +20,7 @@ namespace Spectrum.DataLayers.Common.Companies
 		{
 			var database = DatabaseFactory.GetMongoDatabase(profileName);
 			_companies = database.GetCollection<CompanyModel>(CollectionName);
+
 		}
 
 		// Interface async implementations (wrapping legacy sync methods)

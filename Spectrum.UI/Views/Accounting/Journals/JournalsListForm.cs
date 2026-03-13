@@ -1,6 +1,5 @@
 ﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
-using Spectrum.Utilities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,22 +10,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spectrum.Views.Accounting.CostCenter
+namespace Spectrum.Views.Accounting.Journals
 {
-    public partial class CostCentersListForm : RibbonForm, IFormWithRibbon
+    public partial class JournalsListForm : RibbonForm
     {
+
+
+
 
 
         #region Implementation of IFormWithRibbon
 
-        public RibbonControl MainRibbon => rcCostCenters;
-        public RibbonPage DefaultPage => rpCostCenters;
+        public RibbonControl MainRibbon => rcJournals;
+        public RibbonPage DefaultPage => rpJournals;
 
 
         #endregion
 
 
-        public CostCentersListForm()
+        public JournalsListForm()
         {
             InitializeComponent();
         }

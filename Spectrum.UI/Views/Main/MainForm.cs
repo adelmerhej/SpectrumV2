@@ -9,10 +9,15 @@ using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
 using Spectrum.Views.Accounting.Banks;
 using Spectrum.Views.Accounting.Charts;
+using Spectrum.Views.Accounting.CostCenter;
+using Spectrum.Views.Accounting.FlowType;
+using Spectrum.Views.Accounting.Journals;
+using Spectrum.Views.Accounting.JournalType;
 using Spectrum.Views.Common;
 using Spectrum.Views.Common.Areas;
 using Spectrum.Views.Common.Companies;
 using Spectrum.Views.Common.Countries;
+using Spectrum.Views.Common.Currencies;
 using Spectrum.Views.Common.Departments;
 using Spectrum.Views.Common.Services;
 using Spectrum.Views.HumanResources.Common.BloodTypes;
@@ -400,7 +405,7 @@ namespace Spectrum.Views.Main
 
         private void mnuJournals_Click(object sender, EventArgs e)
         {
-            ShowFeatureUnderDevelopment();
+            OpenForm<JournalsListForm>();
         }
 
         private void mnuChartsOfAccount_Click(object sender, EventArgs e)
@@ -410,17 +415,22 @@ namespace Spectrum.Views.Main
 
         private void mnuCostCenter_Click(object sender, EventArgs e)
         {
-            ShowFeatureUnderDevelopment();
+            OpenForm<CostCentersListForm>();
+        }
+
+        private void mnuFlowType_Click(object sender, EventArgs e)
+        {
+            OpenForm<FlowTypeListForm>();
         }
 
         private void mnuJournalTypes_Click(object sender, EventArgs e)
         {
-            ShowFeatureUnderDevelopment();
+            OpenForm<JournalTypesListForm>();
         }
 
         private void mnuCurrencies_Click(object sender, EventArgs e)
         {
-            ShowFeatureUnderDevelopment();
+            OpenForm<CurrenciesListForm>();
         }
 
         private void mnuExchangeList_Click(object sender, EventArgs e)
@@ -549,5 +559,7 @@ namespace Spectrum.Views.Main
         {
             OpenForm<EmployeeTypesListForm>();
         }
+
+
     }
 }

@@ -11,24 +11,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spectrum.Views.Accounting.CostCenter
+namespace Spectrum.Views.Accounting.FlowType
 {
-    public partial class CostCentersListForm : RibbonForm, IFormWithRibbon
+    public partial class FlowTypeListForm : RibbonForm, IFormWithRibbon
     {
 
 
         #region Implementation of IFormWithRibbon
 
-        public RibbonControl MainRibbon => rcCostCenters;
-        public RibbonPage DefaultPage => rpCostCenters;
+        public RibbonControl MainRibbon => rcFlowTypes;
+        public RibbonPage DefaultPage => rpFlowTypes;
 
 
         #endregion
 
 
-        public CostCentersListForm()
+        public FlowTypeListForm()
         {
             InitializeComponent();
+
+
         }
     }
 }

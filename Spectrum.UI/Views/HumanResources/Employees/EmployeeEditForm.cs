@@ -13,13 +13,15 @@ using Spectrum.Models.HumanResources.Employees;
 using Spectrum.Models.HumanResources.JobPositions;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Enums;
+using Spectrum.Views.Common.Countries;
+using Spectrum.Views.HumanResources.Common.BloodTypes;
+using Spectrum.Views.HumanResources.Employees.Status;
 using SpectrumV1.DataLayers.EmployeeTypes;
 using SpectrumV1.DataLayers.HumanResources.BloodTypes;
 using SpectrumV1.DataLayers.HumanResources.Employees;
 using SpectrumV1.DataLayers.HumanResources.Employees.EmployeeStatus;
 using SpectrumV1.Models.Common.Documents;
 using SpectrumV1.Models.HumanResources.BloodTypes;
-using SpectrumV1.Models.HumanResources.Candidates;
 using SpectrumV1.Models.HumanResources.Employees.EmployeeStatus;
 using SpectrumV1.Models.HumanResources.EmployeeTypes;
 using System;
@@ -38,11 +40,22 @@ namespace Spectrum.Views.HumanResources.Employees
         private EmployeeModel _employeeModel = new EmployeeModel();
 
         private IList<CountryModel> _countries = new List<CountryModel>();
+        private CountryModel _countryModel = new CountryModel();
+
         private IList<CityModel> _cities = new List<CityModel>();
+        private CityModel _cityModel = new CityModel();
+
         private IList<EmployeeTypeModel> _employeeTypes = new List<EmployeeTypeModel>();
+        private EmployeeTypeModel _employeeTypeModel = new EmployeeTypeModel();
+
         private IList<BloodTypeModel> _bloodTypes = new List<BloodTypeModel>();
+        private BloodTypeModel _bloodTypeModel = new BloodTypeModel();
+
         private IList<StatusModel> _status = new List<StatusModel>();
+        private StatusModel _statusModel = new StatusModel();
+
         private IList<JobPositionModel> _jobPositions = new List<JobPositionModel>();
+        private JobPositionModel _jobPositionModel = new JobPositionModel();
 
         private readonly EmployeeRepository _employeeRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
         private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
@@ -52,7 +65,7 @@ namespace Spectrum.Views.HumanResources.Employees
         private readonly StatusRepository _statusRepository = new StatusRepository(DatabaseFactory.ProfilePrimary);
         private readonly JobPositionRepository _jobPositionRepository = new JobPositionRepository(DatabaseFactory.ProfilePrimary);
         private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
-    
+
         //Init permissionvariables
         private bool _canAdd = true;
         private bool _canEdit = true;
@@ -496,5 +509,95 @@ namespace Spectrum.Views.HumanResources.Employees
                 MessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        #region Context Menu Events
+
+
+        // Bloodtype
+        private void cboBloodType_AddNewValue(object sender, AddNewValueEventArgs e)
+        {
+            BloodTypeEditForm frm = new BloodTypeEditForm(new BloodTypeModel());
+            frm.SendUpdatedBloodType += RcvUpdatedBloodTypeAsync;
+            frm.ShowDialog();
+        }
+
+        private void RcvUpdatedBloodTypeAsync(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _bloodTypeModel = sender as BloodTypeModel;
+
+            _bloodTypes.Add(_bloodTypeModel);
+
+            cboBloodType.Properties.DataSource = null;
+            cboBloodType.Properties.DataSource = _bloodTypes;
+            if (_bloodTypeModel != null) cboBloodType.EditValue = _bloodTypeModel._id;
+        }
+
+        // PlaceOfBirth
+        private void cboPlaceOfBirth_AddNewValue(object sender, AddNewValueEventArgs e)
+        {
+            CityEditForm frm = new CityEditForm(new CityModel());
+            frm.SendUpdatedCity += RcvUpdatedCityAsync;
+            frm.ShowDialog();
+        }
+
+        private void RcvUpdatedCityAsync(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _cityModel = sender as CityModel;
+
+            _cities.Add(_cityModel);
+
+            cboPlaceOfBirth.Properties.DataSource = null;
+            cboPlaceOfBirth.Properties.DataSource = _cities;
+            if (_cityModel != null) cboPlaceOfBirth.EditValue = _cityModel._id;
+        }
+
+
+        // Nationality
+        private void cboNationality_AddNewValue(object sender, AddNewValueEventArgs e)
+        {
+            CountryEditForm frm = new CountryEditForm(new CountryModel());
+            frm.SendUpdatedCountry += RcvUpdatedCountryAsync;
+            frm.ShowDialog();
+        }
+
+        private void RcvUpdatedCountryAsync(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _countryModel = sender as CountryModel;
+
+            _countries.Add(_countryModel);
+
+            cboNationality.Properties.DataSource = null;
+            cboNationality.Properties.DataSource = _countries;
+            if (_countryModel != null) cboNationality.EditValue = _countryModel._id;
+        }
+
+
+        // FamilyStatus
+        private void cboFamilyStatus_AddNewValue(object sender, AddNewValueEventArgs e)
+        {
+            StatusEditForm frm = new StatusEditForm(new StatusModel());
+            frm.SendUpdatedStatus += RcvUpdatedFamilyStatusAsync;
+            frm.ShowDialog();
+        }
+
+        private void RcvUpdatedFamilyStatusAsync(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _statusModel = sender as StatusModel;
+
+            _status.Add(_statusModel);
+
+            cboFamilyStatus.Properties.DataSource = null;
+            cboFamilyStatus.Properties.DataSource = _status;
+            if (_statusModel != null) cboFamilyStatus.EditValue = _statusModel._id;
+        }
+
+
+        #endregion
+
+
     }
 }

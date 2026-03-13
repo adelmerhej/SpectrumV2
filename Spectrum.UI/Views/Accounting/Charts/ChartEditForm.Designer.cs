@@ -148,6 +148,7 @@
             // 
             // gcChartDetails
             // 
+            this.gcChartDetails.DataSource = this.bsChartDetails;
             this.gcChartDetails.Location = new System.Drawing.Point(14, 324);
             this.gcChartDetails.MainView = this.gvChartDetails;
             this.gcChartDetails.Name = "gcChartDetails";
@@ -411,6 +412,7 @@
             // 
             // chkLocked
             // 
+            this.chkLocked.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Locked", true));
             this.chkLocked.Location = new System.Drawing.Point(446, 296);
             this.chkLocked.Name = "chkLocked";
             this.chkLocked.Properties.Caption = "Locked";
@@ -420,6 +422,7 @@
             // 
             // chkProtected
             // 
+            this.chkProtected.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "IsProtected", true));
             this.chkProtected.Location = new System.Drawing.Point(303, 296);
             this.chkProtected.Name = "chkProtected";
             this.chkProtected.Properties.Caption = "Protected";
@@ -430,6 +433,7 @@
             // 
             // chkActive
             // 
+            this.chkActive.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Active", true));
             this.chkActive.Location = new System.Drawing.Point(581, 296);
             this.chkActive.Name = "chkActive";
             this.chkActive.Properties.Caption = "Active";
@@ -519,7 +523,7 @@
             // 
             // cboAccountType
             // 
-            this.cboAccountType.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "ChartType", true));
+            this.cboAccountType.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "AccountType", true));
             this.cboAccountType.Location = new System.Drawing.Point(137, 196);
             this.cboAccountType.Name = "cboAccountType";
             this.cboAccountType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {

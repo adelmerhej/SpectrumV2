@@ -30,15 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeEditForm));
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges1 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges2 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.Utils.ContextButton contextButton1 = new DevExpress.Utils.ContextButton();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup8 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges15 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges16 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.Utils.ContextButton contextButton2 = new DevExpress.Utils.ContextButton();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             this.ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
             this.btnClose = new DevExpress.XtraBars.BarButtonItem();
@@ -85,7 +85,6 @@
             this.txtFirstName = new DevExpress.XtraEditors.TextEdit();
             this.txtEmployeeNo = new DevExpress.XtraEditors.TextEdit();
             this.dtDateOfBirth = new DevExpress.XtraEditors.DateEdit();
-            this.cboBloodType = new DevExpress.XtraEditors.LookUpEdit();
             this.cboPlaceOfBirth = new DevExpress.XtraEditors.SearchLookUpEdit();
             this.searchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -218,6 +217,10 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.tabJobInfo = new DevExpress.XtraLayout.LayoutControlItem();
+            this.cboBloodType = new DevExpress.XtraEditors.SearchLookUpEdit();
+            this.gridView6 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
@@ -245,7 +248,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtEmployeeNo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateOfBirth.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateOfBirth.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboBloodType.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboPlaceOfBirth.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboNationality.Properties)).BeginInit();
@@ -377,6 +379,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabJobInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboBloodType.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbonControl
@@ -526,16 +530,16 @@
             // 
             this.galleryQuickLetters.Gallery.ColumnCount = 2;
             this.galleryQuickLetters.Gallery.DrawImageBackground = false;
-            galleryItemGroup1.Caption = "Group1";
+            galleryItemGroup8.Caption = "Group1";
             this.galleryQuickLetters.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup1});
+            galleryItemGroup8});
             this.galleryQuickLetters.Gallery.ItemImageLocation = DevExpress.Utils.Locations.Left;
-            skinPaddingEdges1.Bottom = -4;
-            skinPaddingEdges1.Top = -4;
-            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges1;
-            skinPaddingEdges2.Bottom = -1;
-            skinPaddingEdges2.Top = -1;
-            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges2;
+            skinPaddingEdges15.Bottom = -4;
+            skinPaddingEdges15.Top = -4;
+            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges15;
+            skinPaddingEdges16.Bottom = -1;
+            skinPaddingEdges16.Top = -1;
+            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges16;
             this.galleryQuickLetters.Gallery.ShowItemText = true;
             this.galleryQuickLetters.Id = 14;
             this.galleryQuickLetters.Name = "galleryQuickLetters";
@@ -682,7 +686,6 @@
             this.layoutControl1.Controls.Add(this.txtFirstName);
             this.layoutControl1.Controls.Add(this.txtEmployeeNo);
             this.layoutControl1.Controls.Add(this.dtDateOfBirth);
-            this.layoutControl1.Controls.Add(this.cboBloodType);
             this.layoutControl1.Controls.Add(this.cboPlaceOfBirth);
             this.layoutControl1.Controls.Add(this.cboNationality);
             this.layoutControl1.Controls.Add(this.cboEmployeeType);
@@ -692,6 +695,7 @@
             this.layoutControl1.Controls.Add(this.dtWorkingDate);
             this.layoutControl1.Controls.Add(this.cboActualPosition);
             this.layoutControl1.Controls.Add(this.cboFamilyStatus);
+            this.layoutControl1.Controls.Add(this.cboBloodType);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
@@ -848,6 +852,7 @@
             this.txtEmployeeNo.Size = new System.Drawing.Size(96, 22);
             this.txtEmployeeNo.StyleController = this.layoutControl1;
             this.txtEmployeeNo.TabIndex = 4;
+            this.txtEmployeeNo.TabStop = false;
             // 
             // dtDateOfBirth
             // 
@@ -874,24 +879,6 @@
             this.dtDateOfBirth.StyleController = this.layoutControl1;
             this.dtDateOfBirth.TabIndex = 12;
             // 
-            // cboBloodType
-            // 
-            this.cboBloodType.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "BloodType", true));
-            this.cboBloodType.Location = new System.Drawing.Point(156, 116);
-            this.cboBloodType.MenuManager = this.ribbonControl;
-            this.cboBloodType.Name = "cboBloodType";
-            this.cboBloodType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cboBloodType.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("_id", "Id", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("BloodTypeName", "Name", 60, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default)});
-            this.cboBloodType.Properties.DisplayMember = "BloodTypeName";
-            this.cboBloodType.Properties.NullText = "";
-            this.cboBloodType.Properties.ValueMember = "BloodTypeName";
-            this.cboBloodType.Size = new System.Drawing.Size(437, 22);
-            this.cboBloodType.StyleController = this.layoutControl1;
-            this.cboBloodType.TabIndex = 8;
-            // 
             // cboPlaceOfBirth
             // 
             this.cboPlaceOfBirth.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "PlaceOfBirth", true));
@@ -908,6 +895,7 @@
             this.cboPlaceOfBirth.Size = new System.Drawing.Size(437, 22);
             this.cboPlaceOfBirth.StyleController = this.layoutControl1;
             this.cboPlaceOfBirth.TabIndex = 9;
+            this.cboPlaceOfBirth.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboPlaceOfBirth_AddNewValue);
             // 
             // searchLookUpEdit1View
             // 
@@ -951,6 +939,7 @@
             this.cboNationality.Size = new System.Drawing.Size(437, 22);
             this.cboNationality.StyleController = this.layoutControl1;
             this.cboNationality.TabIndex = 21;
+            this.cboNationality.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboNationality_AddNewValue);
             // 
             // gridView1
             // 
@@ -989,6 +978,7 @@
             this.cboEmployeeType.Properties.DisplayMember = "TypeName";
             this.cboEmployeeType.Properties.NullText = "";
             this.cboEmployeeType.Properties.PopupView = this.gridView2;
+            this.cboEmployeeType.Properties.ShowAddNewButton = true;
             this.cboEmployeeType.Size = new System.Drawing.Size(429, 22);
             this.cboEmployeeType.StyleController = this.layoutControl1;
             this.cboEmployeeType.TabIndex = 14;
@@ -1117,6 +1107,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cboActualPosition.Properties.NullText = "";
             this.cboActualPosition.Properties.PopupView = this.gridView4;
+            this.cboActualPosition.Properties.ShowAddNewButton = true;
             this.cboActualPosition.Size = new System.Drawing.Size(415, 22);
             this.cboActualPosition.StyleController = this.layoutControl1;
             this.cboActualPosition.TabIndex = 28;
@@ -1144,6 +1135,7 @@
             this.cboFamilyStatus.Size = new System.Drawing.Size(437, 22);
             this.cboFamilyStatus.StyleController = this.layoutControl1;
             this.cboFamilyStatus.TabIndex = 10;
+            this.cboFamilyStatus.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboFamilyStatus_AddNewValue);
             // 
             // gridView5
             // 
@@ -2121,12 +2113,12 @@
             this.gvDocuments.ColumnSet.DescriptionColumn = this.colDate1;
             this.gvDocuments.ColumnSet.TextColumn = this.colName;
             this.gvDocuments.ContextButtonOptions.AllowGlyphSkinning = true;
-            contextButton1.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Right;
-            contextButton1.Id = new System.Guid("29468572-0411-449a-bc2d-0c333134705c");
-            contextButton1.ImageOptionsCollection.ItemNormal.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
-            contextButton1.ImageOptionsCollection.ItemNormal.SvgImageSize = new System.Drawing.Size(16, 16);
-            contextButton1.Name = "removeButton";
-            this.gvDocuments.ContextButtons.Add(contextButton1);
+            contextButton2.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Right;
+            contextButton2.Id = new System.Guid("29468572-0411-449a-bc2d-0c333134705c");
+            contextButton2.ImageOptionsCollection.ItemNormal.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
+            contextButton2.ImageOptionsCollection.ItemNormal.SvgImageSize = new System.Drawing.Size(16, 16);
+            contextButton2.Name = "removeButton";
+            this.gvDocuments.ContextButtons.Add(contextButton2);
             this.gvDocuments.GridControl = this.gcDocuments;
             this.gvDocuments.Name = "gvDocuments";
             this.gvDocuments.OptionsBehavior.Editable = false;
@@ -2172,12 +2164,12 @@
             this.openDocuments.Name = "openDocuments";
             this.openDocuments.Properties.AutoHeight = false;
             this.openDocuments.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
-            editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(16, 16);
+            editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
+            editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(16, 16);
             this.openDocuments.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton(),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", "loadFile", null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", "loadFile", null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.openDocuments.Size = new System.Drawing.Size(1069, 28);
             this.openDocuments.StyleController = this.layoutControl4;
             this.openDocuments.TabIndex = 7;
@@ -2237,6 +2229,50 @@
             this.tabJobInfo.Text = "Job Information";
             this.tabJobInfo.TextVisible = false;
             // 
+            // cboBloodType
+            // 
+            this.cboBloodType.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "BloodType", true));
+            this.cboBloodType.Location = new System.Drawing.Point(156, 116);
+            this.cboBloodType.MenuManager = this.ribbonControl;
+            this.cboBloodType.Name = "cboBloodType";
+            this.cboBloodType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboBloodType.Properties.DisplayMember = "BloodTypeName";
+            this.cboBloodType.Properties.NullText = "";
+            this.cboBloodType.Properties.PopupView = this.gridView6;
+            this.cboBloodType.Properties.ShowAddNewButton = true;
+            this.cboBloodType.Properties.ValueMember = "BloodTypeName";
+            this.cboBloodType.Size = new System.Drawing.Size(437, 22);
+            this.cboBloodType.StyleController = this.layoutControl1;
+            this.cboBloodType.TabIndex = 8;
+            this.cboBloodType.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboBloodType_AddNewValue);
+            // 
+            // gridView6
+            // 
+            this.gridView6.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn9,
+            this.gridColumn10});
+            this.gridView6.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView6.Name = "gridView6";
+            this.gridView6.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView6.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn9
+            // 
+            this.gridColumn9.Caption = "ID";
+            this.gridColumn9.FieldName = "_id";
+            this.gridColumn9.Name = "gridColumn9";
+            this.gridColumn9.Width = 213;
+            // 
+            // gridColumn10
+            // 
+            this.gridColumn10.Caption = "Blood Type";
+            this.gridColumn10.FieldName = "BloodTypeName";
+            this.gridColumn10.Name = "gridColumn10";
+            this.gridColumn10.Visible = true;
+            this.gridColumn10.VisibleIndex = 0;
+            this.gridColumn10.Width = 928;
+            // 
             // EmployeeEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -2277,7 +2313,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtEmployeeNo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateOfBirth.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateOfBirth.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboBloodType.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboPlaceOfBirth.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboNationality.Properties)).EndInit();
@@ -2409,6 +2444,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabJobInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboBloodType.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2486,7 +2523,6 @@
         private DevExpress.XtraEditors.TextEdit txtRegistrationNo;
         private DevExpress.XtraLayout.LayoutControlItem lblRegistrationNo;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
-        private DevExpress.XtraEditors.LookUpEdit cboBloodType;
         private DevExpress.XtraEditors.SearchLookUpEdit cboPlaceOfBirth;
         private DevExpress.XtraGrid.Views.Grid.GridView searchLookUpEdit1View;
         private DevExpress.XtraEditors.TextEdit txtRecordRegister;
@@ -2595,5 +2631,9 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridView5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
+        private DevExpress.XtraEditors.SearchLookUpEdit cboBloodType;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView6;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
     }
 }
