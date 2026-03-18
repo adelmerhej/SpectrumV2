@@ -2,15 +2,14 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
-using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Accounting.Charts;
-using Spectrum.Models.Common.Countries;
 using Spectrum.Models.Common.Currencies;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Layout;
-using Spectrum.Views.Common.Countries;
+using SpectrumV1.DataLayers.Accounting.Journals;
+using SpectrumV1.Models.Accounting.Journals;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -23,7 +22,7 @@ namespace Spectrum.Views.Accounting.Journals
     public partial class JournalsListForm : RibbonForm
     {
         private bool _resetMenu;
-        private ContinentEditForm _continentEditForm;
+        private JournalEditForm _journalEditForm;
 
         private JournalModel _journalModel = new JournalModel();
         private IList<JournalModel> _journals = new List<JournalModel>();
@@ -32,7 +31,7 @@ namespace Spectrum.Views.Accounting.Journals
         private IList<CurrencyModel> _currencies = new List<CurrencyModel>();
         private IList<ChartModel> _charts = new List<ChartModel>();
 
-        private readonly ContinentRepository _continentRepository = new ContinentRepository(DatabaseFactory.ProfilePrimary);
+        private readonly JournalRepository _journalRepository = new JournalRepository(DatabaseFactory.ProfilePrimary);
 
         //Init permissionvariables
         private bool _canAdd = true;
@@ -79,7 +78,7 @@ namespace Spectrum.Views.Accounting.Journals
                 //	}
                 //	//
 
-                _continents = await _continentRepository.GetContinentsAsync();
+                _journals = await _journalRepository.GetJournalsAsync();
             }
             catch (Exception ex)
             {
@@ -89,8 +88,8 @@ namespace Spectrum.Views.Accounting.Journals
 
         private void WireUpBindings()
         {
-            gcContinents.DataSource = null;
-            gcContinents.DataSource = _continents;
+            gcJournals.DataSource = null;
+            gcJournals.DataSource = _journals;
         }
 
         private void ApplyDefaults()
@@ -129,22 +128,22 @@ namespace Spectrum.Views.Accounting.Journals
 
         private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ShowContinentEditor(new ContinentModel());
+            ShowJournalEditor(new JournalModel());
         }
 
         private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (!_continents.Any()) return;
+            if (!_journals.Any()) return;
 
             try
             {
-                string currentRowId = gvContinents.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvJournals.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _continentModel = _continents.SingleOrDefault(x => x._id == currentRowId);
-                if (_continentModel == null) return;
+                _journalModel = _journals.SingleOrDefault(x => x._id == currentRowId);
+                if (_journalModel == null) return;
 
-                ShowContinentEditor(_continentModel);
+                ShowJournalEditor(_journalModel);
             }
             catch (Exception exception)
             {
@@ -159,7 +158,7 @@ namespace Spectrum.Views.Accounting.Journals
 
         private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
         {
-            gcContinents.ShowRibbonPrintPreview();
+            gcJournals.ShowRibbonPrintPreview();
         }
 
         private void btnPrintFilter_ItemClick(object sender, ItemClickEventArgs e)
@@ -167,14 +166,14 @@ namespace Spectrum.Views.Accounting.Journals
             // Print single JV
         }
 
-        private void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (!CanDelete()) return;
 
             try
             {
-                string id = gvContinents.GetFocusedRowCellValue("_id").ToString();
-                string name = gvContinents.GetFocusedRowCellValue("ContinentName").ToString();
+                string id = gvJournals.GetFocusedRowCellValue("_id").ToString();
+                string name = gvJournals.GetFocusedRowCellValue("JournalName").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -182,16 +181,16 @@ namespace Spectrum.Views.Accounting.Journals
                             "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                             MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        _continentModel = gvContinents.GetFocusedRow() as ContinentModel;
-                        if (_continentModel == null)
+                        _journalModel = gvJournals.GetFocusedRow() as JournalModel;
+                        if (_journalModel == null)
                         {
                             return;
                         }
-                        _continentModel.Deleted = true;
+                        _journalModel.Deleted = true;
 
                         //delete the record
-                        await _continentRepository.DeleteContinentAsync(_continentModel._id);
-                        RcvUpdatedContinentAsync(_continentModel, EventArgs.Empty);
+                        await _journalRepository.DeleteJournalAsync(_journalModel._id);
+                        RcvUpdatedJournalAsync(_journalModel, EventArgs.Empty);
                     }
                 }
             }
@@ -229,7 +228,7 @@ namespace Spectrum.Views.Accounting.Journals
                 DialogResult.Yes)
             {
                 _resetMenu = true;
-                LayoutsStyle.ResetLayoutGrid(gvContinents, CurrentUser.UserName, CurrentUser.Company);
+                LayoutsStyle.ResetLayoutGrid(gvJournals, CurrentUser.UserName, CurrentUser.Company);
             }
         }
 
@@ -237,17 +236,17 @@ namespace Spectrum.Views.Accounting.Journals
 
         private void gvJournals_DoubleClick(object sender, EventArgs e)
         {
-            if (!_continents.Any()) return;
+            if (!_journals.Any()) return;
 
             try
             {
-                string currentRowId = gvContinents.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvJournals.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _continentModel = _continents.SingleOrDefault(x => x._id == currentRowId);
-                if (_continentModel == null) return;
+                _journalModel = _journals.SingleOrDefault(x => x._id == currentRowId);
+                if (_journalModel == null) return;
 
-                ShowContinentEditor(_continentModel);
+                ShowJournalEditor(_journalModel);
             }
             catch (Exception exception)
             {
@@ -255,31 +254,31 @@ namespace Spectrum.Views.Accounting.Journals
             }
         }
 
-        private async void RcvUpdatedContinentAsync(object sender, EventArgs e)
+        private async void RcvUpdatedJournalAsync(object sender, EventArgs e)
         {
             if (sender == null) return;
-            _continentModel = sender as ContinentModel;
-            if (_continentModel == null) return;
+            _journalModel = sender as JournalModel;
+            if (_journalModel == null) return;
 
-            if (_continentModel.Deleted || _continentModel.LastModifiedDate == null)
+            if (_journalModel.Deleted || _journalModel.LastModifiedDate == null)
             {
                 await InitializeBindings();
                 WireUpBindings();
             }
             else
             {
-                gcContinents.RefreshDataSource();
-                gvContinents.RefreshRow(gvContinents.FocusedRowHandle);
-                gvContinents.UpdateCurrentRow();
+                gcJournals.RefreshDataSource();
+                gvJournals.RefreshRow(gvJournals.FocusedRowHandle);
+                gvJournals.UpdateCurrentRow();
             }
         }
 
         private bool CanDelete()
         {
-            ContinentModel dataBoundItem = gvContinents.GetFocusedRow() as ContinentModel;
+            JournalModel dataBoundItem = gvJournals.GetFocusedRow() as JournalModel;
 
-            if (gvContinents == null || gvContinents.SelectedRowsCount == 0) return false;
-            if (gvContinents.SelectedRowsCount > 1)
+            if (gvJournals == null || gvJournals.SelectedRowsCount == 0) return false;
+            if (gvJournals.SelectedRowsCount > 1)
             {
                 XtraMessageBox.Show("Only one record can be selected at a time, please try again",
                     "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -296,37 +295,37 @@ namespace Spectrum.Views.Accounting.Journals
             return true;
         }
 
-        private void ShowContinentEditor(ContinentModel model)
+        private void ShowJournalEditor(JournalModel model)
         {
-            if (_continentEditForm == null || _continentEditForm.IsDisposed)
+            if (_journalEditForm == null || _journalEditForm.IsDisposed)
             {
-                _continentEditForm = new ContinentEditForm(model);
-                _continentEditForm.SendUpdatedContinent += RcvUpdatedContinentAsync;
-                _continentEditForm.FormClosed += ContinentEditForm_FormClosed;
-                _continentEditForm.Show(this);
+                _journalEditForm = new JournalEditForm(model);
+                _journalEditForm.SendUpdatedJournal += RcvUpdatedJournalAsync;
+                _journalEditForm.FormClosed += JournalEditForm_FormClosed;
+                _journalEditForm.Show(this);
                 return;
             }
 
-            if (_continentEditForm.WindowState == FormWindowState.Minimized)
-                _continentEditForm.WindowState = FormWindowState.Normal;
+            if (_journalEditForm.WindowState == FormWindowState.Minimized)
+                _journalEditForm.WindowState = FormWindowState.Normal;
 
-            _continentEditForm.Activate();
-            _continentEditForm.BringToFront();
+            _journalEditForm.Activate();
+            _journalEditForm.BringToFront();
         }
 
-        private void ContinentEditForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void JournalEditForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var form = sender as ContinentEditForm;
+            var form = sender as JournalEditForm;
             if (form != null)
             {
-                form.SendUpdatedContinent -= RcvUpdatedContinentAsync;
-                form.FormClosed -= ContinentEditForm_FormClosed;
+                form.SendUpdatedJournal -= RcvUpdatedJournalAsync;
+                form.FormClosed -= JournalEditForm_FormClosed;
             }
-            if (ReferenceEquals(_continentEditForm, sender))
-                _continentEditForm = null;
+            if (ReferenceEquals(_journalEditForm, sender))
+                _journalEditForm = null;
         }
 
-        private void gvContinents_RowCellStyle(object sender, RowCellStyleEventArgs e)
+        private void gvJournals_RowCellStyle(object sender, RowCellStyleEventArgs e)
         {
             var view = sender as GridView;
             if (view == null || e.RowHandle < 0) return;
