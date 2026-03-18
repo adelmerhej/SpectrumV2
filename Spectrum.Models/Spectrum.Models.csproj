@@ -150,6 +150,7 @@
     <Compile Include="Accounting\FlowType\FlowTypeModel.cs" />
     <Compile Include="Accounting\Journals\JournalDetailModel.cs" />
     <Compile Include="Accounting\Journals\JournalModel.cs" />
+    <Compile Include="Accounting\Journals\JournalTypeModel.cs" />
     <Compile Include="Administration\Connections\AppConfigModel.cs" />
     <Compile Include="Administration\Connections\ConnectionModel.cs" />
     <Compile Include="Administration\Dashboard\ActivityDataModel.cs" />
