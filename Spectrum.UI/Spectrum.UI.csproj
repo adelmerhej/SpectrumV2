@@ -126,6 +126,12 @@
     <Compile Include="Views\Accounting\FlowType\FlowTypeListForm.Designer.cs">
       <DependentUpon>FlowTypeListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Accounting\Journals\JournalEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\Journals\JournalEditForm.Designer.cs">
+      <DependentUpon>JournalEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Accounting\Journals\JournalsListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -576,6 +582,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\FlowType\FlowTypeListForm.resx">
       <DependentUpon>FlowTypeListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\Journals\JournalEditForm.resx">
+      <DependentUpon>JournalEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\Journals\JournalsListForm.resx">
       <DependentUpon>JournalsListForm.cs</DependentUpon>

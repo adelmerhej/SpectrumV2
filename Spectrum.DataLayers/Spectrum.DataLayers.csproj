@@ -159,6 +159,10 @@
     <Compile Include="Accounting\CostCenter\ICostCenterRepository.cs" />
     <Compile Include="Accounting\FlowType\FlowTypeRepository.cs" />
     <Compile Include="Accounting\FlowType\IFlowTypeRepository.cs" />
+    <Compile Include="Accounting\Journals\IJournalDetailRepository.cs" />
+    <Compile Include="Accounting\Journals\IJournalRepository.cs" />
+    <Compile Include="Accounting\Journals\JournalDetailRepository.cs" />
+    <Compile Include="Accounting\Journals\JournalRepository.cs" />
     <Compile Include="Administration\Update\LiveUpdateSettingsProvider.cs" />
     <Compile Include="Common\Areas\AreaRepository.cs" />
     <Compile Include="Common\Areas\IAreaRepository.cs" />
@@ -235,7 +239,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Accounting\Journals\" />
     <Folder Include="Accounting\JournalType\" />
     <Folder Include="Accounting\Reports\" />
     <Folder Include="Accounting\Settings\" />
