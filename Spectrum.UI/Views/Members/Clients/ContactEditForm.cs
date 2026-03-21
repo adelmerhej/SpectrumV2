@@ -21,6 +21,7 @@ namespace Spectrum.Views.Members.Clients
 		private JobPositionModel _jobPositionModel = new JobPositionModel();
 		private IList<JobPositionModel> _jobPositions = new List<JobPositionModel>();
 		private readonly string _clientId;
+		private readonly string _clientName;
 
 		private readonly ContactRepository _contactRepository = new ContactRepository(DatabaseFactory.ProfilePrimary);
 		private readonly JobPositionRepository _jobPositionRepository = new JobPositionRepository(DatabaseFactory.ProfilePrimary);
@@ -34,16 +35,21 @@ namespace Spectrum.Views.Members.Clients
 
 		public EventHandler SendUpdatedContact;
 
-		public ContactEditForm(ContactModel model, string id)
+		public ContactEditForm(ContactModel model, string id, string clientName)
 		{
 			InitializeComponent();
 
 			_clientId = id;
+            _clientName = clientName;
 			_contactModel = model ?? new ContactModel();
+			
 			if (string.IsNullOrEmpty(_contactModel.ClientId))
 				_contactModel.ClientId = _clientId;
 
-			StartLoading();
+            if (string.IsNullOrEmpty(_contactModel.ClientId))
+                _contactModel.ClientName = _clientName;
+
+            StartLoading();
 		}
 
 		private async void StartLoading()
@@ -77,13 +83,17 @@ namespace Spectrum.Views.Members.Clients
 						_contactModel = existing;
 						if (string.IsNullOrEmpty(_contactModel.ClientId))
 							_contactModel.ClientId = _clientId;
-					}
-				}
+
+                        if (string.IsNullOrEmpty(_contactModel.ClientName))
+                            _contactModel.ClientName = _clientName;
+                    }
+                }
 				else
 				{
 					_contactModel = new ContactModel
 					{
-						ClientId = _clientId
+						ClientId = _clientId,
+						ClientName = _clientName
 					};
 				}
 
@@ -173,8 +183,10 @@ namespace Spectrum.Views.Members.Clients
 				if (string.IsNullOrEmpty(_contactModel.ClientId))
 					_contactModel.ClientId = _clientId;
 
+                if (string.IsNullOrEmpty(_contactModel.ClientName))
+                    _contactModel.ClientName = _clientName;
 
-				if (string.IsNullOrEmpty(_contactModel._id))
+                if (string.IsNullOrEmpty(_contactModel._id))
 				{
 					_logInfoRepository.CreateLogInfo(_contactModel);
 
@@ -217,7 +229,15 @@ namespace Spectrum.Views.Members.Clients
 				txtName.Focus();
 			}
 
-			if (!validateReturnValue)
+            if (string.IsNullOrEmpty(_contactModel.ClientId))
+			{
+                messageNumber += 1;
+                validateMessage.Append("\n- You should create the Client first.");
+                validateReturnValue = false;
+                txtName.Focus();
+            }
+
+                if (!validateReturnValue)
 			{
 				validateMessage.Insert(0, "The following need your attention:");
 				if (messageNumber > 1) validateMessage.Replace("following", "followings");

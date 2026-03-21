@@ -42,15 +42,15 @@ namespace Spectrum.Views.Members.Clients
 		private IList<ContactModel> _contacts = new List<ContactModel>();
 		private IList<ProjectModel> _projects = new List<ProjectModel>();
 
-		private readonly ClientRepository _clientRepository;
-		private readonly CountryRepository _countryRepository;
-		private readonly CityRepository _cityRepository;
-		private readonly LocationRepository _locationRepository;
-		private readonly ContactRepository _contactRepository;
-		private readonly ProjectRepository _projectRepository;
-		private readonly LogInfoRepository _logInfoRepository;
+		private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
+        private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
+        private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
+		private readonly LocationRepository _locationRepository = new LocationRepository(DatabaseFactory.ProfilePrimary);
+        private readonly ContactRepository _contactRepository = new ContactRepository(DatabaseFactory.ProfilePrimary);
+		private readonly ProjectRepository _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
+        private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
-		private bool _canAdd = true;
+        private bool _canAdd = true;
 		private bool _canEdit = true;
 		private bool _canDelete = true;
 		private bool _canPrint = true;
@@ -69,14 +69,6 @@ namespace Spectrum.Views.Members.Clients
 			InitializeComponent();
 
 			_clientModel = model ?? new ClientModel();
-
-			_clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
-			_countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
-			_cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
-			_locationRepository = new LocationRepository(DatabaseFactory.ProfilePrimary);
-			_contactRepository = new ContactRepository(DatabaseFactory.ProfilePrimary);
-			_projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
-			_logInfoRepository = new LogInfoRepository();
 
 			StartLoading();
 		}
@@ -273,6 +265,8 @@ namespace Spectrum.Views.Members.Clients
 
 		private void btnAddNewContact_ItemClick(object sender, ItemClickEventArgs e)
 		{
+			if (!EnsureClientIsSavedBeforeAddingContact()) return;
+
 			OpenContactEditForm(null);
 		}
 
@@ -343,7 +337,9 @@ namespace Spectrum.Views.Members.Clients
 		{
 			try
 			{
-				var contactEditForm = new ContactEditForm(contact, _clientModel._id);
+               if (contact == null && !EnsureClientIsSavedBeforeAddingContact()) return;
+
+				var contactEditForm = new ContactEditForm(contact, _clientModel._id, _clientModel.ClientName);
 				contactEditForm.SendUpdatedContact += RcvUpdatedContactAsync;
 				contactEditForm.ShowDialog();
 			}
@@ -578,6 +574,19 @@ namespace Spectrum.Views.Members.Clients
 				MessageBoxButtons.YesNo,
 				MessageBoxIcon.Question,
 				MessageBoxDefaultButton.Button2) == DialogResult.Yes;
+		}
+
+		private bool EnsureClientIsSavedBeforeAddingContact()
+		{
+			if (!string.IsNullOrWhiteSpace(_clientModel?._id)) return true;
+
+			XtraMessageBox.Show(
+				"Please create and save the client before adding a new contact.",
+				"Save Client First",
+				MessageBoxButtons.OK,
+				MessageBoxIcon.Information);
+
+			return false;
 		}
 
 		private void HandleDeleteError(Exception ex)

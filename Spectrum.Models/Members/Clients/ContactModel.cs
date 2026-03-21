@@ -10,6 +10,9 @@ namespace Spectrum.Models.Members.Clients
 		[BsonRepresentation(BsonType.ObjectId)]
 		public string ClientId { get; set; }
 
+        [BsonElement("ClientName")]
+        public string ClientName { get; set; }
+
 		[BsonElement("ContactName")]
 		public string ContactName { get; set; }
 

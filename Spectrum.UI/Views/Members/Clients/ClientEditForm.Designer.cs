@@ -216,7 +216,6 @@
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.grpClientInfo = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.lblClientName = new DevExpress.XtraLayout.LayoutControlItem();
             this.lblEmail = new DevExpress.XtraLayout.LayoutControlItem();
             this.lblWebsite = new DevExpress.XtraLayout.LayoutControlItem();
             this.lblMofNo3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -224,8 +223,9 @@
             this.emptySpaceItem11 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lblClientInitial = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lblAddress = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.lblClientName = new DevExpress.XtraLayout.LayoutControlItem();
             this.grpContactDetails = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -313,7 +313,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpClientInfo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lblClientName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblEmail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblWebsite)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblMofNo3)).BeginInit();
@@ -321,8 +320,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblClientInitial)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAddress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblClientName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpContactDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
@@ -568,7 +568,7 @@
             this.xtraTabControl1.Location = new System.Drawing.Point(112, 106);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.tabFirstAddress;
-            this.xtraTabControl1.Size = new System.Drawing.Size(757, 259);
+            this.xtraTabControl1.Size = new System.Drawing.Size(757, 254);
             this.xtraTabControl1.TabIndex = 23;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.tabFirstAddress,
@@ -578,7 +578,7 @@
             // 
             this.tabFirstAddress.Controls.Add(this.layoutControl1);
             this.tabFirstAddress.Name = "tabFirstAddress";
-            this.tabFirstAddress.Size = new System.Drawing.Size(755, 229);
+            this.tabFirstAddress.Size = new System.Drawing.Size(755, 224);
             this.tabFirstAddress.Text = "First Address";
             // 
             // layoutControl1
@@ -596,7 +596,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(755, 229);
+            this.layoutControl1.Size = new System.Drawing.Size(755, 224);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -661,7 +661,7 @@
             // txtPoBox1
             // 
             this.txtPoBox1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "PoBox1", true));
-            this.txtPoBox1.Location = new System.Drawing.Point(113, 182);
+            this.txtPoBox1.Location = new System.Drawing.Point(113, 177);
             this.txtPoBox1.MenuManager = this.ribbonControl;
             this.txtPoBox1.Name = "txtPoBox1";
             this.txtPoBox1.Size = new System.Drawing.Size(628, 22);
@@ -762,14 +762,14 @@
             this.txtAddress1.Location = new System.Drawing.Point(113, 66);
             this.txtAddress1.MenuManager = this.ribbonControl;
             this.txtAddress1.Name = "txtAddress1";
-            this.txtAddress1.Size = new System.Drawing.Size(628, 54);
+            this.txtAddress1.Size = new System.Drawing.Size(628, 49);
             this.txtAddress1.StyleController = this.layoutControl1;
             this.txtAddress1.TabIndex = 5;
             // 
             // txtPhoneNumberFirst1
             // 
             this.txtPhoneNumberFirst1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "PhoneNumberFirst1", true));
-            this.txtPhoneNumberFirst1.Location = new System.Drawing.Point(113, 124);
+            this.txtPhoneNumberFirst1.Location = new System.Drawing.Point(113, 119);
             this.txtPhoneNumberFirst1.MenuManager = this.ribbonControl;
             this.txtPhoneNumberFirst1.Name = "txtPhoneNumberFirst1";
             editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
@@ -783,7 +783,7 @@
             // txtPhoneNumberFirst2
             // 
             this.txtPhoneNumberFirst2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "PhoneNumberFirst2", true));
-            this.txtPhoneNumberFirst2.Location = new System.Drawing.Point(348, 124);
+            this.txtPhoneNumberFirst2.Location = new System.Drawing.Point(348, 119);
             this.txtPhoneNumberFirst2.MenuManager = this.ribbonControl;
             this.txtPhoneNumberFirst2.Name = "txtPhoneNumberFirst2";
             editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
@@ -797,7 +797,7 @@
             // txtPhoneNumberFirst3
             // 
             this.txtPhoneNumberFirst3.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "PhoneNumberFirst3", true));
-            this.txtPhoneNumberFirst3.Location = new System.Drawing.Point(539, 124);
+            this.txtPhoneNumberFirst3.Location = new System.Drawing.Point(539, 119);
             this.txtPhoneNumberFirst3.MenuManager = this.ribbonControl;
             this.txtPhoneNumberFirst3.Name = "txtPhoneNumberFirst3";
             editorButtonImageOptions3.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions3.SvgImage")));
@@ -811,7 +811,7 @@
             // txtFaxNumber1
             // 
             this.txtFaxNumber1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "FaxNumberFirst", true));
-            this.txtFaxNumber1.Location = new System.Drawing.Point(113, 153);
+            this.txtFaxNumber1.Location = new System.Drawing.Point(113, 148);
             this.txtFaxNumber1.MenuManager = this.ribbonControl;
             this.txtFaxNumber1.Name = "txtFaxNumber1";
             editorButtonImageOptions4.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions4.SvgImage")));
@@ -841,12 +841,12 @@
             this.lblLocations1,
             this.emptySpaceItem7});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(755, 229);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(755, 224);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // emptySpaceItem5
             // 
-            this.emptySpaceItem5.Location = new System.Drawing.Point(0, 194);
+            this.emptySpaceItem5.Location = new System.Drawing.Point(0, 189);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
             this.emptySpaceItem5.Size = new System.Drawing.Size(731, 11);
             this.emptySpaceItem5.Text = "W";
@@ -856,7 +856,7 @@
             this.lblAddress1.Control = this.txtAddress1;
             this.lblAddress1.Location = new System.Drawing.Point(0, 52);
             this.lblAddress1.Name = "lblAddress1";
-            this.lblAddress1.Size = new System.Drawing.Size(731, 58);
+            this.lblAddress1.Size = new System.Drawing.Size(731, 53);
             this.lblAddress1.Text = "Address";
             this.lblAddress1.TextSize = new System.Drawing.Size(84, 16);
             // 
@@ -889,7 +889,7 @@
             // lblPhoneNumberFirst1
             // 
             this.lblPhoneNumberFirst1.Control = this.txtPhoneNumberFirst1;
-            this.lblPhoneNumberFirst1.Location = new System.Drawing.Point(0, 110);
+            this.lblPhoneNumberFirst1.Location = new System.Drawing.Point(0, 105);
             this.lblPhoneNumberFirst1.Name = "lblPhoneNumberFirst1";
             this.lblPhoneNumberFirst1.Size = new System.Drawing.Size(334, 29);
             this.lblPhoneNumberFirst1.Text = "Phone Number";
@@ -898,7 +898,7 @@
             // lblPhoneNumberFirst2
             // 
             this.lblPhoneNumberFirst2.Control = this.txtPhoneNumberFirst2;
-            this.lblPhoneNumberFirst2.Location = new System.Drawing.Point(334, 110);
+            this.lblPhoneNumberFirst2.Location = new System.Drawing.Point(334, 105);
             this.lblPhoneNumberFirst2.Name = "lblPhoneNumberFirst2";
             this.lblPhoneNumberFirst2.Size = new System.Drawing.Size(191, 29);
             this.lblPhoneNumberFirst2.TextVisible = false;
@@ -906,7 +906,7 @@
             // lblFaxNumber1
             // 
             this.lblFaxNumber1.Control = this.txtFaxNumber1;
-            this.lblFaxNumber1.Location = new System.Drawing.Point(0, 139);
+            this.lblFaxNumber1.Location = new System.Drawing.Point(0, 134);
             this.lblFaxNumber1.Name = "lblFaxNumber1";
             this.lblFaxNumber1.Size = new System.Drawing.Size(334, 29);
             this.lblFaxNumber1.Text = "Fax Number";
@@ -915,23 +915,23 @@
             // lblPoBox1
             // 
             this.lblPoBox1.Control = this.txtPoBox1;
-            this.lblPoBox1.Location = new System.Drawing.Point(0, 168);
+            this.lblPoBox1.Location = new System.Drawing.Point(0, 163);
             this.lblPoBox1.Name = "lblPoBox1";
             this.lblPoBox1.Size = new System.Drawing.Size(731, 26);
-            this.lblPoBox1.Text = "PoBox";
+            this.lblPoBox1.Text = "PO Box";
             this.lblPoBox1.TextSize = new System.Drawing.Size(84, 16);
             // 
             // lblPhoneNumberFirst3
             // 
             this.lblPhoneNumberFirst3.Control = this.txtPhoneNumberFirst3;
-            this.lblPhoneNumberFirst3.Location = new System.Drawing.Point(525, 110);
+            this.lblPhoneNumberFirst3.Location = new System.Drawing.Point(525, 105);
             this.lblPhoneNumberFirst3.Name = "lblPhoneNumberFirst3";
             this.lblPhoneNumberFirst3.Size = new System.Drawing.Size(206, 29);
             this.lblPhoneNumberFirst3.TextVisible = false;
             // 
             // emptySpaceItem12
             // 
-            this.emptySpaceItem12.Location = new System.Drawing.Point(334, 139);
+            this.emptySpaceItem12.Location = new System.Drawing.Point(334, 134);
             this.emptySpaceItem12.Name = "emptySpaceItem12";
             this.emptySpaceItem12.Size = new System.Drawing.Size(397, 29);
             // 
@@ -954,7 +954,7 @@
             // 
             this.tabSecondAddress.Controls.Add(this.layoutControl2);
             this.tabSecondAddress.Name = "tabSecondAddress";
-            this.tabSecondAddress.Size = new System.Drawing.Size(764, 234);
+            this.tabSecondAddress.Size = new System.Drawing.Size(764, 229);
             this.tabSecondAddress.Text = "Second Address";
             // 
             // layoutControl2
@@ -972,7 +972,7 @@
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup2;
-            this.layoutControl2.Size = new System.Drawing.Size(764, 234);
+            this.layoutControl2.Size = new System.Drawing.Size(764, 229);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
             // 
@@ -1033,7 +1033,7 @@
             // txtPoBox2
             // 
             this.txtPoBox2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "PoBox2", true));
-            this.txtPoBox2.Location = new System.Drawing.Point(113, 187);
+            this.txtPoBox2.Location = new System.Drawing.Point(113, 182);
             this.txtPoBox2.MenuManager = this.ribbonControl;
             this.txtPoBox2.Name = "txtPoBox2";
             this.txtPoBox2.Size = new System.Drawing.Size(233, 22);
@@ -1043,7 +1043,7 @@
             // txtFaxNumber2
             // 
             this.txtFaxNumber2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "FaxNumberSecond", true));
-            this.txtFaxNumber2.Location = new System.Drawing.Point(113, 158);
+            this.txtFaxNumber2.Location = new System.Drawing.Point(113, 153);
             this.txtFaxNumber2.MenuManager = this.ribbonControl;
             this.txtFaxNumber2.Name = "txtFaxNumber2";
             editorButtonImageOptions5.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions5.SvgImage")));
@@ -1056,7 +1056,7 @@
             // 
             // txtPhoneNumberSecond3
             // 
-            this.txtPhoneNumberSecond3.Location = new System.Drawing.Point(538, 129);
+            this.txtPhoneNumberSecond3.Location = new System.Drawing.Point(538, 124);
             this.txtPhoneNumberSecond3.MenuManager = this.ribbonControl;
             this.txtPhoneNumberSecond3.Name = "txtPhoneNumberSecond3";
             editorButtonImageOptions6.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions6.SvgImage")));
@@ -1069,7 +1069,7 @@
             // 
             // txtPhoneNumberSecond1
             // 
-            this.txtPhoneNumberSecond1.Location = new System.Drawing.Point(113, 129);
+            this.txtPhoneNumberSecond1.Location = new System.Drawing.Point(113, 124);
             this.txtPhoneNumberSecond1.MenuManager = this.ribbonControl;
             this.txtPhoneNumberSecond1.Name = "txtPhoneNumberSecond1";
             editorButtonImageOptions7.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions7.SvgImage")));
@@ -1082,7 +1082,7 @@
             // 
             // txtPhoneNumberSecond2
             // 
-            this.txtPhoneNumberSecond2.Location = new System.Drawing.Point(350, 129);
+            this.txtPhoneNumberSecond2.Location = new System.Drawing.Point(350, 124);
             this.txtPhoneNumberSecond2.MenuManager = this.ribbonControl;
             this.txtPhoneNumberSecond2.Name = "txtPhoneNumberSecond2";
             editorButtonImageOptions8.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions8.SvgImage")));
@@ -1098,7 +1098,7 @@
             this.txtAddress2.Location = new System.Drawing.Point(113, 66);
             this.txtAddress2.MenuManager = this.ribbonControl;
             this.txtAddress2.Name = "txtAddress2";
-            this.txtAddress2.Size = new System.Drawing.Size(637, 59);
+            this.txtAddress2.Size = new System.Drawing.Size(637, 54);
             this.txtAddress2.StyleController = this.layoutControl2;
             this.txtAddress2.TabIndex = 6;
             // 
@@ -1207,7 +1207,7 @@
             this.emptySpaceItem15,
             this.emptySpaceItem14});
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(764, 234);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(764, 229);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // lblCountry2
@@ -1221,7 +1221,7 @@
             // 
             // emptySpaceItem13
             // 
-            this.emptySpaceItem13.Location = new System.Drawing.Point(0, 199);
+            this.emptySpaceItem13.Location = new System.Drawing.Point(0, 194);
             this.emptySpaceItem13.Name = "emptySpaceItem13";
             this.emptySpaceItem13.Size = new System.Drawing.Size(740, 11);
             // 
@@ -1241,14 +1241,14 @@
             this.lblAddress2.Control = this.txtAddress2;
             this.lblAddress2.Location = new System.Drawing.Point(0, 52);
             this.lblAddress2.Name = "lblAddress2";
-            this.lblAddress2.Size = new System.Drawing.Size(740, 63);
+            this.lblAddress2.Size = new System.Drawing.Size(740, 58);
             this.lblAddress2.Text = "Address";
             this.lblAddress2.TextSize = new System.Drawing.Size(84, 16);
             // 
             // lblPhoneNumberSecond2
             // 
             this.lblPhoneNumberSecond2.Control = this.txtPhoneNumberSecond2;
-            this.lblPhoneNumberSecond2.Location = new System.Drawing.Point(336, 115);
+            this.lblPhoneNumberSecond2.Location = new System.Drawing.Point(336, 110);
             this.lblPhoneNumberSecond2.Name = "lblPhoneNumberSecond2";
             this.lblPhoneNumberSecond2.Size = new System.Drawing.Size(188, 29);
             this.lblPhoneNumberSecond2.TextVisible = false;
@@ -1256,7 +1256,7 @@
             // lblPhoneNumberSecond1
             // 
             this.lblPhoneNumberSecond1.Control = this.txtPhoneNumberSecond1;
-            this.lblPhoneNumberSecond1.Location = new System.Drawing.Point(0, 115);
+            this.lblPhoneNumberSecond1.Location = new System.Drawing.Point(0, 110);
             this.lblPhoneNumberSecond1.Name = "lblPhoneNumberSecond1";
             this.lblPhoneNumberSecond1.Size = new System.Drawing.Size(336, 29);
             this.lblPhoneNumberSecond1.Text = "Phone Number";
@@ -1265,7 +1265,7 @@
             // lblPhoneNumberSecond3
             // 
             this.lblPhoneNumberSecond3.Control = this.txtPhoneNumberSecond3;
-            this.lblPhoneNumberSecond3.Location = new System.Drawing.Point(524, 115);
+            this.lblPhoneNumberSecond3.Location = new System.Drawing.Point(524, 110);
             this.lblPhoneNumberSecond3.Name = "lblPhoneNumberSecond3";
             this.lblPhoneNumberSecond3.Size = new System.Drawing.Size(216, 29);
             this.lblPhoneNumberSecond3.TextVisible = false;
@@ -1273,7 +1273,7 @@
             // lblFaxNumber2
             // 
             this.lblFaxNumber2.Control = this.txtFaxNumber2;
-            this.lblFaxNumber2.Location = new System.Drawing.Point(0, 144);
+            this.lblFaxNumber2.Location = new System.Drawing.Point(0, 139);
             this.lblFaxNumber2.Name = "lblFaxNumber2";
             this.lblFaxNumber2.Size = new System.Drawing.Size(336, 29);
             this.lblFaxNumber2.Text = "Fax Number";
@@ -1282,7 +1282,7 @@
             // lblPoBox2
             // 
             this.lblPoBox2.Control = this.txtPoBox2;
-            this.lblPoBox2.Location = new System.Drawing.Point(0, 173);
+            this.lblPoBox2.Location = new System.Drawing.Point(0, 168);
             this.lblPoBox2.Name = "lblPoBox2";
             this.lblPoBox2.Size = new System.Drawing.Size(336, 26);
             this.lblPoBox2.Text = "PoBox";
@@ -1305,7 +1305,7 @@
             // 
             // emptySpaceItem15
             // 
-            this.emptySpaceItem15.Location = new System.Drawing.Point(336, 144);
+            this.emptySpaceItem15.Location = new System.Drawing.Point(336, 139);
             this.emptySpaceItem15.Name = "emptySpaceItem15";
             this.emptySpaceItem15.Size = new System.Drawing.Size(404, 55);
             // 
@@ -1318,7 +1318,7 @@
             // txtClientInitial
             // 
             this.txtClientInitial.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "ClientInitial", true));
-            this.txtClientInitial.Location = new System.Drawing.Point(112, 54);
+            this.txtClientInitial.Location = new System.Drawing.Point(112, 80);
             this.txtClientInitial.MenuManager = this.ribbonControl;
             this.txtClientInitial.Name = "txtClientInitial";
             this.txtClientInitial.Size = new System.Drawing.Size(239, 22);
@@ -1646,7 +1646,7 @@
             // txtClientName
             // 
             this.txtClientName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "ClientName", true));
-            this.txtClientName.Location = new System.Drawing.Point(112, 80);
+            this.txtClientName.Location = new System.Drawing.Point(112, 54);
             this.txtClientName.MenuManager = this.ribbonControl;
             this.txtClientName.Name = "txtClientName";
             this.txtClientName.Size = new System.Drawing.Size(757, 22);
@@ -1707,7 +1707,6 @@
             // 
             this.grpClientInfo.GroupStyle = DevExpress.Utils.GroupStyle.Light;
             this.grpClientInfo.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lblClientName,
             this.lblEmail,
             this.lblWebsite,
             this.lblMofNo3,
@@ -1715,21 +1714,13 @@
             this.emptySpaceItem11,
             this.emptySpaceItem10,
             this.lblClientInitial,
+            this.lblAddress,
             this.emptySpaceItem2,
-            this.lblAddress});
+            this.lblClientName});
             this.grpClientInfo.Location = new System.Drawing.Point(0, 0);
             this.grpClientInfo.Name = "grpClientInfo";
             this.grpClientInfo.Size = new System.Drawing.Size(873, 444);
             this.grpClientInfo.Text = "Client Info";
-            // 
-            // lblClientName
-            // 
-            this.lblClientName.Control = this.txtClientName;
-            this.lblClientName.Location = new System.Drawing.Point(0, 26);
-            this.lblClientName.Name = "lblClientName";
-            this.lblClientName.Size = new System.Drawing.Size(845, 26);
-            this.lblClientName.Text = "Client Name";
-            this.lblClientName.TextSize = new System.Drawing.Size(69, 16);
             // 
             // lblEmail
             // 
@@ -1762,9 +1753,9 @@
             // 
             // emptySpaceItem9
             // 
-            this.emptySpaceItem9.Location = new System.Drawing.Point(0, 325);
+            this.emptySpaceItem9.Location = new System.Drawing.Point(0, 321);
             this.emptySpaceItem9.Name = "emptySpaceItem9";
-            this.emptySpaceItem9.Size = new System.Drawing.Size(845, 10);
+            this.emptySpaceItem9.Size = new System.Drawing.Size(845, 14);
             // 
             // emptySpaceItem11
             // 
@@ -1774,33 +1765,42 @@
             // 
             // emptySpaceItem10
             // 
-            this.emptySpaceItem10.Location = new System.Drawing.Point(0, 315);
+            this.emptySpaceItem10.Location = new System.Drawing.Point(0, 310);
             this.emptySpaceItem10.Name = "emptySpaceItem10";
-            this.emptySpaceItem10.Size = new System.Drawing.Size(845, 10);
+            this.emptySpaceItem10.Size = new System.Drawing.Size(845, 11);
             // 
             // lblClientInitial
             // 
             this.lblClientInitial.Control = this.txtClientInitial;
-            this.lblClientInitial.Location = new System.Drawing.Point(0, 0);
+            this.lblClientInitial.Location = new System.Drawing.Point(0, 26);
             this.lblClientInitial.Name = "lblClientInitial";
             this.lblClientInitial.Size = new System.Drawing.Size(327, 26);
             this.lblClientInitial.Text = "Client Initial";
             this.lblClientInitial.TextSize = new System.Drawing.Size(69, 16);
-            // 
-            // emptySpaceItem2
-            // 
-            this.emptySpaceItem2.Location = new System.Drawing.Point(327, 0);
-            this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(518, 26);
             // 
             // lblAddress
             // 
             this.lblAddress.Control = this.xtraTabControl1;
             this.lblAddress.Location = new System.Drawing.Point(0, 52);
             this.lblAddress.Name = "lblAddress";
-            this.lblAddress.Size = new System.Drawing.Size(845, 263);
+            this.lblAddress.Size = new System.Drawing.Size(845, 258);
             this.lblAddress.Text = "Address";
             this.lblAddress.TextSize = new System.Drawing.Size(69, 16);
+            // 
+            // emptySpaceItem2
+            // 
+            this.emptySpaceItem2.Location = new System.Drawing.Point(327, 26);
+            this.emptySpaceItem2.Name = "emptySpaceItem2";
+            this.emptySpaceItem2.Size = new System.Drawing.Size(518, 26);
+            // 
+            // lblClientName
+            // 
+            this.lblClientName.Control = this.txtClientName;
+            this.lblClientName.Location = new System.Drawing.Point(0, 0);
+            this.lblClientName.Name = "lblClientName";
+            this.lblClientName.Size = new System.Drawing.Size(845, 26);
+            this.lblClientName.Text = "Client Name";
+            this.lblClientName.TextSize = new System.Drawing.Size(69, 16);
             // 
             // grpContactDetails
             // 
@@ -1952,7 +1952,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpClientInfo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lblClientName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblEmail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblWebsite)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblMofNo3)).EndInit();
@@ -1960,8 +1959,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblClientInitial)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAddress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblClientName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpContactDetails)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
@@ -2042,7 +2042,6 @@
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem11;
 		private DevExpress.XtraEditors.TextEdit txtClientInitial;
 		private DevExpress.XtraLayout.LayoutControlItem lblClientInitial;
-		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
 		private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
 		private DevExpress.XtraTab.XtraTabPage tabFirstAddress;
 		private DevExpress.XtraTab.XtraTabPage tabSecondAddress;
@@ -2128,5 +2127,6 @@
 		private DevExpress.XtraGrid.Columns.GridColumn colFinancialSummary;
 		private DevExpress.XtraGrid.Columns.GridColumn colNotes1;
 		private DevExpress.XtraGrid.Columns.GridColumn colActive1;
-	}
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+    }
 }
