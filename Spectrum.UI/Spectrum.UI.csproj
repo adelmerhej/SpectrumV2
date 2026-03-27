@@ -480,6 +480,12 @@
     <Compile Include="Views\Projects\ProjectsListForm.Designer.cs">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Reports\DocumentViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\DocumentViewerForm.Designer.cs">
+      <DependentUpon>DocumentViewerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Transactions\Expenses\ExpensesListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -757,6 +763,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Projects\ProjectsListForm.resx">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Reports\DocumentViewerForm.resx">
+      <DependentUpon>DocumentViewerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Transactions\Expenses\ExpensesListForm.resx">
       <DependentUpon>ExpensesListForm.cs</DependentUpon>
