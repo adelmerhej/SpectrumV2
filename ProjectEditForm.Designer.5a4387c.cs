@@ -1430,6 +1430,7 @@
             // dtIssuanceDate
             // 
             this.tablePanel1.SetColumn(this.dtIssuanceDate, 1);
+            this.dtIssuanceDate.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsProject, "IssuanceDate", true));
             this.dtIssuanceDate.EditValue = null;
             this.dtIssuanceDate.Location = new System.Drawing.Point(142, 222);
             this.dtIssuanceDate.MenuManager = this.rcMain;

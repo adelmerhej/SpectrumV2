@@ -87,6 +87,10 @@ namespace Spectrum.Models.Projects
 		[BsonRepresentation(BsonType.Int32)]
 		public int? YearOfIssuance { get; set; }                    // "Year of Issuance"
 
+		[BsonElement("IssuanceDate")]
+		[BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+		public DateTime? IssuanceDate { get; set; }
+
 		public DateTime? ProjectDate { get; set; }                  // "ProjectDate Date"
 		public DateTime? SignatureDate { get; set; }                  // "Signature Date"
 

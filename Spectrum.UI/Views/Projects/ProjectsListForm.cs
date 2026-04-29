@@ -49,6 +49,7 @@ namespace Spectrum.Views.Projects
 			btnEdit.ItemClick += btnEdit_ItemClick;
 			btnDelete.ItemClick += btnDelete_ItemClick;
 			btnPrint.ItemClick += btnPrint_ItemClick;
+			btnBuildReport.ItemClick += btnBuildReport_ItemClick;
 			btnRefresh.ItemClick += btnRefresh_ItemClick;
 			btnClose.ItemClick += btnClose_ItemClick;
 			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
@@ -91,6 +92,7 @@ namespace Spectrum.Views.Projects
 			btnNew.Enabled = _isAdmin || _canAdd;
 			btnEdit.Enabled = _isAdmin || _canEdit;
 			btnPrint.Enabled = _isAdmin || _canPrint;
+			btnBuildReport.Enabled = _isAdmin || _canPrint;
 			btnDelete.Enabled = _isAdmin || _canDelete;
 		}
 
@@ -127,6 +129,19 @@ namespace Spectrum.Views.Projects
 		private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			gcProjects.ShowRibbonPrintPreview();
+		}
+
+		private void btnBuildReport_ItemClick(object sender, ItemClickEventArgs e)
+		{
+			var currentProject = gvProjects.GetFocusedRow() as ProjectModel;
+			if (currentProject == null)
+			{
+				XtraMessageBox.Show("Select a project first.", "Build Report", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				return;
+			}
+
+			using (var form = new ProjectReportDesignerForm(currentProject))
+				form.ShowDialog(this);
 		}
 
 		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
