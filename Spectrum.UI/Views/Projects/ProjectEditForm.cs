@@ -91,6 +91,85 @@ namespace Spectrum.Views.Projects
             StartLoading();
         }
 
+        private void cboCountries_EditValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cboCountries.EditValue == null) return;
+                var id = cboCountries.EditValue.ToString();
+                var selected = _countries.FirstOrDefault(x => x._id == id);
+                if (selected == null) return;
+
+                // filter cities to selected country
+                var filtered = _cities.Where(c => string.Equals(c.Country, selected.CountryName, StringComparison.OrdinalIgnoreCase)).ToList();
+                cboCities.Properties.DataSource = null;
+                cboCities.Properties.DataSource = filtered;
+
+                // ensure project model Location.Country is set via reflection
+                var locationProp = typeof(ProjectModel).GetProperty("Location");
+                var locationInfoType = typeof(ProjectModel).Assembly.GetType("Spectrum.Models.Projects.LocationInfoModel");
+                if (locationProp == null || locationInfoType == null) return;
+
+                var locationInfo = locationProp.GetValue(_projectModel);
+                if (locationInfo == null)
+                {
+                    locationInfo = Activator.CreateInstance(locationInfoType);
+                    locationProp.SetValue(_projectModel, locationInfo);
+                }
+
+                locationInfoType.GetProperty("Country")?.SetValue(locationInfo, selected.CountryName);
+            }
+            catch
+            {
+                // ignore
+            }
+        }
+
+        private void cboCities_EditValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cboCities.EditValue == null) return;
+                var id = cboCities.EditValue.ToString();
+                var selected = _cities.FirstOrDefault(x => x._id == id);
+                if (selected == null) return;
+
+                var locationProp = typeof(ProjectModel).GetProperty("Location");
+                var locationInfoType = typeof(ProjectModel).Assembly.GetType("Spectrum.Models.Projects.LocationInfoModel");
+                if (locationProp == null || locationInfoType == null) return;
+
+                var locationInfo = locationProp.GetValue(_projectModel);
+                if (locationInfo == null)
+                {
+                    locationInfo = Activator.CreateInstance(locationInfoType);
+                    locationProp.SetValue(_projectModel, locationInfo);
+                }
+
+                locationInfoType.GetProperty("City")?.SetValue(locationInfo, selected.CityName);
+
+                // if country is empty on location, set it from city.Country
+                var countryProp = locationInfoType.GetProperty("Country");
+                if (countryProp != null)
+                {
+                    var cur = countryProp.GetValue(locationInfo) as string;
+                    if (string.IsNullOrEmpty(cur) && !string.IsNullOrEmpty(selected.Country))
+                    {
+                        // try to find matching country name
+                        var countryMatch = _countries.FirstOrDefault(c => string.Equals(c.CountryName, selected.Country, StringComparison.OrdinalIgnoreCase) || string.Equals(c.CountryCode, selected.Country, StringComparison.OrdinalIgnoreCase));
+                        if (countryMatch != null)
+                        {
+                            countryProp.SetValue(locationInfo, countryMatch.CountryName);
+                            cboCountries.EditValue = countryMatch._id;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // ignore
+            }
+        }
+
         private void SyncContractClientFromProjectClient()
         {
             try
@@ -136,9 +215,13 @@ namespace Spectrum.Views.Projects
                 if (locationInfoType == null) return;
 
                 var locationInfo = Activator.CreateInstance(locationInfoType);
-                locationInfoType.GetProperty("_id")?.SetValue(locationInfo, selected._id);
+                // Project uses LocationInfoModel which stores RawLocation/Country/City.
+                // Populate RawLocation from selected location's LocationName so reports see it.
+                locationInfoType.GetProperty("RawLocation")?.SetValue(locationInfo, selected.LocationName);
+                // Keep LocationCode as fallback if the info model has a matching property
                 locationInfoType.GetProperty("LocationCode")?.SetValue(locationInfo, selected.LocationCode);
-                locationInfoType.GetProperty("LocationName")?.SetValue(locationInfo, selected.LocationName);
+                // Attempt to set an _id if the info model stores it (non-standard)
+                locationInfoType.GetProperty("_id")?.SetValue(locationInfo, selected._id);
 
                 typeof(ProjectModel).GetProperty("Location")?.SetValue(_projectModel, locationInfo);
             }
@@ -219,6 +302,17 @@ namespace Spectrum.Views.Projects
             cboLocations.Properties.ValueMember = "_id";
             cboLocations.Properties.DataSource = _locations;
 
+            // Countries and Cities - bind to repositories
+            cboCountries.Properties.DataSource = null;
+            cboCountries.Properties.DisplayMember = "CountryName";
+            cboCountries.Properties.ValueMember = "_id";
+            cboCountries.Properties.DataSource = _countries;
+
+            cboCities.Properties.DataSource = null;
+            cboCities.Properties.DisplayMember = "CityName";
+            cboCities.Properties.ValueMember = "_id";
+            cboCities.Properties.DataSource = _cities;
+
             // Set initial selection from project model (if any)
             try
             {
@@ -246,6 +340,20 @@ namespace Spectrum.Views.Projects
                                     if (match != null) cboLocations.EditValue = match._id;
                                 }
                             }
+                            else
+                            {
+                                // Some LocationInfoModel instances use RawLocation instead of LocationName
+                                var rawProp = locVal.GetType().GetProperty("RawLocation");
+                                if (rawProp != null)
+                                {
+                                    var raw = rawProp.GetValue(locVal) as string;
+                                    if (!string.IsNullOrEmpty(raw))
+                                    {
+                                        var matchRaw = _locations.FirstOrDefault(x => x.LocationName == raw);
+                                        if (matchRaw != null) cboLocations.EditValue = matchRaw._id;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -257,6 +365,68 @@ namespace Spectrum.Views.Projects
 
             // Whenever user changes selection, update project model Location via reflection
             cboLocations.EditValueChanged += cboLocations_EditValueChanged;
+
+            // Ensure issuance date and year controls reflect model values
+            try
+            {
+                if (_projectModel != null)
+                {
+                    if (_projectModel.IssuanceDate.HasValue)
+                        dtIssuanceDate.EditValue = _projectModel.IssuanceDate.Value;
+
+                    if (_projectModel.YearOfIssuance.HasValue)
+                        dtIssuanceYear.EditValue = _projectModel.YearOfIssuance.Value;
+                }
+            }
+            catch
+            {
+                // ignore
+            }
+
+            // Countries/Cities initial selection from project model (if any)
+            try
+            {
+                var locProp2 = _projectModel.GetType().GetProperty("Location");
+                if (locProp2 != null)
+                {
+                    var locVal2 = locProp2.GetValue(_projectModel);
+                    if (locVal2 != null)
+                    {
+                        var countryProp = locVal2.GetType().GetProperty("Country");
+                        if (countryProp != null)
+                        {
+                            var countryName = countryProp.GetValue(locVal2) as string;
+                            if (!string.IsNullOrEmpty(countryName))
+                            {
+                                var match = _countries.FirstOrDefault(x => string.Equals(x.CountryName, countryName, StringComparison.OrdinalIgnoreCase));
+                                if (match != null) cboCountries.EditValue = match._id;
+                            }
+                        }
+
+                        var cityProp = locVal2.GetType().GetProperty("City");
+                        if (cityProp != null)
+                        {
+                            var cityName = cityProp.GetValue(locVal2) as string;
+                            if (!string.IsNullOrEmpty(cityName))
+                            {
+                                var matchCity = _cities.FirstOrDefault(x => string.Equals(x.CityName, cityName, StringComparison.OrdinalIgnoreCase));
+                                if (matchCity != null) cboCities.EditValue = matchCity._id;
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // ignore
+            }
+
+            // Wire countries and cities changes
+            cboCountries.EditValueChanged -= cboCountries_EditValueChanged;
+            cboCountries.EditValueChanged += cboCountries_EditValueChanged;
+
+            cboCities.EditValueChanged -= cboCities_EditValueChanged;
+            cboCities.EditValueChanged += cboCities_EditValueChanged;
 
             // Keep contract client in sync with project client.
             cboClients.EditValueChanged -= cboClients_EditValueChanged;
@@ -358,6 +528,45 @@ namespace Spectrum.Views.Projects
                 _projectModel.ServicesProvided = GetCheckedItems(cboServicesProvided);
                 _projectModel.ServiceTypes = GetCheckedItems(cboServicesType);
 
+                // Ensure Location.Country and Location.City are set from selected lookups
+                try
+                {
+                    var locationProp = typeof(ProjectModel).GetProperty("Location");
+                    var locationInfoType = typeof(ProjectModel).Assembly.GetType("Spectrum.Models.Projects.LocationInfoModel");
+                    if (locationProp != null && locationInfoType != null)
+                    {
+                        var locationInfo = locationProp.GetValue(_projectModel);
+                        if (locationInfo == null)
+                        {
+                            locationInfo = Activator.CreateInstance(locationInfoType);
+                            locationProp.SetValue(_projectModel, locationInfo);
+                        }
+
+                        if (cboCountries.EditValue != null)
+                        {
+                            var country = _countries.FirstOrDefault(c => c._id == cboCountries.EditValue.ToString());
+                            if (country != null) locationInfoType.GetProperty("Country")?.SetValue(locationInfo, country.CountryName);
+                        }
+
+                        if (cboCities.EditValue != null)
+                        {
+                            var city = _cities.FirstOrDefault(c => c._id == cboCities.EditValue.ToString());
+                            if (city != null) locationInfoType.GetProperty("City")?.SetValue(locationInfo, city.CityName);
+                        }
+
+                        // If a location (from the Locations lookup) is selected, store its display name into RawLocation
+                        if (cboLocations.EditValue != null)
+                        {
+                            var loc = _locations.FirstOrDefault(l => l._id == cboLocations.EditValue.ToString());
+                            if (loc != null) locationInfoType.GetProperty("RawLocation")?.SetValue(locationInfo, loc.LocationName);
+                        }
+                    }
+                }
+                catch
+                {
+                    // ignore
+                }
+
                 //if (!string.IsNullOrEmpty(cboStatus.Text))
                 //{
                 //	if (Enum.TryParse<ProjectStatus>(cboStatus.Text, out var st)) _projectModel.Status = st;
@@ -372,6 +581,29 @@ namespace Spectrum.Views.Projects
                 else
                 {
                     _logInfoRepository.UpdateLogInfo(_projectModel);
+                    // Ensure issuance date/year are propagated to the model from the UI controls
+                    try
+                    {
+                        if (dtIssuanceDate != null && dtIssuanceDate.EditValue != null && DateTime.TryParse(dtIssuanceDate.EditValue.ToString(), out var issDate))
+                        {
+                            _projectModel.IssuanceDate = issDate;
+                        }
+
+                        if (dtIssuanceYear != null && dtIssuanceYear.EditValue != null)
+                        {
+                            if (int.TryParse(dtIssuanceYear.EditValue.ToString(), out var y)) _projectModel.YearOfIssuance = y;
+                            else if (_projectModel.IssuanceDate.HasValue) _projectModel.YearOfIssuance = _projectModel.IssuanceDate.Value.Year;
+                        }
+                        else if (_projectModel.IssuanceDate.HasValue)
+                        {
+                            _projectModel.YearOfIssuance = _projectModel.IssuanceDate.Value.Year;
+                        }
+                    }
+                    catch
+                    {
+                        // ignore parsing errors
+                    }
+
                     await _projectRepository.UpdateProjectAsync(_projectModel);
                 }
                 SendUpdatedProject?.Invoke(_projectModel, EventArgs.Empty);
@@ -593,7 +825,7 @@ namespace Spectrum.Views.Projects
 
             cboCountries.Properties.DataSource = null;
             cboCountries.Properties.DataSource = _countries;
-            if (_countryModel != null) cboCountries.EditValue = _countryModel.CountryName;
+            if (_countryModel != null) cboCountries.EditValue = _countryModel._id;
         }
 
         private void RcvUpdatedCity(object sender, EventArgs e)

@@ -15,6 +15,18 @@ namespace Spectrum.Reports.Interfaces
 	}
 
 	/// <summary>
+	/// Optional interface implemented by adapters that require specific worksheet names
+	/// to be present in the editable workbook (for example: "Invoices", "Addendums").
+	/// </summary>
+	public interface IWorksheetRequirements
+	{
+		/// <summary>
+		/// Returns the set of worksheet names that the adapter expects to exist in the workbook.
+		/// </summary>
+		IEnumerable<string> RequiredWorksheetNames();
+	}
+
+	/// <summary>
 	/// Describes a single column for the DevExpress GridControl.
 	/// </summary>
 	public class GridColumnDescriptor

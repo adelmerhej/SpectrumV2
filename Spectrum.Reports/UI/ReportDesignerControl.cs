@@ -27,6 +27,11 @@ namespace Spectrum.Reports.UI
 	{
 		private IReportAdapter _currentAdapter;
 		private SpreadsheetReportEditorController _editorController;
+		// Format painter state
+		private bool _formatPainterActive = false;
+		private dynamic _formatSourceRange;
+		private DevExpress.Spreadsheet.Worksheet _formatSourceWorksheet;
+		
 		private bool _isSectionMode;
 		private bool _handlingFieldTreeCheck;
 		private bool _hasPendingDataChanges;
@@ -62,6 +67,7 @@ namespace Spectrum.Reports.UI
 			BuildFieldList();
 			RefreshSummary();
 			UpdateButtonStates();
+			try { if (this._biFormatPainter != null) this._biFormatPainter.Enabled = true; } catch { }
 		}
 
 		/// <summary>
@@ -632,6 +638,107 @@ namespace Spectrum.Reports.UI
 			{
 				object val = (fd.GetValue != null) ? fd.GetValue() : null;
 				SetCellValue(ws, row + 1, col, val, fd.FormatString);
+			}
+		}
+
+		// Format Painter: copy formatting from a source selection to target selection.
+		private void OnFormatPainterClick(object sender, ItemClickEventArgs e)
+		{
+			try
+			{
+			var doc = _spreadsheetControl?.Document;
+			if (doc == null) return;
+
+			if (!_formatPainterActive)
+			{
+				// start painter: store current selection as source
+				var sel = _spreadsheetControl.Selection;
+			if (sel == null || sel.RowCount == 0 || sel.ColumnCount == 0) return;
+				_formatSourceRange = sel;
+				_formatSourceWorksheet = sel.Worksheet;
+				_formatPainterActive = true;
+				// change cursor to indicate painter
+				_spreadsheetControl.Cursor = Cursors.Cross;
+			}
+			else
+			{
+				// cancel
+				_formatPainterActive = false;
+				_formatSourceRange = null;
+				_formatSourceWorksheet = null;
+				_spreadsheetControl.Cursor = Cursors.Default;
+			}
+			}
+			catch
+			{
+				// ignore
+			}
+		}
+
+		private void OnSpreadsheetSelectionChanged(object sender, EventArgs e)
+		{
+			if (!_formatPainterActive || _formatSourceRange == null) return;
+			try
+			{
+			var target = _spreadsheetControl.Selection;
+			if (target == null || target.RowCount == 0 || target.ColumnCount == 0) return;
+
+				// if target is the same as source, ignore
+				if (target.Worksheet == _formatSourceWorksheet && target.TopRowIndex == _formatSourceRange.TopRowIndex && target.LeftColumnIndex == _formatSourceRange.LeftColumnIndex && target.RowCount == _formatSourceRange.RowCount && target.ColumnCount == _formatSourceRange.ColumnCount)
+				{
+					return;
+				}
+
+				ApplyFormatting(_formatSourceRange, target);
+			}
+			finally
+			{
+				// one-shot painter behavior: reset
+				_formatPainterActive = false;
+				_formatSourceRange = null;
+				_formatSourceWorksheet = null;
+				_spreadsheetControl.Cursor = Cursors.Default;
+				// uncheck ribbon button if available
+				try { if (this._biFormatPainter != null) this._biFormatPainter.Down = false; } catch { }
+			}
+		}
+
+		private void ApplyFormatting(dynamic source, dynamic target)
+		{
+			if (source == null || target == null) return;
+			var doc = _spreadsheetControl.Document;
+			doc.BeginUpdate();
+			try
+			{
+				int srcRows = source.RowCount;
+				int srcCols = source.ColumnCount;
+				for (int r = 0; r < target.RowCount; r++)
+				{
+					for (int c = 0; c < target.ColumnCount; c++)
+					{
+						var srcCell = source.Worksheet.Cells[source.TopRowIndex + (r % srcRows), source.LeftColumnIndex + (c % srcCols)];
+						var dstCell = target.Worksheet.Cells[target.TopRowIndex + r, target.LeftColumnIndex + c];
+						// copy style
+						try
+						{
+							dstCell.Style = srcCell.Style;
+						}
+						catch
+						{
+							// fallback: copy specific properties
+							dstCell.Font.Assign(srcCell.Font);
+							dstCell.Fill.Assign(srcCell.Fill);
+							dstCell.Borders.Assign(srcCell.Borders);
+							dstCell.Alignment.Horizontal = srcCell.Alignment.Horizontal;
+							dstCell.Alignment.Vertical = srcCell.Alignment.Vertical;
+							dstCell.NumberFormat = srcCell.NumberFormat;
+						}
+					}
+				}
+			}
+			finally
+			{
+				doc.EndUpdate();
 			}
 		}
 

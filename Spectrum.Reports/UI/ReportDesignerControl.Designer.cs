@@ -41,6 +41,7 @@
 			this._spreadsheetControl.ActiveSheetChanged += new DevExpress.Spreadsheet.ActiveSheetChangedEventHandler(this.OnSpreadsheetActiveSheetChanged);
 			this._spreadsheetControl.CellValueChanged += new DevExpress.XtraSpreadsheet.CellValueChangedEventHandler(this.OnSpreadsheetCellValueChanged);
 			this._spreadsheetControl.RowsInserted += new DevExpress.Spreadsheet.RowsInsertedEventHandler(this.OnSpreadsheetRowsInserted);
+			this._spreadsheetControl.SelectionChanged += new System.EventHandler(this.OnSpreadsheetSelectionChanged);
 
 			// ظ¤ظ¤ Built-in Spreadsheet Ribbon ظ¤ظ¤
 			// Creates all standard tabs: Home, Insert, Page Layout, Formulas, Data, Review, View
@@ -67,6 +68,9 @@
 			this._biInsertVertical = CreateReportBarButton("Label \u2193 Value", "AlignVerticalCenter", OnInsertVerticalClick);
             this._biToggleFieldList = CreateReportBarButton("Field List", "ListBullets", OnToggleFieldListClick);
 			this._biSectionMode = CreateReportBarButton("Add Section Mode", "Select", OnToggleSectionModeClick);
+            // Format Painter button
+            this._biFormatPainter = CreateReportBarButton("Format Painter", "FormatPainter", OnFormatPainterClick);
+            this._biFormatPainter.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.Check;
 
 			// Layout group
 			this._biBestFit = CreateReportBarButton("Best Fit", "BestFit", OnBestFitClick);
@@ -81,7 +85,7 @@
 			// Register custom items with the ribbon
 			this._ribbonControl.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
 				this._biInsertValue, this._biInsertHorizontal, this._biInsertVertical,
-				this._biToggleFieldList, this._biSectionMode,
+				this._biToggleFieldList, this._biSectionMode, this._biFormatPainter,
 				this._biBestFit, this._biApplyA4
 				, this._biSaveLayout, this._biLoadLayout, this._biSetDefaultLayout, this._biSaveData
 			});
@@ -95,6 +99,7 @@
 			groupFields.ItemLinks.Add(this._biInsertVertical);
 			groupFields.ItemLinks.Add(this._biToggleFieldList);
 			groupFields.ItemLinks.Add(this._biSectionMode);
+			groupFields.ItemLinks.Add(this._biFormatPainter);
 
 			var groupLayout = new DevExpress.XtraBars.Ribbon.RibbonPageGroup("Layout");
 			groupLayout.ItemLinks.Add(this._biBestFit);
@@ -210,6 +215,7 @@
 		private DevExpress.XtraBars.BarButtonItem _biInsertVertical;
 		private DevExpress.XtraBars.BarButtonItem _biToggleFieldList;
 		private DevExpress.XtraBars.BarButtonItem _biSectionMode;
+		private DevExpress.XtraBars.BarButtonItem _biFormatPainter;
 		private DevExpress.XtraBars.BarButtonItem _biBestFit;
 		private DevExpress.XtraBars.BarButtonItem _biApplyA4;
 		private DevExpress.XtraBars.BarButtonItem _biSaveLayout;

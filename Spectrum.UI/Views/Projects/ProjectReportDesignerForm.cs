@@ -2,7 +2,7 @@
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.DataLayers.Projects;
 using Spectrum.Models.Projects;
-using Spectrum.Reports.Projects;
+using Spectrum.Reports.Adapters.Projects;
 using Spectrum.Reports.UI;
 using System;
 using System.Windows.Forms;

@@ -2,7 +2,7 @@
 using DevExpress.XtraEditors;
 using DevExpress.XtraSpreadsheet;
 using Spectrum.Reports.Interfaces;
-using Spectrum.Reports.Projects;
+using Spectrum.Reports.Adapters.Projects;
 using System;
 using System.Windows.Forms;
 

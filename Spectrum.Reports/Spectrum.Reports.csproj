@@ -67,6 +67,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\Projects\ProjectReportAdapter.cs" />
     <Compile Include="Editors\ISpreadsheetReportEditorAdapter.cs" />
     <Compile Include="Editors\OrderSpreadsheetReportEditorAdapter.cs" />
     <Compile Include="Editors\SpreadsheetReportEditorAdapterRegistry.cs" />
@@ -94,7 +95,6 @@
     <Compile Include="Modules\ReportPreviewModule.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Projects\ProjectReportAdapter.cs" />
     <Compile Include="UI\ReportDesignerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -116,6 +116,7 @@
     <Folder Include="Members\Suppliers\" />
     <Folder Include="Operations\Projects\" />
     <Folder Include="Operations\Quotations\" />
+    <Folder Include="Projects\" />
     <Folder Include="Users\" />
   </ItemGroup>
   <ItemGroup>
