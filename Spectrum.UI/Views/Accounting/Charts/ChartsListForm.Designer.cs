@@ -272,7 +272,7 @@
             this.colNotes});
             this.chartTreeList.DataSource = this.bsCharts;
             this.chartTreeList.KeyFieldName = "Id";
-            this.chartTreeList.Location = new System.Drawing.Point(12, 12);
+            this.chartTreeList.Location = new System.Drawing.Point(14, 14);
             this.chartTreeList.MenuManager = this.rcCharts;
             this.chartTreeList.MinWidth = 23;
             this.chartTreeList.Name = "chartTreeList";
@@ -282,7 +282,7 @@
             this.chartTreeList.OptionsView.AutoWidth = false;
             this.chartTreeList.OptionsView.ShowTreeLines = DevExpress.Utils.DefaultBoolean.True;
             this.chartTreeList.ParentFieldName = "ParentId";
-            this.chartTreeList.Size = new System.Drawing.Size(1388, 541);
+            this.chartTreeList.Size = new System.Drawing.Size(1384, 537);
             this.chartTreeList.TabIndex = 4;
             this.chartTreeList.TreeLevelWidth = 21;
             this.chartTreeList.TreeViewColumn = this.colParentId;
@@ -313,6 +313,7 @@
             this.colNumber.Name = "colNumber";
             this.colNumber.OptionsColumn.AllowEdit = false;
             this.colNumber.OptionsColumn.AllowSort = true;
+            this.colNumber.SortOrder = System.Windows.Forms.SortOrder.Ascending;
             this.colNumber.Visible = true;
             this.colNumber.VisibleIndex = 1;
             this.colNumber.Width = 87;
@@ -519,7 +520,7 @@
             this.layoutControlItem1.Control = this.chartTreeList;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1392, 545);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1388, 541);
             this.layoutControlItem1.TextVisible = false;
             // 
             // ChartsListForm

@@ -163,7 +163,7 @@ namespace Spectrum.Views.Accounting.Charts
             try
             {
                 string id = chartTreeList.GetFocusedRowCellValue("_id").ToString();
-                string name = chartTreeList.GetFocusedRowCellValue("ChartName").ToString();
+                string name = chartTreeList.GetFocusedRowCellValue("AccountName").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -263,9 +263,9 @@ namespace Spectrum.Views.Accounting.Charts
             if (!_charts.Any()) return false;
 
             if (chartTreeList == null) return false;
-            int currentRowId = (int)chartTreeList.GetFocusedRowCellValue("Id");
-            string accountNumber = chartTreeList.GetFocusedRowCellValue("AccountNumber").ToString();
-            if (currentRowId == 0) return false;
+            string currentRowId = chartTreeList.GetFocusedRowCellValue("_id")?.ToString();
+            string accountNumber = chartTreeList.GetFocusedRowCellValue("AccountNumber")?.ToString();
+            if (string.IsNullOrEmpty(currentRowId)) return false;
 
             if (_chartRepository.ValidateAccountInJournal(accountNumber))
             {

@@ -7,6 +7,7 @@ using Spectrum.Models.Accounting.Charts;
 using Spectrum.Models.Common.Currencies;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
+using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
 using SpectrumV1.DataLayers.Accounting.Journals;
 using SpectrumV1.Models.Accounting.Journals;
@@ -19,7 +20,7 @@ using System.Windows.Forms;
 
 namespace Spectrum.Views.Accounting.Journals
 {
-    public partial class JournalsListForm : RibbonForm
+    public partial class JournalsListForm : RibbonForm, IFormWithRibbon
     {
         private bool _resetMenu;
         private JournalEditForm _journalEditForm;

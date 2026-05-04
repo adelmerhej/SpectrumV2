@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 
-namespace Spectrum.Models.Projects.Serializers
+namespace SpectrumV1.Models.Projects.Serializers
 {
     /// <summary>
     /// A tolerant <see cref="int"/> BSON serializer that gracefully handles

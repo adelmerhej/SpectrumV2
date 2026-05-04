@@ -40,10 +40,13 @@
             this.btnDeleteRow = new DevExpress.XtraBars.BarButtonItem();
             this.btnResetGridStyle = new DevExpress.XtraBars.BarButtonItem();
             this.dtFrom = new DevExpress.XtraBars.BarEditItem();
+            this.repDateEdit = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.dtTo = new DevExpress.XtraBars.BarEditItem();
             this.btnPrintStatement = new DevExpress.XtraBars.BarButtonItem();
             this.chkShowProtected = new DevExpress.XtraBars.BarCheckItem();
             this.cboWorkingYear = new DevExpress.XtraBars.BarEditItem();
+            this.repWorkingYear = new DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit();
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.btnSaveAs = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.tabAddSave = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -143,10 +146,11 @@
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.repDateEdit = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.repWorkingYear = new DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repDateEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repDateEdit.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repWorkingYear)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -215,10 +219,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repDateEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repDateEdit.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repWorkingYear)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbonControl
@@ -351,6 +351,15 @@
             this.dtFrom.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("dtFrom.ImageOptions.SvgImage")));
             this.dtFrom.Name = "dtFrom";
             // 
+            // repDateEdit
+            // 
+            this.repDateEdit.AutoHeight = false;
+            this.repDateEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repDateEdit.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repDateEdit.Name = "repDateEdit";
+            // 
             // dtTo
             // 
             this.dtTo.Caption = "Date To";
@@ -386,6 +395,22 @@
             this.cboWorkingYear.EditWidth = 100;
             this.cboWorkingYear.Id = 28;
             this.cboWorkingYear.Name = "cboWorkingYear";
+            // 
+            // repWorkingYear
+            // 
+            this.repWorkingYear.AutoHeight = false;
+            this.repWorkingYear.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repWorkingYear.Name = "repWorkingYear";
+            this.repWorkingYear.NullText = "";
+            this.repWorkingYear.PopupView = this.gridView1;
+            // 
+            // gridView1
+            // 
+            this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
             // btnSaveAs
             // 
@@ -537,60 +562,60 @@
             // 
             // txtNotes
             // 
-            this.txtNotes.Location = new System.Drawing.Point(98, 132);
+            this.txtNotes.Location = new System.Drawing.Point(101, 132);
             this.txtNotes.MenuManager = this.ribbonControl;
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Properties.ReadOnly = true;
-            this.txtNotes.Size = new System.Drawing.Size(701, 99);
+            this.txtNotes.Size = new System.Drawing.Size(698, 99);
             this.txtNotes.StyleController = this.layoutControl3;
             this.txtNotes.TabIndex = 12;
             // 
             // txtWorkingYear
             // 
             this.txtWorkingYear.EnterMoveNextControl = true;
-            this.txtWorkingYear.Location = new System.Drawing.Point(98, 106);
+            this.txtWorkingYear.Location = new System.Drawing.Point(101, 106);
             this.txtWorkingYear.Margin = new System.Windows.Forms.Padding(4);
             this.txtWorkingYear.Name = "txtWorkingYear";
             this.txtWorkingYear.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             this.txtWorkingYear.Properties.MaskSettings.Set("mask", "n0");
             this.txtWorkingYear.Properties.ReadOnly = true;
-            this.txtWorkingYear.Size = new System.Drawing.Size(173, 22);
+            this.txtWorkingYear.Size = new System.Drawing.Size(170, 22);
             this.txtWorkingYear.StyleController = this.layoutControl3;
             this.txtWorkingYear.TabIndex = 7;
             // 
             // txtRate
             // 
             this.txtRate.EnterMoveNextControl = true;
-            this.txtRate.Location = new System.Drawing.Point(583, 80);
+            this.txtRate.Location = new System.Drawing.Point(586, 80);
             this.txtRate.Margin = new System.Windows.Forms.Padding(4);
             this.txtRate.Name = "txtRate";
             this.txtRate.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.txtRate.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             this.txtRate.Properties.MaskSettings.Set("mask", "N2");
             this.txtRate.Properties.ReadOnly = true;
-            this.txtRate.Size = new System.Drawing.Size(216, 22);
+            this.txtRate.Size = new System.Drawing.Size(213, 22);
             this.txtRate.StyleController = this.layoutControl3;
             this.txtRate.TabIndex = 5;
             // 
             // txtReference
             // 
             this.txtReference.EnterMoveNextControl = true;
-            this.txtReference.Location = new System.Drawing.Point(98, 80);
+            this.txtReference.Location = new System.Drawing.Point(101, 80);
             this.txtReference.Margin = new System.Windows.Forms.Padding(4);
             this.txtReference.Name = "txtReference";
             this.txtReference.Properties.ReadOnly = true;
-            this.txtReference.Size = new System.Drawing.Size(173, 22);
+            this.txtReference.Size = new System.Drawing.Size(170, 22);
             this.txtReference.StyleController = this.layoutControl3;
             this.txtReference.TabIndex = 3;
             // 
             // txtJvNo
             // 
             this.txtJvNo.EnterMoveNextControl = true;
-            this.txtJvNo.Location = new System.Drawing.Point(98, 54);
+            this.txtJvNo.Location = new System.Drawing.Point(101, 54);
             this.txtJvNo.Margin = new System.Windows.Forms.Padding(4);
             this.txtJvNo.Name = "txtJvNo";
             this.txtJvNo.Properties.ReadOnly = true;
-            this.txtJvNo.Size = new System.Drawing.Size(173, 22);
+            this.txtJvNo.Size = new System.Drawing.Size(170, 22);
             this.txtJvNo.StyleController = this.layoutControl3;
             this.txtJvNo.TabIndex = 0;
             this.txtJvNo.TabStop = false;
@@ -624,7 +649,7 @@
             // cboJournalTypes
             // 
             this.cboJournalTypes.EnterMoveNextControl = true;
-            this.cboJournalTypes.Location = new System.Drawing.Point(583, 54);
+            this.cboJournalTypes.Location = new System.Drawing.Point(586, 54);
             this.cboJournalTypes.Margin = new System.Windows.Forms.Padding(4);
             this.cboJournalTypes.Name = "cboJournalTypes";
             this.cboJournalTypes.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -638,14 +663,14 @@
             this.cboJournalTypes.Properties.PopupWidthMode = DevExpress.XtraEditors.PopupWidthMode.UseEditorWidth;
             this.cboJournalTypes.Properties.ReadOnly = true;
             this.cboJournalTypes.Properties.ValueMember = "Id";
-            this.cboJournalTypes.Size = new System.Drawing.Size(216, 22);
+            this.cboJournalTypes.Size = new System.Drawing.Size(213, 22);
             this.cboJournalTypes.StyleController = this.layoutControl3;
             this.cboJournalTypes.TabIndex = 2;
             // 
             // cboCurrency
             // 
             this.cboCurrency.EnterMoveNextControl = true;
-            this.cboCurrency.Location = new System.Drawing.Point(345, 80);
+            this.cboCurrency.Location = new System.Drawing.Point(348, 80);
             this.cboCurrency.Margin = new System.Windows.Forms.Padding(4);
             this.cboCurrency.Name = "cboCurrency";
             this.cboCurrency.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -659,7 +684,7 @@
             this.cboCurrency.Properties.PopupWidthMode = DevExpress.XtraEditors.PopupWidthMode.UseEditorWidth;
             this.cboCurrency.Properties.ReadOnly = true;
             this.cboCurrency.Properties.ValueMember = "Id";
-            this.cboCurrency.Size = new System.Drawing.Size(164, 22);
+            this.cboCurrency.Size = new System.Drawing.Size(161, 22);
             this.cboCurrency.StyleController = this.layoutControl3;
             this.cboCurrency.TabIndex = 4;
             // 
@@ -667,7 +692,7 @@
             // 
             this.dtJvDate.EditValue = null;
             this.dtJvDate.EnterMoveNextControl = true;
-            this.dtJvDate.Location = new System.Drawing.Point(345, 54);
+            this.dtJvDate.Location = new System.Drawing.Point(348, 54);
             this.dtJvDate.Margin = new System.Windows.Forms.Padding(4);
             this.dtJvDate.Name = "dtJvDate";
             this.dtJvDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -681,7 +706,7 @@
             this.dtJvDate.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.dtJvDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
             this.dtJvDate.Properties.ReadOnly = true;
-            this.dtJvDate.Size = new System.Drawing.Size(164, 22);
+            this.dtJvDate.Size = new System.Drawing.Size(161, 22);
             this.dtJvDate.StyleController = this.layoutControl3;
             this.dtJvDate.TabIndex = 1;
             // 
@@ -854,14 +879,14 @@
             // txtCreditUSD
             // 
             this.txtCreditUSD.EnterMoveNextControl = true;
-            this.txtCreditUSD.Location = new System.Drawing.Point(446, 165);
+            this.txtCreditUSD.Location = new System.Drawing.Point(449, 166);
             this.txtCreditUSD.Margin = new System.Windows.Forms.Padding(4);
             this.txtCreditUSD.Name = "txtCreditUSD";
             this.txtCreditUSD.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.txtCreditUSD.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             this.txtCreditUSD.Properties.MaskSettings.Set("mask", "n");
             this.txtCreditUSD.Properties.ReadOnly = true;
-            this.txtCreditUSD.Size = new System.Drawing.Size(274, 22);
+            this.txtCreditUSD.Size = new System.Drawing.Size(271, 22);
             this.txtCreditUSD.StyleController = this.layoutControl4;
             this.txtCreditUSD.TabIndex = 9;
             this.txtCreditUSD.TabStop = false;
@@ -869,14 +894,14 @@
             // txtCreditLL
             // 
             this.txtCreditLL.EnterMoveNextControl = true;
-            this.txtCreditLL.Location = new System.Drawing.Point(446, 139);
+            this.txtCreditLL.Location = new System.Drawing.Point(449, 140);
             this.txtCreditLL.Margin = new System.Windows.Forms.Padding(4);
             this.txtCreditLL.Name = "txtCreditLL";
             this.txtCreditLL.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.txtCreditLL.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             this.txtCreditLL.Properties.MaskSettings.Set("mask", "n");
             this.txtCreditLL.Properties.ReadOnly = true;
-            this.txtCreditLL.Size = new System.Drawing.Size(274, 22);
+            this.txtCreditLL.Size = new System.Drawing.Size(271, 22);
             this.txtCreditLL.StyleController = this.layoutControl4;
             this.txtCreditLL.TabIndex = 8;
             this.txtCreditLL.TabStop = false;
@@ -884,14 +909,14 @@
             // txtDebitUSD
             // 
             this.txtDebitUSD.EnterMoveNextControl = true;
-            this.txtDebitUSD.Location = new System.Drawing.Point(78, 165);
+            this.txtDebitUSD.Location = new System.Drawing.Point(81, 166);
             this.txtDebitUSD.Margin = new System.Windows.Forms.Padding(4);
             this.txtDebitUSD.Name = "txtDebitUSD";
             this.txtDebitUSD.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.txtDebitUSD.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             this.txtDebitUSD.Properties.MaskSettings.Set("mask", "n");
             this.txtDebitUSD.Properties.ReadOnly = true;
-            this.txtDebitUSD.Size = new System.Drawing.Size(300, 22);
+            this.txtDebitUSD.Size = new System.Drawing.Size(297, 22);
             this.txtDebitUSD.StyleController = this.layoutControl4;
             this.txtDebitUSD.TabIndex = 7;
             this.txtDebitUSD.TabStop = false;
@@ -899,14 +924,14 @@
             // txtDebitLL
             // 
             this.txtDebitLL.EnterMoveNextControl = true;
-            this.txtDebitLL.Location = new System.Drawing.Point(78, 139);
+            this.txtDebitLL.Location = new System.Drawing.Point(81, 140);
             this.txtDebitLL.Margin = new System.Windows.Forms.Padding(4);
             this.txtDebitLL.Name = "txtDebitLL";
             this.txtDebitLL.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.txtDebitLL.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             this.txtDebitLL.Properties.MaskSettings.Set("mask", "n");
             this.txtDebitLL.Properties.ReadOnly = true;
-            this.txtDebitLL.Size = new System.Drawing.Size(300, 22);
+            this.txtDebitLL.Size = new System.Drawing.Size(297, 22);
             this.txtDebitLL.StyleController = this.layoutControl4;
             this.txtDebitLL.TabIndex = 6;
             this.txtDebitLL.TabStop = false;
@@ -914,7 +939,7 @@
             // txtBalanceUSD
             // 
             this.txtBalanceUSD.EnterMoveNextControl = true;
-            this.txtBalanceUSD.Location = new System.Drawing.Point(396, 73);
+            this.txtBalanceUSD.Location = new System.Drawing.Point(396, 74);
             this.txtBalanceUSD.Margin = new System.Windows.Forms.Padding(4);
             this.txtBalanceUSD.Name = "txtBalanceUSD";
             this.txtBalanceUSD.Properties.Mask.UseMaskAsDisplayFormat = true;
@@ -929,7 +954,7 @@
             // txtBalanceLL
             // 
             this.txtBalanceLL.EnterMoveNextControl = true;
-            this.txtBalanceLL.Location = new System.Drawing.Point(28, 73);
+            this.txtBalanceLL.Location = new System.Drawing.Point(28, 74);
             this.txtBalanceLL.Margin = new System.Windows.Forms.Padding(4);
             this.txtBalanceLL.Name = "txtBalanceLL";
             this.txtBalanceLL.Properties.Mask.UseMaskAsDisplayFormat = true;
@@ -977,7 +1002,7 @@
             this.layoutControlItem14.Control = this.txtBalanceLL;
             this.layoutControlItem14.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem14.Name = "layoutControlItem14";
-            this.layoutControlItem14.Size = new System.Drawing.Size(368, 45);
+            this.layoutControlItem14.Size = new System.Drawing.Size(368, 46);
             this.layoutControlItem14.Text = "L.L.";
             this.layoutControlItem14.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem14.TextSize = new System.Drawing.Size(24, 16);
@@ -987,16 +1012,16 @@
             this.layoutControlItem15.Control = this.txtBalanceUSD;
             this.layoutControlItem15.Location = new System.Drawing.Point(368, 0);
             this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(342, 45);
+            this.layoutControlItem15.Size = new System.Drawing.Size(342, 46);
             this.layoutControlItem15.Text = "USD";
             this.layoutControlItem15.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem15.TextSize = new System.Drawing.Size(24, 16);
             // 
             // emptySpaceItem4
             // 
-            this.emptySpaceItem4.Location = new System.Drawing.Point(0, 147);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(0, 152);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(710, 69);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(710, 64);
             // 
             // layoutControlGroup7
             // 
@@ -1004,9 +1029,9 @@
             this.layoutControlGroup7.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem16,
             this.layoutControlItem17});
-            this.layoutControlGroup7.Location = new System.Drawing.Point(0, 45);
+            this.layoutControlGroup7.Location = new System.Drawing.Point(0, 46);
             this.layoutControlGroup7.Name = "layoutControlGroup7";
-            this.layoutControlGroup7.Size = new System.Drawing.Size(368, 102);
+            this.layoutControlGroup7.Size = new System.Drawing.Size(368, 106);
             this.layoutControlGroup7.Text = "Total Debit";
             // 
             // layoutControlItem16
@@ -1033,9 +1058,9 @@
             this.layoutControlGroup8.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem18,
             this.layoutControlItem19});
-            this.layoutControlGroup8.Location = new System.Drawing.Point(368, 45);
+            this.layoutControlGroup8.Location = new System.Drawing.Point(368, 46);
             this.layoutControlGroup8.Name = "layoutControlGroup8";
-            this.layoutControlGroup8.Size = new System.Drawing.Size(342, 102);
+            this.layoutControlGroup8.Size = new System.Drawing.Size(342, 106);
             this.layoutControlGroup8.Text = "Total Credit";
             // 
             // layoutControlItem18
@@ -1525,31 +1550,6 @@
             this.layoutControlItem1.Size = new System.Drawing.Size(1609, 745);
             this.layoutControlItem1.TextVisible = false;
             // 
-            // repDateEdit
-            // 
-            this.repDateEdit.AutoHeight = false;
-            this.repDateEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repDateEdit.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repDateEdit.Name = "repDateEdit";
-            // 
-            // repWorkingYear
-            // 
-            this.repWorkingYear.AutoHeight = false;
-            this.repWorkingYear.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repWorkingYear.Name = "repWorkingYear";
-            this.repWorkingYear.NullText = "";
-            this.repWorkingYear.PopupView = this.gridView1;
-            // 
-            // gridView1
-            // 
-            this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
-            this.gridView1.OptionsView.ShowGroupPanel = false;
-            // 
             // JournalEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1564,6 +1564,10 @@
             this.StatusBar = this.ribbonStatusBar1;
             this.Text = "Edit Journal";
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repDateEdit.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repDateEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repWorkingYear)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -1632,10 +1636,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repDateEdit.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repDateEdit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repWorkingYear)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

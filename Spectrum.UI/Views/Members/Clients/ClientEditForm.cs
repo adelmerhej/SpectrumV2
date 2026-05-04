@@ -93,7 +93,8 @@ namespace Spectrum.Views.Members.Clients
 			}
 		}
 
-		private async Task InitializeBindings()
+        #region InitializeBindings Methods
+        private async Task InitializeBindings()
 		{
 			try
 			{
@@ -114,7 +115,8 @@ namespace Spectrum.Views.Members.Clients
 			}
 		}
 
-		private async Task LoadCitiesAsync()
+        #region Data Loading Methods
+        private async Task LoadCitiesAsync()
 		{
 			_cities = await _cityRepository.GetCitiesAsync();
 		}
@@ -151,8 +153,12 @@ namespace Spectrum.Views.Members.Clients
 				_projects = await _projectRepository.GetProjectsByClientIdAsync(_clientModel._id);
 			}
 		}
+        #endregion
 
-		private void WireUpBindings()
+        #endregion
+
+
+        private void WireUpBindings()
 		{
 			bsClient.DataSource = _clientModel;
 

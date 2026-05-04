@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections.Generic;
 
 namespace Spectrum.Models.Projects
 {
@@ -50,6 +51,13 @@ namespace Spectrum.Models.Projects
 		[BsonElement("CurrencyCode")]
 		public string CurrencyCode { get; set; }
 
+		[BsonElement("ServicesProvided")]
+		public List<string> ServicesProvided { get; set; } = new List<string>();
+
+		[BsonElement("ServiceTypes")]
+		public List<string> ServiceTypes { get; set; } = new List<string>();
+
+
 		// ==========================================================
 		// Financial Amounts
 		// IMPORTANT: Use Decimal128 for precise currency storage in MongoDB
@@ -78,6 +86,7 @@ namespace Spectrum.Models.Projects
 		[BsonRepresentation(BsonType.Decimal128)]
 		[BsonElement("InitialTtcAmount")]
 		public decimal? InitialTtcAmount { get; set; }
+
 
 		// ==========================================================
 		// Addendums (Could be an Array of Addendum objects for better scalability)
@@ -137,5 +146,6 @@ namespace Spectrum.Models.Projects
 
 		[BsonElement("WarrantyStatus")]
 		public string WarrantyStatus { get; set; }
+
 	}
 }

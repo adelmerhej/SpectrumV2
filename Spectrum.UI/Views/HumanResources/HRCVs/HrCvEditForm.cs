@@ -3,13 +3,16 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.Models.Administration.Connections;
 using Spectrum.Models.Common.Countries;
 using Spectrum.Utilities;
 using SpectrumV1.DataLayers.HumanResources.Candidates;
+using SpectrumV1.DataLayers.HumanResources.Employees.Services;
 using SpectrumV1.Models.HumanResources.Candidates;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +32,7 @@ namespace Spectrum.Views.HumanResources.HRCVs
         private CityRepository _cityRepository;
 
         private LogInfoRepository _logInfoRepository;
+        private ConnectionModel _connectionModel = new ConnectionModel();
 
         //Init permissionvariables
         private bool _canAdd = true;
@@ -94,6 +98,7 @@ namespace Spectrum.Views.HumanResources.HRCVs
                     LoadCountriesAsync(),
                     LoadCitiesAsync(),
                     LoadTitlesAsync(),
+                    LoadApiKeys(),
                 };
 
                 await Task.WhenAll(loadTasks);
@@ -102,6 +107,12 @@ namespace Spectrum.Views.HumanResources.HRCVs
             {
                 throw new Exception("Error loading form data", ex);
             }
+        }
+
+        private async Task LoadApiKeys()
+        {
+            _connectionModel = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
+            await Task.CompletedTask;
         }
 
         private async Task LoadCountriesAsync()
@@ -131,14 +142,19 @@ namespace Spectrum.Views.HumanResources.HRCVs
 
         private void WireUpBindings()
         {
-            bsCandidate.DataSource = _candidateModel;
-            bsCandidate.ResetBindings(false);
+            RefreshCandidateBindings();
 
             cboNationality.Properties.DataSource = null;
             cboNationality.Properties.DataSource = _countries;
 
             cboCities.Properties.DataSource = null;
             cboCities.Properties.DataSource = _cities;
+        }
+
+        private void RefreshCandidateBindings()
+        {
+            bsCandidate.DataSource = _candidateModel;
+            bsCandidate.ResetBindings(false);
         }
 
         private void ApplyDefaults()
@@ -322,6 +338,60 @@ namespace Spectrum.Views.HumanResources.HRCVs
                     txtUploadCv.Text = openFileDialog.FileName;
                 }
             }
+        }
+
+        private async void btnParseWithAI_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtUploadCv.Text) || !System.IO.File.Exists(txtUploadCv.Text))
+                {
+                    XtraMessageBox.Show("Please select a valid CV file to parse.", "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+
+                // Simulate AI parsing logic here
+                var apiKey = _connectionModel.EncryptedAiApikey;
+                var model = _connectionModel.AiModel ?? "gpt-4.1-mini";
+
+                if (string.IsNullOrWhiteSpace(apiKey))
+                {
+                    XtraMessageBox.Show("Your API key is not configured. Please set 'AI:ApiKey' in the config settings.", "Configuration Missing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                using (var service = new CvParsingService(apiKey, model))
+                {
+                    var candidate = await service.ParseCvAsync(txtUploadCv.Text);
+
+                    _candidateModel.FirstName = candidate.FirstName;
+                    _candidateModel.LastName = candidate.LastName;
+                    _candidateModel.DateOfBirth = candidate.DateOfBirth;
+                    _candidateModel.Gender = candidate.Gender;
+                    _candidateModel.Nationality = candidate.Nationality;
+                    _candidateModel.Email = candidate.Email;
+                    _candidateModel.Phone = candidate.Phone;
+                    _candidateModel.City = candidate.City;
+                    _candidateModel.Address = candidate.Address;
+                    _candidateModel.Position = candidate.Position;
+                    _candidateModel.YearsOfExperience = candidate.YearsOfExperience;
+                    _candidateModel.Skills = candidate.Skills;
+                    _candidateModel.Summary = candidate.Summary;
+                }
+
+                RefreshCandidateBindings();
+
+            }
+            catch (Exception ex)
+            {
+                ShowError("Parsing Error", ex);
+            }
+        }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            txtFirstName.Text = _candidateModel.FirstName;
         }
     }
 }

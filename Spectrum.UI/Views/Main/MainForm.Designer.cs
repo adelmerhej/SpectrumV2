@@ -65,7 +65,7 @@
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.mainMenu = new DevExpress.XtraBars.Navigation.AccordionControl();
-            this.mnuNavigation = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuOperations = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuDashboard = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuDashboardActivities = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.OperationsGroupMenu = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -76,13 +76,12 @@
             this.accordionControlSeparator5 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             this.mnuInvoicesExpenses = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuAccountsStatement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuMembers = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuClients = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuEngineers = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuHumanResources = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuPeople = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuHrCVs = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuEmployees = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuCommonTypes = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuHRSetup = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuDepartments = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuEmployeeTypes = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuRoles = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -90,28 +89,27 @@
             this.mnuMainAccounting = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuTransactions = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuJournals = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuFiles = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuMasterFiles = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuChartsOfAccount = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlSeparator1 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             this.mnuCostCenter = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuFlowType = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuJournalTypes = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlSeparator2 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             this.mnuCurrencies = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuExchangeList = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuBanksList = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuStatements = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuReports = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuStatementOfAccount = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuTrialBalance = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuSetup = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuSettings = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuUsers = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuAdministration = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuReferenceData = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuUsersList = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuCommon = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuCompaniesList = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuBranches = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuServicesList = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuServices = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuAreas = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuStatus = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuStatuses = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuLocations = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuJobPositions = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuCountriesListMenu = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -136,7 +134,6 @@
             this.grpReadingPane = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.dockRight = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.showPendingJobs = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuFlowType = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonMainForm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
@@ -411,10 +408,10 @@
             // 
             this.mainMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.mainMenu.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.mnuNavigation,
-            this.mnuHumanResources,
+            this.mnuOperations,
+            this.mnuPeople,
             this.mnuMainAccounting,
-            this.mnuSetup});
+            this.mnuAdministration});
             this.mainMenu.Location = new System.Drawing.Point(0, 193);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.RootDisplayMode = DevExpress.XtraBars.Navigation.AccordionControlRootDisplayMode.Footer;
@@ -423,17 +420,15 @@
             this.mainMenu.Size = new System.Drawing.Size(287, 566);
             this.mainMenu.TabIndex = 54;
             // 
-            // mnuNavigation
+            // mnuOperations
             // 
-            this.mnuNavigation.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
+            this.mnuOperations.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
             this.mnuDashboard,
-            this.OperationsGroupMenu,
-            this.mnuMembers});
-            this.mnuNavigation.Expanded = true;
-            this.mnuNavigation.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuNavigation.ImageOptions.SvgImage")));
-            this.mnuNavigation.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
-            this.mnuNavigation.Name = "mnuNavigation";
-            this.mnuNavigation.Text = "Transactions";
+            this.OperationsGroupMenu});
+            this.mnuOperations.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuNavigation.ImageOptions.SvgImage")));
+            this.mnuOperations.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.mnuOperations.Name = "mnuOperations";
+            this.mnuOperations.Text = "Operations";
             // 
             // mnuDashboard
             // 
@@ -520,15 +515,6 @@
             this.mnuAccountsStatement.Text = "Accounts Statement";
             this.mnuAccountsStatement.Click += new System.EventHandler(this.mnuAccountsStatement_Click);
             // 
-            // mnuMembers
-            // 
-            this.mnuMembers.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.mnuClients,
-            this.mnuEngineers});
-            this.mnuMembers.Expanded = true;
-            this.mnuMembers.Name = "mnuMembers";
-            this.mnuMembers.Text = "Members";
-            // 
             // mnuClients
             // 
             this.mnuClients.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuClients.ImageOptions.SvgImage")));
@@ -547,21 +533,23 @@
             this.mnuEngineers.Text = "Engineers";
             this.mnuEngineers.Click += new System.EventHandler(this.mnuEngineers_Click);
             // 
-            // mnuHumanResources
+            // mnuPeople
             // 
-            this.mnuHumanResources.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.mnuHrCVs,
+            this.mnuPeople.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
+            this.mnuClients,
+            this.mnuEngineers,
             this.mnuEmployees,
-            this.mnuCommonTypes,
+            this.mnuHrCVs,
+            this.mnuHRSetup,
             this.mnuDepartments,
             this.mnuEmployeeTypes,
             this.mnuRoles,
             this.mnuBloodType});
-            this.mnuHumanResources.Expanded = true;
-            this.mnuHumanResources.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuHumanResources.ImageOptions.SvgImage")));
-            this.mnuHumanResources.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
-            this.mnuHumanResources.Name = "mnuHumanResources";
-            this.mnuHumanResources.Text = "HR";
+            this.mnuPeople.Expanded = true;
+            this.mnuPeople.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuHumanResources.ImageOptions.SvgImage")));
+            this.mnuPeople.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.mnuPeople.Name = "mnuPeople";
+            this.mnuPeople.Text = "People";
             // 
             // mnuHrCVs
             // 
@@ -581,11 +569,11 @@
             this.mnuEmployees.Text = "Employees";
             this.mnuEmployees.Click += new System.EventHandler(this.mnuEmployees_Click);
             // 
-            // mnuCommonTypes
+            // mnuHRSetup
             // 
-            this.mnuCommonTypes.Expanded = true;
-            this.mnuCommonTypes.Name = "mnuCommonTypes";
-            this.mnuCommonTypes.Text = "Common Types";
+            this.mnuHRSetup.Expanded = true;
+            this.mnuHRSetup.Name = "mnuHRSetup";
+            this.mnuHRSetup.Text = "HR Setup";
             // 
             // mnuDepartments
             // 
@@ -626,8 +614,8 @@
             // 
             this.mnuMainAccounting.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
             this.mnuTransactions,
-            this.mnuFiles,
-            this.mnuStatements});
+            this.mnuMasterFiles,
+            this.mnuReports});
             this.mnuMainAccounting.Expanded = true;
             this.mnuMainAccounting.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuMainAccounting.ImageOptions.SvgImage")));
             this.mnuMainAccounting.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
@@ -651,9 +639,9 @@
             this.mnuJournals.Text = "Journal Vouchers";
             this.mnuJournals.Click += new System.EventHandler(this.mnuJournals_Click);
             // 
-            // mnuFiles
+            // mnuMasterFiles
             // 
-            this.mnuFiles.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
+            this.mnuMasterFiles.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
             this.mnuChartsOfAccount,
             this.accordionControlSeparator1,
             this.mnuCostCenter,
@@ -663,9 +651,9 @@
             this.mnuCurrencies,
             this.mnuExchangeList,
             this.mnuBanksList});
-            this.mnuFiles.Expanded = true;
-            this.mnuFiles.Name = "mnuFiles";
-            this.mnuFiles.Text = "Files";
+            this.mnuMasterFiles.Expanded = true;
+            this.mnuMasterFiles.Name = "mnuMasterFiles";
+            this.mnuMasterFiles.Text = "Master Files";
             // 
             // mnuChartsOfAccount
             // 
@@ -688,6 +676,15 @@
             this.mnuCostCenter.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.mnuCostCenter.Text = "Cost Center";
             this.mnuCostCenter.Click += new System.EventHandler(this.mnuCostCenter_Click);
+            // 
+            // mnuFlowType
+            // 
+            this.mnuFlowType.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuFlowType.ImageOptions.SvgImage")));
+            this.mnuFlowType.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            this.mnuFlowType.Name = "mnuFlowType";
+            this.mnuFlowType.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.mnuFlowType.Text = "Flow Type";
+            this.mnuFlowType.Click += new System.EventHandler(this.mnuFlowType_Click);
             // 
             // mnuJournalTypes
             // 
@@ -717,7 +714,7 @@
             this.mnuExchangeList.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
             this.mnuExchangeList.Name = "mnuExchangeList";
             this.mnuExchangeList.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.mnuExchangeList.Text = "Exchange";
+            this.mnuExchangeList.Text = "Exchange Rates";
             this.mnuExchangeList.Click += new System.EventHandler(this.mnuExchangeList_Click);
             // 
             // mnuBanksList
@@ -729,14 +726,14 @@
             this.mnuBanksList.Text = "Banks";
             this.mnuBanksList.Click += new System.EventHandler(this.mnuBanksList_Click);
             // 
-            // mnuStatements
+            // mnuReports
             // 
-            this.mnuStatements.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
+            this.mnuReports.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
             this.mnuStatementOfAccount,
             this.mnuTrialBalance});
-            this.mnuStatements.Expanded = true;
-            this.mnuStatements.Name = "mnuStatements";
-            this.mnuStatements.Text = "Statement";
+            this.mnuReports.Expanded = true;
+            this.mnuReports.Name = "mnuReports";
+            this.mnuReports.Text = "Reports";
             // 
             // mnuStatementOfAccount
             // 
@@ -756,34 +753,32 @@
             this.mnuTrialBalance.Text = "Trial Balance";
             this.mnuTrialBalance.Click += new System.EventHandler(this.mnuTrialBalance_Click);
             // 
-            // mnuSetup
+            // mnuAdministration
             // 
-            this.mnuSetup.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.mnuSettings,
+            this.mnuAdministration.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
+            this.mnuUsersList,
+            this.mnuReferenceData,
             this.mnuCountriesListMenu,
             this.mnuSystem});
-            this.mnuSetup.Expanded = true;
-            this.mnuSetup.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuSetup.ImageOptions.SvgImage")));
-            this.mnuSetup.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
-            this.mnuSetup.Name = "mnuSetup";
-            this.mnuSetup.Text = "Setup";
+            this.mnuAdministration.Expanded = true;
+            this.mnuAdministration.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuSetup.ImageOptions.SvgImage")));
+            this.mnuAdministration.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.mnuAdministration.Name = "mnuAdministration";
+            this.mnuAdministration.Text = "Administration";
             // 
-            // mnuSettings
+            // mnuReferenceData
             // 
-            this.mnuSettings.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.mnuUsers,
-            this.mnuCommon});
-            this.mnuSettings.Expanded = true;
-            this.mnuSettings.Name = "mnuSettings";
-            this.mnuSettings.Text = "Settings";
-            // 
-            // mnuUsers
-            // 
-            this.mnuUsers.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.mnuUsersList});
-            this.mnuUsers.Expanded = true;
-            this.mnuUsers.Name = "mnuUsers";
-            this.mnuUsers.Text = "Users";
+            this.mnuReferenceData.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
+            this.mnuCompaniesList,
+            this.mnuBranches,
+            this.mnuServices,
+            this.mnuAreas,
+            this.mnuStatuses,
+            this.mnuLocations,
+            this.mnuJobPositions});
+            this.mnuReferenceData.Expanded = true;
+            this.mnuReferenceData.Name = "mnuReferenceData";
+            this.mnuReferenceData.Text = "Reference Data";
             // 
             // mnuUsersList
             // 
@@ -793,20 +788,6 @@
             this.mnuUsersList.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.mnuUsersList.Text = "Users";
             this.mnuUsersList.Click += new System.EventHandler(this.mnuUsersList_Click);
-            // 
-            // mnuCommon
-            // 
-            this.mnuCommon.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.mnuCompaniesList,
-            this.mnuBranches,
-            this.mnuServicesList,
-            this.mnuAreas,
-            this.mnuStatus,
-            this.mnuLocations,
-            this.mnuJobPositions});
-            this.mnuCommon.Expanded = true;
-            this.mnuCommon.Name = "mnuCommon";
-            this.mnuCommon.Text = "Common";
             // 
             // mnuCompaniesList
             // 
@@ -826,14 +807,14 @@
             this.mnuBranches.Text = "Branches";
             this.mnuBranches.Click += new System.EventHandler(this.mnuBranches_Click);
             // 
-            // mnuServicesList
+            // mnuServices
             // 
-            this.mnuServicesList.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuServicesList.ImageOptions.SvgImage")));
-            this.mnuServicesList.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            this.mnuServicesList.Name = "mnuServicesList";
-            this.mnuServicesList.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.mnuServicesList.Text = "Services List";
-            this.mnuServicesList.Click += new System.EventHandler(this.mnuServicesList_Click);
+            this.mnuServices.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuServicesList.ImageOptions.SvgImage")));
+            this.mnuServices.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            this.mnuServices.Name = "mnuServices";
+            this.mnuServices.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.mnuServices.Text = "Services";
+            this.mnuServices.Click += new System.EventHandler(this.mnuServicesList_Click);
             // 
             // mnuAreas
             // 
@@ -841,17 +822,17 @@
             this.mnuAreas.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
             this.mnuAreas.Name = "mnuAreas";
             this.mnuAreas.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.mnuAreas.Text = "Area";
+            this.mnuAreas.Text = "Areas";
             this.mnuAreas.Click += new System.EventHandler(this.mnuAreas_Click);
             // 
-            // mnuStatus
+            // mnuStatuses
             // 
-            this.mnuStatus.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuStatus.ImageOptions.SvgImage")));
-            this.mnuStatus.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            this.mnuStatus.Name = "mnuStatus";
-            this.mnuStatus.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.mnuStatus.Text = "Status";
-            this.mnuStatus.Click += new System.EventHandler(this.mnuStatus_Click);
+            this.mnuStatuses.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuStatus.ImageOptions.SvgImage")));
+            this.mnuStatuses.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            this.mnuStatuses.Name = "mnuStatuses";
+            this.mnuStatuses.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.mnuStatuses.Text = "Statuses";
+            this.mnuStatuses.Click += new System.EventHandler(this.mnuStatus_Click);
             // 
             // mnuLocations
             // 
@@ -859,7 +840,7 @@
             this.mnuLocations.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
             this.mnuLocations.Name = "mnuLocations";
             this.mnuLocations.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.mnuLocations.Text = "Location";
+            this.mnuLocations.Text = "Locations";
             this.mnuLocations.Click += new System.EventHandler(this.mnuLocations_Click);
             // 
             // mnuJobPositions
@@ -874,15 +855,15 @@
             // mnuCountriesListMenu
             // 
             this.mnuCountriesListMenu.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.mnuCountries,
-            this.mnuCities,
             this.mnuContinents,
             this.mnuRegions,
+            this.mnuCountries,
             this.mnuProvinces,
-            this.mnuDistricts});
+            this.mnuDistricts,
+            this.mnuCities});
             this.mnuCountriesListMenu.Expanded = true;
             this.mnuCountriesListMenu.Name = "mnuCountriesListMenu";
-            this.mnuCountriesListMenu.Text = "Countries";
+            this.mnuCountriesListMenu.Text = "Geography";
             // 
             // mnuCountries
             // 
@@ -1096,15 +1077,6 @@
             this.showPendingJobs.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.showPendingJobs.Text = "Show Pending Jobs";
             // 
-            // mnuFlowType
-            // 
-            this.mnuFlowType.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuFlowType.ImageOptions.SvgImage")));
-            this.mnuFlowType.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            this.mnuFlowType.Name = "mnuFlowType";
-            this.mnuFlowType.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.mnuFlowType.Text = "Flow Type";
-            this.mnuFlowType.Click += new System.EventHandler(this.mnuFlowType_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1175,7 +1147,7 @@
 		private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView1;
 		private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
 		private DevExpress.XtraBars.Navigation.AccordionControl mainMenu;
-		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuNavigation;
+		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuOperations;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuDashboard;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuDashboardActivities;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuClients;
@@ -1187,7 +1159,7 @@
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuReceipts;
 		private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator5;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuAccountsStatement;
-		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuHumanResources;
+		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuPeople;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuHrCVs;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuDepartments;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuRoles;
@@ -1195,7 +1167,7 @@
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuMainAccounting;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuTransactions;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuJournals;
-		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuFiles;
+		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuMasterFiles;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuChartsOfAccount;
 		private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator1;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuCostCenter;
@@ -1204,16 +1176,14 @@
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuCurrencies;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuExchangeList;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuBanksList;
-		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuStatements;
+		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuReports;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuStatementOfAccount;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuTrialBalance;
-		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuSetup;
-		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuSettings;
-		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuUsers;
+		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuAdministration;
+		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuReferenceData;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuUsersList;
-		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuCommon;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuCompaniesList;
-		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuServicesList;
+		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuServices;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuAreas;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuCountriesListMenu;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuCountries;
@@ -1238,13 +1208,12 @@
 		private DevExpress.XtraBars.Navigation.AccordionControlElement dockRight;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement showPendingJobs;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuBranches;
-		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuMembers;
 		private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator3;
-		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuStatus;
+		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuStatuses;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuLocations;
 		private DevExpress.XtraBars.Navigation.AccordionControlElement mnuJobPositions;
         private DevExpress.XtraBars.Navigation.AccordionControlElement mnuBloodType;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement mnuCommonTypes;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement mnuHRSetup;
         private DevExpress.XtraBars.Navigation.AccordionControlElement mnuEmployeeTypes;
         private DevExpress.XtraBars.Navigation.AccordionControlElement mnuFlowType;
     }

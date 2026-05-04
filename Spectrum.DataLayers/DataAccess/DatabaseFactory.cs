@@ -32,7 +32,9 @@ namespace Spectrum.DataLayers.DataAccess
 				DatabaseUser = model.DatabaseUser,
 				// ENCRYPT: Convert plain text to secure blob
 				EncryptedPassword = SystemUtilities.Protect(model.DatabasePassword),
-				EncryptedConnectionString = SystemUtilities.Protect(model.DatabaseConnectionString)
+				EncryptedConnectionString = SystemUtilities.Protect(model.DatabaseConnectionString),
+                AiModel = model.AiModel,
+				EncryptedAiApikey = SystemUtilities.Protect(model.EncryptedAiApikey),
 			};
 
 			if (config.Connections.ContainsKey(profileName))
@@ -65,7 +67,9 @@ namespace Spectrum.DataLayers.DataAccess
 				DatabaseUser = profile.DatabaseUser,
 				// DECRYPT: Restore plain text for usage
 				DatabasePassword = SystemUtilities.Unprotect(profile.EncryptedPassword),
-				DatabaseConnectionString = SystemUtilities.Unprotect(profile.EncryptedConnectionString)
+				DatabaseConnectionString = SystemUtilities.Unprotect(profile.EncryptedConnectionString),
+                AiModel = profile.AiModel,
+				EncryptedAiApikey = SystemUtilities.Unprotect(profile.EncryptedAiApikey)
 			};
 
 			// Auto-generate MongoDB connection string if missing but parameters exist

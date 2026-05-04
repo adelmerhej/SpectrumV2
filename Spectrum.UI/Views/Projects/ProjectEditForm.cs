@@ -91,84 +91,196 @@ namespace Spectrum.Views.Projects
             StartLoading();
         }
 
-        private void cboCountries_EditValueChanged(object sender, EventArgs e)
+        private async void StartLoading()
         {
             try
             {
-                if (cboCountries.EditValue == null) return;
-                var id = cboCountries.EditValue.ToString();
-                var selected = _countries.FirstOrDefault(x => x._id == id);
-                if (selected == null) return;
-
-                // filter cities to selected country
-                var filtered = _cities.Where(c => string.Equals(c.Country, selected.CountryName, StringComparison.OrdinalIgnoreCase)).ToList();
-                cboCities.Properties.DataSource = null;
-                cboCities.Properties.DataSource = filtered;
-
-                // ensure project model Location.Country is set via reflection
-                var locationProp = typeof(ProjectModel).GetProperty("Location");
-                var locationInfoType = typeof(ProjectModel).Assembly.GetType("Spectrum.Models.Projects.LocationInfoModel");
-                if (locationProp == null || locationInfoType == null) return;
-
-                var locationInfo = locationProp.GetValue(_projectModel);
-                if (locationInfo == null)
-                {
-                    locationInfo = Activator.CreateInstance(locationInfoType);
-                    locationProp.SetValue(_projectModel, locationInfo);
-                }
-
-                locationInfoType.GetProperty("Country")?.SetValue(locationInfo, selected.CountryName);
+                await InitializeBindings();
+                WireUpBindings();
+                ApplyDefaults();
+                ApplyPermissions();
             }
-            catch
+            catch (Exception ex)
             {
-                // ignore
+                ShowError("Error during form initialization", ex);
             }
         }
 
-        private void cboCities_EditValueChanged(object sender, EventArgs e)
+        #region InitializeBindings Methods
+        private async Task InitializeBindings()
         {
             try
             {
-                if (cboCities.EditValue == null) return;
-                var id = cboCities.EditValue.ToString();
-                var selected = _cities.FirstOrDefault(x => x._id == id);
-                if (selected == null) return;
-
-                var locationProp = typeof(ProjectModel).GetProperty("Location");
-                var locationInfoType = typeof(ProjectModel).Assembly.GetType("Spectrum.Models.Projects.LocationInfoModel");
-                if (locationProp == null || locationInfoType == null) return;
-
-                var locationInfo = locationProp.GetValue(_projectModel);
-                if (locationInfo == null)
+                var loadTasks = new[]
                 {
-                    locationInfo = Activator.CreateInstance(locationInfoType);
-                    locationProp.SetValue(_projectModel, locationInfo);
-                }
+                    LoadClientsAsync(),
+                    LoadEngineersAsync(),
+                    LoadUsersAsync(),
+                    LoadServicesAsync(),
+                    LoadServiceTypesAsync(),
+                    LoadLocationsAsync(),
+                    LoadAreasAsync(),
+                    LoadCountriesAsync(),
+                    LoadCitiesAsync(),
+                };
 
-                locationInfoType.GetProperty("City")?.SetValue(locationInfo, selected.CityName);
-
-                // if country is empty on location, set it from city.Country
-                var countryProp = locationInfoType.GetProperty("Country");
-                if (countryProp != null)
-                {
-                    var cur = countryProp.GetValue(locationInfo) as string;
-                    if (string.IsNullOrEmpty(cur) && !string.IsNullOrEmpty(selected.Country))
-                    {
-                        // try to find matching country name
-                        var countryMatch = _countries.FirstOrDefault(c => string.Equals(c.CountryName, selected.Country, StringComparison.OrdinalIgnoreCase) || string.Equals(c.CountryCode, selected.Country, StringComparison.OrdinalIgnoreCase));
-                        if (countryMatch != null)
-                        {
-                            countryProp.SetValue(locationInfo, countryMatch.CountryName);
-                            cboCountries.EditValue = countryMatch._id;
-                        }
-                    }
-                }
+                await Task.WhenAll(loadTasks);
             }
-            catch
+            catch (Exception ex)
             {
-                // ignore
+                throw new Exception("Error loading form data", ex);
             }
         }
+
+        #region Data Loading Methods
+        
+        private async Task LoadClientsAsync()
+        {
+            _clients = await _clientRepository.GetClientsAsync();
+        }
+        private async Task LoadEngineersAsync()
+        {
+            _engineers = await _engineerRepository.GetEmployeesAsync(EnumEmployeeType.Engineer);
+        }
+
+        private async Task LoadUsersAsync()
+        {
+            _users = await _userRepository.GetUsersAsync();
+        }
+
+        private async Task LoadServicesAsync()
+        {
+            _services = await _serviceRepository.GetServicesAsync();
+        }
+
+        private async Task LoadServiceTypesAsync()
+        {
+            _serviceTypes = await _serviceTypeRepository.GetServiceTypesAsync();
+        }
+
+        private async Task LoadLocationsAsync()
+        {
+            _locations = await _locationRepository.GetLocationsAsync();
+        }
+
+        private async Task LoadAreasAsync()
+        {
+            _areas = await _areaRepository.GetAreasAsync();
+        }
+
+        private async Task LoadCountriesAsync()
+        {
+            _countries = await _countryRepository.GetCountriesAsync();
+        }
+
+        private async Task LoadCitiesAsync()
+        {
+            _cities = await _cityRepository.GetCitiesAsync();
+        }
+        #endregion
+
+        #endregion
+
+        #region WireUpBindings Methods
+
+        private void WireUpBindings()
+        {
+            _projectModel.Location = _projectModel.Location ?? new LocationInfoModel();
+            _projectModel.ContractDetails = _projectModel.ContractDetails ?? new ContractDetailModel();
+
+            bsProject.DataSource = _projectModel;
+            bsContractDetails.DataSource = _projectModel.ContractDetails;
+            bsLocationInfo.DataSource = _projectModel.Location;
+
+            cboClients.Properties.DataSource = null;
+            cboClients.Properties.DisplayMember = "ClientName";
+            cboClients.Properties.ValueMember = "ClientName";
+            cboClients.Properties.DataSource = _clients;
+
+            // Contract management should share the same Client list as Project Information.
+            // Keep it using the same key (client _id) so newly added clients are available immediately.
+            cboContractClient.Properties.DataSource = null;
+            cboContractClient.Properties.DataSource = _clients;
+
+            cboEngineers.Properties.DataSource = null;
+            cboEngineers.Properties.DataSource = _engineers;
+
+            cboUsers.Properties.DataSource = null;
+            cboUsers.Properties.DataSource = _users;
+
+            cboPersonInCharge.Properties.DataSource = null;
+            cboPersonInCharge.Properties.DataSource = _users;
+
+            cboOperatingUsers.Properties.DataSource = null;
+            cboOperatingUsers.Properties.DataSource = _users;
+
+           BindCheckedComboBoxItems(cboServicesProvided,
+                _services.Select(x => x.ServiceName),
+                _projectModel.ContractDetails.ServicesProvided);
+
+            BindCheckedComboBoxItems(cboServicesType,
+                _serviceTypes.Select(x => x.ServiceType),
+                _projectModel.ContractDetails.ServiceTypes);
+
+            cboAreas.Properties.DataSource = null;
+            cboAreas.Properties.DisplayMember = "AreaCode";
+            cboAreas.Properties.ValueMember = "AreaCode";
+            cboAreas.Properties.DataSource = _areas;
+
+            cboLocations.Properties.DataSource = null;
+            cboLocations.Properties.DisplayMember = "LocationName";
+            cboLocations.Properties.ValueMember = "_id";
+            cboLocations.Properties.DataSource = _locations;
+
+            cboCountries.Properties.DataSource = null;
+            cboCountries.Properties.DisplayMember = "CountryName";
+            cboCountries.Properties.ValueMember = "CountryName";
+            cboCountries.Properties.DataSource = _countries;
+
+            cboCities.Properties.DataSource = null;
+            cboCities.Properties.DisplayMember = "CityName";
+            cboCities.Properties.ValueMember = "CityName";
+            cboCities.Properties.DataSource = _cities;
+
+            if (_projectModel.Location != null && !string.IsNullOrWhiteSpace(_projectModel.Location._id))
+            {
+                cboLocations.EditValue = _projectModel.Location._id;
+            }
+
+            // Whenever user changes selection, update project model Location via reflection
+            cboLocations.EditValueChanged += cboLocations_EditValueChanged;
+
+            // Keep contract client in sync with project client.
+            cboClients.EditValueChanged -= cboClients_EditValueChanged;
+            cboClients.EditValueChanged += cboClients_EditValueChanged;
+            SyncContractClientFromProjectClient();
+
+            //cboStatus.Properties.Items.Clear();
+            //cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
+        }
+
+        #endregion
+
+        #region ApplyDefaults and Permissions Methods
+        private void ApplyDefaults()
+        {
+            if (string.IsNullOrEmpty(_projectModel._id))
+            {
+                _projectModel.Status = ProjectStatus.Active;
+                _projectModel.ProjectDate = DateTime.Today;
+            }
+        }
+
+        private void ApplyPermissions()
+        {
+            btnNew.Enabled = _isAdmin || _canAdd;
+            btnSave.Enabled = _isAdmin || _canEdit;
+            btnSaveAndClose.Enabled = _isAdmin || _canEdit;
+            btnPrint.Enabled = _isAdmin || _canPrint;
+            btnDelete.Enabled = _isAdmin || _canDelete;
+        }
+
+        #endregion
 
         private void SyncContractClientFromProjectClient()
         {
@@ -209,21 +321,15 @@ namespace Spectrum.Views.Projects
                 var selected = _locations.FirstOrDefault(x => x._id == id);
                 if (selected == null) return;
 
-                // set project model Location (type is LocationInfoModel). Since we don't have a
-                // strong reference to its definition here, populate it using reflection.
-                var locationInfoType = typeof(ProjectModel).Assembly.GetType("Spectrum.Models.Projects.LocationInfoModel");
-                if (locationInfoType == null) return;
+                if (_projectModel.Location == null)
+                {
+                    _projectModel.Location = new LocationInfoModel();
+                }
 
-                var locationInfo = Activator.CreateInstance(locationInfoType);
-                // Project uses LocationInfoModel which stores RawLocation/Country/City.
-                // Populate RawLocation from selected location's LocationName so reports see it.
-                locationInfoType.GetProperty("RawLocation")?.SetValue(locationInfo, selected.LocationName);
-                // Keep LocationCode as fallback if the info model has a matching property
-                locationInfoType.GetProperty("LocationCode")?.SetValue(locationInfo, selected.LocationCode);
-                // Attempt to set an _id if the info model stores it (non-standard)
-                locationInfoType.GetProperty("_id")?.SetValue(locationInfo, selected._id);
+                _projectModel.Location._id = selected._id;
+                _projectModel.Location.RawLocation = selected.LocationName;
 
-                typeof(ProjectModel).GetProperty("Location")?.SetValue(_projectModel, locationInfo);
+                bsProject.ResetBindings(false);
             }
             catch
             {
@@ -231,237 +337,10 @@ namespace Spectrum.Views.Projects
             }
         }
 
-        private async void StartLoading()
-        {
-            await InitializeBindings();
-            WireUpBindings();
-            ApplyDefaults();
-            ApplyPermissions();
-        }
-
-        private async Task InitializeBindings()
-        {
-            try
-            {
-                _clients = await _clientRepository.GetClientsAsync();
-                _engineers = await _engineerRepository.GetEmployeesAsync(EnumEmployeeType.Engineer);
-                _users = await _userRepository.GetUsersAsync();
-                _services = await _serviceRepository.GetServicesAsync();
-                _serviceTypes = await _serviceTypeRepository.GetServiceTypesAsync();
-                _locations = await _locationRepository.GetLocationsAsync();
-                _areas = await _areaRepository.GetAreasAsync();
-                _countries = await _countryRepository.GetCountriesAsync();
-                _cities = await _cityRepository.GetCitiesAsync();
-            }
-            catch (Exception ex)
-            {
-                XtraMessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void WireUpBindings()
-        {
-            bsProject.DataSource = _projectModel;
-            cboClients.Properties.DataSource = null;
-            cboClients.Properties.DataSource = _clients;
-
-            // Contract management should share the same Client list as Project Information.
-            // Keep it using the same key (client _id) so newly added clients are available immediately.
-            cboContractClient.Properties.DataSource = null;
-            cboContractClient.Properties.DataSource = _clients;
-
-            cboEngineers.Properties.DataSource = null;
-            cboEngineers.Properties.DataSource = _engineers;
-
-            cboUsers.Properties.DataSource = null;
-            cboUsers.Properties.DataSource = _users;
-
-            cboPersonInCharge.Properties.DataSource = null;
-            cboPersonInCharge.Properties.DataSource = _users;
-
-            cboOperatingUsers.Properties.DataSource = null;
-            cboOperatingUsers.Properties.DataSource = _users;
-
-            cboServicesProvided.Properties.DataSource = null;
-            cboServicesProvided.Properties.DisplayMember = "ServiceName";
-            cboServicesProvided.Properties.ValueMember = "ServiceName";
-            cboServicesProvided.Properties.DataSource = _services;
-
-            cboServicesType.Properties.DataSource = null;
-            cboServicesType.Properties.DisplayMember = "ServiceType";
-            cboServicesType.Properties.ValueMember = "ServiceType";
-            cboServicesType.Properties.DataSource = _serviceTypes;
-
-            cboAreas.Properties.DataSource = null;
-            cboAreas.Properties.DisplayMember = "AreaCode";
-            cboAreas.Properties.ValueMember = "AreaCode";
-            cboAreas.Properties.DataSource = _areas;
-
-            cboLocations.Properties.DataSource = null;
-            cboLocations.Properties.DisplayMember = "LocationName";
-            cboLocations.Properties.ValueMember = "_id";
-            cboLocations.Properties.DataSource = _locations;
-
-            // Countries and Cities - bind to repositories
-            cboCountries.Properties.DataSource = null;
-            cboCountries.Properties.DisplayMember = "CountryName";
-            cboCountries.Properties.ValueMember = "_id";
-            cboCountries.Properties.DataSource = _countries;
-
-            cboCities.Properties.DataSource = null;
-            cboCities.Properties.DisplayMember = "CityName";
-            cboCities.Properties.ValueMember = "_id";
-            cboCities.Properties.DataSource = _cities;
-
-            // Set initial selection from project model (if any)
-            try
-            {
-                var locProp = _projectModel.GetType().GetProperty("Location");
-                if (locProp != null)
-                {
-                    var locVal = locProp.GetValue(_projectModel);
-                    if (locVal != null)
-                    {
-                        var idProp = locVal.GetType().GetProperty("_id");
-                        if (idProp != null)
-                        {
-                            var id = idProp.GetValue(locVal) as string;
-                            if (!string.IsNullOrEmpty(id)) cboLocations.EditValue = id;
-                        }
-                        else
-                        {
-                            var nameProp = locVal.GetType().GetProperty("LocationName");
-                            if (nameProp != null)
-                            {
-                                var name = nameProp.GetValue(locVal) as string;
-                                if (!string.IsNullOrEmpty(name))
-                                {
-                                    var match = _locations.FirstOrDefault(x => x.LocationName == name);
-                                    if (match != null) cboLocations.EditValue = match._id;
-                                }
-                            }
-                            else
-                            {
-                                // Some LocationInfoModel instances use RawLocation instead of LocationName
-                                var rawProp = locVal.GetType().GetProperty("RawLocation");
-                                if (rawProp != null)
-                                {
-                                    var raw = rawProp.GetValue(locVal) as string;
-                                    if (!string.IsNullOrEmpty(raw))
-                                    {
-                                        var matchRaw = _locations.FirstOrDefault(x => x.LocationName == raw);
-                                        if (matchRaw != null) cboLocations.EditValue = matchRaw._id;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                // ignore any reflection errors and leave selection unset
-            }
-
-            // Whenever user changes selection, update project model Location via reflection
-            cboLocations.EditValueChanged += cboLocations_EditValueChanged;
-
-            // Ensure issuance date and year controls reflect model values
-            try
-            {
-                if (_projectModel != null)
-                {
-                    if (_projectModel.IssuanceDate.HasValue)
-                        dtIssuanceDate.EditValue = _projectModel.IssuanceDate.Value;
-
-                    if (_projectModel.YearOfIssuance.HasValue)
-                        dtIssuanceYear.EditValue = _projectModel.YearOfIssuance.Value;
-                }
-            }
-            catch
-            {
-                // ignore
-            }
-
-            // Countries/Cities initial selection from project model (if any)
-            try
-            {
-                var locProp2 = _projectModel.GetType().GetProperty("Location");
-                if (locProp2 != null)
-                {
-                    var locVal2 = locProp2.GetValue(_projectModel);
-                    if (locVal2 != null)
-                    {
-                        var countryProp = locVal2.GetType().GetProperty("Country");
-                        if (countryProp != null)
-                        {
-                            var countryName = countryProp.GetValue(locVal2) as string;
-                            if (!string.IsNullOrEmpty(countryName))
-                            {
-                                var match = _countries.FirstOrDefault(x => string.Equals(x.CountryName, countryName, StringComparison.OrdinalIgnoreCase));
-                                if (match != null) cboCountries.EditValue = match._id;
-                            }
-                        }
-
-                        var cityProp = locVal2.GetType().GetProperty("City");
-                        if (cityProp != null)
-                        {
-                            var cityName = cityProp.GetValue(locVal2) as string;
-                            if (!string.IsNullOrEmpty(cityName))
-                            {
-                                var matchCity = _cities.FirstOrDefault(x => string.Equals(x.CityName, cityName, StringComparison.OrdinalIgnoreCase));
-                                if (matchCity != null) cboCities.EditValue = matchCity._id;
-                            }
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                // ignore
-            }
-
-            // Wire countries and cities changes
-            cboCountries.EditValueChanged -= cboCountries_EditValueChanged;
-            cboCountries.EditValueChanged += cboCountries_EditValueChanged;
-
-            cboCities.EditValueChanged -= cboCities_EditValueChanged;
-            cboCities.EditValueChanged += cboCities_EditValueChanged;
-
-            // Keep contract client in sync with project client.
-            cboClients.EditValueChanged -= cboClients_EditValueChanged;
-            cboClients.EditValueChanged += cboClients_EditValueChanged;
-            SyncContractClientFromProjectClient();
-
-            // Load checked items from project model
-            SetCheckedItems(cboServicesProvided, _projectModel.ServicesProvided);
-            SetCheckedItems(cboServicesType, _projectModel.ServiceTypes);
-
-            //cboStatus.Properties.Items.Clear();
-            //cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
-        }
 
         private void cboClients_EditValueChanged(object sender, EventArgs e)
         {
             SyncContractClientFromProjectClient();
-        }
-
-        private void ApplyDefaults()
-        {
-            if (string.IsNullOrEmpty(_projectModel._id))
-            {
-                _projectModel.Status = ProjectStatus.Active;
-                _projectModel.ProjectDate = DateTime.Today;
-            }
-        }
-
-        private void ApplyPermissions()
-        {
-            btnNew.Enabled = _isAdmin || _canAdd;
-            btnSave.Enabled = _isAdmin || _canEdit;
-            btnSaveAndClose.Enabled = _isAdmin || _canEdit;
-            btnPrint.Enabled = _isAdmin || _canPrint;
-            btnDelete.Enabled = _isAdmin || _canDelete;
         }
 
         private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
@@ -510,6 +389,7 @@ namespace Spectrum.Views.Projects
             try
             {
                 BindingContext[bsProject].EndCurrentEdit();
+                BindingContext[bsContractDetails].EndCurrentEdit();
                 _projectModel = (ProjectModel)bsProject.Current;
 
                 // derive client / engineer names from selected values
@@ -525,47 +405,9 @@ namespace Spectrum.Views.Projects
                 }
 
                 // Save selected services and service types
-                _projectModel.ServicesProvided = GetCheckedItems(cboServicesProvided);
-                _projectModel.ServiceTypes = GetCheckedItems(cboServicesType);
-
-                // Ensure Location.Country and Location.City are set from selected lookups
-                try
-                {
-                    var locationProp = typeof(ProjectModel).GetProperty("Location");
-                    var locationInfoType = typeof(ProjectModel).Assembly.GetType("Spectrum.Models.Projects.LocationInfoModel");
-                    if (locationProp != null && locationInfoType != null)
-                    {
-                        var locationInfo = locationProp.GetValue(_projectModel);
-                        if (locationInfo == null)
-                        {
-                            locationInfo = Activator.CreateInstance(locationInfoType);
-                            locationProp.SetValue(_projectModel, locationInfo);
-                        }
-
-                        if (cboCountries.EditValue != null)
-                        {
-                            var country = _countries.FirstOrDefault(c => c._id == cboCountries.EditValue.ToString());
-                            if (country != null) locationInfoType.GetProperty("Country")?.SetValue(locationInfo, country.CountryName);
-                        }
-
-                        if (cboCities.EditValue != null)
-                        {
-                            var city = _cities.FirstOrDefault(c => c._id == cboCities.EditValue.ToString());
-                            if (city != null) locationInfoType.GetProperty("City")?.SetValue(locationInfo, city.CityName);
-                        }
-
-                        // If a location (from the Locations lookup) is selected, store its display name into RawLocation
-                        if (cboLocations.EditValue != null)
-                        {
-                            var loc = _locations.FirstOrDefault(l => l._id == cboLocations.EditValue.ToString());
-                            if (loc != null) locationInfoType.GetProperty("RawLocation")?.SetValue(locationInfo, loc.LocationName);
-                        }
-                    }
-                }
-                catch
-                {
-                    // ignore
-                }
+                _projectModel.ContractDetails = _projectModel.ContractDetails ?? new ContractDetailModel();
+                _projectModel.ContractDetails.ServicesProvided = GetCheckedItems(cboServicesProvided);
+                _projectModel.ContractDetails.ServiceTypes = GetCheckedItems(cboServicesType);
 
                 //if (!string.IsNullOrEmpty(cboStatus.Text))
                 //{
@@ -581,29 +423,6 @@ namespace Spectrum.Views.Projects
                 else
                 {
                     _logInfoRepository.UpdateLogInfo(_projectModel);
-                    // Ensure issuance date/year are propagated to the model from the UI controls
-                    try
-                    {
-                        if (dtIssuanceDate != null && dtIssuanceDate.EditValue != null && DateTime.TryParse(dtIssuanceDate.EditValue.ToString(), out var issDate))
-                        {
-                            _projectModel.IssuanceDate = issDate;
-                        }
-
-                        if (dtIssuanceYear != null && dtIssuanceYear.EditValue != null)
-                        {
-                            if (int.TryParse(dtIssuanceYear.EditValue.ToString(), out var y)) _projectModel.YearOfIssuance = y;
-                            else if (_projectModel.IssuanceDate.HasValue) _projectModel.YearOfIssuance = _projectModel.IssuanceDate.Value.Year;
-                        }
-                        else if (_projectModel.IssuanceDate.HasValue)
-                        {
-                            _projectModel.YearOfIssuance = _projectModel.IssuanceDate.Value.Year;
-                        }
-                    }
-                    catch
-                    {
-                        // ignore parsing errors
-                    }
-
                     await _projectRepository.UpdateProjectAsync(_projectModel);
                 }
                 SendUpdatedProject?.Invoke(_projectModel, EventArgs.Empty);
@@ -660,6 +479,42 @@ namespace Spectrum.Views.Projects
             catch
             {
                 return new List<string>();
+            }
+        }
+
+        private static void BindCheckedComboBoxItems(CheckedComboBoxEdit edit, IEnumerable<string> availableValues, IEnumerable<string> selectedValues)
+        {
+            if (edit == null) return;
+
+            try
+            {
+                var selected = new HashSet<string>((selectedValues ?? Enumerable.Empty<string>())
+                    .Where(v => !string.IsNullOrWhiteSpace(v)));
+
+                var values = (availableValues ?? Enumerable.Empty<string>())
+                    .Where(v => !string.IsNullOrWhiteSpace(v))
+                    .Concat(selected)
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .OrderBy(v => v)
+                    .ToList();
+
+                edit.Properties.Items.BeginUpdate();
+                try
+                {
+                    edit.Properties.Items.Clear();
+                    foreach (var value in values)
+                    {
+                        edit.Properties.Items.Add(value, selected.Contains(value));
+                    }
+                }
+                finally
+                {
+                    edit.Properties.Items.EndUpdate();
+                }
+            }
+            catch
+            {
+                // ignore
             }
         }
 
@@ -788,11 +643,14 @@ namespace Spectrum.Views.Projects
             var service = sender as ServiceModel;
             if (service == null) return;
 
-            _services.Add(service);
-            cboServicesProvided.Properties.DataSource = null;
-            cboServicesProvided.Properties.DataSource = _services;
+         if (_services.All(x => !string.Equals(x.ServiceName, service.ServiceName, StringComparison.OrdinalIgnoreCase)))
+            {
+                _services.Add(service);
+            }
 
-            cboServicesProvided.Properties.Items.Add(service.ServiceName, true);
+            var selectedValues = GetCheckedItems(cboServicesProvided);
+            selectedValues.Add(service.ServiceName);
+            BindCheckedComboBoxItems(cboServicesProvided, _services.Select(x => x.ServiceName), selectedValues);
         }
 
         private void cboServicesType_ButtonClick(object sender, ButtonPressedEventArgs e)
@@ -809,11 +667,14 @@ namespace Spectrum.Views.Projects
             var serviceType = sender as ServiceTypeModel;
             if (serviceType == null) return;
 
-            _serviceTypes.Add(serviceType);
-            cboServicesType.Properties.DataSource = null;
-            cboServicesType.Properties.DataSource = _serviceTypes;
+         if (_serviceTypes.All(x => !string.Equals(x.ServiceType, serviceType.ServiceType, StringComparison.OrdinalIgnoreCase)))
+            {
+                _serviceTypes.Add(serviceType);
+            }
 
-            cboServicesType.Properties.Items.Add(serviceType.ServiceType, true);
+            var selectedValues = GetCheckedItems(cboServicesType);
+            selectedValues.Add(serviceType.ServiceType);
+            BindCheckedComboBoxItems(cboServicesType, _serviceTypes.Select(x => x.ServiceType), selectedValues);
         }
 
         private void RcvUpdatedCountry(object sender, EventArgs e)
@@ -825,7 +686,7 @@ namespace Spectrum.Views.Projects
 
             cboCountries.Properties.DataSource = null;
             cboCountries.Properties.DataSource = _countries;
-            if (_countryModel != null) cboCountries.EditValue = _countryModel._id;
+            if (_countryModel != null) cboCountries.EditValue = _countryModel.CountryName;
         }
 
         private void RcvUpdatedCity(object sender, EventArgs e)
@@ -905,10 +766,14 @@ namespace Spectrum.Views.Projects
             _clients.Add(_clientModel);
 
             cboClients.Properties.DataSource = null;
+            cboClients.Properties.DisplayMember = "ClientName";
+            cboClients.Properties.ValueMember = "ClientName";
             cboClients.Properties.DataSource = _clients;
 
             // Refresh contract management client lookup as well
             cboContractClient.Properties.DataSource = null;
+            cboContractClient.Properties.DisplayMember = "ClientName";
+            cboContractClient.Properties.ValueMember = "ClientName";
             cboContractClient.Properties.DataSource = _clients;
 
             if (_clientModel != null)
@@ -940,6 +805,60 @@ namespace Spectrum.Views.Projects
                     rpExpenses.Visible = false;
                     rcMain.SelectPage(rpMain);
                     break;
+            }
+        }
+
+        #region Helper Methods
+
+        private bool ConfirmDelete(string itemName)
+        {
+            return XtraMessageBox.Show(
+                $"Are you sure you want to delete Record: `{itemName}`?",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2) == DialogResult.Yes;
+        }
+
+        private void HandleDeleteError(Exception ex)
+        {
+            string message;
+            switch (ex.Message)
+            {
+                case "-2146233088":
+                    message = "This record is linked to one or more transactions, delete all links first.";
+                    break;
+                default:
+                    message = ex.Message;
+                    break;
+            }
+
+            XtraMessageBox.Show(message, "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void ShowError(string message, Exception ex)
+        {
+            XtraMessageBox.Show(
+                $"{message}\n\nDetails: {ex.Message}",
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+        }
+
+        #endregion
+
+        private void cboLocations_EditValueChanged_1(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_projectModel.Location != null && !string.IsNullOrWhiteSpace(_projectModel.Location._id))
+                {
+                    cboLocations.EditValue = _projectModel.Location._id;
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowError("Error while selecting location", ex);
             }
         }
     }

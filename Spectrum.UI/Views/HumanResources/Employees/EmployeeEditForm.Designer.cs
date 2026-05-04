@@ -30,15 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeEditForm));
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup8 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges15 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges16 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.Utils.ContextButton contextButton2 = new DevExpress.Utils.ContextButton();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges1 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges2 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.Utils.ContextButton contextButton1 = new DevExpress.Utils.ContextButton();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             this.ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
             this.btnClose = new DevExpress.XtraBars.BarButtonItem();
@@ -108,6 +108,10 @@
             this.gridView5 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.cboBloodType = new DevExpress.XtraEditors.SearchLookUpEdit();
+            this.gridView6 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lblEmployeeNo = new DevExpress.XtraLayout.LayoutControlItem();
             this.lblFirstName = new DevExpress.XtraLayout.LayoutControlItem();
@@ -217,10 +221,6 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.tabJobInfo = new DevExpress.XtraLayout.LayoutControlItem();
-            this.cboBloodType = new DevExpress.XtraEditors.SearchLookUpEdit();
-            this.gridView6 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
@@ -266,6 +266,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboFamilyStatus.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboBloodType.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblEmployeeNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblFirstName)).BeginInit();
@@ -379,8 +381,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabJobInfo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboBloodType.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbonControl
@@ -530,16 +530,16 @@
             // 
             this.galleryQuickLetters.Gallery.ColumnCount = 2;
             this.galleryQuickLetters.Gallery.DrawImageBackground = false;
-            galleryItemGroup8.Caption = "Group1";
+            galleryItemGroup1.Caption = "Group1";
             this.galleryQuickLetters.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup8});
+            galleryItemGroup1});
             this.galleryQuickLetters.Gallery.ItemImageLocation = DevExpress.Utils.Locations.Left;
-            skinPaddingEdges15.Bottom = -4;
-            skinPaddingEdges15.Top = -4;
-            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges15;
-            skinPaddingEdges16.Bottom = -1;
-            skinPaddingEdges16.Top = -1;
-            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges16;
+            skinPaddingEdges1.Bottom = -4;
+            skinPaddingEdges1.Top = -4;
+            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges1;
+            skinPaddingEdges2.Bottom = -1;
+            skinPaddingEdges2.Top = -1;
+            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges2;
             this.galleryQuickLetters.Gallery.ShowItemText = true;
             this.galleryQuickLetters.Id = 14;
             this.galleryQuickLetters.Name = "galleryQuickLetters";
@@ -1163,6 +1163,50 @@
             this.gridColumn8.VisibleIndex = 0;
             this.gridColumn8.Width = 926;
             // 
+            // cboBloodType
+            // 
+            this.cboBloodType.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "BloodType", true));
+            this.cboBloodType.Location = new System.Drawing.Point(156, 116);
+            this.cboBloodType.MenuManager = this.ribbonControl;
+            this.cboBloodType.Name = "cboBloodType";
+            this.cboBloodType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboBloodType.Properties.DisplayMember = "BloodTypeName";
+            this.cboBloodType.Properties.NullText = "";
+            this.cboBloodType.Properties.PopupView = this.gridView6;
+            this.cboBloodType.Properties.ShowAddNewButton = true;
+            this.cboBloodType.Properties.ValueMember = "BloodTypeName";
+            this.cboBloodType.Size = new System.Drawing.Size(437, 22);
+            this.cboBloodType.StyleController = this.layoutControl1;
+            this.cboBloodType.TabIndex = 8;
+            this.cboBloodType.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboBloodType_AddNewValue);
+            // 
+            // gridView6
+            // 
+            this.gridView6.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn9,
+            this.gridColumn10});
+            this.gridView6.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView6.Name = "gridView6";
+            this.gridView6.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView6.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn9
+            // 
+            this.gridColumn9.Caption = "ID";
+            this.gridColumn9.FieldName = "_id";
+            this.gridColumn9.Name = "gridColumn9";
+            this.gridColumn9.Width = 213;
+            // 
+            // gridColumn10
+            // 
+            this.gridColumn10.Caption = "Blood Type";
+            this.gridColumn10.FieldName = "BloodTypeName";
+            this.gridColumn10.Name = "gridColumn10";
+            this.gridColumn10.Visible = true;
+            this.gridColumn10.VisibleIndex = 0;
+            this.gridColumn10.Width = 928;
+            // 
             // layoutControlGroup1
             // 
             this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -1521,7 +1565,7 @@
             // 
             this.tabEmployeeContactInfo.Controls.Add(this.layoutControl5);
             this.tabEmployeeContactInfo.Name = "tabEmployeeContactInfo";
-            this.tabEmployeeContactInfo.Size = new System.Drawing.Size(1196, 560);
+            this.tabEmployeeContactInfo.Size = new System.Drawing.Size(1192, 556);
             this.tabEmployeeContactInfo.Text = "Employee Contact Info";
             // 
             // layoutControl5
@@ -1535,7 +1579,7 @@
             this.layoutControl5.Location = new System.Drawing.Point(0, 0);
             this.layoutControl5.Name = "layoutControl5";
             this.layoutControl5.Root = this.layoutControlGroup10;
-            this.layoutControl5.Size = new System.Drawing.Size(1196, 560);
+            this.layoutControl5.Size = new System.Drawing.Size(1192, 556);
             this.layoutControl5.TabIndex = 0;
             this.layoutControl5.Text = "layoutControl5";
             // 
@@ -1544,7 +1588,7 @@
             this.txtAddress.Location = new System.Drawing.Point(130, 128);
             this.txtAddress.MenuManager = this.ribbonControl;
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(565, 93);
+            this.txtAddress.Size = new System.Drawing.Size(562, 92);
             this.txtAddress.StyleController = this.layoutControl5;
             this.txtAddress.TabIndex = 8;
             // 
@@ -1554,7 +1598,7 @@
             this.txtEmail.Location = new System.Drawing.Point(130, 92);
             this.txtEmail.MenuManager = this.ribbonControl;
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(565, 22);
+            this.txtEmail.Size = new System.Drawing.Size(562, 22);
             this.txtEmail.StyleController = this.layoutControl5;
             this.txtEmail.TabIndex = 7;
             // 
@@ -1568,7 +1612,7 @@
             this.txtAbroadMobileNo.Location = new System.Drawing.Point(130, 66);
             this.txtAbroadMobileNo.MenuManager = this.ribbonControl;
             this.txtAbroadMobileNo.Name = "txtAbroadMobileNo";
-            this.txtAbroadMobileNo.Size = new System.Drawing.Size(565, 22);
+            this.txtAbroadMobileNo.Size = new System.Drawing.Size(562, 22);
             this.txtAbroadMobileNo.StyleController = this.layoutControl5;
             this.txtAbroadMobileNo.TabIndex = 6;
             // 
@@ -1578,7 +1622,7 @@
             this.txtLocalMobileNo.Location = new System.Drawing.Point(130, 40);
             this.txtLocalMobileNo.MenuManager = this.ribbonControl;
             this.txtLocalMobileNo.Name = "txtLocalMobileNo";
-            this.txtLocalMobileNo.Size = new System.Drawing.Size(565, 22);
+            this.txtLocalMobileNo.Size = new System.Drawing.Size(562, 22);
             this.txtLocalMobileNo.StyleController = this.layoutControl5;
             this.txtLocalMobileNo.TabIndex = 5;
             // 
@@ -1588,7 +1632,7 @@
             this.txtLocalFixPhone.Location = new System.Drawing.Point(130, 14);
             this.txtLocalFixPhone.MenuManager = this.ribbonControl;
             this.txtLocalFixPhone.Name = "txtLocalFixPhone";
-            this.txtLocalFixPhone.Size = new System.Drawing.Size(565, 22);
+            this.txtLocalFixPhone.Size = new System.Drawing.Size(562, 22);
             this.txtLocalFixPhone.StyleController = this.layoutControl5;
             this.txtLocalFixPhone.TabIndex = 4;
             // 
@@ -1606,7 +1650,7 @@
             this.emptySpaceItem19,
             this.emptySpaceItem17});
             this.layoutControlGroup10.Name = "layoutControlGroup10";
-            this.layoutControlGroup10.Size = new System.Drawing.Size(1196, 560);
+            this.layoutControlGroup10.Size = new System.Drawing.Size(1192, 556);
             this.layoutControlGroup10.TextVisible = false;
             // 
             // lblLocalFixPhone
@@ -1614,7 +1658,7 @@
             this.lblLocalFixPhone.Control = this.txtLocalFixPhone;
             this.lblLocalFixPhone.Location = new System.Drawing.Point(0, 0);
             this.lblLocalFixPhone.Name = "lblLocalFixPhone";
-            this.lblLocalFixPhone.Size = new System.Drawing.Size(685, 26);
+            this.lblLocalFixPhone.Size = new System.Drawing.Size(682, 26);
             this.lblLocalFixPhone.Text = "Local Fix Phone";
             this.lblLocalFixPhone.TextSize = new System.Drawing.Size(101, 16);
             // 
@@ -1623,7 +1667,7 @@
             this.lblLocalMobileNo.Control = this.txtLocalMobileNo;
             this.lblLocalMobileNo.Location = new System.Drawing.Point(0, 26);
             this.lblLocalMobileNo.Name = "lblLocalMobileNo";
-            this.lblLocalMobileNo.Size = new System.Drawing.Size(685, 26);
+            this.lblLocalMobileNo.Size = new System.Drawing.Size(682, 26);
             this.lblLocalMobileNo.Text = "Local Mobile No";
             this.lblLocalMobileNo.TextSize = new System.Drawing.Size(101, 16);
             // 
@@ -1632,7 +1676,7 @@
             this.lblAbroadMobileNo.Control = this.txtAbroadMobileNo;
             this.lblAbroadMobileNo.Location = new System.Drawing.Point(0, 52);
             this.lblAbroadMobileNo.Name = "lblAbroadMobileNo";
-            this.lblAbroadMobileNo.Size = new System.Drawing.Size(685, 26);
+            this.lblAbroadMobileNo.Size = new System.Drawing.Size(682, 26);
             this.lblAbroadMobileNo.Text = "Abroad Mobile No";
             this.lblAbroadMobileNo.TextSize = new System.Drawing.Size(101, 16);
             // 
@@ -1641,36 +1685,36 @@
             this.lblEmail.Control = this.txtEmail;
             this.lblEmail.Location = new System.Drawing.Point(0, 78);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(685, 26);
+            this.lblEmail.Size = new System.Drawing.Size(682, 26);
             this.lblEmail.Text = "Email";
             this.lblEmail.TextSize = new System.Drawing.Size(101, 16);
             // 
             // emptySpaceItem18
             // 
-            this.emptySpaceItem18.Location = new System.Drawing.Point(685, 0);
+            this.emptySpaceItem18.Location = new System.Drawing.Point(682, 0);
             this.emptySpaceItem18.Name = "emptySpaceItem18";
-            this.emptySpaceItem18.Size = new System.Drawing.Size(487, 536);
+            this.emptySpaceItem18.Size = new System.Drawing.Size(486, 532);
             // 
             // lblAddress
             // 
             this.lblAddress.Control = this.txtAddress;
             this.lblAddress.Location = new System.Drawing.Point(0, 114);
             this.lblAddress.Name = "lblAddress";
-            this.lblAddress.Size = new System.Drawing.Size(685, 97);
+            this.lblAddress.Size = new System.Drawing.Size(682, 96);
             this.lblAddress.Text = "Address";
             this.lblAddress.TextSize = new System.Drawing.Size(101, 16);
             // 
             // emptySpaceItem19
             // 
-            this.emptySpaceItem19.Location = new System.Drawing.Point(0, 211);
+            this.emptySpaceItem19.Location = new System.Drawing.Point(0, 210);
             this.emptySpaceItem19.Name = "emptySpaceItem19";
-            this.emptySpaceItem19.Size = new System.Drawing.Size(685, 325);
+            this.emptySpaceItem19.Size = new System.Drawing.Size(682, 322);
             // 
             // emptySpaceItem17
             // 
             this.emptySpaceItem17.Location = new System.Drawing.Point(0, 104);
             this.emptySpaceItem17.Name = "emptySpaceItem17";
-            this.emptySpaceItem17.Size = new System.Drawing.Size(685, 10);
+            this.emptySpaceItem17.Size = new System.Drawing.Size(682, 10);
             // 
             // tabCNSSDetails
             // 
@@ -2113,12 +2157,12 @@
             this.gvDocuments.ColumnSet.DescriptionColumn = this.colDate1;
             this.gvDocuments.ColumnSet.TextColumn = this.colName;
             this.gvDocuments.ContextButtonOptions.AllowGlyphSkinning = true;
-            contextButton2.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Right;
-            contextButton2.Id = new System.Guid("29468572-0411-449a-bc2d-0c333134705c");
-            contextButton2.ImageOptionsCollection.ItemNormal.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
-            contextButton2.ImageOptionsCollection.ItemNormal.SvgImageSize = new System.Drawing.Size(16, 16);
-            contextButton2.Name = "removeButton";
-            this.gvDocuments.ContextButtons.Add(contextButton2);
+            contextButton1.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Right;
+            contextButton1.Id = new System.Guid("29468572-0411-449a-bc2d-0c333134705c");
+            contextButton1.ImageOptionsCollection.ItemNormal.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
+            contextButton1.ImageOptionsCollection.ItemNormal.SvgImageSize = new System.Drawing.Size(16, 16);
+            contextButton1.Name = "removeButton";
+            this.gvDocuments.ContextButtons.Add(contextButton1);
             this.gvDocuments.GridControl = this.gcDocuments;
             this.gvDocuments.Name = "gvDocuments";
             this.gvDocuments.OptionsBehavior.Editable = false;
@@ -2164,12 +2208,12 @@
             this.openDocuments.Name = "openDocuments";
             this.openDocuments.Properties.AutoHeight = false;
             this.openDocuments.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
-            editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(16, 16);
+            editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
+            editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(16, 16);
             this.openDocuments.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton(),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", "loadFile", null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", "loadFile", null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.openDocuments.Size = new System.Drawing.Size(1069, 28);
             this.openDocuments.StyleController = this.layoutControl4;
             this.openDocuments.TabIndex = 7;
@@ -2229,50 +2273,6 @@
             this.tabJobInfo.Text = "Job Information";
             this.tabJobInfo.TextVisible = false;
             // 
-            // cboBloodType
-            // 
-            this.cboBloodType.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "BloodType", true));
-            this.cboBloodType.Location = new System.Drawing.Point(156, 116);
-            this.cboBloodType.MenuManager = this.ribbonControl;
-            this.cboBloodType.Name = "cboBloodType";
-            this.cboBloodType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cboBloodType.Properties.DisplayMember = "BloodTypeName";
-            this.cboBloodType.Properties.NullText = "";
-            this.cboBloodType.Properties.PopupView = this.gridView6;
-            this.cboBloodType.Properties.ShowAddNewButton = true;
-            this.cboBloodType.Properties.ValueMember = "BloodTypeName";
-            this.cboBloodType.Size = new System.Drawing.Size(437, 22);
-            this.cboBloodType.StyleController = this.layoutControl1;
-            this.cboBloodType.TabIndex = 8;
-            this.cboBloodType.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboBloodType_AddNewValue);
-            // 
-            // gridView6
-            // 
-            this.gridView6.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn9,
-            this.gridColumn10});
-            this.gridView6.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.gridView6.Name = "gridView6";
-            this.gridView6.OptionsSelection.EnableAppearanceFocusedCell = false;
-            this.gridView6.OptionsView.ShowGroupPanel = false;
-            // 
-            // gridColumn9
-            // 
-            this.gridColumn9.Caption = "ID";
-            this.gridColumn9.FieldName = "_id";
-            this.gridColumn9.Name = "gridColumn9";
-            this.gridColumn9.Width = 213;
-            // 
-            // gridColumn10
-            // 
-            this.gridColumn10.Caption = "Blood Type";
-            this.gridColumn10.FieldName = "BloodTypeName";
-            this.gridColumn10.Name = "gridColumn10";
-            this.gridColumn10.Visible = true;
-            this.gridColumn10.VisibleIndex = 0;
-            this.gridColumn10.Width = 928;
-            // 
             // EmployeeEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -2331,6 +2331,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboFamilyStatus.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboBloodType.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblEmployeeNo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblFirstName)).EndInit();
@@ -2444,8 +2446,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabJobInfo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboBloodType.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

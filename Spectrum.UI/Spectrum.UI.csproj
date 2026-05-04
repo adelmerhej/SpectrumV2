@@ -45,18 +45,14 @@
     <Reference Include="DevExpress.DataAccess.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Drawing.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Images.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Office.v25.2.Core, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v25.2.Core, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Sparkline.v25.2.Core, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Spreadsheet.v25.2.Core, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Xpo.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraSpreadsheet.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraTreeList.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
@@ -141,6 +137,12 @@
     </Compile>
     <Compile Include="Views\Accounting\Journals\JournalsListForm.Designer.cs">
       <DependentUpon>JournalsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounting\JournalType\JournalTypeEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\JournalType\JournalTypeEditForm.Designer.cs">
+      <DependentUpon>JournalTypeEditForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Accounting\JournalType\JournalTypesListForm.cs">
       <SubType>Form</SubType>
@@ -322,12 +324,6 @@
     <Compile Include="Views\Dashboard\DashboardActivitiesForm1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\DocumentViewerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\DocumentViewerForm.Designer.cs">
-      <DependentUpon>DocumentViewerForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\HumanResources\Common\BloodTypes\BloodTypeEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -430,6 +426,12 @@
     <Compile Include="Views\Main\Connections\SuperAdminConnectionForm.Designer.cs">
       <DependentUpon>SuperAdminConnectionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Main\ApiKeySettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Main\ApiKeySettingForm.Designer.cs">
+      <DependentUpon>ApiKeySettingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -484,14 +486,17 @@
     <Compile Include="Views\Projects\ProjectEditForm.Designer.cs">
       <DependentUpon>ProjectEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Projects\ProjectReportDesignerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Views\Projects\ProjectsListForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Projects\ProjectsListForm.Designer.cs">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\DocumentViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\DocumentViewerForm.Designer.cs">
+      <DependentUpon>DocumentViewerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Transactions\Expenses\ExpensesListForm.cs">
       <SubType>Form</SubType>
@@ -602,6 +607,9 @@
     <EmbeddedResource Include="Views\Accounting\Journals\JournalsListForm.resx">
       <DependentUpon>JournalsListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\JournalType\JournalTypeEditForm.resx">
+      <DependentUpon>JournalTypeEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\JournalType\JournalTypesListForm.resx">
       <DependentUpon>JournalTypesListForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -689,9 +697,6 @@
     <EmbeddedResource Include="Views\Dashboard\DashboardActivitiesForm1.resx">
       <DependentUpon>DashboardActivitiesForm1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\DocumentViewerForm.resx">
-      <DependentUpon>DocumentViewerForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\Common\BloodTypes\BloodTypeEditForm.resx">
       <DependentUpon>BloodTypeEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -743,6 +748,9 @@
     <EmbeddedResource Include="Views\Main\Connections\SuperAdminConnectionForm.resx">
       <DependentUpon>SuperAdminConnectionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Main\ApiKeySettingForm.resx">
+      <DependentUpon>ApiKeySettingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -773,6 +781,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Projects\ProjectsListForm.resx">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Reports\DocumentViewerForm.resx">
+      <DependentUpon>DocumentViewerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Transactions\Expenses\ExpensesListForm.resx">
       <DependentUpon>ExpensesListForm.cs</DependentUpon>
@@ -813,20 +824,6 @@
     </EmbeddedResource>
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Areas.AreaModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Areas.LocationModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Companies.BranchModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Companies.CompanyModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.CityModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.ContinentModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.CountryModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.DistrictModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.ProvinceModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.RegionModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Currencies.CurrencyModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Currencies.ExchangeCurrencyModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Departments.DepartmentModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Common.Services.ServiceModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.CnssInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmergencyContactInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmployeeContactInfo.datasource" />
@@ -834,18 +831,15 @@
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.SyndicatInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkExperienceInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkingPermitInfo.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.JobPositions.JobPositionModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Members.Clients.ClientModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Members.Clients.ContactModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Members.Engineers.EngineerModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Members.Engineers.Status.StatusModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Operations.Projects.ProjectModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Projects.InvoiceModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Users.UserModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Projects.ContractDetailModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Projects.LocationInfoModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.Banks.BankModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.Journals.JournalTypeModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Roles.RoleModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.BloodTypes.BloodTypeModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.Candidates.CandidateModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.Candidates.EducationEntryModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.Candidates.WorkExperienceModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.EmployeeTypes.EmployeeTypeModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

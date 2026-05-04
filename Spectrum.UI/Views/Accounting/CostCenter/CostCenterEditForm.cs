@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Spectrum.Views.Accounting.CostCenter
 {
-    public partial class CostCenterEditForm : DevExpress.XtraEditors.XtraForm
+    public partial class CostCenterEditForm : XtraForm
     {
         public CostCenterEditForm()
         {

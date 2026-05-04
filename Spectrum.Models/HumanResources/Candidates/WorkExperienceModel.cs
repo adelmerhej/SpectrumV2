@@ -3,7 +3,7 @@
     public class WorkExperienceModel
     {
         public string Company { get; set; }
-        public string JobTitle { get; set; }
+        public string Position { get; set; }
         public string Duration { get; set; }
     }
 }

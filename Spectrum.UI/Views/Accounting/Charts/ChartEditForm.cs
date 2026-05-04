@@ -8,6 +8,7 @@ using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -139,6 +140,7 @@ namespace Spectrum.Views.Accounting.Charts
 
                     await _chartRepository.UpdateChartAsync(_chartModel);
                 }
+                await CheckAndUpdateAccountParentAsync(_chartModel);
 
                 SendUpdatedChartAccount?.Invoke(_chartModel, EventArgs.Empty);
                 Close();
@@ -280,5 +282,83 @@ namespace Spectrum.Views.Accounting.Charts
                 ? number
                 : $"{number} {serial}";
         }
+
+        private async Task CheckAndUpdateAccountParentAsync(ChartModel chart)
+        {
+            if (chart == null || string.IsNullOrWhiteSpace(chart.Number))
+                return;
+
+            var currentNumber = chart.Number.Trim();
+            if (currentNumber.Length <= 1)
+            {
+                if (chart.ParentId != 0)
+                {
+                    chart.ParentId = 0;
+                    await _chartRepository.UpdateChartAsync(chart);
+                }
+
+                return;
+            }
+
+            var parentId = 0;
+
+            for (var length = 1; length < currentNumber.Length; length++)
+            {
+                var parentNumber = currentNumber.Substring(0, length);
+                await EnsureTitleAccountAsync(parentNumber, chart.AccountName, parentId);
+
+                int parsedParentId;
+                parentId = int.TryParse(parentNumber, out parsedParentId) ? parsedParentId : 0;
+            }
+
+            if (string.Equals(chart.AccountType, "R", StringComparison.OrdinalIgnoreCase))
+            {
+                await EnsureTitleAccountAsync(currentNumber, chart.AccountName, parentId);
+
+                int parsedCurrentParentId;
+                parentId = int.TryParse(currentNumber, out parsedCurrentParentId) ? parsedCurrentParentId : 0;
+            }
+
+            if (chart.ParentId != parentId)
+            {
+                chart.ParentId = parentId;
+                _logInfoRepository.UpdateLogInfo(chart);
+                await _chartRepository.UpdateChartAsync(chart);
+            }
+        }
+
+        private async Task<ChartModel> EnsureTitleAccountAsync(string number, string accountName, int parentId)
+        {
+            var charts = await _chartRepository.GetChartByNumberAsync(number, CurrentUser.Company);
+            var titleChart = charts.FirstOrDefault(x =>
+                string.Equals(x.AccountType, "T", StringComparison.OrdinalIgnoreCase) &&
+                string.IsNullOrWhiteSpace(x.Serial));
+
+            if (titleChart == null)
+            {
+                titleChart = new ChartModel
+                {
+                    ParentId = parentId,
+                    Number = number,
+                    Serial = string.Empty,
+                    AccountName = accountName,
+                    AccountType = "T"
+                };
+
+                _logInfoRepository.CreateLogInfo(titleChart);
+                await _chartRepository.AddNewChartAsync(titleChart);
+                return titleChart;
+            }
+
+            if (titleChart.ParentId != parentId)
+            {
+                titleChart.ParentId = parentId;
+                _logInfoRepository.UpdateLogInfo(titleChart);
+                await _chartRepository.UpdateChartAsync(titleChart);
+            }
+
+            return titleChart;
+        }
+
     }
 }

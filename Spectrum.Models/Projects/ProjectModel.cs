@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Spectrum.Models.Projects
 {
+    [BsonIgnoreExtraElements]
 	public class ProjectModel : EntityObject, ICloneable
 	{
 		// ==========================================================
@@ -75,48 +76,70 @@ namespace Spectrum.Models.Projects
 		// Location
 		//------------------------------------------------
 		[BsonElement("Location ")]                                  // Location
-		public LocationInfoModel Location { get; set; }
+		public LocationInfoModel Location { get; set; } = new LocationInfoModel();
 
 		[BsonElement("Area")]
-		public string Area { get; set; }                            // "Area"
+		[BsonIgnoreIfNull]
+		private string LegacyArea
+		{
+			get { return null; }
+			set
+			{
+				if (string.IsNullOrWhiteSpace(value)) return;
+				Location = Location ?? new LocationInfoModel();
+				if (string.IsNullOrWhiteSpace(Location.Area))
+				{
+					Location.Area = value;
+				}
+			}
+		}
 
-		// Dates & status
+		[BsonElement("Country")]
+		[BsonIgnoreIfNull]
+		private string LegacyCountry
+		{
+			get { return null; }
+			set
+			{
+				if (string.IsNullOrWhiteSpace(value)) return;
+				Location = Location ?? new LocationInfoModel();
+				if (string.IsNullOrWhiteSpace(Location.Country))
+				{
+					Location.Country = value;
+				}
+			}
+		}
+
+		[BsonElement("City")]
+		[BsonIgnoreIfNull]
+		private string LegacyCity
+		{
+			get { return null; }
+			set
+			{
+				if (string.IsNullOrWhiteSpace(value)) return;
+				Location = Location ?? new LocationInfoModel();
+				if (string.IsNullOrWhiteSpace(Location.City))
+				{
+					Location.City = value;
+				}
+			}
+		}
+
+       // Dates & status
 		//------------------------------------------------
 
-		[BsonElement("YearOfIssuance ")]
+        [BsonElement("YearOfIssuance ")]
 		[BsonRepresentation(BsonType.Int32)]
 		public int? YearOfIssuance { get; set; }                    // "Year of Issuance"
 
-		[BsonElement("IssuanceDate")]
-		[BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
-		public DateTime? IssuanceDate { get; set; }
-
 		public DateTime? ProjectDate { get; set; }                  // "ProjectDate Date"
-		public DateTime? SignatureDate { get; set; }                  // "Signature Date"
 
 
 		public DateTime? ExpiryDate { get; set; }                    // "Expiry Date"
 
 		[BsonRepresentation(BsonType.String)]
 		public ProjectStatus Status { get; set; }                   // "Status"
-
-		// Contract Link   
-		//------------------------------------------------
-		[BsonElement("ContractLink")]
-		public string ContractLink { get; set; }
-
-
-		// Services (Design, Supervision...)
-		//------------------------------------------------
-		[BsonElement("Services")]
-		public ContractInfoModel Services { get; set; }
-
-		[BsonElement("ServicesProvided")]
-		public List<string> ServicesProvided { get; set; } = new List<string>();
-
-		[BsonElement("ServiceTypes")]
-		public List<string> ServiceTypes { get; set; } = new List<string>();
-
 
 		// Repeating financial adjustments (addendums) -> dynamic list
 		//------------------------------------------------
@@ -129,14 +152,6 @@ namespace Spectrum.Models.Projects
 		[BsonElement("Invoices")]
 		public List<InvoiceModel> Invoices { get; set; } = new List<InvoiceModel>();
 
-
-		// Warranties / bank / misc
-		//------------------------------------------------
-		[BsonElement("Warranty")]
-		public WarrantyInfoModel Warranty { get; set; }
-
-		[BsonElement("Bank")]
-		public string Bank { get; set; }
 
 		// Audit / provenance
 		//------------------------------------------------

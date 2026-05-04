@@ -54,7 +54,19 @@ namespace Spectrum.DataLayers.Accounting.Charts
 			return await _charts.Find(filter).FirstOrDefaultAsync();
 		}
 
-		public string GetNewSerial(string accountNumber, string company)
+        public async Task<List<ChartModel>> GetChartByNumberAsync(string parentNumber, string company)
+        {
+            if (string.IsNullOrWhiteSpace(parentNumber) || string.IsNullOrWhiteSpace(company)) return new List<ChartModel>();
+            var numberPattern = "^" + Regex.Escape(parentNumber.Trim()) + "$";
+            var companyPattern = "^" + Regex.Escape(company.Trim()) + "$";
+            var filter = Builders<ChartModel>.Filter.And(
+                Builders<ChartModel>.Filter.Regex(x => x.Number, new BsonRegularExpression(numberPattern, "i")),
+                Builders<ChartModel>.Filter.Regex(x => x.Company, new BsonRegularExpression(companyPattern, "i")));
+            return await _charts.Find(filter).ToListAsync();
+        }
+
+
+        public string GetNewSerial(string accountNumber, string company)
 		{
 			var accountType = AccountType.R.ToString();
 
