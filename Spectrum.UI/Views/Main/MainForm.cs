@@ -529,7 +529,8 @@ namespace Spectrum.Views.Main
 
         private void mnuGeneralSettings_Click(object sender, EventArgs e)
         {
-            ShowFeatureUnderDevelopment();
+            ApiKeySettingForm frm = new ApiKeySettingForm();
+            frm.ShowDialog();
         }
 
 

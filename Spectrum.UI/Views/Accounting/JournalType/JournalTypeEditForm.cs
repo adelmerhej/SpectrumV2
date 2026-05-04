@@ -9,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spectrum.Views.Accounting.CostCenter
+namespace Spectrum.Views.Accounting.JournalType
 {
-    public partial class CostCenterEditForm : XtraForm
+    public partial class JournalTypeEditForm : XtraForm
     {
-        public CostCenterEditForm()
+        public JournalTypeEditForm()
         {
             InitializeComponent();
         }

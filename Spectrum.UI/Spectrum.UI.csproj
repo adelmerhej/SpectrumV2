@@ -138,6 +138,12 @@
     <Compile Include="Views\Accounting\Journals\JournalsListForm.Designer.cs">
       <DependentUpon>JournalsListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Accounting\JournalType\JournalTypeEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\JournalType\JournalTypeEditForm.Designer.cs">
+      <DependentUpon>JournalTypeEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Accounting\JournalType\JournalTypesListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -420,6 +426,12 @@
     <Compile Include="Views\Main\Connections\SuperAdminConnectionForm.Designer.cs">
       <DependentUpon>SuperAdminConnectionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Main\ApiKeySettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Main\ApiKeySettingForm.Designer.cs">
+      <DependentUpon>ApiKeySettingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -595,6 +607,9 @@
     <EmbeddedResource Include="Views\Accounting\Journals\JournalsListForm.resx">
       <DependentUpon>JournalsListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\JournalType\JournalTypeEditForm.resx">
+      <DependentUpon>JournalTypeEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\JournalType\JournalTypesListForm.resx">
       <DependentUpon>JournalTypesListForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -733,6 +748,9 @@
     <EmbeddedResource Include="Views\Main\Connections\SuperAdminConnectionForm.resx">
       <DependentUpon>SuperAdminConnectionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Main\ApiKeySettingForm.resx">
+      <DependentUpon>ApiKeySettingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -816,6 +834,7 @@
     <None Include="Properties\DataSources\Spectrum.Models.Projects.ContractDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.LocationInfoModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.Banks.BankModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.Journals.JournalTypeModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Roles.RoleModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.BloodTypes.BloodTypeModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.Candidates.CandidateModel.datasource" />
