@@ -472,6 +472,7 @@
             this.simpleButton1.StyleController = this.layoutControl1;
             this.simpleButton1.TabIndex = 22;
             this.simpleButton1.Text = "simpleButton1";
+            this.simpleButton1.Visible = false;
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
             // btnParseWithAI

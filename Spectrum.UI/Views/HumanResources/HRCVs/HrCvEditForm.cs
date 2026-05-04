@@ -3,6 +3,7 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.Models.Administration.Connections;
 using Spectrum.Models.Common.Countries;
 using Spectrum.Utilities;
 using SpectrumV1.DataLayers.HumanResources.Candidates;
@@ -31,6 +32,7 @@ namespace Spectrum.Views.HumanResources.HRCVs
         private CityRepository _cityRepository;
 
         private LogInfoRepository _logInfoRepository;
+        private ConnectionModel _connectionModel = new ConnectionModel();
 
         //Init permissionvariables
         private bool _canAdd = true;
@@ -96,6 +98,7 @@ namespace Spectrum.Views.HumanResources.HRCVs
                     LoadCountriesAsync(),
                     LoadCitiesAsync(),
                     LoadTitlesAsync(),
+                    LoadApiKeys(),
                 };
 
                 await Task.WhenAll(loadTasks);
@@ -104,6 +107,12 @@ namespace Spectrum.Views.HumanResources.HRCVs
             {
                 throw new Exception("Error loading form data", ex);
             }
+        }
+
+        private async Task LoadApiKeys()
+        {
+            _connectionModel = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
+            await Task.CompletedTask;
         }
 
         private async Task LoadCountriesAsync()
@@ -341,13 +350,14 @@ namespace Spectrum.Views.HumanResources.HRCVs
                     return;
                 }
 
+
                 // Simulate AI parsing logic here
-                var apiKey = ConfigurationManager.AppSettings["OpenAI:ApiKey"];
-                var model = ConfigurationManager.AppSettings["OpenAI:Model"] ?? "gpt-4.1-mini";
+                var apiKey = _connectionModel.EncryptedAiApikey;
+                var model = _connectionModel.AiModel ?? "gpt-4.1-mini";
 
                 if (string.IsNullOrWhiteSpace(apiKey))
                 {
-                    XtraMessageBox.Show("OpenAI API key is not configured. Please set 'OpenAI:ApiKey' in App.config.", "Configuration Missing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    XtraMessageBox.Show("Your API key is not configured. Please set 'AI:ApiKey' in the config settings.", "Configuration Missing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
