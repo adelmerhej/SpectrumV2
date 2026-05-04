@@ -1,0 +1,286 @@
+﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
+using Microsoft.AspNet.Identity;
+using Spectrum.DataLayers.Common.Branches;
+using Spectrum.DataLayers.Common.Companies; // Added for companies repository
+using Spectrum.DataLayers.DataAccess;
+using Spectrum.DataLayers.Users;
+using Spectrum.Models.Common.Companies; // Added for CompanyModel
+using Spectrum.Models.Users;
+using Spectrum.Utilities;
+using Spectrum.Utilities.Common;
+using Spectrum.Utilities.Enums; // Added for RolesType enum
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Spectrum.Views.Users
+{
+	public partial class UserEditForm : XtraForm
+	{
+		private UserModel _userModel = new UserModel();
+		private List<CompanyModel> _companies;
+		private List<BranchModel> _branches;
+
+		private readonly UserRepository _userRepository = new UserRepository(DatabaseFactory.ProfilePrimary);
+		private readonly CompanyRepository _companyRepository = new CompanyRepository(DatabaseFactory.ProfilePrimary);
+		private readonly BranchRepository _branchRepository = new BranchRepository(DatabaseFactory.ProfilePrimary);
+
+		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
+
+		//Init permissionvariables
+		private bool _canAdd = true;
+		private bool _canEdit = true;
+		private bool _canDelete = true;
+		private bool _canPrint = true;
+		private bool _isAdmin = true;
+		private bool _isProtected = true;
+
+		public EventHandler SendUpdatedUser;
+
+		public UserEditForm(UserModel model)
+		{
+			InitializeComponent();
+
+			_userModel = model;
+			StartLoading();
+		}
+
+		private async void StartLoading()
+		{
+			await InitializeBindings();
+			WireUpBindings();
+			ApplyDefaults();
+			ApplyPermissions();
+		}
+
+		private async Task InitializeBindings()
+		{
+			try
+			{
+				// Only load from repository if editing existing user (has id)
+				if (!string.IsNullOrEmpty(_userModel?._id))
+				{
+					var existing = await _userRepository.GetUserByIdAsync(_userModel._id);
+					if (existing != null)
+						_userModel = existing;
+				}
+
+				// Load companies
+				_companies = await _companyRepository.GetCompaniesAsync();
+				_branches = await _branchRepository.GetBranchesAsync();
+
+
+			}
+			catch (Exception ex)
+			{
+				XtraMessageBox.Show(ex.Message, @"Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		private void WireUpBindings()
+		{
+			bsUser.DataSource = _userModel;
+
+			cboCompanies.Properties.DataSource = _companies;
+			cboCompanies.Properties.NullText = string.Empty;
+			if (!string.IsNullOrWhiteSpace(_userModel.Company))
+			{
+				cboCompanies.EditValue = _userModel.Company; // preselect existing company
+			}
+
+			cboBranches.Properties.DataSource = _branches;
+			cboBranches.Properties.NullText = string.Empty;
+			if (!string.IsNullOrWhiteSpace(_userModel.Branch))
+			{
+				cboBranches.EditValue = _userModel.Branch; // preselect existing branch
+			}
+		}
+
+		private void ApplyDefaults()
+		{
+			// Populate role list from RolesType enum
+			var roles = Enum.GetValues(typeof(RolesType))
+				.Cast<RolesType>()
+				.Select(r => new { Role = r.ToString() })
+				.ToList();
+			cboRoles.Properties.DataSource = roles;
+			cboRoles.Properties.DisplayMember = "Role";
+			cboRoles.Properties.ValueMember = "Role";
+			cboRoles.Properties.NullText = string.Empty;
+
+			// Preselect first existing role if editing
+			if (_userModel?.Roles != null && _userModel.Roles.Count > 0)
+			{
+				cboRoles.EditValue = _userModel.Roles[0];
+			}
+
+			// Company pre-select handled in InitializeBindings after data load
+
+			txtPassword.ReadOnly = !string.IsNullOrEmpty(_userModel?._id);
+		}
+
+		private void ApplyPermissions()
+		{
+			btnSave.Enabled = _isAdmin || _canEdit;
+		}
+
+		private void btnCancel_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		private async void btnSave_Click(object sender, EventArgs e)
+		{
+			if (!ValidateData()) return;
+
+			try
+			{
+				BindingContext[bsUser].EndCurrentEdit();
+				_userModel = (UserModel)bsUser.Current;
+
+				// Update roles from selection (single role for now)
+				var selectedRole = cboRoles.EditValue?.ToString();
+				if (!string.IsNullOrWhiteSpace(selectedRole))
+				{
+					_userModel.Roles = new List<string> { selectedRole };
+				}
+
+				// Map selected company
+				var selectedCompanyId = cboCompanies.EditValue?.ToString();
+
+				if (string.IsNullOrEmpty(_userModel._id))
+				{
+					_logInfoRepository.CreateLogInfo(_userModel);
+
+					SystemUtilities.PasswordHasher = new PasswordHasher();
+					_userModel.PasswordHash = SystemUtilities.PasswordHasher.HashPassword(txtPassword.Text);
+					_userModel.SecurityStamp = System.Guid.NewGuid().ToString("D");
+					_userModel.FirstTimeAccess = true;
+					_userModel.Company = selectedCompanyId;
+
+					var newId = await _userRepository.AddNewUserAsync(_userModel);
+				}
+				else
+				{
+					_logInfoRepository.UpdateLogInfo(_userModel);
+
+					_userModel.Company = selectedCompanyId;
+					await _userRepository.UpdateUserAsync(_userModel);
+				}
+
+				SendUpdatedUser(_userModel, EventArgs.Empty);
+				Close();
+			}
+			catch (Exception ex)
+			{
+				XtraMessageBox.Show(ex.Message, @"Error Saving user", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		private void changePasswordLink_ClickAsync(object sender, EventArgs e)
+		{
+			if (_isAdmin) 
+			{
+				changePasswordLink_Click(sender, e);
+			}
+		}
+
+		private async void changePasswordLink_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				if (txtUsername.Text == "")
+				{
+					XtraMessageBox.Show(this,
+						"You have to authenticate your username to change its password.\nOtherwise contact your system administrator.",
+						"Warning Message", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+					txtUsername.Focus();
+					return;
+				}
+
+				var changeUserModel = await _userRepository.GetUserByNameAsync(txtUsername.Text.Trim());
+				if (txtUsername.Text == string.Empty || changeUserModel == null)
+				{
+					XtraMessageBox.Show($"Invalid username [ {txtUsername.Text} ].", "Change Password",
+						MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+					return;
+				}
+
+			CreateNewPasswordForm _frm = new CreateNewPasswordForm(changeUserModel);
+				_frm.SendChangedPassword += RcvChangedPassword;
+
+				_frm.ShowDialog();
+			}
+			catch (Exception exception)
+			{
+				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		private void RcvChangedPassword(object sender, EventArgs e)
+		{
+			if (sender == null) return;
+
+			var changedUserModel = (UserModel)sender;
+			_userModel.PasswordHash = changedUserModel.PasswordHash;
+			txtPassword.Text = _userModel.PasswordHash;
+		}
+
+		private bool ValidateData()
+		{
+			var validateReturnValue = true;
+			var messageNumber = 0;
+			var validateMessage = new StringBuilder();
+
+			if (txtUsername.Text == "")
+			{
+				messageNumber += 1;
+				validateMessage.Append("\n- Username cannot be empty.");
+				validateReturnValue = false;
+				txtUsername.Focus();
+			}
+
+			if (txtPassword.Text == "")
+			{
+				messageNumber += 1;
+				validateMessage.Append("\n- Password cannot be empty.");
+				validateReturnValue = false;
+				txtPassword.Focus();
+			}
+
+			if (txtEmail.Text == "")
+			{
+				messageNumber += 1;
+				validateMessage.Append("\n- Email cannot be empty.");
+				validateReturnValue = false;
+				txtEmail.Focus();
+			}
+
+			if (!validateReturnValue)
+			{
+				validateMessage.Insert(0, "The following need your attention:");
+				if (messageNumber > 1) validateMessage.Replace("following", "followings");
+				XtraMessageBox.Show(validateMessage + " \nPlease try again.",
+					"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+			}
+
+			return validateReturnValue;
+		}
+
+		private void cboCompanies_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+
+		}
+
+		private void cboBranches_AddNewValue(object sender, AddNewValueEventArgs e)
+		{
+
+		}
+
+
+	}
+}

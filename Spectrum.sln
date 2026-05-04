@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectrum.UI", "Spectrum.UI\Spectrum.UI.csproj", "{64964BF9-6CE6-4240-9747-5D89397500FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectrum.Utilities", "Spectrum.Utilities\Spectrum.Utilities.csproj", "{9D7624DA-A00A-4D68-B72D-D432438D4E13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectrum.Update", "Spectrum.Update\Spectrum.Update.csproj", "{D9750722-A1ED-4646-9E6E-2AC0A20E1B05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectrum.Models", "Spectrum.Models\Spectrum.Models.csproj", "{2DD2C5D0-7EAE-44AA-AAF5-409141391579}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectrum.DataLayers", "Spectrum.DataLayers\Spectrum.DataLayers.csproj", "{C358F497-16B5-42CA-8C46-6FEAD2528018}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectrum.Reports", "Spectrum.Reports\Spectrum.Reports.csproj", "{5C62BD1D-CF7E-4606-B313-6A24BEABF497}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64964BF9-6CE6-4240-9747-5D89397500FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64964BF9-6CE6-4240-9747-5D89397500FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64964BF9-6CE6-4240-9747-5D89397500FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64964BF9-6CE6-4240-9747-5D89397500FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D7624DA-A00A-4D68-B72D-D432438D4E13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D7624DA-A00A-4D68-B72D-D432438D4E13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D7624DA-A00A-4D68-B72D-D432438D4E13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D7624DA-A00A-4D68-B72D-D432438D4E13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9750722-A1ED-4646-9E6E-2AC0A20E1B05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9750722-A1ED-4646-9E6E-2AC0A20E1B05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9750722-A1ED-4646-9E6E-2AC0A20E1B05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9750722-A1ED-4646-9E6E-2AC0A20E1B05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DD2C5D0-7EAE-44AA-AAF5-409141391579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DD2C5D0-7EAE-44AA-AAF5-409141391579}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DD2C5D0-7EAE-44AA-AAF5-409141391579}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DD2C5D0-7EAE-44AA-AAF5-409141391579}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C358F497-16B5-42CA-8C46-6FEAD2528018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C358F497-16B5-42CA-8C46-6FEAD2528018}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C358F497-16B5-42CA-8C46-6FEAD2528018}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C358F497-16B5-42CA-8C46-6FEAD2528018}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C62BD1D-CF7E-4606-B313-6A24BEABF497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C62BD1D-CF7E-4606-B313-6A24BEABF497}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C62BD1D-CF7E-4606-B313-6A24BEABF497}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C62BD1D-CF7E-4606-B313-6A24BEABF497}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {891B42E3-0B74-40C2-8D3E-BFD5A1134F1A}
+	EndGlobalSection
+EndGlobal

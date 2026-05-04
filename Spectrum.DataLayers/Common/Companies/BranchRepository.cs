@@ -1,0 +1,105 @@
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using Spectrum.DataLayers.DataAccess;
+using Spectrum.Models.Common.Companies;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace Spectrum.DataLayers.Common.Branches
+{
+	public class BranchRepository : IBranchRepository, IDisposable
+	{
+		private readonly IMongoCollection<BranchModel> _branches;
+		private const string CollectionName = "Branches";
+
+		// Constructor for dependency injection
+		public BranchRepository(string profileName)
+		{
+			var database = DatabaseFactory.GetMongoDatabase(profileName);
+			_branches = database.GetCollection<BranchModel>(CollectionName);
+		}
+
+		// Interface async implementations (wrapping legacy sync methods)
+		public async Task<List<BranchModel>> GetBranchesAsync()
+		{
+			return await _branches.Find(branch => true).ToListAsync();
+		}
+
+		public async Task<BranchModel> GetBranchByIdAsync(string id)
+		{
+			var filter = Builders<BranchModel>.Filter.Eq(u => u._id, id);
+			return await _branches.Find(filter).FirstOrDefaultAsync();
+		}
+
+		public async Task<BranchModel> GetBranchByName(string branchName)
+		{
+			if (string.IsNullOrWhiteSpace(branchName)) return null;
+			var pattern = "^" + Regex.Escape(branchName.Trim()) + "$"; // exact match
+			var filter = Builders<BranchModel>.Filter.Regex(u => u.BranchName, new BsonRegularExpression(pattern, "i"));
+			return await _branches.Find(filter).FirstOrDefaultAsync();
+		}
+
+		/// <summary>
+		/// Adds a new branch to the database.
+		/// </summary>
+		/// <returns>The newly generated Id of the branch.</returns>
+		public async Task<string> AddNewBranchAsync(BranchModel branch)
+		{
+			try
+			{
+				branch.CreatedAt = DateTime.UtcNow;
+				await _branches.InsertOneAsync(branch);
+				return branch._id;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// Updates an existing branch document.
+		/// </summary>
+		public async Task<bool> UpdateBranchAsync(BranchModel branch)
+		{
+			try
+			{
+				var result = await _branches.ReplaceOneAsync(u => u._id == branch._id, branch);
+				return result.IsAcknowledged && result.ModifiedCount > 0;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
+		}
+
+		public async Task<bool> DeleteBranchAsync(string id)
+		{
+			try
+			{
+				var result = await _branches.DeleteOneAsync(u => u._id == id);
+				return result.IsAcknowledged && result.DeletedCount > 0;
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// Check if there's records for branch document.
+		/// </summary>
+		public async Task<long> GetCountAsync()
+		{
+			return await _branches.CountDocumentsAsync(new BsonDocument());
+		}
+
+		#region Implementation of IDisposable
+		public void Dispose()
+		{
+		}
+		#endregion
+	}
+}
