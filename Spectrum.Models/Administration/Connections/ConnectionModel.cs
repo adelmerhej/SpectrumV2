@@ -11,7 +11,7 @@
 		public string DatabasePassword { get; set; }
 
 		public string DatabaseConnectionString { get; set; }
-		public string OrganizationId { get; set; }
+		public string AiModel { get; set; }
 
 		// SENSITIVE FIELDS: Stored Encrypted
 		public string EncryptedPassword { get; set; }

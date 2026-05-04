@@ -9,8 +9,7 @@ namespace Spectrum.Views.Main
     public partial class ApiKeySettingForm : XtraForm
     {
         private ConnectionModel _connectionModel = new ConnectionModel();
-        private const string _databaseType = "MongoDb";
-        private const string _authDb = "admin";
+        private const string _AiModel = "gpt-4.1-mini";
 
         public ApiKeySettingForm()
         {
@@ -35,7 +34,7 @@ namespace Spectrum.Views.Main
 
         private void WireUpBindings()
         {
-            txtOrganizationId.Text = _connectionModel.OrganizationId ?? string.Empty;
+            txtAIModel.Text = _connectionModel.AiModel ?? _AiModel;
             txtAPIKey.Text = _connectionModel.EncryptedAiApikey ?? string.Empty;
         }
 
@@ -51,7 +50,7 @@ namespace Spectrum.Views.Main
         {
             try
             {
-                _connectionModel.OrganizationId = txtOrganizationId.Text.Trim();
+                _connectionModel.AiModel = txtAIModel.Text.Trim();
                 _connectionModel.EncryptedAiApikey = txtAPIKey.Text;
 
                 DatabaseFactory.SaveConnection(_connectionModel, DatabaseFactory.ProfilePrimary);

@@ -32,28 +32,28 @@
             this.txtAPIKey = new DevExpress.XtraEditors.MemoEdit();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
-            this.txtOrganizationId = new DevExpress.XtraEditors.TextEdit();
+            this.txtAIModel = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.grpInfo = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.lblOrganizationId = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lblOpenAIModel = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtAPIKey.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtOrganizationId.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAIModel.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpInfo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lblOrganizationId)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblOpenAIModel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
@@ -64,7 +64,7 @@
             this.mainLayout.Controls.Add(this.txtAPIKey);
             this.mainLayout.Controls.Add(this.btnCancel);
             this.mainLayout.Controls.Add(this.btnSave);
-            this.mainLayout.Controls.Add(this.txtOrganizationId);
+            this.mainLayout.Controls.Add(this.txtAIModel);
             this.mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainLayout.Location = new System.Drawing.Point(0, 0);
             this.mainLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -104,14 +104,16 @@
             this.btnSave.Text = "Save";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // txtOrganizationId
+            // txtAIModel
             // 
-            this.txtOrganizationId.Location = new System.Drawing.Point(190, 54);
-            this.txtOrganizationId.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtOrganizationId.Name = "txtOrganizationId";
-            this.txtOrganizationId.Size = new System.Drawing.Size(516, 22);
-            this.txtOrganizationId.StyleController = this.mainLayout;
-            this.txtOrganizationId.TabIndex = 1;
+            this.txtAIModel.Location = new System.Drawing.Point(93, 54);
+            this.txtAIModel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtAIModel.Name = "txtAIModel";
+            this.txtAIModel.Properties.ReadOnly = true;
+            this.txtAIModel.Size = new System.Drawing.Size(613, 22);
+            this.txtAIModel.StyleController = this.mainLayout;
+            this.txtAIModel.TabIndex = 1;
+            this.txtAIModel.TabStop = false;
             // 
             // layoutControlGroup1
             // 
@@ -163,21 +165,21 @@
             // 
             this.grpInfo.GroupStyle = DevExpress.Utils.GroupStyle.Light;
             this.grpInfo.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lblOrganizationId,
+            this.lblOpenAIModel,
             this.emptySpaceItem5});
             this.grpInfo.Location = new System.Drawing.Point(0, 0);
             this.grpInfo.Name = "grpInfo";
             this.grpInfo.Size = new System.Drawing.Size(710, 104);
             this.grpInfo.Text = "Settings";
             // 
-            // lblOrganizationId
+            // lblOpenAIModel
             // 
-            this.lblOrganizationId.Control = this.txtOrganizationId;
-            this.lblOrganizationId.Location = new System.Drawing.Point(0, 0);
-            this.lblOrganizationId.Name = "lblOrganizationId";
-            this.lblOrganizationId.Size = new System.Drawing.Size(682, 26);
-            this.lblOrganizationId.Text = "Organization ID (optional)\r\n";
-            this.lblOrganizationId.TextSize = new System.Drawing.Size(147, 16);
+            this.lblOpenAIModel.Control = this.txtAIModel;
+            this.lblOpenAIModel.Location = new System.Drawing.Point(0, 0);
+            this.lblOpenAIModel.Name = "lblOpenAIModel";
+            this.lblOpenAIModel.Size = new System.Drawing.Size(682, 26);
+            this.lblOpenAIModel.Text = "AI Model";
+            this.lblOpenAIModel.TextSize = new System.Drawing.Size(50, 16);
             // 
             // emptySpaceItem5
             // 
@@ -216,14 +218,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtAPIKey.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtOrganizationId.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAIModel.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpInfo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lblOrganizationId)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblOpenAIModel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
@@ -237,14 +239,14 @@
         private DevExpress.XtraEditors.MemoEdit txtAPIKey;
         private DevExpress.XtraEditors.SimpleButton btnCancel;
         private DevExpress.XtraEditors.SimpleButton btnSave;
-        private DevExpress.XtraEditors.TextEdit txtOrganizationId;
+        private DevExpress.XtraEditors.TextEdit txtAIModel;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlGroup grpInfo;
-        private DevExpress.XtraLayout.LayoutControlItem lblOrganizationId;
+        private DevExpress.XtraLayout.LayoutControlItem lblOpenAIModel;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;

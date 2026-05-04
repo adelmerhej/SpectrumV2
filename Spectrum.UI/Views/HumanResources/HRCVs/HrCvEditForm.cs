@@ -343,7 +343,7 @@ namespace Spectrum.Views.HumanResources.HRCVs
 
                 // Simulate AI parsing logic here
                 var apiKey = ConfigurationManager.AppSettings["OpenAI:ApiKey"];
-                var model = ConfigurationManager.AppSettings["OpenAI:Model"] ?? "gpt-4.1";
+                var model = ConfigurationManager.AppSettings["OpenAI:Model"] ?? "gpt-4.1-mini";
 
                 if (string.IsNullOrWhiteSpace(apiKey))
                 {

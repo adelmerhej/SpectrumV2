@@ -33,7 +33,7 @@ namespace Spectrum.DataLayers.DataAccess
 				// ENCRYPT: Convert plain text to secure blob
 				EncryptedPassword = SystemUtilities.Protect(model.DatabasePassword),
 				EncryptedConnectionString = SystemUtilities.Protect(model.DatabaseConnectionString),
-				OrganizationId = model.OrganizationId,
+                AiModel = model.AiModel,
 				EncryptedAiApikey = SystemUtilities.Protect(model.EncryptedAiApikey),
 			};
 
@@ -68,7 +68,7 @@ namespace Spectrum.DataLayers.DataAccess
 				// DECRYPT: Restore plain text for usage
 				DatabasePassword = SystemUtilities.Unprotect(profile.EncryptedPassword),
 				DatabaseConnectionString = SystemUtilities.Unprotect(profile.EncryptedConnectionString),
-				OrganizationId = profile.OrganizationId,
+                AiModel = profile.AiModel,
 				EncryptedAiApikey = SystemUtilities.Unprotect(profile.EncryptedAiApikey)
 			};
 
