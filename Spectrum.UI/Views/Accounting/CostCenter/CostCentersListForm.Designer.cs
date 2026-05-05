@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CostCentersListForm));
             this.rcCostCenters = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnNew = new DevExpress.XtraBars.BarButtonItem();
@@ -48,17 +49,15 @@
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
             this.gcCostCenters = new DevExpress.XtraGrid.GridControl();
             this.gvCostCenters = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCode = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colChartId = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSpecialReport = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.bsCostCenters = new System.Windows.Forms.BindingSource(this.components);
+            this.colCostCenterName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.rcCostCenters)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
@@ -67,6 +66,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsCostCenters)).BeginInit();
             this.SuspendLayout();
             // 
             // rcCostCenters
@@ -241,6 +241,7 @@
             // 
             // gcCostCenters
             // 
+            this.gcCostCenters.DataSource = this.bsCostCenters;
             this.gcCostCenters.EmbeddedNavigator.Buttons.Append.Visible = false;
             this.gcCostCenters.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
             this.gcCostCenters.EmbeddedNavigator.Buttons.Edit.Visible = false;
@@ -261,10 +262,7 @@
             // 
             this.gvCostCenters.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id,
-            this.colCode,
-            this.colName,
-            this.colChartId,
-            this.colSpecialReport,
+            this.colCostCenterName,
             this.colNotes,
             this.colIsDefault,
             this.colActive});
@@ -280,76 +278,6 @@
             this.gvCostCenters.OptionsView.ShowGroupPanel = false;
             this.gvCostCenters.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvJournalTypes_RowCellStyle);
             this.gvCostCenters.DoubleClick += new System.EventHandler(this.gvJournalTypes_DoubleClick);
-            // 
-            // col_id
-            // 
-            this.col_id.FieldName = "_id";
-            this.col_id.MinWidth = 25;
-            this.col_id.Name = "col_id";
-            this.col_id.Width = 73;
-            // 
-            // colCode
-            // 
-            this.colCode.FieldName = "Code";
-            this.colCode.MinWidth = 25;
-            this.colCode.Name = "colCode";
-            this.colCode.Visible = true;
-            this.colCode.VisibleIndex = 0;
-            this.colCode.Width = 94;
-            // 
-            // colName
-            // 
-            this.colName.FieldName = "Name";
-            this.colName.MinWidth = 25;
-            this.colName.Name = "colName";
-            this.colName.Visible = true;
-            this.colName.VisibleIndex = 1;
-            this.colName.Width = 279;
-            // 
-            // colChartId
-            // 
-            this.colChartId.FieldName = "ChartId";
-            this.colChartId.MinWidth = 25;
-            this.colChartId.Name = "colChartId";
-            this.colChartId.Visible = true;
-            this.colChartId.VisibleIndex = 2;
-            this.colChartId.Width = 182;
-            // 
-            // colSpecialReport
-            // 
-            this.colSpecialReport.FieldName = "SpecialReport";
-            this.colSpecialReport.MinWidth = 25;
-            this.colSpecialReport.Name = "colSpecialReport";
-            this.colSpecialReport.Visible = true;
-            this.colSpecialReport.VisibleIndex = 3;
-            this.colSpecialReport.Width = 212;
-            // 
-            // colNotes
-            // 
-            this.colNotes.FieldName = "Notes";
-            this.colNotes.MinWidth = 25;
-            this.colNotes.Name = "colNotes";
-            this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 4;
-            this.colNotes.Width = 94;
-            // 
-            // colIsDefault
-            // 
-            this.colIsDefault.FieldName = "IsDefault";
-            this.colIsDefault.MinWidth = 25;
-            this.colIsDefault.Name = "colIsDefault";
-            this.colIsDefault.Visible = true;
-            this.colIsDefault.VisibleIndex = 5;
-            this.colIsDefault.Width = 94;
-            // 
-            // colActive
-            // 
-            this.colActive.FieldName = "Active";
-            this.colActive.MinWidth = 25;
-            this.colActive.Name = "colActive";
-            this.colActive.Visible = true;
-            this.colActive.VisibleIndex = 6;
-            this.colActive.Width = 94;
             // 
             // repCheckEdit
             // 
@@ -374,6 +302,55 @@
             this.layoutControlItem1.Size = new System.Drawing.Size(1399, 540);
             this.layoutControlItem1.TextVisible = false;
             // 
+            // bsCostCenters
+            // 
+            this.bsCostCenters.DataSource = typeof(SpectrumV1.Models.Accounting.CostCenter.CostCenterModel);
+            // 
+            // colCostCenterName
+            // 
+            this.colCostCenterName.FieldName = "CostCenterName";
+            this.colCostCenterName.MinWidth = 25;
+            this.colCostCenterName.Name = "colCostCenterName";
+            this.colCostCenterName.Visible = true;
+            this.colCostCenterName.VisibleIndex = 0;
+            this.colCostCenterName.Width = 269;
+            // 
+            // col_id
+            // 
+            this.col_id.FieldName = "_id";
+            this.col_id.MinWidth = 25;
+            this.col_id.Name = "col_id";
+            this.col_id.Width = 94;
+            // 
+            // colNotes
+            // 
+            this.colNotes.FieldName = "Notes";
+            this.colNotes.MinWidth = 25;
+            this.colNotes.Name = "colNotes";
+            this.colNotes.Visible = true;
+            this.colNotes.VisibleIndex = 1;
+            this.colNotes.Width = 396;
+            // 
+            // colIsDefault
+            // 
+            this.colIsDefault.ColumnEdit = this.repCheckEdit;
+            this.colIsDefault.FieldName = "IsDefault";
+            this.colIsDefault.MinWidth = 25;
+            this.colIsDefault.Name = "colIsDefault";
+            this.colIsDefault.Visible = true;
+            this.colIsDefault.VisibleIndex = 2;
+            this.colIsDefault.Width = 94;
+            // 
+            // colActive
+            // 
+            this.colActive.ColumnEdit = this.repCheckEdit;
+            this.colActive.FieldName = "Active";
+            this.colActive.MinWidth = 25;
+            this.colActive.Name = "colActive";
+            this.colActive.Visible = true;
+            this.colActive.VisibleIndex = 3;
+            this.colActive.Width = 94;
+            // 
             // CostCentersListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -395,6 +372,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsCostCenters)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -421,16 +399,14 @@
         private DevExpress.XtraLayout.LayoutControl mainLayout;
         private DevExpress.XtraGrid.GridControl gcCostCenters;
         private DevExpress.XtraGrid.Views.Grid.GridView gvCostCenters;
-        private DevExpress.XtraGrid.Columns.GridColumn col_id;
-        private DevExpress.XtraGrid.Columns.GridColumn colCode;
-        private DevExpress.XtraGrid.Columns.GridColumn colName;
-        private DevExpress.XtraGrid.Columns.GridColumn colChartId;
-        private DevExpress.XtraGrid.Columns.GridColumn colSpecialReport;
-        private DevExpress.XtraGrid.Columns.GridColumn colNotes;
-        private DevExpress.XtraGrid.Columns.GridColumn colIsDefault;
-        private DevExpress.XtraGrid.Columns.GridColumn colActive;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repCheckEdit;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private System.Windows.Forms.BindingSource bsCostCenters;
+        private DevExpress.XtraGrid.Columns.GridColumn col_id;
+        private DevExpress.XtraGrid.Columns.GridColumn colCostCenterName;
+        private DevExpress.XtraGrid.Columns.GridColumn colNotes;
+        private DevExpress.XtraGrid.Columns.GridColumn colIsDefault;
+        private DevExpress.XtraGrid.Columns.GridColumn colActive;
     }
 }

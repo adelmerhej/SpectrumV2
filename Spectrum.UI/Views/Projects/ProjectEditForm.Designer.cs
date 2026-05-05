@@ -2146,7 +2146,7 @@ namespace Spectrum.Views.Projects
             // 
             this.tabUserInformation.Controls.Add(this.layoutUserInformation);
             this.tabUserInformation.Name = "tabUserInformation";
-            this.tabUserInformation.Size = new System.Drawing.Size(815, 358);
+            this.tabUserInformation.Size = new System.Drawing.Size(813, 356);
             this.tabUserInformation.Text = "User Information";
             // 
             // layoutUserInformation
@@ -2159,23 +2159,24 @@ namespace Spectrum.Views.Projects
             this.layoutUserInformation.Location = new System.Drawing.Point(0, 0);
             this.layoutUserInformation.Name = "layoutUserInformation";
             this.layoutUserInformation.Root = this.layoutControlGroup2;
-            this.layoutUserInformation.Size = new System.Drawing.Size(815, 358);
+            this.layoutUserInformation.Size = new System.Drawing.Size(813, 356);
             this.layoutUserInformation.TabIndex = 0;
             this.layoutUserInformation.Text = "layoutControl1";
             // 
             // txtUserLogData
             // 
-            this.txtUserLogData.Location = new System.Drawing.Point(14, 150);
+            this.txtUserLogData.Location = new System.Drawing.Point(14, 149);
             this.txtUserLogData.MenuManager = this.rcMain;
             this.txtUserLogData.Name = "txtUserLogData";
             this.txtUserLogData.Properties.ReadOnly = true;
             this.txtUserLogData.Properties.UseReadOnlyAppearance = false;
-            this.txtUserLogData.Size = new System.Drawing.Size(787, 181);
+            this.txtUserLogData.Size = new System.Drawing.Size(785, 180);
             this.txtUserLogData.StyleController = this.layoutUserInformation;
             this.txtUserLogData.TabIndex = 14;
             // 
             // cboUsers
             // 
+            this.cboUsers.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsProject, "Username", true));
             this.cboUsers.Location = new System.Drawing.Point(127, 14);
             this.cboUsers.Name = "cboUsers";
             this.cboUsers.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -2184,7 +2185,7 @@ namespace Spectrum.Views.Projects
             this.cboUsers.Properties.NullText = "";
             this.cboUsers.Properties.PopupView = this.gridView3;
             this.cboUsers.Properties.ValueMember = "Username";
-            this.cboUsers.Size = new System.Drawing.Size(278, 22);
+            this.cboUsers.Size = new System.Drawing.Size(277, 22);
             this.cboUsers.StyleController = this.layoutUserInformation;
             this.cboUsers.TabIndex = 6;
             // 
@@ -2216,6 +2217,7 @@ namespace Spectrum.Views.Projects
             // 
             // cboPersonInCharge
             // 
+            this.cboPersonInCharge.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsProject, "EngineerInCharge", true));
             this.cboPersonInCharge.Location = new System.Drawing.Point(127, 40);
             this.cboPersonInCharge.Name = "cboPersonInCharge";
             this.cboPersonInCharge.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -2224,7 +2226,7 @@ namespace Spectrum.Views.Projects
             this.cboPersonInCharge.Properties.NullText = "";
             this.cboPersonInCharge.Properties.PopupView = this.gridView4;
             this.cboPersonInCharge.Properties.ValueMember = "Username";
-            this.cboPersonInCharge.Size = new System.Drawing.Size(278, 22);
+            this.cboPersonInCharge.Size = new System.Drawing.Size(277, 22);
             this.cboPersonInCharge.StyleController = this.layoutUserInformation;
             this.cboPersonInCharge.TabIndex = 7;
             // 
@@ -2264,7 +2266,7 @@ namespace Spectrum.Views.Projects
             this.cboOperatingUsers.Properties.NullText = "";
             this.cboOperatingUsers.Properties.PopupView = this.gridView5;
             this.cboOperatingUsers.Properties.ValueMember = "Username";
-            this.cboOperatingUsers.Size = new System.Drawing.Size(278, 22);
+            this.cboOperatingUsers.Size = new System.Drawing.Size(277, 22);
             this.cboOperatingUsers.StyleController = this.layoutUserInformation;
             this.cboOperatingUsers.TabIndex = 13;
             // 
@@ -2309,7 +2311,7 @@ namespace Spectrum.Views.Projects
             this.lblUserLogData,
             this.emptySpaceItem23});
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(815, 358);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(813, 356);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // lblUserName
@@ -2319,7 +2321,7 @@ namespace Spectrum.Views.Projects
             this.lblUserName.CustomizationFormText = "User Name";
             this.lblUserName.Location = new System.Drawing.Point(0, 0);
             this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(395, 26);
+            this.lblUserName.Size = new System.Drawing.Size(394, 26);
             this.lblUserName.Text = "User Name";
             this.lblUserName.TextSize = new System.Drawing.Size(98, 16);
             // 
@@ -2330,7 +2332,7 @@ namespace Spectrum.Views.Projects
             this.lblPersonInCharge.CustomizationFormText = "Salesman";
             this.lblPersonInCharge.Location = new System.Drawing.Point(0, 26);
             this.lblPersonInCharge.Name = "lblPersonInCharge";
-            this.lblPersonInCharge.Size = new System.Drawing.Size(395, 26);
+            this.lblPersonInCharge.Size = new System.Drawing.Size(394, 26);
             this.lblPersonInCharge.Text = "Person in Charge";
             this.lblPersonInCharge.TextSize = new System.Drawing.Size(98, 16);
             // 
@@ -2341,40 +2343,40 @@ namespace Spectrum.Views.Projects
             this.lblOperatingUser.CustomizationFormText = "Operating User";
             this.lblOperatingUser.Location = new System.Drawing.Point(0, 52);
             this.lblOperatingUser.Name = "lblOperatingUser";
-            this.lblOperatingUser.Size = new System.Drawing.Size(395, 26);
+            this.lblOperatingUser.Size = new System.Drawing.Size(394, 26);
             this.lblOperatingUser.Text = "Operating User";
             this.lblOperatingUser.TextSize = new System.Drawing.Size(98, 16);
             // 
             // emptySpaceItem13
             // 
-            this.emptySpaceItem13.Location = new System.Drawing.Point(0, 321);
+            this.emptySpaceItem13.Location = new System.Drawing.Point(0, 319);
             this.emptySpaceItem13.Name = "emptySpaceItem13";
-            this.emptySpaceItem13.Size = new System.Drawing.Size(791, 13);
+            this.emptySpaceItem13.Size = new System.Drawing.Size(789, 13);
             // 
             // emptySpaceItem14
             // 
-            this.emptySpaceItem14.Location = new System.Drawing.Point(395, 0);
+            this.emptySpaceItem14.Location = new System.Drawing.Point(394, 0);
             this.emptySpaceItem14.Name = "emptySpaceItem14";
-            this.emptySpaceItem14.Size = new System.Drawing.Size(396, 26);
+            this.emptySpaceItem14.Size = new System.Drawing.Size(395, 26);
             // 
             // emptySpaceItem16
             // 
-            this.emptySpaceItem16.Location = new System.Drawing.Point(395, 26);
+            this.emptySpaceItem16.Location = new System.Drawing.Point(394, 26);
             this.emptySpaceItem16.Name = "emptySpaceItem16";
-            this.emptySpaceItem16.Size = new System.Drawing.Size(396, 26);
+            this.emptySpaceItem16.Size = new System.Drawing.Size(395, 26);
             // 
             // emptySpaceItem17
             // 
-            this.emptySpaceItem17.Location = new System.Drawing.Point(395, 52);
+            this.emptySpaceItem17.Location = new System.Drawing.Point(394, 52);
             this.emptySpaceItem17.Name = "emptySpaceItem17";
-            this.emptySpaceItem17.Size = new System.Drawing.Size(396, 26);
+            this.emptySpaceItem17.Size = new System.Drawing.Size(395, 26);
             // 
             // lblUserLogData
             // 
             this.lblUserLogData.Control = this.txtUserLogData;
-            this.lblUserLogData.Location = new System.Drawing.Point(0, 116);
+            this.lblUserLogData.Location = new System.Drawing.Point(0, 115);
             this.lblUserLogData.Name = "lblUserLogData";
-            this.lblUserLogData.Size = new System.Drawing.Size(791, 205);
+            this.lblUserLogData.Size = new System.Drawing.Size(789, 204);
             this.lblUserLogData.Text = "User Log Data";
             this.lblUserLogData.TextLocation = DevExpress.Utils.Locations.Top;
             this.lblUserLogData.TextSize = new System.Drawing.Size(98, 16);
@@ -2383,7 +2385,7 @@ namespace Spectrum.Views.Projects
             // 
             this.emptySpaceItem23.Location = new System.Drawing.Point(0, 78);
             this.emptySpaceItem23.Name = "emptySpaceItem23";
-            this.emptySpaceItem23.Size = new System.Drawing.Size(791, 38);
+            this.emptySpaceItem23.Size = new System.Drawing.Size(789, 37);
             // 
             // tabDetails
             // 

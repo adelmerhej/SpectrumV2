@@ -1,6 +1,6 @@
-﻿namespace Spectrum.Views.Accounting.JournalType
+﻿namespace Spectrum.Views.Accounting.FlowType
 {
-    partial class JournalTypeEditForm
+    partial class FlowTypeEditForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
             this.chkIsDefault = new DevExpress.XtraEditors.CheckEdit();
-            this.bsJournalType = new System.Windows.Forms.BindingSource(this.components);
             this.chkActive = new DevExpress.XtraEditors.CheckEdit();
             this.txtNotes = new DevExpress.XtraEditors.MemoEdit();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
@@ -50,10 +49,10 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.bsFlowType = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkIsDefault.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsJournalType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).BeginInit();
@@ -70,6 +69,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsFlowType)).BeginInit();
             this.SuspendLayout();
             // 
             // mainLayout
@@ -92,7 +92,7 @@
             // 
             // chkIsDefault
             // 
-            this.chkIsDefault.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournalType, "IsDefault", true));
+            this.chkIsDefault.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsFlowType, "IsDefault", true));
             this.chkIsDefault.Location = new System.Drawing.Point(399, 103);
             this.chkIsDefault.Name = "chkIsDefault";
             this.chkIsDefault.Properties.Caption = "Is Default";
@@ -100,13 +100,9 @@
             this.chkIsDefault.StyleController = this.mainLayout;
             this.chkIsDefault.TabIndex = 6;
             // 
-            // bsJournalType
-            // 
-            this.bsJournalType.DataSource = typeof(SpectrumV1.Models.Accounting.JournalType.JournalTypeModel);
-            // 
             // chkActive
             // 
-            this.chkActive.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournalType, "Active", true));
+            this.chkActive.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsFlowType, "Active", true));
             this.chkActive.Location = new System.Drawing.Point(28, 103);
             this.chkActive.Name = "chkActive";
             this.chkActive.Properties.Caption = "Active";
@@ -116,7 +112,7 @@
             // 
             // txtNotes
             // 
-            this.txtNotes.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournalType, "Notes", true));
+            this.txtNotes.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsFlowType, "Notes", true));
             this.txtNotes.Location = new System.Drawing.Point(28, 185);
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(492, 94);
@@ -146,11 +142,11 @@
             // 
             // txtName
             // 
-            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournalType, "Name", true));
-            this.txtName.Location = new System.Drawing.Point(71, 54);
+            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsFlowType, "FlowTypeName", true));
+            this.txtName.Location = new System.Drawing.Point(76, 54);
             this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(449, 22);
+            this.txtName.Size = new System.Drawing.Size(444, 22);
             this.txtName.StyleController = this.mainLayout;
             this.txtName.TabIndex = 1;
             // 
@@ -212,7 +208,7 @@
             this.grpInfo.Location = new System.Drawing.Point(0, 0);
             this.grpInfo.Name = "grpInfo";
             this.grpInfo.Size = new System.Drawing.Size(524, 131);
-            this.grpInfo.Text = "Journal Types";
+            this.grpInfo.Text = "Flow Type Info";
             // 
             // lblName
             // 
@@ -220,8 +216,8 @@
             this.lblName.Location = new System.Drawing.Point(0, 0);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(496, 26);
-            this.lblName.Text = "Type";
-            this.lblName.TextSize = new System.Drawing.Size(28, 16);
+            this.lblName.Text = "Name";
+            this.lblName.TextSize = new System.Drawing.Size(33, 16);
             // 
             // emptySpaceItem4
             // 
@@ -269,7 +265,11 @@
             this.layoutControlItem6.Size = new System.Drawing.Size(496, 98);
             this.layoutControlItem6.TextVisible = false;
             // 
-            // JournalTypeEditForm
+            // bsFlowType
+            // 
+            this.bsFlowType.DataSource = typeof(SpectrumV1.Models.Accounting.FlowType.FlowTypeModel);
+            // 
+            // FlowTypeEditForm
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -278,13 +278,12 @@
             this.ClientSize = new System.Drawing.Size(548, 360);
             this.Controls.Add(this.mainLayout);
             this.MaximizeBox = false;
-            this.Name = "JournalTypeEditForm";
+            this.Name = "FlowTypeEditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Edit Journal Type";
+            this.Text = "Edit Flow Type";
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chkIsDefault.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsJournalType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).EndInit();
@@ -301,6 +300,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsFlowType)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -327,6 +327,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
-        private System.Windows.Forms.BindingSource bsJournalType;
+        private System.Windows.Forms.BindingSource bsFlowType;
     }
 }

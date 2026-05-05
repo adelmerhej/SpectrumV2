@@ -1,20 +1,20 @@
 ﻿using DevExpress.XtraEditors;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Utilities;
-using SpectrumV1.DataLayers.Accounting.JournalType;
-using SpectrumV1.Models.Accounting.JournalType;
+using SpectrumV1.DataLayers.Accounting.FlowType;
+using SpectrumV1.Models.Accounting.FlowType;
 using System;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spectrum.Views.Accounting.JournalType
+namespace Spectrum.Views.Accounting.FlowType
 {
-    public partial class JournalTypeEditForm : XtraForm
+    public partial class FlowTypeEditForm : XtraForm
     {
-        private JournalTypeModel _journalTypeModel = new JournalTypeModel();
+        private FlowTypeModel _flowTypeModel = new FlowTypeModel();
 
-        private readonly JournalTypeRepository _journalTypeRepository = new JournalTypeRepository(DatabaseFactory.ProfilePrimary);
+        private readonly FlowTypeRepository _flowTypeRepository = new FlowTypeRepository(DatabaseFactory.ProfilePrimary);
 
         private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
@@ -23,13 +23,14 @@ namespace Spectrum.Views.Accounting.JournalType
         private bool _isAdmin = true;
         private bool _isProtected = true;
 
-        public EventHandler SendUpdatedJournalType;
+        public EventHandler SendUpdatedFlowType;
 
-        public JournalTypeEditForm(JournalTypeModel model)
+
+        public FlowTypeEditForm(FlowTypeModel model)
         {
             InitializeComponent();
 
-            _journalTypeModel = model;
+            _flowTypeModel = model;
 
             StartLoading();
         }
@@ -64,7 +65,7 @@ namespace Spectrum.Views.Accounting.JournalType
 
         private void WireUpBindings()
         {
-            bsJournalType.DataSource = _journalTypeModel;
+            bsFlowType.DataSource = _flowTypeModel;
         }
 
         private void ApplyDefaults()
@@ -103,23 +104,23 @@ namespace Spectrum.Views.Accounting.JournalType
 
             try
             {
-                BindingContext[bsJournalType].EndCurrentEdit();
-                _journalTypeModel = (JournalTypeModel)bsJournalType.Current;
+                BindingContext[bsFlowType].EndCurrentEdit();
+                _flowTypeModel = (FlowTypeModel)bsFlowType.Current;
 
 
-                if (string.IsNullOrEmpty(_journalTypeModel._id))
+                if (string.IsNullOrEmpty(_flowTypeModel._id))
                 {
-                    _logInfoRepository.CreateLogInfo(_journalTypeModel);
+                    _logInfoRepository.CreateLogInfo(_flowTypeModel);
 
-                    var newId = await _journalTypeRepository.AddNewJournalTypeAsync(_journalTypeModel);
+                    var newId = await _flowTypeRepository.AddNewFlowTypeAsync(_flowTypeModel);
                 }
                 else
                 {
-                    _logInfoRepository.UpdateLogInfo(_journalTypeModel);
-                    await _journalTypeRepository.UpdateJournalTypeAsync(_journalTypeModel);
+                    _logInfoRepository.UpdateLogInfo(_flowTypeModel);
+                    await _flowTypeRepository.UpdateFlowTypeAsync(_flowTypeModel);
                 }
 
-                SendUpdatedJournalType(_journalTypeModel, EventArgs.Empty);
+                SendUpdatedFlowType(_flowTypeModel, EventArgs.Empty);
                 Close();
             }
             catch (Exception ex)
