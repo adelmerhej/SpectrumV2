@@ -48,28 +48,28 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
             this.gcJournalTypes = new DevExpress.XtraGrid.GridControl();
-            this.gvJournalTypes = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.repCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
-            this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.bsJournalTypes = new System.Windows.Forms.BindingSource(this.components);
+            this.gvJournalTypes = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colChartId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSpecialReport = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.rcJournalTypes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcJournalTypes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsJournalTypes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvJournalTypes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsJournalTypes)).BeginInit();
             this.SuspendLayout();
             // 
             // rcJournalTypes
@@ -106,6 +106,7 @@
             this.btnNew.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.NewCustomer.svg";
             this.btnNew.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnNew.ImageOptions.SvgImage")));
             this.btnNew.Name = "btnNew";
+            this.btnNew.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNew_ItemClick);
             // 
             // btnDelete
             // 
@@ -116,6 +117,7 @@
             this.btnDelete.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Delete.svg";
             this.btnDelete.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDelete.ImageOptions.SvgImage")));
             this.btnDelete.Name = "btnDelete";
+            this.btnDelete.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDelete_ItemClick);
             // 
             // btnEdit
             // 
@@ -126,6 +128,7 @@
             this.btnEdit.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.Edit.svg";
             this.btnEdit.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEdit.ImageOptions.SvgImage")));
             this.btnEdit.Name = "btnEdit";
+            this.btnEdit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnEdit_ItemClick);
             // 
             // btnPrint
             // 
@@ -136,6 +139,7 @@
             this.btnPrint.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.SalesAnalysis.svg";
             this.btnPrint.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPrint.ImageOptions.SvgImage")));
             this.btnPrint.Name = "btnPrint";
+            this.btnPrint.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPrint_ItemClick);
             // 
             // btnRefresh
             // 
@@ -143,6 +147,7 @@
             this.btnRefresh.Id = 37;
             this.btnRefresh.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRefresh.ImageOptions.SvgImage")));
             this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnRefresh_ItemClick);
             // 
             // btnClose
             // 
@@ -150,6 +155,7 @@
             this.btnClose.Id = 38;
             this.btnClose.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnClose.ImageOptions.SvgImage")));
             this.btnClose.Name = "btnClose";
+            this.btnClose.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClose_ItemClick);
             // 
             // btnResetGridStyle
             // 
@@ -157,6 +163,7 @@
             this.btnResetGridStyle.Id = 41;
             this.btnResetGridStyle.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnResetGridStyle.ImageOptions.SvgImage")));
             this.btnResetGridStyle.Name = "btnResetGridStyle";
+            this.btnResetGridStyle.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResetGridStyle_ItemClick);
             // 
             // rpJournalTypes
             // 
@@ -254,6 +261,10 @@
             this.gcJournalTypes.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvJournalTypes});
             // 
+            // bsJournalTypes
+            // 
+            this.bsJournalTypes.DataSource = typeof(SpectrumV1.Models.Accounting.JournalType.JournalTypeModel);
+            // 
             // gvJournalTypes
             // 
             this.gvJournalTypes.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
@@ -275,33 +286,15 @@
             this.gvJournalTypes.OptionsView.ColumnAutoWidth = false;
             this.gvJournalTypes.OptionsView.ShowGroupedColumns = true;
             this.gvJournalTypes.OptionsView.ShowGroupPanel = false;
+            this.gvJournalTypes.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvJournalTypes_RowCellStyle);
+            this.gvJournalTypes.DoubleClick += new System.EventHandler(this.gvJournalTypes_DoubleClick);
             // 
-            // repCheckEdit
+            // col_id
             // 
-            this.repCheckEdit.AutoHeight = false;
-            this.repCheckEdit.Name = "repCheckEdit";
-            // 
-            // Root
-            // 
-            this.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
-            this.Root.GroupBordersVisible = false;
-            this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem1});
-            this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(1360, 537);
-            this.Root.TextVisible = false;
-            // 
-            // layoutControlItem1
-            // 
-            this.layoutControlItem1.Control = this.gcJournalTypes;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1336, 513);
-            this.layoutControlItem1.TextVisible = false;
-            // 
-            // bsJournalTypes
-            // 
-            this.bsJournalTypes.DataSource = typeof(SpectrumV1.Models.Accounting.Journals.JournalTypeModel);
+            this.col_id.FieldName = "_id";
+            this.col_id.MinWidth = 25;
+            this.col_id.Name = "col_id";
+            this.col_id.Width = 73;
             // 
             // colCode
             // 
@@ -339,13 +332,6 @@
             this.colSpecialReport.VisibleIndex = 3;
             this.colSpecialReport.Width = 212;
             // 
-            // col_id
-            // 
-            this.col_id.FieldName = "_id";
-            this.col_id.MinWidth = 25;
-            this.col_id.Name = "col_id";
-            this.col_id.Width = 73;
-            // 
             // colNotes
             // 
             this.colNotes.FieldName = "Notes";
@@ -373,6 +359,29 @@
             this.colActive.VisibleIndex = 6;
             this.colActive.Width = 94;
             // 
+            // repCheckEdit
+            // 
+            this.repCheckEdit.AutoHeight = false;
+            this.repCheckEdit.Name = "repCheckEdit";
+            // 
+            // Root
+            // 
+            this.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.Root.GroupBordersVisible = false;
+            this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem1});
+            this.Root.Name = "Root";
+            this.Root.Size = new System.Drawing.Size(1360, 537);
+            this.Root.TextVisible = false;
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.gcJournalTypes;
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(1336, 513);
+            this.layoutControlItem1.TextVisible = false;
+            // 
             // JournalTypesListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -390,11 +399,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcJournalTypes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsJournalTypes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvJournalTypes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsJournalTypes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

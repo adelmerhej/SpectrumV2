@@ -127,6 +127,12 @@ namespace Spectrum.Views.Accounting.Charts
                 BindingContext[bsChart].EndCurrentEdit();
                 _chartModel = (ChartModel)bsChart.Current;
 
+                if (await AccountAlreadyExistsAsync(_chartModel))
+                {
+                    XtraMessageBox.Show(@"This account already exists.", @"Duplicate Account", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+
 
                 if (string.IsNullOrEmpty(_chartModel._id))
                 {
@@ -169,10 +175,26 @@ namespace Spectrum.Views.Accounting.Charts
                 txtNumber.Focus();
             }
 
+            if (txtNumber.Text.Trim().Length > 5)
+            {
+                messageNumber += 1;
+                validateMessage.Append("\n- Number length cannot exceed 5.");
+                validateReturnValue = false;
+                txtNumber.Focus();
+            }
+
             if (txtSerial.Text == "" && cboAccountType.Text == "R")
             {
                 messageNumber += 1;
                 validateMessage.Append("\n- Serial cannot be empty if type is Regular.");
+                validateReturnValue = false;
+                txtSerial.Focus();
+            }
+
+            if (txtSerial.Text.Trim().Length > 5)
+            {
+                messageNumber += 1;
+                validateMessage.Append("\n- Serial length cannot exceed 5.");
                 validateReturnValue = false;
                 txtSerial.Focus();
             }
@@ -271,6 +293,38 @@ namespace Spectrum.Views.Accounting.Charts
             }
 
             UpdateAccountNumber();
+        }
+
+        private async Task<bool> AccountAlreadyExistsAsync(ChartModel chart)
+        {
+            if (chart == null || string.IsNullOrWhiteSpace(chart.Number))
+                return false;
+
+            var number = chart.Number.Trim();
+            var serial = chart.Serial == null ? string.Empty : chart.Serial.Trim();
+            var accountType = chart.AccountType == null ? string.Empty : chart.AccountType.Trim();
+
+            var charts = await _chartRepository.GetChartByNumberAsync(number, CurrentUser.Company);
+            var existingChart = charts.FirstOrDefault(x =>
+                x != null &&
+                x._id != chart._id &&
+                IsMatchingAccount(x, accountType, serial));
+
+            return existingChart != null;
+        }
+
+        private bool IsMatchingAccount(ChartModel existingChart, string accountType, string serial)
+        {
+            if (existingChart == null)
+                return false;
+
+            if (string.Equals(accountType, "T", StringComparison.OrdinalIgnoreCase))
+            {
+                return string.Equals(existingChart.AccountType, "T", StringComparison.OrdinalIgnoreCase);
+            }
+
+            return string.Equals(existingChart.AccountType, "R", StringComparison.OrdinalIgnoreCase)
+                   && string.Equals(existingChart.Serial == null ? string.Empty : existingChart.Serial.Trim(), serial, StringComparison.OrdinalIgnoreCase);
         }
 
         private void UpdateAccountNumber()

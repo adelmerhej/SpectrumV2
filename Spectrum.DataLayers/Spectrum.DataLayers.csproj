@@ -194,6 +194,8 @@
     <Compile Include="Accounting\Journals\IJournalRepository.cs" />
     <Compile Include="Accounting\Journals\JournalDetailRepository.cs" />
     <Compile Include="Accounting\Journals\JournalRepository.cs" />
+    <Compile Include="Accounting\JournalType\IJournalTypeRepository.cs" />
+    <Compile Include="Accounting\JournalType\JournalTypeRepository.cs" />
     <Compile Include="Administration\Update\LiveUpdateSettingsProvider.cs" />
     <Compile Include="Common\Areas\AreaRepository.cs" />
     <Compile Include="Common\Areas\IAreaRepository.cs" />
@@ -272,7 +274,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Accounting\JournalType\" />
     <Folder Include="Accounting\Reports\" />
     <Folder Include="Accounting\Settings\" />
     <Folder Include="Accounting\Statements\" />

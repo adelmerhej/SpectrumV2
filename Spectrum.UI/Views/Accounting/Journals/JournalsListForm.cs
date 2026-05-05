@@ -11,6 +11,7 @@ using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
 using SpectrumV1.DataLayers.Accounting.Journals;
 using SpectrumV1.Models.Accounting.Journals;
+using SpectrumV1.Models.Accounting.JournalType;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

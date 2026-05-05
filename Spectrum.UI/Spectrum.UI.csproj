@@ -120,6 +120,12 @@
     <Compile Include="Views\Accounting\CostCenter\CostCentersListForm.Designer.cs">
       <DependentUpon>CostCentersListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Accounting\FlowType\FlowTypeEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\FlowType\FlowTypeEditForm.Designer.cs">
+      <DependentUpon>FlowTypeEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Accounting\FlowType\FlowTypeListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -598,6 +604,9 @@
     <EmbeddedResource Include="Views\Accounting\CostCenter\CostCentersListForm.resx">
       <DependentUpon>CostCentersListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\FlowType\FlowTypeEditForm.resx">
+      <DependentUpon>FlowTypeEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\FlowType\FlowTypeListForm.resx">
       <DependentUpon>FlowTypeListForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -834,6 +843,8 @@
     <None Include="Properties\DataSources\Spectrum.Models.Projects.ContractDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.LocationInfoModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.Banks.BankModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.CostCenter.CostCenterModel.datasource" />
+    <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.FlowType.FlowTypeModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.Journals.JournalTypeModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Common.Roles.RoleModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.BloodTypes.BloodTypeModel.datasource" />
