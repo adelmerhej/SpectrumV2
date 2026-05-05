@@ -265,7 +265,7 @@
             // 
             // bsJournalType
             // 
-            this.bsJournalType.DataSource = typeof(SpectrumV1.Models.Accounting.Journals.JournalTypeModel);
+            this.bsJournalType.DataSource = typeof(SpectrumV1.Models.Accounting.JournalType.JournalTypeModel);
             // 
             // JournalTypeEditForm
             // 

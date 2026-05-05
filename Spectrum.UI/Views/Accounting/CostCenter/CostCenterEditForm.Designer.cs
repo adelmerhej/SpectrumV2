@@ -92,6 +92,7 @@
             // 
             // chkIsDefault
             // 
+            this.chkIsDefault.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsCostCenter, "IsDefault", true));
             this.chkIsDefault.Location = new System.Drawing.Point(399, 103);
             this.chkIsDefault.Name = "chkIsDefault";
             this.chkIsDefault.Properties.Caption = "Is Default";
@@ -101,6 +102,7 @@
             // 
             // chkActive
             // 
+            this.chkActive.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsCostCenter, "Active", true));
             this.chkActive.Location = new System.Drawing.Point(28, 103);
             this.chkActive.Name = "chkActive";
             this.chkActive.Properties.Caption = "Active";
@@ -110,6 +112,7 @@
             // 
             // txtNotes
             // 
+            this.txtNotes.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsCostCenter, "Notes", true));
             this.txtNotes.Location = new System.Drawing.Point(28, 185);
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(492, 94);
@@ -125,6 +128,7 @@
             this.btnCancel.StyleController = this.mainLayout;
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
@@ -134,9 +138,11 @@
             this.btnSave.StyleController = this.mainLayout;
             this.btnSave.TabIndex = 4;
             this.btnSave.Text = "Save";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // txtName
             // 
+            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsCostCenter, "CostCenterName", true));
             this.txtName.Location = new System.Drawing.Point(76, 54);
             this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtName.Name = "txtName";
@@ -259,10 +265,16 @@
             this.layoutControlItem6.Size = new System.Drawing.Size(496, 98);
             this.layoutControlItem6.TextVisible = false;
             // 
+            // bsCostCenter
+            // 
+            this.bsCostCenter.DataSource = typeof(SpectrumV1.Models.Accounting.CostCenter.CostCenterModel);
+            // 
             // CostCenterEditForm
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(548, 360);
             this.Controls.Add(this.mainLayout);
             this.MaximizeBox = false;

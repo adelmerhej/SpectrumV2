@@ -301,7 +301,7 @@
             // 
             // bsJournalTypes
             // 
-            this.bsJournalTypes.DataSource = typeof(SpectrumV1.Models.Accounting.Journals.JournalTypeModel);
+            this.bsJournalTypes.DataSource = typeof(SpectrumV1.Models.Accounting.JournalType.JournalTypeModel);
             // 
             // colCode
             // 
