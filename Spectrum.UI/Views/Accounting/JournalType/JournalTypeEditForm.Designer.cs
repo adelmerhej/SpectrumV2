@@ -50,6 +50,8 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.txtCode = new DevExpress.XtraEditors.TextEdit();
+            this.Code = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkIsDefault.Properties)).BeginInit();
@@ -70,10 +72,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Code)).BeginInit();
             this.SuspendLayout();
             // 
             // mainLayout
             // 
+            this.mainLayout.Controls.Add(this.txtCode);
             this.mainLayout.Controls.Add(this.chkIsDefault);
             this.mainLayout.Controls.Add(this.chkActive);
             this.mainLayout.Controls.Add(this.txtNotes);
@@ -93,7 +98,7 @@
             // chkIsDefault
             // 
             this.chkIsDefault.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournalType, "IsDefault", true));
-            this.chkIsDefault.Location = new System.Drawing.Point(399, 103);
+            this.chkIsDefault.Location = new System.Drawing.Point(399, 116);
             this.chkIsDefault.Name = "chkIsDefault";
             this.chkIsDefault.Properties.Caption = "Is Default";
             this.chkIsDefault.Size = new System.Drawing.Size(121, 24);
@@ -107,7 +112,7 @@
             // chkActive
             // 
             this.chkActive.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournalType, "Active", true));
-            this.chkActive.Location = new System.Drawing.Point(28, 103);
+            this.chkActive.Location = new System.Drawing.Point(28, 116);
             this.chkActive.Name = "chkActive";
             this.chkActive.Properties.Caption = "Active";
             this.chkActive.Size = new System.Drawing.Size(244, 24);
@@ -117,9 +122,9 @@
             // txtNotes
             // 
             this.txtNotes.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournalType, "Notes", true));
-            this.txtNotes.Location = new System.Drawing.Point(28, 185);
+            this.txtNotes.Location = new System.Drawing.Point(28, 198);
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(492, 94);
+            this.txtNotes.Size = new System.Drawing.Size(492, 84);
             this.txtNotes.StyleController = this.mainLayout;
             this.txtNotes.TabIndex = 2;
             // 
@@ -147,10 +152,10 @@
             // txtName
             // 
             this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournalType, "Name", true));
-            this.txtName.Location = new System.Drawing.Point(71, 54);
+            this.txtName.Location = new System.Drawing.Point(76, 80);
             this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(449, 22);
+            this.txtName.Size = new System.Drawing.Size(444, 22);
             this.txtName.StyleController = this.mainLayout;
             this.txtName.TabIndex = 1;
             // 
@@ -173,9 +178,9 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 283);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 286);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(524, 22);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(524, 19);
             // 
             // emptySpaceItem2
             // 
@@ -208,37 +213,38 @@
             this.emptySpaceItem4,
             this.emptySpaceItem5,
             this.layoutControlItem1,
-            this.layoutControlItem2});
+            this.layoutControlItem2,
+            this.Code});
             this.grpInfo.Location = new System.Drawing.Point(0, 0);
             this.grpInfo.Name = "grpInfo";
-            this.grpInfo.Size = new System.Drawing.Size(524, 131);
+            this.grpInfo.Size = new System.Drawing.Size(524, 144);
             this.grpInfo.Text = "Journal Types";
             // 
             // lblName
             // 
             this.lblName.Control = this.txtName;
-            this.lblName.Location = new System.Drawing.Point(0, 0);
+            this.lblName.Location = new System.Drawing.Point(0, 26);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(496, 26);
-            this.lblName.Text = "Type";
-            this.lblName.TextSize = new System.Drawing.Size(28, 16);
+            this.lblName.Text = "Name";
+            this.lblName.TextSize = new System.Drawing.Size(33, 16);
             // 
             // emptySpaceItem4
             // 
-            this.emptySpaceItem4.Location = new System.Drawing.Point(248, 49);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(248, 62);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(123, 28);
             // 
             // emptySpaceItem5
             // 
-            this.emptySpaceItem5.Location = new System.Drawing.Point(0, 26);
+            this.emptySpaceItem5.Location = new System.Drawing.Point(0, 52);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
-            this.emptySpaceItem5.Size = new System.Drawing.Size(496, 23);
+            this.emptySpaceItem5.Size = new System.Drawing.Size(496, 10);
             // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.chkActive;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 49);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 62);
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(248, 28);
             this.layoutControlItem1.TextVisible = false;
@@ -246,7 +252,7 @@
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.chkIsDefault;
-            this.layoutControlItem2.Location = new System.Drawing.Point(371, 49);
+            this.layoutControlItem2.Location = new System.Drawing.Point(371, 62);
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(125, 28);
             this.layoutControlItem2.TextVisible = false;
@@ -256,9 +262,9 @@
             this.layoutControlGroup4.GroupStyle = DevExpress.Utils.GroupStyle.Light;
             this.layoutControlGroup4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem6});
-            this.layoutControlGroup4.Location = new System.Drawing.Point(0, 131);
+            this.layoutControlGroup4.Location = new System.Drawing.Point(0, 144);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
-            this.layoutControlGroup4.Size = new System.Drawing.Size(524, 152);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(524, 142);
             this.layoutControlGroup4.Text = "Notes";
             // 
             // layoutControlItem6
@@ -266,8 +272,25 @@
             this.layoutControlItem6.Control = this.txtNotes;
             this.layoutControlItem6.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(496, 98);
+            this.layoutControlItem6.Size = new System.Drawing.Size(496, 88);
             this.layoutControlItem6.TextVisible = false;
+            // 
+            // txtCode
+            // 
+            this.txtCode.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournalType, "Code", true));
+            this.txtCode.Location = new System.Drawing.Point(76, 54);
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Size = new System.Drawing.Size(444, 22);
+            this.txtCode.StyleController = this.mainLayout;
+            this.txtCode.TabIndex = 7;
+            // 
+            // Code
+            // 
+            this.Code.Control = this.txtCode;
+            this.Code.Location = new System.Drawing.Point(0, 0);
+            this.Code.Name = "Code";
+            this.Code.Size = new System.Drawing.Size(496, 26);
+            this.Code.TextSize = new System.Drawing.Size(33, 16);
             // 
             // JournalTypeEditForm
             // 
@@ -301,6 +324,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Code)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -328,5 +353,7 @@
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private System.Windows.Forms.BindingSource bsJournalType;
+        private DevExpress.XtraEditors.TextEdit txtCode;
+        private DevExpress.XtraLayout.LayoutControlItem Code;
     }
 }

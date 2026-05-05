@@ -139,6 +139,14 @@ namespace Spectrum.Views.Accounting.JournalType
             var messageNumber = 0;
             var validateMessage = new StringBuilder();
 
+            if (txtCode.Text == "")
+            {
+                messageNumber += 1;
+                validateMessage.Append("\n- Code cannot be empty.");
+                validateReturnValue = false;
+                txtCode.Focus();
+            }
+
             if (txtName.Text == "")
             {
                 messageNumber += 1;
