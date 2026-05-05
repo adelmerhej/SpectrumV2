@@ -157,7 +157,7 @@ namespace Spectrum.Reports.Adapters.Projects
 
 		public override IList<KeyValuePair<string, string>> GetSummaryFields()
 		{
-			decimal initialAmount = _project.Services?.InitialContractAmount ?? 0m;
+			decimal initialAmount = _project.ContractDetails?.InitialContractAmount ?? 0m;
 			decimal addendumTotal = 0m;
 			if (_project.Addendums != null)
 			{
@@ -219,6 +219,7 @@ namespace Spectrum.Reports.Adapters.Projects
 
 		private IEnumerable<FieldDescriptor> GetProjectInfoFields()
 		{
+			var contractDetails = _project.ContractDetails;
 			yield return new FieldDescriptor("Project.Reference", "Project Reference", "Project Info", typeof(string), null, () => _project.Reference);
 			yield return new FieldDescriptor("Project.TentativeReference", "Tentative Reference", "Project Info", typeof(string), null, () => _project.TentativeReference);
 			yield return new FieldDescriptor("Project.ProjectName", "Project Name", "Project Info", typeof(string), null, () => _project.ProjectName);
@@ -231,18 +232,18 @@ namespace Spectrum.Reports.Adapters.Projects
 			yield return new FieldDescriptor("Project.Username", "Username", "Project Info", typeof(string), null, () => _project.Username);
 			yield return new FieldDescriptor("Project.Status", "Status", "Project Info", typeof(string), null, () => _project.Status.ToString());
 			yield return new FieldDescriptor("Project.Active", "Active", "Project Info", typeof(bool), null, () => _project.Active);
-			yield return new FieldDescriptor("Project.Area", "Area", "Project Info", typeof(string), null, () => _project.Area);
-			yield return new FieldDescriptor("Project.Bank", "Bank", "Project Info", typeof(string), null, () => _project.Bank);
-			yield return new FieldDescriptor("Project.ContractLink", "Contract Link", "Project Info", typeof(string), null, () => _project.ContractLink);
+			yield return new FieldDescriptor("Project.Area", "Area", "Project Info", typeof(string), null, () => _project.Location?.Area);
+			yield return new FieldDescriptor("Project.Bank", "Bank", "Project Info", typeof(string), null, () => GetProjectBank());
+			yield return new FieldDescriptor("Project.ContractLink", "Contract Link", "Project Info", typeof(string), null, () => contractDetails?.ContractFileLink);
 			yield return new FieldDescriptor("Project.SourceFile", "Source File", "Project Info", typeof(string), null, () => _project.SourceFile);
 		}
 
 		private IEnumerable<FieldDescriptor> GetDateFields()
 		{
 			yield return new FieldDescriptor("Project.YearOfIssuance", "Year of Issuance", "Dates", typeof(int?), null, () => _project.YearOfIssuance);
-			yield return new FieldDescriptor("Project.IssuanceDate", "Issuance Date", "Dates", typeof(DateTime?), "d", () => _project.IssuanceDate);
+			yield return new FieldDescriptor("Project.IssuanceDate", "Issuance Date", "Dates", typeof(DateTime?), "d", () => _project.ProjectDate);
 			yield return new FieldDescriptor("Project.ProjectDate", "Project Date", "Dates", typeof(DateTime?), "d", () => _project.ProjectDate);
-			yield return new FieldDescriptor("Project.SignatureDate", "Signature Date", "Dates", typeof(DateTime?), "d", () => _project.SignatureDate);
+			yield return new FieldDescriptor("Project.SignatureDate", "Signature Date", "Dates", typeof(DateTime?), "d", () => _project.ContractDetails?.SignatureDate);
 			yield return new FieldDescriptor("Project.ExpiryDate", "Expiry Date", "Dates", typeof(DateTime?), "d", () => _project.ExpiryDate);
 		}
 
@@ -255,14 +256,15 @@ namespace Spectrum.Reports.Adapters.Projects
 
 		private IEnumerable<FieldDescriptor> GetServiceFields()
 		{
-			yield return new FieldDescriptor("Contract.Reference", "Contract Reference", "Services / Contract", typeof(string), null, () => _project.Services?.ContractReference);
-			yield return new FieldDescriptor("Contract.InitialAmount", "Initial Contract Amount", "Services / Contract", typeof(decimal?), "N2", () => _project.Services?.InitialContractAmount);
-			yield return new FieldDescriptor("Contract.Currency", "Currency", "Services / Contract", typeof(string), null, () => _project.Services?.Currency);
-			yield return new FieldDescriptor("Contract.Retention", "Retention", "Services / Contract", typeof(decimal?), "N2", () => _project.Services?.Retention);
-			yield return new FieldDescriptor("Contract.VAT", "VAT", "Services / Contract", typeof(decimal?), "N2", () => _project.Services?.VAT);
-			yield return new FieldDescriptor("Contract.TTC", "TTC", "Services / Contract", typeof(decimal?), "N2", () => _project.Services?.TTC);
-			yield return new FieldDescriptor("Project.ServicesProvided", "Services Provided", "Services / Contract", typeof(string), null, () => string.Join(", ", _project.ServicesProvided ?? new List<string>()));
-			yield return new FieldDescriptor("Project.ServiceTypes", "Service Types", "Services / Contract", typeof(string), null, () => string.Join(", ", _project.ServiceTypes ?? new List<string>()));
+			var contractDetails = _project.ContractDetails;
+			yield return new FieldDescriptor("Contract.Reference", "Contract Reference", "Services / Contract", typeof(string), null, () => contractDetails?.ContractNumber ?? _project.Contract);
+			yield return new FieldDescriptor("Contract.InitialAmount", "Initial Contract Amount", "Services / Contract", typeof(decimal?), "N2", () => contractDetails?.InitialContractAmount);
+			yield return new FieldDescriptor("Contract.Currency", "Currency", "Services / Contract", typeof(string), null, () => contractDetails?.CurrencyCode);
+			yield return new FieldDescriptor("Contract.Retention", "Retention", "Services / Contract", typeof(decimal?), "N2", () => contractDetails?.RetentionPercentage);
+			yield return new FieldDescriptor("Contract.VAT", "VAT", "Services / Contract", typeof(decimal?), "N2", () => contractDetails?.InitialVatAmount);
+			yield return new FieldDescriptor("Contract.TTC", "TTC", "Services / Contract", typeof(decimal?), "N2", () => contractDetails?.InitialTtcAmount);
+			yield return new FieldDescriptor("Project.ServicesProvided", "Services Provided", "Services / Contract", typeof(string), null, () => string.Join(", ", contractDetails?.ServicesProvided ?? new List<string>()));
+			yield return new FieldDescriptor("Project.ServiceTypes", "Service Types", "Services / Contract", typeof(string), null, () => string.Join(", ", contractDetails?.ServiceTypes ?? new List<string>()));
 		}
 
 		private IEnumerable<FieldDescriptor> GetContractDetailFields()
@@ -287,8 +289,8 @@ namespace Spectrum.Reports.Adapters.Projects
 		private IEnumerable<FieldDescriptor> GetWarrantyAndDocumentFields()
 		{
 			var cd = _project.ContractDetails;
-			yield return new FieldDescriptor("Warranty.Reference", "Warranty Reference", "Warranty", typeof(string), null, () => _project.Warranty?.WarrantyRef ?? cd?.WarrantyReference);
-			yield return new FieldDescriptor("Warranty.Amount", "Warranty Amount", "Warranty", typeof(decimal?), "N2", () => _project.Warranty?.WarrantyAmount ?? cd?.WarrantyAmount);
+			yield return new FieldDescriptor("Warranty.Reference", "Warranty Reference", "Warranty", typeof(string), null, () => cd?.WarrantyReference);
+			yield return new FieldDescriptor("Warranty.Amount", "Warranty Amount", "Warranty", typeof(decimal?), "N2", () => cd?.WarrantyAmount);
 			yield return new FieldDescriptor("Warranty.Bank", "Warranty Bank", "Warranty", typeof(string), null, () => cd?.WarrantyBank);
 			yield return new FieldDescriptor("Warranty.IssuanceDate", "Warranty Issuance Date", "Warranty", typeof(DateTime?), "d", () => cd?.WarrantyIssuanceDate);
 			yield return new FieldDescriptor("Warranty.ExpiryDate", "Warranty Expiry Date", "Warranty", typeof(DateTime?), "d", () => cd?.WarrantyExpiryDate);
@@ -308,8 +310,8 @@ namespace Spectrum.Reports.Adapters.Projects
 			yield return new FieldDescriptor("Summary.AddendumsTotal", "Addendums Total", "Financial Summary", typeof(decimal), "N2", () => addendums.Sum(x => x.Amount ?? 0m));
 			yield return new FieldDescriptor("Summary.InvoicedTotal", "Invoiced Total", "Financial Summary", typeof(decimal), "N2", () => invoices.Sum(x => x.Amount ?? 0m));
 			yield return new FieldDescriptor("Summary.PaidTotal", "Paid Total", "Financial Summary", typeof(decimal), "N2", () => invoices.Sum(x => x.PaidAmount ?? 0m));
-			yield return new FieldDescriptor("Summary.ContractTotal", "Contract Total", "Financial Summary", typeof(decimal), "N2", () => (_project.Services?.InitialContractAmount ?? 0m) + addendums.Sum(x => x.Amount ?? 0m));
-			yield return new FieldDescriptor("Summary.Balance", "Balance", "Financial Summary", typeof(decimal), "N2", () => (_project.Services?.InitialContractAmount ?? 0m) + addendums.Sum(x => x.Amount ?? 0m) - invoices.Sum(x => x.Amount ?? 0m));
+			yield return new FieldDescriptor("Summary.ContractTotal", "Contract Total", "Financial Summary", typeof(decimal), "N2", () => (_project.ContractDetails?.InitialContractAmount ?? 0m) + addendums.Sum(x => x.Amount ?? 0m));
+			yield return new FieldDescriptor("Summary.Balance", "Balance", "Financial Summary", typeof(decimal), "N2", () => (_project.ContractDetails?.InitialContractAmount ?? 0m) + addendums.Sum(x => x.Amount ?? 0m) - invoices.Sum(x => x.Amount ?? 0m));
 			yield return new FieldDescriptor("Summary.InvoicesCount", "Invoices Count", "Financial Summary", typeof(int), null, () => invoices.Count);
 			yield return new FieldDescriptor("Summary.AddendumsCount", "Addendums Count", "Financial Summary", typeof(int), null, () => addendums.Count);
 		}
@@ -376,6 +378,17 @@ namespace Spectrum.Reports.Adapters.Projects
 
 			var toString = loc.ToString();
 			return string.IsNullOrWhiteSpace(toString) ? null : toString;
+		}
+
+		private string GetProjectBank()
+		{
+			var invoiceBank = _invoiceBindingList
+				.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.Bank))
+				?.Bank;
+
+			return !string.IsNullOrWhiteSpace(invoiceBank)
+				? invoiceBank
+				: _project.ContractDetails?.WarrantyBank;
 		}
 
         #endregion
@@ -495,7 +508,7 @@ namespace Spectrum.Reports.Adapters.Projects
             row = WriteKeyValue(worksheet, row, "Contract", _project.Contract, labelColor);
             row = WriteKeyValue(worksheet, row, "Joint Venture", _project.JointVenture, labelColor);
             row = WriteKeyValue(worksheet, row, "Status", _project.Status.ToString(), labelColor);
-            row = WriteKeyValue(worksheet, row, "Area", _project.Area, labelColor);
+            row = WriteKeyValue(worksheet, row, "Area", _project.Location?.Area, labelColor);
 
             // Section: People & Client
             row = WriteSectionHeader(worksheet, row, "People & Client", headerColor);
@@ -515,13 +528,13 @@ namespace Spectrum.Reports.Adapters.Projects
             row = WriteSectionHeader(worksheet, row, "Key Dates", headerColor);
             row = WriteKeyValueDate(worksheet, row, "Year of Issuance", _project.YearOfIssuance?.ToString(), labelColor);
             row = WriteKeyValueDate(worksheet, row, "Project Date", _project.ProjectDate, labelColor);
-            row = WriteKeyValueDate(worksheet, row, "Signature Date", _project.SignatureDate, labelColor);
+            row = WriteKeyValueDate(worksheet, row, "Signature Date", _project.ContractDetails?.SignatureDate, labelColor);
             row = WriteKeyValueDate(worksheet, row, "Expiry Date", _project.ExpiryDate, labelColor);
 
             // Section: Financial Overview (right side)
             int finRow = 2;
             finRow = WriteSectionHeader(worksheet, finRow, "Financial Overview", headerColor, 4);
-            decimal initialAmount = _project.Services?.InitialContractAmount ?? 0m;
+            decimal initialAmount = _project.ContractDetails?.InitialContractAmount ?? 0m;
             decimal addendumTotal = (_project.Addendums ?? new List<AddendumModel>()).Sum(x => x.Amount ?? 0m);
             decimal contractTotal = initialAmount + addendumTotal;
             decimal invoicedTotal = _invoiceBindingList.Sum(x => x.Amount ?? 0m);
@@ -865,7 +878,6 @@ namespace Spectrum.Reports.Adapters.Projects
         {
             var headerColor = System.Drawing.Color.FromArgb(70, 130, 180);
             var labelColor = System.Drawing.Color.FromArgb(240, 248, 255);
-            var warranty = _project.Warranty;
             var cd = _project.ContractDetails;
             var docs = _project.Documents;
 
@@ -887,8 +899,8 @@ namespace Spectrum.Reports.Adapters.Projects
             warrantyRange.Fill.BackgroundColor = headerColor;
             row++;
 
-            row = WriteDetailRow(worksheet, row, "Warranty Reference", warranty?.WarrantyRef ?? cd?.WarrantyReference);
-            row = WriteDetailRow(worksheet, row, "Warranty Amount", warranty?.WarrantyAmount ?? cd?.WarrantyAmount, "#,##0.00");
+            row = WriteDetailRow(worksheet, row, "Warranty Reference", cd?.WarrantyReference);
+            row = WriteDetailRow(worksheet, row, "Warranty Amount", cd?.WarrantyAmount, "#,##0.00");
             row = WriteDetailRow(worksheet, row, "Warranty Bank", cd?.WarrantyBank);
             row = WriteDetailRow(worksheet, row, "Issuance Date", cd?.WarrantyIssuanceDate);
             row = WriteDetailRow(worksheet, row, "Expiry Date", cd?.WarrantyExpiryDate);
@@ -913,7 +925,7 @@ namespace Spectrum.Reports.Adapters.Projects
             row++;
 
             // Contract Link
-            row = WriteDetailRow(worksheet, row, "Contract Link", _project.ContractLink);
+            row = WriteDetailRow(worksheet, row, "Contract Link", cd?.ContractFileLink);
 
             worksheet.Columns.AutoFit(0, 1);
             worksheet.Columns[0].Width = 220;

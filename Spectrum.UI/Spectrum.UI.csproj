@@ -492,6 +492,9 @@
     <Compile Include="Views\Projects\ProjectEditForm.Designer.cs">
       <DependentUpon>ProjectEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Projects\ProjectReportDesignerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\Projects\ProjectsListForm.cs">
       <SubType>Form</SubType>
     </Compile>

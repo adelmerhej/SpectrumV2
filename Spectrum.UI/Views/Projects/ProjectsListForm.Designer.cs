@@ -20,6 +20,7 @@ namespace Spectrum.Views.Projects
             this.btnDelete = new DevExpress.XtraBars.BarButtonItem();
             this.btnEdit = new DevExpress.XtraBars.BarButtonItem();
             this.btnPrint = new DevExpress.XtraBars.BarButtonItem();
+this.btnBuildReport = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem13 = new DevExpress.XtraBars.BarButtonItem();
             this.barCheckItem7 = new DevExpress.XtraBars.BarCheckItem();
             this.barButtonItem14 = new DevExpress.XtraBars.BarButtonItem();
@@ -74,6 +75,7 @@ namespace Spectrum.Views.Projects
             this.btnDelete,
             this.btnEdit,
             this.btnPrint,
+this.btnBuildReport,
             this.barButtonItem13,
             this.barCheckItem7,
             this.barButtonItem14,
@@ -137,6 +139,14 @@ namespace Spectrum.Views.Projects
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPrint_ItemClick);
             // 
+// btnBuildReport
+// 
+this.btnBuildReport.Caption = "Build Report";
+this.btnBuildReport.Enabled = false;
+this.btnBuildReport.Id = 44;
+this.btnBuildReport.Name = "btnBuildReport";
+this.btnBuildReport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnBuildReport_ItemClick);
+// 
             // barButtonItem13
             // 
             this.barButtonItem13.Caption = "Reverse Sort";
@@ -218,6 +228,7 @@ namespace Spectrum.Views.Projects
             this.ribbonPageGroup6.ItemLinks.Add(this.btnEdit);
             this.ribbonPageGroup6.ItemLinks.Add(this.btnRefresh);
             this.ribbonPageGroup6.ItemLinks.Add(this.btnPrint);
+this.ribbonPageGroup6.ItemLinks.Add(this.btnBuildReport);
             this.ribbonPageGroup6.MergeOrder = 1;
             this.ribbonPageGroup6.Name = "ribbonPageGroup6";
             this.ribbonPageGroup6.Text = "Actions";
@@ -418,6 +429,7 @@ namespace Spectrum.Views.Projects
 		private DevExpress.XtraBars.BarButtonItem btnDelete;
 		private DevExpress.XtraBars.BarButtonItem btnEdit;
 		private DevExpress.XtraBars.BarButtonItem btnPrint;
+private DevExpress.XtraBars.BarButtonItem btnBuildReport;
 		private DevExpress.XtraBars.BarButtonItem barButtonItem13;
 		private DevExpress.XtraBars.BarCheckItem barCheckItem7;
 		private DevExpress.XtraBars.BarButtonItem barButtonItem14;
