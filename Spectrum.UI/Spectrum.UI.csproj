@@ -360,6 +360,9 @@
     <Compile Include="Views\HumanResources\Employees\EmployeeEditForm.Designer.cs">
       <DependentUpon>EmployeeEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\HumanResources\Employees\EmployeeReportDesignerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\HumanResources\Employees\EmployeesListForm.cs">
       <SubType>Form</SubType>
     </Compile>

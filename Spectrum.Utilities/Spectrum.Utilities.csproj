@@ -83,7 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="mcp-tooling-guide.md" />
     <None Include="packages.config" />
+    <None Include="report-builder-architecture.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

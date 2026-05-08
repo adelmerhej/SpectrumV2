@@ -1,5 +1,6 @@
 using Spectrum.Models.Projects;
 using Spectrum.Reports.Adapters;
+using Spectrum.Reports.Common;
 using Spectrum.Reports.Exporters;
 using Spectrum.Reports.Interfaces;
 using DevExpress.Spreadsheet;
@@ -467,22 +468,9 @@ namespace Spectrum.Reports.Adapters.Projects
             var warrantySheet = workbook.Worksheets.Add("Warranty & Documents");
             BuildWarrantyDocumentsWorksheet(warrantySheet);
 
-            // Apply common print settings to all sheets
-            for (int i = 0; i < workbook.Worksheets.Count; i++)
-            {
-                var ws = workbook.Worksheets[i];
-                ws.ActiveView.ShowGridlines = true;
-                ws.ActiveView.ShowHeadings = true;
-                ws.ActiveView.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4;
-                ws.ActiveView.Orientation = i == 0 ? PageOrientation.Portrait : PageOrientation.Landscape;
-                ws.PrintOptions.PrintGridlines = true;
-                ws.PrintOptions.FitToPage = true;
-                ws.PrintOptions.FitToWidth = 1;
-            }
-
             invoicesSheet.FreezeRows(1);
             addendumsSheet.FreezeRows(1);
-            workbook.Worksheets.ActiveWorksheet = summary;
+            ReportSpreadsheetHelper.ApplyDefaultPrintSettings(workbook, summary);
         }
 
         private void BuildSummaryWorksheet(Worksheet worksheet)
@@ -741,28 +729,7 @@ namespace Spectrum.Reports.Adapters.Projects
 
         private int WriteDetailRow(Worksheet ws, int row, string label, object value, string numberFormat = null)
         {
-            ws.Cells[row, 0].Value = label;
-            ws.Cells[row, 0].Font.Bold = true;
-            if (value == null)
-            {
-                ws.Cells[row, 1].Value = string.Empty;
-            }
-            else if (value is DateTime dt)
-            {
-                ws.Cells[row, 1].Value = dt;
-                ws.Cells[row, 1].NumberFormat = "yyyy-mm-dd";
-            }
-            else if (value is decimal dec)
-            {
-                ws.Cells[row, 1].Value = (double)dec;
-                if (numberFormat != null)
-                    ws.Cells[row, 1].NumberFormat = numberFormat;
-            }
-            else
-            {
-                ws.Cells[row, 1].Value = value.ToString();
-            }
-            return row + 1;
+            return ReportSpreadsheetHelper.WriteDetailRow(ws, row, label, value, numberFormat);
         }
 
         private void BuildInvoicesWorksheet(Worksheet worksheet)
@@ -1020,57 +987,27 @@ namespace Spectrum.Reports.Adapters.Projects
 
         private static string GetCellText(Worksheet worksheet, int row, int column)
         {
-            return worksheet.Cells[row, column].DisplayText?.Trim();
+            return ReportSpreadsheetHelper.GetCellText(worksheet, row, column);
         }
 
         private static DateTime? GetCellDate(Worksheet worksheet, int row, int column)
         {
-            var text = GetCellText(worksheet, row, column);
-            if (string.IsNullOrWhiteSpace(text))
-                return null;
-
-            DateTime value;
-            return DateTime.TryParse(text, CultureInfo.CurrentCulture, DateTimeStyles.None, out value)
-                || DateTime.TryParse(text, CultureInfo.InvariantCulture, DateTimeStyles.None, out value)
-                ? value
-                : (DateTime?)null;
+            return ReportSpreadsheetHelper.GetCellDate(worksheet, row, column);
         }
 
         private static decimal? GetCellDecimal(Worksheet worksheet, int row, int column)
         {
-            var text = GetCellText(worksheet, row, column);
-            if (string.IsNullOrWhiteSpace(text))
-                return null;
-
-            decimal value;
-            return decimal.TryParse(text, NumberStyles.Any, CultureInfo.CurrentCulture, out value)
-                || decimal.TryParse(text, NumberStyles.Any, CultureInfo.InvariantCulture, out value)
-                ? value
-                : (decimal?)null;
+            return ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, column);
         }
 
         private static int GetCellInt(Worksheet worksheet, int row, int column)
         {
-            var text = GetCellText(worksheet, row, column);
-            if (string.IsNullOrWhiteSpace(text))
-                return 0;
-
-            int value;
-            return int.TryParse(text, NumberStyles.Integer, CultureInfo.CurrentCulture, out value)
-                || int.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out value)
-                ? value
-                : 0;
+            return ReportSpreadsheetHelper.GetCellInt(worksheet, row, column);
         }
 
         private static bool GetCellBoolean(Worksheet worksheet, int row, int column)
         {
-            var text = GetCellText(worksheet, row, column);
-            if (string.IsNullOrWhiteSpace(text))
-                return false;
-
-            return string.Equals(text, "yes", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(text, "true", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(text, "1", StringComparison.OrdinalIgnoreCase);
+            return ReportSpreadsheetHelper.GetCellBoolean(worksheet, row, column);
         }
     }
 }

@@ -67,7 +67,9 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\HumanResources\Employees\EmployeeReportAdapter.cs" />
     <Compile Include="Adapters\Projects\ProjectReportAdapter.cs" />
+    <Compile Include="Common\ReportSpreadsheetHelper.cs" />
     <Compile Include="Editors\ISpreadsheetReportEditorAdapter.cs" />
     <Compile Include="Editors\OrderSpreadsheetReportEditorAdapter.cs" />
     <Compile Include="Editors\SpreadsheetReportEditorAdapterRegistry.cs" />
@@ -110,8 +112,6 @@
     <Compile Include="ViewModels\ReportPreviewViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\" />
-    <Folder Include="HumanResources\" />
     <Folder Include="Members\Engineers\" />
     <Folder Include="Members\Suppliers\" />
     <Folder Include="Operations\Projects\" />
