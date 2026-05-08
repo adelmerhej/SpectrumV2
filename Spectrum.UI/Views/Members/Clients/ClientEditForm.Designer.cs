@@ -197,15 +197,11 @@
             this.bsRelatedProjects = new System.Windows.Forms.BindingSource(this.components);
             this.gvRelatedProjects = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.col_id1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colProjectReference = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProjectName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colClientName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDescription = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStatus = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTotalBudget = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStartedDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDeadline = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colActualEndDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFinancialSummary = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNotes1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colActive1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.txtNotes = new DevExpress.XtraEditors.MemoEdit();
@@ -1507,21 +1503,17 @@
             // 
             // bsRelatedProjects
             // 
-            this.bsRelatedProjects.DataSource = typeof(Spectrum.Models.Operations.Projects.ProjectModel);
+            this.bsRelatedProjects.DataSource = typeof(Spectrum.Models.Projects.ProjectModel);
             // 
             // gvRelatedProjects
             // 
             this.gvRelatedProjects.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id1,
+            this.colProjectReference,
             this.colProjectName,
             this.colClientName,
-            this.colDescription,
             this.colStatus,
-            this.colTotalBudget,
-            this.colStartedDate,
-            this.colDeadline,
             this.colActualEndDate,
-            this.colFinancialSummary,
             this.colNotes1,
             this.colActive1});
             this.gvRelatedProjects.GridControl = this.gcRelatedProjects;
@@ -1542,30 +1534,32 @@
             this.col_id1.Name = "col_id1";
             this.col_id1.Width = 94;
             // 
+            // colProjectReference
+            // 
+            this.colProjectReference.FieldName = "Reference";
+            this.colProjectReference.MinWidth = 25;
+            this.colProjectReference.Name = "colProjectReference";
+            this.colProjectReference.Visible = true;
+            this.colProjectReference.VisibleIndex = 0;
+            this.colProjectReference.Width = 174;
+            // 
             // colProjectName
             // 
             this.colProjectName.FieldName = "ProjectName";
             this.colProjectName.MinWidth = 25;
             this.colProjectName.Name = "colProjectName";
             this.colProjectName.Visible = true;
-            this.colProjectName.VisibleIndex = 0;
-            this.colProjectName.Width = 174;
+            this.colProjectName.VisibleIndex = 1;
+            this.colProjectName.Width = 682;
             // 
             // colClientName
             // 
             this.colClientName.FieldName = "ClientName";
             this.colClientName.MinWidth = 25;
             this.colClientName.Name = "colClientName";
+            this.colClientName.Visible = true;
+            this.colClientName.VisibleIndex = 2;
             this.colClientName.Width = 203;
-            // 
-            // colDescription
-            // 
-            this.colDescription.FieldName = "Description";
-            this.colDescription.MinWidth = 25;
-            this.colDescription.Name = "colDescription";
-            this.colDescription.Visible = true;
-            this.colDescription.VisibleIndex = 1;
-            this.colDescription.Width = 682;
             // 
             // colStatus
             // 
@@ -1574,40 +1568,12 @@
             this.colStatus.Name = "colStatus";
             this.colStatus.Width = 111;
             // 
-            // colTotalBudget
-            // 
-            this.colTotalBudget.FieldName = "TotalBudget";
-            this.colTotalBudget.MinWidth = 25;
-            this.colTotalBudget.Name = "colTotalBudget";
-            this.colTotalBudget.Width = 147;
-            // 
-            // colStartedDate
-            // 
-            this.colStartedDate.FieldName = "StartedDate";
-            this.colStartedDate.MinWidth = 25;
-            this.colStartedDate.Name = "colStartedDate";
-            this.colStartedDate.Width = 142;
-            // 
-            // colDeadline
-            // 
-            this.colDeadline.FieldName = "Deadline";
-            this.colDeadline.MinWidth = 25;
-            this.colDeadline.Name = "colDeadline";
-            this.colDeadline.Width = 152;
-            // 
             // colActualEndDate
             // 
-            this.colActualEndDate.FieldName = "ActualEndDate";
+            this.colActualEndDate.FieldName = "ContractDetails.ActualCompletionDate";
             this.colActualEndDate.MinWidth = 25;
             this.colActualEndDate.Name = "colActualEndDate";
             this.colActualEndDate.Width = 147;
-            // 
-            // colFinancialSummary
-            // 
-            this.colFinancialSummary.FieldName = "FinancialSummary";
-            this.colFinancialSummary.MinWidth = 25;
-            this.colFinancialSummary.Name = "colFinancialSummary";
-            this.colFinancialSummary.Width = 149;
             // 
             // colNotes1
             // 
@@ -2116,15 +2082,11 @@
 		private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
 		private System.Windows.Forms.BindingSource bsRelatedProjects;
 		private DevExpress.XtraGrid.Columns.GridColumn col_id1;
-		private DevExpress.XtraGrid.Columns.GridColumn colProjectName;
+		private DevExpress.XtraGrid.Columns.GridColumn colProjectReference;
 		private DevExpress.XtraGrid.Columns.GridColumn colClientName;
-		private DevExpress.XtraGrid.Columns.GridColumn colDescription;
+		private DevExpress.XtraGrid.Columns.GridColumn colProjectName;
 		private DevExpress.XtraGrid.Columns.GridColumn colStatus;
-		private DevExpress.XtraGrid.Columns.GridColumn colTotalBudget;
-		private DevExpress.XtraGrid.Columns.GridColumn colStartedDate;
-		private DevExpress.XtraGrid.Columns.GridColumn colDeadline;
 		private DevExpress.XtraGrid.Columns.GridColumn colActualEndDate;
-		private DevExpress.XtraGrid.Columns.GridColumn colFinancialSummary;
 		private DevExpress.XtraGrid.Columns.GridColumn colNotes1;
 		private DevExpress.XtraGrid.Columns.GridColumn colActive1;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;

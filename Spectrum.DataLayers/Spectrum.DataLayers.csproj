@@ -251,6 +251,10 @@
     <Compile Include="Members\Clients\ContactRepository.cs" />
     <Compile Include="Members\Clients\IClientRepository.cs" />
     <Compile Include="Members\Clients\IContactRepository.cs" />
+    <Compile Include="Members\Suppliers\ISupplierContactRepository.cs" />
+    <Compile Include="Members\Suppliers\ISupplierRepository.cs" />
+    <Compile Include="Members\Suppliers\SupplierContactRepository.cs" />
+    <Compile Include="Members\Suppliers\SupplierRepository.cs" />
     <Compile Include="Projects\IProjectRepository.cs" />
     <Compile Include="Projects\ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -278,7 +282,6 @@
     <Folder Include="Accounting\Settings\" />
     <Folder Include="Accounting\Statements\" />
     <Folder Include="DataAccess\Types\" />
-    <Folder Include="Members\Suppliers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

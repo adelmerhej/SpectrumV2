@@ -486,6 +486,18 @@
     <Compile Include="Views\Members\Engineers\EngineersListForm.Designer.cs">
       <DependentUpon>EngineersListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Members\Suppliers\SupplierEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Suppliers\SupplierEditForm.Designer.cs">
+      <DependentUpon>SupplierEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Suppliers\SuppliersListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Suppliers\SuppliersListForm.Designer.cs">
+      <DependentUpon>SuppliersListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\ProjectEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -784,6 +796,12 @@
     <EmbeddedResource Include="Views\Members\Engineers\EngineersListForm.resx">
       <DependentUpon>EngineersListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Suppliers\SupplierEditForm.resx">
+      <DependentUpon>SupplierEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Suppliers\SuppliersListForm.resx">
+      <DependentUpon>SuppliersListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Projects\ProjectEditForm.resx">
       <DependentUpon>ProjectEditForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -840,8 +858,10 @@
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.SyndicatInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkExperienceInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkingPermitInfo.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Suppliers.SupplierModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.ContractDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.LocationInfoModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Projects.ProjectModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.Banks.BankModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.CostCenter.CostCenterModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.FlowType.FlowTypeModel.datasource" />
@@ -924,7 +944,6 @@
     <Folder Include="Views\Accounting\Settings\" />
     <Folder Include="Views\Accounting\Statements\" />
     <Folder Include="Views\Members\Engineers\Sattus\" />
-    <Folder Include="Views\Members\Suppliers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spectrum.DataLayers\Spectrum.DataLayers.csproj">

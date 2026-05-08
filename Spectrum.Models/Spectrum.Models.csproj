@@ -192,10 +192,12 @@
     <Compile Include="HumanResources\JobPositions\JobPositionModel.cs" />
     <Compile Include="Members\Clients\ClientModel.cs" />
     <Compile Include="Members\Clients\ContactModel.cs" />
+    <Compile Include="Members\Suppliers\SupplierContactModel.cs" />
+    <Compile Include="Members\Suppliers\SupplierModel.cs" />
     <Compile Include="Operations\Projects\FinancialSummaryModel.cs" />
     <Compile Include="Operations\Projects\ProjectAssignmentModel.cs" />
     <Compile Include="Operations\Projects\ProjectCostModel.cs" />
-    <Compile Include="Operations\Projects\ProjectModel.cs" />
+    <Compile Include="Operations\Projects\ProjectSimpleModel.cs" />
     <Compile Include="Operations\Projects\ProjectPaymentModel.cs" />
     <Compile Include="Operations\Projects\TimeEntryModel.cs" />
     <Compile Include="Projects\AddendumModel.cs" />
@@ -217,7 +219,6 @@
     <Folder Include="Accounting\Reports\" />
     <Folder Include="Accounting\Settings\" />
     <Folder Include="Accounting\Statements\" />
-    <Folder Include="Members\Suppliers\" />
     <Folder Include="Operations\Invoices\" />
     <Folder Include="Operations\Quotations\" />
   </ItemGroup>

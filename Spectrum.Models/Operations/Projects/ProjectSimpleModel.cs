@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Spectrum.Models.Operations.Projects
 {
-	public class ProjectModel : EntityObject, ICloneable
+	public class ProjectSimpleModel : EntityObject, ICloneable
 	{
 		[BsonElement("ProjectName")]
 		public string ProjectName { get; set; }                             // "Bridge Construction"
@@ -27,16 +27,15 @@ namespace Spectrum.Models.Operations.Projects
 		public List<ProjectPaymentModel> Payments { get; set; } = new List<ProjectPaymentModel>();
 		public FinancialSummaryModel FinancialSummary { get; set; } = new FinancialSummaryModel();
 
-		#region Implementation of ICloneable
+        #region Implementation of ICloneable
 
-		/// <summary>Creates a new object that is a copy of the current instance.</summary>
-		/// <returns>A new object that is a copy of this instance.</returns>
-		public object Clone()
-		{
-			var recordModel = (ProjectModel)MemberwiseClone();
-			return recordModel;
-		}
+        /// <summary>Creates a new object that is a copy of the current instance.</summary>
+        /// <returns>A new object that is a copy of this instance.</returns>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

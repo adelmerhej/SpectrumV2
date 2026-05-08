@@ -15,8 +15,7 @@ namespace SpectrumV1.Models.HumanResources.EmployeeTypes
         /// <returns>A new object that is a copy of this instance.</returns>
         public object Clone()
         {
-            var recordModel = (EmployeeTypeModel)MemberwiseClone();
-            return recordModel;
+            return MemberwiseClone();
         }
 
         #endregion

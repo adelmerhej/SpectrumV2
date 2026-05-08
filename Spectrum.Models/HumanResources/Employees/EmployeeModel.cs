@@ -114,8 +114,7 @@ namespace Spectrum.Models.HumanResources.Employees
 
         public object Clone()
         {
-            var recordModel = (EmployeeModel)MemberwiseClone();
-            return recordModel;
+            return MemberwiseClone();
         }
 
         #endregion

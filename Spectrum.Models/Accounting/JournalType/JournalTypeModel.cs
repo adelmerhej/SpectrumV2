@@ -7,10 +7,7 @@ namespace SpectrumV1.Models.Accounting.JournalType
     {
         public string Code { get; set; }
         public string Name { get; set; }
-        public int ChartId { get; set; }
         public string SpecialReport { get; set; }
-
-
 
         #region Implementation of ICloneable
 

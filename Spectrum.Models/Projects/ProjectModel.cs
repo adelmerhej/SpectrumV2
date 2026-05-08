@@ -172,14 +172,13 @@ namespace Spectrum.Models.Projects
 		public ContractDetailModel ContractDetails { get; set; } = new ContractDetailModel();
 
 
-		#region Implementation of ICloneable
+        #region Implementation of ICloneable
 
-		public object Clone()
-		{
-			var recordModel = (ProjectModel)MemberwiseClone();
-			return recordModel;
-		}
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -8,14 +8,13 @@ namespace Spectrum.Models.Users
 		public string ControlName { get; set; }
 		public bool Value { get; set; }
 
-		#region Implementation of ICloneable
+        #region Implementation of ICloneable
 
-		public virtual object Clone()
-		{
-			var newModel = (UserPermissionModel)MemberwiseClone();
-			return newModel;
-		}
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }
