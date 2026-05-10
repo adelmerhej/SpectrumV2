@@ -140,7 +140,7 @@ namespace Spectrum.Views.Projects
         }
         private async Task LoadEngineersAsync()
         {
-            _engineers = await _engineerRepository.GetEmployeesAsync(EnumEmployeeType.Engineer);
+            _engineers = await _engineerRepository.GetEmployeesAsync(EmployeeType.Engineer);
         }
 
         private async Task LoadUsersAsync()
@@ -187,32 +187,16 @@ namespace Spectrum.Views.Projects
         {
             _projectModel.Location = _projectModel.Location ?? new LocationInfoModel();
             _projectModel.ContractDetails = _projectModel.ContractDetails ?? new ContractDetailModel();
+            NormalizeLookupValues();
 
             bsProject.DataSource = _projectModel;
             bsContractDetails.DataSource = _projectModel.ContractDetails;
             bsLocationInfo.DataSource = _projectModel.Location;
 
-            cboClients.Properties.DataSource = null;
-            cboClients.Properties.DisplayMember = "ClientName";
-            cboClients.Properties.ValueMember = "ClientName";
-            cboClients.Properties.DataSource = _clients;
-
-            // Contract management should share the same Client list as Project Information.
-            // Keep it using the same key (client _id) so newly added clients are available immediately.
-            cboContractClient.Properties.DataSource = null;
-            cboContractClient.Properties.DataSource = _clients;
-
-            cboEngineers.Properties.DataSource = null;
-            cboEngineers.Properties.DataSource = _engineers;
-
-            cboUsers.Properties.DataSource = null;
-            cboUsers.Properties.DataSource = _users;
+            ConfigureLookupBindings();
 
             cboPersonInCharge.Properties.DataSource = null;
             cboPersonInCharge.Properties.DataSource = _users;
-
-            cboOperatingUsers.Properties.DataSource = null;
-            cboOperatingUsers.Properties.DataSource = _users;
 
            BindCheckedComboBoxItems(cboServicesProvided,
                 _services.Select(x => x.ServiceName),
@@ -250,16 +234,111 @@ namespace Spectrum.Views.Projects
             // Whenever user changes selection, update project model Location via reflection
             cboLocations.EditValueChanged += cboLocations_EditValueChanged;
 
-            // Keep contract client in sync with project client.
-            cboClients.EditValueChanged -= cboClients_EditValueChanged;
-            cboClients.EditValueChanged += cboClients_EditValueChanged;
-            SyncContractClientFromProjectClient();
-
             //cboStatus.Properties.Items.Clear();
             //cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
         }
 
         #endregion
+
+        private void ConfigureLookupBindings()
+        {
+            cboClients.DataBindings.Clear();
+            cboClients.DataBindings.Add("EditValue", bsProject, "ClientIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
+            cboClients.Properties.DataSource = null;
+            cboClients.Properties.DisplayMember = "ClientName";
+            cboClients.Properties.ValueMember = "_id";
+            cboClients.Properties.DataSource = _clients;
+
+            cboFundedBy.DataBindings.Clear();
+            cboFundedBy.DataBindings.Add("EditValue", bsContractDetails, "SponsorId", true, DataSourceUpdateMode.OnPropertyChanged);
+            cboFundedBy.Properties.DataSource = null;
+            cboFundedBy.Properties.DisplayMember = "ClientName";
+            cboFundedBy.Properties.ValueMember = "_id";
+            cboFundedBy.Properties.DataSource = _clients;
+
+            cboEngineers.DataBindings.Clear();
+            cboEngineers.DataBindings.Add("EditValue", bsProject, "EngineerIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
+            cboEngineers.Properties.DataSource = null;
+            cboEngineers.Properties.DisplayMember = "FullName";
+            cboEngineers.Properties.ValueMember = "_id";
+            cboEngineers.Properties.DataSource = _engineers;
+
+            cboUsers.DataBindings.Clear();
+            cboUsers.DataBindings.Add("EditValue", bsProject, "UserIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
+            cboUsers.Properties.DataSource = null;
+            cboUsers.Properties.DisplayMember = "Username";
+            cboUsers.Properties.ValueMember = "_id";
+            cboUsers.Properties.DataSource = _users;
+
+            cboPersonInCharge.DataBindings.Clear();
+            cboPersonInCharge.DataBindings.Add("EditValue", bsProject, "EngineerIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
+            cboPersonInCharge.Properties.DataSource = null;
+            cboPersonInCharge.Properties.DisplayMember = "FullName";
+            cboPersonInCharge.Properties.ValueMember = "_id";
+            cboPersonInCharge.Properties.DataSource = _engineers;
+
+        }
+
+        private void NormalizeLookupValues()
+        {
+            _projectModel.ClientIdValue = ResolveClientId(_projectModel.ClientIdValue, _projectModel.ClientName);
+            _projectModel.EngineerIdValue = ResolveEngineerId(_projectModel.EngineerIdValue, _projectModel.EngineerInCharge);
+            _projectModel.UserIdValue = ResolveUserId(_projectModel.UserIdValue, _projectModel.Username);
+            _projectModel.ContractDetails.SponsorId = ResolveClientId(_projectModel.ContractDetails.SponsorId, _projectModel.ContractDetails.SponsorId);
+        }
+
+        private string ResolveClientId(string idValue, string nameValue)
+        {
+            if (IsValidObjectId(idValue) && _clients.Any(c => c._id == idValue)) return idValue;
+
+            var candidateName = !string.IsNullOrWhiteSpace(nameValue) ? nameValue : idValue;
+            if (string.IsNullOrWhiteSpace(candidateName)) return null;
+
+            var client = _clients.FirstOrDefault(c => string.Equals(c.ClientName, candidateName, StringComparison.OrdinalIgnoreCase));
+            return client?._id;
+        }
+
+        private string ResolveEngineerId(string idValue, string nameValue)
+        {
+            if (IsValidObjectId(idValue) && _engineers.Any(e => e._id == idValue)) return idValue;
+
+            if (string.IsNullOrWhiteSpace(nameValue)) return null;
+
+            var engineer = _engineers.FirstOrDefault(e =>
+                string.Equals(e.FullName, nameValue, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(e.FirstName, nameValue, StringComparison.OrdinalIgnoreCase));
+
+            return engineer?._id;
+        }
+
+        private string ResolveUserId(string idValue, string username)
+        {
+            if (IsValidObjectId(idValue) && _users.Any(u => u._id == idValue)) return idValue;
+            if (string.IsNullOrWhiteSpace(username)) return null;
+
+            var user = _users.FirstOrDefault(u => string.Equals(u.Username, username, StringComparison.OrdinalIgnoreCase));
+            return user?._id;
+        }
+
+        private static bool IsValidObjectId(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value) || value.Length != 24) return false;
+
+            for (var i = 0; i < value.Length; i++)
+            {
+                var character = value[i];
+                var isDigit = character >= '0' && character <= '9';
+                var isLowerHex = character >= 'a' && character <= 'f';
+                var isUpperHex = character >= 'A' && character <= 'F';
+
+                if (!isDigit && !isLowerHex && !isUpperHex)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         #region ApplyDefaults and Permissions Methods
         private void ApplyDefaults()
@@ -281,36 +360,6 @@ namespace Spectrum.Views.Projects
         }
 
         #endregion
-
-        private void SyncContractClientFromProjectClient()
-        {
-            try
-            {
-                if (cboContractClient == null) return;
-                if (cboClients == null) return;
-
-                var editValue = cboClients.EditValue;
-                if (editValue == null)
-                {
-                    cboContractClient.EditValue = null;
-                    return;
-                }
-
-                // Preferred behavior: both combos use client _id as EditValue.
-                var value = editValue.ToString();
-                if (_clients == null) return;
-
-                var client = _clients.FirstOrDefault(c => c._id == value)
-                    ?? _clients.FirstOrDefault(c => string.Equals(c.ClientName, value, StringComparison.OrdinalIgnoreCase))
-                    ?? _clients.FirstOrDefault(c => string.Equals(c.ClientName, cboClients.Text, StringComparison.OrdinalIgnoreCase));
-
-                if (client != null) cboContractClient.EditValue = client._id;
-            }
-            catch
-            {
-                // ignore
-            }
-        }
 
         private void cboLocations_EditValueChanged(object sender, EventArgs e)
         {
@@ -335,12 +384,6 @@ namespace Spectrum.Views.Projects
             {
                 // ignore
             }
-        }
-
-
-        private void cboClients_EditValueChanged(object sender, EventArgs e)
-        {
-            SyncContractClientFromProjectClient();
         }
 
         private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
@@ -396,12 +439,33 @@ namespace Spectrum.Views.Projects
                 if (cboClients.EditValue != null)
                 {
                     var selectedClient = _clients.FirstOrDefault(c => c._id == cboClients.EditValue.ToString());
-                    if (selectedClient != null) _projectModel.ClientName = selectedClient.ClientName;
+                    if (selectedClient != null)
+                    {
+                        _projectModel.ClientIdValue = selectedClient._id;
+                        _projectModel.ClientName = selectedClient.ClientName;
+                    }
                 }
                 if (cboEngineers.EditValue != null)
                 {
                     var selectedEngineer = _engineers.FirstOrDefault(e => e._id == cboEngineers.EditValue.ToString());
-                    if (selectedEngineer != null) _projectModel.EngineerInCharge = selectedEngineer.FirstName;
+                    if (selectedEngineer != null)
+                    {
+                        _projectModel.EngineerIdValue = selectedEngineer._id;
+                        _projectModel.EngineerInCharge = selectedEngineer.FullName;
+                    }
+                }
+                if (cboUsers.EditValue != null)
+                {
+                    var selectedUser = _users.FirstOrDefault(u => u._id == cboUsers.EditValue.ToString());
+                    if (selectedUser != null)
+                    {
+                        _projectModel.UserIdValue = selectedUser._id;
+                        _projectModel.Username = selectedUser.Username;
+                    }
+                }
+                if (cboFundedBy.EditValue != null)
+                {
+                    _projectModel.ContractDetails.SponsorId = cboFundedBy.EditValue.ToString();
                 }
 
                 // Save selected services and service types
@@ -545,68 +609,6 @@ namespace Spectrum.Views.Projects
                 // ignore
             }
         }
-
-
-        #region Add new data
-        private void cboPersonInCharge_AddNewValue(object sender, AddNewValueEventArgs e)
-        {
-            UserEditForm frm = new UserEditForm(new UserModel());
-            frm.SendUpdatedUser += RcvUpdatedPersonInChargeAsync;
-            frm.ShowDialog();
-        }
-
-        private void RcvUpdatedPersonInChargeAsync(object sender, EventArgs e)
-        {
-            if (sender == null) return;
-            _userModel = sender as UserModel;
-
-            _users.Add(_userModel);
-
-            cboUsers.Properties.DataSource = null;
-            cboUsers.Properties.DataSource = _users;
-            if (_userModel != null) cboUsers.EditValue = _userModel._id;
-        }
-
-        private void cboOperatingUsers_AddNewValue(object sender, AddNewValueEventArgs e)
-        {
-            UserEditForm frm = new UserEditForm(new UserModel());
-            frm.SendUpdatedUser += RcvOperatingUserAsync;
-            frm.ShowDialog();
-        }
-
-        private void RcvOperatingUserAsync(object sender, EventArgs e)
-        {
-            if (sender == null) return;
-            _userModel = sender as UserModel;
-
-            _users.Add(_userModel);
-
-            cboOperatingUsers.Properties.DataSource = null;
-            cboOperatingUsers.Properties.DataSource = _users;
-            if (_userModel != null) cboOperatingUsers.EditValue = _userModel._id;
-        }
-
-        private void cboUsers_AddNewValue(object sender, AddNewValueEventArgs e)
-        {
-            UserEditForm frm = new UserEditForm(new UserModel());
-            frm.SendUpdatedUser += RcvUpdatedUserAsync;
-            frm.ShowDialog();
-        }
-
-        private void RcvUpdatedUserAsync(object sender, EventArgs e)
-        {
-            if (sender == null) return;
-            _userModel = sender as UserModel;
-
-            _users.Add(_userModel);
-
-            cboUsers.Properties.DataSource = null;
-            cboUsers.Properties.DataSource = _users;
-            if (_userModel != null) cboUsers.EditValue = _userModel._id;
-        }
-
-
-        #endregion
 
         private void cboCountries_AddNewValue(object sender, AddNewValueEventArgs e)
         {
@@ -767,21 +769,9 @@ namespace Spectrum.Views.Projects
 
             cboClients.Properties.DataSource = null;
             cboClients.Properties.DisplayMember = "ClientName";
-            cboClients.Properties.ValueMember = "ClientName";
+            cboClients.Properties.ValueMember = "_id";
             cboClients.Properties.DataSource = _clients;
-
-            // Refresh contract management client lookup as well
-            cboContractClient.Properties.DataSource = null;
-            cboContractClient.Properties.DisplayMember = "ClientName";
-            cboContractClient.Properties.ValueMember = "ClientName";
-            cboContractClient.Properties.DataSource = _clients;
-
-            if (_clientModel != null)
-            {
-                // Prefer selecting by id (ValueMember is typically _id on these lookups)
-                cboClients.EditValue = _clientModel._id;
-                SyncContractClientFromProjectClient();
-            }
+            if (_clientModel != null) cboClients.EditValue = _clientModel._id;
         }
 
         private void tabDetails_Click(object sender, EventArgs e)

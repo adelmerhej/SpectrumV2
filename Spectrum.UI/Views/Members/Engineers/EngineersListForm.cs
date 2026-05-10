@@ -57,17 +57,6 @@ namespace Spectrum.Views.Members.Engineers
         {
             InitializeComponent();
 
-            // wire events
-            btnNew.ItemClick += btnNew_ItemClick;
-            btnEdit.ItemClick += btnEdit_ItemClick;
-            btnDelete.ItemClick += btnDelete_ItemClick;
-            btnPrint.ItemClick += btnPrint_ItemClick;
-            btnRefresh.ItemClick += btnRefresh_ItemClick;
-            btnClose.ItemClick += btnClose_ItemClick;
-            btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
-            gvEngineers.DoubleClick += gvEngineers_DoubleClick;
-            gvEngineers.RowCellStyle += gvEngineers_RowCellStyle;
-
             StartLoading();
         }
 
@@ -84,7 +73,7 @@ namespace Spectrum.Views.Members.Engineers
             try
             {
                 // Load permissions here if needed, following app conventions
-                _employees = await _employeeRepository.GetEmployeesAsync(EnumEmployeeType.Engineer);
+                _employees = await _employeeRepository.GetEmployeesAsync(EmployeeType.Engineer);
             }
             catch (Exception ex)
             {

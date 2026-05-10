@@ -1,5 +1,4 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using Spectrum.Utilities.Enums;
 using SpectrumV1.Models.HumanResources.EmployeeTypes;
 using SpectrumV1.Models.Projects.Serializers;
 using System;
@@ -57,10 +56,7 @@ namespace Spectrum.Models.HumanResources.Employees
         public string FamilyStatus { get; set; }
 
         [BsonElement("EmployeeType")]
-        public string EmployeeType { get; set; }
-
-        [BsonElement("EnumEmployeeType")]
-        public EnumEmployeeType EnumEmployeeType { get; set; }
+        public EmployeeTypeModel EmployeeType { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
         [BsonElement("HiredDate")]

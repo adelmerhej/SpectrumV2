@@ -163,7 +163,7 @@ namespace Spectrum.Views.HumanResources.Common.EmployeeTypes
             try
             {
                 string id = gvEmployeeTypes.GetFocusedRowCellValue("_id").ToString();
-                string name = gvEmployeeTypes.GetFocusedRowCellValue("EmployeeTypeName").ToString();
+                string name = gvEmployeeTypes.GetFocusedRowCellValue("TypeName").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {

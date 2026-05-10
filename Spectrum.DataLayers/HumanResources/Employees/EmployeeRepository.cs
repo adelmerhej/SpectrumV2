@@ -31,9 +31,9 @@ namespace SpectrumV1.DataLayers.HumanResources.Employees
                 .ConfigureAwait(false);
         }
 
-        public async Task<List<EmployeeModel>> GetEmployeesAsync(EnumEmployeeType employeeType)
+        public async Task<List<EmployeeModel>> GetEmployeesAsync(EmployeeType employeeType)
         {
-            var filter = Builders<EmployeeModel>.Filter.Eq(e => e.EnumEmployeeType, employeeType);
+            var filter = Builders<EmployeeModel>.Filter.Eq(e => e.EmployeeType.TypeName, employeeType.ToString());
             return await _employees.Find(filter).ToListAsync().ConfigureAwait(false);
         }
 

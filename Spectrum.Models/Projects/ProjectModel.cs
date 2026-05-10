@@ -48,13 +48,6 @@ namespace Spectrum.Models.Projects
 		public string ClientContact { get; set; }
 
 
-		[BsonElement("FundedById")]                                   // Optional ref to Funded By Collection
-		[BsonRepresentation(BsonType.ObjectId)]
-		public ObjectId? FundedById { get; set; }
-		[BsonElement("FundedBy ")]                                // denormalized Funded By
-		public string FundedBy { get; set; }
-
-
 		// Personnel / Ownership
 		//------------------------------------------------
 		[BsonElement("EngineerInCharge ")]                          // "Engineer in-charge"
@@ -72,6 +65,27 @@ namespace Spectrum.Models.Projects
 		[BsonElement("UserId")]                                 // optional ref to first User in User collection
 		[BsonRepresentation(BsonType.ObjectId)]
 		public ObjectId? UserId { get; set; }
+
+		[BsonIgnore]
+		public string ClientIdValue
+		{
+			get { return ClientId?.ToString(); }
+			set { ClientId = ParseObjectId(value); }
+		}
+
+		[BsonIgnore]
+		public string EngineerIdValue
+		{
+			get { return EngineerId?.ToString(); }
+			set { EngineerId = ParseObjectId(value); }
+		}
+
+		[BsonIgnore]
+		public string UserIdValue
+		{
+			get { return UserId?.ToString(); }
+			set { UserId = ParseObjectId(value); }
+		}
 
 		// Location
 		//------------------------------------------------
@@ -135,8 +149,9 @@ namespace Spectrum.Models.Projects
 
 		public DateTime? ProjectDate { get; set; }                  // "ProjectDate Date"
 
+        public DateTime? IssuanceDate { get; set; }                  // "IssuanceDate Date"
 
-		public DateTime? ExpiryDate { get; set; }                    // "Expiry Date"
+        public DateTime? ExpiryDate { get; set; }                    // "Expiry Date"
 
 		[BsonRepresentation(BsonType.String)]
 		public ProjectStatus Status { get; set; }                   // "Status"
@@ -180,5 +195,12 @@ namespace Spectrum.Models.Projects
         }
 
         #endregion
+
+		private static ObjectId? ParseObjectId(string value)
+		{
+			if (string.IsNullOrWhiteSpace(value)) return null;
+			ObjectId objectId;
+			return ObjectId.TryParse(value, out objectId) ? objectId : (ObjectId?)null;
+		}
     }
 }

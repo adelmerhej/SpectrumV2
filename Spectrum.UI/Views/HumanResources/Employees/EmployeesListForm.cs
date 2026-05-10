@@ -100,7 +100,10 @@ namespace Spectrum.Views.HumanResources.Employees
 						_id = p.EngineerId,
 						FirstName = firstName,
 						LastName = lastName,
-						EmployeeType = "Engineer",
+                        EmployeeType = new EmployeeTypeModel
+                        {
+                            TypeName = Utilities.Enums.EmployeeType.Engineer.ToString()
+                        },
 						Nationality = p.Country,
 						PlaceOfBirth = p.City,
 						IdCardOrPassportNo = null,

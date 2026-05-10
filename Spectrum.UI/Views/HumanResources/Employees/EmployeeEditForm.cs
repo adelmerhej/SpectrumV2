@@ -162,8 +162,7 @@ namespace Spectrum.Views.HumanResources.Employees
 
             if (_employeeModel.EmployeeType != null)
             {
-                var matchedType = _employeeTypes.FirstOrDefault(x => x.TypeName == _employeeModel.EmployeeType);
-                _employeeModel.EmployeeType = matchedType?.TypeName ?? _employeeModel.EmployeeType;
+                _employeeModel.EmployeeType = EmployeeTypeRepository.ResolveEmployeeTypeModel(_employeeTypes, _employeeModel.EmployeeType);
             }
 
             bsEmployee.DataSource = _employeeModel;
@@ -213,6 +212,13 @@ namespace Spectrum.Views.HumanResources.Employees
             gvDocuments.OptionsImageLoad.RandomShow = true;
             gvDocuments.OptionsImageLoad.LoadThumbnailImagesFromDataSource = false;
             gvDocuments.OptionsImageLoad.AsyncLoad = true;
+
+            var employeeType = EmployeeTypeRepository.ResolveEmployeeTypeModel(_employeeTypes, employeeType: EmployeeType.Employee);
+            if (employeeType != null)
+            {
+                _employeeModel.EmployeeType = employeeType;
+                bsEmployee.ResetBindings(false);
+            }
         }
 
         private void TileView1_GetThumbnailImage(object sender, ThumbnailImageEventArgs e)
