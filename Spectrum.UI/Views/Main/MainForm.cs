@@ -31,6 +31,7 @@ using Spectrum.Views.Main.Connections;
 using Spectrum.Views.Main.Update;
 using Spectrum.Views.Members.Clients;
 using Spectrum.Views.Members.Engineers;
+using Spectrum.Views.Members.Suppliers;
 using Spectrum.Views.Projects;
 using Spectrum.Views.Transactions.Expenses;
 using Spectrum.Views.Transactions.Invoices;
@@ -563,7 +564,7 @@ namespace Spectrum.Views.Main
 
         private void mnuSuppliers_Click(object sender, EventArgs e)
         {
-            ShowFeatureUnderDevelopment();
+            OpenForm<SuppliersListForm>();
         }
     }
 }

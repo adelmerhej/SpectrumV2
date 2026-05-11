@@ -104,23 +104,22 @@ namespace Spectrum.Views.HumanResources.Employees
 
         private async Task InitializeBindings()
         {
+            await SafeLoadAsync(LoadCountriesAsync);
+            await SafeLoadAsync(LoadCitiesAsync);
+            await SafeLoadAsync(LoadStatusAsync);
+            await SafeLoadAsync(LoadBloodTypeAsync);
+            await SafeLoadAsync(LoadEmployeeTypesAsync);
+            await SafeLoadAsync(LoadJobPositionsAsync);
+        }
+
+        private static async Task SafeLoadAsync(Func<Task> loadAction)
+        {
             try
             {
-                var loadTasks = new[]
-                {
-                    LoadCountriesAsync(),
-                    LoadCitiesAsync(),
-                    LoadStatusAsync(),
-                    LoadBloodTypeAsync(),
-                    LoadEmployeeTypesAsync(),
-                    LoadJobPositionsAsync(),
-                };
-
-                await Task.WhenAll(loadTasks);
+                await loadAction();
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception("Error loading form data", ex);
             }
         }
 
@@ -213,12 +212,11 @@ namespace Spectrum.Views.HumanResources.Employees
             gvDocuments.OptionsImageLoad.LoadThumbnailImagesFromDataSource = false;
             gvDocuments.OptionsImageLoad.AsyncLoad = true;
 
-            var employeeType = EmployeeTypeRepository.ResolveEmployeeTypeModel(_employeeTypes, employeeType: EmployeeType.Employee);
-            if (employeeType != null)
-            {
-                _employeeModel.EmployeeType = employeeType;
-                bsEmployee.ResetBindings(false);
-            }
+            var employeeType = EmployeeTypeRepository.ResolveEmployeeTypeModel(_employeeTypes, employeeType: EmployeeType.Employee)
+                ?? new EmployeeTypeModel { TypeName = EmployeeType.Employee.ToString() };
+
+            _employeeModel.EmployeeType = employeeType;
+            bsEmployee.ResetBindings(false);
         }
 
         private void TileView1_GetThumbnailImage(object sender, ThumbnailImageEventArgs e)

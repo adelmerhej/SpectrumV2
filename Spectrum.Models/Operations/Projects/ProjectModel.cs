@@ -151,6 +151,20 @@ namespace Spectrum.Models.Projects
 
         public DateTime? IssuanceDate { get; set; }                  // "IssuanceDate Date"
 
+        [BsonElement("IssuanceDate Date")]
+        [BsonIgnoreIfNull]
+        private DateTime? LegacyIssuanceDate
+        {
+            get { return null; }
+            set
+            {
+                if (!IssuanceDate.HasValue)
+                {
+                    IssuanceDate = value;
+                }
+            }
+        }
+ 
         public DateTime? ExpiryDate { get; set; }                    // "Expiry Date"
 
 		[BsonRepresentation(BsonType.String)]
