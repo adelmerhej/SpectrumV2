@@ -26,6 +26,7 @@ using Spectrum.Views.Members.Engineers;
 using Spectrum.Views.Users;
 using SpectrumV1.DataLayers.HumanResources.Employees;
 using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,6 +38,7 @@ namespace Spectrum.Views.Projects
     public partial class ProjectEditForm : RibbonForm
     {
         private ProjectModel _projectModel = new ProjectModel();
+        private BindingList<ProjectHandoverModel> _projectHandovers = new BindingList<ProjectHandoverModel>();
 
         private IList<ClientModel> _clients = new List<ClientModel>();
         private ClientModel _clientModel = new ClientModel();
@@ -187,16 +189,15 @@ namespace Spectrum.Views.Projects
         {
             _projectModel.Location = _projectModel.Location ?? new LocationInfoModel();
             _projectModel.ContractDetails = _projectModel.ContractDetails ?? new ContractDetailModel();
+            _projectModel.ProjectHandovers = _projectModel.ProjectHandovers ?? new List<ProjectHandoverModel>();
             NormalizeLookupValues();
+            InitializeProjectHandovers();
 
             bsProject.DataSource = _projectModel;
             bsContractDetails.DataSource = _projectModel.ContractDetails;
             bsLocationInfo.DataSource = _projectModel.Location;
 
             ConfigureLookupBindings();
-
-            cboPersonInCharge.Properties.DataSource = null;
-            cboPersonInCharge.Properties.DataSource = _users;
 
            BindCheckedComboBoxItems(cboServicesProvided,
                 _services.Select(x => x.ServiceName),
@@ -277,14 +278,30 @@ namespace Spectrum.Views.Projects
             cboPersonInCharge.Properties.ValueMember = "_id";
             cboPersonInCharge.Properties.DataSource = _engineers;
 
+            cboEngineers.EditValueChanged -= cboEngineers_EditValueChanged;
+            cboEngineers.EditValueChanged += cboEngineers_EditValueChanged;
+
+        }
+
+        private void InitializeProjectHandovers()
+        {
+            _projectHandovers = new BindingList<ProjectHandoverModel>(_projectModel.ProjectHandovers.ToList());
+            gcJobDetails.DataSource = _projectHandovers;
         }
 
         private void NormalizeLookupValues()
         {
             _projectModel.ClientIdValue = ResolveClientId(_projectModel.ClientIdValue, _projectModel.ClientName);
             _projectModel.EngineerIdValue = ResolveEngineerId(_projectModel.EngineerIdValue, _projectModel.EngineerInCharge);
+            _projectModel.Username = ResolveProjectUsername(_projectModel.Username);
             _projectModel.UserIdValue = ResolveUserId(_projectModel.UserIdValue, _projectModel.Username);
             _projectModel.ContractDetails.SponsorId = ResolveClientId(_projectModel.ContractDetails.SponsorId, _projectModel.ContractDetails.SponsorId);
+        }
+
+        private string ResolveProjectUsername(string username)
+        {
+            if (!string.IsNullOrWhiteSpace(username)) return username;
+            return string.IsNullOrWhiteSpace(CurrentUser.UserName) ? null : CurrentUser.UserName;
         }
 
         private string ResolveClientId(string idValue, string nameValue)
@@ -433,7 +450,10 @@ namespace Spectrum.Views.Projects
             {
                 BindingContext[bsProject].EndCurrentEdit();
                 BindingContext[bsContractDetails].EndCurrentEdit();
+                gvJobDetails.CloseEditor();
+                gvJobDetails.UpdateCurrentRow();
                 _projectModel = (ProjectModel)bsProject.Current;
+                _projectModel.ProjectHandovers = _projectHandovers.Where(x => x != null).ToList();
 
                 // derive client / engineer names from selected values
                 if (cboClients.EditValue != null)
@@ -757,7 +777,42 @@ namespace Spectrum.Views.Projects
 
             cboEngineers.Properties.DataSource = null;
             cboEngineers.Properties.DataSource = _engineers;
-            if (_engineerModel != null) cboEngineers.EditValue = _engineerModel.FullName;
+            if (_engineerModel != null) cboEngineers.EditValue = _engineerModel._id;
+        }
+
+        private void cboEngineers_EditValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cboEngineers.EditValue == null) return;
+
+                var selectedEngineerId = cboEngineers.EditValue.ToString();
+                var selectedEngineer = _engineers.FirstOrDefault(x => x._id == selectedEngineerId);
+                if (selectedEngineer == null) return;
+
+                var previousEngineerId = _projectModel.EngineerIdValue;
+                var previousEngineerName = _projectModel.EngineerInCharge;
+                if (!string.IsNullOrWhiteSpace(previousEngineerId) &&
+                    !string.Equals(previousEngineerId, selectedEngineerId, StringComparison.OrdinalIgnoreCase) &&
+                    !string.IsNullOrWhiteSpace(previousEngineerName))
+                {
+                    _projectHandovers.Add(new ProjectHandoverModel
+                    {
+                        _id = Guid.NewGuid().ToString("N"),
+                        HandingOver = previousEngineerName,
+                        HandingOverDate = DateTime.UtcNow
+                    });
+                    gvJobDetails.RefreshData();
+                }
+
+                _projectModel.EngineerIdValue = selectedEngineer._id;
+                _projectModel.EngineerInCharge = selectedEngineer.FullName;
+                bsProject.ResetBindings(false);
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         private void RcvUpdatedClient(object sender, EventArgs e)

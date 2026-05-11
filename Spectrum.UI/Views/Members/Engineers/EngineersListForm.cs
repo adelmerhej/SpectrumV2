@@ -144,7 +144,7 @@ namespace Spectrum.Views.Members.Engineers
             try
             {
                 string id = gvEngineers.GetFocusedRowCellValue("_id").ToString();
-                string name = gvEngineers.GetFocusedRowCellValue("EngineerName").ToString();
+                string name = gvEngineers.GetFocusedRowCellValue("EmployeeName").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {

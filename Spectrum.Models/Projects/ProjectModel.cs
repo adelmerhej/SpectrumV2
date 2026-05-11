@@ -167,6 +167,9 @@ namespace Spectrum.Models.Projects
 		[BsonElement("Invoices")]
 		public List<InvoiceModel> Invoices { get; set; } = new List<InvoiceModel>();
 
+		[BsonElement("ProjectHandovers")]
+		public List<ProjectHandoverModel> ProjectHandovers { get; set; } = new List<ProjectHandoverModel>();
+
 
 		// Audit / provenance
 		//------------------------------------------------
@@ -203,4 +206,17 @@ namespace Spectrum.Models.Projects
 			return ObjectId.TryParse(value, out objectId) ? objectId : (ObjectId?)null;
 		}
     }
+
+	public class ProjectHandoverModel
+	{
+		[BsonElement("_id")]
+		public string _id { get; set; }
+
+		[BsonElement("HandingOver")]
+		public string HandingOver { get; set; }
+
+		[BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+		[BsonElement("HandingOverDate")]
+		public DateTime? HandingOverDate { get; set; }
+	}
 }
