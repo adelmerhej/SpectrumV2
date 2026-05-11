@@ -1,9 +1,12 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using SpectrumV1.Models.Projects.Serializers;
+using System;
 
 namespace Spectrum.Models.Accounting.Charts
 {
 	public class ChartModel : EntityObject, ICloneable
 	{
+		[BsonSerializer(typeof(SafeInt32Serializer))]
 		public int ParentId { get; set; }
 		public string Number { get; set; }
 		public string Serial { get; set; }

@@ -24,6 +24,7 @@ namespace Spectrum.Views.HumanResources.Employees
     {
         private bool _resetMenu;
         private EmployeeEditForm _employeeEditForm;
+        private BarButtonItem _btnBuildReport;
 
         private EmployeeModel _employeeModel = new EmployeeModel();
         private IList<EmployeeModel> _employees = new List<EmployeeModel>();
@@ -49,8 +50,20 @@ namespace Spectrum.Views.HumanResources.Employees
         public EmployeesListForm()
         {
             InitializeComponent();
+            InitializeReportBuilderButton();
 
             StartLoading();
+        }
+
+        private void InitializeReportBuilderButton()
+        {
+            _btnBuildReport = new BarButtonItem(rcEmployeesList.Manager, "Build Report");
+            _btnBuildReport.Name = "btnBuildEmployeeReport";
+            _btnBuildReport.Enabled = false;
+            _btnBuildReport.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.SalesAnalysis.svg";
+            _btnBuildReport.ItemClick += btnBuildReport_ItemClick;
+            rcEmployeesList.Items.Add(_btnBuildReport);
+            ribbonPageGroup6.ItemLinks.Add(_btnBuildReport);
         }
 
         private async void StartLoading()
@@ -170,6 +183,7 @@ namespace Spectrum.Views.HumanResources.Employees
             btnNew.Enabled = _isAdmin || _canAdd;
             btnEdit.Enabled = _isAdmin || _canEdit;
             btnPrint.Enabled = _isAdmin || _canPrint;
+            _btnBuildReport.Enabled = _isAdmin || _canPrint;
             btnDelete.Enabled = _isAdmin || _canDelete;
         }
 
@@ -209,6 +223,19 @@ namespace Spectrum.Views.HumanResources.Employees
         private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
         {
             gcEmployees.ShowRibbonPrintPreview();
+        }
+
+        private void btnBuildReport_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var currentEmployee = gvEmployees.GetFocusedRow() as EmployeeModel;
+            if (currentEmployee == null)
+            {
+                XtraMessageBox.Show("Select an employee first.", "Build Report", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            using (var form = new EmployeeReportDesignerForm(currentEmployee))
+                form.ShowDialog(this);
         }
 
         private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)

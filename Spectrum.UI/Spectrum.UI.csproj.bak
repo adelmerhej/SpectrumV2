@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -8,11 +8,10 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Spectrum</RootNamespace>
     <AssemblyName>SpectrumLive</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,22 +37,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
-    <Reference Include="DevExpress.BonusSkins.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Dashboard.v25.2.Core, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Data.Desktop.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Data.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.DataAccess.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Drawing.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Images.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Printing.v25.2.Core, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Sparkline.v25.2.Core, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Utils.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraBars.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraEditors.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraGrid.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraLayout.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraPrinting.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraTreeList.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.BonusSkins.v25.2, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v25.2.Core, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.Desktop.v25.2, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v25.2, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataAccess.v25.2, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Drawing.v25.2, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Images.v25.2, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v25.2.Core, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v25.2.Core, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v25.2, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v25.2, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v25.2, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v25.2, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v25.2, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v25.2, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v25.2, Version=25.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -78,24 +77,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BusinessLogic\Users\LoginService.cs" />
-    <Compile Include="Utilities\FileSystemImageCache.cs" />
-    <Compile Include="Utilities\FileSystemImageHelper.cs" />
     <Compile Include="Utilities\HelperApplication.cs" />
     <Compile Include="Utilities\Interfaces\IFormWithRibbon.cs" />
     <Compile Include="Utilities\LogInfoRepository.cs" />
-    <Compile Include="Utilities\PeopleDirectory.cs" />
-    <Compile Include="Views\Accounting\Banks\BankEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Accounting\Banks\BankEditForm.Designer.cs">
-      <DependentUpon>BankEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Accounting\Banks\BanksListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Accounting\Banks\BanksListForm.Designer.cs">
-      <DependentUpon>BanksListForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Accounting\Charts\ChartEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,54 +91,6 @@
     </Compile>
     <Compile Include="Views\Accounting\Charts\ChartsListForm.Designer.cs">
       <DependentUpon>ChartsListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Accounting\CostCenter\CostCenterEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Accounting\CostCenter\CostCenterEditForm.Designer.cs">
-      <DependentUpon>CostCenterEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Accounting\CostCenter\CostCentersListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Accounting\CostCenter\CostCentersListForm.Designer.cs">
-      <DependentUpon>CostCentersListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Accounting\FlowType\FlowTypeEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Accounting\FlowType\FlowTypeEditForm.Designer.cs">
-      <DependentUpon>FlowTypeEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Accounting\FlowType\FlowTypeListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Accounting\FlowType\FlowTypeListForm.Designer.cs">
-      <DependentUpon>FlowTypeListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Accounting\Journals\JournalEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Accounting\Journals\JournalEditForm.Designer.cs">
-      <DependentUpon>JournalEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Accounting\Journals\JournalsListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Accounting\Journals\JournalsListForm.Designer.cs">
-      <DependentUpon>JournalsListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Accounting\JournalType\JournalTypeEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Accounting\JournalType\JournalTypeEditForm.Designer.cs">
-      <DependentUpon>JournalTypeEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Accounting\JournalType\JournalTypesListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Accounting\JournalType\JournalTypesListForm.Designer.cs">
-      <DependentUpon>JournalTypesListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Common\Areas\AreaEditForm.cs">
       <SubType>Form</SubType>
@@ -315,12 +251,6 @@
     <Compile Include="Views\Common\Services\ServicesListForm.Designer.cs">
       <DependentUpon>ServicesListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Common\Services\ServiceTypeEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Common\Services\ServiceTypeEditForm.Designer.cs">
-      <DependentUpon>ServiceTypeEditForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Dashboard\DashboardActivitiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -329,69 +259,6 @@
     </Compile>
     <Compile Include="Views\Dashboard\DashboardActivitiesForm1.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\Common\BloodTypes\BloodTypeEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\Common\BloodTypes\BloodTypeEditForm.Designer.cs">
-      <DependentUpon>BloodTypeEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HumanResources\Common\BloodTypes\BloodTypesListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\Common\BloodTypes\BloodTypesListForm.Designer.cs">
-      <DependentUpon>BloodTypesListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HumanResources\Common\EmployeeTypes\EmployeeTypeEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\Common\EmployeeTypes\EmployeeTypeEditForm.Designer.cs">
-      <DependentUpon>EmployeeTypeEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HumanResources\Common\EmployeeTypes\EmployeeTypesListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\Common\EmployeeTypes\EmployeeTypesListForm.Designer.cs">
-      <DependentUpon>EmployeeTypesListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HumanResources\Employees\EmployeeEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\Employees\EmployeeEditForm.Designer.cs">
-      <DependentUpon>EmployeeEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HumanResources\Employees\EmployeeReportDesignerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\Employees\EmployeesListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\Employees\EmployeesListForm.Designer.cs">
-      <DependentUpon>EmployeesListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HumanResources\Employees\Status\StatusEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\Employees\Status\StatusEditForm.Designer.cs">
-      <DependentUpon>StatusEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HumanResources\Employees\Status\StatusListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\Employees\Status\StatusListForm.Designer.cs">
-      <DependentUpon>StatusListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HumanResources\HRCVs\HrCvEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\HRCVs\HrCvEditForm.Designer.cs">
-      <DependentUpon>HrCvEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HumanResources\HRCVs\HrCvsListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\HRCVs\HrCvsListForm.Designer.cs">
-      <DependentUpon>HrCvsListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\HumanResources\JobPositions\JobPositionEditForm.cs">
       <SubType>Form</SubType>
@@ -404,18 +271,6 @@
     </Compile>
     <Compile Include="Views\HumanResources\JobPositions\JobPositionsListForm.Designer.cs">
       <DependentUpon>JobPositionsListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HumanResources\Roles\RoleEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\Roles\RoleEditForm.Designer.cs">
-      <DependentUpon>RoleEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HumanResources\Roles\RolesListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\HumanResources\Roles\RolesListForm.Designer.cs">
-      <DependentUpon>RolesListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Main\AboutForm.cs">
       <SubType>Form</SubType>
@@ -434,12 +289,6 @@
     </Compile>
     <Compile Include="Views\Main\Connections\SuperAdminConnectionForm.Designer.cs">
       <DependentUpon>SuperAdminConnectionForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Main\ApiKeySettingForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Main\ApiKeySettingForm.Designer.cs">
-      <DependentUpon>ApiKeySettingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Main\MainForm.cs">
       <SubType>Form</SubType>
@@ -489,17 +338,17 @@
     <Compile Include="Views\Members\Engineers\EngineersListForm.Designer.cs">
       <DependentUpon>EngineersListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Members\Suppliers\SupplierEditForm.cs">
+    <Compile Include="Views\Members\Engineers\Sattus\StatusEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Members\Suppliers\SupplierEditForm.Designer.cs">
-      <DependentUpon>SupplierEditForm.cs</DependentUpon>
+    <Compile Include="Views\Members\Engineers\Sattus\StatusEditForm.Designer.cs">
+      <DependentUpon>StatusEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Members\Suppliers\SuppliersListForm.cs">
+    <Compile Include="Views\Members\Engineers\Sattus\StatusListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Members\Suppliers\SuppliersListForm.Designer.cs">
-      <DependentUpon>SuppliersListForm.cs</DependentUpon>
+    <Compile Include="Views\Members\Engineers\Sattus\StatusListForm.Designer.cs">
+      <DependentUpon>StatusListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\ProjectEditForm.cs">
       <SubType>Form</SubType>
@@ -507,20 +356,11 @@
     <Compile Include="Views\Projects\ProjectEditForm.Designer.cs">
       <DependentUpon>ProjectEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Projects\ProjectReportDesignerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Views\Projects\ProjectsListForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Projects\ProjectsListForm.Designer.cs">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Reports\DocumentViewerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Reports\DocumentViewerForm.Designer.cs">
-      <DependentUpon>DocumentViewerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Transactions\Expenses\ExpensesListForm.cs">
       <SubType>Form</SubType>
@@ -604,41 +444,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Views\Accounting\Banks\BankEditForm.resx">
-      <DependentUpon>BankEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Accounting\Banks\BanksListForm.resx">
-      <DependentUpon>BanksListForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\Charts\ChartEditForm.resx">
       <DependentUpon>ChartEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\Charts\ChartsListForm.resx">
       <DependentUpon>ChartsListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Accounting\CostCenter\CostCenterEditForm.resx">
-      <DependentUpon>CostCenterEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Accounting\CostCenter\CostCentersListForm.resx">
-      <DependentUpon>CostCentersListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Accounting\FlowType\FlowTypeEditForm.resx">
-      <DependentUpon>FlowTypeEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Accounting\FlowType\FlowTypeListForm.resx">
-      <DependentUpon>FlowTypeListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Accounting\Journals\JournalEditForm.resx">
-      <DependentUpon>JournalEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Accounting\Journals\JournalsListForm.resx">
-      <DependentUpon>JournalsListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Accounting\JournalType\JournalTypeEditForm.resx">
-      <DependentUpon>JournalTypeEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Accounting\JournalType\JournalTypesListForm.resx">
-      <DependentUpon>JournalTypesListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Common\Areas\AreaEditForm.resx">
       <DependentUpon>AreaEditForm.cs</DependentUpon>
@@ -724,47 +534,11 @@
     <EmbeddedResource Include="Views\Dashboard\DashboardActivitiesForm1.resx">
       <DependentUpon>DashboardActivitiesForm1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\HumanResources\Common\BloodTypes\BloodTypeEditForm.resx">
-      <DependentUpon>BloodTypeEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HumanResources\Common\BloodTypes\BloodTypesListForm.resx">
-      <DependentUpon>BloodTypesListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HumanResources\Common\EmployeeTypes\EmployeeTypeEditForm.resx">
-      <DependentUpon>EmployeeTypeEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HumanResources\Common\EmployeeTypes\EmployeeTypesListForm.resx">
-      <DependentUpon>EmployeeTypesListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HumanResources\Employees\EmployeeEditForm.resx">
-      <DependentUpon>EmployeeEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HumanResources\Employees\EmployeesListForm.resx">
-      <DependentUpon>EmployeesListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HumanResources\Employees\Status\StatusEditForm.resx">
-      <DependentUpon>StatusEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HumanResources\Employees\Status\StatusListForm.resx">
-      <DependentUpon>StatusListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HumanResources\HRCVs\HrCvEditForm.resx">
-      <DependentUpon>HrCvEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HumanResources\HRCVs\HrCvsListForm.resx">
-      <DependentUpon>HrCvsListForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\JobPositions\JobPositionEditForm.resx">
       <DependentUpon>JobPositionEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\HumanResources\JobPositions\JobPositionsListForm.resx">
       <DependentUpon>JobPositionsListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HumanResources\Roles\RoleEditForm.resx">
-      <DependentUpon>RoleEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HumanResources\Roles\RolesListForm.resx">
-      <DependentUpon>RolesListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
@@ -774,9 +548,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\Connections\SuperAdminConnectionForm.resx">
       <DependentUpon>SuperAdminConnectionForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Main\ApiKeySettingForm.resx">
-      <DependentUpon>ApiKeySettingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -802,11 +573,11 @@
     <EmbeddedResource Include="Views\Members\Engineers\EngineersListForm.resx">
       <DependentUpon>EngineersListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Members\Suppliers\SupplierEditForm.resx">
-      <DependentUpon>SupplierEditForm.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Members\Engineers\Sattus\StatusEditForm.resx">
+      <DependentUpon>StatusEditForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Members\Suppliers\SuppliersListForm.resx">
-      <DependentUpon>SuppliersListForm.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Members\Engineers\Sattus\StatusListForm.resx">
+      <DependentUpon>StatusListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Projects\ProjectEditForm.resx">
       <DependentUpon>ProjectEditForm.cs</DependentUpon>
@@ -814,9 +585,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Projects\ProjectsListForm.resx">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Reports\DocumentViewerForm.resx">
-      <DependentUpon>DocumentViewerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Transactions\Expenses\ExpensesListForm.resx">
       <DependentUpon>ExpensesListForm.cs</DependentUpon>
@@ -855,29 +623,28 @@
     <EmbeddedResource Include="Views\Users\UsersListForm.resx">
       <DependentUpon>UsersListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartDetailModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.CnssInfo.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmergencyContactInfo.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmployeeContactInfo.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmployeeModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.SyndicatInfo.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkExperienceInfo.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkingPermitInfo.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Members.Suppliers.SupplierModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Projects.ContractDetailModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Projects.LocationInfoModel.datasource" />
-    <None Include="Properties\DataSources\Spectrum.Models.Projects.ProjectModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.Banks.BankModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.CostCenter.CostCenterModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.FlowType.FlowTypeModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.Journals.JournalTypeModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.Common.Roles.RoleModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.BloodTypes.BloodTypeModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.Candidates.CandidateModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.Candidates.EducationEntryModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.Candidates.WorkExperienceModel.datasource" />
-    <None Include="Properties\DataSources\SpectrumV1.Models.HumanResources.EmployeeTypes.EmployeeTypeModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Areas.AreaModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Areas.LocationModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Companies.BranchModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Companies.CompanyModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.CityModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.ContinentModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.CountryModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.DistrictModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.ProvinceModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Countries.RegionModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Currencies.CurrencyModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Currencies.ExchangeCurrencyModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Departments.DepartmentModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Services.ServiceModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.HumanResources.JobPositions.JobPositionModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Clients.ClientModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Clients.ContactModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Engineers.EngineerModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Engineers.Status.StatusModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Operations.Projects.ProjectModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Projects.InvoiceModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Users.UserModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -946,10 +713,16 @@
     <None Include="Resources\professor.svg" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Accounting\Banks\" />
+    <Folder Include="Views\Accounting\CostCenter\" />
+    <Folder Include="Views\Accounting\FlowType\" />
+    <Folder Include="Views\Accounting\Journals\" />
+    <Folder Include="Views\Accounting\JournalType\" />
     <Folder Include="Views\Accounting\Reports\" />
     <Folder Include="Views\Accounting\Settings\" />
     <Folder Include="Views\Accounting\Statements\" />
-    <Folder Include="Views\Members\Engineers\Sattus\" />
+    <Folder Include="Views\HumanResources\Employees\" />
+    <Folder Include="Views\Members\Suppliers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spectrum.DataLayers\Spectrum.DataLayers.csproj">
@@ -975,6 +748,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\DevExpress 25.2\Components\Offline Packages\devexpress.data\25.2.5\analyzers\dotnet\DevExpress.Generator.dll" Visible="false" Condition="Exists('C:\Program Files\DevExpress 25.2\Components\Offline Packages\devexpress.data\25.2.5\analyzers\dotnet\DevExpress.Generator.dll')" />
+    <Analyzer Include="C:\Program Files\DevExpress 25.2\Components\Offline Packages\devexpress.data\25.2.3\analyzers\dotnet\DevExpress.Generator.dll" Visible="false" Condition="Exists('C:\Program Files\DevExpress 25.2\Components\Offline Packages\devexpress.data\25.2.3\analyzers\dotnet\DevExpress.Generator.dll')" />
   </ItemGroup>
 </Project>
