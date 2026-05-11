@@ -228,7 +228,7 @@ namespace Spectrum.Reports.Adapters.Projects
 			yield return new FieldDescriptor("Project.JointVenture", "Joint Venture", "Project Info", typeof(string), null, () => _project.JointVenture);
 			yield return new FieldDescriptor("Project.ClientName", "Client", "Project Info", typeof(string), null, () => _project.ClientName);
 			yield return new FieldDescriptor("Project.ClientContact", "Client Contact", "Project Info", typeof(string), null, () => _project.ClientContact);
-			yield return new FieldDescriptor("Project.FundedBy", "Funded By", "Project Info", typeof(string), null, () => _project.FundedBy);
+			yield return new FieldDescriptor("Project.FundedBy", "Funded By", "Project Info", typeof(string), null, () => _project.ContractDetails?.SponsorId);
 			yield return new FieldDescriptor("Project.EngineerInCharge", "Engineer in Charge", "Project Info", typeof(string), null, () => _project.EngineerInCharge);
 			yield return new FieldDescriptor("Project.Username", "Username", "Project Info", typeof(string), null, () => _project.Username);
 			yield return new FieldDescriptor("Project.Status", "Status", "Project Info", typeof(string), null, () => _project.Status.ToString());
@@ -502,7 +502,7 @@ namespace Spectrum.Reports.Adapters.Projects
             row = WriteSectionHeader(worksheet, row, "People & Client", headerColor);
             row = WriteKeyValue(worksheet, row, "Client", _project.ClientName, labelColor);
             row = WriteKeyValue(worksheet, row, "Client Contact", _project.ClientContact, labelColor);
-            row = WriteKeyValue(worksheet, row, "Funded By", _project.FundedBy, labelColor);
+            row = WriteKeyValue(worksheet, row, "Funded By", _project.ContractDetails?.SponsorId, labelColor);
             row = WriteKeyValue(worksheet, row, "Engineer in Charge", _project.EngineerInCharge, labelColor);
             row = WriteKeyValue(worksheet, row, "Username", _project.Username, labelColor);
 

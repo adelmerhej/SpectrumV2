@@ -2,6 +2,7 @@ using DevExpress.Spreadsheet;
 using DevExpress.XtraSpreadsheet;
 using Spectrum.Models.HumanResources.Employees;
 using Spectrum.Reports.Adapters;
+using SpectrumV1.Models.HumanResources.EmployeeTypes;
 using Spectrum.Reports.Common;
 using Spectrum.Reports.Exporters;
 using Spectrum.Reports.Interfaces;
@@ -122,7 +123,7 @@ namespace Spectrum.Reports.Adapters.HumanResources.Employees
             {
                 new KeyValuePair<string, string>("Employee #", _employee.EmployeeNo.ToString()),
                 new KeyValuePair<string, string>("Name", _employee.FullName ?? string.Empty),
-                new KeyValuePair<string, string>("Employee Type", _employee.EmployeeType ?? string.Empty),
+                new KeyValuePair<string, string>("Employee Type", GetEmployeeTypeName()),
                 new KeyValuePair<string, string>("Position", _employee.ActualPosition ?? string.Empty),
                 new KeyValuePair<string, string>("Specialization", _employee.Specialization ?? string.Empty),
                 new KeyValuePair<string, string>("Hired Date", FormatDate(_employee.HiredDate)),
@@ -169,7 +170,7 @@ namespace Spectrum.Reports.Adapters.HumanResources.Employees
                     _employee.EmployeeNo.ToString(),
                     _employee.FirstName ?? string.Empty,
                     _employee.LastName ?? string.Empty,
-                    _employee.EmployeeType ?? string.Empty,
+                    GetEmployeeTypeName(),
                     _employee.ActualPosition ?? string.Empty,
                     _employee.Specialization ?? string.Empty,
                     FormatDate(_employee.HiredDate),
@@ -246,7 +247,7 @@ namespace Spectrum.Reports.Adapters.HumanResources.Employees
             row++;
 
             row = WriteSectionHeader(worksheet, row, "Employment");
-            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Employee Type", _employee.EmployeeType);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Employee Type", GetEmployeeTypeName());
             row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Position", _employee.ActualPosition);
             row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Specialization", _employee.Specialization);
             row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Hired Date", _employee.HiredDate);
@@ -344,7 +345,7 @@ namespace Spectrum.Reports.Adapters.HumanResources.Employees
             _employee.Nationality = GetString(values, "Nationality");
             _employee.IdCardOrPassportNo = GetString(values, "ID / Passport");
             _employee.FamilyStatus = GetString(values, "Family Status");
-            _employee.EmployeeType = GetString(values, "Employee Type");
+            _employee.EmployeeType = CreateEmployeeType(GetString(values, "Employee Type"));
             _employee.ActualPosition = GetString(values, "Position");
             _employee.Specialization = GetString(values, "Specialization");
             _employee.HiredDate = GetDate(values, "Hired Date") ?? _employee.HiredDate;
@@ -470,7 +471,7 @@ namespace Spectrum.Reports.Adapters.HumanResources.Employees
 
         private IEnumerable<FieldDescriptor> GetWorkFields()
         {
-            yield return new FieldDescriptor("Employee.EmployeeType", "Employee Type", "Employment", typeof(string), null, () => _employee.EmployeeType);
+            yield return new FieldDescriptor("Employee.EmployeeType", "Employee Type", "Employment", typeof(string), null, () => GetEmployeeTypeName());
             yield return new FieldDescriptor("Employee.ActualPosition", "Position", "Employment", typeof(string), null, () => _employee.ActualPosition);
             yield return new FieldDescriptor("Employee.Specialization", "Specialization", "Employment", typeof(string), null, () => _employee.Specialization);
             yield return new FieldDescriptor("Employee.HiredDate", "Hired Date", "Employment", typeof(DateTime), "d", () => _employee.HiredDate);
@@ -516,6 +517,19 @@ namespace Spectrum.Reports.Adapters.HumanResources.Employees
             bindingList.AllowEdit = true;
             bindingList.AllowRemove = true;
             return bindingList;
+        }
+
+        private string GetEmployeeTypeName()
+        {
+            return _employee.EmployeeType?.TypeName ?? string.Empty;
+        }
+
+        private static EmployeeTypeModel CreateEmployeeType(string typeName)
+        {
+            if (string.IsNullOrWhiteSpace(typeName))
+                return null;
+
+            return new EmployeeTypeModel { TypeName = typeName.Trim() };
         }
 
         private static string FormatDate(DateTime? value)
