@@ -950,7 +950,7 @@
             // 
             this.tabSecondAddress.Controls.Add(this.layoutControl2);
             this.tabSecondAddress.Name = "tabSecondAddress";
-            this.tabSecondAddress.Size = new System.Drawing.Size(764, 229);
+            this.tabSecondAddress.Size = new System.Drawing.Size(755, 224);
             this.tabSecondAddress.Text = "Second Address";
             // 
             // layoutControl2
@@ -968,7 +968,7 @@
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup2;
-            this.layoutControl2.Size = new System.Drawing.Size(764, 229);
+            this.layoutControl2.Size = new System.Drawing.Size(755, 224);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
             // 
@@ -985,7 +985,7 @@
             this.cboLocations2.Properties.PopupView = this.gridView5;
             this.cboLocations2.Properties.ShowAddNewButton = true;
             this.cboLocations2.Properties.ValueMember = "LocationCode";
-            this.cboLocations2.Size = new System.Drawing.Size(233, 22);
+            this.cboLocations2.Size = new System.Drawing.Size(229, 22);
             this.cboLocations2.StyleController = this.layoutControl2;
             this.cboLocations2.TabIndex = 12;
             this.cboLocations2.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboLocations2_AddNewValue);
@@ -1029,78 +1029,83 @@
             // txtPoBox2
             // 
             this.txtPoBox2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "PoBox2", true));
-            this.txtPoBox2.Location = new System.Drawing.Point(113, 182);
+            this.txtPoBox2.Location = new System.Drawing.Point(113, 177);
             this.txtPoBox2.MenuManager = this.ribbonControl;
             this.txtPoBox2.Name = "txtPoBox2";
-            this.txtPoBox2.Size = new System.Drawing.Size(233, 22);
+            this.txtPoBox2.Size = new System.Drawing.Size(229, 22);
             this.txtPoBox2.StyleController = this.layoutControl2;
             this.txtPoBox2.TabIndex = 11;
             // 
             // txtFaxNumber2
             // 
             this.txtFaxNumber2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "FaxNumberSecond", true));
-            this.txtFaxNumber2.Location = new System.Drawing.Point(113, 153);
+            this.txtFaxNumber2.Location = new System.Drawing.Point(113, 148);
             this.txtFaxNumber2.MenuManager = this.ribbonControl;
             this.txtFaxNumber2.Name = "txtFaxNumber2";
             editorButtonImageOptions5.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions5.SvgImage")));
             editorButtonImageOptions5.SvgImageSize = new System.Drawing.Size(12, 12);
             this.txtFaxNumber2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject17, serializableAppearanceObject18, serializableAppearanceObject19, serializableAppearanceObject20, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
-            this.txtFaxNumber2.Size = new System.Drawing.Size(233, 25);
+            this.txtFaxNumber2.Size = new System.Drawing.Size(229, 25);
             this.txtFaxNumber2.StyleController = this.layoutControl2;
             this.txtFaxNumber2.TabIndex = 10;
             // 
             // txtPhoneNumberSecond3
             // 
-            this.txtPhoneNumberSecond3.Location = new System.Drawing.Point(538, 124);
+            this.txtPhoneNumberSecond3.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "PhoneNumberSecond3", true));
+            this.txtPhoneNumberSecond3.Location = new System.Drawing.Point(532, 119);
             this.txtPhoneNumberSecond3.MenuManager = this.ribbonControl;
             this.txtPhoneNumberSecond3.Name = "txtPhoneNumberSecond3";
             editorButtonImageOptions6.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions6.SvgImage")));
             editorButtonImageOptions6.SvgImageSize = new System.Drawing.Size(12, 12);
             this.txtPhoneNumberSecond3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions6, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject21, serializableAppearanceObject22, serializableAppearanceObject23, serializableAppearanceObject24, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
-            this.txtPhoneNumberSecond3.Size = new System.Drawing.Size(212, 25);
+            this.txtPhoneNumberSecond3.Size = new System.Drawing.Size(209, 25);
             this.txtPhoneNumberSecond3.StyleController = this.layoutControl2;
             this.txtPhoneNumberSecond3.TabIndex = 9;
             // 
             // txtPhoneNumberSecond1
             // 
-            this.txtPhoneNumberSecond1.Location = new System.Drawing.Point(113, 124);
+            this.txtPhoneNumberSecond1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "PhoneNumberSecond1", true));
+            this.txtPhoneNumberSecond1.Location = new System.Drawing.Point(113, 119);
             this.txtPhoneNumberSecond1.MenuManager = this.ribbonControl;
             this.txtPhoneNumberSecond1.Name = "txtPhoneNumberSecond1";
             editorButtonImageOptions7.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions7.SvgImage")));
             editorButtonImageOptions7.SvgImageSize = new System.Drawing.Size(12, 12);
             this.txtPhoneNumberSecond1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions7, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject25, serializableAppearanceObject26, serializableAppearanceObject27, serializableAppearanceObject28, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
-            this.txtPhoneNumberSecond1.Size = new System.Drawing.Size(233, 25);
+            this.txtPhoneNumberSecond1.Size = new System.Drawing.Size(229, 25);
             this.txtPhoneNumberSecond1.StyleController = this.layoutControl2;
             this.txtPhoneNumberSecond1.TabIndex = 8;
             // 
             // txtPhoneNumberSecond2
             // 
-            this.txtPhoneNumberSecond2.Location = new System.Drawing.Point(350, 124);
+            this.txtPhoneNumberSecond2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "PhoneNumberSecond2", true));
+            this.txtPhoneNumberSecond2.Location = new System.Drawing.Point(346, 119);
             this.txtPhoneNumberSecond2.MenuManager = this.ribbonControl;
             this.txtPhoneNumberSecond2.Name = "txtPhoneNumberSecond2";
             editorButtonImageOptions8.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions8.SvgImage")));
             editorButtonImageOptions8.SvgImageSize = new System.Drawing.Size(12, 12);
             this.txtPhoneNumberSecond2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions8, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject29, serializableAppearanceObject30, serializableAppearanceObject31, serializableAppearanceObject32, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
-            this.txtPhoneNumberSecond2.Size = new System.Drawing.Size(184, 25);
+            this.txtPhoneNumberSecond2.Size = new System.Drawing.Size(182, 25);
             this.txtPhoneNumberSecond2.StyleController = this.layoutControl2;
             this.txtPhoneNumberSecond2.TabIndex = 7;
             // 
             // txtAddress2
             // 
+            this.txtAddress2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "Address2", true));
             this.txtAddress2.Location = new System.Drawing.Point(113, 66);
             this.txtAddress2.MenuManager = this.ribbonControl;
             this.txtAddress2.Name = "txtAddress2";
-            this.txtAddress2.Size = new System.Drawing.Size(637, 54);
+            this.txtAddress2.Size = new System.Drawing.Size(628, 49);
             this.txtAddress2.StyleController = this.layoutControl2;
             this.txtAddress2.TabIndex = 6;
             // 
             // cboCities2
             // 
-            this.cboCities2.Location = new System.Drawing.Point(528, 40);
+            this.cboCities2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "City2", true));
+            this.cboCities2.Location = new System.Drawing.Point(523, 40);
             this.cboCities2.MenuManager = this.ribbonControl;
             this.cboCities2.Name = "cboCities2";
             this.cboCities2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1110,7 +1115,7 @@
             this.cboCities2.Properties.PopupView = this.gridView1;
             this.cboCities2.Properties.ShowAddNewButton = true;
             this.cboCities2.Properties.ValueMember = "CityName";
-            this.cboCities2.Size = new System.Drawing.Size(222, 22);
+            this.cboCities2.Size = new System.Drawing.Size(218, 22);
             this.cboCities2.StyleController = this.layoutControl2;
             this.cboCities2.TabIndex = 5;
             this.cboCities2.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboCities2_AddNewValue);
@@ -1143,6 +1148,7 @@
             // 
             // cboCountries2
             // 
+            this.cboCountries2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "Country2", true));
             this.cboCountries2.Location = new System.Drawing.Point(113, 40);
             this.cboCountries2.MenuManager = this.ribbonControl;
             this.cboCountries2.Name = "cboCountries2";
@@ -1153,7 +1159,7 @@
             this.cboCountries2.Properties.PopupView = this.searchLookUpEdit1View;
             this.cboCountries2.Properties.ShowAddNewButton = true;
             this.cboCountries2.Properties.ValueMember = "CountryName";
-            this.cboCountries2.Size = new System.Drawing.Size(233, 22);
+            this.cboCountries2.Size = new System.Drawing.Size(229, 22);
             this.cboCountries2.StyleController = this.layoutControl2;
             this.cboCountries2.TabIndex = 4;
             this.cboCountries2.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboCountries2_AddNewValue);
@@ -1203,7 +1209,7 @@
             this.emptySpaceItem15,
             this.emptySpaceItem14});
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(764, 229);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(755, 224);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // lblCountry2
@@ -1211,22 +1217,22 @@
             this.lblCountry2.Control = this.cboCountries2;
             this.lblCountry2.Location = new System.Drawing.Point(0, 26);
             this.lblCountry2.Name = "lblCountry2";
-            this.lblCountry2.Size = new System.Drawing.Size(336, 26);
+            this.lblCountry2.Size = new System.Drawing.Size(332, 26);
             this.lblCountry2.Text = "Country";
             this.lblCountry2.TextSize = new System.Drawing.Size(84, 16);
             // 
             // emptySpaceItem13
             // 
-            this.emptySpaceItem13.Location = new System.Drawing.Point(0, 194);
+            this.emptySpaceItem13.Location = new System.Drawing.Point(0, 189);
             this.emptySpaceItem13.Name = "emptySpaceItem13";
-            this.emptySpaceItem13.Size = new System.Drawing.Size(740, 11);
+            this.emptySpaceItem13.Size = new System.Drawing.Size(731, 11);
             // 
             // lblCity2
             // 
             this.lblCity2.Control = this.cboCities2;
-            this.lblCity2.Location = new System.Drawing.Point(466, 26);
+            this.lblCity2.Location = new System.Drawing.Point(461, 26);
             this.lblCity2.Name = "lblCity2";
-            this.lblCity2.Size = new System.Drawing.Size(274, 26);
+            this.lblCity2.Size = new System.Drawing.Size(270, 26);
             this.lblCity2.Text = "City";
             this.lblCity2.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
             this.lblCity2.TextSize = new System.Drawing.Size(21, 16);
@@ -1237,79 +1243,79 @@
             this.lblAddress2.Control = this.txtAddress2;
             this.lblAddress2.Location = new System.Drawing.Point(0, 52);
             this.lblAddress2.Name = "lblAddress2";
-            this.lblAddress2.Size = new System.Drawing.Size(740, 58);
+            this.lblAddress2.Size = new System.Drawing.Size(731, 53);
             this.lblAddress2.Text = "Address";
             this.lblAddress2.TextSize = new System.Drawing.Size(84, 16);
             // 
             // lblPhoneNumberSecond2
             // 
             this.lblPhoneNumberSecond2.Control = this.txtPhoneNumberSecond2;
-            this.lblPhoneNumberSecond2.Location = new System.Drawing.Point(336, 110);
+            this.lblPhoneNumberSecond2.Location = new System.Drawing.Point(332, 105);
             this.lblPhoneNumberSecond2.Name = "lblPhoneNumberSecond2";
-            this.lblPhoneNumberSecond2.Size = new System.Drawing.Size(188, 29);
+            this.lblPhoneNumberSecond2.Size = new System.Drawing.Size(186, 29);
             this.lblPhoneNumberSecond2.TextVisible = false;
             // 
             // lblPhoneNumberSecond1
             // 
             this.lblPhoneNumberSecond1.Control = this.txtPhoneNumberSecond1;
-            this.lblPhoneNumberSecond1.Location = new System.Drawing.Point(0, 110);
+            this.lblPhoneNumberSecond1.Location = new System.Drawing.Point(0, 105);
             this.lblPhoneNumberSecond1.Name = "lblPhoneNumberSecond1";
-            this.lblPhoneNumberSecond1.Size = new System.Drawing.Size(336, 29);
+            this.lblPhoneNumberSecond1.Size = new System.Drawing.Size(332, 29);
             this.lblPhoneNumberSecond1.Text = "Phone Number";
             this.lblPhoneNumberSecond1.TextSize = new System.Drawing.Size(84, 16);
             // 
             // lblPhoneNumberSecond3
             // 
             this.lblPhoneNumberSecond3.Control = this.txtPhoneNumberSecond3;
-            this.lblPhoneNumberSecond3.Location = new System.Drawing.Point(524, 110);
+            this.lblPhoneNumberSecond3.Location = new System.Drawing.Point(518, 105);
             this.lblPhoneNumberSecond3.Name = "lblPhoneNumberSecond3";
-            this.lblPhoneNumberSecond3.Size = new System.Drawing.Size(216, 29);
+            this.lblPhoneNumberSecond3.Size = new System.Drawing.Size(213, 29);
             this.lblPhoneNumberSecond3.TextVisible = false;
             // 
             // lblFaxNumber2
             // 
             this.lblFaxNumber2.Control = this.txtFaxNumber2;
-            this.lblFaxNumber2.Location = new System.Drawing.Point(0, 139);
+            this.lblFaxNumber2.Location = new System.Drawing.Point(0, 134);
             this.lblFaxNumber2.Name = "lblFaxNumber2";
-            this.lblFaxNumber2.Size = new System.Drawing.Size(336, 29);
+            this.lblFaxNumber2.Size = new System.Drawing.Size(332, 29);
             this.lblFaxNumber2.Text = "Fax Number";
             this.lblFaxNumber2.TextSize = new System.Drawing.Size(84, 16);
             // 
             // lblPoBox2
             // 
             this.lblPoBox2.Control = this.txtPoBox2;
-            this.lblPoBox2.Location = new System.Drawing.Point(0, 168);
+            this.lblPoBox2.Location = new System.Drawing.Point(0, 163);
             this.lblPoBox2.Name = "lblPoBox2";
-            this.lblPoBox2.Size = new System.Drawing.Size(336, 26);
+            this.lblPoBox2.Size = new System.Drawing.Size(332, 26);
             this.lblPoBox2.Text = "PoBox";
             this.lblPoBox2.TextSize = new System.Drawing.Size(84, 16);
             // 
             // emptySpaceItem4
             // 
-            this.emptySpaceItem4.Location = new System.Drawing.Point(336, 26);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(332, 26);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(130, 26);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(129, 26);
             // 
             // lblLocations2
             // 
             this.lblLocations2.Control = this.cboLocations2;
             this.lblLocations2.Location = new System.Drawing.Point(0, 0);
             this.lblLocations2.Name = "lblLocations2";
-            this.lblLocations2.Size = new System.Drawing.Size(336, 26);
+            this.lblLocations2.Size = new System.Drawing.Size(332, 26);
             this.lblLocations2.Text = "Location";
             this.lblLocations2.TextSize = new System.Drawing.Size(84, 16);
             // 
             // emptySpaceItem15
             // 
-            this.emptySpaceItem15.Location = new System.Drawing.Point(336, 139);
+            this.emptySpaceItem15.Location = new System.Drawing.Point(332, 134);
             this.emptySpaceItem15.Name = "emptySpaceItem15";
-            this.emptySpaceItem15.Size = new System.Drawing.Size(404, 55);
+            this.emptySpaceItem15.Size = new System.Drawing.Size(399, 55);
             // 
             // emptySpaceItem14
             // 
-            this.emptySpaceItem14.Location = new System.Drawing.Point(336, 0);
+            this.emptySpaceItem14.Location = new System.Drawing.Point(332, 0);
             this.emptySpaceItem14.Name = "emptySpaceItem14";
-            this.emptySpaceItem14.Size = new System.Drawing.Size(404, 26);
+            this.emptySpaceItem14.Size = new System.Drawing.Size(399, 26);
             // 
             // txtClientInitial
             // 
