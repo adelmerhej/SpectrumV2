@@ -9,6 +9,7 @@ namespace SpectrumV1.DataLayers.EmployeeTypes
         // CRUD Operations
         Task<List<EmployeeTypeModel>> GetEmployeeTypesAsync();
         Task<EmployeeTypeModel> GetEmployeeTypeByIdAsync(string id);
+        Task<EmployeeTypeModel> GetDefaultEmployeeTypeAsync(string excludedId = null);
         Task<string> AddNewEmployeeTypeAsync(EmployeeTypeModel employeeType);
         Task<bool> UpdateEmployeeTypeAsync(EmployeeTypeModel employeeType);
         Task<bool> DeleteEmployeeTypeAsync(string id);

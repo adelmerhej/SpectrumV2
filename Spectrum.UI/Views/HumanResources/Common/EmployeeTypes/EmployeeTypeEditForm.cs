@@ -37,7 +37,7 @@ namespace Spectrum.Views.HumanResources.Common.EmployeeTypes
         {
             await InitializeBindings();
             WireUpBindings();
-            ApplyDefaults();
+            await ApplyDefaults();
             ApplyPermissions();
         }
 
@@ -66,9 +66,10 @@ namespace Spectrum.Views.HumanResources.Common.EmployeeTypes
             bsEmployeeType.DataSource = _employeeTypeModel;
         }
 
-        private void ApplyDefaults()
+        private async Task ApplyDefaults()
         {
-
+            var defaultEmployeeType = await _employeeTypeRepository.GetDefaultEmployeeTypeAsync(_employeeTypeModel._id);
+            chkIsDefault.Enabled = defaultEmployeeType == null;
         }
 
         private void ApplyPermissions()
@@ -102,6 +103,18 @@ namespace Spectrum.Views.HumanResources.Common.EmployeeTypes
             {
                 BindingContext[bsEmployeeType].EndCurrentEdit();
                 _employeeTypeModel = (EmployeeTypeModel)bsEmployeeType.Current;
+
+                if (_employeeTypeModel.IsDefault)
+                {
+                    var defaultEmployeeType = await _employeeTypeRepository.GetDefaultEmployeeTypeAsync(_employeeTypeModel._id);
+                    if (defaultEmployeeType != null)
+                    {
+                        chkIsDefault.Enabled = false;
+                        XtraMessageBox.Show("A default employee type already exists. Only one record can be marked as default.",
+                            @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
 
 
                 if (string.IsNullOrEmpty(_employeeTypeModel._id))

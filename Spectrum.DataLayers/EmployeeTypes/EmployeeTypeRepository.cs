@@ -51,6 +51,18 @@ namespace SpectrumV1.DataLayers.EmployeeTypes
             return await _employeeType.Find(filter).FirstOrDefaultAsync();
         }
 
+        public async Task<EmployeeTypeModel> GetDefaultEmployeeTypeAsync(string excludedId = null)
+        {
+            var filter = Builders<EmployeeTypeModel>.Filter.Eq(u => u.IsDefault, true);
+
+            if (!string.IsNullOrWhiteSpace(excludedId))
+            {
+                filter &= Builders<EmployeeTypeModel>.Filter.Ne(u => u._id, excludedId);
+            }
+
+            return await _employeeType.Find(filter).FirstOrDefaultAsync();
+        }
+
         public async Task<EmployeeTypeModel> GetEmployeeTypeByName(string employeeTypeName)
         {
             if (string.IsNullOrWhiteSpace(employeeTypeName)) return null;

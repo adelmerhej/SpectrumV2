@@ -943,7 +943,6 @@
     <Folder Include="Views\Accounting\Reports\" />
     <Folder Include="Views\Accounting\Settings\" />
     <Folder Include="Views\Accounting\Statements\" />
-    <Folder Include="Views\Members\Engineers\Sattus\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spectrum.DataLayers\Spectrum.DataLayers.csproj">
