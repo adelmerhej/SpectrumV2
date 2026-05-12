@@ -490,8 +490,7 @@
             this.col_id.FieldName = "_id";
             this.col_id.MinWidth = 25;
             this.col_id.Name = "col_id";
-            this.col_id.Visible = true;
-            this.col_id.VisibleIndex = 0;
+			this.col_id.Visible = false;
             this.col_id.Width = 94;
             // 
             // colNotes

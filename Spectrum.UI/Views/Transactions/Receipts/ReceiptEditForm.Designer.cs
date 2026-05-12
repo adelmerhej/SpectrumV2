@@ -1127,10 +1127,10 @@
 			this.cboMemebrs.Name = "cboMemebrs";
 			this.cboMemebrs.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.cboMemebrs.Properties.DisplayMember = "MemberName";
+			this.cboMemebrs.Properties.DisplayMember = "ClientName";
 			this.cboMemebrs.Properties.NullText = "";
 			this.cboMemebrs.Properties.PopupView = this.searchLookUpEdit1View;
-			this.cboMemebrs.Properties.ValueMember = "Id";
+			this.cboMemebrs.Properties.ValueMember = "_id";
 			this.InvoiceInfoTablePanel.SetRow(this.cboMemebrs, 1);
 			this.cboMemebrs.Size = new System.Drawing.Size(699, 22);
 			this.cboMemebrs.TabIndex = 3;
@@ -1148,16 +1148,15 @@
 			// gridId
 			// 
 			this.gridId.Caption = "Id";
-			this.gridId.FieldName = "Id";
+			this.gridId.FieldName = "_id";
 			this.gridId.Name = "gridId";
-			this.gridId.Visible = true;
-			this.gridId.VisibleIndex = 0;
+			this.gridId.Visible = false;
 			this.gridId.Width = 183;
 			// 
 			// gridMemberName
 			// 
-			this.gridMemberName.Caption = "Member Name";
-			this.gridMemberName.FieldName = "MemberName";
+			this.gridMemberName.Caption = "Client Name";
+			this.gridMemberName.FieldName = "ClientName";
 			this.gridMemberName.Name = "gridMemberName";
 			this.gridMemberName.Visible = true;
 			this.gridMemberName.VisibleIndex = 1;

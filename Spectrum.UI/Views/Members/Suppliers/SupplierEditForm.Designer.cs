@@ -242,7 +242,7 @@
             this.grpInfo.Location = new System.Drawing.Point(0, 0);
             this.grpInfo.Name = "grpInfo";
             this.grpInfo.Size = new System.Drawing.Size(627, 283);
-            this.grpInfo.Text = "Blood Type Info";
+            this.grpInfo.Text = "Supplier Information";
             // 
             // lblSupplierName
             // 

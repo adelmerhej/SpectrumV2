@@ -48,6 +48,7 @@
     <Reference Include="DevExpress.Printing.v25.2.Core, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Sparkline.v25.2.Core, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -864,6 +865,7 @@
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.SyndicatInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkExperienceInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkingPermitInfo.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Clients.ClientModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Members.Suppliers.SupplierModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.ContractDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.LocationInfoModel.datasource" />

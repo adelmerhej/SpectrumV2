@@ -15,6 +15,7 @@ using Spectrum.Models.Common.Countries;
 using Spectrum.Models.Common.Services;
 using Spectrum.Models.HumanResources.Employees;
 using Spectrum.Models.Members.Clients;
+using Spectrum.Models.Members.Suppliers;
 using Spectrum.Models.Projects;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
@@ -25,6 +26,7 @@ using Spectrum.Views.Members.Clients;
 using Spectrum.Views.Members.Engineers;
 using Spectrum.Views.Users;
 using SpectrumV1.DataLayers.HumanResources.Employees;
+using SpectrumV1.DataLayers.Members.Suppliers;
 using System;
 using System.ComponentModel;
 using System.Collections.Generic;
@@ -42,6 +44,9 @@ namespace Spectrum.Views.Projects
 
         private IList<ClientModel> _clients = new List<ClientModel>();
         private ClientModel _clientModel = new ClientModel();
+
+        private IList<SupplierModel> _suppliers = new List<SupplierModel>();
+        private SupplierModel _supplierModel = new SupplierModel();
 
         private IList<EmployeeModel> _engineers = new List<EmployeeModel>();
         private EmployeeModel _engineerModel = new EmployeeModel();
@@ -65,6 +70,7 @@ namespace Spectrum.Views.Projects
 
         private readonly ProjectRepository _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
         private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
+        private readonly SupplierRepository _supplierRepository = new SupplierRepository(DatabaseFactory.ProfilePrimary);
         private readonly EmployeeRepository _engineerRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
         private readonly UserRepository _userRepository = new UserRepository(DatabaseFactory.ProfilePrimary);
         private readonly ServiceRepository _serviceRepository = new ServiceRepository(DatabaseFactory.ProfilePrimary);
@@ -118,6 +124,7 @@ namespace Spectrum.Views.Projects
                 var loadTasks = new[]
                 {
                     LoadClientsAsync(),
+                    LoadSuppliersAsync(),
                     LoadEngineersAsync(),
                     LoadUsersAsync(),
                     LoadServicesAsync(),
@@ -157,6 +164,12 @@ namespace Spectrum.Views.Projects
         {
             _clients = await _clientRepository.GetClientsAsync();
         }
+
+        private async Task LoadSuppliersAsync()
+        {
+            _suppliers = await _supplierRepository.GetSuppliersAsync();
+        }
+
         private async Task LoadEngineersAsync()
         {
             _engineers = await _engineerRepository.GetEmployeesAsync(EmployeeType.Engineer);
@@ -270,9 +283,21 @@ namespace Spectrum.Views.Projects
             cboFundedBy.DataBindings.Clear();
             cboFundedBy.DataBindings.Add("EditValue", bsContractDetails, "SponsorId", true, DataSourceUpdateMode.OnPropertyChanged);
             cboFundedBy.Properties.DataSource = null;
-            cboFundedBy.Properties.DisplayMember = "ClientName";
+            cboFundedBy.Properties.DisplayMember = "SupplierName";
             cboFundedBy.Properties.ValueMember = "_id";
-            cboFundedBy.Properties.DataSource = _clients;
+            cboFundedBy.Properties.DataSource = _suppliers;
+            gridColumn1.Visible = false;
+            gridColumn2.Caption = "Supplier Name";
+            gridColumn2.FieldName = "SupplierName";
+            gridColumn2.Visible = true;
+            gridColumn2.VisibleIndex = 0;
+
+            cboContactEmail.DataBindings.Clear();
+            cboContactEmail.DataBindings.Add("EditValue", bsContractDetails, "ClientContactEmail", true, DataSourceUpdateMode.OnPropertyChanged);
+            cboContactEmail.Properties.DataSource = null;
+            cboContactEmail.Properties.DisplayMember = "Email";
+            cboContactEmail.Properties.ValueMember = "Email";
+            cboContactEmail.Properties.DataSource = _suppliers;
 
             cboEngineers.DataBindings.Clear();
             cboEngineers.DataBindings.Add("EditValue", bsProject, "EngineerIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
@@ -298,6 +323,9 @@ namespace Spectrum.Views.Projects
             cboEngineers.EditValueChanged -= cboEngineers_EditValueChanged;
             cboEngineers.EditValueChanged += cboEngineers_EditValueChanged;
 
+            cboFundedBy.EditValueChanged -= cboFundedBy_EditValueChanged;
+            cboFundedBy.EditValueChanged += cboFundedBy_EditValueChanged;
+
         }
 
         private void InitializeProjectHandovers()
@@ -312,7 +340,8 @@ namespace Spectrum.Views.Projects
             _projectModel.EngineerIdValue = ResolveEngineerId(_projectModel.EngineerIdValue, _projectModel.EngineerInCharge);
             _projectModel.Username = ResolveProjectUsername(_projectModel.Username);
             _projectModel.UserIdValue = ResolveUserId(_projectModel.UserIdValue, _projectModel.Username);
-            _projectModel.ContractDetails.SponsorId = ResolveClientId(_projectModel.ContractDetails.SponsorId, _projectModel.ContractDetails.SponsorId);
+            _projectModel.ContractDetails.SponsorId = ResolveSupplierId(_projectModel.ContractDetails.SponsorId, _projectModel.ContractDetails.ClientContactEmail);
+            _projectModel.ContractDetails.ClientContactEmail = ResolveSupplierEmail(_projectModel.ContractDetails.SponsorId, _projectModel.ContractDetails.ClientContactEmail);
         }
 
         private string ResolveProjectUsername(string username)
@@ -354,6 +383,35 @@ namespace Spectrum.Views.Projects
             return user?._id;
         }
 
+        private string ResolveSupplierId(string idValue, string nameOrEmail)
+        {
+            if (IsValidObjectId(idValue) && _suppliers.Any(s => s._id == idValue)) return idValue;
+
+            var candidate = !string.IsNullOrWhiteSpace(nameOrEmail) ? nameOrEmail : idValue;
+            if (string.IsNullOrWhiteSpace(candidate)) return null;
+
+            var supplier = _suppliers.FirstOrDefault(s =>
+                string.Equals(s.SupplierName, candidate, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(s.Email, candidate, StringComparison.OrdinalIgnoreCase));
+
+            return supplier?._id;
+        }
+
+        private string ResolveSupplierEmail(string supplierId, string email)
+        {
+            var supplier = _suppliers.FirstOrDefault(s =>
+                string.Equals(s._id, supplierId, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(s.SupplierName, supplierId, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(s.Email, email, StringComparison.OrdinalIgnoreCase));
+
+            if (supplier != null)
+            {
+                return supplier.Email;
+            }
+
+            return email;
+        }
+
         private static bool IsValidObjectId(string value)
         {
             if (string.IsNullOrWhiteSpace(value) || value.Length != 24) return false;
@@ -372,6 +430,27 @@ namespace Spectrum.Views.Projects
             }
 
             return true;
+        }
+
+        private void cboFundedBy_EditValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cboFundedBy.EditValue == null) return;
+
+                var selectedSupplierId = cboFundedBy.EditValue.ToString();
+                var selectedSupplier = _suppliers.FirstOrDefault(x => x._id == selectedSupplierId);
+                if (selectedSupplier == null) return;
+
+                _projectModel.ContractDetails.SponsorId = selectedSupplier._id;
+                _projectModel.ContractDetails.ClientContactEmail = selectedSupplier.Email;
+                cboContactEmail.EditValue = selectedSupplier.Email;
+                bsContractDetails.ResetBindings(false);
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         #region ApplyDefaults and Permissions Methods
@@ -502,7 +581,12 @@ namespace Spectrum.Views.Projects
                 }
                 if (cboFundedBy.EditValue != null)
                 {
-                    _projectModel.ContractDetails.SponsorId = cboFundedBy.EditValue.ToString();
+                    var selectedSupplier = _suppliers.FirstOrDefault(s => s._id == cboFundedBy.EditValue.ToString());
+                    if (selectedSupplier != null)
+                    {
+                        _projectModel.ContractDetails.SponsorId = selectedSupplier._id;
+                        _projectModel.ContractDetails.ClientContactEmail = selectedSupplier.Email;
+                    }
                 }
 
                 // Save selected services and service types

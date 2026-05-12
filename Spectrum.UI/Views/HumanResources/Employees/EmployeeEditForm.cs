@@ -26,6 +26,7 @@ using SpectrumV1.Models.HumanResources.Employees.EmployeeStatus;
 using SpectrumV1.Models.HumanResources.EmployeeTypes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -56,6 +57,8 @@ namespace Spectrum.Views.HumanResources.Employees
 
         private IList<JobPositionModel> _jobPositions = new List<JobPositionModel>();
         private JobPositionModel _jobPositionModel = new JobPositionModel();
+
+        private BindingList<DocumentModel> _documents = new BindingList<DocumentModel>();
 
         private readonly EmployeeRepository _employeeRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
         private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
@@ -172,6 +175,8 @@ namespace Spectrum.Views.HumanResources.Employees
             bsCnss.DataSource = _employeeModel.Cnss;
             bsWorkExperience.DataSource = _employeeModel.WorkExperience;
 
+            InitializeDocumentBindings();
+
             cboNationality.Properties.DataSource = _countries;
             cboPlaceOfBirth.Properties.DataSource = _cities;
             cboRegistrationPlace.Properties.DataSource = _cities;
@@ -224,6 +229,56 @@ namespace Spectrum.Views.HumanResources.Employees
             var fileName = (string)gvDocuments.GetRowCellValue(e.DataSourceIndex, colName);
             var ext = Path.GetExtension(fileName);
             e.ThumbnailImage = HelperApplication.GetFileExtensionImage(ext, IconSizeType.Large, new Size(64, 64));
+        }
+
+        private void InitializeDocumentBindings()
+        {
+            _documents = LoadDocumentsFromLink(_employeeModel?.DocumentLink);
+            bsDocuments.DataSource = _documents;
+        }
+
+        private static BindingList<DocumentModel> LoadDocumentsFromLink(string documentLink)
+        {
+            var documents = new BindingList<DocumentModel>();
+
+            if (string.IsNullOrWhiteSpace(documentLink)) return documents;
+
+            var filePaths = documentLink.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Trim())
+                .Where(x => !string.IsNullOrWhiteSpace(x));
+
+            foreach (var filePath in filePaths)
+            {
+                try
+                {
+                    if (!File.Exists(filePath)) continue;
+
+                    documents.Add(new DocumentModel
+                    {
+                        DocumentName = Path.GetFileName(filePath),
+                        OriginPath = filePath,
+                        DocumentDate = File.GetCreationTime(filePath),
+                        StreamedDate = DateTime.Now,
+                        DocumentContent = File.ReadAllBytes(filePath)
+                    });
+                }
+                catch
+                {
+                    // ignore missing or unreadable document links
+                }
+            }
+
+            return documents;
+        }
+
+        private void PersistDocumentLinks()
+        {
+            if (_employeeModel == null) return;
+
+            _employeeModel.DocumentLink = string.Join(";",
+                _documents.Where(x => x != null && !string.IsNullOrWhiteSpace(x.OriginPath))
+                    .Select(x => x.OriginPath)
+                    .Distinct(StringComparer.OrdinalIgnoreCase));
         }
 
         private void ApplyPermissions()
@@ -384,6 +439,8 @@ namespace Spectrum.Views.HumanResources.Employees
                     throw new InvalidOperationException("Employee data is not available for saving.");
                 }
 
+                PersistDocumentLinks();
+
                 bool isNewEmployee = string.IsNullOrEmpty(_employeeModel._id);
 
                 if (isNewEmployee)
@@ -499,13 +556,15 @@ namespace Spectrum.Views.HumanResources.Employees
                             DocumentContent = File.ReadAllBytes(destinationPath)
                         };
 
-                        bsDocuments.Add(newDocument);
+                        _documents.Add(newDocument);
                     }
                     catch (Exception ex)
                     {
                         XtraMessageBox.Show(ex.Message, @"Copy Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+
+                PersistDocumentLinks();
 
             }
             catch (Exception exception)
