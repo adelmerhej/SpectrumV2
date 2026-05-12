@@ -89,7 +89,7 @@ namespace Spectrum.Views.Projects
         {
             InitializeComponent();
 
-            _projectModel = model;
+            _projectModel = model ?? new ProjectModel();
             StartLoading();
         }
 
@@ -113,6 +113,8 @@ namespace Spectrum.Views.Projects
         {
             try
             {
+                await LoadCurrentProjectAsync();
+
                 var loadTasks = new[]
                 {
                     LoadClientsAsync(),
@@ -131,6 +133,21 @@ namespace Spectrum.Views.Projects
             catch (Exception ex)
             {
                 throw new Exception("Error loading form data", ex);
+            }
+        }
+
+        private async Task LoadCurrentProjectAsync()
+        {
+            if (string.IsNullOrWhiteSpace(_projectModel?._id))
+            {
+                _projectModel = _projectModel ?? new ProjectModel();
+                return;
+            }
+
+            var currentProject = await _projectRepository.GetProjectByIdAsync(_projectModel._id);
+            if (currentProject != null)
+            {
+                _projectModel = currentProject;
             }
         }
 

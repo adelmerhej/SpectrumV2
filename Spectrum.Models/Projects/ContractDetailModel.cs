@@ -23,7 +23,6 @@ namespace Spectrum.Models.Projects
 
 		// Reference to Sponsor/Funder collection
 		[BsonElement("SponsorId")]
-		[BsonRepresentation(BsonType.ObjectId)]
 		public string SponsorId { get; set; }
 
 

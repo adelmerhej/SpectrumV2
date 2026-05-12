@@ -16,6 +16,7 @@ namespace Spectrum.Models.Members.Clients
 		public List<ContactModel> Contacts { get; set; } = new List<ContactModel>();
 		
 
+		[BsonElement("Email")]
 		public string Email { get; set; }
 		public string PhoneNumberFirst1 { get; set; }
 		public string PhoneNumberFirst2 { get; set; }
@@ -25,9 +26,11 @@ namespace Spectrum.Models.Members.Clients
 		public string PhoneNumberSecond2 { get; set; }
 		public string PhoneNumberSecond3 { get; set; }
 		public string FaxNumberSecond { get; set; }
+		[BsonElement("Website")]
 		public string Website { get; set; }
 		public string PoBox1 { get; set; }
 		public string PoBox2 { get; set; }
+		[BsonElement("MofNo")]
 		public string MofNo { get; set; }
 		public string Activity { get; set; }
 		public string Address1 { get; set; }

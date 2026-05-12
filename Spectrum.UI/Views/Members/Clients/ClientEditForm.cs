@@ -98,6 +98,8 @@ namespace Spectrum.Views.Members.Clients
 		{
 			try
 			{
+				await LoadCurrentClientAsync();
+
 				var loadTasks = new[]
 				{
 					LoadCitiesAsync(),
@@ -112,6 +114,21 @@ namespace Spectrum.Views.Members.Clients
 			catch (Exception ex)
 			{
 				throw new Exception("Error loading form data", ex);
+			}
+		}
+
+		private async Task LoadCurrentClientAsync()
+		{
+			if (string.IsNullOrWhiteSpace(_clientModel?._id))
+			{
+				_clientModel = _clientModel ?? new ClientModel();
+				return;
+			}
+
+			var currentClient = await _clientRepository.GetClientByIdAsync(_clientModel._id);
+			if (currentClient != null)
+			{
+				_clientModel = currentClient;
 			}
 		}
 
