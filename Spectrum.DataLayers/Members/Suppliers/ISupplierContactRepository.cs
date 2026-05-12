@@ -1,8 +1,8 @@
-﻿using SpectrumV1.Models.Members.Suppliers;
+﻿using Spectrum.Models.Members.Suppliers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.Members.Suppliers
+namespace Spectrum.DataLayers.Members.Suppliers
 {
     public interface ISupplierContactRepository
     {

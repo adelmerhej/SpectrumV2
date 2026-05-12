@@ -1,8 +1,8 @@
-﻿using SpectrumV1.Models.HumanResources.Employees.EmployeeStatus;
+﻿using Spectrum.Models.HumanResources.Employees.EmployeeStatus;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.HumanResources.Employees.EmployeeStatus
+namespace Spectrum.DataLayers.HumanResources.Employees.EmployeeStatus
 {
     public interface IStatusRepository
     {

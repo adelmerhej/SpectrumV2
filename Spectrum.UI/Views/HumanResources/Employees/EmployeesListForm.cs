@@ -9,14 +9,14 @@ using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
 using Spectrum.UI.Utilities;
-using SpectrumV1.DataLayers.HumanResources.Employees;
+using Spectrum.DataLayers.HumanResources.Employees;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SpectrumV1.Models.HumanResources.EmployeeTypes;
+using Spectrum.Models.HumanResources.EmployeeTypes;
 
 namespace Spectrum.Views.HumanResources.Employees
 {

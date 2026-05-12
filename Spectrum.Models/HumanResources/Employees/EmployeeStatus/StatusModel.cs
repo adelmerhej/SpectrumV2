@@ -2,7 +2,7 @@
 using Spectrum.Models;
 using System;
 
-namespace SpectrumV1.Models.HumanResources.Employees.EmployeeStatus
+namespace Spectrum.Models.HumanResources.Employees.EmployeeStatus
 {
     public class StatusModel : EntityObject, ICloneable
     {

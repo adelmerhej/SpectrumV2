@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SpectrumV1.Models.HumanResources.Candidates;
+using Spectrum.Models.HumanResources.Candidates;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using UglyToad.PdfPig;
 using UglyToad.PdfPig.Content;
 
-namespace SpectrumV1.DataLayers.HumanResources.Employees.Services
+namespace Spectrum.DataLayers.HumanResources.Employees.Services
 {
     public class CvParsingService : ICvParsingService, IDisposable
     {

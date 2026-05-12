@@ -107,7 +107,7 @@
             // 
             // bsJournalType
             // 
-            this.bsJournalType.DataSource = typeof(SpectrumV1.Models.Accounting.JournalType.JournalTypeModel);
+            this.bsJournalType.DataSource = typeof(Spectrum.Models.Accounting.JournalType.JournalTypeModel);
             // 
             // chkActive
             // 

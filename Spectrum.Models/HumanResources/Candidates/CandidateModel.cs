@@ -3,7 +3,7 @@ using Spectrum.Models;
 using System;
 using System.Collections.Generic;
 
-namespace SpectrumV1.Models.HumanResources.Candidates
+namespace Spectrum.Models.HumanResources.Candidates
 {
     public class CandidateModel : EntityObject, ICloneable
     {

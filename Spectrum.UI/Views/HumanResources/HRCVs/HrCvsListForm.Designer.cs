@@ -266,7 +266,7 @@
             // 
             // bsCandidates
             // 
-            this.bsCandidates.DataSource = typeof(SpectrumV1.Models.HumanResources.Candidates.CandidateModel);
+            this.bsCandidates.DataSource = typeof(Spectrum.Models.HumanResources.Candidates.CandidateModel);
             // 
             // gvCandidates
             // 

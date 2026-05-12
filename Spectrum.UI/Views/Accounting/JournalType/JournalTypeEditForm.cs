@@ -1,8 +1,8 @@
 ﻿using DevExpress.XtraEditors;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Utilities;
-using SpectrumV1.DataLayers.Accounting.JournalType;
-using SpectrumV1.Models.Accounting.JournalType;
+using Spectrum.DataLayers.Accounting.JournalType;
+using Spectrum.Models.Accounting.JournalType;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,8 +29,7 @@ namespace Spectrum.Views.Accounting.JournalType
         {
             InitializeComponent();
 
-            _journalTypeModel = model;
-
+            _journalTypeModel = model ?? new JournalTypeModel();
             StartLoading();
         }
 
@@ -38,7 +37,7 @@ namespace Spectrum.Views.Accounting.JournalType
         {
             await InitializeBindings();
             WireUpBindings();
-            ApplyDefaults();
+            await ApplyDefaults();
             ApplyPermissions();
         }
 
@@ -67,9 +66,10 @@ namespace Spectrum.Views.Accounting.JournalType
             bsJournalType.DataSource = _journalTypeModel;
         }
 
-        private void ApplyDefaults()
+        private async Task ApplyDefaults()
         {
-
+            var defaultJournalType = await _journalTypeRepository.GetDefaultJournalTypeAsync(_journalTypeModel._id);
+            chkIsDefault.Enabled = defaultJournalType == null;
         }
 
         private void ApplyPermissions()
@@ -106,6 +106,17 @@ namespace Spectrum.Views.Accounting.JournalType
                 BindingContext[bsJournalType].EndCurrentEdit();
                 _journalTypeModel = (JournalTypeModel)bsJournalType.Current;
 
+                if (_journalTypeModel.IsDefault)
+                {
+                    var defaultJournalType = await _journalTypeRepository.GetDefaultJournalTypeAsync(_journalTypeModel._id);
+                    if (defaultJournalType != null)
+                    {
+                        chkIsDefault.Enabled = false;
+                        XtraMessageBox.Show("A default journal type already exists. Only one record can be marked as default.",
+                            @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
 
                 if (string.IsNullOrEmpty(_journalTypeModel._id))
                 {

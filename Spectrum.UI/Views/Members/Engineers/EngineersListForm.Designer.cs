@@ -54,34 +54,34 @@
             this.gcEngineers = new DevExpress.XtraGrid.GridControl();
             this.bsEngineers = new System.Windows.Forms.BindingSource(this.components);
             this.gvEngineers = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colEmployeeNo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFullName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colActualPosition = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAddress = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNationality = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repCheckBox = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repDateFormat = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.repCountries = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.repCities = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.repCheckBox = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.repUsers = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.repMemberOf = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.colEmployeeNo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colActualPosition = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAddress = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNationality = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFullName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.rcEngineers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcEngineers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsEngineers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvEngineers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repCheckBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repDateFormat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repDateFormat.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCountries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCities)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repCheckBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repMemberOf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
@@ -351,6 +351,94 @@
             this.gvEngineers.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
             this.gvEngineers.DoubleClick += new System.EventHandler(this.gvEngineers_DoubleClick);
             // 
+            // col_id
+            // 
+            this.col_id.FieldName = "_id";
+            this.col_id.MinWidth = 25;
+            this.col_id.Name = "col_id";
+            this.col_id.Width = 94;
+            // 
+            // colEmployeeNo
+            // 
+            this.colEmployeeNo.Caption = "Engineer No";
+            this.colEmployeeNo.FieldName = "EmployeeNo";
+            this.colEmployeeNo.MinWidth = 25;
+            this.colEmployeeNo.Name = "colEmployeeNo";
+            this.colEmployeeNo.Visible = true;
+            this.colEmployeeNo.VisibleIndex = 0;
+            this.colEmployeeNo.Width = 118;
+            // 
+            // colFullName
+            // 
+            this.colFullName.FieldName = "FullName";
+            this.colFullName.MinWidth = 25;
+            this.colFullName.Name = "colFullName";
+            this.colFullName.OptionsColumn.ReadOnly = true;
+            this.colFullName.Visible = true;
+            this.colFullName.VisibleIndex = 1;
+            this.colFullName.Width = 295;
+            // 
+            // colActualPosition
+            // 
+            this.colActualPosition.FieldName = "ActualPosition";
+            this.colActualPosition.MinWidth = 25;
+            this.colActualPosition.Name = "colActualPosition";
+            this.colActualPosition.Visible = true;
+            this.colActualPosition.VisibleIndex = 2;
+            this.colActualPosition.Width = 156;
+            // 
+            // colAddress
+            // 
+            this.colAddress.FieldName = "Address";
+            this.colAddress.MinWidth = 25;
+            this.colAddress.Name = "colAddress";
+            this.colAddress.Visible = true;
+            this.colAddress.VisibleIndex = 3;
+            this.colAddress.Width = 305;
+            // 
+            // colNationality
+            // 
+            this.colNationality.FieldName = "Nationality";
+            this.colNationality.MinWidth = 25;
+            this.colNationality.Name = "colNationality";
+            this.colNationality.Visible = true;
+            this.colNationality.VisibleIndex = 4;
+            this.colNationality.Width = 159;
+            // 
+            // colNotes
+            // 
+            this.colNotes.FieldName = "Notes";
+            this.colNotes.MinWidth = 25;
+            this.colNotes.Name = "colNotes";
+            this.colNotes.Visible = true;
+            this.colNotes.VisibleIndex = 5;
+            this.colNotes.Width = 372;
+            // 
+            // colIsDefault
+            // 
+            this.colIsDefault.ColumnEdit = this.repCheckBox;
+            this.colIsDefault.FieldName = "IsDefault";
+            this.colIsDefault.MinWidth = 25;
+            this.colIsDefault.Name = "colIsDefault";
+            this.colIsDefault.Visible = true;
+            this.colIsDefault.VisibleIndex = 6;
+            this.colIsDefault.Width = 94;
+            // 
+            // repCheckBox
+            // 
+            this.repCheckBox.AutoHeight = false;
+            this.repCheckBox.Name = "repCheckBox";
+            // 
+            // colActive
+            // 
+            this.colActive.ColumnEdit = this.repCheckBox;
+            this.colActive.FieldName = "Active";
+            this.colActive.MinWidth = 25;
+            this.colActive.Name = "colActive";
+            this.colActive.Visible = true;
+            this.colActive.VisibleIndex = 7;
+            this.colActive.Width = 94;
+            // 
             // repDateFormat
             // 
             this.repDateFormat.AutoHeight = false;
@@ -389,11 +477,6 @@
             this.repCities.Name = "repCities";
             this.repCities.NullText = "";
             this.repCities.ValueMember = "Id";
-            // 
-            // repCheckBox
-            // 
-            this.repCheckBox.AutoHeight = false;
-            this.repCheckBox.Name = "repCheckBox";
             // 
             // repUsers
             // 
@@ -439,90 +522,6 @@
             this.layoutControlItem1.Size = new System.Drawing.Size(1369, 509);
             this.layoutControlItem1.TextVisible = false;
             // 
-            // colEmployeeNo
-            // 
-            this.colEmployeeNo.FieldName = "EmployeeNo";
-            this.colEmployeeNo.MinWidth = 25;
-            this.colEmployeeNo.Name = "colEmployeeNo";
-            this.colEmployeeNo.Visible = true;
-            this.colEmployeeNo.VisibleIndex = 1;
-            this.colEmployeeNo.Width = 118;
-            // 
-            // colActualPosition
-            // 
-            this.colActualPosition.FieldName = "ActualPosition";
-            this.colActualPosition.MinWidth = 25;
-            this.colActualPosition.Name = "colActualPosition";
-            this.colActualPosition.Visible = true;
-            this.colActualPosition.VisibleIndex = 3;
-            this.colActualPosition.Width = 156;
-            // 
-            // colAddress
-            // 
-            this.colAddress.FieldName = "Address";
-            this.colAddress.MinWidth = 25;
-            this.colAddress.Name = "colAddress";
-            this.colAddress.Visible = true;
-            this.colAddress.VisibleIndex = 4;
-            this.colAddress.Width = 305;
-            // 
-            // colNationality
-            // 
-            this.colNationality.FieldName = "Nationality";
-            this.colNationality.MinWidth = 25;
-            this.colNationality.Name = "colNationality";
-            this.colNationality.Visible = true;
-            this.colNationality.VisibleIndex = 5;
-            this.colNationality.Width = 159;
-            // 
-            // colFullName
-            // 
-            this.colFullName.FieldName = "FullName";
-            this.colFullName.MinWidth = 25;
-            this.colFullName.Name = "colFullName";
-            this.colFullName.OptionsColumn.ReadOnly = true;
-            this.colFullName.Visible = true;
-            this.colFullName.VisibleIndex = 2;
-            this.colFullName.Width = 295;
-            // 
-            // col_id
-            // 
-            this.col_id.FieldName = "_id";
-            this.col_id.MinWidth = 25;
-            this.col_id.Name = "col_id";
-            this.col_id.Visible = true;
-            this.col_id.VisibleIndex = 0;
-            this.col_id.Width = 94;
-            // 
-            // colNotes
-            // 
-            this.colNotes.FieldName = "Notes";
-            this.colNotes.MinWidth = 25;
-            this.colNotes.Name = "colNotes";
-            this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 6;
-            this.colNotes.Width = 372;
-            // 
-            // colIsDefault
-            // 
-            this.colIsDefault.ColumnEdit = this.repCheckBox;
-            this.colIsDefault.FieldName = "IsDefault";
-            this.colIsDefault.MinWidth = 25;
-            this.colIsDefault.Name = "colIsDefault";
-            this.colIsDefault.Visible = true;
-            this.colIsDefault.VisibleIndex = 7;
-            this.colIsDefault.Width = 94;
-            // 
-            // colActive
-            // 
-            this.colActive.ColumnEdit = this.repCheckBox;
-            this.colActive.FieldName = "Active";
-            this.colActive.MinWidth = 25;
-            this.colActive.Name = "colActive";
-            this.colActive.Visible = true;
-            this.colActive.VisibleIndex = 8;
-            this.colActive.Width = 94;
-            // 
             // EngineersListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -542,11 +541,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcEngineers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsEngineers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvEngineers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repCheckBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repDateFormat.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repDateFormat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCountries)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCities)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repCheckBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repUsers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repMemberOf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();

@@ -2,7 +2,7 @@
 using Spectrum.Models;
 using System;
 
-namespace SpectrumV1.Models.Accounting.Journals
+namespace Spectrum.Models.Accounting.Journals
 {
     public class JournalModel : EntityObject, ICloneable
     {

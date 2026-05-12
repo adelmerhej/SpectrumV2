@@ -24,7 +24,7 @@ using Spectrum.Views.Common.Services;
 using Spectrum.Views.Members.Clients;
 using Spectrum.Views.Members.Engineers;
 using Spectrum.Views.Users;
-using SpectrumV1.DataLayers.HumanResources.Employees;
+using Spectrum.DataLayers.HumanResources.Employees;
 using System;
 using System.ComponentModel;
 using System.Collections.Generic;

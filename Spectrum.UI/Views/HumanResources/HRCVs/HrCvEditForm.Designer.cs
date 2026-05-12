@@ -502,7 +502,7 @@
             // 
             // bsEducationEntry
             // 
-            this.bsEducationEntry.DataSource = typeof(SpectrumV1.Models.HumanResources.Candidates.EducationEntryModel);
+            this.bsEducationEntry.DataSource = typeof(Spectrum.Models.HumanResources.Candidates.EducationEntryModel);
             // 
             // gridView1
             // 
@@ -582,7 +582,7 @@
             // 
             // bsCandidate
             // 
-            this.bsCandidate.DataSource = typeof(SpectrumV1.Models.HumanResources.Candidates.CandidateModel);
+            this.bsCandidate.DataSource = typeof(Spectrum.Models.HumanResources.Candidates.CandidateModel);
             // 
             // txtPhoneNumber
             // 
@@ -1081,7 +1081,7 @@
             // 
             // bsWorkExperience
             // 
-            this.bsWorkExperience.DataSource = typeof(SpectrumV1.Models.HumanResources.Candidates.WorkExperienceModel);
+            this.bsWorkExperience.DataSource = typeof(Spectrum.Models.HumanResources.Candidates.WorkExperienceModel);
             // 
             // HrCvEditForm
             // 

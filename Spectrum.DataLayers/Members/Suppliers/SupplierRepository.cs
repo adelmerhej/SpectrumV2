@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.Members.Suppliers
+namespace Spectrum.DataLayers.Members.Suppliers
 {
     public class SupplierRepository : ISupplierRepository, IDisposable
     {

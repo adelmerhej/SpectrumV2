@@ -267,7 +267,7 @@
             // 
             // bsCostCenter
             // 
-            this.bsCostCenter.DataSource = typeof(SpectrumV1.Models.Accounting.CostCenter.CostCenterModel);
+            this.bsCostCenter.DataSource = typeof(Spectrum.Models.Accounting.CostCenter.CostCenterModel);
             // 
             // CostCenterEditForm
             // 

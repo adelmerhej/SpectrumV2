@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.Models.Members.Suppliers
+namespace Spectrum.Models.Members.Suppliers
 {
     public class SupplierContactModel : EntityObject, ICloneable
     {

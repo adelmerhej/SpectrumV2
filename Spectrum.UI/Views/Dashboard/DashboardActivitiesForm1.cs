@@ -4,7 +4,7 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraLayout;
 using Spectrum.Utilities.Interfaces;
-using SpectrumV1.Models.Administration.Dashboard;
+using Spectrum.Models.Administration.Dashboard;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;

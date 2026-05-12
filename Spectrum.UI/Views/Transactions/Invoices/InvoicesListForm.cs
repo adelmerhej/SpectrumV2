@@ -118,7 +118,7 @@ namespace Spectrum.Views.Transactions.Invoices
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			InvoiceEditForm frm = new InvoiceEditForm();
+			InvoiceEditForm frm = new InvoiceEditForm(new Models.Projects.InvoiceModel());
 			frm.ShowDialog();
 		}
 

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.HumanResources.Employees
+namespace Spectrum.DataLayers.HumanResources.Employees
 {
     public class EmployeeRepository : IEmployeeRepository, IDisposable
     {

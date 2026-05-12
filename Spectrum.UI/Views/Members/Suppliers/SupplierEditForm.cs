@@ -2,7 +2,7 @@
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Members.Suppliers;
 using Spectrum.Utilities;
-using SpectrumV1.DataLayers.Members.Suppliers;
+using Spectrum.DataLayers.Members.Suppliers;
 using System;
 using System.Text;
 using System.Threading.Tasks;

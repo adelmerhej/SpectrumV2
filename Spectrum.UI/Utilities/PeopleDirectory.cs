@@ -1,6 +1,6 @@
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.HumanResources.Employees;
-using SpectrumV1.DataLayers.HumanResources.Employees;
+using Spectrum.DataLayers.HumanResources.Employees;
 using System;
 using System.Collections.Generic;
 using System.Linq;

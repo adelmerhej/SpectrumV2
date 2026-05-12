@@ -6,6 +6,7 @@ using Spectrum.Models.Accounting.Charts;
 using Spectrum.Models.Common.Currencies;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
+using Spectrum.Models.Accounting.Banks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace Spectrum.Views.Accounting.Charts
         {
             InitializeComponent();
 
-            _chartModel = model;
+            _chartModel = model ?? new ChartModel();
 
             StartLoading();
         }
@@ -47,7 +48,7 @@ namespace Spectrum.Views.Accounting.Charts
         {
             await InitializeBindings();
             WireUpBindings();
-            ApplyDefaults();
+            await ApplyDefaults();
             ApplyPermissions();
         }
 
@@ -79,7 +80,7 @@ namespace Spectrum.Views.Accounting.Charts
             bsChart.DataSource = _chartModel;
         }
 
-        private void ApplyDefaults()
+        private async Task ApplyDefaults()
         {
             ApplyNumberAndAccountTypeRules(IsNewChart());
         }

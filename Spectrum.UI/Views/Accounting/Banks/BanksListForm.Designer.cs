@@ -304,7 +304,7 @@
             // 
             // bsBanks
             // 
-            this.bsBanks.DataSource = typeof(SpectrumV1.Models.Accounting.Banks.BankModel);
+            this.bsBanks.DataSource = typeof(Spectrum.Models.Accounting.Banks.BankModel);
             // 
             // colBankName
             // 

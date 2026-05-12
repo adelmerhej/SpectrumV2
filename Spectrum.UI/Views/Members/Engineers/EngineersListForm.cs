@@ -9,7 +9,7 @@ using Spectrum.Models.HumanResources.Employees;
 using Spectrum.Models.Users;
 using Spectrum.Utilities.Enums;
 using Spectrum.Utilities.Interfaces;
-using SpectrumV1.DataLayers.HumanResources.Employees;
+using Spectrum.DataLayers.HumanResources.Employees;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

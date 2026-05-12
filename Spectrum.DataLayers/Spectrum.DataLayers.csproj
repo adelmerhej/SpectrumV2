@@ -7,8 +7,8 @@
     <ProjectGuid>{C358F497-16B5-42CA-8C46-6FEAD2528018}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpectrumV1.DataLayers</RootNamespace>
-    <AssemblyName>SpectrumV1.DataLayers</AssemblyName>
+    <RootNamespace>Spectrum.DataLayers</RootNamespace>
+    <AssemblyName>Spectrum.DataLayers</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

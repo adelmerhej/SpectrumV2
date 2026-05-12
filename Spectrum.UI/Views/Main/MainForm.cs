@@ -335,10 +335,6 @@ namespace Spectrum.Views.Main
             OpenForm<InvoicesListForm>();
         }
 
-        private void mnuMyInvoice_Click(object sender, EventArgs e)
-        {
-            OpenForm<MyInvoiceForm>();
-        }
 
         private void mnuInvoicesExpenses_Click(object sender, EventArgs e)
         {

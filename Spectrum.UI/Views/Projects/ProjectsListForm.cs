@@ -9,6 +9,7 @@ using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
+using Spectrum.Views.Projects.Reports;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -115,8 +116,17 @@ namespace Spectrum.Views.Projects
 
 		private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			gcProjects.ShowRibbonPrintPreview();
-		}
+            //gcProjects.ShowRibbonPrintPreview();
+            var currentProject = gvProjects.GetFocusedRow() as ProjectModel;
+            if (currentProject == null)
+            {
+                XtraMessageBox.Show("Select a project first.", "Build Report", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            using (var form = new ProjectReportDesignerForm(currentProject))
+                form.ShowDialog(this);
+        }
 
 		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
 		{

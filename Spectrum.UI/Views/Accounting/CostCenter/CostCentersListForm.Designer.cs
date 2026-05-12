@@ -304,7 +304,7 @@
             // 
             // bsCostCenters
             // 
-            this.bsCostCenters.DataSource = typeof(SpectrumV1.Models.Accounting.CostCenter.CostCenterModel);
+            this.bsCostCenters.DataSource = typeof(Spectrum.Models.Accounting.CostCenter.CostCenterModel);
             // 
             // colCostCenterName
             // 

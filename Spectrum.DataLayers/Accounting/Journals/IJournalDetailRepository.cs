@@ -1,8 +1,8 @@
-﻿using SpectrumV1.Models.Accounting.Journals;
+﻿using Spectrum.Models.Accounting.Journals;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.Accounting.Journals
+namespace Spectrum.DataLayers.Accounting.Journals
 {
     public interface IJournalDetailRepository
     {

@@ -1,8 +1,8 @@
 ﻿using DevExpress.XtraEditors;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Utilities;
-using SpectrumV1.DataLayers.Accounting.FlowType;
-using SpectrumV1.Models.Accounting.FlowType;
+using Spectrum.DataLayers.Accounting.FlowType;
+using Spectrum.Models.Accounting.FlowType;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,8 +30,7 @@ namespace Spectrum.Views.Accounting.FlowType
         {
             InitializeComponent();
 
-            _flowTypeModel = model;
-
+            _flowTypeModel = model ?? new FlowTypeModel();
             StartLoading();
         }
 
@@ -39,7 +38,7 @@ namespace Spectrum.Views.Accounting.FlowType
         {
             await InitializeBindings();
             WireUpBindings();
-            ApplyDefaults();
+            await ApplyDefaults();
             ApplyPermissions();
         }
 
@@ -68,9 +67,10 @@ namespace Spectrum.Views.Accounting.FlowType
             bsFlowType.DataSource = _flowTypeModel;
         }
 
-        private void ApplyDefaults()
+        private async Task ApplyDefaults()
         {
-
+            var defaultFlowType = await _flowTypeRepository.GetDefaultFlowTypeAsync(_flowTypeModel._id);
+            chkIsDefault.Enabled = defaultFlowType == null;
         }
 
         private void ApplyPermissions()
@@ -107,6 +107,17 @@ namespace Spectrum.Views.Accounting.FlowType
                 BindingContext[bsFlowType].EndCurrentEdit();
                 _flowTypeModel = (FlowTypeModel)bsFlowType.Current;
 
+                if (_flowTypeModel.IsDefault)
+                {
+                    var defaultFlowType = await _flowTypeRepository.GetDefaultFlowTypeAsync(_flowTypeModel._id);
+                    if (defaultFlowType != null)
+                    {
+                        chkIsDefault.Enabled = false;
+                        XtraMessageBox.Show("A default flow type already exists. Only one record can be marked as default.",
+                            @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
 
                 if (string.IsNullOrEmpty(_flowTypeModel._id))
                 {

@@ -8,7 +8,7 @@ using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
-using SpectrumV1.DataLayers.Members.Suppliers;
+using Spectrum.DataLayers.Members.Suppliers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

@@ -1,8 +1,8 @@
-﻿using SpectrumV1.Models.HumanResources.EmployeeTypes;
+﻿using Spectrum.Models.HumanResources.EmployeeTypes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.EmployeeTypes
+namespace Spectrum.DataLayers.EmployeeTypes
 {
     public interface IEmployeeTypeRepository
     {

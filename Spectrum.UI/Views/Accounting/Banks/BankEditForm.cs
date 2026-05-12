@@ -1,10 +1,8 @@
 ﻿using DevExpress.XtraEditors;
-using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
-using Spectrum.Models.Common.Countries;
 using Spectrum.Utilities;
-using SpectrumV1.DataLayers.Accounting.Banks;
-using SpectrumV1.Models.Accounting.Banks;
+using Spectrum.DataLayers.Accounting.Banks;
+using Spectrum.Models.Accounting.Banks;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +29,7 @@ namespace Spectrum.Views.Accounting.Banks
         {
             InitializeComponent();
 
-
-            _bankModel = model;
+            _bankModel = model ?? new BankModel();
 
             StartLoading();
         }
@@ -41,7 +38,7 @@ namespace Spectrum.Views.Accounting.Banks
         {
             await InitializeBindings();
             WireUpBindings();
-            ApplyDefaults();
+            await ApplyDefaults();
             ApplyPermissions();
         }
 
@@ -70,9 +67,10 @@ namespace Spectrum.Views.Accounting.Banks
             bsBank.DataSource = _bankModel;
         }
 
-        private void ApplyDefaults()
+        private async Task ApplyDefaults()
         {
-
+            var defaultBank = await _bankRepository.GetDefaultBankAsync(_bankModel._id);
+            chkIsDefault.Enabled = defaultBank == null;
         }
 
         private void ApplyPermissions()
@@ -107,6 +105,17 @@ namespace Spectrum.Views.Accounting.Banks
                 BindingContext[bsBank].EndCurrentEdit();
                 _bankModel = (BankModel)bsBank.Current;
 
+                if (_bankModel.IsDefault)
+                {
+                    var defaultBank = await _bankRepository.GetDefaultBankAsync(_bankModel._id);
+                    if (defaultBank != null)
+                    {
+                        chkIsDefault.Enabled = false;
+                        XtraMessageBox.Show("A default bank already exists. Only one record can be marked as default.",
+                            @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
 
                 if (string.IsNullOrEmpty(_bankModel._id))
                 {

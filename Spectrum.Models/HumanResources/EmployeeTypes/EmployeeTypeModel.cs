@@ -2,7 +2,7 @@
 using Spectrum.Models;
 using System;
 
-namespace SpectrumV1.Models.HumanResources.EmployeeTypes
+namespace Spectrum.Models.HumanResources.EmployeeTypes
 {
     public class EmployeeTypeModel : EntityObject, ICloneable
     {

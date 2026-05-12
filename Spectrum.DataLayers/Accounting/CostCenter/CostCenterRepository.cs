@@ -1,13 +1,13 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using Spectrum.DataLayers.DataAccess;
-using SpectrumV1.Models.Accounting.CostCenter;
+using Spectrum.Models.Accounting.CostCenter;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.Accounting.CostCenter
+namespace Spectrum.DataLayers.Accounting.CostCenter
 {
     public class CostCenterRepository : ICostCenterRepository, IDisposable
     {
@@ -43,6 +43,18 @@ namespace SpectrumV1.DataLayers.Accounting.CostCenter
             if (string.IsNullOrWhiteSpace(costCenterName)) return null;
             var pattern = "^" + Regex.Escape(costCenterName.Trim()) + "$"; // exact match
             var filter = Builders<CostCenterModel>.Filter.Regex(u => u.CostCenterName, new BsonRegularExpression(pattern, "i"));
+            return await _costCenters.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<CostCenterModel> GetDefaultCostCenterAsync(string excludedId = null)
+        {
+            var filter = Builders<CostCenterModel>.Filter.Eq(u => u.IsDefault, true);
+
+            if (!string.IsNullOrWhiteSpace(excludedId))
+            {
+                filter &= Builders<CostCenterModel>.Filter.Ne(u => u._id, excludedId);
+            }
+
             return await _costCenters.Find(filter).FirstOrDefaultAsync();
         }
 

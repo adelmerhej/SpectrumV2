@@ -2,14 +2,14 @@
 using MongoDB.Driver;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Utilities.Enums;
-using SpectrumV1.Models.HumanResources.EmployeeTypes;
+using Spectrum.Models.HumanResources.EmployeeTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.EmployeeTypes
+namespace Spectrum.DataLayers.EmployeeTypes
 {
     public class EmployeeTypeRepository : IEmployeeTypeRepository, IDisposable
     {

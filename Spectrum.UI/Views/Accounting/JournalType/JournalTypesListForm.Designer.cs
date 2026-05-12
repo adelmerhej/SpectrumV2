@@ -262,7 +262,7 @@
             // 
             // bsJournalTypes
             // 
-            this.bsJournalTypes.DataSource = typeof(SpectrumV1.Models.Accounting.JournalType.JournalTypeModel);
+            this.bsJournalTypes.DataSource = typeof(Spectrum.Models.Accounting.JournalType.JournalTypeModel);
             // 
             // gvJournalTypes
             // 

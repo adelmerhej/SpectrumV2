@@ -1,8 +1,9 @@
 ﻿using DevExpress.XtraEditors;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.Models.HumanResources.Employees;
 using Spectrum.Utilities;
-using SpectrumV1.DataLayers.EmployeeTypes;
-using SpectrumV1.Models.HumanResources.EmployeeTypes;
+using Spectrum.DataLayers.EmployeeTypes;
+using Spectrum.Models.HumanResources.EmployeeTypes;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,8 +29,7 @@ namespace Spectrum.Views.HumanResources.Common.EmployeeTypes
         {
             InitializeComponent();
 
-            _employeeTypeModel = model;
-
+            _employeeTypeModel = model ?? new EmployeeTypeModel();
             StartLoading();
         }
 

@@ -510,6 +510,12 @@
     <Compile Include="Views\Projects\ProjectsListForm.Designer.cs">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Projects\Reports\ProjectReportDesignerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\Reports\ProjectReportDesignerForm.Designer.cs">
+      <DependentUpon>ProjectReportDesignerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Reports\DocumentViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -533,12 +539,6 @@
     </Compile>
     <Compile Include="Views\Transactions\Invoices\InvoicesListForm.Designer.cs">
       <DependentUpon>InvoicesListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Transactions\Invoices\MyInvoiceForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Transactions\Invoices\MyInvoiceForm.Designer.cs">
-      <DependentUpon>MyInvoiceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Transactions\Receipts\ReceiptEditForm.cs">
       <SubType>Form</SubType>
@@ -820,10 +820,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Transactions\Invoices\InvoicesListForm.resx">
       <DependentUpon>InvoicesListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Transactions\Invoices\MyInvoiceForm.resx">
-      <DependentUpon>MyInvoiceForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Transactions\Receipts\ReceiptEditForm.resx">
       <DependentUpon>ReceiptEditForm.cs</DependentUpon>

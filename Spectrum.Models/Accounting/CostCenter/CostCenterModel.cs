@@ -2,7 +2,7 @@
 using Spectrum.Models;
 using System;
 
-namespace SpectrumV1.Models.Accounting.CostCenter
+namespace Spectrum.Models.Accounting.CostCenter
 {
     public class CostCenterModel : EntityObject, ICloneable
     {

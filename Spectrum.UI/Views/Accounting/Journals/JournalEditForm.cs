@@ -1,6 +1,6 @@
 ﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
-using SpectrumV1.Models.Accounting.Journals;
+using Spectrum.Models.Accounting.Journals;
 using System;
 
 namespace Spectrum.Views.Accounting.Journals

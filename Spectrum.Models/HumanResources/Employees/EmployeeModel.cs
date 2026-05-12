@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using SpectrumV1.Models.HumanResources.EmployeeTypes;
-using SpectrumV1.Models.Projects.Serializers;
+using Spectrum.Models.HumanResources.EmployeeTypes;
+using Spectrum.Models.Projects.Serializers;
 using System;
 using System.Collections.Generic;
 

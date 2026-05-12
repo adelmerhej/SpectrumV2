@@ -3,7 +3,7 @@ using Spectrum.DataLayers.Common.Areas;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Common.Areas;
 using Spectrum.Utilities;
-using SpectrumV1.Models.HumanResources.Candidates;
+using Spectrum.Models.HumanResources.Candidates;
 using System;
 using System.Text;
 using System.Threading.Tasks;

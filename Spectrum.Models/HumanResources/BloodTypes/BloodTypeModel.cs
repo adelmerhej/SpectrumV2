@@ -2,7 +2,7 @@
 using Spectrum.Models;
 using System;
 
-namespace SpectrumV1.Models.HumanResources.BloodTypes
+namespace Spectrum.Models.HumanResources.BloodTypes
 {
     public class BloodTypeModel : EntityObject, ICloneable
     {
