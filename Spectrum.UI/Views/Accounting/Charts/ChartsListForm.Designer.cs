@@ -286,6 +286,7 @@
             this.chartTreeList.TabIndex = 4;
             this.chartTreeList.TreeLevelWidth = 21;
             this.chartTreeList.TreeViewColumn = this.colParentId;
+            this.chartTreeList.NodeCellStyle += new DevExpress.XtraTreeList.GetCustomNodeCellStyleEventHandler(this.chartTreeList_NodeCellStyle);
             this.chartTreeList.DoubleClick += new System.EventHandler(this.chartTreeList_DoubleClick);
             // 
             // treeListBand5

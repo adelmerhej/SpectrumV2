@@ -53,6 +53,7 @@
     <Reference Include="DevExpress.XtraGrid.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraTreeList.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
@@ -155,6 +156,12 @@
     </Compile>
     <Compile Include="Views\Accounting\JournalType\JournalTypesListForm.Designer.cs">
       <DependentUpon>JournalTypesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounting\Reports\StatementReports\StatementOfAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\Reports\StatementReports\StatementOfAccount.Designer.cs">
+      <DependentUpon>StatementOfAccount.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Common\Areas\AreaEditForm.cs">
       <SubType>Form</SubType>
@@ -634,6 +641,9 @@
     <EmbeddedResource Include="Views\Accounting\JournalType\JournalTypesListForm.resx">
       <DependentUpon>JournalTypesListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\Reports\StatementReports\StatementOfAccount.resx">
+      <DependentUpon>StatementOfAccount.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Common\Areas\AreaEditForm.resx">
       <DependentUpon>AreaEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -847,6 +857,8 @@
     </EmbeddedResource>
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Accounting.Journals.JournalDetailModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Accounting.Journals.JournalModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.CnssInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmergencyContactInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmployeeContactInfo.datasource" />
@@ -936,9 +948,13 @@
     <None Include="Resources\professor.svg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Accounting\Reports\" />
-    <Folder Include="Views\Accounting\Settings\" />
-    <Folder Include="Views\Accounting\Statements\" />
+    <Folder Include="Views\Accounting\Closing\LockDates\" />
+    <Folder Include="Views\Accounting\Closing\Reconcile\" />
+    <Folder Include="Views\Accounting\Closing\TaxReturns\" />
+    <Folder Include="Views\Accounting\Reports\Ledgers\" />
+    <Folder Include="Views\Accounting\Reports\Management\" />
+    <Folder Include="Views\Accounting\Reports\PartnerReports\" />
+    <Folder Include="Views\Accounting\Reports\TaxesAndFiscal\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spectrum.DataLayers\Spectrum.DataLayers.csproj">

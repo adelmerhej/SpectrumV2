@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JournalEditForm));
             this.ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
@@ -39,14 +40,8 @@
             this.btnNew = new DevExpress.XtraBars.BarButtonItem();
             this.btnDeleteRow = new DevExpress.XtraBars.BarButtonItem();
             this.btnResetGridStyle = new DevExpress.XtraBars.BarButtonItem();
-            this.dtFrom = new DevExpress.XtraBars.BarEditItem();
-            this.repDateEdit = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
-            this.dtTo = new DevExpress.XtraBars.BarEditItem();
             this.btnPrintStatement = new DevExpress.XtraBars.BarButtonItem();
             this.chkShowProtected = new DevExpress.XtraBars.BarCheckItem();
-            this.cboWorkingYear = new DevExpress.XtraBars.BarEditItem();
-            this.repWorkingYear = new DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.btnSaveAs = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.tabAddSave = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -57,11 +52,15 @@
             this.rbSearchOption = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpViewSettings = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.repDateEdit = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
+            this.repWorkingYear = new DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit();
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.layoutControl3 = new DevExpress.XtraLayout.LayoutControl();
             this.txtNotes = new DevExpress.XtraEditors.MemoEdit();
+            this.bsJournal = new System.Windows.Forms.BindingSource(this.components);
             this.txtWorkingYear = new DevExpress.XtraEditors.TextEdit();
             this.txtRate = new DevExpress.XtraEditors.TextEdit();
             this.txtReference = new DevExpress.XtraEditors.TextEdit();
@@ -108,6 +107,7 @@
             this.layoutControlItem19 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControl5 = new DevExpress.XtraLayout.LayoutControl();
             this.gcJournalDetails = new DevExpress.XtraGrid.GridControl();
+            this.bsJournalDetails = new System.Windows.Forms.BindingSource(this.components);
             this.gvJournalDetails = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colJournalId = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -157,6 +157,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).BeginInit();
             this.layoutControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsJournal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtWorkingYear.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtReference.Properties)).BeginInit();
@@ -206,6 +207,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl5)).BeginInit();
             this.layoutControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcJournalDetails)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsJournalDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvJournalDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCharts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1View)).BeginInit();
@@ -236,11 +238,8 @@
             this.btnNew,
             this.btnDeleteRow,
             this.btnResetGridStyle,
-            this.dtFrom,
-            this.dtTo,
             this.btnPrintStatement,
             this.chkShowProtected,
-            this.cboWorkingYear,
             this.btnSaveAs});
             this.ribbonControl.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -341,35 +340,6 @@
             this.btnResetGridStyle.Name = "btnResetGridStyle";
             this.btnResetGridStyle.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResetGridStyle_ItemClick);
             // 
-            // dtFrom
-            // 
-            this.dtFrom.Caption = "Date From";
-            this.dtFrom.CaptionToEditorIndent = 10;
-            this.dtFrom.Edit = this.repDateEdit;
-            this.dtFrom.EditWidth = 120;
-            this.dtFrom.Id = 24;
-            this.dtFrom.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("dtFrom.ImageOptions.SvgImage")));
-            this.dtFrom.Name = "dtFrom";
-            // 
-            // repDateEdit
-            // 
-            this.repDateEdit.AutoHeight = false;
-            this.repDateEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repDateEdit.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repDateEdit.Name = "repDateEdit";
-            // 
-            // dtTo
-            // 
-            this.dtTo.Caption = "Date To";
-            this.dtTo.CaptionToEditorIndent = 22;
-            this.dtTo.Edit = this.repDateEdit;
-            this.dtTo.EditWidth = 120;
-            this.dtTo.Id = 25;
-            this.dtTo.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("dtTo.ImageOptions.SvgImage")));
-            this.dtTo.Name = "dtTo";
-            // 
             // btnPrintStatement
             // 
             this.btnPrintStatement.Caption = "Print Statement";
@@ -386,31 +356,6 @@
             this.chkShowProtected.Name = "chkShowProtected";
             this.chkShowProtected.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.chkShowProtected.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.chkShowProtected_CheckedChanged);
-            // 
-            // cboWorkingYear
-            // 
-            this.cboWorkingYear.Caption = "Working Year";
-            this.cboWorkingYear.CaptionToEditorIndent = 18;
-            this.cboWorkingYear.Edit = this.repWorkingYear;
-            this.cboWorkingYear.EditWidth = 100;
-            this.cboWorkingYear.Id = 28;
-            this.cboWorkingYear.Name = "cboWorkingYear";
-            // 
-            // repWorkingYear
-            // 
-            this.repWorkingYear.AutoHeight = false;
-            this.repWorkingYear.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repWorkingYear.Name = "repWorkingYear";
-            this.repWorkingYear.NullText = "";
-            this.repWorkingYear.PopupView = this.gridView1;
-            // 
-            // gridView1
-            // 
-            this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
-            this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
             // btnSaveAs
             // 
@@ -482,9 +427,6 @@
             // 
             // rbSearchOption
             // 
-            this.rbSearchOption.ItemLinks.Add(this.dtFrom);
-            this.rbSearchOption.ItemLinks.Add(this.dtTo);
-            this.rbSearchOption.ItemLinks.Add(this.cboWorkingYear);
             this.rbSearchOption.ItemLinks.Add(this.chkShowProtected, true);
             this.rbSearchOption.ItemLinks.Add(this.btnPrintStatement, true);
             this.rbSearchOption.Name = "rbSearchOption";
@@ -502,6 +444,31 @@
             this.ribbonPageGroup1.ItemLinks.Add(this.btnResetGridStyle);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             this.ribbonPageGroup1.Text = "Grid Settings";
+            // 
+            // repDateEdit
+            // 
+            this.repDateEdit.AutoHeight = false;
+            this.repDateEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repDateEdit.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repDateEdit.Name = "repDateEdit";
+            // 
+            // repWorkingYear
+            // 
+            this.repWorkingYear.AutoHeight = false;
+            this.repWorkingYear.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repWorkingYear.Name = "repWorkingYear";
+            this.repWorkingYear.NullText = "";
+            this.repWorkingYear.PopupView = this.gridView1;
+            // 
+            // gridView1
+            // 
+            this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
             // ribbonStatusBar1
             // 
@@ -562,13 +529,17 @@
             // 
             // txtNotes
             // 
+            this.txtNotes.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournal, "Notes", true));
             this.txtNotes.Location = new System.Drawing.Point(101, 132);
             this.txtNotes.MenuManager = this.ribbonControl;
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Properties.ReadOnly = true;
             this.txtNotes.Size = new System.Drawing.Size(698, 99);
             this.txtNotes.StyleController = this.layoutControl3;
             this.txtNotes.TabIndex = 12;
+            // 
+            // bsJournal
+            // 
+            this.bsJournal.DataSource = typeof(Spectrum.Models.Accounting.Journals.JournalModel);
             // 
             // txtWorkingYear
             // 
@@ -585,6 +556,7 @@
             // 
             // txtRate
             // 
+            this.txtRate.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournal, "Rate", true));
             this.txtRate.EnterMoveNextControl = true;
             this.txtRate.Location = new System.Drawing.Point(586, 80);
             this.txtRate.Margin = new System.Windows.Forms.Padding(4);
@@ -592,24 +564,24 @@
             this.txtRate.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.txtRate.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             this.txtRate.Properties.MaskSettings.Set("mask", "N2");
-            this.txtRate.Properties.ReadOnly = true;
             this.txtRate.Size = new System.Drawing.Size(213, 22);
             this.txtRate.StyleController = this.layoutControl3;
             this.txtRate.TabIndex = 5;
             // 
             // txtReference
             // 
+            this.txtReference.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournal, "Reference", true));
             this.txtReference.EnterMoveNextControl = true;
             this.txtReference.Location = new System.Drawing.Point(101, 80);
             this.txtReference.Margin = new System.Windows.Forms.Padding(4);
             this.txtReference.Name = "txtReference";
-            this.txtReference.Properties.ReadOnly = true;
             this.txtReference.Size = new System.Drawing.Size(170, 22);
             this.txtReference.StyleController = this.layoutControl3;
             this.txtReference.TabIndex = 3;
             // 
             // txtJvNo
             // 
+            this.txtJvNo.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournal, "JvNo", true));
             this.txtJvNo.EnterMoveNextControl = true;
             this.txtJvNo.Location = new System.Drawing.Point(101, 54);
             this.txtJvNo.Margin = new System.Windows.Forms.Padding(4);
@@ -622,32 +594,33 @@
             // 
             // chkPosted
             // 
+            this.chkPosted.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournal, "IsPosted", true));
             this.chkPosted.EnterMoveNextControl = true;
             this.chkPosted.Location = new System.Drawing.Point(513, 235);
             this.chkPosted.Margin = new System.Windows.Forms.Padding(4);
             this.chkPosted.Name = "chkPosted";
             this.chkPosted.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Default;
             this.chkPosted.Properties.Caption = "Posted";
-            this.chkPosted.Properties.ReadOnly = true;
             this.chkPosted.Size = new System.Drawing.Size(113, 24);
             this.chkPosted.StyleController = this.layoutControl3;
             this.chkPosted.TabIndex = 9;
             // 
             // chkProtected
             // 
+            this.chkProtected.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournal, "IsProtected", true));
             this.chkProtected.EnterMoveNextControl = true;
             this.chkProtected.Location = new System.Drawing.Point(665, 235);
             this.chkProtected.Margin = new System.Windows.Forms.Padding(4);
             this.chkProtected.Name = "chkProtected";
             this.chkProtected.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Default;
             this.chkProtected.Properties.Caption = "Protected";
-            this.chkProtected.Properties.ReadOnly = true;
             this.chkProtected.Size = new System.Drawing.Size(134, 24);
             this.chkProtected.StyleController = this.layoutControl3;
             this.chkProtected.TabIndex = 11;
             // 
             // cboJournalTypes
             // 
+            this.cboJournalTypes.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournal, "JournalType", true));
             this.cboJournalTypes.EnterMoveNextControl = true;
             this.cboJournalTypes.Location = new System.Drawing.Point(586, 54);
             this.cboJournalTypes.Margin = new System.Windows.Forms.Padding(4);
@@ -661,7 +634,6 @@
             this.cboJournalTypes.Properties.DisplayMember = "Name";
             this.cboJournalTypes.Properties.NullText = "";
             this.cboJournalTypes.Properties.PopupWidthMode = DevExpress.XtraEditors.PopupWidthMode.UseEditorWidth;
-            this.cboJournalTypes.Properties.ReadOnly = true;
             this.cboJournalTypes.Properties.ValueMember = "Id";
             this.cboJournalTypes.Size = new System.Drawing.Size(213, 22);
             this.cboJournalTypes.StyleController = this.layoutControl3;
@@ -669,6 +641,7 @@
             // 
             // cboCurrency
             // 
+            this.cboCurrency.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournal, "Currency", true));
             this.cboCurrency.EnterMoveNextControl = true;
             this.cboCurrency.Location = new System.Drawing.Point(348, 80);
             this.cboCurrency.Margin = new System.Windows.Forms.Padding(4);
@@ -682,7 +655,6 @@
             this.cboCurrency.Properties.DisplayMember = "CurrencyCode";
             this.cboCurrency.Properties.NullText = "";
             this.cboCurrency.Properties.PopupWidthMode = DevExpress.XtraEditors.PopupWidthMode.UseEditorWidth;
-            this.cboCurrency.Properties.ReadOnly = true;
             this.cboCurrency.Properties.ValueMember = "Id";
             this.cboCurrency.Size = new System.Drawing.Size(161, 22);
             this.cboCurrency.StyleController = this.layoutControl3;
@@ -690,6 +662,7 @@
             // 
             // dtJvDate
             // 
+            this.dtJvDate.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournal, "JournalDate", true));
             this.dtJvDate.EditValue = null;
             this.dtJvDate.EnterMoveNextControl = true;
             this.dtJvDate.Location = new System.Drawing.Point(348, 54);
@@ -705,7 +678,6 @@
             this.dtJvDate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtJvDate.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.dtJvDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
-            this.dtJvDate.Properties.ReadOnly = true;
             this.dtJvDate.Size = new System.Drawing.Size(161, 22);
             this.dtJvDate.StyleController = this.layoutControl3;
             this.dtJvDate.TabIndex = 1;
@@ -1096,6 +1068,7 @@
             // 
             // gcJournalDetails
             // 
+            this.gcJournalDetails.DataSource = this.bsJournalDetails;
             this.gcJournalDetails.Location = new System.Drawing.Point(14, 14);
             this.gcJournalDetails.MainView = this.gvJournalDetails;
             this.gcJournalDetails.Name = "gcJournalDetails";
@@ -1110,6 +1083,10 @@
             this.gcJournalDetails.TabIndex = 4;
             this.gcJournalDetails.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvJournalDetails});
+            // 
+            // bsJournalDetails
+            // 
+            this.bsJournalDetails.DataSource = typeof(Spectrum.Models.Accounting.Journals.JournalDetailModel);
             // 
             // gvJournalDetails
             // 
@@ -1154,14 +1131,14 @@
             // 
             // colId
             // 
-            this.colId.FieldName = "Id";
+            this.colId.FieldName = "_id";
             this.colId.MinWidth = 25;
             this.colId.Name = "colId";
             this.colId.Width = 61;
             // 
             // colJournalId
             // 
-            this.colJournalId.FieldName = "JournalId";
+            this.colJournalId.FieldName = "JvNo";
             this.colJournalId.MinWidth = 25;
             this.colJournalId.Name = "colJournalId";
             this.colJournalId.Width = 73;
@@ -1181,12 +1158,12 @@
             // 
             this.colChartId.Caption = "Account";
             this.colChartId.ColumnEdit = this.repCharts;
-            this.colChartId.FieldName = "ChartId";
+            this.colChartId.FieldName = "AccountNumber";
             this.colChartId.MinWidth = 25;
             this.colChartId.Name = "colChartId";
             this.colChartId.Visible = true;
             this.colChartId.VisibleIndex = 1;
-            this.colChartId.Width = 108;
+            this.colChartId.Width = 121;
             // 
             // repCharts
             // 
@@ -1247,7 +1224,7 @@
             this.colDetailAccountName.OptionsColumn.TabStop = false;
             this.colDetailAccountName.Visible = true;
             this.colDetailAccountName.VisibleIndex = 2;
-            this.colDetailAccountName.Width = 209;
+            this.colDetailAccountName.Width = 238;
             // 
             // repAccountNames
             // 
@@ -1271,7 +1248,7 @@
             this.colValueDate.OptionsColumn.TabStop = false;
             this.colValueDate.Visible = true;
             this.colValueDate.VisibleIndex = 3;
-            this.colValueDate.Width = 89;
+            this.colValueDate.Width = 98;
             // 
             // repDateFormat
             // 
@@ -1295,7 +1272,7 @@
             this.colCurrencyId.Name = "colCurrencyId";
             this.colCurrencyId.Visible = true;
             this.colCurrencyId.VisibleIndex = 4;
-            this.colCurrencyId.Width = 83;
+            this.colCurrencyId.Width = 106;
             // 
             // repCurrencies
             // 
@@ -1574,6 +1551,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).EndInit();
             this.layoutControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsJournal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtWorkingYear.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRate.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtReference.Properties)).EndInit();
@@ -1623,6 +1601,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl5)).EndInit();
             this.layoutControl5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcJournalDetails)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsJournalDetails)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvJournalDetails)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCharts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1View)).EndInit();
@@ -1653,11 +1632,8 @@
         private DevExpress.XtraBars.BarButtonItem btnNew;
         private DevExpress.XtraBars.BarButtonItem btnDeleteRow;
         private DevExpress.XtraBars.BarButtonItem btnResetGridStyle;
-        private DevExpress.XtraBars.BarEditItem dtFrom;
-        private DevExpress.XtraBars.BarEditItem dtTo;
         private DevExpress.XtraBars.BarButtonItem btnPrintStatement;
         private DevExpress.XtraBars.BarCheckItem chkShowProtected;
-        private DevExpress.XtraBars.BarEditItem cboWorkingYear;
         private DevExpress.XtraBars.BarButtonItem btnSaveAs;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup tabAddSave;
@@ -1760,5 +1736,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repDateEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit repWorkingYear;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private System.Windows.Forms.BindingSource bsJournal;
+        private System.Windows.Forms.BindingSource bsJournalDetails;
     }
 }

@@ -13,6 +13,7 @@ using Spectrum.Views.Accounting.CostCenter;
 using Spectrum.Views.Accounting.FlowType;
 using Spectrum.Views.Accounting.Journals;
 using Spectrum.Views.Accounting.JournalType;
+using Spectrum.Views.Accounting.Reports.StatementReports;
 using Spectrum.Views.Common;
 using Spectrum.Views.Common.Areas;
 using Spectrum.Views.Common.Companies;
@@ -398,60 +399,6 @@ namespace Spectrum.Views.Main
 
         #endregion
 
-        #region Accounting Menu
-
-        private void mnuJournals_Click(object sender, EventArgs e)
-        {
-            OpenForm<JournalsListForm>();
-        }
-
-        private void mnuChartsOfAccount_Click(object sender, EventArgs e)
-        {
-            OpenForm<ChartsListForm>();
-        }
-
-        private void mnuCostCenter_Click(object sender, EventArgs e)
-        {
-            OpenForm<CostCentersListForm>();
-        }
-
-        private void mnuFlowType_Click(object sender, EventArgs e)
-        {
-            OpenForm<FlowTypeListForm>();
-        }
-
-        private void mnuJournalTypes_Click(object sender, EventArgs e)
-        {
-            OpenForm<JournalTypesListForm>();
-        }
-
-        private void mnuCurrencies_Click(object sender, EventArgs e)
-        {
-            OpenForm<CurrenciesListForm>();
-        }
-
-        private void mnuExchangeList_Click(object sender, EventArgs e)
-        {
-            ShowFeatureUnderDevelopment();
-        }
-
-        private void mnuBanksList_Click(object sender, EventArgs e)
-        {
-            OpenForm<BanksListForm>();
-        }
-
-        private void mnuStatementOfAccount_Click(object sender, EventArgs e)
-        {
-            ShowFeatureUnderDevelopment();
-        }
-
-        private void mnuTrialBalance_Click(object sender, EventArgs e)
-        {
-            ShowFeatureUnderDevelopment();
-        }
-
-
-        #endregion
 
         #region Settings Menu
 
@@ -562,5 +509,167 @@ namespace Spectrum.Views.Main
         {
             OpenForm<SuppliersListForm>();
         }
+
+
+        #region Accounting Menu
+
+        #region Transactions
+
+        private void mnuJournals_Click(object sender, EventArgs e)
+        {
+            OpenForm<JournalsListForm>();
+        }
+
+        #endregion
+
+        #region Master Files
+
+        private void mnuChartsOfAccount_Click(object sender, EventArgs e)
+        {
+            OpenForm<ChartsListForm>();
+        }
+
+        private void mnuCostCenter_Click(object sender, EventArgs e)
+        {
+            OpenForm<CostCentersListForm>();
+        }
+
+        private void mnuFlowType_Click(object sender, EventArgs e)
+        {
+            OpenForm<FlowTypeListForm>();
+        }
+
+        private void mnuJournalTypes_Click(object sender, EventArgs e)
+        {
+            OpenForm<JournalTypesListForm>();
+        }
+
+        private void mnuCurrencies_Click(object sender, EventArgs e)
+        {
+            OpenForm<CurrenciesListForm>();
+        }
+
+        private void mnuBanksList_Click(object sender, EventArgs e)
+        {
+            OpenForm<BanksListForm>();
+        }
+
+        #endregion
+
+        #region Statement Reports
+        private void mnuStatementOfAccount_Click(object sender, EventArgs e)
+        {
+            StatementOfAccount frm = new StatementOfAccount();
+            frm.ShowDialog();
+        }
+
+        private void mnuBalanceSheet_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuProfitAndLoss_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuCashFlowStatement_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        #endregion
+
+        #region Ledgers reports
+
+        private void mnuGeneralLedger_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuTrialBalance_Click(object sender, EventArgs e)
+        {
+            ShowFeatureUnderDevelopment();
+        }
+
+
+        #endregion
+
+        #region Partner Reports
+
+        private void mnuPartnerLedger_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuAgedReceivable_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuAgedPayable_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        #endregion
+
+        #region Taxes & Fiscal
+
+        private void mnuTaxReturn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuFiscalReport_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        #endregion
+
+        #region Management menu
+
+        private void mnuInvoicesAnalysis_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuAnalyticReporting_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuExecutiveSummary_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #region Closing period
+
+        private void mnuReconcile_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuTaxReturns_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuLockDates_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #endregion
+
     }
 }

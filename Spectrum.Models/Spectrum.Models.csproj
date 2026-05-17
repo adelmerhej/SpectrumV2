@@ -152,6 +152,7 @@
     <Compile Include="Accounting\Journals\JournalDetailModel.cs" />
     <Compile Include="Accounting\Journals\JournalModel.cs" />
     <Compile Include="Accounting\JournalType\JournalTypeModel.cs" />
+    <Compile Include="Accounting\Reports\StatementReports\StatementOfAccountReportModel.cs" />
     <Compile Include="Administration\Connections\AppConfigModel.cs" />
     <Compile Include="Administration\Connections\ConnectionModel.cs" />
     <Compile Include="Administration\Dashboard\ActivityDataModel.cs" />
@@ -216,9 +217,6 @@
     <Compile Include="Users\UserPermissionModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Accounting\Reports\" />
-    <Folder Include="Accounting\Settings\" />
-    <Folder Include="Accounting\Statements\" />
     <Folder Include="Operations\Invoices\" />
     <Folder Include="Operations\Quotations\" />
   </ItemGroup>

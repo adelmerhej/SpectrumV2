@@ -2,6 +2,7 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraTreeList;
 using Spectrum.DataLayers.Accounting.Charts;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Accounting.Charts;
@@ -321,15 +322,19 @@ namespace Spectrum.Views.Accounting.Charts
             var view = sender as GridView;
             if (view == null || e.RowHandle < 0) return;
             bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
-            bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+            string type = view.GetRowCellValue(e.RowHandle, "Type")?.ToString();
             if (!isActive)
             {
                 e.Appearance.ForeColor = Color.Gray;
                 e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
             }
-            if (isDefault)
+            if (string.Equals(type, "T", StringComparison.OrdinalIgnoreCase))
             {
                 e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+            }
+            else if (string.Equals(type, "R", StringComparison.OrdinalIgnoreCase))
+            {
+                e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Regular);
             }
         }
 
@@ -368,6 +373,23 @@ namespace Spectrum.Views.Accounting.Charts
                 XtraMessageBox.Show(e.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return false;
+        }
+
+        private void chartTreeList_NodeCellStyle(object sender, GetCustomNodeCellStyleEventArgs e)
+        {
+            // Check only the value of the row/node, not which column is currently painting
+            object statusValue = e.Node.GetValue("AccountType");
+
+            if (statusValue != null && statusValue.ToString() == "T")
+            {
+                e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
+            }
+
+
+            //if (e.Column.FieldName == "AccountType" && e.Node.GetValue("AccountType").ToString() == "T")
+            //{
+            //    e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
+            //}
         }
     }
 }
