@@ -7,6 +7,7 @@ using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.Common.Locations;
 using Spectrum.DataLayers.Common.Services;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.DataLayers.HumanResources.Employees;
 using Spectrum.DataLayers.Members.Clients;
 using Spectrum.DataLayers.Projects;
 using Spectrum.DataLayers.Users;
@@ -23,11 +24,9 @@ using Spectrum.Views.Common.Countries;
 using Spectrum.Views.Common.Services;
 using Spectrum.Views.Members.Clients;
 using Spectrum.Views.Members.Engineers;
-using Spectrum.Views.Users;
-using Spectrum.DataLayers.HumanResources.Employees;
 using System;
-using System.ComponentModel;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -135,7 +134,7 @@ namespace Spectrum.Views.Projects
         }
 
         #region Data Loading Methods
-        
+
         private async Task LoadClientsAsync()
         {
             _clients = await _clientRepository.GetClientsAsync();
@@ -199,22 +198,22 @@ namespace Spectrum.Views.Projects
 
             ConfigureLookupBindings();
 
-           BindCheckedComboBoxItems(cboServicesProvided,
-                _services.Select(x => x.ServiceName),
-                _projectModel.ContractDetails.ServicesProvided);
+            BindCheckedComboBoxItems(cboServicesProvided,
+                 _services.Select(x => x.ServiceName),
+                 _projectModel.ContractDetails.ServicesProvided);
 
             BindCheckedComboBoxItems(cboServicesType,
                 _serviceTypes.Select(x => x.ServiceType),
                 _projectModel.ContractDetails.ServiceTypes);
 
             cboAreas.Properties.DataSource = null;
-            cboAreas.Properties.DisplayMember = "AreaCode";
-            cboAreas.Properties.ValueMember = "AreaCode";
+            cboAreas.Properties.DisplayMember = "AreaName";
+            cboAreas.Properties.ValueMember = "AreaName";
             cboAreas.Properties.DataSource = _areas;
 
             cboLocations.Properties.DataSource = null;
             cboLocations.Properties.DisplayMember = "LocationName";
-            cboLocations.Properties.ValueMember = "_id";
+            cboLocations.Properties.ValueMember = "LocationName";
             cboLocations.Properties.DataSource = _locations;
 
             cboCountries.Properties.DataSource = null;
@@ -483,13 +482,11 @@ namespace Spectrum.Views.Projects
                         _projectModel.Username = selectedUser.Username;
                     }
                 }
-                if (cboFundedBy.EditValue != null)
-                {
-                    _projectModel.ContractDetails.SponsorId = cboFundedBy.EditValue.ToString();
-                }
+                _projectModel.ContractDetails = _projectModel.ContractDetails ?? new ContractDetailModel();
+                var sponsorId = cboFundedBy.EditValue?.ToString();
+                _projectModel.ContractDetails.SponsorId = string.IsNullOrWhiteSpace(sponsorId) ? null : sponsorId;
 
                 // Save selected services and service types
-                _projectModel.ContractDetails = _projectModel.ContractDetails ?? new ContractDetailModel();
                 _projectModel.ContractDetails.ServicesProvided = GetCheckedItems(cboServicesProvided);
                 _projectModel.ContractDetails.ServiceTypes = GetCheckedItems(cboServicesType);
 
@@ -665,7 +662,7 @@ namespace Spectrum.Views.Projects
             var service = sender as ServiceModel;
             if (service == null) return;
 
-         if (_services.All(x => !string.Equals(x.ServiceName, service.ServiceName, StringComparison.OrdinalIgnoreCase)))
+            if (_services.All(x => !string.Equals(x.ServiceName, service.ServiceName, StringComparison.OrdinalIgnoreCase)))
             {
                 _services.Add(service);
             }
@@ -689,7 +686,7 @@ namespace Spectrum.Views.Projects
             var serviceType = sender as ServiceTypeModel;
             if (serviceType == null) return;
 
-         if (_serviceTypes.All(x => !string.Equals(x.ServiceType, serviceType.ServiceType, StringComparison.OrdinalIgnoreCase)))
+            if (_serviceTypes.All(x => !string.Equals(x.ServiceType, serviceType.ServiceType, StringComparison.OrdinalIgnoreCase)))
             {
                 _serviceTypes.Add(serviceType);
             }
@@ -746,7 +743,7 @@ namespace Spectrum.Views.Projects
 
             cboAreas.Properties.DataSource = null;
             cboAreas.Properties.DataSource = _areas;
-            if (_areaModel != null) cboAreas.EditValue = _areaModel.AreaCode;
+            if (_areaModel != null) cboAreas.EditValue = _areaModel.AreaName;
         }
 
         private void RcvUpdatedLocation(object sender, EventArgs e)
