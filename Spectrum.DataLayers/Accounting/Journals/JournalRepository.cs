@@ -4,6 +4,7 @@ using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Accounting.Journals;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -39,6 +40,21 @@ namespace Spectrum.DataLayers.Accounting.Journals
             var pattern = "^" + Regex.Escape(jvNo.Trim()) + "$"; // exact match
             var filter = Builders<JournalModel>.Filter.Regex(u => u.JvNo, new BsonRegularExpression(pattern, "i"));
             return await _journals.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<string> GetNextJvNoAsync(int workingYear)
+        {
+            var filter = Builders<JournalModel>.Filter.Eq(journal => journal.WorkingYear, workingYear);
+            var journals = await _journals.Find(filter)
+                .Project(journal => journal.JvNo)
+                .ToListAsync();
+
+            var nextJvNo = journals
+                .Select(ParseJvNo)
+                .DefaultIfEmpty(0)
+                .Max() + 1;
+
+            return nextJvNo.ToString();
         }
 
         /// <summary>
@@ -94,6 +110,11 @@ namespace Spectrum.DataLayers.Accounting.Journals
         public async Task<long> GetCountAsync()
         {
             return await _journals.CountDocumentsAsync(new BsonDocument());
+        }
+
+        private static int ParseJvNo(string jvNo)
+        {
+            return int.TryParse(jvNo, out var parsedJvNo) ? parsedJvNo : 0;
         }
 
         #region Implementation of IDisposable
