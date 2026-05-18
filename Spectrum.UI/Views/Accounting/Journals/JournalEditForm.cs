@@ -2,10 +2,13 @@
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
 using Spectrum.DataLayers.Accounting.Charts;
 using Spectrum.DataLayers.Accounting.Journals;
 using Spectrum.DataLayers.Accounting.JournalType;
 using Spectrum.DataLayers.Common.Currencies;
+using Spectrum.DataLayers.Common.Currencies.Interfaces;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Accounting.Charts;
 using Spectrum.Models.Accounting.Journals;
@@ -41,6 +44,7 @@ namespace Spectrum.Views.Accounting.Journals
         private readonly ChartRepository _chartRepository = new ChartRepository(DatabaseFactory.ProfilePrimary);
         private readonly ChartDetailRepository _chartDetailRepository = new ChartDetailRepository(DatabaseFactory.ProfilePrimary);
         private readonly CurrencyRepository _currencyRepository = new CurrencyRepository(DatabaseFactory.ProfilePrimary);
+        private readonly ICurrencyExchangeRepository _currencyExchangeRepository = new CurrencyExchangeRepository(DatabaseFactory.ProfilePrimary);
         private readonly JournalTypeRepository _journalTypeRepository = new JournalTypeRepository(DatabaseFactory.ProfilePrimary);
 
         private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
@@ -81,7 +85,7 @@ namespace Spectrum.Views.Accounting.Journals
             {
                 await InitializeBindings();
                 WireUpBindings();
-                ApplyDefaults();
+                await ApplyDefaultsAsync();
                 ApplyPermissions();
                 InitializeMenuItems();
             }
@@ -160,7 +164,7 @@ namespace Spectrum.Views.Accounting.Journals
             gvJournalDetails.InitNewRow += gvJournalDetails_InitNewRow;
         }
 
-        private void ApplyDefaults()
+        private async Task ApplyDefaultsAsync()
         {
             var isNewJournalVoucher = string.IsNullOrWhiteSpace(_journalModel._id);
             ConfigureJournalDetailsGrid(isNewJournalVoucher);
@@ -174,6 +178,7 @@ namespace Spectrum.Views.Accounting.Journals
             _journalModel.JournalDate = today;
             _journalModel.Rate = _defaultRate;
             _journalModel.WorkingYear = today.Year;
+            _journalModel.Reference = await _journalRepository.GetNextReferenceAsync();
 
             var journalType = _journalTypes.FirstOrDefault(x => string.Equals(x.Code, _defaultJournalType, StringComparison.OrdinalIgnoreCase));
             _journalModel.JournalType = journalType != null ? journalType._id : _defaultJournalType;
@@ -182,6 +187,7 @@ namespace Spectrum.Views.Accounting.Journals
             _journalModel.Currency = currency != null ? currency._id : _defaultCurrency;
 
             bsJournal.ResetBindings(false);
+            gcJournalDetails.Focus();
         }
 
         private void ApplyPermissions()
@@ -380,7 +386,11 @@ namespace Spectrum.Views.Accounting.Journals
                     var workingYear = _journalModel.WorkingYear > 0 ? _journalModel.WorkingYear : DateTime.Today.Year;
                     _journalModel.WorkingYear = workingYear;
                     _journalModel.JvNo = await _journalRepository.GetNextJvNoAsync(workingYear);
-                    _journalModel.Reference = _journalModel.JvNo.PadLeft(6, '0');
+
+                    if (string.IsNullOrWhiteSpace(_journalModel.Reference))
+                    {
+                        _journalModel.Reference = await _journalRepository.GetNextReferenceAsync();
+                    }
 
                     await _journalRepository.AddNewJournalAsync(_journalModel);
 
@@ -584,6 +594,254 @@ namespace Spectrum.Views.Accounting.Journals
             for (int i = 0; i < gvJournalDetails.DataRowCount; i++)
             {
                 gvJournalDetails.SetRowCellValue(i, gvJournalDetails.Columns["Line"], i + 1);
+            }
+        }
+
+        private void gvJournalDetails_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            GridView view = sender as GridView;
+
+            try
+            {
+                if (e.Column.FieldName == "ChartId")
+                {
+                    CheckChartOfAccount(sender, e);
+                }
+
+                //Currency
+                if (e.Column.FieldName == "CurrencyId")
+                {
+                    CheckCurrency(sender, e);
+                }
+
+                //Debit Credit
+                if (e.Column.FieldName == "DebCred")
+                {
+                    CalculateRemainingBalance(sender, e);
+                }
+
+                //Rate/Amounts
+                if (e.Column.FieldName == "Rate" || e.Column.FieldName == "Amount")
+                {
+                    CalculateAmounts(sender, e);
+                }
+
+                //Cost Center
+                if (e.Column.FieldName == "CostCenter")
+                {
+                    CalculateCostCenter(sender, e);
+                }
+            }
+            catch
+            {
+                // Handle exceptions if necessary, or log them
+            }
+        }
+
+        private void CheckChartOfAccount(GridView view, CellValueChangedEventArgs e)
+        {
+            var chartId = view.GetRowCellValue(e.RowHandle, "ChartId")?.ToString();
+            var chartDetail = _chartDetails.FirstOrDefault(c => c._id == chartId);
+            if (chartDetail != null)
+            {
+                view.SetRowCellValue(e.RowHandle, "AccountName", chartDetail.AccountName);
+                view.SetRowCellValue(e.RowHandle, "CurrencyId", chartDetail.CurrencyId);
+            }
+        }
+
+        #region Chart Event
+        private void CheckChartOfAccount(object sender, CellValueChangedEventArgs e)
+        {
+            GridView chartView = repCharts.View;
+            int rowHandle = chartView.FocusedRowHandle;
+            string fieldName = "ChartId";
+            object accountName = chartView.GetRowCellValue(rowHandle, fieldName);
+
+            GridView view = sender as GridView;
+            view.SetRowCellValue(e.RowHandle, "AccountName", accountName);
+
+            _ = int.TryParse(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["ChartId"]).ToString(), out int chartId);
+
+        }
+
+        private void CheckCurrency(object sender, CellValueChangedEventArgs e)
+        {
+            GridView view = sender as GridView;
+            //get current amount
+            decimal varAmount = 0;
+            //get remaining balance
+            decimal varBalanceAmount = 0;
+            if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["CurrencyId"]) != null)
+            {
+                int currencyId =
+                    int.Parse(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["CurrencyId"]).ToString());
+            }
+
+            if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Amount"]) != null)
+            {
+                varAmount = decimal.Parse(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Amount"]).ToString());
+            }
+        }
+
+        private decimal CalculateRemainingBalance(object sender, CellValueChangedEventArgs e)
+        {
+            GridView view = sender as GridView;
+            if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["DebCred"]) == null || view.GetRowCellValue(view.FocusedRowHandle, view.Columns["CurrencyId"]) == null)
+            {
+                return 0;
+            }
+            decimal total = 0;
+            int currencyId = int.Parse(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["CurrencyId"]).ToString());
+
+            for (int i = 0; i < view.RowCount; i++)
+            {
+                if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["DebCred"]).ToString() == "D")
+                {
+                    total += Convert.ToDecimal(view.GetRowCellValue(i + 1, "FAmount"));
+                }
+                else if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["DebCred"]).ToString() == "C")
+                {
+                    total -= Convert.ToDecimal(view.GetRowCellValue(i + 1, "FAmount"));
+                }
+            }
+
+            total = CalculateRate(2, currencyId, total);
+            return total;
+        }
+
+        private decimal CalculateRate(int currencyIn, int currencyOut, decimal pValue)
+        {
+            decimal exchangeRate = 0;
+            decimal rateValue = 0;
+            decimal baseCurrencyValue = 0;
+
+            baseCurrencyValue = GetRate(2);
+            exchangeRate = GetRate(currencyIn);
+
+            if (currencyIn == currencyOut) rateValue = pValue;
+            if (currencyOut == 1 && currencyIn != currencyOut)
+                rateValue = pValue * exchangeRate;
+            else if (currencyOut == 2 && currencyIn != currencyOut)
+                rateValue = pValue * exchangeRate / baseCurrencyValue;
+
+            return rateValue;
+        }
+
+        private decimal GetRate(int pCurrencyId)
+        {
+            var currencyDate = dtJvDate.DateTime;
+            decimal rateValue = 0;
+
+            //var resultRateCurrency = _services.CurrencyExchange.GetCurrencyRate(pCurrencyId, currencyDate);
+            var resultRateCurrency = _currencyExchangeRepository.GetLatestExchangeByCurrencyAsync(pCurrencyId.ToString(), currencyDate).GetAwaiter().GetResult();
+            if (resultRateCurrency != null) rateValue = resultRateCurrency.Rate;
+
+            return rateValue;
+        }
+
+        private void CalculateAmounts(object sender, CellValueChangedEventArgs e)
+        {
+            GridView view = sender as GridView;
+
+            if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Amount"]) != null)
+            {
+                decimal amountValue = 0;
+                {
+                    decimal.TryParse(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Amount"]).ToString(),
+                        out amountValue);
+                }
+                int curId = int.Parse(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["CurrencyId"])
+                    .ToString());
+                view.SetRowCellValue(e.RowHandle, "LAmount", CalculateRate(curId, 1, amountValue));
+                view.SetRowCellValue(e.RowHandle, "FAmount", CalculateRate(curId, 2, amountValue));
+            }
+        }
+
+        private void CalculateCostCenter(object sender, CellValueChangedEventArgs e)
+        {
+            GridView view = sender as GridView;
+
+        }
+
+        #endregion
+
+        private void gvJournalDetails_InitNewRow_1(object sender, InitNewRowEventArgs e)
+        {
+            GridView view = sender as GridView;
+            bool isValidAmount;
+
+            //Set static values to Journal details
+            view.SetRowCellValue(e.RowHandle, view.Columns["JournalId"], _journalModel._id);
+            view.SetRowCellValue(e.RowHandle, view.Columns["Line"], view.RowCount);
+            view.SetRowCellValue(e.RowHandle, view.Columns["ValueDate"], DateTime.Now);
+            view.SetRowCellValue(e.RowHandle, view.Columns["WorkingYear"], CurrentUser.WorkingYear);
+            view.SetRowCellValue(e.RowHandle, view.Columns["CurrencyId"], cboCurrency.EditValue);
+            view.SetRowCellValue(e.RowHandle, view.Columns["Rate"], decimal.Parse(txtRate.Text));
+
+            int currentRowVisibleIndex = view.GetDataSourceRowIndex(e.RowHandle);
+            int previousRowVisibleIndex = currentRowVisibleIndex - 1;
+            object row = view.GetRow(previousRowVisibleIndex);
+
+            //After selecting Account number start setting default data
+            //Description
+            if (view.GetRowCellValue(previousRowVisibleIndex, view.Columns["Description"]) == null)
+            {
+                view.SetRowCellValue(e.RowHandle, view.Columns["Description"], txtNotes.Text.Trim());
+            }
+            else
+            {
+                view.SetRowCellValue(e.RowHandle, view.Columns["Description"], view.GetRowCellValue(previousRowVisibleIndex, view.Columns["Description"]));
+            }
+
+            // Debit/Credit flag
+            if (view.GetRowCellValue(previousRowVisibleIndex, view.Columns["DbCr"]) == null)
+            {
+                view.SetRowCellValue(e.RowHandle, view.Columns["DbCr"], EnumDebCred.D);
+            }
+            else
+            {
+                view.SetRowCellValue(e.RowHandle, view.Columns["DbCr"],
+                    (view.GetRowCellValue(previousRowVisibleIndex, view.Columns["DbCr"]).ToString() == "D") ? EnumDebCred.C : EnumDebCred.D);
+            }
+
+            // Amount
+            if (view.GetRowCellValue(previousRowVisibleIndex, view.Columns["Amount"]) == null)
+            {
+                view.SetRowCellValue(e.RowHandle, view.Columns["Amount"], 0);
+            }
+            else
+            {
+                decimal.TryParse(view.GetRowCellValue(previousRowVisibleIndex, view.Columns["Amount"]).ToString(),
+                    out decimal previousAmount);
+
+                view.SetRowCellValue(e.RowHandle, view.Columns["Amount"], Math.Abs(previousAmount));
+            }
+
+            // LAmount
+            if (view.GetRowCellValue(previousRowVisibleIndex, view.Columns["LAmount"]) == null)
+            {
+                view.SetRowCellValue(e.RowHandle, view.Columns["LAmount"], 0);
+            }
+            else
+            {
+                isValidAmount = decimal.TryParse(txtBalanceLL.Text, out decimal varBalAmount);
+                if (isValidAmount)
+                {
+                    view.SetRowCellValue(e.RowHandle, view.Columns["LAmount"], Math.Abs(varBalAmount));
+                }
+            }
+            // FAmount
+            if (view.GetRowCellValue(previousRowVisibleIndex, view.Columns["FAmount"]) == null)
+            {
+                view.SetRowCellValue(e.RowHandle, view.Columns["FAmount"], 0);
+            }
+            else
+            {
+                isValidAmount = decimal.TryParse(txtBalanceUSD.Text, out decimal varBalAmount);
+                if (isValidAmount)
+                {
+                    view.SetRowCellValue(e.RowHandle, view.Columns["FAmount"], Math.Abs(varBalAmount));
+                }
             }
         }
     }

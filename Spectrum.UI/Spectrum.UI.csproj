@@ -157,6 +157,12 @@
     <Compile Include="Views\Accounting\JournalType\JournalTypesListForm.Designer.cs">
       <DependentUpon>JournalTypesListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Accounting\Reports\Ledgers\TrialBalanceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\Reports\Ledgers\TrialBalanceForm.Designer.cs">
+      <DependentUpon>TrialBalanceForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Accounting\Reports\StatementReports\StatementOfAccount.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -641,6 +647,9 @@
     <EmbeddedResource Include="Views\Accounting\JournalType\JournalTypesListForm.resx">
       <DependentUpon>JournalTypesListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\Reports\Ledgers\TrialBalanceForm.resx">
+      <DependentUpon>TrialBalanceForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\Reports\StatementReports\StatementOfAccount.resx">
       <DependentUpon>StatementOfAccount.cs</DependentUpon>
     </EmbeddedResource>
@@ -951,7 +960,6 @@
     <Folder Include="Views\Accounting\Closing\LockDates\" />
     <Folder Include="Views\Accounting\Closing\Reconcile\" />
     <Folder Include="Views\Accounting\Closing\TaxReturns\" />
-    <Folder Include="Views\Accounting\Reports\Ledgers\" />
     <Folder Include="Views\Accounting\Reports\Management\" />
     <Folder Include="Views\Accounting\Reports\PartnerReports\" />
     <Folder Include="Views\Accounting\Reports\TaxesAndFiscal\" />

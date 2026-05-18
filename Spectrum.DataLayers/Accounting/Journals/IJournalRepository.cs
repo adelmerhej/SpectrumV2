@@ -16,6 +16,7 @@ namespace Spectrum.DataLayers.Accounting.Journals
         // A custom query example
         Task<JournalModel> GetJournalByJvNo(string jvNo);
         Task<string> GetNextJvNoAsync(int workingYear);
+        Task<string> GetNextReferenceAsync();
         Task<long> GetCountAsync();
     }
 }

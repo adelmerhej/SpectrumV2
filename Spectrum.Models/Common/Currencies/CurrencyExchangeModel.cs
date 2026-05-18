@@ -9,7 +9,6 @@ namespace Spectrum.Models.Common.Currencies
 		public string Currency { get; set; }
 		public DateTime ExchangeDate { get; set; }
 		public decimal Rate { get; set; }
-		public decimal HighValue { get; set; }
 
 
 		#region Implementation of ICloneable

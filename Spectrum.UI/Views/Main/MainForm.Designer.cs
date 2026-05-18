@@ -825,6 +825,7 @@
             this.mnuLedgers.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
             this.mnuTrialBalance,
             this.mnuGeneralLedger});
+            this.mnuLedgers.Expanded = true;
             this.mnuLedgers.Name = "mnuLedgers";
             this.mnuLedgers.Text = "Ledgers";
             // 

@@ -1,4 +1,5 @@
 ﻿using Spectrum.Models.Common.Currencies;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace Spectrum.DataLayers.Common.Currencies.Interfaces
 
 		// A custom query example
 		Task<CurrencyExchangeModel> GetCurrencyExchangeByName(string name);
+		Task<CurrencyExchangeModel> GetLatestExchangeByCurrencyAsync(string currencyId, DateTime exchangeDate);
 		Task<long> GetCountAsync();
 	}
 }

@@ -13,6 +13,7 @@ using Spectrum.Views.Accounting.CostCenter;
 using Spectrum.Views.Accounting.FlowType;
 using Spectrum.Views.Accounting.Journals;
 using Spectrum.Views.Accounting.JournalType;
+using Spectrum.Views.Accounting.Reports.Ledgers;
 using Spectrum.Views.Accounting.Reports.StatementReports;
 using Spectrum.Views.Common;
 using Spectrum.Views.Common.Areas;
@@ -590,7 +591,8 @@ namespace Spectrum.Views.Main
 
         private void mnuTrialBalance_Click(object sender, EventArgs e)
         {
-            ShowFeatureUnderDevelopment();
+            TrialBalanceForm frm = new TrialBalanceForm();
+            frm.ShowDialog();
         }
 
 

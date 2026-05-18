@@ -57,6 +57,20 @@ namespace Spectrum.DataLayers.Accounting.Journals
             return nextJvNo.ToString();
         }
 
+        public async Task<string> GetNextReferenceAsync()
+        {
+            var references = await _journals.Find(journal => true)
+                .Project(journal => journal.Reference)
+                .ToListAsync();
+
+            var nextReference = references
+                .Select(ParseReference)
+                .DefaultIfEmpty(0)
+                .Max() + 1;
+
+            return nextReference.ToString().PadLeft(6, '0');
+        }
+
         /// <summary>
         /// Adds a new journal to the database.
         /// </summary>
@@ -115,6 +129,11 @@ namespace Spectrum.DataLayers.Accounting.Journals
         private static int ParseJvNo(string jvNo)
         {
             return int.TryParse(jvNo, out var parsedJvNo) ? parsedJvNo : 0;
+        }
+
+        private static int ParseReference(string reference)
+        {
+            return int.TryParse(reference, out var parsedReference) ? parsedReference : 0;
         }
 
         #region Implementation of IDisposable

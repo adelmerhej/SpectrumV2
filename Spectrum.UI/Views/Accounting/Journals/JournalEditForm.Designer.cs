@@ -1128,6 +1128,8 @@
             this.gvJournalDetails.OptionsView.ShowGroupPanel = false;
             this.gvJournalDetails.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCurrencyId, DevExpress.Data.ColumnSortOrder.Ascending)});
+            this.gvJournalDetails.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gvJournalDetails_InitNewRow_1);
+            this.gvJournalDetails.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvJournalDetails_CellValueChanged);
             // 
             // colId
             // 
