@@ -336,5 +336,5 @@ namespace Spectrum.Views.Common.Services
 				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
 			}
 		}
-	}
+    }
 }
