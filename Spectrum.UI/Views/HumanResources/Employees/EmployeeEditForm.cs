@@ -521,6 +521,59 @@ namespace Spectrum.Views.HumanResources.Employees
             }
         }
 
+        private void gvDocuments_ContextButtonClick(object sender, DevExpress.Utils.ContextItemClickEventArgs e)
+        {
+            try
+            {
+                var focusedRowHandle = gvDocuments.FocusedRowHandle;
+                if (focusedRowHandle < 0)
+                {
+                    return;
+                }
+
+                var document = gvDocuments.GetRow(focusedRowHandle) as DocumentModel;
+                if (document == null || string.IsNullOrWhiteSpace(document.OriginPath))
+                {
+                    return;
+                }
+
+                var result = XtraMessageBox.Show(
+                    $"Are you sure you want to delete '{document.DocumentName}'?\n\nThis will permanently delete the file from disk.",
+                    "Confirm Delete",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2);
+
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
+
+                // Delete the physical file
+                if (File.Exists(document.OriginPath))
+                {
+                    File.Delete(document.OriginPath);
+                }
+
+                // Remove from the binding list
+                _documents.RemoveAt(focusedRowHandle);
+
+                XtraMessageBox.Show("Document deleted successfully.", "Delete Document", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                XtraMessageBox.Show($"Access denied: {ex.Message}\n\nPlease check file permissions.", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException ex)
+            {
+                XtraMessageBox.Show($"File error: {ex.Message}\n\nThe file may be in use by another application.", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show($"Error deleting document: {ex.Message}", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void gvDocuments_FocusedRowChanged(object sender, FocusedRowChangedEventArgs e)
         {
             gvDocuments.RefreshContextButtons();

@@ -1,7 +1,10 @@
+using DevExpress.Utils;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.WinExplorer;
 using Spectrum.DataLayers.Common.Areas;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.Common.Locations;
@@ -468,6 +471,24 @@ namespace Spectrum.Views.Projects
                 _projectModel.Status = ProjectStatus.Active;
                 _projectModel.ProjectDate = DateTime.Today;
             }
+
+            // Wire document thumbnail/icon rendering
+            gvDocuments.GetThumbnailImage += TileView1_GetThumbnailImage;
+            gvDocuments.OptionsImageLoad.RandomShow = true;
+            gvDocuments.OptionsImageLoad.LoadThumbnailImagesFromDataSource = false;
+            gvDocuments.OptionsImageLoad.AsyncLoad = true;
+
+            // Wire document context button events (delete bin + hover visibility)
+            gvDocuments.ContextButtonClick += gvDocuments_ContextButtonClick;
+            gvDocuments.ContextButtonCustomize += gvDocuments_ContextButtonCustomize;
+            gvDocuments.FocusedRowChanged += gvDocuments_FocusedRowChanged;
+        }
+
+        private void TileView1_GetThumbnailImage(object sender, ThumbnailImageEventArgs e)
+        {
+            var fileName = (string)gvDocuments.GetRowCellValue(e.DataSourceIndex, colName);
+            var ext = Path.GetExtension(fileName);
+            e.ThumbnailImage = HelperApplication.GetFileExtensionImage(ext, IconSizeType.Large, new Size(64, 64));
         }
 
         private void ApplyPermissions()
@@ -957,13 +978,24 @@ namespace Spectrum.Views.Projects
             }
         }
 
+        private void gvDocuments_ContextButtonCustomize(object sender, WinExplorerViewContextButtonCustomizeEventArgs e)
+        {
+            if (gvDocuments.FocusedRowHandle == e.RowHandle)
+            {
+                e.Item.AppearanceNormal.ForeColor = Color.White;
+                e.Item.AppearanceHover.ForeColor = Color.White;
+            }
+        }
+
+        private void gvDocuments_FocusedRowChanged(object sender, FocusedRowChangedEventArgs e)
+        {
+            gvDocuments.RefreshContextButtons();
+        }
+
         private void openDocuments_ButtonClick(object sender, ButtonPressedEventArgs e)
         {
             try
             {
-                if (e.Button.Kind != ButtonPredefines.Glyph && !string.Equals(e.Button.Tag as string, "loadFile", StringComparison.OrdinalIgnoreCase))
-                    return;
-
                 var projectId = _projectModel?._id;
                 if (string.IsNullOrWhiteSpace(projectId))
                 {
@@ -1042,6 +1074,59 @@ namespace Spectrum.Views.Projects
         private void gvDocuments_DoubleClick(object sender, EventArgs e)
         {
             OpenSelectedDocument();
+        }
+
+        private void gvDocuments_ContextButtonClick(object sender, DevExpress.Utils.ContextItemClickEventArgs e)
+        {
+            try
+            {
+                var focusedRowHandle = gvDocuments.FocusedRowHandle;
+                if (focusedRowHandle < 0)
+                {
+                    return;
+                }
+
+                var document = gvDocuments.GetRow(focusedRowHandle) as DocumentModel;
+                if (document == null || string.IsNullOrWhiteSpace(document.OriginPath))
+                {
+                    return;
+                }
+
+                var result = XtraMessageBox.Show(
+                    $"Are you sure you want to delete '{document.DocumentName}'?\n\nThis will permanently delete the file from disk.",
+                    "Confirm Delete",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2);
+
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
+
+                // Delete the physical file
+                if (File.Exists(document.OriginPath))
+                {
+                    File.Delete(document.OriginPath);
+                }
+
+                // Remove from the binding list
+                _documents.RemoveAt(focusedRowHandle);
+
+                XtraMessageBox.Show("Document deleted successfully.", "Delete Document", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                XtraMessageBox.Show($"Access denied: {ex.Message}\n\nPlease check file permissions.", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException ex)
+            {
+                XtraMessageBox.Show($"File error: {ex.Message}\n\nThe file may be in use by another application.", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show($"Error deleting document: {ex.Message}", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void OpenSelectedDocument()

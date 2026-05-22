@@ -351,8 +351,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtTotalYearsOfExperience.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtWorkingPosition.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtOfficialWorkingDay.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtSpectrumWorkingDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtSpectrumWorkingDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtSpectrumWorkingDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblOfficialWorkingDay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblWorkingPosition)).BeginInit();
@@ -1297,7 +1297,7 @@
             // lblEmployeeType
             // 
             this.lblEmployeeType.Control = this.cboEmployeeType;
-            this.lblEmployeeType.Location = new System.Drawing.Point(584, 106);
+            this.lblEmployeeType.Location = new System.Drawing.Point(584, 104);
             this.lblEmployeeType.Name = "lblEmployeeType";
             this.lblEmployeeType.Size = new System.Drawing.Size(567, 26);
             this.lblEmployeeType.Text = "Employee Type";
@@ -2123,6 +2123,7 @@
             this.gvDocuments.OptionsView.Style = DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewStyle.Tiles;
             this.gvDocuments.OptionsViewStyles.Tiles.ContextButtonsUseFullItemArea = true;
             this.gvDocuments.ContextButtonCustomize += new DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewContextButtonCustomizeEventHandler(this.gvDocuments_ContextButtonCustomize);
+            this.gvDocuments.ContextButtonClick += new DevExpress.Utils.ContextItemClickEventHandler(this.gvDocuments_ContextButtonClick);
             this.gvDocuments.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvDocuments_FocusedRowChanged);
             this.gvDocuments.DoubleClick += new System.EventHandler(this.gvDocuments_DoubleClick);
             // 
@@ -2368,9 +2369,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).EndInit();
-            this.tabEducationTraining.ResumeLayout(false);
+            this.tabEducationTraining.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl3)).EndInit();
-            this.layoutControl3.ResumeLayout(false);
+            this.layoutControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtWorkLocation.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsWorkExperience)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtYearsAtSpectrum.Properties)).EndInit();
@@ -2389,9 +2390,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem14)).EndInit();
-            this.tabDocumentLink.ResumeLayout(false);
+            this.tabDocumentLink.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl4)).EndInit();
-            this.layoutControl4.ResumeLayout(false);
+            this.layoutControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcDocuments)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDocuments)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.openDocuments.Properties)).EndInit();

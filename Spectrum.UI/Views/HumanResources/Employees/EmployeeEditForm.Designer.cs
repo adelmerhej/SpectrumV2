@@ -2173,6 +2173,7 @@
             this.gvDocuments.OptionsView.Style = DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewStyle.Tiles;
             this.gvDocuments.OptionsViewStyles.Tiles.ContextButtonsUseFullItemArea = true;
             this.gvDocuments.ContextButtonCustomize += new DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewContextButtonCustomizeEventHandler(this.gvDocuments_ContextButtonCustomize);
+            this.gvDocuments.ContextButtonClick += new DevExpress.Utils.ContextItemClickEventHandler(this.gvDocuments_ContextButtonClick);
             this.gvDocuments.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvDocuments_FocusedRowChanged);
             this.gvDocuments.DoubleClick += new System.EventHandler(this.gvDocuments_DoubleClick);
             // 
