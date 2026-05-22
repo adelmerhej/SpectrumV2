@@ -27,6 +27,8 @@ using Spectrum.Models.HumanResources.Employees.EmployeeStatus;
 using Spectrum.Models.HumanResources.EmployeeTypes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -57,6 +59,7 @@ namespace Spectrum.Views.Members.Engineers
 
         private IList<JobPositionModel> _jobPositions = new List<JobPositionModel>();
         private JobPositionModel _jobPositionModel = new JobPositionModel();
+        private BindingList<DocumentModel> _documents = new BindingList<DocumentModel>();
 
         private readonly EmployeeRepository _employeeRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
         private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
@@ -175,6 +178,7 @@ namespace Spectrum.Views.Members.Engineers
             bsEmployeeContactInfo.DataSource = _employeeModel.ContactInfo;
             bsCnss.DataSource = _employeeModel.Cnss;
             bsWorkExperience.DataSource = _employeeModel.WorkExperience;
+            InitializeDocumentBindings();
 
             cboNationality.Properties.DataSource = _countries;
             cboPlaceOfBirth.Properties.DataSource = _cities;
@@ -229,6 +233,72 @@ namespace Spectrum.Views.Members.Engineers
             var fileName = (string)gvDocuments.GetRowCellValue(e.DataSourceIndex, colName);
             var ext = Path.GetExtension(fileName);
             e.ThumbnailImage = HelperApplication.GetFileExtensionImage(ext, IconSizeType.Large, new Size(64, 64));
+        }
+
+        private void InitializeDocumentBindings()
+        {
+            _documents = LoadDocumentsForEngineer();
+            bsDocuments.DataSource = _documents;
+            gcDocuments.DataSource = _documents;
+        }
+
+        private BindingList<DocumentModel> LoadDocumentsForEngineer()
+        {
+            var documents = new BindingList<DocumentModel>();
+            var engineerId = _employeeModel?._id;
+            if (string.IsNullOrWhiteSpace(engineerId))
+                return documents;
+
+            var connection = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
+            var rootFolder = string.IsNullOrWhiteSpace(connection?.EngineersDocumentsFolder)
+                ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpectrumApp", "Engineers")
+                : connection.EngineersDocumentsFolder;
+
+            if (!Directory.Exists(rootFolder))
+                return documents;
+
+            var prefix = engineerId + "_";
+            var files = Directory.GetFiles(rootFolder)
+                .Where(path => Path.GetFileName(path).StartsWith(prefix, StringComparison.OrdinalIgnoreCase));
+
+            foreach (var filePath in files)
+            {
+                try
+                {
+                    documents.Add(new DocumentModel
+                    {
+                        DocumentName = GetDisplayDocumentName(engineerId, filePath),
+                        OriginPath = filePath,
+                        DocumentDate = File.GetCreationTime(filePath),
+                        StreamedDate = DateTime.Now,
+                        DocumentContent = File.ReadAllBytes(filePath)
+                    });
+                }
+                catch
+                {
+                }
+            }
+
+            return documents;
+        }
+
+        private static string GetDisplayDocumentName(string recordId, string filePath)
+        {
+            var fileName = Path.GetFileName(filePath);
+            var prefix = (recordId ?? string.Empty) + "_";
+            return fileName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+                ? fileName.Substring(prefix.Length)
+                : fileName;
+        }
+
+        private void PersistDocumentLinks()
+        {
+            if (_employeeModel == null) return;
+
+            _employeeModel.DocumentLink = string.Join(";",
+                _documents.Where(x => x != null && !string.IsNullOrWhiteSpace(x.OriginPath))
+                    .Select(x => x.OriginPath)
+                    .Distinct(StringComparer.OrdinalIgnoreCase));
         }
 
         private void ApplyPermissions()
@@ -413,6 +483,7 @@ namespace Spectrum.Views.Members.Engineers
                     throw new InvalidOperationException("Employee data is not available for saving.");
                 }
 
+                PersistDocumentLinks();
                 bool isNewEmployee = string.IsNullOrEmpty(_employeeModel._id);
                 _employeeModel.EmployeeType = EmployeeTypeRepository.ResolveEmployeeTypeModel(_employeeTypes, _employeeModel.EmployeeType, EmployeeType.Engineer);
 
@@ -451,11 +522,40 @@ namespace Spectrum.Views.Members.Engineers
             gvDocuments.RefreshContextButtons();
         }
 
+        private void gvDocuments_DoubleClick(object sender, EventArgs e)
+        {
+            OpenSelectedDocument();
+        }
+
+        private void OpenSelectedDocument()
+        {
+            try
+            {
+                var document = gvDocuments.GetFocusedRow() as DocumentModel;
+                if (document == null || string.IsNullOrWhiteSpace(document.OriginPath) || !File.Exists(document.OriginPath))
+                {
+                    return;
+                }
+
+                Process.Start(document.OriginPath);
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(ex.Message, "Open Document", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void openDocuments_ButtonClick(object sender, ButtonPressedEventArgs e)
         {
             try
             {
-                // Select one or more files to attach
+                var engineerId = _employeeModel?._id;
+                if (string.IsNullOrWhiteSpace(engineerId))
+                {
+                    XtraMessageBox.Show("Please save the engineer record first to generate an ID for archived attachments.", "Save Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
                 var ofd = new OpenFileDialog
                 {
                     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
@@ -471,41 +571,23 @@ namespace Spectrum.Views.Members.Engineers
 
                 if (ofd.ShowDialog() != DialogResult.OK) return;
 
-                // Prepare destination folder: Documents\SpectrumApp\Employees\<fullname>
-                string firstName = !string.IsNullOrWhiteSpace(txtFirstName.Text)
-                    ? txtFirstName.Text
-                    : _employeeModel.FirstName;
-                string lastName = !string.IsNullOrWhiteSpace(txtLastName.Text)
-                    ? txtLastName.Text
-                    : _employeeModel.LastName;
-
-                string Sanitize(string value)
-                {
-                    if (string.IsNullOrWhiteSpace(value)) return "Unknown";
-                    var invalid = Path.GetInvalidFileNameChars();
-                    foreach (var c in invalid)
-                    {
-                        value = value.Replace(c.ToString(), "_");
-                    }
-                    return value.Trim();
-                }
-                string fullName = $"{firstName}_{lastName}";
-
-                fullName = Sanitize(fullName);
-
-                string baseFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpectrumApp", "Employees", fullName);
-                Directory.CreateDirectory(baseFolder);
+                var connection = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
+                var rootFolder = string.IsNullOrWhiteSpace(connection?.EngineersDocumentsFolder)
+                    ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpectrumApp", "Engineers")
+                    : connection.EngineersDocumentsFolder;
+                Directory.CreateDirectory(rootFolder);
 
                 foreach (var file in ofd.FileNames)
                 {
                     try
                     {
                         string fileName = Path.GetFileName(file);
-                        string destinationPath = Path.Combine(baseFolder, fileName);
+                        string archivedFileName = engineerId + "_" + fileName;
+                        string destinationPath = Path.Combine(rootFolder, archivedFileName);
 
                         if (File.Exists(destinationPath))
                         {
-                            var result = XtraMessageBox.Show($"File '{fileName}' already exists. Overwrite?", "Confirm Overwrite", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                            var result = XtraMessageBox.Show($"File '{archivedFileName}' already exists. Overwrite?", "Confirm Overwrite", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                             if (result == DialogResult.Cancel)
                             {
                                 break;
@@ -514,15 +596,13 @@ namespace Spectrum.Views.Members.Engineers
                             {
                                 continue;
                             }
-                            // Yes -> overwrite below
                         }
 
                         File.Copy(file, destinationPath, true);
 
-                        // Create document model and add to binding source
                         var newDocument = new DocumentModel
                         {
-                            DocumentName = Path.GetFileName(destinationPath),
+                            DocumentName = fileName,
                             OriginPath = destinationPath,
                             DocumentDate = File.GetCreationTime(destinationPath),
                             StreamedDate = DateTime.Now,
@@ -537,6 +617,7 @@ namespace Spectrum.Views.Members.Engineers
                     }
                 }
 
+                PersistDocumentLinks();
             }
             catch (Exception exception)
             {
@@ -546,8 +627,34 @@ namespace Spectrum.Views.Members.Engineers
 
         #region Context Menu Events
 
+        private void btnEditContact_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (_employeeModel.ContactInfo == null)
+            {
+                _employeeModel.ContactInfo = new EmployeeContactInfo();
+            }
 
-        // Bloodtype
+            bsEmployeeContactInfo.DataSource = _employeeModel.ContactInfo;
+            bsEmployee.ResetBindings(false);
+            XtraMessageBox.Show("Edit contact information in the Engineer Info tab.", "Engineer Contact Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnDeleteContact_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var contactInfo = _employeeModel.ContactInfo;
+
+            if (contactInfo != null)
+            {
+                var result = XtraMessageBox.Show("Are you sure you want to delete this contact information?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    _employeeModel.ContactInfo = new EmployeeContactInfo();
+                    bsEmployeeContactInfo.DataSource = _employeeModel.ContactInfo;
+                    bsEmployee.ResetBindings(false);
+                }
+            }
+        }
+
         private void cboBloodType_AddNewValue(object sender, AddNewValueEventArgs e)
         {
             BloodTypeEditForm frm = new BloodTypeEditForm(new BloodTypeModel());
@@ -567,7 +674,6 @@ namespace Spectrum.Views.Members.Engineers
             if (_bloodTypeModel != null) cboBloodType.EditValue = _bloodTypeModel._id;
         }
 
-        // PlaceOfBirth
         private void cboPlaceOfBirth_AddNewValue(object sender, AddNewValueEventArgs e)
         {
             CityEditForm frm = new CityEditForm(new CityModel());
@@ -587,8 +693,6 @@ namespace Spectrum.Views.Members.Engineers
             if (_cityModel != null) cboPlaceOfBirth.EditValue = _cityModel._id;
         }
 
-
-        // Nationality
         private void cboNationality_AddNewValue(object sender, AddNewValueEventArgs e)
         {
             CountryEditForm frm = new CountryEditForm(new CountryModel());
@@ -608,8 +712,6 @@ namespace Spectrum.Views.Members.Engineers
             if (_countryModel != null) cboNationality.EditValue = _countryModel._id;
         }
 
-
-        // FamilyStatus
         private void cboFamilyStatus_AddNewValue(object sender, AddNewValueEventArgs e)
         {
             StatusEditForm frm = new StatusEditForm(new StatusModel());
@@ -628,7 +730,6 @@ namespace Spectrum.Views.Members.Engineers
             cboFamilyStatus.Properties.DataSource = _status;
             if (_statusModel != null) cboFamilyStatus.EditValue = _statusModel._id;
         }
-
 
         #endregion
     }

@@ -21,7 +21,6 @@ namespace Spectrum.Views.Main
             ApplyPermissions();
         }
 
-        #region Init preloading Methods
         private void ConnectionParams()
         {
             _connectionModel = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
@@ -29,22 +28,49 @@ namespace Spectrum.Views.Main
 
         private void InitializeBindings()
         {
-
         }
 
         private void WireUpBindings()
         {
             txtAIModel.Text = _connectionModel.AiModel ?? _AiModel;
             txtAPIKey.Text = _connectionModel.EncryptedAiApikey ?? string.Empty;
+            txtProjectsFolder.Text = _connectionModel.ProjectsDocumentsFolder ?? string.Empty;
+            txtEmployeesFolder.Text = _connectionModel.EmployeesDocumentsFolder ?? string.Empty;
+            txtEngineersFolder.Text = _connectionModel.EngineersDocumentsFolder ?? string.Empty;
         }
 
         private void ApplyPermissions()
         {
-
         }
 
-        #endregion
+        private void btnBrowseProjects_Click(object sender, EventArgs e)
+        {
+            BrowseFolder("Select Projects Documents Folder", txtProjectsFolder);
+        }
 
+        private void btnBrowseEmployees_Click(object sender, EventArgs e)
+        {
+            BrowseFolder("Select Employees Documents Folder", txtEmployeesFolder);
+        }
+
+        private void btnBrowseEngineers_Click(object sender, EventArgs e)
+        {
+            BrowseFolder("Select Engineers Documents Folder", txtEngineersFolder);
+        }
+
+        private void BrowseFolder(string description, ButtonEdit target)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                fbd.Description = description;
+                fbd.ShowNewFolderButton = true;
+                if (!string.IsNullOrWhiteSpace(target.Text))
+                    fbd.SelectedPath = target.Text;
+
+                if (fbd.ShowDialog(this) == DialogResult.OK)
+                    target.Text = fbd.SelectedPath;
+            }
+        }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -52,6 +78,9 @@ namespace Spectrum.Views.Main
             {
                 _connectionModel.AiModel = txtAIModel.Text.Trim();
                 _connectionModel.EncryptedAiApikey = txtAPIKey.Text;
+                _connectionModel.ProjectsDocumentsFolder = txtProjectsFolder.Text.Trim();
+                _connectionModel.EmployeesDocumentsFolder = txtEmployeesFolder.Text.Trim();
+                _connectionModel.EngineersDocumentsFolder = txtEngineersFolder.Text.Trim();
 
                 DatabaseFactory.SaveConnection(_connectionModel, DatabaseFactory.ProfilePrimary);
 

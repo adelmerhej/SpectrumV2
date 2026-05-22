@@ -35,6 +35,9 @@ namespace Spectrum.DataLayers.DataAccess
 				EncryptedConnectionString = SystemUtilities.Protect(model.DatabaseConnectionString),
                 AiModel = model.AiModel,
 				EncryptedAiApikey = SystemUtilities.Protect(model.EncryptedAiApikey),
+				ProjectsDocumentsFolder = model.ProjectsDocumentsFolder,
+				EmployeesDocumentsFolder = model.EmployeesDocumentsFolder,
+				EngineersDocumentsFolder = model.EngineersDocumentsFolder,
 			};
 
 			if (config.Connections.ContainsKey(profileName))
@@ -69,7 +72,10 @@ namespace Spectrum.DataLayers.DataAccess
 				DatabasePassword = SystemUtilities.Unprotect(profile.EncryptedPassword),
 				DatabaseConnectionString = SystemUtilities.Unprotect(profile.EncryptedConnectionString),
                 AiModel = profile.AiModel,
-				EncryptedAiApikey = SystemUtilities.Unprotect(profile.EncryptedAiApikey)
+				EncryptedAiApikey = SystemUtilities.Unprotect(profile.EncryptedAiApikey),
+				ProjectsDocumentsFolder = profile.ProjectsDocumentsFolder,
+				EmployeesDocumentsFolder = profile.EmployeesDocumentsFolder,
+				EngineersDocumentsFolder = profile.EngineersDocumentsFolder
 			};
 
 			// Auto-generate MongoDB connection string if missing but parameters exist

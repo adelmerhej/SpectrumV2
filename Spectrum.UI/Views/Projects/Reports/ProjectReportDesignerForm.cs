@@ -5,6 +5,8 @@ using Spectrum.Models.Projects;
 using Spectrum.Reports.Adapters.Projects;
 using Spectrum.Reports.UI;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Spectrum.Views.Projects.Reports
@@ -16,16 +18,36 @@ namespace Spectrum.Views.Projects.Reports
     public partial class ProjectReportDesignerForm : XtraForm
     {
         private readonly ProjectModel _project;
+        private readonly IList<ProjectModel> _availableProjects;
+        private readonly IList<ProjectModel> _selectedProjects;
         private readonly ProjectRepository _projectRepository;
         private readonly ReportDesignerControl _designer;
 
         public ProjectReportDesignerForm(ProjectModel project)
+            : this(project, new List<ProjectModel> { project }, new List<ProjectModel> { project })
         {
-            if (project == null) throw new ArgumentNullException(nameof(project));
-            _project = project;
+        }
+
+        public ProjectReportDesignerForm(ProjectModel activeProject, IList<ProjectModel> availableProjects, IList<ProjectModel> selectedProjects)
+        {
+            if (activeProject == null) throw new ArgumentNullException(nameof(activeProject));
+
+            _project = activeProject;
+            _availableProjects = (availableProjects ?? new List<ProjectModel> { activeProject })
+                .Where(x => x != null)
+                .ToList();
+            _selectedProjects = (selectedProjects ?? new List<ProjectModel> { activeProject })
+                .Where(x => x != null)
+                .ToList();
+
+            if (_availableProjects.Count == 0)
+                _availableProjects.Add(activeProject);
+            if (_selectedProjects.Count == 0)
+                _selectedProjects.Add(activeProject);
+
             _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
 
-            var adapter = new ProjectReportAdapter(_project);
+            var adapter = new ProjectReportAdapter(_availableProjects, _selectedProjects, _project);
 
             Text = adapter.Title;
             Width = 1400;

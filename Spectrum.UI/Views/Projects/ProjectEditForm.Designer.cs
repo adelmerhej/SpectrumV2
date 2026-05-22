@@ -1,4 +1,4 @@
-namespace Spectrum.Views.Projects
+﻿namespace Spectrum.Views.Projects
 {
 	partial class ProjectEditForm
 	{
@@ -366,17 +366,17 @@ namespace Spectrum.Views.Projects
             ((System.ComponentModel.ISupportInitialize)(this.cboAreas.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewAreas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceYear.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtExpiryDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtExpiryDate.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceDate.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtExpiryDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboEngineers.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboClients.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDescription.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtJProjectDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtJProjectDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtJProjectDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtReferenceNo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtProjectName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup7)).BeginInit();
@@ -389,11 +389,11 @@ namespace Spectrum.Views.Projects
             ((System.ComponentModel.ISupportInitialize)(this.cboContactEmail.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsContractDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtCompletitionDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtCompletitionDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtCompletitionDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtExtension.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtSignatureDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtSignatureDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtSignatureDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtContractLink.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtContractPeriod.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtContractNo.Properties)).BeginInit();
@@ -453,7 +453,7 @@ namespace Spectrum.Views.Projects
             ((System.ComponentModel.ISupportInitialize)(this.repInvCheckEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            this.tabExpenseGroup.SuspendLayout();
+            this.tabExpenseGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutCostSheetsGrid)).BeginInit();
             this.layoutCostSheetsGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcCosts)).BeginInit();
@@ -3559,6 +3559,7 @@ namespace Spectrum.Views.Projects
             this.gvDocuments.OptionsBehavior.Editable = false;
             this.gvDocuments.OptionsView.Style = DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewStyle.Tiles;
             this.gvDocuments.OptionsViewStyles.Tiles.ContextButtonsUseFullItemArea = true;
+            this.gvDocuments.DoubleClick += new System.EventHandler(this.gvDocuments_DoubleClick);
             // 
             // colDocumentId
             // 
@@ -3598,6 +3599,7 @@ namespace Spectrum.Views.Projects
             this.openDocuments.Name = "openDocuments";
             this.openDocuments.Properties.AutoHeight = false;
             this.openDocuments.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
             editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(16, 16);
             this.openDocuments.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
@@ -3607,6 +3609,7 @@ namespace Spectrum.Views.Projects
             this.openDocuments.Size = new System.Drawing.Size(1328, 41);
             this.openDocuments.StyleController = this.layoutAttachedDocumnets;
             this.openDocuments.TabIndex = 6;
+            this.openDocuments.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.openDocuments_ButtonClick);
             // 
             // layoutControlGroup5
             // 
@@ -4345,3 +4348,5 @@ namespace Spectrum.Views.Projects
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
     }
 }
+
+

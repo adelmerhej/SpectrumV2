@@ -2116,7 +2116,6 @@
             contextButton2.Id = new System.Guid("29468572-0411-449a-bc2d-0c333134705c");
             contextButton2.ImageOptionsCollection.ItemNormal.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
             contextButton2.ImageOptionsCollection.ItemNormal.SvgImageSize = new System.Drawing.Size(16, 16);
-            contextButton2.Name = "removeButton";
             this.gvDocuments.ContextButtons.Add(contextButton2);
             this.gvDocuments.GridControl = this.gcDocuments;
             this.gvDocuments.Name = "gvDocuments";
@@ -2125,6 +2124,7 @@
             this.gvDocuments.OptionsViewStyles.Tiles.ContextButtonsUseFullItemArea = true;
             this.gvDocuments.ContextButtonCustomize += new DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewContextButtonCustomizeEventHandler(this.gvDocuments_ContextButtonCustomize);
             this.gvDocuments.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvDocuments_FocusedRowChanged);
+            this.gvDocuments.DoubleClick += new System.EventHandler(this.gvDocuments_DoubleClick);
             // 
             // colDocumentId
             // 
@@ -2267,22 +2267,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtLastName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFirstName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmployeeNo.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtDateOfBirth.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateOfBirth.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtDateOfBirth.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboPlaceOfBirth.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboNationality.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboEmployeeType.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtPermitDate.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtPermitDate.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtRegistrationDate.Properties.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtPermitDate.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtRegistrationDate.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtRegistrationDate.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboRegistrationPlace.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtWorkingDate.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtWorkingDate.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtWorkingDate.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboActualPosition.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboFamilyStatus.Properties)).EndInit();
@@ -2345,18 +2345,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.lblAddress)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem19)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem17)).EndInit();
-            this.tabCNSSDetails.ResumeLayout(false);
+            this.tabCNSSDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl2)).EndInit();
-            this.layoutControl2.ResumeLayout(false);
+            this.layoutControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtSpouseRegistration.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsCnss)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNoOfBeneficiary.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNoOfChildren.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCnssRegistrationNo.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtCnssRegistrationDate.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtCnssRegistrationDate.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtCnssLeaveDate.Properties.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtCnssRegistrationDate.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtCnssLeaveDate.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtCnssLeaveDate.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblCnssRegistrationDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblCnssRegistrationNo)).EndInit();

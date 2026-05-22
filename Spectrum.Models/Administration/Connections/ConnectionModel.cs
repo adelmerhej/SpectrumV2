@@ -12,6 +12,9 @@
 
 		public string DatabaseConnectionString { get; set; }
 		public string AiModel { get; set; }
+		public string ProjectsDocumentsFolder { get; set; }
+		public string EmployeesDocumentsFolder { get; set; }
+		public string EngineersDocumentsFolder { get; set; }
 
 		// SENSITIVE FIELDS: Stored Encrypted
 		public string EncryptedPassword { get; set; }

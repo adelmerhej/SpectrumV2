@@ -33,6 +33,9 @@
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.txtAIModel = new DevExpress.XtraEditors.TextEdit();
+            this.txtProjectsFolder = new DevExpress.XtraEditors.ButtonEdit();
+            this.txtEmployeesFolder = new DevExpress.XtraEditors.ButtonEdit();
+            this.txtEngineersFolder = new DevExpress.XtraEditors.ButtonEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -40,13 +43,18 @@
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.grpInfo = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lblOpenAIModel = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.lblProjectsFolder = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lblEmployeesFolder = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lblEngineersFolder = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtAPIKey.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAIModel.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtProjectsFolder.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtEmployeesFolder.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtEngineersFolder.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
@@ -54,7 +62,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblOpenAIModel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblProjectsFolder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblEmployeesFolder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblEngineersFolder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             this.SuspendLayout();
@@ -65,6 +75,9 @@
             this.mainLayout.Controls.Add(this.btnCancel);
             this.mainLayout.Controls.Add(this.btnSave);
             this.mainLayout.Controls.Add(this.txtAIModel);
+            this.mainLayout.Controls.Add(this.txtProjectsFolder);
+            this.mainLayout.Controls.Add(this.txtEmployeesFolder);
+            this.mainLayout.Controls.Add(this.txtEngineersFolder);
             this.mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainLayout.Location = new System.Drawing.Point(0, 0);
             this.mainLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -114,6 +127,42 @@
             this.txtAIModel.StyleController = this.mainLayout;
             this.txtAIModel.TabIndex = 1;
             this.txtAIModel.TabStop = false;
+            // 
+            // txtProjectsFolder
+            // 
+            this.txtProjectsFolder.Location = new System.Drawing.Point(171, 80);
+            this.txtProjectsFolder.Name = "txtProjectsFolder";
+            this.txtProjectsFolder.Properties.Buttons.Clear();
+            this.txtProjectsFolder.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.txtProjectsFolder.Properties.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.btnBrowseProjects_Click);
+            this.txtProjectsFolder.Size = new System.Drawing.Size(535, 22);
+            this.txtProjectsFolder.StyleController = this.mainLayout;
+            this.txtProjectsFolder.TabIndex = 3;
+            // 
+            // txtEmployeesFolder
+            // 
+            this.txtEmployeesFolder.Location = new System.Drawing.Point(171, 106);
+            this.txtEmployeesFolder.Name = "txtEmployeesFolder";
+            this.txtEmployeesFolder.Properties.Buttons.Clear();
+            this.txtEmployeesFolder.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.txtEmployeesFolder.Properties.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.btnBrowseEmployees_Click);
+            this.txtEmployeesFolder.Size = new System.Drawing.Size(535, 22);
+            this.txtEmployeesFolder.StyleController = this.mainLayout;
+            this.txtEmployeesFolder.TabIndex = 4;
+            // 
+            // txtEngineersFolder
+            // 
+            this.txtEngineersFolder.Location = new System.Drawing.Point(171, 132);
+            this.txtEngineersFolder.Name = "txtEngineersFolder";
+            this.txtEngineersFolder.Properties.Buttons.Clear();
+            this.txtEngineersFolder.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.txtEngineersFolder.Properties.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.btnBrowseEngineers_Click);
+            this.txtEngineersFolder.Size = new System.Drawing.Size(535, 22);
+            this.txtEngineersFolder.StyleController = this.mainLayout;
+            this.txtEngineersFolder.TabIndex = 5;
             // 
             // layoutControlGroup1
             // 
@@ -166,7 +215,9 @@
             this.grpInfo.GroupStyle = DevExpress.Utils.GroupStyle.Light;
             this.grpInfo.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lblOpenAIModel,
-            this.emptySpaceItem5});
+            this.lblProjectsFolder,
+            this.lblEmployeesFolder,
+            this.lblEngineersFolder});
             this.grpInfo.Location = new System.Drawing.Point(0, 0);
             this.grpInfo.Name = "grpInfo";
             this.grpInfo.Size = new System.Drawing.Size(710, 104);
@@ -181,11 +232,32 @@
             this.lblOpenAIModel.Text = "AI Model";
             this.lblOpenAIModel.TextSize = new System.Drawing.Size(50, 16);
             // 
-            // emptySpaceItem5
+            // lblProjectsFolder
             // 
-            this.emptySpaceItem5.Location = new System.Drawing.Point(0, 26);
-            this.emptySpaceItem5.Name = "emptySpaceItem5";
-            this.emptySpaceItem5.Size = new System.Drawing.Size(682, 24);
+            this.lblProjectsFolder.Control = this.txtProjectsFolder;
+            this.lblProjectsFolder.Location = new System.Drawing.Point(0, 26);
+            this.lblProjectsFolder.Name = "lblProjectsFolder";
+            this.lblProjectsFolder.Size = new System.Drawing.Size(682, 26);
+            this.lblProjectsFolder.Text = "Projects Folder";
+            this.lblProjectsFolder.TextSize = new System.Drawing.Size(131, 16);
+            // 
+            // lblEmployeesFolder
+            // 
+            this.lblEmployeesFolder.Control = this.txtEmployeesFolder;
+            this.lblEmployeesFolder.Location = new System.Drawing.Point(0, 52);
+            this.lblEmployeesFolder.Name = "lblEmployeesFolder";
+            this.lblEmployeesFolder.Size = new System.Drawing.Size(682, 26);
+            this.lblEmployeesFolder.Text = "Employees Folder";
+            this.lblEmployeesFolder.TextSize = new System.Drawing.Size(131, 16);
+            // 
+            // lblEngineersFolder
+            // 
+            this.lblEngineersFolder.Control = this.txtEngineersFolder;
+            this.lblEngineersFolder.Location = new System.Drawing.Point(0, 78);
+            this.lblEngineersFolder.Name = "lblEngineersFolder";
+            this.lblEngineersFolder.Size = new System.Drawing.Size(682, 26);
+            this.lblEngineersFolder.Text = "Engineers Folder";
+            this.lblEngineersFolder.TextSize = new System.Drawing.Size(131, 16);
             // 
             // layoutControlGroup4
             // 
@@ -219,6 +291,9 @@
             this.mainLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtAPIKey.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAIModel.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtProjectsFolder.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtEmployeesFolder.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtEngineersFolder.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
@@ -226,7 +301,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblOpenAIModel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblProjectsFolder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblEmployeesFolder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblEngineersFolder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             this.ResumeLayout(false);
@@ -240,6 +317,9 @@
         private DevExpress.XtraEditors.SimpleButton btnCancel;
         private DevExpress.XtraEditors.SimpleButton btnSave;
         private DevExpress.XtraEditors.TextEdit txtAIModel;
+        private DevExpress.XtraEditors.ButtonEdit txtProjectsFolder;
+        private DevExpress.XtraEditors.ButtonEdit txtEmployeesFolder;
+        private DevExpress.XtraEditors.ButtonEdit txtEngineersFolder;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
@@ -247,7 +327,9 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlGroup grpInfo;
         private DevExpress.XtraLayout.LayoutControlItem lblOpenAIModel;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
+        private DevExpress.XtraLayout.LayoutControlItem lblProjectsFolder;
+        private DevExpress.XtraLayout.LayoutControlItem lblEmployeesFolder;
+        private DevExpress.XtraLayout.LayoutControlItem lblEngineersFolder;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
     }
