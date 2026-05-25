@@ -57,7 +57,7 @@
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.btnParseWithAI = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
@@ -123,8 +123,8 @@
             this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.bsWorkExperience = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
-            this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
+            this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsEducationEntry)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -436,40 +436,40 @@
             this.ribbonStatusBar1.Ribbon = this.ribbonControl;
             this.ribbonStatusBar1.Size = new System.Drawing.Size(1365, 30);
             // 
-            // layoutControl1
+            // mainLayout
             // 
-            this.layoutControl1.Controls.Add(this.simpleButton1);
-            this.layoutControl1.Controls.Add(this.btnParseWithAI);
-            this.layoutControl1.Controls.Add(this.gridControl1);
-            this.layoutControl1.Controls.Add(this.txtSummary);
-            this.layoutControl1.Controls.Add(this.txtYearsOfExperience);
-            this.layoutControl1.Controls.Add(this.txtPosition);
-            this.layoutControl1.Controls.Add(this.txtPhoneNumber);
-            this.layoutControl1.Controls.Add(this.txtEmail);
-            this.layoutControl1.Controls.Add(this.txtLastName);
-            this.layoutControl1.Controls.Add(this.txtFirstName);
-            this.layoutControl1.Controls.Add(this.txtUploadCv);
-            this.layoutControl1.Controls.Add(this.txtAddress);
-            this.layoutControl1.Controls.Add(this.txtSummaryDetails);
-            this.layoutControl1.Controls.Add(this.txtDateOfBirth);
-            this.layoutControl1.Controls.Add(this.cboNationality);
-            this.layoutControl1.Controls.Add(this.cboGenders);
-            this.layoutControl1.Controls.Add(this.cboCities);
-            this.layoutControl1.Controls.Add(this.txtSkills);
-            this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layoutControl1.Location = new System.Drawing.Point(0, 193);
-            this.layoutControl1.Name = "layoutControl1";
-            this.layoutControl1.Root = this.Root;
-            this.layoutControl1.Size = new System.Drawing.Size(1365, 623);
-            this.layoutControl1.TabIndex = 4;
-            this.layoutControl1.Text = "mainLayout";
+            this.mainLayout.Controls.Add(this.simpleButton1);
+            this.mainLayout.Controls.Add(this.btnParseWithAI);
+            this.mainLayout.Controls.Add(this.gridControl1);
+            this.mainLayout.Controls.Add(this.txtSummary);
+            this.mainLayout.Controls.Add(this.txtYearsOfExperience);
+            this.mainLayout.Controls.Add(this.txtPosition);
+            this.mainLayout.Controls.Add(this.txtPhoneNumber);
+            this.mainLayout.Controls.Add(this.txtEmail);
+            this.mainLayout.Controls.Add(this.txtLastName);
+            this.mainLayout.Controls.Add(this.txtFirstName);
+            this.mainLayout.Controls.Add(this.txtUploadCv);
+            this.mainLayout.Controls.Add(this.txtAddress);
+            this.mainLayout.Controls.Add(this.txtSummaryDetails);
+            this.mainLayout.Controls.Add(this.txtDateOfBirth);
+            this.mainLayout.Controls.Add(this.cboNationality);
+            this.mainLayout.Controls.Add(this.cboGenders);
+            this.mainLayout.Controls.Add(this.cboCities);
+            this.mainLayout.Controls.Add(this.txtSkills);
+            this.mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainLayout.Location = new System.Drawing.Point(0, 193);
+            this.mainLayout.Name = "mainLayout";
+            this.mainLayout.Root = this.Root;
+            this.mainLayout.Size = new System.Drawing.Size(1365, 623);
+            this.mainLayout.TabIndex = 4;
+            this.mainLayout.Text = "mainLayout";
             // 
             // simpleButton1
             // 
             this.simpleButton1.Location = new System.Drawing.Point(1211, 294);
             this.simpleButton1.Name = "simpleButton1";
             this.simpleButton1.Size = new System.Drawing.Size(126, 27);
-            this.simpleButton1.StyleController = this.layoutControl1;
+            this.simpleButton1.StyleController = this.mainLayout;
             this.simpleButton1.TabIndex = 22;
             this.simpleButton1.Text = "simpleButton1";
             this.simpleButton1.Visible = false;
@@ -482,7 +482,7 @@
             this.btnParseWithAI.Location = new System.Drawing.Point(1232, 14);
             this.btnParseWithAI.Name = "btnParseWithAI";
             this.btnParseWithAI.Size = new System.Drawing.Size(119, 27);
-            this.btnParseWithAI.StyleController = this.layoutControl1;
+            this.btnParseWithAI.StyleController = this.mainLayout;
             this.btnParseWithAI.TabIndex = 21;
             this.btnParseWithAI.TabStop = false;
             this.btnParseWithAI.Text = "Parse With AI";
@@ -558,7 +558,7 @@
             this.txtSummary.MenuManager = this.ribbonControl;
             this.txtSummary.Name = "txtSummary";
             this.txtSummary.Size = new System.Drawing.Size(392, 22);
-            this.txtSummary.StyleController = this.layoutControl1;
+            this.txtSummary.StyleController = this.mainLayout;
             this.txtSummary.TabIndex = 17;
             // 
             // txtYearsOfExperience
@@ -567,7 +567,7 @@
             this.txtYearsOfExperience.MenuManager = this.ribbonControl;
             this.txtYearsOfExperience.Name = "txtYearsOfExperience";
             this.txtYearsOfExperience.Size = new System.Drawing.Size(284, 22);
-            this.txtYearsOfExperience.StyleController = this.layoutControl1;
+            this.txtYearsOfExperience.StyleController = this.mainLayout;
             this.txtYearsOfExperience.TabIndex = 15;
             // 
             // txtPosition
@@ -577,7 +577,7 @@
             this.txtPosition.MenuManager = this.ribbonControl;
             this.txtPosition.Name = "txtPosition";
             this.txtPosition.Size = new System.Drawing.Size(517, 22);
-            this.txtPosition.StyleController = this.layoutControl1;
+            this.txtPosition.StyleController = this.mainLayout;
             this.txtPosition.TabIndex = 14;
             // 
             // bsCandidate
@@ -591,7 +591,7 @@
             this.txtPhoneNumber.MenuManager = this.ribbonControl;
             this.txtPhoneNumber.Name = "txtPhoneNumber";
             this.txtPhoneNumber.Size = new System.Drawing.Size(501, 22);
-            this.txtPhoneNumber.StyleController = this.layoutControl1;
+            this.txtPhoneNumber.StyleController = this.mainLayout;
             this.txtPhoneNumber.TabIndex = 10;
             // 
             // txtEmail
@@ -601,7 +601,7 @@
             this.txtEmail.MenuManager = this.ribbonControl;
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(501, 22);
-            this.txtEmail.StyleController = this.layoutControl1;
+            this.txtEmail.StyleController = this.mainLayout;
             this.txtEmail.TabIndex = 9;
             // 
             // txtLastName
@@ -611,7 +611,7 @@
             this.txtLastName.MenuManager = this.ribbonControl;
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(510, 22);
-            this.txtLastName.StyleController = this.layoutControl1;
+            this.txtLastName.StyleController = this.mainLayout;
             this.txtLastName.TabIndex = 5;
             // 
             // txtFirstName
@@ -621,7 +621,7 @@
             this.txtFirstName.MenuManager = this.ribbonControl;
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(510, 22);
-            this.txtFirstName.StyleController = this.layoutControl1;
+            this.txtFirstName.StyleController = this.mainLayout;
             this.txtFirstName.TabIndex = 4;
             // 
             // txtUploadCv
@@ -633,7 +633,7 @@
             this.txtUploadCv.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Plus)});
             this.txtUploadCv.Size = new System.Drawing.Size(1076, 22);
-            this.txtUploadCv.StyleController = this.layoutControl1;
+            this.txtUploadCv.StyleController = this.mainLayout;
             this.txtUploadCv.TabIndex = 13;
             this.txtUploadCv.TabStop = false;
             this.txtUploadCv.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.txtUploadCv_ButtonClick);
@@ -645,7 +645,7 @@
             this.txtAddress.MenuManager = this.ribbonControl;
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(501, 48);
-            this.txtAddress.StyleController = this.layoutControl1;
+            this.txtAddress.StyleController = this.mainLayout;
             this.txtAddress.TabIndex = 12;
             // 
             // txtSummaryDetails
@@ -655,7 +655,7 @@
             this.txtSummaryDetails.MenuManager = this.ribbonControl;
             this.txtSummaryDetails.Name = "txtSummaryDetails";
             this.txtSummaryDetails.Size = new System.Drawing.Size(650, 89);
-            this.txtSummaryDetails.StyleController = this.layoutControl1;
+            this.txtSummaryDetails.StyleController = this.mainLayout;
             this.txtSummaryDetails.TabIndex = 19;
             // 
             // txtDateOfBirth
@@ -678,7 +678,7 @@
             this.txtDateOfBirth.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
             this.txtDateOfBirth.Properties.UseMaskAsDisplayFormat = true;
             this.txtDateOfBirth.Size = new System.Drawing.Size(189, 22);
-            this.txtDateOfBirth.StyleController = this.layoutControl1;
+            this.txtDateOfBirth.StyleController = this.mainLayout;
             this.txtDateOfBirth.TabIndex = 6;
             // 
             // cboNationality
@@ -695,7 +695,7 @@
             this.cboNationality.Properties.ShowAddNewButton = true;
             this.cboNationality.Properties.ValueMember = "CountryName";
             this.cboNationality.Size = new System.Drawing.Size(510, 22);
-            this.cboNationality.StyleController = this.layoutControl1;
+            this.cboNationality.StyleController = this.mainLayout;
             this.cboNationality.TabIndex = 7;
             // 
             // searchLookUpEdit1View
@@ -734,7 +734,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cboGenders.Properties.PopupSizeable = true;
             this.cboGenders.Size = new System.Drawing.Size(189, 22);
-            this.cboGenders.StyleController = this.layoutControl1;
+            this.cboGenders.StyleController = this.mainLayout;
             this.cboGenders.TabIndex = 11;
             // 
             // cboCities
@@ -751,7 +751,7 @@
             this.cboCities.Properties.ShowAddNewButton = true;
             this.cboCities.Properties.ValueMember = "CityName";
             this.cboCities.Size = new System.Drawing.Size(501, 22);
-            this.cboCities.StyleController = this.layoutControl1;
+            this.cboCities.StyleController = this.mainLayout;
             this.cboCities.TabIndex = 8;
             // 
             // gridView2
@@ -787,7 +787,7 @@
             this.txtSkills.MenuManager = this.ribbonControl;
             this.txtSkills.Name = "txtSkills";
             this.txtSkills.Size = new System.Drawing.Size(517, 68);
-            this.txtSkills.StyleController = this.layoutControl1;
+            this.txtSkills.StyleController = this.mainLayout;
             this.txtSkills.TabIndex = 16;
             // 
             // Root
@@ -1088,7 +1088,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1365, 846);
-            this.Controls.Add(this.layoutControl1);
+            this.Controls.Add(this.mainLayout);
             this.Controls.Add(this.ribbonControl);
             this.Controls.Add(this.ribbonStatusBar1);
             this.Name = "HrCvEditForm";
@@ -1098,8 +1098,8 @@
             this.Text = "Edit Candidate CV";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.HrCvEditForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
-            this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
+            this.mainLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsEducationEntry)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
@@ -1186,7 +1186,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar1;
-        private DevExpress.XtraLayout.LayoutControl layoutControl1;
+        private DevExpress.XtraLayout.LayoutControl mainLayout;
         private DevExpress.XtraEditors.TextEdit txtPhoneNumber;
         private DevExpress.XtraEditors.TextEdit txtEmail;
         private DevExpress.XtraEditors.TextEdit txtLastName;

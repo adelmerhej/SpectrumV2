@@ -157,6 +157,8 @@
             this.grpReadingPane = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.dockRight = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.showPendingJobs = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuProjectsSeting = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuProjectsType = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonMainForm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
@@ -661,7 +663,6 @@
             this.mnuMasterFiles,
             this.mnuReports,
             this.mnuClosing});
-            this.mnuMainAccounting.Expanded = true;
             this.mnuMainAccounting.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuMainAccounting.ImageOptions.SvgImage")));
             this.mnuMainAccounting.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
             this.mnuMainAccounting.Name = "mnuMainAccounting";
@@ -671,7 +672,6 @@
             // 
             this.mnuTransactions.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
             this.mnuJournals});
-            this.mnuTransactions.Expanded = true;
             this.mnuTransactions.Name = "mnuTransactions";
             this.mnuTransactions.Text = "Transactions";
             // 
@@ -988,6 +988,7 @@
             this.mnuUsersList,
             this.mnuReferenceData,
             this.mnuCountriesListMenu,
+            this.mnuProjectsSeting,
             this.mnuSystem});
             this.mnuAdministration.Expanded = true;
             this.mnuAdministration.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuAdministration.ImageOptions.SvgImage")));
@@ -1151,6 +1152,7 @@
             this.mnuSystem.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
             this.mnuDatabaseSettings,
             this.mnuGeneralSettings});
+            this.mnuSystem.Expanded = true;
             this.mnuSystem.Name = "mnuSystem";
             this.mnuSystem.Text = "System";
             // 
@@ -1302,6 +1304,22 @@
             this.showPendingJobs.Name = "showPendingJobs";
             this.showPendingJobs.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.showPendingJobs.Text = "Show Pending Jobs";
+            // 
+            // mnuProjectsSeting
+            // 
+            this.mnuProjectsSeting.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
+            this.mnuProjectsType});
+            this.mnuProjectsSeting.Expanded = true;
+            this.mnuProjectsSeting.Name = "mnuProjectsSeting";
+            this.mnuProjectsSeting.Text = "Projects Seting";
+            // 
+            // mnuProjectsType
+            // 
+            this.mnuProjectsType.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuProjectType.ImageOptions.SvgImage")));
+            this.mnuProjectsType.Name = "mnuProjectsType";
+            this.mnuProjectsType.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.mnuProjectsType.Text = "Projects Type";
+            this.mnuProjectsType.Click += new System.EventHandler(this.mnuProjectsType_Click);
             // 
             // MainForm
             // 
@@ -1465,5 +1483,7 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement mnuReconcile;
         private DevExpress.XtraBars.Navigation.AccordionControlElement mnuTaxReturns;
         private DevExpress.XtraBars.Navigation.AccordionControlElement mnuLockDates;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement mnuProjectsSeting;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement mnuProjectsType;
     }
 }

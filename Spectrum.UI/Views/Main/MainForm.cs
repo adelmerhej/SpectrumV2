@@ -35,6 +35,7 @@ using Spectrum.Views.Members.Clients;
 using Spectrum.Views.Members.Engineers;
 using Spectrum.Views.Members.Suppliers;
 using Spectrum.Views.Projects;
+using Spectrum.Views.Projects.Settings.ProjectTypes;
 using Spectrum.Views.Transactions.Expenses;
 using Spectrum.Views.Transactions.Invoices;
 using Spectrum.Views.Transactions.Receipts;
@@ -673,5 +674,14 @@ namespace Spectrum.Views.Main
 
         #endregion
 
+
+        #region Administartion Setup
+
+        private void mnuProjectsType_Click(object sender, EventArgs e)
+        {
+            OpenForm<ProjectTypesListForm>();
+        }
+
+        #endregion
     }
 }

@@ -2,15 +2,13 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraTreeList;
-using Spectrum.DataLayers.Accounting.Charts;
 using Spectrum.DataLayers.DataAccess;
-using Spectrum.Models.Accounting.Charts;
+using Spectrum.DataLayers.Projects.Settings.ProjectTypes;
+using Spectrum.Models.Operations.Projects.Settings.ProjectTypes;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
-using Spectrum.Views.Upgrade;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,17 +16,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spectrum.Views.Accounting.Charts
+namespace Spectrum.Views.Projects.Settings.ProjectTypes
 {
-    public partial class ChartsListForm : RibbonForm, IFormWithRibbon
+    public partial class ProjectTypesListForm : RibbonForm, IFormWithRibbon
     {
         private bool _resetMenu;
-        private ChartEditForm _chartEditForm;
+        private ProjectTypeEditForm _projectTypeEditForm;
 
-        private ChartModel _chartModel = new ChartModel();
-        private IList<ChartModel> _charts = new List<ChartModel>();
+        private ProjectTypeModel _projectTypeModel = new ProjectTypeModel();
+        private IList<ProjectTypeModel> _projectTypes = new List<ProjectTypeModel>();
 
-        private readonly ChartRepository _chartRepository = new ChartRepository(DatabaseFactory.ProfilePrimary);
+        private readonly ProjectTypeRepository _projectTypeRepository = new ProjectTypeRepository(DatabaseFactory.ProfilePrimary);
 
         //Init permissionvariables
         private bool _canAdd = true;
@@ -40,13 +38,13 @@ namespace Spectrum.Views.Accounting.Charts
 
         #region Implementation of IFormWithRibbon
 
-        public RibbonControl MainRibbon => rcCharts;
-        public RibbonPage DefaultPage => rpCharts;
+        public RibbonControl MainRibbon => rcProjectsType;
+        public RibbonPage DefaultPage => rpProjectsType;
 
 
         #endregion
 
-        public ChartsListForm()
+        public ProjectTypesListForm()
         {
             InitializeComponent();
 
@@ -75,7 +73,7 @@ namespace Spectrum.Views.Accounting.Charts
                 //	}
                 //	//
 
-                _charts = await _chartRepository.GetChartsAsync();
+                _projectTypes = await _projectTypeRepository.GetProjectTypesAsync();
             }
             catch (Exception ex)
             {
@@ -85,13 +83,13 @@ namespace Spectrum.Views.Accounting.Charts
 
         private void WireUpBindings()
         {
-            chartTreeList.DataSource = null;
-            chartTreeList.DataSource = _charts;
+            gcProjectTypes.DataSource = null;
+            gcProjectTypes.DataSource = _projectTypes;
         }
 
         private void ApplyDefaults()
         {
-            LayoutsStyle.LoadLayoutTreeList(chartTreeList, CurrentUser.UserName, CurrentUser.Company);
+
         }
 
         private void ApplyPermissions()
@@ -120,27 +118,27 @@ namespace Spectrum.Views.Accounting.Charts
             btnDelete.Enabled = _isAdmin || _canDelete;
         }
 
-        #region button events
 
+        #region Butons Events
 
         private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ShowChartEditor(new ChartModel());
+            ShowProjectTypeEditor(new ProjectTypeModel());
         }
 
         private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (!_charts.Any()) return;
+            if (!_projectTypes.Any()) return;
 
             try
             {
-                string currentRowId = chartTreeList.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvProjectTypes.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _chartModel = _charts.SingleOrDefault(x => x._id == currentRowId);
-                if (_chartModel == null) return;
+                _projectTypeModel = _projectTypes.SingleOrDefault(x => x._id == currentRowId);
+                if (_projectTypeModel == null) return;
 
-                ShowChartEditor(_chartModel);
+                ShowProjectTypeEditor(_projectTypeModel);
             }
             catch (Exception exception)
             {
@@ -155,7 +153,7 @@ namespace Spectrum.Views.Accounting.Charts
 
         private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
         {
-            chartTreeList.ShowRibbonPrintPreview();
+            gcProjectTypes.ShowRibbonPrintPreview();
         }
 
         private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
@@ -164,8 +162,8 @@ namespace Spectrum.Views.Accounting.Charts
 
             try
             {
-                string id = chartTreeList.GetFocusedRowCellValue("_id").ToString();
-                string name = chartTreeList.GetFocusedRowCellValue("AccountName").ToString();
+                string id = gvProjectTypes.GetFocusedRowCellValue("_id").ToString();
+                string name = gvProjectTypes.GetFocusedRowCellValue("ProjectTypeName").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -173,16 +171,16 @@ namespace Spectrum.Views.Accounting.Charts
                             "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                             MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        _chartModel = chartTreeList.GetFocusedRow() as ChartModel;
-                        if (_chartModel == null)
+                        _projectTypeModel = gvProjectTypes.GetFocusedRow() as ProjectTypeModel;
+                        if (_projectTypeModel == null)
                         {
                             return;
                         }
-                        _chartModel.Deleted = true;
+                        _projectTypeModel.Deleted = true;
 
                         //delete the record
-                        await _chartRepository.DeleteChartAsync(_chartModel._id);
-                        RcvUpdatedChartAsync(_chartModel, EventArgs.Empty);
+                        await _projectTypeRepository.DeleteProjectTypeAsync(_projectTypeModel._id);
+                        RcvUpdatedProjectTypeAsync(_projectTypeModel, EventArgs.Empty);
                     }
                 }
             }
@@ -215,26 +213,26 @@ namespace Spectrum.Views.Accounting.Charts
                 DialogResult.Yes)
             {
                 _resetMenu = true;
-                LayoutsStyle.ResetLayoutTreeList(chartTreeList, CurrentUser.UserName, CurrentUser.Company);
+                LayoutsStyle.ResetLayoutGrid(gvProjectTypes, CurrentUser.UserName, CurrentUser.Company);
             }
+
         }
 
         #endregion
 
-
-        private void chartTreeList_DoubleClick(object sender, EventArgs e)
+        private void gvProjectTypes_DoubleClick(object sender, EventArgs e)
         {
-            if (!_charts.Any()) return;
+            if (!_projectTypes.Any()) return;
 
             try
             {
-                string currentRowId = chartTreeList.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvProjectTypes.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _chartModel = _charts.SingleOrDefault(x => x._id == currentRowId);
-                if (_chartModel == null) return;
+                _projectTypeModel = _projectTypes.SingleOrDefault(x => x._id == currentRowId);
+                if (_projectTypeModel == null) return;
 
-                ShowChartEditor(_chartModel);
+                ShowProjectTypeEditor(_projectTypeModel);
             }
             catch (Exception exception)
             {
@@ -242,36 +240,33 @@ namespace Spectrum.Views.Accounting.Charts
             }
         }
 
-        private async void RcvUpdatedChartAsync(object sender, EventArgs e)
+        private async void RcvUpdatedProjectTypeAsync(object sender, EventArgs e)
         {
             if (sender == null) return;
-            _chartModel = sender as ChartModel;
-            if (_chartModel == null) return;
+            _projectTypeModel = sender as ProjectTypeModel;
+            if (_projectTypeModel == null) return;
 
-            if (_chartModel.Deleted || _chartModel.LastModifiedDate == null || _chartModel.Deleted)
+            if (_projectTypeModel.Deleted || _projectTypeModel.LastModifiedDate == null)
             {
                 await InitializeBindings();
                 WireUpBindings();
             }
             else
             {
-                chartTreeList.Update();
+                gcProjectTypes.RefreshDataSource();
+                gvProjectTypes.RefreshRow(gvProjectTypes.FocusedRowHandle);
+                gvProjectTypes.UpdateCurrentRow();
             }
         }
 
         private bool CanDelete()
         {
-            ChartModel dataBoundItem = chartTreeList.GetFocusedRow() as ChartModel;
-            if (!_charts.Any()) return false;
+            ProjectTypeModel dataBoundItem = gvProjectTypes.GetFocusedRow() as ProjectTypeModel;
 
-            if (chartTreeList == null) return false;
-            string currentRowId = chartTreeList.GetFocusedRowCellValue("_id")?.ToString();
-            string accountNumber = chartTreeList.GetFocusedRowCellValue("AccountNumber")?.ToString();
-            if (string.IsNullOrEmpty(currentRowId)) return false;
-
-            if (_chartRepository.ValidateAccountInJournal(accountNumber))
+            if (gvProjectTypes == null || gvProjectTypes.SelectedRowsCount == 0) return false;
+            if (gvProjectTypes.SelectedRowsCount > 1)
             {
-                XtraMessageBox.Show($"There is one or more transaction related to `{accountNumber}`, cannot be deleted.",
+                XtraMessageBox.Show("Only one record can be selected at a time, please try again",
                     "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -283,120 +278,55 @@ namespace Spectrum.Views.Accounting.Charts
                 return false;
             }
 
-            if (HasTransactions()) return false;
-
             return true;
         }
 
-        private void ShowChartEditor(ChartModel model)
+        private void ShowProjectTypeEditor(ProjectTypeModel model)
         {
-            if (_chartEditForm == null || _chartEditForm.IsDisposed)
+            if (_projectTypeEditForm == null || _projectTypeEditForm.IsDisposed)
             {
-                _chartEditForm = new ChartEditForm(model);
-                _chartEditForm.SendUpdatedChartAccount += RcvUpdatedChartAsync;
-                _chartEditForm.FormClosed += ChartEditForm_FormClosed;
-                _chartEditForm.Show(this);
+                _projectTypeEditForm = new ProjectTypeEditForm(model);
+                _projectTypeEditForm.SendUpdatedProjectType += RcvUpdatedProjectTypeAsync;
+                _projectTypeEditForm.FormClosed += ProjectTypeEditForm_FormClosed;
+                _projectTypeEditForm.Show(this);
                 return;
             }
 
-            if (_chartEditForm.WindowState == FormWindowState.Minimized)
-                _chartEditForm.WindowState = FormWindowState.Normal;
+            if (_projectTypeEditForm.WindowState == FormWindowState.Minimized)
+                _projectTypeEditForm.WindowState = FormWindowState.Normal;
 
-            _chartEditForm.Activate();
-            _chartEditForm.BringToFront();
+            _projectTypeEditForm.Activate();
+            _projectTypeEditForm.BringToFront();
         }
 
-        private void ChartEditForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void ProjectTypeEditForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var form = sender as ChartEditForm;
+            var form = sender as ProjectTypeEditForm;
             if (form != null)
             {
-                form.SendUpdatedChartAccount -= RcvUpdatedChartAsync;
-                form.FormClosed -= ChartEditForm_FormClosed;
+                form.SendUpdatedProjectType -= RcvUpdatedProjectTypeAsync;
+                form.FormClosed -= ProjectTypeEditForm_FormClosed;
             }
-            if (ReferenceEquals(_chartEditForm, sender))
-                _chartEditForm = null;
+            if (ReferenceEquals(_projectTypeEditForm, sender))
+                _projectTypeEditForm = null;
         }
 
-        private void chartTreeList_RowCellStyle(object sender, RowCellStyleEventArgs e)
+        private void gvProjectTypes_RowCellStyle(object sender, RowCellStyleEventArgs e)
         {
             var view = sender as GridView;
             if (view == null || e.RowHandle < 0) return;
             bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
-            string type = view.GetRowCellValue(e.RowHandle, "Type")?.ToString();
+            bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
             if (!isActive)
             {
                 e.Appearance.ForeColor = Color.Gray;
                 e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
             }
-            if (string.Equals(type, "T", StringComparison.OrdinalIgnoreCase))
+            if (isDefault)
             {
                 e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
             }
-            else if (string.Equals(type, "R", StringComparison.OrdinalIgnoreCase))
-            {
-                e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Regular);
-            }
         }
 
-        private void ChartsListForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (!_resetMenu)
-            {
-                LayoutsStyle.SaveLayoutTreeList(chartTreeList, CurrentUser.UserName, CurrentUser.Company);
-            }
-        }
-
-        private bool HasTransactions()
-        {
-            try
-            {
-                //if (!_charts.Any()) return;
-
-                //int currentRowId = (int)chartTreeList.GetFocusedRowCellValue("Id");
-                //if (currentRowId == 0) return;
-
-                //_chartModel = _charts.SingleOrDefault(x => x.Id == currentRowId);
-                //if (_chartModel == null) return;
-
-                //var frm = new ChartEditForm(_chartModel);
-                //frm.SendUpdatedChartAccount += RcvUpdatedChartAccount;
-                //frm.ShowDialog();
-
-                if (!_charts.Any()) return false;
-
-                //_chartRepository.SelectChartsByNumber();
-
-                return false;
-            }
-            catch (Exception e)
-            {
-                XtraMessageBox.Show(e.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return false;
-        }
-
-        private void chartTreeList_NodeCellStyle(object sender, GetCustomNodeCellStyleEventArgs e)
-        {
-            // Check only the value of the row/node, not which column is currently painting
-            object statusValue = e.Node.GetValue("AccountType");
-
-            if (statusValue != null && statusValue.ToString() == "T")
-            {
-                e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
-            }
-
-
-            //if (e.Column.FieldName == "AccountType" && e.Node.GetValue("AccountType").ToString() == "T")
-            //{
-            //    e.Appearance.Font = new Font(e.Appearance.Font, FontStyle.Bold);
-            //}
-        }
-
-        private void btnMigrateCharts_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var form = new ChartMigrateForm();
-            form.ShowDialog();
-        }
     }
 }

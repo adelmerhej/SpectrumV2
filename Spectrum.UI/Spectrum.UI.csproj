@@ -529,6 +529,18 @@
     <Compile Include="Views\Projects\Reports\ProjectReportDesignerForm.Designer.cs">
       <DependentUpon>ProjectReportDesignerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Projects\Settings\ProjectTypes\ProjectTypeEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\Settings\ProjectTypes\ProjectTypeEditForm.Designer.cs">
+      <DependentUpon>ProjectTypeEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\Settings\ProjectTypes\ProjectTypesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\Settings\ProjectTypes\ProjectTypesListForm.Designer.cs">
+      <DependentUpon>ProjectTypesListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Reports\DocumentViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -570,6 +582,12 @@
     </Compile>
     <Compile Include="Views\Transactions\Statements\StatementOfAccountForm.Designer.cs">
       <DependentUpon>StatementOfAccountForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Upgrade\ChartMigrateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Upgrade\ChartMigrateForm.Designer.cs">
+      <DependentUpon>ChartMigrateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\ChangePasswordForm.cs">
       <SubType>Form</SubType>
@@ -828,6 +846,12 @@
     <EmbeddedResource Include="Views\Projects\ProjectsListForm.resx">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Projects\Settings\ProjectTypes\ProjectTypeEditForm.resx">
+      <DependentUpon>ProjectTypeEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Projects\Settings\ProjectTypes\ProjectTypesListForm.resx">
+      <DependentUpon>ProjectTypesListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Reports\DocumentViewerForm.resx">
       <DependentUpon>DocumentViewerForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -848,6 +872,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Transactions\Statements\StatementOfAccountForm.resx">
       <DependentUpon>StatementOfAccountForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Upgrade\ChartMigrateForm.resx">
+      <DependentUpon>ChartMigrateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Users\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
@@ -876,6 +903,7 @@
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkExperienceInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkingPermitInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Members.Suppliers.SupplierModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Operations.Projects.Settings.ProjectTypes.ProjectTypeModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.ContractDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.LocationInfoModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.ProjectModel.datasource" />

@@ -201,6 +201,7 @@
     <Compile Include="Operations\Projects\ProjectCostModel.cs" />
     <Compile Include="Operations\Projects\ProjectSimpleModel.cs" />
     <Compile Include="Operations\Projects\ProjectPaymentModel.cs" />
+    <Compile Include="Operations\Projects\Settings\ProjectTypes\ProjectTypeModel.cs" />
     <Compile Include="Operations\Projects\TimeEntryModel.cs" />
     <Compile Include="Projects\AddendumModel.cs" />
     <Compile Include="Projects\ContractDetailModel.cs" />
