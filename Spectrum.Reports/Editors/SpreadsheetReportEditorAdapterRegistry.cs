@@ -12,6 +12,9 @@ namespace Spectrum.Reports.Editors
         static SpreadsheetReportEditorAdapterRegistry()
         {
             Register(() => new OrderSpreadsheetReportEditorAdapter());
+            // DefaultSpreadsheetReportEditorAdapter is the generic fallback — registered last
+            // so module-specific adapters above always take precedence.
+            Register(() => new DefaultSpreadsheetReportEditorAdapter());
         }
 
         public static void Register(Func<ISpreadsheetReportEditorAdapter> factory)

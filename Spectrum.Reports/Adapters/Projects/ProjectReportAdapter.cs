@@ -1,4 +1,4 @@
-﻿using DevExpress.Spreadsheet;
+using DevExpress.Spreadsheet;
 using DevExpress.XtraSpreadsheet;
 using Spectrum.Models.Projects;
 using Spectrum.Reports.Common;
@@ -20,8 +20,8 @@ namespace Spectrum.Reports.Adapters.Projects
     /// CSV: full invoice listing.
     /// </summary>
     public class ProjectReportAdapter : ReportAdapterBase
-        , Spectrum.Reports.Interfaces.IWorksheetRequirements
         , IMultiRecordReportAdapter
+        , IEditableSheetProvider
     {
         private ProjectModel _project;
         private readonly IList<ProjectModel> _availableProjects;
@@ -51,12 +51,6 @@ namespace Spectrum.Reports.Adapters.Projects
             _project = ResolveProject(activeProject) ?? _selectedProjects.First();
             EnsureActiveProjectIsSelected();
             _invoiceBindingList = CreateInvoiceBindingList(_project.Invoices);
-        }
-
-        // IWorksheetRequirements
-        public IEnumerable<string> RequiredWorksheetNames()
-        {
-            return new[] { "Invoices", "Addendums" };
         }
 
         public override string Title
@@ -200,6 +194,12 @@ namespace Spectrum.Reports.Adapters.Projects
             var addendumsSheet = workbook.Worksheets.FirstOrDefault(ws => string.Equals(ws.Name, "Addendums", StringComparison.OrdinalIgnoreCase));
             if (addendumsSheet != null)
                 _project.Addendums = ReadAddendums(addendumsSheet);
+        }
+
+        public IEnumerable<string> GetEditableSheetNames()
+        {
+            yield return "Invoices";
+            yield return "Addendums";
         }
 
         public override IList<KeyValuePair<string, string>> GetSummaryFields()
@@ -824,46 +824,24 @@ namespace Spectrum.Reports.Adapters.Projects
             }
 
             int row = 3;
-            row = WriteDetailRow(worksheet, row, "Contract Number", cd?.ContractNumber);
-            row = WriteDetailRow(worksheet, row, "Contract File Link", cd?.ContractFileLink);
-            row = WriteDetailRow(worksheet, row, "Signature Date", cd?.SignatureDate);
-            row = WriteDetailRow(worksheet, row, "Contract Period", cd?.ContractPeriod);
-            row = WriteDetailRow(worksheet, row, "Extension Details", cd?.ExtensionDetails);
-            row = WriteDetailRow(worksheet, row, "Actual Completion Date", cd?.ActualCompletionDate);
-            row = WriteDetailRow(worksheet, row, "Client Contact Email", cd?.ClientContactEmail);
-            row = WriteDetailRow(worksheet, row, "Currency Code", cd?.CurrencyCode);
-            row = WriteDetailRow(worksheet, row, "Design Fee", cd?.DesignFee, "#,##0.00");
-            row = WriteDetailRow(worksheet, row, "Supervision Fee", cd?.SupervisionFee, "#,##0.00");
-            row = WriteDetailRow(worksheet, row, "Initial Contract Amount", cd?.InitialContractAmount, "#,##0.00");
-            row = WriteDetailRow(worksheet, row, "Retention %", cd?.RetentionPercentage, "#,##0.00");
-            row = WriteDetailRow(worksheet, row, "Initial VAT Amount", cd?.InitialVatAmount, "#,##0.00");
-            row = WriteDetailRow(worksheet, row, "Initial TTC Amount", cd?.InitialTtcAmount, "#,##0.00");
-
-            // Addendum details from ContractDetailModel
-            row++;
-            worksheet.Cells[row, 0].Value = "Addendum Details (Fixed)";
-            worksheet.Cells[row, 0].Font.Bold = true;
-            var addendumHeaderRange = worksheet.Range.FromLTRB(0, row, 1, row);
-            addendumHeaderRange.Fill.BackgroundColor = headerColor;
-            worksheet.Cells[row, 0].Font.Color = System.Drawing.Color.White;
-            row++;
-            row = WriteDetailRow(worksheet, row, "Addendum 1 Ref", cd?.Addendum1Ref);
-            row = WriteDetailRow(worksheet, row, "Addendum 1 Amount", cd?.Addendum1Amount, "#,##0.00");
-            row = WriteDetailRow(worksheet, row, "Addendum 1 VAT", cd?.Addendum1Vat, "#,##0.00");
-            row = WriteDetailRow(worksheet, row, "Addendum 1 TTC", cd?.Addendum1Ttc, "#,##0.00");
-            row = WriteDetailRow(worksheet, row, "Addendum 1 Board Date", cd?.Addendum1BoardDate);
-            row = WriteDetailRow(worksheet, row, "Addendum 2 Amount", cd?.Addendum2Amount, "#,##0.00");
-            row = WriteDetailRow(worksheet, row, "Addendum 2 VAT", cd?.Addendum2Vat, "#,##0.00");
-            row = WriteDetailRow(worksheet, row, "Addendum 2 TTC", cd?.Addendum2Ttc, "#,##0.00");
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Contract Number", cd?.ContractNumber);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Contract File Link", cd?.ContractFileLink);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Signature Date", cd?.SignatureDate);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Contract Period", cd?.ContractPeriod);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Extension Details", cd?.ExtensionDetails);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Actual Completion Date", cd?.ActualCompletionDate);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Client Contact Email", cd?.ClientContactEmail);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Currency Code", cd?.CurrencyCode);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Design Fee", cd?.DesignFee, "#,##0.00");
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Supervision Fee", cd?.SupervisionFee, "#,##0.00");
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Initial Contract Amount", cd?.InitialContractAmount, "#,##0.00");
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Retention %", cd?.RetentionPercentage, "#,##0.00");
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Initial VAT Amount", cd?.InitialVatAmount, "#,##0.00");
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Initial TTC Amount", cd?.InitialTtcAmount, "#,##0.00");
 
             worksheet.Columns.AutoFit(0, 1);
             worksheet.Columns[0].Width = 220;
             worksheet.Columns[1].Width = 280;
-        }
-
-        private int WriteDetailRow(Worksheet ws, int row, string label, object value, string numberFormat = null)
-        {
-            return ReportSpreadsheetHelper.WriteDetailRow(ws, row, label, value, numberFormat);
         }
 
         private void BuildInvoicesWorksheet(Worksheet worksheet)
@@ -1000,12 +978,12 @@ namespace Spectrum.Reports.Adapters.Projects
             warrantyRange.Fill.BackgroundColor = headerColor;
             row++;
 
-            row = WriteDetailRow(worksheet, row, "Warranty Reference", cd?.WarrantyReference);
-            row = WriteDetailRow(worksheet, row, "Warranty Amount", cd?.WarrantyAmount, "#,##0.00");
-            row = WriteDetailRow(worksheet, row, "Warranty Bank", cd?.WarrantyBank);
-            row = WriteDetailRow(worksheet, row, "Issuance Date", cd?.WarrantyIssuanceDate);
-            row = WriteDetailRow(worksheet, row, "Expiry Date", cd?.WarrantyExpiryDate);
-            row = WriteDetailRow(worksheet, row, "Warranty Status", cd?.WarrantyStatus);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Warranty Reference", cd?.WarrantyReference);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Warranty Amount", cd?.WarrantyAmount, "#,##0.00");
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Warranty Bank", cd?.WarrantyBank);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Issuance Date", cd?.WarrantyIssuanceDate);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Expiry Date", cd?.WarrantyExpiryDate);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Warranty Status", cd?.WarrantyStatus);
             row++;
 
             // Documents section
@@ -1017,16 +995,16 @@ namespace Spectrum.Reports.Adapters.Projects
             docsRange.Fill.BackgroundColor = headerColor;
             row++;
 
-            row = WriteDetailRow(worksheet, row, "Preliminary Handover Link", docs?.PreliminaryHandoverLink);
-            row = WriteDetailRow(worksheet, row, "Preliminary Handover Date", docs?.PreliminaryHandoverDate);
-            row = WriteDetailRow(worksheet, row, "Final Handover Link", docs?.FinalHandoverLink);
-            row = WriteDetailRow(worksheet, row, "Final Handover Date", docs?.FinalHandoverDate);
-            row = WriteDetailRow(worksheet, row, "Completion Certificate Link", docs?.CompletionCertificateLink);
-            row = WriteDetailRow(worksheet, row, "Completion Certificate Date", docs?.CompletionCertificateDate);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Preliminary Handover Link", docs?.PreliminaryHandoverLink);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Preliminary Handover Date", docs?.PreliminaryHandoverDate);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Final Handover Link", docs?.FinalHandoverLink);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Final Handover Date", docs?.FinalHandoverDate);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Completion Certificate Link", docs?.CompletionCertificateLink);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Completion Certificate Date", docs?.CompletionCertificateDate);
             row++;
 
             // Contract Link
-            row = WriteDetailRow(worksheet, row, "Contract Link", cd?.ContractFileLink);
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Contract Link", cd?.ContractFileLink);
 
             worksheet.Columns.AutoFit(0, 1);
             worksheet.Columns[0].Width = 220;
@@ -1042,19 +1020,19 @@ namespace Spectrum.Reports.Adapters.Projects
 
             for (int row = 2; row <= usedRange.BottomRowIndex; row++)
             {
-                if (string.Equals(GetCellText(worksheet, row, 1), "Totals", StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(ReportSpreadsheetHelper.GetCellText(worksheet, row, 1), "Totals", StringComparison.OrdinalIgnoreCase))
                     continue;
 
                 var invoice = new InvoiceModel
                 {
-                    InvoiceNumber = GetCellText(worksheet, row, 0),
-                    InvoiceDate = GetCellDate(worksheet, row, 1),
-                    Amount = GetCellDecimal(worksheet, row, 2),
-                    VAT = GetCellDecimal(worksheet, row, 3),
-                    Paid = GetCellBoolean(worksheet, row, 4),
-                    PaidAmount = GetCellDecimal(worksheet, row, 5),
-                    Bank = GetCellText(worksheet, row, 6),
-                    ProjectName = string.IsNullOrWhiteSpace(GetCellText(worksheet, row, 7)) ? _project.ProjectName : GetCellText(worksheet, row, 7)
+                    InvoiceNumber = ReportSpreadsheetHelper.GetCellText(worksheet, row, 0),
+                    InvoiceDate = ReportSpreadsheetHelper.GetCellDate(worksheet, row, 1),
+                    Amount = ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, 2),
+                    VAT = ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, 3),
+                    Paid = ReportSpreadsheetHelper.GetCellBoolean(worksheet, row, 4),
+                    PaidAmount = ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, 5),
+                    Bank = ReportSpreadsheetHelper.GetCellText(worksheet, row, 6),
+                    ProjectName = string.IsNullOrWhiteSpace(ReportSpreadsheetHelper.GetCellText(worksheet, row, 7)) ? _project.ProjectName : ReportSpreadsheetHelper.GetCellText(worksheet, row, 7)
                 };
 
                 if (string.IsNullOrWhiteSpace(invoice.InvoiceNumber)
@@ -1082,21 +1060,21 @@ namespace Spectrum.Reports.Adapters.Projects
 
             for (int row = 2; row <= usedRange.BottomRowIndex; row++)
             {
-                if (string.Equals(GetCellText(worksheet, row, 5), "Totals", StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(ReportSpreadsheetHelper.GetCellText(worksheet, row, 5), "Totals", StringComparison.OrdinalIgnoreCase))
                     continue;
 
                 var addendum = new AddendumModel
                 {
-                    Sequence = GetCellInt(worksheet, row, 0),
-                    Title = GetCellText(worksheet, row, 1),
-                    Reference = GetCellText(worksheet, row, 2),
-                    DecisionNo = GetCellText(worksheet, row, 3),
-                    BODDate = GetCellDate(worksheet, row, 4),
-                    EffectiveDate = GetCellDate(worksheet, row, 5),
-                    Amount = GetCellDecimal(worksheet, row, 6),
-                    VAT = GetCellDecimal(worksheet, row, 7),
-                    Retention = GetCellDecimal(worksheet, row, 8),
-                    TTC = GetCellDecimal(worksheet, row, 9)
+                    Sequence = ReportSpreadsheetHelper.GetCellInt(worksheet, row, 0),
+                    Title = ReportSpreadsheetHelper.GetCellText(worksheet, row, 1),
+                    Reference = ReportSpreadsheetHelper.GetCellText(worksheet, row, 2),
+                    DecisionNo = ReportSpreadsheetHelper.GetCellText(worksheet, row, 3),
+                    BODDate = ReportSpreadsheetHelper.GetCellDate(worksheet, row, 4),
+                    EffectiveDate = ReportSpreadsheetHelper.GetCellDate(worksheet, row, 5),
+                    Amount = ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, 6),
+                    VAT = ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, 7),
+                    Retention = ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, 8),
+                    TTC = ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, 9)
                 };
 
                 if (addendum.Sequence == 0
@@ -1117,31 +1095,6 @@ namespace Spectrum.Reports.Adapters.Projects
             }
 
             return addendums;
-        }
-
-        private static string GetCellText(Worksheet worksheet, int row, int column)
-        {
-            return ReportSpreadsheetHelper.GetCellText(worksheet, row, column);
-        }
-
-        private static DateTime? GetCellDate(Worksheet worksheet, int row, int column)
-        {
-            return ReportSpreadsheetHelper.GetCellDate(worksheet, row, column);
-        }
-
-        private static decimal? GetCellDecimal(Worksheet worksheet, int row, int column)
-        {
-            return ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, column);
-        }
-
-        private static int GetCellInt(Worksheet worksheet, int row, int column)
-        {
-            return ReportSpreadsheetHelper.GetCellInt(worksheet, row, column);
-        }
-
-        private static bool GetCellBoolean(Worksheet worksheet, int row, int column)
-        {
-            return ReportSpreadsheetHelper.GetCellBoolean(worksheet, row, column);
         }
     }
 }

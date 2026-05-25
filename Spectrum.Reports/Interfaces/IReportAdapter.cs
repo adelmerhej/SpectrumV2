@@ -16,6 +16,22 @@ namespace Spectrum.Reports.Interfaces
         IEnumerable<string> RequiredWorksheetNames();
     }
 
+    /// <summary>
+    /// Implemented by adapters that expose one or more spreadsheet sheets
+    /// whose rows can be added and removed interactively.
+    /// The <see cref="DefaultSpreadsheetReportEditorAdapter"/> uses this to
+    /// provide row-edit behaviour for any adapter without requiring a
+    /// bespoke <see cref="ISpreadsheetReportEditorAdapter"/> implementation.
+    /// </summary>
+    public interface IEditableSheetProvider
+    {
+        /// <summary>
+        /// Returns the names of sheets whose data rows may be added or removed.
+        /// Order is significant: the first name is treated as the primary sheet.
+        /// </summary>
+        IEnumerable<string> GetEditableSheetNames();
+    }
+
     public class GridColumnDescriptor
     {
         public string FieldName { get; set; }

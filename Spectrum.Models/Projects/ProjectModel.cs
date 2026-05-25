@@ -15,20 +15,20 @@ namespace Spectrum.Models.Projects
 		// References: Storing IDs for related collections (Area, Engineer, Client, etc.).
 		// Use string for MongoDB ObjectId references.
 
-		[BsonElement("Reference ")]                                 // "Project Reference "
+		[BsonElement("Reference")]                                  // "Project Reference"
 		public string Reference { get; set; }
 
 		[BsonElement("ProjectName")]                               // "Project Name"
 		public string ProjectName { get; set; }
 
-		[BsonElement("TentativeReference ")]                                 // "Tentative Project Reference "
+		[BsonElement("TentativeReference")]                               // "Tentative Project Reference"
 		public string TentativeReference { get; set; }
 
 		[BsonElement("ContractReferenceId")]                       // Optional Reference to the Quotation document
 		[BsonRepresentation(BsonType.ObjectId)]
 		public ObjectId? QuotationReferenceId { get; set; }
 
-		[BsonElement("Contract ")]                                 // "Quotation Reference "
+		[BsonElement("Contract")]                                   // "Quotation Reference"
 		public string Contract { get; set; }
 
 		public string JointVenture { get; set; }
@@ -37,20 +37,20 @@ namespace Spectrum.Models.Projects
 		[BsonRepresentation(BsonType.ObjectId)]
 		public ObjectId? ClientId { get; set; }
 
-		[BsonElement("ClientName ")]                                // denormalized client name
+		[BsonElement("ClientName")]                                 // denormalized client name
 		public string ClientName { get; set; }
 
 
 		[BsonElement("ContactId")]                                   // Optional ref to Clients Contact Collection
 		[BsonRepresentation(BsonType.ObjectId)]
 		public ObjectId? ContactId { get; set; }
-		[BsonElement("ClientContact ")]                                // denormalized client Contact
+		[BsonElement("ClientContact")]                               // denormalized client Contact
 		public string ClientContact { get; set; }
 
 
 		// Personnel / Ownership
 		//------------------------------------------------
-		[BsonElement("EngineerInCharge ")]                          // "Engineer in-charge"
+		[BsonElement("EngineerInCharge")]                           // "Engineer in-charge"
 		public string EngineerInCharge { get; set; }
 
 		[BsonElement("EngineerId")]                                 // optional ref to Engineers collection
@@ -59,7 +59,7 @@ namespace Spectrum.Models.Projects
 
 		// Personnel / Username
 		//------------------------------------------------
-		[BsonElement("Username ")]                          // "The user who created this record is responsible for assigning tasks."
+		[BsonElement("Username")]                           // "The user who created this record is responsible for assigning tasks."
 		public string Username { get; set; }
 
 		[BsonElement("UserId")]                                 // optional ref to first User in User collection
@@ -89,7 +89,7 @@ namespace Spectrum.Models.Projects
 
 		// Location
 		//------------------------------------------------
-		[BsonElement("Location ")]                                  // Location
+		[BsonElement("Location")]                                   // Location
 		public LocationInfoModel Location { get; set; } = new LocationInfoModel();
 
 		[BsonElement("Area")]
@@ -143,7 +143,7 @@ namespace Spectrum.Models.Projects
        // Dates & status
 		//------------------------------------------------
 
-        [BsonElement("YearOfIssuance ")]
+		[BsonElement("YearOfIssuance")]
 		[BsonRepresentation(BsonType.Int32)]
 		public int? YearOfIssuance { get; set; }                    // "Year of Issuance"
 

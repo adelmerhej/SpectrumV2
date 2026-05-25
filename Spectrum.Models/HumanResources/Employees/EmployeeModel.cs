@@ -74,28 +74,28 @@ namespace Spectrum.Models.HumanResources.Employees
         public bool LeftWork { get; set; }
 
         [BsonElement("ContactInfo")]
-        public EmployeeContactInfo ContactInfo { get; set; }
+        public EmployeeContactInfo ContactInfo { get; set; } = new EmployeeContactInfo();
 
         [BsonElement("EmergencyContact")]
-        public EmergencyContactInfo EmergencyContact { get; set; }
+        public EmergencyContactInfo EmergencyContact { get; set; } = new EmergencyContactInfo();
 
         [BsonElement("Cnss")]
-        public CnssInfo Cnss { get; set; }
+        public CnssInfo Cnss { get; set; } = new CnssInfo();
 
         [BsonElement("Syndicat")]
-        public SyndicatInfo Syndicat { get; set; }
+        public SyndicatInfo Syndicat { get; set; } = new SyndicatInfo();
 
         [BsonElement("WorkingPermit")]
-        public WorkingPermitInfo WorkingPermit { get; set; }
+        public WorkingPermitInfo WorkingPermit { get; set; } = new WorkingPermitInfo();
 
         [BsonElement("Financial")]
-        public FinancialInfo Financial { get; set; }
+        public FinancialInfo Financial { get; set; } = new FinancialInfo();
 
         [BsonElement("Education")]
         public List<EducationInfo> Education { get; set; } = new List<EducationInfo>();
 
         [BsonElement("WorkExperience")]
-        public WorkExperienceInfo WorkExperience { get; set; }
+        public WorkExperienceInfo WorkExperience { get; set; } = new WorkExperienceInfo();
 
         [BsonElement("DocumentLink")]
         public string DocumentLink { get; set; }

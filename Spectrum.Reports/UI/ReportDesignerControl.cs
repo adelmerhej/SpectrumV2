@@ -4,6 +4,7 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraSpreadsheet;
+using DevExpress.XtraTab;
 using Spectrum.Reports.Editors;
 using Spectrum.Reports.Interfaces;
 using Spectrum.Reports.Templates;
@@ -22,14 +23,14 @@ namespace Spectrum.Reports.UI
         private SpreadsheetReportEditorController _editorController;
         // Format painter state
         private bool _formatPainterActive = false;
-        private dynamic _formatSourceRange;
+        private CellRange _formatSourceRange;
         private DevExpress.Spreadsheet.Worksheet _formatSourceWorksheet;
 
         private bool _isSectionMode;
         private bool _handlingFieldTreeCheck;
         private bool _hasPendingDataChanges;
         private string _currentLayoutName;
-        private bool _recordSelectorVisible;
+        // _recordSelectorVisible is no longer the gating flag; the tab control handles visibility.
 
         /// <summary>Fires after changes are applied to the adapter model.</summary>
         public event EventHandler ModelChanged;
@@ -107,9 +108,10 @@ namespace Spectrum.Reports.UI
             {
                 _biToggleRecordSelector.Enabled = false;
                 _biApplyRecordSelection.Enabled = false;
-                _recordSelectorPanel.Visible = false;
+                _tabRecords.PageVisible = false;
                 return;
             }
+            _tabRecords.PageVisible = true;
 
             var available = multi.GetAvailableRecords();
             var selected = multi.GetSelectedRecords();
@@ -224,17 +226,22 @@ namespace Spectrum.Reports.UI
 
             XtraMessageBox.Show(
                 checkedItems.Count == 1
-                    ? "Active project: " + activeDescriptor.Caption
-                    : checkedItems.Count + " projects selected. Active: " + activeDescriptor.Caption,
+                    ? "Active record: " + activeDescriptor.Caption
+                    : checkedItems.Count + " records selected. Active: " + activeDescriptor.Caption,
                 "Record Selection Applied", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void OnToggleRecordSelectorClick(object sender, ItemClickEventArgs e)
         {
-            _recordSelectorVisible = !_recordSelectorVisible;
-            _recordSelectorPanel.Visible = _recordSelectorVisible;
-            _fieldListPanel.Visible = !_recordSelectorVisible;
-            _biToggleRecordSelector.Caption = _recordSelectorVisible ? "Field List" : "Select Records";
+            // Navigate to the Records tab (or back to Fields if already there)
+            bool goToRecords = _leftTabControl.SelectedTabPage != _tabRecords;
+            _leftTabControl.SelectedTabPage = goToRecords ? _tabRecords : _tabFields;
+            _biToggleRecordSelector.Down = goToRecords;
+            if (!_splitContainer.Panel1Collapsed)
+                return;
+            // Ensure the side panel is visible when navigating
+            _splitContainer.Panel1Collapsed = false;
+            _biToggleFieldList.Down = true;
         }
 
         private void OnApplyRecordSelectionClick(object sender, ItemClickEventArgs e)
@@ -643,6 +650,23 @@ namespace Spectrum.Reports.UI
             return list;
         }
 
+        /// <summary>
+        /// Returns the fields to act on for an insert-value operation:
+        /// checked fields when any are checked (section / multi-field mode),
+        /// otherwise the single selected node.
+        /// </summary>
+        private IList<FieldDescriptor> ResolveTargetFields()
+        {
+            var checked_ = GetCheckedFieldDescriptors();
+            if (checked_.Count > 0) return checked_;
+
+            var selected = GetSelectedFieldDescriptor();
+            if (selected != null)
+                return new List<FieldDescriptor> { selected };
+
+            return new List<FieldDescriptor>();
+        }
+
         private void OnFieldListAfterCheck(object sender, TreeViewEventArgs e)
         {
             if (_handlingFieldTreeCheck || !_isSectionMode || e.Node == null)
@@ -712,11 +736,11 @@ namespace Spectrum.Reports.UI
         /// </summary>
         private void InsertFieldValueOnly(FieldDescriptor fd)
         {
-            if (GetSelectedRecordCount() > 1)
+            if (GetSelectedRecordCount() > 1 && fd.HasSelectedRecordValues)
             {
                 // Ask the user for direction when multiple records are selected
                 var choice = XtraMessageBox.Show(
-                    "Multiple projects are selected.\n\nInsert values Horizontally (?) or Vertically (?)?",
+                    "Multiple records are selected.\n\nInsert values Horizontally (columns) or Vertically (rows)?",
                     "Insert Value Direction",
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question);
@@ -727,6 +751,7 @@ namespace Spectrum.Reports.UI
                     InsertMultiValueVertical(fd);
                 return;
             }
+            // Fall through to single-record path when no multi-record values available
 
             var ws = _spreadsheetControl.ActiveWorksheet;
             if (ws == null) return;
@@ -758,18 +783,32 @@ namespace Spectrum.Reports.UI
         /// </summary>
         private void InsertMultiValueHorizontal(FieldDescriptor fd)
         {
-            if (!fd.HasSelectedRecordValues) return;
-
             var ws = _spreadsheetControl.ActiveWorksheet;
             if (ws == null) return;
             var cell = _spreadsheetControl.SelectedCell;
             if (cell == null) return;
 
-            var multi = _currentAdapter as IMultiRecordReportAdapter;
-            int recordCount = multi != null ? multi.GetSelectedRecords().Count : 1;
-
             int startRow = cell.TopRowIndex;
             int startCol = cell.LeftColumnIndex;
+
+            if (!fd.HasSelectedRecordValues)
+            {
+                // Single-record fallback: insert value(s) at selected cell going right
+                if (fd.IsRowLevel && fd.RowCount > 0)
+                {
+                    for (int i = 0; i < fd.RowCount; i++)
+                        SetCellValue(ws, startRow, startCol + i, fd.GetRowValue(i), fd.FormatString);
+                }
+                else
+                {
+                    object val = fd.GetValue != null ? fd.GetValue() : null;
+                    SetCellValue(ws, startRow, startCol, val, fd.FormatString);
+                }
+                return;
+            }
+
+            var multi = _currentAdapter as IMultiRecordReportAdapter;
+            int recordCount = multi != null ? multi.GetSelectedRecords().Count : 1;
 
             if (fd.IsRowLevel)
             {
@@ -800,18 +839,32 @@ namespace Spectrum.Reports.UI
         /// </summary>
         private void InsertMultiValueVertical(FieldDescriptor fd)
         {
-            if (!fd.HasSelectedRecordValues) return;
-
             var ws = _spreadsheetControl.ActiveWorksheet;
             if (ws == null) return;
             var cell = _spreadsheetControl.SelectedCell;
             if (cell == null) return;
 
-            var multi = _currentAdapter as IMultiRecordReportAdapter;
-            int recordCount = multi != null ? multi.GetSelectedRecords().Count : 1;
-
             int startRow = cell.TopRowIndex;
             int startCol = cell.LeftColumnIndex;
+
+            if (!fd.HasSelectedRecordValues)
+            {
+                // Single-record fallback: insert value(s) at selected cell going down
+                if (fd.IsRowLevel && fd.RowCount > 0)
+                {
+                    for (int i = 0; i < fd.RowCount; i++)
+                        SetCellValue(ws, startRow + i, startCol, fd.GetRowValue(i), fd.FormatString);
+                }
+                else
+                {
+                    object val = fd.GetValue != null ? fd.GetValue() : null;
+                    SetCellValue(ws, startRow, startCol, val, fd.FormatString);
+                }
+                return;
+            }
+
+            var multi = _currentAdapter as IMultiRecordReportAdapter;
+            int recordCount = multi != null ? multi.GetSelectedRecords().Count : 1;
 
             if (fd.IsRowLevel)
             {
@@ -836,6 +889,118 @@ namespace Spectrum.Reports.UI
                 }
             }
         }
+
+        // ?? Value-only positional helpers ????????????????????????????????????????
+        // These mirror InsertFieldHorizontalAt / InsertFieldVerticalAt but write
+        // only the value (no label column).  They accept an explicit (row, col)
+        // anchor so the caller can advance the cursor across multiple fields.
+
+        /// <summary>
+        /// Writes only the value(s) for <paramref name="fd"/> at the given anchor,
+        /// going right across columns for multi-record scalar fields.
+        /// Returns the number of rows consumed so the caller can advance vertically.
+        /// </summary>
+        private int InsertValueOnlyHorizontalAt(FieldDescriptor fd, int row, int col, int recordCount)
+        {
+            var ws = _spreadsheetControl.ActiveWorksheet;
+            if (ws == null) return 1;
+
+            if (recordCount > 1 && fd.HasSelectedRecordValues)
+            {
+                if (fd.IsRowLevel)
+                {
+                    int maxRows = 0;
+                    for (int si = 0; si < recordCount; si++)
+                    {
+                        int rc = fd.GetSelectedRowCount != null ? fd.GetSelectedRowCount(si) : 0;
+                        if (rc > maxRows) maxRows = rc;
+                    }
+                    for (int ri = 0; ri < maxRows; ri++)
+                        for (int si = 0; si < recordCount; si++)
+                        {
+                            object val = fd.GetSelectedRowValue != null ? fd.GetSelectedRowValue(si, ri) : null;
+                            SetCellValue(ws, row + ri, col + si, val, fd.FormatString);
+                        }
+                    return maxRows > 0 ? maxRows : 1;
+                }
+                else
+                {
+                    for (int si = 0; si < recordCount; si++)
+                    {
+                        object val = fd.GetSelectedValue != null ? fd.GetSelectedValue(si) : null;
+                        SetCellValue(ws, row, col + si, val, fd.FormatString);
+                    }
+                    return 1;
+                }
+            }
+
+            // Single-record / no multi-record values
+            if (fd.IsRowLevel && fd.RowCount > 0)
+            {
+                for (int i = 0; i < fd.RowCount; i++)
+                    SetCellValue(ws, row + i, col, fd.GetRowValue(i), fd.FormatString);
+                return fd.RowCount;
+            }
+
+            object sval = fd.GetValue != null ? fd.GetValue() : null;
+            SetCellValue(ws, row, col, sval, fd.FormatString);
+            return 1;
+        }
+
+        /// <summary>
+        /// Writes only the value(s) for <paramref name="fd"/> at the given anchor,
+        /// going down rows for multi-record scalar fields.
+        /// Returns the number of columns consumed so the caller can advance horizontally.
+        /// </summary>
+        private int InsertValueOnlyVerticalAt(FieldDescriptor fd, int row, int col, int recordCount)
+        {
+            var ws = _spreadsheetControl.ActiveWorksheet;
+            if (ws == null) return 1;
+
+            if (recordCount > 1 && fd.HasSelectedRecordValues)
+            {
+                if (fd.IsRowLevel)
+                {
+                    int maxRows = 0;
+                    for (int si = 0; si < recordCount; si++)
+                    {
+                        int rc = fd.GetSelectedRowCount != null ? fd.GetSelectedRowCount(si) : 0;
+                        if (rc > maxRows) maxRows = rc;
+                    }
+                    for (int ri = 0; ri < maxRows; ri++)
+                        for (int si = 0; si < recordCount; si++)
+                        {
+                            object val = fd.GetSelectedRowValue != null ? fd.GetSelectedRowValue(si, ri) : null;
+                            SetCellValue(ws, row + ri, col + si, val, fd.FormatString);
+                        }
+                    // occupies recordCount columns
+                    return recordCount;
+                }
+                else
+                {
+                    for (int si = 0; si < recordCount; si++)
+                    {
+                        object val = fd.GetSelectedValue != null ? fd.GetSelectedValue(si) : null;
+                        SetCellValue(ws, row + si, col, val, fd.FormatString);
+                    }
+                    return 1;
+                }
+            }
+
+            // Single-record / no multi-record values
+            if (fd.IsRowLevel && fd.RowCount > 0)
+            {
+                for (int i = 0; i < fd.RowCount; i++)
+                    SetCellValue(ws, row + i, col, fd.GetRowValue(i), fd.FormatString);
+                return 1;
+            }
+
+            object sval = fd.GetValue != null ? fd.GetValue() : null;
+            SetCellValue(ws, row, col, sval, fd.FormatString);
+            return 1;
+        }
+
+        // ?????????????????????????????????????????????????????????????????????????
 
         /// <summary>
         /// Inserts the field label (bold) + value(s) in horizontal layout.
@@ -1028,7 +1193,7 @@ namespace Spectrum.Reports.UI
             }
         }
 
-        private void ApplyFormatting(dynamic source, dynamic target)
+        private void ApplyFormatting(CellRange source, CellRange target)
         {
             if (source == null || target == null) return;
             var doc = _spreadsheetControl.Document;
@@ -1046,16 +1211,11 @@ namespace Spectrum.Reports.UI
                         try
                         {
                             dstCell.Style = srcCell.Style;
-                        }
-                        catch
-                        {
-                            dstCell.Font.Assign(srcCell.Font);
-                            dstCell.Fill.Assign(srcCell.Fill);
-                            dstCell.Borders.Assign(srcCell.Borders);
                             dstCell.Alignment.Horizontal = srcCell.Alignment.Horizontal;
                             dstCell.Alignment.Vertical = srcCell.Alignment.Vertical;
                             dstCell.NumberFormat = srcCell.NumberFormat;
                         }
+                        catch { }
                     }
                 }
             }
@@ -1074,16 +1234,30 @@ namespace Spectrum.Reports.UI
 
         private static void SetCellValue(Worksheet ws, int row, int col, object value, string formatString)
         {
+            // Unwrap Nullable<T>
             if (value == null)
             {
                 ws.Cells[row, col].Value = string.Empty;
                 return;
             }
 
+            // Note: a boxed DateTime? is either null (caught above) or a plain boxed DateTime.
+            // No additional unwrapping is needed.
+
             if (value is DateTime dt)
             {
                 ws.Cells[row, col].Value = dt;
-                ws.Cells[row, col].NumberFormat = !string.IsNullOrEmpty(formatString) ? formatString : "yyyy-mm-dd";
+                // Resolve a proper Excel number-format string for date cells.
+                // "d"  is a .NET format specifier, not a valid Excel format code.
+                // Fall back to "dd/mm/yyyy" when format is null/empty/"d".
+                string dateFmt = formatString;
+                if (string.IsNullOrEmpty(dateFmt)
+                    || string.Equals(dateFmt, "d", StringComparison.OrdinalIgnoreCase)
+                    || string.Equals(dateFmt, "D", StringComparison.OrdinalIgnoreCase))
+                {
+                    dateFmt = "dd/mm/yyyy";
+                }
+                ws.Cells[row, col].NumberFormat = dateFmt;
             }
             else if (value is decimal dec)
             {
@@ -1140,38 +1314,92 @@ namespace Spectrum.Reports.UI
 
         private void OnInsertValueClick(object sender, ItemClickEventArgs e)
         {
-            var fd = GetSelectedFieldDescriptor();
-            if (fd == null)
+            var fields = ResolveTargetFields();
+            if (fields.Count == 0)
             {
-                XtraMessageBox.Show("Select a field from the Field List panel first.",
+                XtraMessageBox.Show("Select or check a field in the Field List panel first.",
                     "Insert Value", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            InsertFieldValueOnly(fd);
+
+            // Single field: use the original path (may show direction dialog for multi-record)
+            if (fields.Count == 1)
+            {
+                InsertFieldValueOnly(fields[0]);
+                return;
+            }
+
+            // Multiple fields: write each field's value on its own row (cursor advances downward).
+            // This is the value-only counterpart of Label?Value Horizontal layout.
+            var ws = _spreadsheetControl.ActiveWorksheet;
+            var cell = _spreadsheetControl.SelectedCell;
+            if (ws == null || cell == null) return;
+
+            int row = cell.TopRowIndex;
+            int col = cell.LeftColumnIndex;
+            int recordCount = GetSelectedRecordCount();
+
+            foreach (var fd in fields)
+            {
+                int usedRows = InsertValueOnlyHorizontalAt(fd, row, col, recordCount);
+                row += usedRows;
+            }
         }
 
         private void OnInsertValueHorizontalClick(object sender, ItemClickEventArgs e)
         {
-            var fd = GetSelectedFieldDescriptor();
-            if (fd == null)
+            var fields = ResolveTargetFields();
+            if (fields.Count == 0)
             {
-                XtraMessageBox.Show("Select a field from the Field List panel first.",
+                XtraMessageBox.Show("Select or check a field in the Field List panel first.",
                     "Insert Value Horizontal", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            InsertMultiValueHorizontal(fd);
+
+            var ws = _spreadsheetControl.ActiveWorksheet;
+            var cell = _spreadsheetControl.SelectedCell;
+            if (ws == null || cell == null) return;
+
+            int row = cell.TopRowIndex;
+            int col = cell.LeftColumnIndex;
+            int recordCount = GetSelectedRecordCount();
+
+            // Each field occupies one or more rows; advance the row cursor after each field.
+            // Multi-record scalar: values go right across columns on the same row.
+            // Row-level field:     values stack downward; cursor advances by row count.
+            foreach (var fd in fields)
+            {
+                int usedRows = InsertValueOnlyHorizontalAt(fd, row, col, recordCount);
+                row += usedRows;
+            }
         }
 
         private void OnInsertValueVerticalClick(object sender, ItemClickEventArgs e)
         {
-            var fd = GetSelectedFieldDescriptor();
-            if (fd == null)
+            var fields = ResolveTargetFields();
+            if (fields.Count == 0)
             {
-                XtraMessageBox.Show("Select a field from the Field List panel first.",
+                XtraMessageBox.Show("Select or check a field in the Field List panel first.",
                     "Insert Value Vertical", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            InsertMultiValueVertical(fd);
+
+            var ws = _spreadsheetControl.ActiveWorksheet;
+            var cell = _spreadsheetControl.SelectedCell;
+            if (ws == null || cell == null) return;
+
+            int row = cell.TopRowIndex;
+            int col = cell.LeftColumnIndex;
+            int recordCount = GetSelectedRecordCount();
+
+            // Each field occupies one column; advance the column cursor after each field.
+            // Multi-record scalar: values go down the column.
+            // Row-level field:     values stack downward in the same column.
+            foreach (var fd in fields)
+            {
+                int usedCols = InsertValueOnlyVerticalAt(fd, row, col, recordCount);
+                col += usedCols;
+            }
         }
 
         private void OnInsertHorizontalClick(object sender, ItemClickEventArgs e)
@@ -1228,7 +1456,7 @@ namespace Spectrum.Reports.UI
         private void OnToggleSectionModeClick(object sender, ItemClickEventArgs e)
         {
             _isSectionMode = !_isSectionMode;
-            _biSectionMode.Caption = _isSectionMode ? "Section Mode: ON" : "Add Section Mode";
+            _biSectionMode.Down = _isSectionMode;
             _fieldListTree.CheckBoxes = _isSectionMode;
 
             if (!_isSectionMode)
@@ -1403,6 +1631,7 @@ namespace Spectrum.Reports.UI
         private void OnToggleFieldListClick(object sender, ItemClickEventArgs e)
         {
             _splitContainer.Panel1Collapsed = !_splitContainer.Panel1Collapsed;
+            _biToggleFieldList.Down = !_splitContainer.Panel1Collapsed;
         }
 
         private void OnSaveLayoutClick(object sender, ItemClickEventArgs e)
@@ -1442,13 +1671,28 @@ namespace Spectrum.Reports.UI
 
         private void MarkEditableSheetAsDirty(Worksheet worksheet)
         {
-            if (worksheet == null)
+            if (worksheet == null || _currentAdapter == null)
                 return;
 
-            if (!string.Equals(worksheet.Name, "Invoices", StringComparison.OrdinalIgnoreCase)
-                && !string.Equals(worksheet.Name, "Addendums", StringComparison.OrdinalIgnoreCase))
+            var editableProvider = _currentAdapter as Interfaces.IEditableSheetProvider;
+            if (editableProvider != null)
+            {
+                var names = editableProvider.GetEditableSheetNames();
+                if (names != null)
+                {
+                    foreach (var name in names)
+                    {
+                        if (string.Equals(worksheet.Name, name, StringComparison.OrdinalIgnoreCase))
+                        {
+                            _hasPendingDataChanges = true;
+                            return;
+                        }
+                    }
+                }
                 return;
+            }
 
+            // Fallback: any cell edit is a pending change if no editable-sheet contract
             _hasPendingDataChanges = true;
         }
 
@@ -1476,6 +1720,11 @@ namespace Spectrum.Reports.UI
             _biToggleFieldList.Enabled = hasAdapter;
             _biToggleRecordSelector.Enabled = isMulti;
             _biApplyRecordSelection.Enabled = isMulti;
+
+            // Sync visual Down states
+            _biToggleFieldList.Down = hasAdapter && !_splitContainer.Panel1Collapsed;
+            _biSectionMode.Down = _isSectionMode;
+            _biToggleRecordSelector.Down = isMulti && _leftTabControl.SelectedTabPage == _tabRecords;
         }
 
         #endregion
@@ -1495,14 +1744,19 @@ namespace Spectrum.Reports.UI
             _currentLayoutName = null;
             _isSectionMode = false;
             _hasPendingDataChanges = false;
-            _recordSelectorVisible = false;
 
             _fieldListTree.Nodes.Clear();
             _summaryPanel.Controls.Clear();
             _recordSelectorList.Items.Clear();
             _activeRecordCombo.Properties.Items.Clear();
-            _recordSelectorPanel.Visible = false;
-            _fieldListPanel.Visible = true;
+
+            // Reset tab to Fields and hide Records tab until an adapter is loaded
+            _leftTabControl.SelectedTabPage = _tabFields;
+            _tabRecords.PageVisible = false;
+
+            // Reset button Down states
+            _biSectionMode.Down = false;
+            _biToggleRecordSelector.Down = false;
         }
 
         #endregion

@@ -9,22 +9,28 @@ using System.Windows.Forms;
 namespace Spectrum.Reports.Editors
 {
     /// <summary>
-    /// Spreadsheet editor adapter for project-order adapters.
-    /// Editable sheet names are resolved at runtime via <see cref="IEditableSheetProvider"/>
-    /// rather than being hard-coded, so this adapter works for any adapter that
-    /// declares its editable sheets through that interface.
+    /// Generic fallback <see cref="ISpreadsheetReportEditorAdapter"/> that drives
+    /// row add/remove behaviour for any adapter that implements
+    /// <see cref="IEditableSheetProvider"/>.
+    ///
+    /// Modules that expose editable sheets via <see cref="IEditableSheetProvider"/>
+    /// automatically receive interactive row editing without requiring a bespoke
+    /// adapter implementation.
     /// </summary>
-    public sealed class OrderSpreadsheetReportEditorAdapter : ISpreadsheetReportEditorAdapter
+    public sealed class DefaultSpreadsheetReportEditorAdapter : ISpreadsheetReportEditorAdapter
     {
         private SpreadsheetControl _spreadsheetControl;
-        private IReportAdapter _reportAdapter;
+        private IEditableSheetProvider _sheetProvider;
         private HashSet<string> _editableSheets;
 
         public string Name
         {
-            get { return "Order Spreadsheet Adapter"; }
+            get { return "Default Spreadsheet Adapter"; }
         }
 
+        /// <summary>
+        /// Handles any adapter that implements <see cref="IEditableSheetProvider"/>.
+        /// </summary>
         public bool CanHandle(IReportAdapter reportAdapter)
         {
             return reportAdapter is IEditableSheetProvider;
@@ -33,13 +39,12 @@ namespace Spectrum.Reports.Editors
         public void Initialize(SpreadsheetControl spreadsheetControl, IReportAdapter reportAdapter)
         {
             _spreadsheetControl = spreadsheetControl;
-            _reportAdapter = reportAdapter;
+            _sheetProvider = reportAdapter as IEditableSheetProvider;
 
             _editableSheets = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            var provider = reportAdapter as IEditableSheetProvider;
-            if (provider != null)
+            if (_sheetProvider != null)
             {
-                foreach (var name in provider.GetEditableSheetNames())
+                foreach (var name in _sheetProvider.GetEditableSheetNames())
                     _editableSheets.Add(name);
             }
         }
@@ -49,7 +54,6 @@ namespace Spectrum.Reports.Editors
             if (_spreadsheetControl == null) return false;
             var sheet = _spreadsheetControl.ActiveWorksheet;
             if (sheet == null) return false;
-
             if (!_editableSheets.Contains(sheet.Name)) return false;
 
             var used = sheet.GetUsedRange();

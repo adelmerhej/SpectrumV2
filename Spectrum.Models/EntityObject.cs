@@ -37,11 +37,9 @@ namespace Spectrum.Models
 		public bool Deleted { get; set; } = false;
 
 
-		private static PropertyChangingEventArgs _emptyChangingEventArgs = new PropertyChangingEventArgs(string.Empty);
+		private static readonly PropertyChangingEventArgs _emptyChangingEventArgs = new PropertyChangingEventArgs(string.Empty);
 
 		#region Implementation of INotifyProperty EventHandler
-
-		//
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -58,21 +56,11 @@ namespace Spectrum.Models
 			return true;
 		}
 
-		//
-
 		public event PropertyChangingEventHandler PropertyChanging;
+
 		protected virtual void SendPropertyChanging()
 		{
-			if (PropertyChanging == null)
-				return;
-			PropertyChanging(this, _emptyChangingEventArgs);
-		}
-
-		protected virtual void SendPropertyChanged(string propertyName)
-		{
-			if (PropertyChanged == null)
-				return;
-			PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			PropertyChanging?.Invoke(this, _emptyChangingEventArgs);
 		}
 
 

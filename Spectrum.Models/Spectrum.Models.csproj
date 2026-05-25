@@ -208,6 +208,7 @@
     <Compile Include="Projects\ProjectDocumentsModel.cs" />
     <Compile Include="Projects\ProjectModel.cs" />
     <Compile Include="Projects\Serializers\SafeInt32Serializer.cs" />
+    <Compile Include="Projects\Serializers\SafeObjectIdSerializer.cs" />
     <Compile Include="Projects\WarrantyInfoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\CurrentUser.cs" />

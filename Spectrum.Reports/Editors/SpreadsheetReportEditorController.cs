@@ -4,8 +4,6 @@ using DevExpress.XtraSpreadsheet;
 using Spectrum.Reports.Interfaces;
 using System;
 using System.IO;
-using System.Linq;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Spectrum.Reports.Editors
@@ -57,61 +55,6 @@ namespace Spectrum.Reports.Editors
         public void ApplyChanges()
         {
             CloseInplaceEditor();
-            // If the adapter declares required worksheets, ensure they exist or prompt the user
-            if (_reportAdapter is Spectrum.Reports.Interfaces.IWorksheetRequirements req)
-            {
-                var required = req.RequiredWorksheetNames() ?? new List<string>();
-                var workbook = _spreadsheetControl.Document;
-                var missing = required.Where(r => !workbook.Worksheets.Cast<DevExpress.Spreadsheet.Worksheet>().Any(ws => string.Equals(ws.Name, r, StringComparison.OrdinalIgnoreCase))).ToList();
-                if (missing.Count > 0)
-                {
-                    var msg = "The current layout is missing required sheets: " + string.Join(", ", missing) + ".\n\n" +
-                        "Choose 'Create' to add empty sheets with the required names, 'Load Default' to replace the workbook with the adapter's default layout, or 'Cancel' to abort saving.";
-                    var result = XtraMessageBox.Show(msg, "Missing Sheets", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
-                    // Map: Yes = Create, No = Load Default, Cancel = abort
-                    if (result == DialogResult.Cancel)
-                        return;
-                    if (result == DialogResult.No)
-                    {
-                        // Load adapter's default workbook stream (replace current document)
-                        try
-                        {
-                            string format;
-                            using (var stream = _reportAdapter.GetSpreadsheetStream(out format))
-                            {
-                                if (stream != null)
-                                {
-                                    var docFormat = string.Equals(format, "xlsx", StringComparison.OrdinalIgnoreCase) ? DevExpress.Spreadsheet.DocumentFormat.Xlsx : DevExpress.Spreadsheet.DocumentFormat.Csv;
-                                    _spreadsheetControl.LoadDocument(stream, docFormat);
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            XtraMessageBox.Show("Failed to load default layout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                    }
-                    else if (result == DialogResult.Yes)
-                    {
-                        // Create empty sheets for missing names
-                        try
-                        {
-                            foreach (var name in missing)
-                            {
-                                // only add if still missing (race)
-                                if (!workbook.Worksheets.Cast<DevExpress.Spreadsheet.Worksheet>().Any(ws => string.Equals(ws.Name, name, StringComparison.OrdinalIgnoreCase)))
-                                    workbook.Worksheets.Add(name);
-                            }
-                        }
-                        catch
-                        {
-                            XtraMessageBox.Show("Failed to create sheets.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                    }
-                }
-            }
             _reportAdapter?.ApplySpreadsheetChanges(_spreadsheetControl.Document);
             _reportAdapter?.Recalculate();
             CaptureCheckpoint();
