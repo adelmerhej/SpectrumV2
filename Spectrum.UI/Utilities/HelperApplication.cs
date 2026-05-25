@@ -374,7 +374,7 @@ namespace Spectrum.Utilities
 					companyRepo.AddNewCompanyAsync(defaultCompany).Wait();
 				}
 
-				//2- Check collection Companies and add default if empty
+				//2- Check collection Branches and add default if empty
 				var branchRepo = new DataLayers.Common.Branches.BranchRepository(DatabaseFactory.ProfilePrimary);
 				var branchCount = branchRepo.GetCountAsync().Result;
 				if (branchCount == 0)

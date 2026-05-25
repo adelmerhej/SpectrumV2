@@ -7,7 +7,6 @@ namespace Spectrum.Models.Common.Areas
 	{
 		[BsonElement("AreaName")]
 		public string AreaName { get; set; }
-		public string AreaCode { get; set; }
 
 		#region Implementation of ICloneable
 

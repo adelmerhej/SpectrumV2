@@ -42,6 +42,19 @@ namespace Spectrum.DataLayers.Common.Currencies
 			return await _currenciesExchange.Find(filter).FirstOrDefaultAsync();
 		}
 
+		public async Task<CurrencyExchangeModel> GetLatestExchangeByCurrencyAsync(string currencyId, DateTime exchangeDate)
+		{
+			if (string.IsNullOrWhiteSpace(currencyId)) return null;
+
+			var currencyFilter = Builders<CurrencyExchangeModel>.Filter.Eq(u => u.Currency, currencyId);
+			var dateFilter = Builders<CurrencyExchangeModel>.Filter.Lte(u => u.ExchangeDate, exchangeDate.Date);
+			var filter = Builders<CurrencyExchangeModel>.Filter.And(currencyFilter, dateFilter);
+
+			return await _currenciesExchange.Find(filter)
+				.SortByDescending(u => u.ExchangeDate)
+				.FirstOrDefaultAsync();
+		}
+
 		/// <summary>
 		/// Adds a new currencyExchange to the database.
 		/// </summary>

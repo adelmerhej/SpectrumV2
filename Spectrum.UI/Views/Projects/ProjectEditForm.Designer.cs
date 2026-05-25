@@ -12,22 +12,22 @@
 		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectEditForm));
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup3 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges3 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges4 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup4 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem7 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem8 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem9 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem10 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem11 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem12 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.Utils.ContextButton contextButton2 = new DevExpress.Utils.ContextButton();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup5 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges5 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges6 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup6 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem13 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem14 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem15 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem16 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem17 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem18 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.Utils.ContextButton contextButton1 = new DevExpress.Utils.ContextButton();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             this.bsProject = new System.Windows.Forms.BindingSource(this.components);
             this.rcMain = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
@@ -109,12 +109,11 @@
             this.gridColumn20 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.cboLocations = new DevExpress.XtraEditors.SearchLookUpEdit();
             this.gridViewLocations = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridLocationCode = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridLocationName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.cboAreas = new DevExpress.XtraEditors.SearchLookUpEdit();
             this.gridViewAreas = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridAreaId = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridAreaCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridAreaName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.lblCity = new DevExpress.XtraEditors.LabelControl();
             this.lblCountry = new DevExpress.XtraEditors.LabelControl();
@@ -315,10 +314,10 @@
             this.layoutControlGroup5 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.lblAddFiles = new DevExpress.XtraLayout.LayoutControlItem();
-            this.tabManagementStat = new DevExpress.XtraBars.Navigation.TabNavigationPage();
+            this.tabAddendum = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.layoutSalesManagement = new DevExpress.XtraLayout.LayoutControl();
-            this.gridControl2 = new DevExpress.XtraGrid.GridControl();
-            this.gridView10 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gcAddendum = new DevExpress.XtraGrid.GridControl();
+            this.gvAddendum = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.repositoryItemCheckEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.layoutControlGroup6 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -475,11 +474,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAddFiles)).BeginInit();
-            this.tabManagementStat.SuspendLayout();
+            this.tabAddendum.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutSalesManagement)).BeginInit();
             this.layoutSalesManagement.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcAddendum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvAddendum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
@@ -671,16 +670,16 @@
             // 
             this.galleryQuickLetters.Gallery.ColumnCount = 2;
             this.galleryQuickLetters.Gallery.DrawImageBackground = false;
-            galleryItemGroup3.Caption = "Group1";
+            galleryItemGroup5.Caption = "Group1";
             this.galleryQuickLetters.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup3});
+            galleryItemGroup5});
             this.galleryQuickLetters.Gallery.ItemImageLocation = DevExpress.Utils.Locations.Left;
-            skinPaddingEdges3.Bottom = -4;
-            skinPaddingEdges3.Top = -4;
-            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges3;
-            skinPaddingEdges4.Bottom = -1;
-            skinPaddingEdges4.Top = -1;
-            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges4;
+            skinPaddingEdges5.Bottom = -4;
+            skinPaddingEdges5.Top = -4;
+            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges5;
+            skinPaddingEdges6.Bottom = -1;
+            skinPaddingEdges6.Top = -1;
+            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges6;
             this.galleryQuickLetters.Gallery.ShowItemText = true;
             this.galleryQuickLetters.Id = 14;
             this.galleryQuickLetters.Name = "galleryQuickLetters";
@@ -720,41 +719,41 @@
             // 
             this.rgJobStatusAction.Gallery.ColumnCount = 3;
             this.rgJobStatusAction.Gallery.DrawImageBackground = false;
-            galleryItemGroup4.Caption = "ActionGroup";
-            galleryItem7.Caption = "Active";
-            galleryItem7.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
-            galleryItem7.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem7.Value = 0;
-            galleryItem8.Caption = "Close current Project";
-            galleryItem8.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage1")));
-            galleryItem8.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem8.Value = 1;
-            galleryItem9.Caption = "Edit closed Project";
-            galleryItem9.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage2")));
-            galleryItem9.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem9.Value = 2;
-            galleryItem10.Caption = "Cancel current Project";
-            galleryItem10.Checked = true;
-            galleryItem10.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage3")));
-            galleryItem10.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem10.Value = 3;
-            galleryItem11.Caption = "ReOpen canceled Project";
-            galleryItem11.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage4")));
-            galleryItem11.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem11.Value = 4;
-            galleryItem12.Caption = "N/A";
-            galleryItem12.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage5")));
-            galleryItem12.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem12.Value = 5;
-            galleryItemGroup4.Items.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItem[] {
-            galleryItem7,
-            galleryItem8,
-            galleryItem9,
-            galleryItem10,
-            galleryItem11,
-            galleryItem12});
+            galleryItemGroup6.Caption = "ActionGroup";
+            galleryItem13.Caption = "Active";
+            galleryItem13.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
+            galleryItem13.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem13.Value = 0;
+            galleryItem14.Caption = "Close current Project";
+            galleryItem14.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage1")));
+            galleryItem14.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem14.Value = 1;
+            galleryItem15.Caption = "Edit closed Project";
+            galleryItem15.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage2")));
+            galleryItem15.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem15.Value = 2;
+            galleryItem16.Caption = "Cancel current Project";
+            galleryItem16.Checked = true;
+            galleryItem16.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage3")));
+            galleryItem16.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem16.Value = 3;
+            galleryItem17.Caption = "ReOpen canceled Project";
+            galleryItem17.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage4")));
+            galleryItem17.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem17.Value = 4;
+            galleryItem18.Caption = "N/A";
+            galleryItem18.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage5")));
+            galleryItem18.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem18.Value = 5;
+            galleryItemGroup6.Items.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItem[] {
+            galleryItem13,
+            galleryItem14,
+            galleryItem15,
+            galleryItem16,
+            galleryItem17,
+            galleryItem18});
             this.rgJobStatusAction.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup4});
+            galleryItemGroup6});
             this.rgJobStatusAction.Gallery.ItemCheckMode = DevExpress.XtraBars.Ribbon.Gallery.ItemCheckMode.SingleCheck;
             this.rgJobStatusAction.Gallery.ItemImageLocation = DevExpress.Utils.Locations.Left;
             this.rgJobStatusAction.Gallery.ShowItemText = true;
@@ -1092,79 +1091,79 @@
             // txtNotes
             // 
             this.txtNotes.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsProject, "Notes", true));
-            this.txtNotes.Location = new System.Drawing.Point(948, 267);
+            this.txtNotes.Location = new System.Drawing.Point(943, 267);
             this.txtNotes.MenuManager = this.rcMain;
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(408, 119);
+            this.txtNotes.Size = new System.Drawing.Size(417, 121);
             this.txtNotes.StyleController = this.mainLayout;
             this.txtNotes.TabIndex = 24;
             // 
             // txtProfitLL
             // 
-            this.txtProfitLL.Location = new System.Drawing.Point(1236, 158);
+            this.txtProfitLL.Location = new System.Drawing.Point(1232, 159);
             this.txtProfitLL.MenuManager = this.rcMain;
             this.txtProfitLL.Name = "txtProfitLL";
             this.txtProfitLL.Properties.ReadOnly = true;
-            this.txtProfitLL.Size = new System.Drawing.Size(106, 22);
+            this.txtProfitLL.Size = new System.Drawing.Size(116, 22);
             this.txtProfitLL.StyleController = this.mainLayout;
             this.txtProfitLL.TabIndex = 23;
             // 
             // txtBalanceUSD
             // 
-            this.txtBalanceUSD.Location = new System.Drawing.Point(962, 158);
+            this.txtBalanceUSD.Location = new System.Drawing.Point(955, 159);
             this.txtBalanceUSD.MenuManager = this.rcMain;
             this.txtBalanceUSD.Name = "txtBalanceUSD";
             this.txtBalanceUSD.Properties.ReadOnly = true;
-            this.txtBalanceUSD.Size = new System.Drawing.Size(141, 22);
+            this.txtBalanceUSD.Size = new System.Drawing.Size(151, 22);
             this.txtBalanceUSD.StyleController = this.mainLayout;
             this.txtBalanceUSD.TabIndex = 22;
             // 
             // txtTotalInvoicesUSD
             // 
-            this.txtTotalInvoicesUSD.Location = new System.Drawing.Point(962, 68);
+            this.txtTotalInvoicesUSD.Location = new System.Drawing.Point(955, 62);
             this.txtTotalInvoicesUSD.MenuManager = this.rcMain;
             this.txtTotalInvoicesUSD.Name = "txtTotalInvoicesUSD";
             this.txtTotalInvoicesUSD.Properties.ReadOnly = true;
-            this.txtTotalInvoicesUSD.Size = new System.Drawing.Size(141, 22);
+            this.txtTotalInvoicesUSD.Size = new System.Drawing.Size(151, 22);
             this.txtTotalInvoicesUSD.StyleController = this.mainLayout;
             this.txtTotalInvoicesUSD.TabIndex = 20;
             // 
             // txtTotalInvoicesLL
             // 
-            this.txtTotalInvoicesLL.Location = new System.Drawing.Point(1236, 68);
+            this.txtTotalInvoicesLL.Location = new System.Drawing.Point(1232, 62);
             this.txtTotalInvoicesLL.MenuManager = this.rcMain;
             this.txtTotalInvoicesLL.Name = "txtTotalInvoicesLL";
             this.txtTotalInvoicesLL.Properties.ReadOnly = true;
-            this.txtTotalInvoicesLL.Size = new System.Drawing.Size(106, 22);
+            this.txtTotalInvoicesLL.Size = new System.Drawing.Size(116, 22);
             this.txtTotalInvoicesLL.StyleController = this.mainLayout;
             this.txtTotalInvoicesLL.TabIndex = 19;
             // 
             // txtTotalExpensesUSD
             // 
-            this.txtTotalExpensesUSD.Location = new System.Drawing.Point(962, 94);
+            this.txtTotalExpensesUSD.Location = new System.Drawing.Point(955, 88);
             this.txtTotalExpensesUSD.MenuManager = this.rcMain;
             this.txtTotalExpensesUSD.Name = "txtTotalExpensesUSD";
             this.txtTotalExpensesUSD.Properties.ReadOnly = true;
-            this.txtTotalExpensesUSD.Size = new System.Drawing.Size(141, 22);
+            this.txtTotalExpensesUSD.Size = new System.Drawing.Size(151, 22);
             this.txtTotalExpensesUSD.StyleController = this.mainLayout;
             this.txtTotalExpensesUSD.TabIndex = 18;
             // 
             // txtTotalExpensesLL
             // 
-            this.txtTotalExpensesLL.Location = new System.Drawing.Point(1236, 94);
+            this.txtTotalExpensesLL.Location = new System.Drawing.Point(1232, 88);
             this.txtTotalExpensesLL.MenuManager = this.rcMain;
             this.txtTotalExpensesLL.Name = "txtTotalExpensesLL";
             this.txtTotalExpensesLL.Properties.ReadOnly = true;
-            this.txtTotalExpensesLL.Size = new System.Drawing.Size(106, 22);
+            this.txtTotalExpensesLL.Size = new System.Drawing.Size(116, 22);
             this.txtTotalExpensesLL.StyleController = this.mainLayout;
             this.txtTotalExpensesLL.TabIndex = 17;
             // 
             // grpProjectInformation
             // 
-            this.grpProjectInformation.Location = new System.Drawing.Point(14, 14);
+            this.grpProjectInformation.Location = new System.Drawing.Point(12, 12);
             this.grpProjectInformation.Name = "grpProjectInformation";
             this.grpProjectInformation.SelectedTabPage = this.tabProjectInformation;
-            this.grpProjectInformation.Size = new System.Drawing.Size(815, 386);
+            this.grpProjectInformation.Size = new System.Drawing.Size(817, 388);
             this.grpProjectInformation.TabIndex = 16;
             this.grpProjectInformation.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.tabProjectInformation,
@@ -1175,7 +1174,7 @@
             // 
             this.tabProjectInformation.Controls.Add(this.projectInfoLayout);
             this.tabProjectInformation.Name = "tabProjectInformation";
-            this.tabProjectInformation.Size = new System.Drawing.Size(813, 356);
+            this.tabProjectInformation.Size = new System.Drawing.Size(815, 358);
             this.tabProjectInformation.Text = "Project Information";
             // 
             // projectInfoLayout
@@ -1185,7 +1184,7 @@
             this.projectInfoLayout.Location = new System.Drawing.Point(0, 0);
             this.projectInfoLayout.Name = "projectInfoLayout";
             this.projectInfoLayout.Root = this.layoutControlGroup7;
-            this.projectInfoLayout.Size = new System.Drawing.Size(813, 356);
+            this.projectInfoLayout.Size = new System.Drawing.Size(815, 358);
             this.projectInfoLayout.TabIndex = 0;
             this.projectInfoLayout.Text = "layoutControl1";
             // 
@@ -1236,7 +1235,7 @@
             new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 50F),
             new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 50F),
             new DevExpress.Utils.Layout.TablePanelRow(DevExpress.Utils.Layout.TablePanelEntityStyle.Relative, 50F)});
-            this.tablePanel1.Size = new System.Drawing.Size(785, 328);
+            this.tablePanel1.Size = new System.Drawing.Size(787, 330);
             this.tablePanel1.TabIndex = 4;
             this.tablePanel1.UseSkinIndents = true;
             // 
@@ -1244,7 +1243,7 @@
             // 
             this.tablePanel1.SetColumn(this.cboCities, 5);
             this.cboCities.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsLocationInfo, "City", true));
-            this.cboCities.Location = new System.Drawing.Point(648, 288);
+            this.cboCities.Location = new System.Drawing.Point(649, 289);
             this.cboCities.MenuManager = this.rcMain;
             this.cboCities.Name = "cboCities";
             this.cboCities.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1293,7 +1292,7 @@
             // 
             this.tablePanel1.SetColumn(this.cboCountries, 1);
             this.cboCountries.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsLocationInfo, "Country", true));
-            this.cboCountries.Location = new System.Drawing.Point(142, 288);
+            this.cboCountries.Location = new System.Drawing.Point(142, 289);
             this.cboCountries.MenuManager = this.rcMain;
             this.cboCountries.Name = "cboCountries";
             this.cboCountries.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1338,7 +1337,7 @@
             // 
             this.tablePanel1.SetColumn(this.cboLocations, 5);
             this.cboLocations.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsLocationInfo, "RawLocation", true));
-            this.cboLocations.Location = new System.Drawing.Point(648, 256);
+            this.cboLocations.Location = new System.Drawing.Point(649, 256);
             this.cboLocations.MenuManager = this.rcMain;
             this.cboLocations.Name = "cboLocations";
             this.cboLocations.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1347,7 +1346,7 @@
             this.cboLocations.Properties.NullText = "";
             this.cboLocations.Properties.PopupView = this.gridViewLocations;
             this.cboLocations.Properties.ShowAddNewButton = true;
-            this.cboLocations.Properties.ValueMember = "_id";
+            this.cboLocations.Properties.ValueMember = "LocationName";
             this.tablePanel1.SetRow(this.cboLocations, 7);
             this.cboLocations.Size = new System.Drawing.Size(123, 22);
             this.cboLocations.TabIndex = 25;
@@ -1357,20 +1356,18 @@
             // gridViewLocations
             // 
             this.gridViewLocations.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridLocationCode,
+            this.gridColumn3,
             this.gridLocationName});
             this.gridViewLocations.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridViewLocations.Name = "gridViewLocations";
             this.gridViewLocations.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridViewLocations.OptionsView.ShowGroupPanel = false;
             // 
-            // gridLocationCode
+            // gridColumn3
             // 
-            this.gridLocationCode.Caption = "Location Code";
-            this.gridLocationCode.FieldName = "LocationCode";
-            this.gridLocationCode.Name = "gridLocationCode";
-            this.gridLocationCode.Visible = true;
-            this.gridLocationCode.VisibleIndex = 0;
+            this.gridColumn3.Caption = "Id";
+            this.gridColumn3.FieldName = "_id";
+            this.gridColumn3.Name = "gridColumn3";
             // 
             // gridLocationName
             // 
@@ -1378,7 +1375,7 @@
             this.gridLocationName.FieldName = "LocationName";
             this.gridLocationName.Name = "gridLocationName";
             this.gridLocationName.Visible = true;
-            this.gridLocationName.VisibleIndex = 1;
+            this.gridLocationName.VisibleIndex = 0;
             // 
             // cboAreas
             // 
@@ -1389,11 +1386,11 @@
             this.cboAreas.Name = "cboAreas";
             this.cboAreas.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cboAreas.Properties.DisplayMember = "AreaCode";
+            this.cboAreas.Properties.DisplayMember = "AreaName";
             this.cboAreas.Properties.NullText = "";
             this.cboAreas.Properties.PopupView = this.gridViewAreas;
             this.cboAreas.Properties.ShowAddNewButton = true;
-            this.cboAreas.Properties.ValueMember = "AreaCode";
+            this.cboAreas.Properties.ValueMember = "AreaName";
             this.tablePanel1.SetRow(this.cboAreas, 7);
             this.cboAreas.Size = new System.Drawing.Size(123, 22);
             this.cboAreas.TabIndex = 24;
@@ -1403,7 +1400,6 @@
             // 
             this.gridViewAreas.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.gridAreaId,
-            this.gridAreaCode,
             this.gridAreaName});
             this.gridViewAreas.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridViewAreas.Name = "gridViewAreas";
@@ -1416,37 +1412,29 @@
             this.gridAreaId.FieldName = "_id";
             this.gridAreaId.Name = "gridAreaId";
             // 
-            // gridAreaCode
-            // 
-            this.gridAreaCode.Caption = "Area Code";
-            this.gridAreaCode.FieldName = "AreaCode";
-            this.gridAreaCode.Name = "gridAreaCode";
-            this.gridAreaCode.Visible = true;
-            this.gridAreaCode.VisibleIndex = 0;
-            // 
             // gridAreaName
             // 
             this.gridAreaName.Caption = "Area Name";
             this.gridAreaName.FieldName = "AreaName";
             this.gridAreaName.Name = "gridAreaName";
             this.gridAreaName.Visible = true;
-            this.gridAreaName.VisibleIndex = 1;
+            this.gridAreaName.VisibleIndex = 0;
             // 
             // lblCity
             // 
             this.tablePanel1.SetColumn(this.lblCity, 4);
             this.lblCity.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblCity.Location = new System.Drawing.Point(623, 286);
+            this.lblCity.Location = new System.Drawing.Point(624, 286);
             this.lblCity.Name = "lblCity";
             this.tablePanel1.SetRow(this.lblCity, 8);
-            this.lblCity.Size = new System.Drawing.Size(21, 27);
+            this.lblCity.Size = new System.Drawing.Size(21, 29);
             this.lblCity.TabIndex = 23;
             this.lblCity.Text = "City";
             // 
             // lblCountry
             // 
             this.tablePanel1.SetColumn(this.lblCountry, 0);
-            this.lblCountry.Location = new System.Drawing.Point(15, 291);
+            this.lblCountry.Location = new System.Drawing.Point(15, 292);
             this.lblCountry.Name = "lblCountry";
             this.tablePanel1.SetRow(this.lblCountry, 8);
             this.lblCountry.Size = new System.Drawing.Size(44, 16);
@@ -1457,7 +1445,7 @@
             // 
             this.tablePanel1.SetColumn(this.lblLocation, 4);
             this.lblLocation.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblLocation.Location = new System.Drawing.Point(597, 252);
+            this.lblLocation.Location = new System.Drawing.Point(598, 252);
             this.lblLocation.Name = "lblLocation";
             this.tablePanel1.SetRow(this.lblLocation, 7);
             this.lblLocation.Size = new System.Drawing.Size(47, 30);
@@ -1468,7 +1456,7 @@
             // 
             this.tablePanel1.SetColumn(this.dtIssuanceYear, 5);
             this.dtIssuanceYear.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsProject, "YearOfIssuance", true));
-            this.dtIssuanceYear.Location = new System.Drawing.Point(648, 222);
+            this.dtIssuanceYear.Location = new System.Drawing.Point(649, 222);
             this.dtIssuanceYear.MenuManager = this.rcMain;
             this.dtIssuanceYear.Name = "dtIssuanceYear";
             this.tablePanel1.SetRow(this.dtIssuanceYear, 6);
@@ -1480,7 +1468,7 @@
             this.tablePanel1.SetColumn(this.dtExpiryDate, 3);
             this.dtExpiryDate.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsProject, "ExpiryDate", true));
             this.dtExpiryDate.EditValue = null;
-            this.dtExpiryDate.Location = new System.Drawing.Point(395, 222);
+            this.dtExpiryDate.Location = new System.Drawing.Point(396, 222);
             this.dtExpiryDate.MenuManager = this.rcMain;
             this.dtExpiryDate.Name = "dtExpiryDate";
             this.dtExpiryDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1531,7 +1519,7 @@
             this.cboEngineers.Properties.ShowAddNewButton = true;
             this.cboEngineers.Properties.ValueMember = "_id";
             this.tablePanel1.SetRow(this.cboEngineers, 5);
-            this.cboEngineers.Size = new System.Drawing.Size(629, 22);
+            this.cboEngineers.Size = new System.Drawing.Size(630, 22);
             this.cboEngineers.TabIndex = 16;
             this.cboEngineers.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboEngineers_AddNewValue);
             // 
@@ -1577,7 +1565,7 @@
             this.cboClients.Properties.ShowAddNewButton = true;
             this.cboClients.Properties.ValueMember = "ClientName";
             this.tablePanel1.SetRow(this.cboClients, 4);
-            this.cboClients.Size = new System.Drawing.Size(629, 22);
+            this.cboClients.Size = new System.Drawing.Size(630, 22);
             this.cboClients.TabIndex = 15;
             this.cboClients.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboClients_AddNewValue);
             // 
@@ -1607,7 +1595,7 @@
             this.txtDescription.Name = "txtDescription";
             this.tablePanel1.SetRow(this.txtDescription, 1);
             this.tablePanel1.SetRowSpan(this.txtDescription, 3);
-            this.txtDescription.Size = new System.Drawing.Size(629, 58);
+            this.txtDescription.Size = new System.Drawing.Size(630, 58);
             this.txtDescription.TabIndex = 14;
             // 
             // dtJProjectDate
@@ -1615,7 +1603,7 @@
             this.tablePanel1.SetColumn(this.dtJProjectDate, 5);
             this.dtJProjectDate.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsProject, "ProjectDate", true));
             this.dtJProjectDate.EditValue = null;
-            this.dtJProjectDate.Location = new System.Drawing.Point(648, 18);
+            this.dtJProjectDate.Location = new System.Drawing.Point(649, 18);
             this.dtJProjectDate.MenuManager = this.rcMain;
             this.dtJProjectDate.Name = "dtJProjectDate";
             this.dtJProjectDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1634,7 +1622,7 @@
             // 
             this.tablePanel1.SetColumn(this.txtReferenceNo, 3);
             this.txtReferenceNo.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsProject, "TentativeReference", true));
-            this.txtReferenceNo.Location = new System.Drawing.Point(395, 18);
+            this.txtReferenceNo.Location = new System.Drawing.Point(396, 18);
             this.txtReferenceNo.MenuManager = this.rcMain;
             this.txtReferenceNo.Name = "txtReferenceNo";
             this.tablePanel1.SetRow(this.txtReferenceNo, 0);
@@ -1666,7 +1654,7 @@
             // 
             this.tablePanel1.SetColumn(this.lblYearOfIssuance, 4);
             this.lblYearOfIssuance.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblYearOfIssuance.Location = new System.Drawing.Point(549, 218);
+            this.lblYearOfIssuance.Location = new System.Drawing.Point(550, 218);
             this.lblYearOfIssuance.Name = "lblYearOfIssuance";
             this.tablePanel1.SetRow(this.lblYearOfIssuance, 6);
             this.lblYearOfIssuance.Size = new System.Drawing.Size(95, 30);
@@ -1677,7 +1665,7 @@
             // 
             this.tablePanel1.SetColumn(this.lblExpiryDate, 2);
             this.lblExpiryDate.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblExpiryDate.Location = new System.Drawing.Point(327, 218);
+            this.lblExpiryDate.Location = new System.Drawing.Point(328, 218);
             this.lblExpiryDate.Name = "lblExpiryDate";
             this.tablePanel1.SetRow(this.lblExpiryDate, 6);
             this.lblExpiryDate.Size = new System.Drawing.Size(64, 30);
@@ -1728,7 +1716,7 @@
             // 
             this.tablePanel1.SetColumn(this.lblProjectDate, 4);
             this.lblProjectDate.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblProjectDate.Location = new System.Drawing.Point(574, 14);
+            this.lblProjectDate.Location = new System.Drawing.Point(575, 14);
             this.lblProjectDate.Name = "lblProjectDate";
             this.tablePanel1.SetRow(this.lblProjectDate, 0);
             this.lblProjectDate.Size = new System.Drawing.Size(70, 30);
@@ -1739,7 +1727,7 @@
             // 
             this.tablePanel1.SetColumn(this.lblReferenceNo, 2);
             this.lblReferenceNo.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblReferenceNo.Location = new System.Drawing.Point(314, 14);
+            this.lblReferenceNo.Location = new System.Drawing.Point(315, 14);
             this.lblReferenceNo.Name = "lblReferenceNo";
             this.tablePanel1.SetRow(this.lblReferenceNo, 0);
             this.lblReferenceNo.Size = new System.Drawing.Size(77, 30);
@@ -1761,7 +1749,7 @@
             this.layoutControlGroup7.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem7});
             this.layoutControlGroup7.Name = "layoutControlGroup7";
-            this.layoutControlGroup7.Size = new System.Drawing.Size(813, 356);
+            this.layoutControlGroup7.Size = new System.Drawing.Size(815, 358);
             this.layoutControlGroup7.TextVisible = false;
             // 
             // layoutControlItem7
@@ -1769,14 +1757,14 @@
             this.layoutControlItem7.Control = this.tablePanel1;
             this.layoutControlItem7.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(789, 332);
+            this.layoutControlItem7.Size = new System.Drawing.Size(791, 334);
             this.layoutControlItem7.TextVisible = false;
             // 
             // tabContractsManagement
             // 
             this.tabContractsManagement.Controls.Add(this.contractsLayout);
             this.tabContractsManagement.Name = "tabContractsManagement";
-            this.tabContractsManagement.Size = new System.Drawing.Size(813, 356);
+            this.tabContractsManagement.Size = new System.Drawing.Size(815, 358);
             this.tabContractsManagement.Text = "Contract Management";
             // 
             // contractsLayout
@@ -1795,19 +1783,19 @@
             this.contractsLayout.Location = new System.Drawing.Point(0, 0);
             this.contractsLayout.Name = "contractsLayout";
             this.contractsLayout.Root = this.layoutControlGroup9;
-            this.contractsLayout.Size = new System.Drawing.Size(813, 356);
+            this.contractsLayout.Size = new System.Drawing.Size(815, 358);
             this.contractsLayout.TabIndex = 0;
             this.contractsLayout.Text = "layoutControl1";
             // 
             // cboServicesType
             // 
-            this.cboServicesType.Location = new System.Drawing.Point(537, 66);
+            this.cboServicesType.Location = new System.Drawing.Point(535, 64);
             this.cboServicesType.MenuManager = this.rcMain;
             this.cboServicesType.Name = "cboServicesType";
             this.cboServicesType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Plus)});
-            this.cboServicesType.Size = new System.Drawing.Size(262, 22);
+            this.cboServicesType.Size = new System.Drawing.Size(268, 22);
             this.cboServicesType.StyleController = this.contractsLayout;
             this.cboServicesType.TabIndex = 16;
             this.cboServicesType.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.cboServicesType_ButtonClick);
@@ -1815,13 +1803,13 @@
             // cboServicesProvided
             // 
             this.cboServicesProvided.EditValue = "";
-            this.cboServicesProvided.Location = new System.Drawing.Point(143, 66);
+            this.cboServicesProvided.Location = new System.Drawing.Point(138, 64);
             this.cboServicesProvided.MenuManager = this.rcMain;
             this.cboServicesProvided.Name = "cboServicesProvided";
             this.cboServicesProvided.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Plus)});
-            this.cboServicesProvided.Size = new System.Drawing.Size(261, 22);
+            this.cboServicesProvided.Size = new System.Drawing.Size(267, 22);
             this.cboServicesProvided.StyleController = this.contractsLayout;
             this.cboServicesProvided.TabIndex = 15;
             this.cboServicesProvided.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.cboServicesProvided_ButtonClick);
@@ -1829,14 +1817,14 @@
             // cboContactEmail
             // 
             this.cboContactEmail.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContractDetails, "ClientContactEmail", true));
-            this.cboContactEmail.Location = new System.Drawing.Point(143, 194);
+            this.cboContactEmail.Location = new System.Drawing.Point(138, 196);
             this.cboContactEmail.MenuManager = this.rcMain;
             this.cboContactEmail.Name = "cboContactEmail";
             this.cboContactEmail.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cboContactEmail.Properties.NullText = "";
             this.cboContactEmail.Properties.PopupView = this.gridView11;
-            this.cboContactEmail.Size = new System.Drawing.Size(656, 22);
+            this.cboContactEmail.Size = new System.Drawing.Size(665, 22);
             this.cboContactEmail.StyleController = this.contractsLayout;
             this.cboContactEmail.TabIndex = 14;
             // 
@@ -1855,7 +1843,7 @@
             // 
             this.dtCompletitionDate.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContractDetails, "ActualCompletionDate", true));
             this.dtCompletitionDate.EditValue = null;
-            this.dtCompletitionDate.Location = new System.Drawing.Point(662, 132);
+            this.dtCompletitionDate.Location = new System.Drawing.Point(661, 134);
             this.dtCompletitionDate.MenuManager = this.rcMain;
             this.dtCompletitionDate.Name = "dtCompletitionDate";
             this.dtCompletitionDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1866,17 +1854,17 @@
             this.dtCompletitionDate.Properties.CalendarTimeProperties.UseMaskAsDisplayFormat = true;
             this.dtCompletitionDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
             this.dtCompletitionDate.Properties.UseMaskAsDisplayFormat = true;
-            this.dtCompletitionDate.Size = new System.Drawing.Size(137, 22);
+            this.dtCompletitionDate.Size = new System.Drawing.Size(142, 22);
             this.dtCompletitionDate.StyleController = this.contractsLayout;
             this.dtCompletitionDate.TabIndex = 11;
             // 
             // txtExtension
             // 
             this.txtExtension.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContractDetails, "ExtensionDetails", true));
-            this.txtExtension.Location = new System.Drawing.Point(350, 132);
+            this.txtExtension.Location = new System.Drawing.Point(350, 134);
             this.txtExtension.MenuManager = this.rcMain;
             this.txtExtension.Name = "txtExtension";
-            this.txtExtension.Size = new System.Drawing.Size(179, 22);
+            this.txtExtension.Size = new System.Drawing.Size(181, 22);
             this.txtExtension.StyleController = this.contractsLayout;
             this.txtExtension.TabIndex = 10;
             // 
@@ -1884,7 +1872,7 @@
             // 
             this.dtSignatureDate.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContractDetails, "SignatureDate", true));
             this.dtSignatureDate.EditValue = null;
-            this.dtSignatureDate.Location = new System.Drawing.Point(537, 14);
+            this.dtSignatureDate.Location = new System.Drawing.Point(535, 12);
             this.dtSignatureDate.MenuManager = this.rcMain;
             this.dtSignatureDate.Name = "dtSignatureDate";
             this.dtSignatureDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1895,46 +1883,46 @@
             this.dtSignatureDate.Properties.CalendarTimeProperties.UseMaskAsDisplayFormat = true;
             this.dtSignatureDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
             this.dtSignatureDate.Properties.UseMaskAsDisplayFormat = true;
-            this.dtSignatureDate.Size = new System.Drawing.Size(262, 22);
+            this.dtSignatureDate.Size = new System.Drawing.Size(268, 22);
             this.dtSignatureDate.StyleController = this.contractsLayout;
             this.dtSignatureDate.TabIndex = 7;
             // 
             // txtContractLink
             // 
             this.txtContractLink.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContractDetails, "ContractFileLink", true));
-            this.txtContractLink.Location = new System.Drawing.Point(143, 40);
+            this.txtContractLink.Location = new System.Drawing.Point(138, 38);
             this.txtContractLink.MenuManager = this.rcMain;
             this.txtContractLink.Name = "txtContractLink";
             this.txtContractLink.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.txtContractLink.Size = new System.Drawing.Size(656, 22);
+            this.txtContractLink.Size = new System.Drawing.Size(665, 22);
             this.txtContractLink.StyleController = this.contractsLayout;
             this.txtContractLink.TabIndex = 6;
             // 
             // txtContractPeriod
             // 
             this.txtContractPeriod.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContractDetails, "ContractPeriod", true));
-            this.txtContractPeriod.Location = new System.Drawing.Point(143, 132);
+            this.txtContractPeriod.Location = new System.Drawing.Point(138, 134);
             this.txtContractPeriod.MenuManager = this.rcMain;
             this.txtContractPeriod.Name = "txtContractPeriod";
-            this.txtContractPeriod.Size = new System.Drawing.Size(144, 22);
+            this.txtContractPeriod.Size = new System.Drawing.Size(149, 22);
             this.txtContractPeriod.StyleController = this.contractsLayout;
             this.txtContractPeriod.TabIndex = 5;
             // 
             // txtContractNo
             // 
             this.txtContractNo.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContractDetails, "ContractNumber", true));
-            this.txtContractNo.Location = new System.Drawing.Point(143, 14);
+            this.txtContractNo.Location = new System.Drawing.Point(138, 12);
             this.txtContractNo.MenuManager = this.rcMain;
             this.txtContractNo.Name = "txtContractNo";
-            this.txtContractNo.Size = new System.Drawing.Size(261, 22);
+            this.txtContractNo.Size = new System.Drawing.Size(267, 22);
             this.txtContractNo.StyleController = this.contractsLayout;
             this.txtContractNo.TabIndex = 4;
             // 
             // cboFundedBy
             // 
             this.cboFundedBy.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContractDetails, "SponsorId", true));
-            this.cboFundedBy.Location = new System.Drawing.Point(143, 158);
+            this.cboFundedBy.Location = new System.Drawing.Point(138, 160);
             this.cboFundedBy.MenuManager = this.rcMain;
             this.cboFundedBy.Name = "cboFundedBy";
             this.cboFundedBy.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1943,7 +1931,7 @@
             this.cboFundedBy.Properties.NullText = "";
             this.cboFundedBy.Properties.PopupView = this.gridView12;
             this.cboFundedBy.Properties.ValueMember = "_id";
-            this.cboFundedBy.Size = new System.Drawing.Size(656, 22);
+            this.cboFundedBy.Size = new System.Drawing.Size(665, 22);
             this.cboFundedBy.StyleController = this.contractsLayout;
             this.cboFundedBy.TabIndex = 12;
             // 
@@ -1992,7 +1980,7 @@
             this.lblServicesProvided,
             this.lblServicesType});
             this.layoutControlGroup9.Name = "layoutControlGroup9";
-            this.layoutControlGroup9.Size = new System.Drawing.Size(813, 356);
+            this.layoutControlGroup9.Size = new System.Drawing.Size(815, 358);
             this.layoutControlGroup9.TextVisible = false;
             // 
             // lblContractNo
@@ -2000,22 +1988,22 @@
             this.lblContractNo.Control = this.txtContractNo;
             this.lblContractNo.Location = new System.Drawing.Point(0, 0);
             this.lblContractNo.Name = "lblContractNo";
-            this.lblContractNo.Size = new System.Drawing.Size(394, 26);
+            this.lblContractNo.Size = new System.Drawing.Size(397, 26);
             this.lblContractNo.Text = "Contract No.";
             this.lblContractNo.TextSize = new System.Drawing.Size(114, 16);
             // 
             // emptySpaceItem9
             // 
-            this.emptySpaceItem9.Location = new System.Drawing.Point(0, 206);
+            this.emptySpaceItem9.Location = new System.Drawing.Point(0, 210);
             this.emptySpaceItem9.Name = "emptySpaceItem9";
-            this.emptySpaceItem9.Size = new System.Drawing.Size(789, 126);
+            this.emptySpaceItem9.Size = new System.Drawing.Size(795, 128);
             // 
             // lblContractPeriod
             // 
             this.lblContractPeriod.Control = this.txtContractPeriod;
-            this.lblContractPeriod.Location = new System.Drawing.Point(0, 118);
+            this.lblContractPeriod.Location = new System.Drawing.Point(0, 122);
             this.lblContractPeriod.Name = "lblContractPeriod";
-            this.lblContractPeriod.Size = new System.Drawing.Size(277, 26);
+            this.lblContractPeriod.Size = new System.Drawing.Size(279, 26);
             this.lblContractPeriod.Text = "Contract Period";
             this.lblContractPeriod.TextSize = new System.Drawing.Size(114, 16);
             // 
@@ -2024,25 +2012,25 @@
             this.lblContractLink.Control = this.txtContractLink;
             this.lblContractLink.Location = new System.Drawing.Point(0, 26);
             this.lblContractLink.Name = "lblContractLink";
-            this.lblContractLink.Size = new System.Drawing.Size(789, 26);
+            this.lblContractLink.Size = new System.Drawing.Size(795, 26);
             this.lblContractLink.Text = "Contract Link";
             this.lblContractLink.TextSize = new System.Drawing.Size(114, 16);
             // 
             // lblSignatureDate
             // 
             this.lblSignatureDate.Control = this.dtSignatureDate;
-            this.lblSignatureDate.Location = new System.Drawing.Point(394, 0);
+            this.lblSignatureDate.Location = new System.Drawing.Point(397, 0);
             this.lblSignatureDate.Name = "lblSignatureDate";
-            this.lblSignatureDate.Size = new System.Drawing.Size(395, 26);
+            this.lblSignatureDate.Size = new System.Drawing.Size(398, 26);
             this.lblSignatureDate.Text = "Signature Date";
             this.lblSignatureDate.TextSize = new System.Drawing.Size(114, 16);
             // 
             // lblExtension
             // 
             this.lblExtension.Control = this.txtExtension;
-            this.lblExtension.Location = new System.Drawing.Point(277, 118);
+            this.lblExtension.Location = new System.Drawing.Point(279, 122);
             this.lblExtension.Name = "lblExtension";
-            this.lblExtension.Size = new System.Drawing.Size(242, 26);
+            this.lblExtension.Size = new System.Drawing.Size(244, 26);
             this.lblExtension.Text = "Extension";
             this.lblExtension.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
             this.lblExtension.TextSize = new System.Drawing.Size(54, 16);
@@ -2051,9 +2039,9 @@
             // lblCompletitionDate
             // 
             this.lblCompletitionDate.Control = this.dtCompletitionDate;
-            this.lblCompletitionDate.Location = new System.Drawing.Point(519, 118);
+            this.lblCompletitionDate.Location = new System.Drawing.Point(523, 122);
             this.lblCompletitionDate.Name = "lblCompletitionDate";
-            this.lblCompletitionDate.Size = new System.Drawing.Size(270, 26);
+            this.lblCompletitionDate.Size = new System.Drawing.Size(272, 26);
             this.lblCompletitionDate.Text = "Completition Date";
             this.lblCompletitionDate.TextSize = new System.Drawing.Size(114, 16);
             // 
@@ -2061,47 +2049,47 @@
             // 
             this.emptySpaceItem10.Location = new System.Drawing.Point(0, 78);
             this.emptySpaceItem10.Name = "emptySpaceItem10";
-            this.emptySpaceItem10.Size = new System.Drawing.Size(789, 40);
+            this.emptySpaceItem10.Size = new System.Drawing.Size(795, 44);
             // 
             // lblFundedBy
             // 
             this.lblFundedBy.Control = this.cboFundedBy;
-            this.lblFundedBy.Location = new System.Drawing.Point(0, 144);
+            this.lblFundedBy.Location = new System.Drawing.Point(0, 148);
             this.lblFundedBy.Name = "lblFundedBy";
-            this.lblFundedBy.Size = new System.Drawing.Size(789, 26);
+            this.lblFundedBy.Size = new System.Drawing.Size(795, 26);
             this.lblFundedBy.Text = "Funded By";
             this.lblFundedBy.TextSize = new System.Drawing.Size(114, 16);
             // 
             // lblContactEmail
             // 
             this.lblContactEmail.Control = this.cboContactEmail;
-            this.lblContactEmail.Location = new System.Drawing.Point(0, 180);
+            this.lblContactEmail.Location = new System.Drawing.Point(0, 184);
             this.lblContactEmail.Name = "lblContactEmail";
-            this.lblContactEmail.Size = new System.Drawing.Size(789, 26);
+            this.lblContactEmail.Size = new System.Drawing.Size(795, 26);
             this.lblContactEmail.Text = "Client Contact Email";
             this.lblContactEmail.TextSize = new System.Drawing.Size(114, 16);
             // 
             // emptySpaceItem12
             // 
-            this.emptySpaceItem12.Location = new System.Drawing.Point(0, 170);
+            this.emptySpaceItem12.Location = new System.Drawing.Point(0, 174);
             this.emptySpaceItem12.Name = "emptySpaceItem12";
-            this.emptySpaceItem12.Size = new System.Drawing.Size(789, 10);
+            this.emptySpaceItem12.Size = new System.Drawing.Size(795, 10);
             // 
             // lblServicesProvided
             // 
             this.lblServicesProvided.Control = this.cboServicesProvided;
             this.lblServicesProvided.Location = new System.Drawing.Point(0, 52);
             this.lblServicesProvided.Name = "lblServicesProvided";
-            this.lblServicesProvided.Size = new System.Drawing.Size(394, 26);
+            this.lblServicesProvided.Size = new System.Drawing.Size(397, 26);
             this.lblServicesProvided.Text = "Services Provided";
             this.lblServicesProvided.TextSize = new System.Drawing.Size(114, 16);
             // 
             // lblServicesType
             // 
             this.lblServicesType.Control = this.cboServicesType;
-            this.lblServicesType.Location = new System.Drawing.Point(394, 52);
+            this.lblServicesType.Location = new System.Drawing.Point(397, 52);
             this.lblServicesType.Name = "lblServicesType";
-            this.lblServicesType.Size = new System.Drawing.Size(395, 26);
+            this.lblServicesType.Size = new System.Drawing.Size(398, 26);
             this.lblServicesType.Text = "Services Type";
             this.lblServicesType.TextSize = new System.Drawing.Size(114, 16);
             // 
@@ -2109,7 +2097,7 @@
             // 
             this.tabUserInformation.Controls.Add(this.layoutUserInformation);
             this.tabUserInformation.Name = "tabUserInformation";
-            this.tabUserInformation.Size = new System.Drawing.Size(813, 356);
+            this.tabUserInformation.Size = new System.Drawing.Size(815, 358);
             this.tabUserInformation.Text = "User Information";
             // 
             // layoutUserInformation
@@ -2121,25 +2109,25 @@
             this.layoutUserInformation.Location = new System.Drawing.Point(0, 0);
             this.layoutUserInformation.Name = "layoutUserInformation";
             this.layoutUserInformation.Root = this.layoutControlGroup2;
-            this.layoutUserInformation.Size = new System.Drawing.Size(813, 356);
+            this.layoutUserInformation.Size = new System.Drawing.Size(815, 358);
             this.layoutUserInformation.TabIndex = 0;
             this.layoutUserInformation.Text = "layoutControl1";
             // 
             // txtUserLogData
             // 
-            this.txtUserLogData.Location = new System.Drawing.Point(14, 149);
+            this.txtUserLogData.Location = new System.Drawing.Point(12, 148);
             this.txtUserLogData.MenuManager = this.rcMain;
             this.txtUserLogData.Name = "txtUserLogData";
             this.txtUserLogData.Properties.ReadOnly = true;
             this.txtUserLogData.Properties.UseReadOnlyAppearance = false;
-            this.txtUserLogData.Size = new System.Drawing.Size(785, 180);
+            this.txtUserLogData.Size = new System.Drawing.Size(791, 185);
             this.txtUserLogData.StyleController = this.layoutUserInformation;
             this.txtUserLogData.TabIndex = 14;
             // 
             // cboUsers
             // 
             this.cboUsers.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsProject, "Username", true));
-            this.cboUsers.Location = new System.Drawing.Point(127, 14);
+            this.cboUsers.Location = new System.Drawing.Point(122, 12);
             this.cboUsers.Name = "cboUsers";
             this.cboUsers.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -2148,7 +2136,7 @@
             this.cboUsers.Properties.PopupView = this.gridView3;
             this.cboUsers.Properties.ReadOnly = true;
             this.cboUsers.Properties.ValueMember = "Username";
-            this.cboUsers.Size = new System.Drawing.Size(277, 22);
+            this.cboUsers.Size = new System.Drawing.Size(283, 22);
             this.cboUsers.StyleController = this.layoutUserInformation;
             this.cboUsers.TabIndex = 6;
             // 
@@ -2181,7 +2169,7 @@
             // cboPersonInCharge
             // 
             this.cboPersonInCharge.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsProject, "EngineerInCharge", true));
-            this.cboPersonInCharge.Location = new System.Drawing.Point(127, 40);
+            this.cboPersonInCharge.Location = new System.Drawing.Point(122, 38);
             this.cboPersonInCharge.Name = "cboPersonInCharge";
             this.cboPersonInCharge.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -2190,7 +2178,7 @@
             this.cboPersonInCharge.Properties.PopupView = this.gridView4;
             this.cboPersonInCharge.Properties.ReadOnly = true;
             this.cboPersonInCharge.Properties.ValueMember = "Username";
-            this.cboPersonInCharge.Size = new System.Drawing.Size(277, 22);
+            this.cboPersonInCharge.Size = new System.Drawing.Size(283, 22);
             this.cboPersonInCharge.StyleController = this.layoutUserInformation;
             this.cboPersonInCharge.TabIndex = 7;
             // 
@@ -2234,7 +2222,7 @@
             this.lblUserLogData,
             this.emptySpaceItem23});
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(813, 356);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(815, 358);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // lblUserName
@@ -2244,7 +2232,7 @@
             this.lblUserName.CustomizationFormText = "User Name";
             this.lblUserName.Location = new System.Drawing.Point(0, 0);
             this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(394, 26);
+            this.lblUserName.Size = new System.Drawing.Size(397, 26);
             this.lblUserName.Text = "User Name";
             this.lblUserName.TextSize = new System.Drawing.Size(98, 16);
             // 
@@ -2255,49 +2243,49 @@
             this.lblPersonInCharge.CustomizationFormText = "Salesman";
             this.lblPersonInCharge.Location = new System.Drawing.Point(0, 26);
             this.lblPersonInCharge.Name = "lblPersonInCharge";
-            this.lblPersonInCharge.Size = new System.Drawing.Size(394, 26);
+            this.lblPersonInCharge.Size = new System.Drawing.Size(397, 26);
             this.lblPersonInCharge.Text = "Person in Charge";
             this.lblPersonInCharge.TextSize = new System.Drawing.Size(98, 16);
             // 
             // emptySpaceItem13
             // 
-            this.emptySpaceItem13.Location = new System.Drawing.Point(0, 319);
+            this.emptySpaceItem13.Location = new System.Drawing.Point(0, 325);
             this.emptySpaceItem13.Name = "emptySpaceItem13";
-            this.emptySpaceItem13.Size = new System.Drawing.Size(789, 13);
+            this.emptySpaceItem13.Size = new System.Drawing.Size(795, 13);
             // 
             // emptySpaceItem14
             // 
-            this.emptySpaceItem14.Location = new System.Drawing.Point(394, 0);
+            this.emptySpaceItem14.Location = new System.Drawing.Point(397, 0);
             this.emptySpaceItem14.Name = "emptySpaceItem14";
-            this.emptySpaceItem14.Size = new System.Drawing.Size(395, 26);
+            this.emptySpaceItem14.Size = new System.Drawing.Size(398, 26);
             // 
             // emptySpaceItem16
             // 
-            this.emptySpaceItem16.Location = new System.Drawing.Point(394, 26);
+            this.emptySpaceItem16.Location = new System.Drawing.Point(397, 26);
             this.emptySpaceItem16.Name = "emptySpaceItem16";
-            this.emptySpaceItem16.Size = new System.Drawing.Size(395, 26);
+            this.emptySpaceItem16.Size = new System.Drawing.Size(398, 26);
             // 
             // emptySpaceItem17
             // 
             this.emptySpaceItem17.Location = new System.Drawing.Point(0, 52);
             this.emptySpaceItem17.Name = "emptySpaceItem17";
-            this.emptySpaceItem17.Size = new System.Drawing.Size(789, 26);
+            this.emptySpaceItem17.Size = new System.Drawing.Size(795, 27);
             // 
             // lblUserLogData
             // 
             this.lblUserLogData.Control = this.txtUserLogData;
-            this.lblUserLogData.Location = new System.Drawing.Point(0, 115);
+            this.lblUserLogData.Location = new System.Drawing.Point(0, 117);
             this.lblUserLogData.Name = "lblUserLogData";
-            this.lblUserLogData.Size = new System.Drawing.Size(789, 204);
+            this.lblUserLogData.Size = new System.Drawing.Size(795, 208);
             this.lblUserLogData.Text = "User Log Data";
             this.lblUserLogData.TextLocation = DevExpress.Utils.Locations.Top;
             this.lblUserLogData.TextSize = new System.Drawing.Size(98, 16);
             // 
             // emptySpaceItem23
             // 
-            this.emptySpaceItem23.Location = new System.Drawing.Point(0, 78);
+            this.emptySpaceItem23.Location = new System.Drawing.Point(0, 79);
             this.emptySpaceItem23.Name = "emptySpaceItem23";
-            this.emptySpaceItem23.Size = new System.Drawing.Size(789, 37);
+            this.emptySpaceItem23.Size = new System.Drawing.Size(795, 38);
             // 
             // tabDetails
             // 
@@ -2305,18 +2293,18 @@
             this.tabDetails.Controls.Add(this.tabSellingGroup);
             this.tabDetails.Controls.Add(this.tabExpenseGroup);
             this.tabDetails.Controls.Add(this.tabDocuments);
-            this.tabDetails.Controls.Add(this.tabManagementStat);
-            this.tabDetails.Location = new System.Drawing.Point(14, 404);
+            this.tabDetails.Controls.Add(this.tabAddendum);
+            this.tabDetails.Location = new System.Drawing.Point(12, 404);
             this.tabDetails.Name = "tabDetails";
             this.tabDetails.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
             this.tabProjectHandover,
+            this.tabAddendum,
             this.tabSellingGroup,
             this.tabExpenseGroup,
-            this.tabManagementStat,
             this.tabDocuments});
             this.tabDetails.RegularSize = new System.Drawing.Size(1356, 281);
             this.tabDetails.SelectedPage = this.tabProjectHandover;
-            this.tabDetails.Size = new System.Drawing.Size(1356, 281);
+            this.tabDetails.Size = new System.Drawing.Size(1360, 283);
             this.tabDetails.TabIndex = 15;
             this.tabDetails.Text = "tabPane1";
             this.tabDetails.Click += new System.EventHandler(this.tabDetails_Click);
@@ -2326,7 +2314,7 @@
             this.tabProjectHandover.Caption = "Project Handover";
             this.tabProjectHandover.Controls.Add(this.layoutJobDetails);
             this.tabProjectHandover.Name = "tabProjectHandover";
-            this.tabProjectHandover.Size = new System.Drawing.Size(1356, 240);
+            this.tabProjectHandover.Size = new System.Drawing.Size(1360, 242);
             // 
             // layoutJobDetails
             // 
@@ -2335,7 +2323,7 @@
             this.layoutJobDetails.Location = new System.Drawing.Point(0, 0);
             this.layoutJobDetails.Name = "layoutJobDetails";
             this.layoutJobDetails.Root = this.layoutControlGroup1;
-            this.layoutJobDetails.Size = new System.Drawing.Size(1356, 240);
+            this.layoutJobDetails.Size = new System.Drawing.Size(1360, 242);
             this.layoutJobDetails.TabIndex = 0;
             this.layoutJobDetails.Text = "layoutControl1";
             // 
@@ -2350,7 +2338,7 @@
             this.repCountries,
             this.repShippers,
             this.repFormatDateEdit});
-            this.gcJobDetails.Size = new System.Drawing.Size(1328, 212);
+            this.gcJobDetails.Size = new System.Drawing.Size(1332, 214);
             this.gcJobDetails.TabIndex = 5;
             this.gcJobDetails.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvJobDetails});
@@ -2449,7 +2437,7 @@
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1356, 240);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1360, 242);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -2457,7 +2445,7 @@
             this.layoutControlItem1.Control = this.gcJobDetails;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1332, 216);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1336, 218);
             this.layoutControlItem1.TextVisible = false;
             // 
             // tabSellingGroup
@@ -2465,7 +2453,7 @@
             this.tabSellingGroup.Caption = "Invoices";
             this.tabSellingGroup.Controls.Add(this.layoutInvoicesGrid);
             this.tabSellingGroup.Name = "tabSellingGroup";
-            this.tabSellingGroup.Size = new System.Drawing.Size(1356, 240);
+            this.tabSellingGroup.Size = new System.Drawing.Size(1360, 242);
             // 
             // layoutInvoicesGrid
             // 
@@ -2474,7 +2462,7 @@
             this.layoutInvoicesGrid.Location = new System.Drawing.Point(0, 0);
             this.layoutInvoicesGrid.Name = "layoutInvoicesGrid";
             this.layoutInvoicesGrid.Root = this.layoutControlGroup3;
-            this.layoutInvoicesGrid.Size = new System.Drawing.Size(1356, 240);
+            this.layoutInvoicesGrid.Size = new System.Drawing.Size(1360, 242);
             this.layoutInvoicesGrid.TabIndex = 0;
             this.layoutInvoicesGrid.Text = "layoutControl1";
             // 
@@ -2487,7 +2475,7 @@
             this.gcInvoices.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repDateEdit,
             this.repInvCheckEdit});
-            this.gcInvoices.Size = new System.Drawing.Size(1328, 212);
+            this.gcInvoices.Size = new System.Drawing.Size(1332, 214);
             this.gcInvoices.TabIndex = 0;
             this.gcInvoices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvInvoices});
@@ -3145,7 +3133,7 @@
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem3});
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1356, 240);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1360, 242);
             this.layoutControlGroup3.TextVisible = false;
             // 
             // layoutControlItem3
@@ -3153,7 +3141,7 @@
             this.layoutControlItem3.Control = this.gcInvoices;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1332, 216);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1336, 218);
             this.layoutControlItem3.TextVisible = false;
             // 
             // tabExpenseGroup
@@ -3161,7 +3149,7 @@
             this.tabExpenseGroup.Caption = "Expense Sheets";
             this.tabExpenseGroup.Controls.Add(this.layoutCostSheetsGrid);
             this.tabExpenseGroup.Name = "tabExpenseGroup";
-            this.tabExpenseGroup.Size = new System.Drawing.Size(1356, 250);
+            this.tabExpenseGroup.Size = new System.Drawing.Size(1360, 283);
             // 
             // layoutCostSheetsGrid
             // 
@@ -3170,7 +3158,7 @@
             this.layoutCostSheetsGrid.Location = new System.Drawing.Point(0, 0);
             this.layoutCostSheetsGrid.Name = "layoutCostSheetsGrid";
             this.layoutCostSheetsGrid.Root = this.layoutControlGroup4;
-            this.layoutCostSheetsGrid.Size = new System.Drawing.Size(1356, 250);
+            this.layoutCostSheetsGrid.Size = new System.Drawing.Size(1360, 283);
             this.layoutCostSheetsGrid.TabIndex = 0;
             this.layoutCostSheetsGrid.Text = "layoutControl1";
             // 
@@ -3186,7 +3174,7 @@
             this.repCostItemsList,
             this.repCostMethodofPaymentList,
             this.repCostCurrenciesList});
-            this.gcCosts.Size = new System.Drawing.Size(1328, 222);
+            this.gcCosts.Size = new System.Drawing.Size(1332, 255);
             this.gcCosts.TabIndex = 0;
             this.gcCosts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvCosts});
@@ -3496,7 +3484,7 @@
             this.layoutControlGroup4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem4});
             this.layoutControlGroup4.Name = "layoutControlGroup4";
-            this.layoutControlGroup4.Size = new System.Drawing.Size(1356, 250);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(1360, 283);
             this.layoutControlGroup4.TextVisible = false;
             // 
             // layoutControlItem4
@@ -3504,7 +3492,7 @@
             this.layoutControlItem4.Control = this.gcCosts;
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(1332, 226);
+            this.layoutControlItem4.Size = new System.Drawing.Size(1336, 259);
             this.layoutControlItem4.TextVisible = false;
             // 
             // tabDocuments
@@ -3512,7 +3500,7 @@
             this.tabDocuments.Caption = "Attached Documents";
             this.tabDocuments.Controls.Add(this.layoutAttachedDocumnets);
             this.tabDocuments.Name = "tabDocuments";
-            this.tabDocuments.Size = new System.Drawing.Size(1356, 240);
+            this.tabDocuments.Size = new System.Drawing.Size(1360, 283);
             // 
             // layoutAttachedDocumnets
             // 
@@ -3522,18 +3510,18 @@
             this.layoutAttachedDocumnets.Location = new System.Drawing.Point(0, 0);
             this.layoutAttachedDocumnets.Name = "layoutAttachedDocumnets";
             this.layoutAttachedDocumnets.Root = this.layoutControlGroup5;
-            this.layoutAttachedDocumnets.Size = new System.Drawing.Size(1356, 240);
+            this.layoutAttachedDocumnets.Size = new System.Drawing.Size(1360, 283);
             this.layoutAttachedDocumnets.TabIndex = 0;
             this.layoutAttachedDocumnets.Text = "layoutControl1";
             // 
             // gcDocuments
             // 
             this.gcDocuments.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(5);
-            this.gcDocuments.Location = new System.Drawing.Point(14, 59);
+            this.gcDocuments.Location = new System.Drawing.Point(14, 68);
             this.gcDocuments.MainView = this.gvDocuments;
             this.gcDocuments.Margin = new System.Windows.Forms.Padding(4);
             this.gcDocuments.Name = "gcDocuments";
-            this.gcDocuments.Size = new System.Drawing.Size(1328, 167);
+            this.gcDocuments.Size = new System.Drawing.Size(1332, 201);
             this.gcDocuments.TabIndex = 7;
             this.gcDocuments.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDocuments});
@@ -3548,12 +3536,12 @@
             this.gvDocuments.ColumnSet.DescriptionColumn = this.colDate1;
             this.gvDocuments.ColumnSet.TextColumn = this.colName;
             this.gvDocuments.ContextButtonOptions.AllowGlyphSkinning = true;
-            contextButton2.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Right;
-            contextButton2.Id = new System.Guid("29468572-0411-449a-bc2d-0c333134705c");
-            contextButton2.ImageOptionsCollection.ItemNormal.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage6")));
-            contextButton2.ImageOptionsCollection.ItemNormal.SvgImageSize = new System.Drawing.Size(16, 16);
-            contextButton2.Name = "removeButton";
-            this.gvDocuments.ContextButtons.Add(contextButton2);
+            contextButton1.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Right;
+            contextButton1.Id = new System.Guid("29468572-0411-449a-bc2d-0c333134705c");
+            contextButton1.ImageOptionsCollection.ItemNormal.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage6")));
+            contextButton1.ImageOptionsCollection.ItemNormal.SvgImageSize = new System.Drawing.Size(16, 16);
+            contextButton1.Name = "removeButton";
+            this.gvDocuments.ContextButtons.Add(contextButton1);
             this.gvDocuments.GridControl = this.gcDocuments;
             this.gvDocuments.Name = "gvDocuments";
             this.gvDocuments.OptionsBehavior.Editable = false;
@@ -3599,14 +3587,13 @@
             this.openDocuments.Name = "openDocuments";
             this.openDocuments.Properties.AutoHeight = false;
             this.openDocuments.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
-            editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(16, 16);
+            editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(16, 16);
             this.openDocuments.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton(),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", "loadFile", null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", "loadFile", null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.openDocuments.Properties.Client = this.gcDocuments;
-            this.openDocuments.Size = new System.Drawing.Size(1328, 41);
+            this.openDocuments.Size = new System.Drawing.Size(1332, 50);
             this.openDocuments.StyleController = this.layoutAttachedDocumnets;
             this.openDocuments.TabIndex = 6;
             this.openDocuments.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.openDocuments_ButtonClick);
@@ -3619,15 +3606,15 @@
             this.layoutControlItem5,
             this.lblAddFiles});
             this.layoutControlGroup5.Name = "layoutControlGroup5";
-            this.layoutControlGroup5.Size = new System.Drawing.Size(1356, 240);
+            this.layoutControlGroup5.Size = new System.Drawing.Size(1360, 283);
             this.layoutControlGroup5.TextVisible = false;
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.gcDocuments;
-            this.layoutControlItem5.Location = new System.Drawing.Point(0, 45);
+            this.layoutControlItem5.Location = new System.Drawing.Point(0, 54);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(1332, 171);
+            this.layoutControlItem5.Size = new System.Drawing.Size(1336, 205);
             this.layoutControlItem5.TextVisible = false;
             // 
             // lblAddFiles
@@ -3635,55 +3622,55 @@
             this.lblAddFiles.Control = this.openDocuments;
             this.lblAddFiles.Location = new System.Drawing.Point(0, 0);
             this.lblAddFiles.Name = "lblAddFiles";
-            this.lblAddFiles.Size = new System.Drawing.Size(1332, 45);
+            this.lblAddFiles.Size = new System.Drawing.Size(1336, 54);
             this.lblAddFiles.Text = "Add Files";
             this.lblAddFiles.TextVisible = false;
             // 
-            // tabManagementStat
+            // tabAddendum
             // 
-            this.tabManagementStat.Caption = "Management stat";
-            this.tabManagementStat.Controls.Add(this.layoutSalesManagement);
-            this.tabManagementStat.Name = "tabManagementStat";
-            this.tabManagementStat.Size = new System.Drawing.Size(1356, 240);
+            this.tabAddendum.Caption = "Addendum";
+            this.tabAddendum.Controls.Add(this.layoutSalesManagement);
+            this.tabAddendum.Name = "tabAddendum";
+            this.tabAddendum.Size = new System.Drawing.Size(1360, 242);
             // 
             // layoutSalesManagement
             // 
-            this.layoutSalesManagement.Controls.Add(this.gridControl2);
+            this.layoutSalesManagement.Controls.Add(this.gcAddendum);
             this.layoutSalesManagement.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutSalesManagement.Location = new System.Drawing.Point(0, 0);
             this.layoutSalesManagement.Name = "layoutSalesManagement";
             this.layoutSalesManagement.Root = this.layoutControlGroup6;
-            this.layoutSalesManagement.Size = new System.Drawing.Size(1356, 240);
+            this.layoutSalesManagement.Size = new System.Drawing.Size(1360, 242);
             this.layoutSalesManagement.TabIndex = 0;
             this.layoutSalesManagement.Text = "Sales Management";
             // 
-            // gridControl2
+            // gcAddendum
             // 
-            this.gridControl2.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.gridControl2.Location = new System.Drawing.Point(14, 14);
-            this.gridControl2.MainView = this.gridView10;
-            this.gridControl2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gridControl2.Name = "gridControl2";
-            this.gridControl2.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.gcAddendum.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.gcAddendum.Location = new System.Drawing.Point(14, 14);
+            this.gcAddendum.MainView = this.gvAddendum;
+            this.gcAddendum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gcAddendum.Name = "gcAddendum";
+            this.gcAddendum.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEdit2});
-            this.gridControl2.Size = new System.Drawing.Size(1328, 212);
-            this.gridControl2.TabIndex = 0;
-            this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView10});
+            this.gcAddendum.Size = new System.Drawing.Size(1332, 214);
+            this.gcAddendum.TabIndex = 0;
+            this.gcAddendum.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvAddendum});
             // 
-            // gridView10
+            // gvAddendum
             // 
-            this.gridView10.DetailHeight = 431;
-            this.gridView10.GridControl = this.gridControl2;
-            this.gridView10.Name = "gridView10";
-            this.gridView10.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
-            this.gridView10.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.True;
-            this.gridView10.OptionsNavigation.AutoFocusNewRow = true;
-            this.gridView10.OptionsNavigation.EnterMoveNextColumn = true;
-            this.gridView10.OptionsPrint.AutoWidth = false;
-            this.gridView10.OptionsView.ColumnAutoWidth = false;
-            this.gridView10.OptionsView.ShowFooter = true;
-            this.gridView10.OptionsView.ShowGroupPanel = false;
+            this.gvAddendum.DetailHeight = 431;
+            this.gvAddendum.GridControl = this.gcAddendum;
+            this.gvAddendum.Name = "gvAddendum";
+            this.gvAddendum.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
+            this.gvAddendum.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.True;
+            this.gvAddendum.OptionsNavigation.AutoFocusNewRow = true;
+            this.gvAddendum.OptionsNavigation.EnterMoveNextColumn = true;
+            this.gvAddendum.OptionsPrint.AutoWidth = false;
+            this.gvAddendum.OptionsView.ColumnAutoWidth = false;
+            this.gvAddendum.OptionsView.ShowFooter = true;
+            this.gvAddendum.OptionsView.ShowGroupPanel = false;
             // 
             // repositoryItemCheckEdit2
             // 
@@ -3697,15 +3684,15 @@
             this.layoutControlGroup6.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem6});
             this.layoutControlGroup6.Name = "layoutControlGroup6";
-            this.layoutControlGroup6.Size = new System.Drawing.Size(1356, 240);
+            this.layoutControlGroup6.Size = new System.Drawing.Size(1360, 242);
             this.layoutControlGroup6.TextVisible = false;
             // 
             // layoutControlItem6
             // 
-            this.layoutControlItem6.Control = this.gridControl2;
+            this.layoutControlItem6.Control = this.gcAddendum;
             this.layoutControlItem6.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(1332, 216);
+            this.layoutControlItem6.Size = new System.Drawing.Size(1336, 218);
             this.layoutControlItem6.TextVisible = false;
             // 
             // Root
@@ -3723,9 +3710,9 @@
             // lblDetailedTransactions
             // 
             this.lblDetailedTransactions.Control = this.tabDetails;
-            this.lblDetailedTransactions.Location = new System.Drawing.Point(0, 390);
+            this.lblDetailedTransactions.Location = new System.Drawing.Point(0, 392);
             this.lblDetailedTransactions.Name = "lblDetailedTransactions";
-            this.lblDetailedTransactions.Size = new System.Drawing.Size(1360, 285);
+            this.lblDetailedTransactions.Size = new System.Drawing.Size(1364, 287);
             this.lblDetailedTransactions.Text = "Detailed Transactions";
             this.lblDetailedTransactions.TextVisible = false;
             // 
@@ -3734,7 +3721,7 @@
             this.tabJobInfo.Control = this.grpProjectInformation;
             this.tabJobInfo.Location = new System.Drawing.Point(0, 0);
             this.tabJobInfo.Name = "tabJobInfo";
-            this.tabJobInfo.Size = new System.Drawing.Size(819, 390);
+            this.tabJobInfo.Size = new System.Drawing.Size(821, 392);
             this.tabJobInfo.Text = "Job Information";
             this.tabJobInfo.TextVisible = false;
             // 
@@ -3745,9 +3732,9 @@
             this.lblNotes,
             this.grpTotalUsd,
             this.emptySpaceItem2});
-            this.layoutControlGroup15.Location = new System.Drawing.Point(819, 0);
+            this.layoutControlGroup15.Location = new System.Drawing.Point(821, 0);
             this.layoutControlGroup15.Name = "layoutControlGroup15";
-            this.layoutControlGroup15.Size = new System.Drawing.Size(541, 390);
+            this.layoutControlGroup15.Size = new System.Drawing.Size(543, 392);
             this.layoutControlGroup15.TextVisible = false;
             // 
             // grpTotalLL
@@ -3758,9 +3745,9 @@
             this.lblProfitLL,
             this.emptySpaceItem1,
             this.lblTotalInvoicesLL});
-            this.grpTotalLL.Location = new System.Drawing.Point(274, 0);
+            this.grpTotalLL.Location = new System.Drawing.Point(277, 0);
             this.grpTotalLL.Name = "grpTotalLL";
-            this.grpTotalLL.Size = new System.Drawing.Size(239, 170);
+            this.grpTotalLL.Size = new System.Drawing.Size(242, 173);
             this.grpTotalLL.Text = "Total LL";
             // 
             // lblTotalExpensesLL
@@ -3768,16 +3755,16 @@
             this.lblTotalExpensesLL.Control = this.txtTotalExpensesLL;
             this.lblTotalExpensesLL.Location = new System.Drawing.Point(0, 26);
             this.lblTotalExpensesLL.Name = "lblTotalExpensesLL";
-            this.lblTotalExpensesLL.Size = new System.Drawing.Size(211, 26);
+            this.lblTotalExpensesLL.Size = new System.Drawing.Size(218, 26);
             this.lblTotalExpensesLL.Text = "Total Expenses";
             this.lblTotalExpensesLL.TextSize = new System.Drawing.Size(86, 16);
             // 
             // lblProfitLL
             // 
             this.lblProfitLL.Control = this.txtProfitLL;
-            this.lblProfitLL.Location = new System.Drawing.Point(0, 90);
+            this.lblProfitLL.Location = new System.Drawing.Point(0, 97);
             this.lblProfitLL.Name = "lblProfitLL";
-            this.lblProfitLL.Size = new System.Drawing.Size(211, 26);
+            this.lblProfitLL.Size = new System.Drawing.Size(218, 26);
             this.lblProfitLL.Text = "Profit LL";
             this.lblProfitLL.TextSize = new System.Drawing.Size(86, 16);
             // 
@@ -3785,23 +3772,23 @@
             // 
             this.emptySpaceItem1.Location = new System.Drawing.Point(0, 52);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(211, 38);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(218, 45);
             // 
             // lblTotalInvoicesLL
             // 
             this.lblTotalInvoicesLL.Control = this.txtTotalInvoicesLL;
             this.lblTotalInvoicesLL.Location = new System.Drawing.Point(0, 0);
             this.lblTotalInvoicesLL.Name = "lblTotalInvoicesLL";
-            this.lblTotalInvoicesLL.Size = new System.Drawing.Size(211, 26);
+            this.lblTotalInvoicesLL.Size = new System.Drawing.Size(218, 26);
             this.lblTotalInvoicesLL.Text = "Total Invoices";
             this.lblTotalInvoicesLL.TextSize = new System.Drawing.Size(86, 16);
             // 
             // lblNotes
             // 
             this.lblNotes.Control = this.txtNotes;
-            this.lblNotes.Location = new System.Drawing.Point(0, 239);
+            this.lblNotes.Location = new System.Drawing.Point(0, 243);
             this.lblNotes.Name = "lblNotes";
-            this.lblNotes.Size = new System.Drawing.Size(513, 123);
+            this.lblNotes.Size = new System.Drawing.Size(519, 125);
             this.lblNotes.Text = "Notes";
             this.lblNotes.TextSize = new System.Drawing.Size(86, 16);
             // 
@@ -3815,7 +3802,7 @@
             this.lblTotalInvoicesUSD});
             this.grpTotalUsd.Location = new System.Drawing.Point(0, 0);
             this.grpTotalUsd.Name = "grpTotalUsd";
-            this.grpTotalUsd.Size = new System.Drawing.Size(274, 170);
+            this.grpTotalUsd.Size = new System.Drawing.Size(277, 173);
             this.grpTotalUsd.Text = "Total USD";
             // 
             // lblTotalExpensesUSD
@@ -3823,16 +3810,16 @@
             this.lblTotalExpensesUSD.Control = this.txtTotalExpensesUSD;
             this.lblTotalExpensesUSD.Location = new System.Drawing.Point(0, 26);
             this.lblTotalExpensesUSD.Name = "lblTotalExpensesUSD";
-            this.lblTotalExpensesUSD.Size = new System.Drawing.Size(246, 26);
+            this.lblTotalExpensesUSD.Size = new System.Drawing.Size(253, 26);
             this.lblTotalExpensesUSD.Text = "Total Expenses";
             this.lblTotalExpensesUSD.TextSize = new System.Drawing.Size(86, 16);
             // 
             // lblBalanceUSD
             // 
             this.lblBalanceUSD.Control = this.txtBalanceUSD;
-            this.lblBalanceUSD.Location = new System.Drawing.Point(0, 90);
+            this.lblBalanceUSD.Location = new System.Drawing.Point(0, 97);
             this.lblBalanceUSD.Name = "lblBalanceUSD";
-            this.lblBalanceUSD.Size = new System.Drawing.Size(246, 26);
+            this.lblBalanceUSD.Size = new System.Drawing.Size(253, 26);
             this.lblBalanceUSD.Text = "Profit USD";
             this.lblBalanceUSD.TextSize = new System.Drawing.Size(86, 16);
             // 
@@ -3840,22 +3827,22 @@
             // 
             this.emptySpaceItem3.Location = new System.Drawing.Point(0, 52);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(246, 38);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(253, 45);
             // 
             // lblTotalInvoicesUSD
             // 
             this.lblTotalInvoicesUSD.Control = this.txtTotalInvoicesUSD;
             this.lblTotalInvoicesUSD.Location = new System.Drawing.Point(0, 0);
             this.lblTotalInvoicesUSD.Name = "lblTotalInvoicesUSD";
-            this.lblTotalInvoicesUSD.Size = new System.Drawing.Size(246, 26);
+            this.lblTotalInvoicesUSD.Size = new System.Drawing.Size(253, 26);
             this.lblTotalInvoicesUSD.Text = "Total Invoices";
             this.lblTotalInvoicesUSD.TextSize = new System.Drawing.Size(86, 16);
             // 
             // emptySpaceItem2
             // 
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 170);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 173);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(513, 69);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(519, 70);
             // 
             // ProjectEditForm
             // 
@@ -4008,11 +3995,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAddFiles)).EndInit();
-            this.tabManagementStat.ResumeLayout(false);
+            this.tabAddendum.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutSalesManagement)).EndInit();
             this.layoutSalesManagement.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcAddendum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvAddendum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
@@ -4116,12 +4103,10 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn20;
         private DevExpress.XtraEditors.SearchLookUpEdit cboLocations;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewLocations;
-        private DevExpress.XtraGrid.Columns.GridColumn gridLocationCode;
         private DevExpress.XtraGrid.Columns.GridColumn gridLocationName;
         private DevExpress.XtraEditors.SearchLookUpEdit cboAreas;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewAreas;
         private DevExpress.XtraGrid.Columns.GridColumn gridAreaId;
-        private DevExpress.XtraGrid.Columns.GridColumn gridAreaCode;
         private DevExpress.XtraGrid.Columns.GridColumn gridAreaName;
         private DevExpress.XtraEditors.LabelControl lblCity;
         private DevExpress.XtraEditors.LabelControl lblCountry;
@@ -4315,10 +4300,10 @@
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraLayout.LayoutControlItem lblAddFiles;
-        private DevExpress.XtraBars.Navigation.TabNavigationPage tabManagementStat;
+        private DevExpress.XtraBars.Navigation.TabNavigationPage tabAddendum;
         private DevExpress.XtraLayout.LayoutControl layoutSalesManagement;
-        private DevExpress.XtraGrid.GridControl gridControl2;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView10;
+        private DevExpress.XtraGrid.GridControl gcAddendum;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvAddendum;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit2;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup6;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
@@ -4346,6 +4331,7 @@
         private System.Windows.Forms.BindingSource bsLocationInfo;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
     }
 }
 

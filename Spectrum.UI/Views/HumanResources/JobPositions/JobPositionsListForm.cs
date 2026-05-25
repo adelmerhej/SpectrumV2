@@ -44,7 +44,6 @@ namespace Spectrum.Views.HumanResources.JobPositions
 
 		#endregion
 
-
 		public JobPositionsListForm()
 		{
 			InitializeComponent();

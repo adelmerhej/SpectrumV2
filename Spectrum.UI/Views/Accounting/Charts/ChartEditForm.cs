@@ -6,7 +6,6 @@ using Spectrum.Models.Accounting.Charts;
 using Spectrum.Models.Common.Currencies;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
-using Spectrum.Models.Accounting.Banks;
 using System;
 using System.Collections.Generic;
 using System.Linq;

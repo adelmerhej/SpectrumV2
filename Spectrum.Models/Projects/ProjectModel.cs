@@ -8,20 +8,23 @@ namespace Spectrum.Models.Projects
     [BsonIgnoreExtraElements]
 	public class ProjectModel : EntityObject, ICloneable
 	{
-		// ==========================================================
-		// 1. Project Information (References and Core Data)
-		// ==========================================================
+        // ==========================================================
+        // 1. Project Information (References and Core Data)
+        // ==========================================================
 
-		// References: Storing IDs for related collections (Area, Engineer, Client, etc.).
-		// Use string for MongoDB ObjectId references.
+        // References: Storing IDs for related collections (Area, Engineer, Client, etc.).
+        // Use string for MongoDB ObjectId references.
 
-		[BsonElement("Reference")]                                  // "Project Reference"
+        [BsonElement("ProjectType ")]                                 // "Project Type "
+        public string ProjectType { get; set; }
+
+        [BsonElement("Reference ")]                                 // "Project Reference "
 		public string Reference { get; set; }
 
 		[BsonElement("ProjectName")]                               // "Project Name"
 		public string ProjectName { get; set; }
 
-		[BsonElement("TentativeReference")]                               // "Tentative Project Reference"
+		[BsonElement("TentativeReference ")]                      // "Tentative Project Reference "
 		public string TentativeReference { get; set; }
 
 		[BsonElement("ContractReferenceId")]                       // Optional Reference to the Quotation document

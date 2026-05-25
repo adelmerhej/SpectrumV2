@@ -63,9 +63,9 @@ namespace Spectrum.DataLayers.Projects
 				await _projects.InsertOneAsync(project);
 				return project._id;
 			}
-			catch (Exception ex)
+			catch
 			{
-				throw new Exception(ex.Message);
+				throw;
 			}
 		}
 
