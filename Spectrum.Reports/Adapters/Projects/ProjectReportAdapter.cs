@@ -225,6 +225,7 @@ namespace Spectrum.Reports.Adapters.Projects
 
             var fields = new List<KeyValuePair<string, string>>
             {
+                new KeyValuePair<string, string>("Type", _project.ProjectType ?? "-"),
                 new KeyValuePair<string, string>("Reference", _project.Reference ?? "-"),
                 new KeyValuePair<string, string>("Status", _project.Status.ToString()),
                 new KeyValuePair<string, string>("Client", _project.ClientName ?? "-"),
@@ -266,6 +267,7 @@ namespace Spectrum.Reports.Adapters.Projects
 
         private IEnumerable<FieldDescriptor> GetProjectInfoFields()
         {
+            yield return CreateProjectField("Project.ProjectType", "Project Type", "Project Info", typeof(string), null, project => project.ProjectType);
             yield return CreateProjectField("Project.Reference", "Project Reference", "Project Info", typeof(string), null, project => project.Reference);
             yield return CreateProjectField("Project.TentativeReference", "Tentative Reference", "Project Info", typeof(string), null, project => project.TentativeReference);
             yield return CreateProjectField("Project.ProjectName", "Project Name", "Project Info", typeof(string), null, project => project.ProjectName);
