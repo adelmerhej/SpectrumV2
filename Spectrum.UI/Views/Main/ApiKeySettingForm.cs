@@ -18,7 +18,26 @@ namespace Spectrum.Views.Main
         private static readonly IReadOnlyDictionary<string, string[]> ProviderModels =
             new Dictionary<string, string[]>(StringComparer.OrdinalIgnoreCase)
             {
-                { ProviderOpenAi, new[] { "gpt-4.1-mini", "gpt-4o-mini" } },
+                {
+                    ProviderOpenAi,
+                    new[]
+                    {
+                        "gpt-5.4-nano",
+                        "gpt-5.4-mini",
+                        "gpt-5.4",
+                        "gpt-5-nano",
+                        "gpt-5-mini",
+                        "gpt-5",
+                        "gpt-4.1-nano",
+                        "gpt-4.1-mini",
+                        "gpt-4.1",
+                        "gpt-4o-mini",
+                        "gpt-4o",
+                        "o4-mini",
+                        "o3",
+                        "o3-mini"
+                    }
+                },
                 { ProviderDeepSeek, new[] { "deepseek-chat", "deepseek-reasoner" } }
             };
 

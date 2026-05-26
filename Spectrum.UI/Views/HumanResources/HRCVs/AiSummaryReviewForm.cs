@@ -8,6 +8,7 @@ namespace Spectrum.Views.HumanResources.HRCVs
     public class AiSummaryReviewForm : XtraForm
     {
         private readonly RichTextBox _richTextBox;
+        private readonly SimpleButton _btnApply;
         private readonly SimpleButton _btnClose;
 
         public AiSummaryReviewForm(string rtfContent, string plainTextFallback)
@@ -36,6 +37,14 @@ namespace Spectrum.Views.HumanResources.HRCVs
                 _richTextBox.Text = plainTextFallback ?? string.Empty;
             }
 
+            _btnApply = new SimpleButton
+            {
+                Text = "Apply",
+                Dock = DockStyle.Right,
+                Width = 120
+            };
+            _btnApply.Click += BtnApply_Click;
+
             _btnClose = new SimpleButton
             {
                 Text = "Close",
@@ -51,13 +60,21 @@ namespace Spectrum.Views.HumanResources.HRCVs
                 Padding = new Padding(10)
             };
             panelBottom.Controls.Add(_btnClose);
+            panelBottom.Controls.Add(_btnApply);
 
             Controls.Add(_richTextBox);
             Controls.Add(panelBottom);
         }
 
+        private void BtnApply_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
         private void BtnClose_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
             Close();
         }
     }

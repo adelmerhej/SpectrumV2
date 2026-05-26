@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using DevExpress.XtraSplashScreen;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.DataLayers.EmployeeTypes;
@@ -14,6 +15,7 @@ using Spectrum.DataLayers.HumanResources.Candidates;
 using Spectrum.DataLayers.HumanResources.Employees.Services;
 using Spectrum.Models.HumanResources.Candidates;
 using Spectrum.Utilities.Enums;
+using Spectrum.Views.Main;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -220,6 +222,9 @@ namespace Spectrum.Views.HumanResources.HRCVs
         {
             bsCandidate.DataSource = _candidateModel;
             bsCandidate.ResetBindings(false);
+
+            bsEducationEntry.DataSource = _candidateModel?.Education ?? new List<EducationEntryModel>();
+            bsEducationEntry.ResetBindings(false);
         }
 
         private void ApplyDefaults()
@@ -427,14 +432,12 @@ namespace Spectrum.Views.HumanResources.HRCVs
                     return;
                 }
 
+                ShowBusyState("AI CV Parsing", "Pre-processing CV document...");
                 CvPreprocessingResultModel preprocessing;
                 using (var preprocessService = new CvParsingService("phase2-preprocess-only"))
                 {
                     preprocessing = await preprocessService.PreprocessCvAsync(txtUploadCv.Text);
                 }
-
-                _candidateModel.RawExtractedText = preprocessing.RawExtractedText;
-                _candidateModel.PreprocessedJson = preprocessing.NormalizedPreprocessedJson;
 
                 var aiProvider = _connectionModel?.AiSettings?.Provider;
                 if (string.IsNullOrWhiteSpace(aiProvider))
@@ -445,44 +448,124 @@ namespace Spectrum.Views.HumanResources.HRCVs
 
                 if (string.IsNullOrWhiteSpace(apiKey))
                 {
+                    HideBusyState();
                     XtraMessageBox.Show("Your API key is not configured for the selected provider.", "Configuration Missing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
+                CandidateModel parsedCandidate;
+                ShowBusyState("AI CV Parsing", "Generating AI summary...");
                 using (var service = new CvParsingService(apiKey, model, aiProvider))
                 {
-                    var candidate = await service.ParseCvTextAsync(preprocessing.RawExtractedText);
-
-                    _candidateModel.FirstName = candidate.FirstName;
-                    _candidateModel.LastName = candidate.LastName;
-                    _candidateModel.DateOfBirth = candidate.DateOfBirth;
-                    _candidateModel.Gender = candidate.Gender;
-                    _candidateModel.Nationality = candidate.Nationality;
-                    _candidateModel.Email = candidate.Email;
-                    _candidateModel.Phone = candidate.Phone;
-                    _candidateModel.City = candidate.City;
-                    _candidateModel.Address = candidate.Address;
-                    _candidateModel.Position = candidate.Position;
-                    _candidateModel.YearsOfExperience = candidate.YearsOfExperience;
-                    _candidateModel.Skills = candidate.Skills;
-                    _candidateModel.Summary = candidate.Summary;
-
-                    var formattedSummary = BuildFormattedSummaryDocument(candidate);
-                    var formattedSummaryRtf = BuildFormattedSummaryRtf(candidate);
-                    _candidateModel.PreprocessedJson = MergeFormattedSummaryIntoPreprocessedJson(_candidateModel.PreprocessedJson, formattedSummary, formattedSummaryRtf);
-
-                    using (var reviewForm = new AiSummaryReviewForm(formattedSummaryRtf, formattedSummary))
-                    {
-                        reviewForm.ShowDialog(this);
-                    }
+                    parsedCandidate = await service.ParseCvTextAsync(preprocessing.RawExtractedText);
                 }
 
-                RefreshCandidateBindings();
+                ShowBusyState("AI CV Parsing", "Preparing summary preview...");
+                var formattedSummary = BuildFormattedSummaryDocument(parsedCandidate);
+                var formattedSummaryRtf = BuildFormattedSummaryRtf(parsedCandidate);
+                var mergedPreprocessedJson = MergeFormattedSummaryIntoPreprocessedJson(
+                    preprocessing.NormalizedPreprocessedJson,
+                    formattedSummary,
+                    formattedSummaryRtf);
 
+                HideBusyState();
+
+                DialogResult reviewResult;
+                using (var reviewForm = new AiSummaryReviewForm(formattedSummaryRtf, formattedSummary))
+                {
+                    reviewResult = reviewForm.ShowDialog(this);
+                }
+
+                if (reviewResult != DialogResult.OK)
+                {
+                    XtraMessageBox.Show("Summary preview was closed without applying changes.", "Preview Closed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                ShowBusyState("AI CV Parsing", "Applying reviewed summary to candidate...");
+                ApplyParsedCandidateValues(parsedCandidate, preprocessing.RawExtractedText, mergedPreprocessedJson);
+                RefreshCandidateBindings();
             }
             catch (Exception ex)
             {
                 ShowError("Parsing Error", ex);
+            }
+            finally
+            {
+                HideBusyState();
+            }
+        }
+
+        private void ApplyParsedCandidateValues(CandidateModel parsedCandidate, string rawExtractedText, string mergedPreprocessedJson)
+        {
+            if (parsedCandidate == null)
+                return;
+
+            _candidateModel.RawExtractedText = rawExtractedText;
+            _candidateModel.PreprocessedJson = mergedPreprocessedJson;
+            _candidateModel.FirstName = parsedCandidate.FirstName;
+            _candidateModel.LastName = parsedCandidate.LastName;
+            _candidateModel.DateOfBirth = parsedCandidate.DateOfBirth;
+            _candidateModel.Gender = parsedCandidate.Gender;
+            _candidateModel.Nationality = parsedCandidate.Nationality;
+            _candidateModel.Email = parsedCandidate.Email;
+            _candidateModel.Phone = parsedCandidate.Phone;
+            _candidateModel.City = parsedCandidate.City;
+            _candidateModel.Address = parsedCandidate.Address;
+            _candidateModel.Position = parsedCandidate.Position;
+            _candidateModel.YearsOfExperience = parsedCandidate.YearsOfExperience;
+            _candidateModel.Skills = parsedCandidate.Skills;
+            _candidateModel.Summary = parsedCandidate.Summary;
+            _candidateModel.Education = parsedCandidate.Education ?? new List<EducationEntryModel>();
+            _candidateModel.History = parsedCandidate.History ?? new List<WorkExperienceModel>();
+            _candidateModel.Confidence = parsedCandidate.Confidence;
+            _candidateModel.RawInsights = parsedCandidate.RawInsights;
+
+            txtSummary.EditValue = BuildReviewedCvTitle(parsedCandidate);
+        }
+
+        private string BuildReviewedCvTitle(CandidateModel candidate)
+        {
+            var fullName = string.Join(" ", new[] { candidate?.FirstName, candidate?.LastName }
+                .Where(x => !string.IsNullOrWhiteSpace(x)))
+                .Trim();
+
+            if (string.IsNullOrWhiteSpace(fullName))
+                return "Reviewed CV Summary";
+
+            return $"Reviewed CV Summary — {fullName}";
+        }
+
+        private void ShowBusyState(string caption, string description)
+        {
+            try
+            {
+                if (SplashScreenManager.Default == null || !SplashScreenManager.Default.IsSplashFormVisible)
+                {
+                    SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+                }
+
+                SplashScreenManager.Default?.SetWaitFormCaption(caption);
+                SplashScreenManager.Default?.SetWaitFormDescription(description);
+            }
+            catch
+            {
+                // Keep flow resilient; loading UI is best-effort.
+            }
+        }
+
+        private void HideBusyState()
+        {
+            try
+            {
+                if (SplashScreenManager.Default != null && SplashScreenManager.Default.IsSplashFormVisible)
+                {
+                    SplashScreenManager.CloseForm(false);
+                }
+            }
+            catch
+            {
+                // Keep flow resilient; loading UI is best-effort.
             }
         }
 
@@ -680,9 +763,9 @@ namespace Spectrum.Views.HumanResources.HRCVs
             if (string.IsNullOrWhiteSpace(preprocessedJson) || preprocessedJson.Trim() == "{}")
             {
                 return "{"
-                    + "\"FormattedSummaryMarkdown\":" + ToJsonString(formattedSummary) + ","
-                    + "\"FormattedSummaryRtf\":" + ToJsonString(formattedSummaryRtf) + ","
-                    + "\"FormattedSummaryGeneratedAtUtc\":" + ToJsonString(timestamp)
+                    + "\"FormattedSummaryMarkdown\":" + toJsonString(formattedSummary) + ","
+                    + "\"FormattedSummaryRtf\":" + toJsonString(formattedSummaryRtf) + ","
+                    + "\"FormattedSummaryGeneratedAtUtc\":" + toJsonString(timestamp)
                     + "}";
             }
 
@@ -692,14 +775,14 @@ namespace Spectrum.Views.HumanResources.HRCVs
                 return preprocessedJson;
             }
 
-            var payload = "\"FormattedSummaryMarkdown\":" + ToJsonString(formattedSummary)
-                + ",\"FormattedSummaryRtf\":" + ToJsonString(formattedSummaryRtf)
-                + ",\"FormattedSummaryGeneratedAtUtc\":" + ToJsonString(timestamp);
+            var payload = "\"FormattedSummaryMarkdown\":" + toJsonString(formattedSummary)
+                + ",\"FormattedSummaryRtf\":" + toJsonString(formattedSummaryRtf)
+                + ",\"FormattedSummaryGeneratedAtUtc\":" + toJsonString(timestamp);
 
             return trimmed.Substring(0, trimmed.Length - 1) + "," + payload + "}";
         }
 
-        private string ToJsonString(string value)
+        private string toJsonString(string value)
         {
             if (value == null)
                 return "null";
@@ -798,21 +881,6 @@ namespace Spectrum.Views.HumanResources.HRCVs
             rtb.SelectionStart = rtb.TextLength;
             rtb.SelectionLength = 0;
             rtb.AppendText(Environment.NewLine);
-        }
-
-        private string EscapeJsonString(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-                return value;
-
-            return value
-                .Replace("\\", "\\\\")
-                .Replace("\"", "\\\"")
-                .Replace("\b", "\\b")
-                .Replace("\f", "\\f")
-                .Replace("\n", "\\n")
-                .Replace("\r", "\\r")
-                .Replace("\t", "\\t");
         }
 
         private string SafeValue(string value)

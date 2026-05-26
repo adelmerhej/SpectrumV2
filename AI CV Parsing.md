@@ -21,13 +21,15 @@ The agent must read this section first and apply these decisions throughout.
 
 | Status | Value |
 |---|---|
-| Phase in progress | Phase 4 — candidate conversion actions baseline implemented from HR CV review surface |
+| Phase in progress | Phase 4.5 — summary approval/apply workflow and loading feedback implemented |
 | Last updated | 2026-05-26 |
 | Updated by | GitHub Copilot |
 
 ## Changelog
 | Version | Change |
 |---|---|
+| v1.10 | Expanded OpenAI model catalog in `ApiKeySettingForm` to include GPT-5.4 Nano and additional GPT/o-series options. Updated HR CV review apply flow to set a reviewed CV title in `txtSummary` and ensured parsed education output is explicitly bound to `gridControl1` (`bsEducationEntry`) after apply. |
+| v1.9 | Implemented summary **approval/apply** behavior in AI review flow: parsed candidate values are now applied only when user confirms in `AiSummaryReviewForm` (`Apply` action). Added loading state feedback in `HrCvEditForm` during preprocess, AI summarize, preview preparation, and apply steps via `WaitForm1` (`SplashScreenManager`) so users see pending actions. |
 | v1.8 | Implemented HR CV conversion actions baseline in `HrCvEditForm`: added **Convert To Employee** and **Convert To Engineer** ribbon actions, mapped candidate fields into `EmployeeModel`, resolved `EmployeeTypeModel` from `EmployeeType` enum via `EmployeeTypeRepository.ResolveEmployeeTypeModel`, and persisted converted records to `Employees` collection. |
 | v1.7 | Resolved key blockers: implemented provider-aware AI parsing path (OpenAI/DeepSeek endpoint routing) and added RichText review surface (`AiSummaryReviewForm`) with structured headings/subheadings shown immediately after Parse-with-AI, while preserving D-08 no-auto-save behavior. |
 | v1.6 | Optimized Parse-with-AI orchestration to remove duplicate extraction: pre-processing output raw text is now reused for AI summarization via `ICvParsingService.ParseCvTextAsync`. Preserved D-08 behavior (single user action, no auto-save). |
@@ -532,6 +534,10 @@ Key preserved mapping candidates:
 - Resolved `EmployeeTypeModel` from `EmployeeType` enum via `EmployeeTypeRepository.ResolveEmployeeTypeModel`
 - Persisted converted records to `Employees` collection
 
+### Phase 4.5 updates
+- Updated AI review flow to require user **approval/apply** action to commit parsed values to employee/engineer records.
+- Integrated loading state feedback using `SplashScreenManager` to indicate pending operations during CV processing and apply stages.
+
 ---
 
 ## Remaining gaps / worklist
@@ -543,6 +549,7 @@ Key preserved mapping candidates:
    > Resolved in [Phase 4 baseline] — Added `Convert To Engineer` action in `HrCvEditForm` and persisted mapped `EmployeeModel` records with `EmployeeType.Engineer`.
 3. Structured archive/version history for repeated parses is not implemented.
 4. Final approval/apply-to-target-record flow is not implemented.
+   > Resolved in [Phase 4.5] — Added explicit summary review approval gate (`Apply`) before parsed AI output is applied back to candidate record fields.
 
 ### Data model maturity gaps
 1. Formatted summary currently stored in preprocessing artifact JSON; no dedicated first-class versioned model yet.
@@ -552,6 +559,8 @@ Key preserved mapping candidates:
 ### UX gaps still open
 1. RichText review baseline exists, but not yet integrated as a full editing/approval workflow with commit semantics.
 2. HR CV form legacy binding inconsistencies remain (years-of-experience/summary/education wiring cleanup still pending).
+3. No loading feedback exists during parse/preview operations.
+   > Resolved in [Phase 4.5] — Added wait/loading state messaging for preprocess, AI summarize, summary preview preparation, and apply operations.
 
 ### Technical/operational gaps
 1. Model catalog is static/manual (no provider model discovery).
@@ -560,10 +569,10 @@ Key preserved mapping candidates:
 ---
 
 ## Recommended next sequence (from current state)
-1. Add explicit approval/apply flow from RichText review output to target record.
-2. Introduce first-class parse artifact/version model (instead of JSON-only payload growth).
-3. Add audit metadata fields for each parse run.
-4. Resolve remaining HR CV form binding inconsistencies.
+1. Introduce first-class parse artifact/version model (instead of JSON-only payload growth).
+2. Add audit metadata fields for each parse run.
+3. Resolve remaining HR CV form binding inconsistencies.
+4. Add full commit semantics from RichText review output to employee/engineer target records.
 5. Optionally add provider model catalog discovery.
 
 ---
@@ -574,7 +583,8 @@ Key preserved mapping candidates:
 - Phase 2 is complete and optimized.
 - Phase 3 baseline (provider routing + rich text review baseline) is implemented.
 - Phase 4 baseline (candidate conversion actions to employee/engineer) is implemented.
-- Remaining work is mainly approval flow, archive/versioning, and artifact/audit model maturity.
+- Phase 4.5 baseline (approval/apply gate + loading-state feedback) is implemented.
+- Remaining work is mainly artifact/versioning, audit metadata maturity, and deeper review-to-target commit semantics.
 
 ---
 
