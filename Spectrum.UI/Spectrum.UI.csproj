@@ -392,6 +392,9 @@
     <Compile Include="Views\HumanResources\Employees\Status\StatusListForm.Designer.cs">
       <DependentUpon>StatusListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\HumanResources\HRCVs\AiSummaryReviewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\HumanResources\HRCVs\HrCvEditForm.cs">
       <SubType>Form</SubType>
     </Compile>

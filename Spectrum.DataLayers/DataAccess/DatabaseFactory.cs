@@ -22,6 +22,7 @@ namespace Spectrum.DataLayers.DataAccess
 		public static void SaveConnection(ConnectionModel model, string profileName)
 		{
 			var config = ConfigManager.Load(profileName);
+			var aiSettings = model.AiSettings ?? new AiSettingsModel();
 
 			var profile = new ConnectionModel
 			{
@@ -33,8 +34,21 @@ namespace Spectrum.DataLayers.DataAccess
 				// ENCRYPT: Convert plain text to secure blob
 				EncryptedPassword = SystemUtilities.Protect(model.DatabasePassword),
 				EncryptedConnectionString = SystemUtilities.Protect(model.DatabaseConnectionString),
-                AiModel = model.AiModel,
+
+				// Legacy flat values for backward compatibility
+				AiModel = model.AiModel,
 				EncryptedAiApikey = SystemUtilities.Protect(model.EncryptedAiApikey),
+
+				// Phase 1 nested AI settings
+				AiSettings = new AiSettingsModel
+				{
+					Provider = aiSettings.Provider,
+					OpenAiModel = aiSettings.OpenAiModel,
+					DeepSeekModel = aiSettings.DeepSeekModel,
+					EncryptedOpenAiApiKey = SystemUtilities.Protect(aiSettings.EncryptedOpenAiApiKey),
+					EncryptedDeepSeekApiKey = SystemUtilities.Protect(aiSettings.EncryptedDeepSeekApiKey)
+				},
+
 				ProjectsDocumentsFolder = model.ProjectsDocumentsFolder,
 				EmployeesDocumentsFolder = model.EmployeesDocumentsFolder,
 				EngineersDocumentsFolder = model.EngineersDocumentsFolder,
@@ -59,6 +73,7 @@ namespace Spectrum.DataLayers.DataAccess
 				return new ConnectionModel { Name = profileName }; // Return empty container
 
 			var profile = config.Connections[profileName];
+			var profileAi = profile.AiSettings ?? new AiSettingsModel();
 
 			var model = new ConnectionModel
 			{
@@ -71,12 +86,27 @@ namespace Spectrum.DataLayers.DataAccess
 				// DECRYPT: Restore plain text for usage
 				DatabasePassword = SystemUtilities.Unprotect(profile.EncryptedPassword),
 				DatabaseConnectionString = SystemUtilities.Unprotect(profile.EncryptedConnectionString),
-                AiModel = profile.AiModel,
+
+				// Legacy flat values (decrypted)
+				AiModel = profile.AiModel,
 				EncryptedAiApikey = SystemUtilities.Unprotect(profile.EncryptedAiApikey),
+
+				// Phase 1 nested AI settings (decrypted)
+				AiSettings = new AiSettingsModel
+				{
+					Provider = profileAi.Provider,
+					OpenAiModel = profileAi.OpenAiModel,
+					DeepSeekModel = profileAi.DeepSeekModel,
+					EncryptedOpenAiApiKey = SystemUtilities.Unprotect(profileAi.EncryptedOpenAiApiKey),
+					EncryptedDeepSeekApiKey = SystemUtilities.Unprotect(profileAi.EncryptedDeepSeekApiKey)
+				},
+
 				ProjectsDocumentsFolder = profile.ProjectsDocumentsFolder,
 				EmployeesDocumentsFolder = profile.EmployeesDocumentsFolder,
 				EngineersDocumentsFolder = profile.EngineersDocumentsFolder
 			};
+
+			HydrateLegacyAiFieldsFromNested(model);
 
 			// Auto-generate MongoDB connection string if missing but parameters exist
 			if (string.IsNullOrWhiteSpace(model.DatabaseConnectionString) &&
@@ -86,6 +116,46 @@ namespace Spectrum.DataLayers.DataAccess
 			}
 
 			return model;
+		}
+
+		private static void HydrateLegacyAiFieldsFromNested(ConnectionModel model)
+		{
+			if (model == null)
+				return;
+
+			if (model.AiSettings == null)
+				model.AiSettings = new AiSettingsModel();
+
+			var provider = model.AiSettings.Provider;
+			if (string.IsNullOrWhiteSpace(provider))
+				provider = "OpenAI";
+
+			model.AiSettings.Provider = provider;
+
+			if (string.Equals(provider, "DeepSeek", StringComparison.OrdinalIgnoreCase))
+			{
+				if (string.IsNullOrWhiteSpace(model.AiSettings.DeepSeekModel) && !string.IsNullOrWhiteSpace(model.AiModel))
+					model.AiSettings.DeepSeekModel = model.AiModel;
+
+				if (string.IsNullOrWhiteSpace(model.AiSettings.EncryptedDeepSeekApiKey) && !string.IsNullOrWhiteSpace(model.EncryptedAiApikey))
+					model.AiSettings.EncryptedDeepSeekApiKey = model.EncryptedAiApikey;
+			}
+			else
+			{
+				if (string.IsNullOrWhiteSpace(model.AiSettings.OpenAiModel) && !string.IsNullOrWhiteSpace(model.AiModel))
+					model.AiSettings.OpenAiModel = model.AiModel;
+
+				if (string.IsNullOrWhiteSpace(model.AiSettings.EncryptedOpenAiApiKey) && !string.IsNullOrWhiteSpace(model.EncryptedAiApikey))
+					model.AiSettings.EncryptedOpenAiApiKey = model.EncryptedAiApikey;
+			}
+
+			model.AiModel = string.Equals(provider, "DeepSeek", StringComparison.OrdinalIgnoreCase)
+				? model.AiSettings.DeepSeekModel
+				: model.AiSettings.OpenAiModel;
+
+			model.EncryptedAiApikey = string.Equals(provider, "DeepSeek", StringComparison.OrdinalIgnoreCase)
+				? model.AiSettings.EncryptedDeepSeekApiKey
+				: model.AiSettings.EncryptedOpenAiApiKey;
 		}
 
 		/// <summary>

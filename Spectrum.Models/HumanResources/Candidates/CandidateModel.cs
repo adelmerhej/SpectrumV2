@@ -23,6 +23,10 @@ namespace Spectrum.Models.HumanResources.Candidates
         public string Skills { get; set; }
         public string Summary { get; set; }
 
+        // Phase 2 pre-processing artifacts
+        public string RawExtractedText { get; set; }
+        public string PreprocessedJson { get; set; }
+
         public List<EducationEntryModel> Education { get; set; } = new List<EducationEntryModel>();
         public List<WorkExperienceModel> History { get; set; } = new List<WorkExperienceModel>();
         public double Confidence { get; set; } // 0.0 to 1.0
