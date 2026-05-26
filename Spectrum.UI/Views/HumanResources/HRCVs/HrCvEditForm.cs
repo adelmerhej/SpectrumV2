@@ -54,6 +54,8 @@ namespace Spectrum.Views.HumanResources.HRCVs
         private BarButtonItem _btnConvertToEmployee;
         private BarButtonItem _btnConvertToEngineer;
         private RibbonPageGroup _conversionRibbonGroup;
+        private GridControl _educationGridControl;
+        private GridView _educationGridView;
         private GridControl _workGridControl;
         private GridView _workGridView;
 
@@ -326,8 +328,27 @@ namespace Spectrum.Views.HumanResources.HRCVs
             var pageEducation = new XtraTabPage { Text = "Education" };
             var pageWork = new XtraTabPage { Text = "Work" };
 
-            pageEducation.Controls.Add(gridControl1);
-            gridControl1.Dock = DockStyle.Fill;
+            _educationGridControl = new GridControl
+            {
+                DataSource = bsEducationEntry,
+                Dock = DockStyle.Fill,
+                MenuManager = ribbonControl
+            };
+
+            _educationGridView = new GridView
+            {
+                GridControl = _educationGridControl,
+                OptionsView = { ShowGroupPanel = false, ColumnAutoWidth = false }
+            };
+
+            _educationGridView.Columns.AddVisible("Degree", "Degree");
+            _educationGridView.Columns.AddVisible("Institution", "Institution");
+            _educationGridView.Columns.AddVisible("Year", "Year");
+            _educationGridView.Columns.AddVisible("Specialization", "Specialization");
+
+            _educationGridControl.MainView = _educationGridView;
+            _educationGridControl.ViewCollection.Add(_educationGridView);
+            pageEducation.Controls.Add(_educationGridControl);
 
             _workGridControl = new GridControl
             {
@@ -351,8 +372,11 @@ namespace Spectrum.Views.HumanResources.HRCVs
             pageWork.Controls.Add(_workGridControl);
 
             tab.TabPages.AddRange(new[] { pageEducation, pageWork });
+            tab.SelectedTabPage = pageEducation;
             parent.Controls.Add(tab);
             tab.BringToFront();
+
+            gridControl1.Visible = false;
         }
 
         private void ApplyDefaults()

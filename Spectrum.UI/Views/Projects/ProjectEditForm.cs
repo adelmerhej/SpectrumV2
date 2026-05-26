@@ -89,6 +89,7 @@ namespace Spectrum.Views.Projects
         private bool _canPrint = true;
         private bool _isAdmin = true;
         private bool _isProtected = true;
+        private readonly List<string> _loadWarnings = new List<string>();
 
         public EventHandler SendUpdatedProject;
 
@@ -108,6 +109,15 @@ namespace Spectrum.Views.Projects
                 WireUpBindings();
                 ApplyDefaults();
                 ApplyPermissions();
+
+                if (_loadWarnings.Any())
+                {
+                    XtraMessageBox.Show(
+                        "Some lookup data could not be loaded. The form will remain available with partial data.\n\n" + string.Join("\n", _loadWarnings),
+                        "Lookup Data Warning",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
@@ -118,26 +128,34 @@ namespace Spectrum.Views.Projects
         #region InitializeBindings Methods
         private async Task InitializeBindings()
         {
+            _loadWarnings.Clear();
+
+            var loadTasks = new[]
+            {
+                LoadSafelyAsync("clients", LoadClientsAsync, () => _clients = new List<ClientModel>()),
+                LoadSafelyAsync("engineers", LoadEngineersAsync, () => _engineers = new List<EmployeeModel>()),
+                LoadSafelyAsync("users", LoadUsersAsync, () => _users = new List<UserModel>()),
+                LoadSafelyAsync("services", LoadServicesAsync, () => _services = new List<ServiceModel>()),
+                LoadSafelyAsync("service types", LoadServiceTypesAsync, () => _serviceTypes = new List<ServiceTypeModel>()),
+                LoadSafelyAsync("locations", LoadLocationsAsync, () => _locations = new List<LocationModel>()),
+                LoadSafelyAsync("areas", LoadAreasAsync, () => _areas = new List<AreaModel>()),
+                LoadSafelyAsync("countries", LoadCountriesAsync, () => _countries = new List<CountryModel>()),
+                LoadSafelyAsync("cities", LoadCitiesAsync, () => _cities = new List<CityModel>()),
+            };
+
+            await Task.WhenAll(loadTasks);
+        }
+
+        private async Task LoadSafelyAsync(string sourceName, Func<Task> loader, Action fallback)
+        {
             try
             {
-                var loadTasks = new[]
-                {
-                    LoadClientsAsync(),
-                    LoadEngineersAsync(),
-                    LoadUsersAsync(),
-                    LoadServicesAsync(),
-                    LoadServiceTypesAsync(),
-                    LoadLocationsAsync(),
-                    LoadAreasAsync(),
-                    LoadCountriesAsync(),
-                    LoadCitiesAsync(),
-                };
-
-                await Task.WhenAll(loadTasks);
+                await loader();
             }
             catch (Exception ex)
             {
-                throw new Exception("Error loading form data", ex);
+                fallback?.Invoke();
+                _loadWarnings.Add($"- {sourceName}: {ex.Message}");
             }
         }
 
