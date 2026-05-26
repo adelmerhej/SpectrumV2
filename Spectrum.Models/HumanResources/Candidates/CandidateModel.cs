@@ -22,6 +22,7 @@ namespace Spectrum.Models.HumanResources.Candidates
         public string YearsOfExperience { get; set; }
         public string Skills { get; set; }
         public string Summary { get; set; }
+        public string ReviewedSummaryTitle { get; set; }
 
         // Phase 2 pre-processing artifacts
         public string RawExtractedText { get; set; }

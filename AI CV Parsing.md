@@ -21,13 +21,14 @@ The agent must read this section first and apply these decisions throughout.
 
 | Status | Value |
 |---|---|
-| Phase in progress | Phase 4.5 — summary approval/apply workflow and loading feedback implemented |
+| Phase in progress | Phase 4.6 — HR CV binding synchronization and saved summary replay implemented |
 | Last updated | 2026-05-26 |
 | Updated by | GitHub Copilot |
 
 ## Changelog
 | Version | Change |
 |---|---|
+| v1.11 | Implemented HR CV persistence/UI synchronization refinements: added `CandidateModel.ReviewedSummaryTitle`, bound reviewed-title and years-of-experience fields explicitly in `HrCvEditForm`, added runtime Education/Work tab split with work-history grid binding, enabled `View AI Summary` to replay saved formatted summary content from `PreprocessedJson`, and replaced conversion action placeholders with SVG icon assignment + fallback URI behavior. |
 | v1.10 | Expanded OpenAI model catalog in `ApiKeySettingForm` to include GPT-5.4 Nano and additional GPT/o-series options. Updated HR CV review apply flow to set a reviewed CV title in `txtSummary` and ensured parsed education output is explicitly bound to `gridControl1` (`bsEducationEntry`) after apply. |
 | v1.9 | Implemented summary **approval/apply** behavior in AI review flow: parsed candidate values are now applied only when user confirms in `AiSummaryReviewForm` (`Apply` action). Added loading state feedback in `HrCvEditForm` during preprocess, AI summarize, preview preparation, and apply steps via `WaitForm1` (`SplashScreenManager`) so users see pending actions. |
 | v1.8 | Implemented HR CV conversion actions baseline in `HrCvEditForm`: added **Convert To Employee** and **Convert To Engineer** ribbon actions, mapped candidate fields into `EmployeeModel`, resolved `EmployeeTypeModel` from `EmployeeType` enum via `EmployeeTypeRepository.ResolveEmployeeTypeModel`, and persisted converted records to `Employees` collection. |
@@ -538,6 +539,9 @@ Key preserved mapping candidates:
 - Updated AI review flow to require user **approval/apply** action to commit parsed values to employee/engineer records.
 - Integrated loading state feedback using `SplashScreenManager` to indicate pending operations during CV processing and apply stages.
 
+### Phase 4.6 updates
+- Implemented HR CV persistence/UI synchronization refinements: added `CandidateModel.ReviewedSummaryTitle`, bound reviewed-title and years-of-experience fields explicitly in `HrCvEditForm`, added runtime Education/Work tab split with work-history grid binding, enabled `View AI Summary` to replay saved formatted summary content from `PreprocessedJson`, and replaced conversion action placeholders with SVG icon assignment + fallback URI behavior.
+
 ---
 
 ## Remaining gaps / worklist
@@ -584,6 +588,7 @@ Key preserved mapping candidates:
 - Phase 3 baseline (provider routing + rich text review baseline) is implemented.
 - Phase 4 baseline (candidate conversion actions to employee/engineer) is implemented.
 - Phase 4.5 baseline (approval/apply gate + loading-state feedback) is implemented.
+- Phase 4.6 updates (UI/synchronization refinements) are implemented.
 - Remaining work is mainly artifact/versioning, audit metadata maturity, and deeper review-to-target commit semantics.
 
 ---

@@ -2,6 +2,8 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraSplashScreen;
+using DevExpress.XtraTab;
+using DevExpress.Utils.Svg;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.DataLayers.EmployeeTypes;
@@ -27,6 +29,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Globalization;
+using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Views.Grid;
 
 namespace Spectrum.Views.HumanResources.HRCVs
 {
@@ -50,6 +54,8 @@ namespace Spectrum.Views.HumanResources.HRCVs
         private BarButtonItem _btnConvertToEmployee;
         private BarButtonItem _btnConvertToEngineer;
         private RibbonPageGroup _conversionRibbonGroup;
+        private GridControl _workGridControl;
+        private GridView _workGridView;
 
         //Init permissionvariables
         private bool _canAdd = true;
@@ -94,14 +100,28 @@ namespace Spectrum.Views.HumanResources.HRCVs
                 Caption = "Convert To Employee",
                 Id = ribbonControl.MaxItemId++
             };
-            _btnConvertToEmployee.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.NewEmployee.svg";
+            try
+            {
+                _btnConvertToEmployee.ImageOptions.SvgImage = SvgImage.FromResources("DevExpress.DevAV.Resources.NewEmployee.svg", typeof(BarButtonItem).Assembly);
+            }
+            catch
+            {
+                _btnConvertToEmployee.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.NewEmployee.svg";
+            }
 
             _btnConvertToEngineer = new BarButtonItem
             {
                 Caption = "Convert To Engineer",
                 Id = ribbonControl.MaxItemId++
             };
-            _btnConvertToEngineer.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.New.svg";
+            try
+            {
+                _btnConvertToEngineer.ImageOptions.SvgImage = SvgImage.FromResources("DevExpress.DevAV.Resources.New.svg", typeof(BarButtonItem).Assembly);
+            }
+            catch
+            {
+                _btnConvertToEngineer.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.New.svg";
+            }
 
             _btnConvertToEmployee.ItemClick += btnConvertToEmployee_ItemClick;
             _btnConvertToEngineer.ItemClick += btnConvertToEngineer_ItemClick;
@@ -209,6 +229,7 @@ namespace Spectrum.Views.HumanResources.HRCVs
 
         private void WireUpBindings()
         {
+            EnsureCandidateFieldBindings();
             RefreshCandidateBindings();
 
             cboNationality.Properties.DataSource = null;
@@ -216,6 +237,40 @@ namespace Spectrum.Views.HumanResources.HRCVs
 
             cboCities.Properties.DataSource = null;
             cboCities.Properties.DataSource = _cities;
+
+            simpleButton1.Visible = true;
+            simpleButton1.Text = "View AI Summary";
+
+            InitializeEducationAndWorkTabs();
+        }
+
+        private void EnsureCandidateFieldBindings()
+        {
+            EnsureBinding(txtYearsOfExperience, "EditValue", "YearsOfExperience");
+            EnsureBinding(txtSummary, "EditValue", "ReviewedSummaryTitle");
+        }
+
+        private void EnsureBinding(Control control, string propertyName, string dataMember)
+        {
+            if (control == null)
+                return;
+
+            var existing = control.DataBindings.Cast<Binding>()
+                .FirstOrDefault(b => string.Equals(b.PropertyName, propertyName, StringComparison.OrdinalIgnoreCase));
+
+            if (existing != null)
+            {
+                if (!string.Equals(existing.BindingMemberInfo.BindingMember, dataMember, StringComparison.OrdinalIgnoreCase) || existing.DataSource != bsCandidate)
+                {
+                    control.DataBindings.Remove(existing);
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            control.DataBindings.Add(propertyName, bsCandidate, dataMember, true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         private void RefreshCandidateBindings()
@@ -225,6 +280,79 @@ namespace Spectrum.Views.HumanResources.HRCVs
 
             bsEducationEntry.DataSource = _candidateModel?.Education ?? new List<EducationEntryModel>();
             bsEducationEntry.ResetBindings(false);
+
+            bsWorkExperience.DataSource = _candidateModel?.History ?? new List<WorkExperienceModel>();
+            bsWorkExperience.ResetBindings(false);
+
+            txtSummary.EditValue = ResolveReviewedSummaryTitle();
+        }
+
+        private string ResolveReviewedSummaryTitle()
+        {
+            if (!string.IsNullOrWhiteSpace(_candidateModel?.ReviewedSummaryTitle))
+                return _candidateModel.ReviewedSummaryTitle;
+
+            return BuildReviewedCvTitle(_candidateModel);
+        }
+
+        private string BuildReviewedCvTitle(CandidateModel candidate)
+        {
+            var fullName = string.Join(" ", new[] { candidate?.FirstName, candidate?.LastName }
+                .Where(x => !string.IsNullOrWhiteSpace(x)))
+                .Trim();
+
+            return string.IsNullOrWhiteSpace(fullName)
+                ? "Reviewed CV Summary"
+                : $"Reviewed CV Summary — {fullName}";
+        }
+
+        private void InitializeEducationAndWorkTabs()
+        {
+            if (_workGridControl != null)
+                return;
+
+            var parent = gridControl1.Parent;
+            if (parent == null)
+                return;
+
+            var bounds = gridControl1.Bounds;
+            var tab = new XtraTabControl
+            {
+                Name = "tabEducationWork",
+                Bounds = bounds,
+                Anchor = gridControl1.Anchor
+            };
+
+            var pageEducation = new XtraTabPage { Text = "Education" };
+            var pageWork = new XtraTabPage { Text = "Work" };
+
+            pageEducation.Controls.Add(gridControl1);
+            gridControl1.Dock = DockStyle.Fill;
+
+            _workGridControl = new GridControl
+            {
+                DataSource = bsWorkExperience,
+                Dock = DockStyle.Fill,
+                MenuManager = ribbonControl
+            };
+
+            _workGridView = new GridView
+            {
+                GridControl = _workGridControl,
+                OptionsView = { ShowGroupPanel = false, ColumnAutoWidth = false }
+            };
+
+            _workGridView.Columns.AddVisible("Company", "Company");
+            _workGridView.Columns.AddVisible("Position", "Position");
+            _workGridView.Columns.AddVisible("Duration", "Duration");
+
+            _workGridControl.MainView = _workGridView;
+            _workGridControl.ViewCollection.Add(_workGridView);
+            pageWork.Controls.Add(_workGridControl);
+
+            tab.TabPages.AddRange(new[] { pageEducation, pageWork });
+            parent.Controls.Add(tab);
+            tab.BringToFront();
         }
 
         private void ApplyDefaults()
@@ -521,19 +649,8 @@ namespace Spectrum.Views.HumanResources.HRCVs
             _candidateModel.Confidence = parsedCandidate.Confidence;
             _candidateModel.RawInsights = parsedCandidate.RawInsights;
 
-            txtSummary.EditValue = BuildReviewedCvTitle(parsedCandidate);
-        }
-
-        private string BuildReviewedCvTitle(CandidateModel candidate)
-        {
-            var fullName = string.Join(" ", new[] { candidate?.FirstName, candidate?.LastName }
-                .Where(x => !string.IsNullOrWhiteSpace(x)))
-                .Trim();
-
-            if (string.IsNullOrWhiteSpace(fullName))
-                return "Reviewed CV Summary";
-
-            return $"Reviewed CV Summary — {fullName}";
+            _candidateModel.ReviewedSummaryTitle = BuildReviewedCvTitle(parsedCandidate);
+            txtSummary.EditValue = _candidateModel.ReviewedSummaryTitle;
         }
 
         private void ShowBusyState(string caption, string description)
@@ -550,7 +667,6 @@ namespace Spectrum.Views.HumanResources.HRCVs
             }
             catch
             {
-                // Keep flow resilient; loading UI is best-effort.
             }
         }
 
@@ -565,8 +681,97 @@ namespace Spectrum.Views.HumanResources.HRCVs
             }
             catch
             {
-                // Keep flow resilient; loading UI is best-effort.
             }
+        }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var parsedPayload = ParseSummaryPayload(_candidateModel?.PreprocessedJson);
+                var rtf = parsedPayload.rtf;
+                var markdown = parsedPayload.markdown;
+
+                if (string.IsNullOrWhiteSpace(rtf) && string.IsNullOrWhiteSpace(markdown))
+                {
+                    XtraMessageBox.Show("No saved AI summary was found for this CV record.", "AI Summary", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                using (var reviewForm = new AiSummaryReviewForm(rtf, markdown))
+                {
+                    reviewForm.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowError("AI Summary Error", ex);
+            }
+        }
+
+        private (string markdown, string rtf) ParseSummaryPayload(string preprocessedJson)
+        {
+            if (string.IsNullOrWhiteSpace(preprocessedJson))
+                return (null, null);
+
+            var markdownToken = "\"FormattedSummaryMarkdown\":";
+            var rtfToken = "\"FormattedSummaryRtf\":";
+
+            var markdown = ExtractJsonString(preprocessedJson, markdownToken);
+            var rtf = ExtractJsonString(preprocessedJson, rtfToken);
+
+            return (markdown, rtf);
+        }
+
+        private string ExtractJsonString(string json, string token)
+        {
+            var tokenIndex = json.IndexOf(token, StringComparison.OrdinalIgnoreCase);
+            if (tokenIndex < 0)
+                return null;
+
+            var valueStart = tokenIndex + token.Length;
+            while (valueStart < json.Length && char.IsWhiteSpace(json[valueStart]))
+                valueStart++;
+
+            if (valueStart >= json.Length || json[valueStart] != '"')
+                return null;
+
+            valueStart++;
+            var sb = new StringBuilder();
+            var escaped = false;
+
+            for (var i = valueStart; i < json.Length; i++)
+            {
+                var ch = json[i];
+                if (escaped)
+                {
+                    switch (ch)
+                    {
+                        case 'n': sb.Append('\n'); break;
+                        case 'r': sb.Append('\r'); break;
+                        case 't': sb.Append('\t'); break;
+                        case '"': sb.Append('"'); break;
+                        case '\\': sb.Append('\\'); break;
+                        default: sb.Append(ch); break;
+                    }
+
+                    escaped = false;
+                    continue;
+                }
+
+                if (ch == '\\')
+                {
+                    escaped = true;
+                    continue;
+                }
+
+                if (ch == '"')
+                    break;
+
+                sb.Append(ch);
+            }
+
+            return sb.ToString();
         }
 
         private async void btnConvertToEmployee_ItemClick(object sender, ItemClickEventArgs e)
@@ -763,9 +968,9 @@ namespace Spectrum.Views.HumanResources.HRCVs
             if (string.IsNullOrWhiteSpace(preprocessedJson) || preprocessedJson.Trim() == "{}")
             {
                 return "{"
-                    + "\"FormattedSummaryMarkdown\":" + toJsonString(formattedSummary) + ","
-                    + "\"FormattedSummaryRtf\":" + toJsonString(formattedSummaryRtf) + ","
-                    + "\"FormattedSummaryGeneratedAtUtc\":" + toJsonString(timestamp)
+                    + "\"FormattedSummaryMarkdown\":" + ToJsonString(formattedSummary) + ","
+                    + "\"FormattedSummaryRtf\":" + ToJsonString(formattedSummaryRtf) + ","
+                    + "\"FormattedSummaryGeneratedAtUtc\":" + ToJsonString(timestamp)
                     + "}";
             }
 
@@ -775,14 +980,14 @@ namespace Spectrum.Views.HumanResources.HRCVs
                 return preprocessedJson;
             }
 
-            var payload = "\"FormattedSummaryMarkdown\":" + toJsonString(formattedSummary)
-                + ",\"FormattedSummaryRtf\":" + toJsonString(formattedSummaryRtf)
-                + ",\"FormattedSummaryGeneratedAtUtc\":" + toJsonString(timestamp);
+            var payload = "\"FormattedSummaryMarkdown\":" + ToJsonString(formattedSummary)
+                + ",\"FormattedSummaryRtf\":" + ToJsonString(formattedSummaryRtf)
+                + ",\"FormattedSummaryGeneratedAtUtc\":" + ToJsonString(timestamp);
 
             return trimmed.Substring(0, trimmed.Length - 1) + "," + payload + "}";
         }
 
-        private string toJsonString(string value)
+        private string ToJsonString(string value)
         {
             if (value == null)
                 return "null";
@@ -886,11 +1091,6 @@ namespace Spectrum.Views.HumanResources.HRCVs
         private string SafeValue(string value)
         {
             return string.IsNullOrWhiteSpace(value) ? "N/A" : value.Trim();
-        }
-
-        private void simpleButton1_Click(object sender, EventArgs e)
-        {
-            txtFirstName.Text = _candidateModel.FirstName;
         }
     }
 }
