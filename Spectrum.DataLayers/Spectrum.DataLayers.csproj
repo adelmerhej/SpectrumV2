@@ -258,6 +258,8 @@
     <Compile Include="Members\Suppliers\SupplierRepository.cs" />
     <Compile Include="Projects\IProjectRepository.cs" />
     <Compile Include="Projects\ProjectRepository.cs" />
+    <Compile Include="Projects\Settings\Addendum\AddendumRepository.cs" />
+    <Compile Include="Projects\Settings\Addendum\IAddendumRepository.cs" />
     <Compile Include="Projects\Settings\ProjectTypes\IProjectTypeRepository.cs" />
     <Compile Include="Projects\Settings\ProjectTypes\ProjectTypeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
