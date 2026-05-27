@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="WorkExperienceInfo" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>Spectrum.Models.HumanResources.Employees.WorkExperienceInfo, SpectrumV1.Models, Version=4.7.2.1, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeInfo>Spectrum.Models.HumanResources.Employees.WorkExperienceInfo, Spectrum.Models, Version=4.7.2.1, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

@@ -267,7 +267,7 @@
             // 
             // bsEmployeeType
             // 
-            this.bsEmployeeType.DataSource = typeof(SpectrumV1.Models.HumanResources.EmployeeTypes.EmployeeTypeModel);
+            this.bsEmployeeType.DataSource = typeof(Spectrum.Models.HumanResources.EmployeeTypes.EmployeeTypeModel);
             // 
             // EmployeeTypeEditForm
             // 

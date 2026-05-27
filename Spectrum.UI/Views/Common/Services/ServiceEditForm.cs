@@ -12,16 +12,17 @@ namespace Spectrum.Views.Common.Services
 {
 	public partial class ServiceEditForm : XtraForm
 	{
-		private ServiceModel _serviceModel = new ServiceModel();
+		private ServiceModel _serviceModel;
 
 		private readonly ServiceRepository _serviceRepository = new ServiceRepository(DatabaseFactory.ProfilePrimary);
 
 		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
 		//init permission variables
-		private bool _canEdit = true;
-		private bool _isAdmin = true;
-		private bool _isProtected = true;
+		private bool _canEdit;
+		private bool _isAdmin;
+		private bool _isProtected;
+
 
 		public EventHandler SendUpdatedService;
 
@@ -29,37 +30,53 @@ namespace Spectrum.Views.Common.Services
 		{
 			InitializeComponent();
 
-			_serviceModel = model;
+			_serviceModel = model ?? new ServiceModel();
 
 			StartLoading();
 		}
 		private async void StartLoading()
-		{
-			await InitializeBindings();
-			WireUpBindings();
-			ApplyDefaults();
-			ApplyPermissions();
-		}
+        {
+            try
+            {
+                await InitializeBindings();
+                WireUpBindings();
+                ApplyDefaults();
+                ApplyPermissions();
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(ex.Message, @"Error StartLoading", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-		private async Task InitializeBindings()
-		{
-			try
-			{
-				//	//
-				//	_formId = _formRepository.SelectFormByName(_formName);
-				//	_userPermission = _userPermissionRepository.SelectUserPermissionById(CurrentUser.UserId, _formId);
-				//	if (_userPermission is { Count: > 0 })
-				//	{
-				//		var isProtected = _userPermission.SingleOrDefault(x => x.ControlName == "IsProtected")?.Value;
-				//		if (isProtected != null) _isProtected = (bool)isProtected;
-				//	}
-				//	//
-			}
-			catch (Exception ex)
-			{
-				XtraMessageBox.Show(ex.Message, @"Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-		}
+		private static Task InitializeBindings()
+        {
+            try
+            {
+                try
+                {
+                    //	//
+                    //	_formId = _formRepository.SelectFormByName(_formName);
+                    //	_userPermission = _userPermissionRepository.SelectUserPermissionById(CurrentUser.UserId, _formId);
+                    //	if (_userPermission is { Count: > 0 })
+                    //	{
+                    //		var isProtected = _userPermission.SingleOrDefault(x => x.ControlName == "IsProtected")?.Value;
+                    //		if (isProtected != null) _isProtected = (bool)isProtected;
+                    //	}
+
+                }
+                catch (Exception ex)
+                {
+                    XtraMessageBox.Show(ex.Message, @"Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                return Task.CompletedTask;
+            }
+            catch (Exception exception)
+            {
+                return Task.FromException(exception);
+            }
+        }
 
 		private void WireUpBindings()
 		{
@@ -72,35 +89,39 @@ namespace Spectrum.Views.Common.Services
 		}
 
 		private void ApplyPermissions()
-		{
-			//if (_userPermission == null) return;
-			//if (_userPermission.Count <= 0) return;
+        {
+            _canEdit = true;
+            _isAdmin = true;
+            _isProtected = true;
 
-			//var canAdd = _userPermission.SingleOrDefault(x => x.ControlName == "CanAdd")?.Value;
-			//if (canAdd != null) _canAdd = (bool)canAdd;
+            //if (_userPermission == null) return;
+            //if (_userPermission.Count <= 0) return;
 
-			//var canEdit = _userPermission.SingleOrDefault(x => x.ControlName == "CanEdit")?.Value;
-			//if (canEdit != null) _canEdit = (bool)canEdit;
+            //var canAdd = _userPermission.SingleOrDefault(x => x.ControlName == "CanAdd")?.Value;
+            //if (canAdd != null) _canAdd = (bool)canAdd;
 
-			//var canDelete = _userPermission.SingleOrDefault(x => x.ControlName == "CanDelete")?.Value;
-			//if (canDelete != null) _canDelete = (bool)canDelete;
+            //var canEdit = _userPermission.SingleOrDefault(x => x.ControlName == "CanEdit")?.Value;
+            //if (canEdit != null) _canEdit = (bool)canEdit;
 
-			//var canPrint = _userPermission.SingleOrDefault(x => x.ControlName == "CanPrint")?.Value;
-			//if (canPrint != null) _canPrint = (bool)canPrint;
+            //var canDelete = _userPermission.SingleOrDefault(x => x.ControlName == "CanDelete")?.Value;
+            //if (canDelete != null) _canDelete = (bool)canDelete;
 
-			//var isAdmin = _userPermission.SingleOrDefault(x => x.ControlName == "IsAdmin")?.Value;
-			//if (isAdmin != null) _isAdmin = (bool)isAdmin;
+            //var canPrint = _userPermission.SingleOrDefault(x => x.ControlName == "CanPrint")?.Value;
+            //if (canPrint != null) _canPrint = (bool)canPrint;
 
-			btnSave.Enabled = _isAdmin || _canEdit;
+            //var isAdmin = _userPermission.SingleOrDefault(x => x.ControlName == "IsAdmin")?.Value;
+            //if (isAdmin != null) _isAdmin = (bool)isAdmin;
+
+            btnSave.Enabled = _isAdmin || _canEdit;
 		}
 
 		private async void btnSave_Click(object sender, EventArgs e)
 		{
-			if (!ValidateData()) return;
-
 			try
 			{
-				BindingContext[bsService].EndCurrentEdit();
+                if (!ValidateData()) return;
+				
+                BindingContext[bsService].EndCurrentEdit();
 				_serviceModel = (ServiceModel)bsService.Current;
 
 
@@ -108,7 +129,7 @@ namespace Spectrum.Views.Common.Services
 				{
 					_logInfoRepository.CreateLogInfo(_serviceModel);
 
-					var newId = await _serviceRepository.AddNewServiceAsync(_serviceModel);
+					_ = await _serviceRepository.AddNewServiceAsync(_serviceModel);
 				}
 				else
 				{

@@ -295,7 +295,7 @@
             // 
             // bsRoles
             // 
-            this.bsRoles.DataSource = typeof(SpectrumV1.Models.Common.Roles.RoleModel);
+            this.bsRoles.DataSource = typeof(Spectrum.Models.Common.Roles.RoleModel);
             // 
             // colRoleName
             // 

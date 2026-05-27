@@ -1,4 +1,6 @@
-﻿using DevExpress.XtraBars;
+﻿using DevExpress.Utils;
+using DevExpress.Utils.Menu;
+using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
@@ -10,6 +12,7 @@ using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
 using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -27,13 +30,16 @@ namespace Spectrum.Views.Common.Currencies
 		private IList<CurrencyModel> _currencies = new List<CurrencyModel>();
 
 		private CurrencyExchangeModel _currencyExchangeModel = new CurrencyExchangeModel();
-		private IList<CurrencyExchangeModel> _currenciesExchange = new List<CurrencyExchangeModel>();
+		private BindingList<CurrencyExchangeModel> _currenciesExchange = new BindingList<CurrencyExchangeModel>();
 
 		private readonly CurrencyRepository _currencyRepository = new CurrencyRepository(DatabaseFactory.ProfilePrimary);
 		private readonly CurrencyExchangeRepository _currencyExchangeRepository = new CurrencyExchangeRepository(DatabaseFactory.ProfilePrimary);
+		private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
-		//Init permissionvariables
-		private bool _canAdd = true;
+        private DXMenuItem[] _menuItems;
+
+        //Init permissionvariables
+        private bool _canAdd = true;
 		private bool _canEdit = true;
 		private bool _canDelete = true;
 		private bool _canPrint = true;
@@ -72,7 +78,9 @@ namespace Spectrum.Views.Common.Currencies
 			WireUpBindings();
 			ApplyDefaults();
 			ApplyPermissions();
-		}
+            SetGridPermissions();
+            InitializeMenuItems();
+        }
 
 		private async Task InitializeBindings()
 		{
@@ -89,6 +97,7 @@ namespace Spectrum.Views.Common.Currencies
 				//	//
 
 				_currencies = await _currencyRepository.GetCurrenciesAsync();
+				_currenciesExchange = new BindingList<CurrencyExchangeModel>(await _currencyExchangeRepository.GetCurrenciesExchangeAsync());
 			}
 			catch (Exception ex)
 			{
@@ -100,6 +109,12 @@ namespace Spectrum.Views.Common.Currencies
 		{
 			gcCurrencies.DataSource = null;
 			gcCurrencies.DataSource = _currencies;
+
+			bsExchangeCurrencies.DataSource = null;
+			bsExchangeCurrencies.DataSource = _currenciesExchange;
+
+			repCurrencies.DataSource = null;
+			repCurrencies.DataSource = _currencies;
 		}
 
 		private void ApplyDefaults()
@@ -131,6 +146,7 @@ namespace Spectrum.Views.Common.Currencies
 			btnEdit.Enabled = _isAdmin || _canEdit;
 			btnPrint.Enabled = _isAdmin || _canPrint;
 			btnDelete.Enabled = _isAdmin || _canDelete;
+			btnSave.Enabled = _isAdmin || _canAdd || _canEdit || _canDelete;
 		}
 
 		#region Button Events
@@ -338,5 +354,170 @@ namespace Spectrum.Views.Common.Currencies
 			}
 		}
 
-	}
+        private void SetGridPermissions()
+        {
+            ConfigureGridRowPermissions(gvExchangeCurrencies, _canAdd, _canDelete);
+
+            // Selling grid always allows add/delete per original logic
+            gvExchangeCurrencies.OptionsView.NewItemRowPosition = NewItemRowPosition.Bottom;
+            gvExchangeCurrencies.OptionsBehavior.AllowAddRows = DefaultBoolean.True;
+            gvExchangeCurrencies.OptionsBehavior.AllowDeleteRows = DefaultBoolean.True;
+        }
+
+        private void ConfigureGridRowPermissions(GridView view, bool canAdd, bool canDelete)
+        {
+            view.OptionsView.NewItemRowPosition = canAdd ? NewItemRowPosition.Bottom : NewItemRowPosition.None;
+            view.OptionsBehavior.AllowAddRows = canAdd ? DefaultBoolean.True : DefaultBoolean.False;
+            view.OptionsBehavior.AllowDeleteRows = canDelete ? DefaultBoolean.True : DefaultBoolean.False;
+        }
+
+        private void InitializeMenuItems()
+        {
+            _menuItems = new[]
+            {
+                new DXMenuItem("Edit", ItemEdit_Click),
+                new DXMenuItem("Delete", ItemDelete_Click)
+            };
+        }
+
+        private void ItemEdit_Click(object sender, EventArgs e)
+        {
+            gvExchangeCurrencies.ShowEditor();
+        }
+
+        private void ItemDelete_Click(object sender, EventArgs e)
+        {
+            if (!ConfirmAction("Delete row?", "Confirmation")) return;
+            
+			gvExchangeCurrencies.SetRowCellValue(gvExchangeCurrencies.FocusedRowHandle, "Deleted", true);
+
+        }
+
+        #region UI Helper Methods
+
+        private void ShowError(string message, string title = "Error")
+        {
+            XtraMessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private bool ConfirmAction(string message, string title)
+        {
+            return XtraMessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2) == DialogResult.Yes;
+        }
+
+        #endregion
+
+        private void gvExchangeCurrencies_InitNewRow(object sender, InitNewRowEventArgs e)
+        {
+            var view = sender as GridView;
+            InitializeNewExchangeRow(view, e.RowHandle);
+            
+        }
+
+        private void InitializeNewExchangeRow(GridView view, int rowHandle)
+        {
+            view.SetRowCellValue(rowHandle, view.Columns["ExchangeDate"], DateTime.Now);
+        }
+
+        private void btnExchangeCurrencies_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+		private async void btnSave_ItemClick(object sender, ItemClickEventArgs e)
+		{
+			if (gvExchangeCurrencies.FocusedRowHandle < 0) return;
+
+			try
+			{
+				gvExchangeCurrencies.CloseEditor();
+				gvExchangeCurrencies.UpdateCurrentRow();
+
+				_currencyExchangeModel = gvExchangeCurrencies.GetFocusedRow() as CurrencyExchangeModel;
+				if (_currencyExchangeModel == null) return;
+
+				if (_currencyExchangeModel.Deleted)
+				{
+					if (!string.IsNullOrWhiteSpace(_currencyExchangeModel._id))
+					{
+						await _currencyExchangeRepository.DeleteCurrencyExchangeAsync(_currencyExchangeModel._id);
+					}
+				}
+				else
+				{
+					if (!ValidateFocusedExchangeCurrency(_currencyExchangeModel)) return;
+
+					if (string.IsNullOrWhiteSpace(_currencyExchangeModel._id))
+					{
+						_logInfoRepository.CreateLogInfo(_currencyExchangeModel);
+						await _currencyExchangeRepository.AddNewCurrencyExchangeAsync(_currencyExchangeModel);
+					}
+					else
+					{
+						_logInfoRepository.UpdateLogInfo(_currencyExchangeModel);
+						await _currencyExchangeRepository.UpdateCurrencyExchangeAsync(_currencyExchangeModel);
+					}
+				}
+
+				await InitializeBindings();
+				WireUpBindings();
+			}
+			catch (Exception exception)
+			{
+				ShowError(exception.Message, @"Error Saving Exchange Currency");
+			}
+		}
+
+		private bool ValidateFocusedExchangeCurrency(CurrencyExchangeModel model)
+		{
+			if (model == null) return false;
+
+			if (string.IsNullOrWhiteSpace(model.Currency))
+			{
+				ShowError("Currency cannot be empty.", "Validation Error");
+				gvExchangeCurrencies.FocusedColumn = colCurrency;
+				gvExchangeCurrencies.ShowEditor();
+				return false;
+			}
+
+			if (model.Rate <= 0)
+			{
+				ShowError("Rate must be greater than zero.", "Validation Error");
+				gvExchangeCurrencies.FocusedColumn = colRate;
+				gvExchangeCurrencies.ShowEditor();
+				return false;
+			}
+
+			return true;
+		}
+
+        private void btnShowDetails_CheckedChanged(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnEdit_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+
+        #region Grid Key Events
+
+        private void gvExchangeCurrencies_KeyUp(object sender, KeyEventArgs e)
+        {
+            HandleDeleteKeyPress(sender as GridView, e);
+        }
+
+        private void HandleDeleteKeyPress(GridView view, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Delete) return;
+            if (!ConfirmAction("Delete row?", "Confirmation")) return;
+
+            view?.SetRowCellValue(view.FocusedRowHandle, "Deleted", true);
+        }
+
+        #endregion
+    }
 }

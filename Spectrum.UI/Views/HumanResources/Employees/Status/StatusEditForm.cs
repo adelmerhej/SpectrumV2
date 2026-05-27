@@ -1,8 +1,8 @@
 ﻿using DevExpress.XtraEditors;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Utilities;
-using SpectrumV1.DataLayers.HumanResources.Employees.EmployeeStatus;
-using SpectrumV1.Models.HumanResources.Employees.EmployeeStatus;
+using Spectrum.DataLayers.HumanResources.Employees.EmployeeStatus;
+using Spectrum.Models.HumanResources.Employees.EmployeeStatus;
 using System;
 using System.Text;
 using System.Threading.Tasks;

@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace SpectrumV1.Models.HumanResources.Candidates
+namespace Spectrum.Models.HumanResources.Candidates
 {
     public class EducationEntryModel
     {

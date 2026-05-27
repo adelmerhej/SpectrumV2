@@ -53,7 +53,6 @@
             this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colChartId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSpecialReport = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -263,7 +262,7 @@
             // 
             // bsJournalTypes
             // 
-            this.bsJournalTypes.DataSource = typeof(SpectrumV1.Models.Accounting.JournalType.JournalTypeModel);
+            this.bsJournalTypes.DataSource = typeof(Spectrum.Models.Accounting.JournalType.JournalTypeModel);
             // 
             // gvJournalTypes
             // 
@@ -271,7 +270,6 @@
             this.col_id,
             this.colCode,
             this.colName,
-            this.colChartId,
             this.colSpecialReport,
             this.colNotes,
             this.colIsDefault,
@@ -314,22 +312,13 @@
             this.colName.VisibleIndex = 1;
             this.colName.Width = 279;
             // 
-            // colChartId
-            // 
-            this.colChartId.FieldName = "ChartId";
-            this.colChartId.MinWidth = 25;
-            this.colChartId.Name = "colChartId";
-            this.colChartId.Visible = true;
-            this.colChartId.VisibleIndex = 2;
-            this.colChartId.Width = 182;
-            // 
             // colSpecialReport
             // 
             this.colSpecialReport.FieldName = "SpecialReport";
             this.colSpecialReport.MinWidth = 25;
             this.colSpecialReport.Name = "colSpecialReport";
             this.colSpecialReport.Visible = true;
-            this.colSpecialReport.VisibleIndex = 3;
+            this.colSpecialReport.VisibleIndex = 2;
             this.colSpecialReport.Width = 212;
             // 
             // colNotes
@@ -338,7 +327,7 @@
             this.colNotes.MinWidth = 25;
             this.colNotes.Name = "colNotes";
             this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 4;
+            this.colNotes.VisibleIndex = 3;
             this.colNotes.Width = 94;
             // 
             // colIsDefault
@@ -347,7 +336,7 @@
             this.colIsDefault.MinWidth = 25;
             this.colIsDefault.Name = "colIsDefault";
             this.colIsDefault.Visible = true;
-            this.colIsDefault.VisibleIndex = 5;
+            this.colIsDefault.VisibleIndex = 4;
             this.colIsDefault.Width = 94;
             // 
             // colActive
@@ -356,7 +345,7 @@
             this.colActive.MinWidth = 25;
             this.colActive.Name = "colActive";
             this.colActive.Visible = true;
-            this.colActive.VisibleIndex = 6;
+            this.colActive.VisibleIndex = 5;
             this.colActive.Width = 94;
             // 
             // repCheckEdit
@@ -437,7 +426,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn col_id;
         private DevExpress.XtraGrid.Columns.GridColumn colCode;
         private DevExpress.XtraGrid.Columns.GridColumn colName;
-        private DevExpress.XtraGrid.Columns.GridColumn colChartId;
         private DevExpress.XtraGrid.Columns.GridColumn colSpecialReport;
         private DevExpress.XtraGrid.Columns.GridColumn colNotes;
         private DevExpress.XtraGrid.Columns.GridColumn colIsDefault;

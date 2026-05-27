@@ -1,4 +1,4 @@
-﻿namespace SpectrumV1.Models.Administration.Dashboard
+﻿namespace Spectrum.Models.Administration.Dashboard
 {
     public class ActivityDataModel
     {

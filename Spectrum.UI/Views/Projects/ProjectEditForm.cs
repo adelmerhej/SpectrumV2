@@ -1,14 +1,22 @@
+using DevExpress.Utils;
+using DevExpress.Utils.Menu;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Menu;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.WinExplorer;
 using Spectrum.DataLayers.Common.Areas;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.Common.Locations;
 using Spectrum.DataLayers.Common.Services;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.DataLayers.HumanResources.Employees;
 using Spectrum.DataLayers.Members.Clients;
 using Spectrum.DataLayers.Projects;
+using Spectrum.DataLayers.Projects.Settings.Addendum;
 using Spectrum.DataLayers.Users;
 using Spectrum.Models.Common.Areas;
 using Spectrum.Models.Common.Countries;
@@ -23,20 +31,26 @@ using Spectrum.Views.Common.Countries;
 using Spectrum.Views.Common.Services;
 using Spectrum.Views.Members.Clients;
 using Spectrum.Views.Members.Engineers;
-using Spectrum.Views.Users;
-using SpectrumV1.DataLayers.HumanResources.Employees;
+using Spectrum.Views.Projects.Settings.Addendum;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Spectrum.Models.Common.Documents;
 
 namespace Spectrum.Views.Projects
 {
     public partial class ProjectEditForm : RibbonForm
     {
         private ProjectModel _projectModel = new ProjectModel();
+        private BindingList<ProjectHandoverModel> _projectHandovers = new BindingList<ProjectHandoverModel>();
+        private BindingList<DocumentModel> _documents = new BindingList<DocumentModel>();
 
         private IList<ClientModel> _clients = new List<ClientModel>();
         private ClientModel _clientModel = new ClientModel();
@@ -52,6 +66,9 @@ namespace Spectrum.Views.Projects
 
         private IList<CityModel> _cities = new List<CityModel>();
         private CityModel _cityModel = new CityModel();
+
+        private AddendumModel _addendumModel = new AddendumModel();
+        private IList<AddendumModel> _addendums = new List<AddendumModel>();
 
         private IList<AreaModel> _areas = new List<AreaModel>();
         private AreaModel _areaModel = new AreaModel();
@@ -71,6 +88,7 @@ namespace Spectrum.Views.Projects
         private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
         private readonly LocationRepository _locationRepository = new LocationRepository(DatabaseFactory.ProfilePrimary);
         private readonly AreaRepository _areaRepository = new AreaRepository(DatabaseFactory.ProfilePrimary);
+        private readonly AddendumRepository _addendumRepository = new AddendumRepository(DatabaseFactory.ProfilePrimary);
 
         private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
@@ -80,6 +98,9 @@ namespace Spectrum.Views.Projects
         private bool _canPrint = true;
         private bool _isAdmin = true;
         private bool _isProtected = true;
+        private readonly List<string> _loadWarnings = new List<string>();
+
+        private DXMenuItem[] _addendumMenuItems;
 
         public EventHandler SendUpdatedProject;
 
@@ -99,6 +120,15 @@ namespace Spectrum.Views.Projects
                 WireUpBindings();
                 ApplyDefaults();
                 ApplyPermissions();
+                InitializeMenuItems();
+                if (_loadWarnings.Any())
+                {
+                    XtraMessageBox.Show(
+                        "Some lookup data could not be loaded. The form will remain available with partial data.\n\n" + string.Join("\n", _loadWarnings),
+                        "Lookup Data Warning",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
@@ -109,38 +139,60 @@ namespace Spectrum.Views.Projects
         #region InitializeBindings Methods
         private async Task InitializeBindings()
         {
+            _loadWarnings.Clear();
+
+            var loadTasks = new[]
+            {
+                LoadSafelyAsync("clients", LoadClientsAsync, () => _clients = new List<ClientModel>()),
+                LoadSafelyAsync("engineers", LoadEngineersAsync, () => _engineers = new List<EmployeeModel>()),
+                LoadSafelyAsync("users", LoadUsersAsync, () => _users = new List<UserModel>()),
+                LoadSafelyAsync("services", LoadServicesAsync, () => _services = new List<ServiceModel>()),
+                LoadSafelyAsync("service types", LoadServiceTypesAsync, () => _serviceTypes = new List<ServiceTypeModel>()),
+                LoadSafelyAsync("locations", LoadLocationsAsync, () => _locations = new List<LocationModel>()),
+                LoadSafelyAsync("areas", LoadAreasAsync, () => _areas = new List<AreaModel>()),
+                LoadSafelyAsync("countries", LoadCountriesAsync, () => _countries = new List<CountryModel>()),
+                LoadSafelyAsync("cities", LoadCitiesAsync, () => _cities = new List<CityModel>()),
+                LoadSafelyAsync("addendums", LoadAddendumsAsync, () => _addendums = new List<AddendumModel>()),
+            };
+
+            await Task.WhenAll(loadTasks);
+        }
+
+        private async Task LoadSafelyAsync(string sourceName, Func<Task> loader, Action fallback)
+        {
             try
             {
-                var loadTasks = new[]
-                {
-                    LoadClientsAsync(),
-                    LoadEngineersAsync(),
-                    LoadUsersAsync(),
-                    LoadServicesAsync(),
-                    LoadServiceTypesAsync(),
-                    LoadLocationsAsync(),
-                    LoadAreasAsync(),
-                    LoadCountriesAsync(),
-                    LoadCitiesAsync(),
-                };
-
-                await Task.WhenAll(loadTasks);
+                await loader();
             }
             catch (Exception ex)
             {
-                throw new Exception("Error loading form data", ex);
+                fallback?.Invoke();
+                _loadWarnings.Add($"- {sourceName}: {ex.Message}");
             }
         }
 
+        private void InitializeMenuItems()
+        {
+            _addendumMenuItems = new[]
+            {
+                new DXMenuItem("New", ItemNew_Click),
+                new DXMenuItem("Edit", ItemEdit_Click),
+                new DXMenuItem("Delete", ItemDelete_Click)
+            };
+
+            gvAddendum.PopupMenuShowing -= gvAddendum_PopupMenuShowing;
+            gvAddendum.PopupMenuShowing += gvAddendum_PopupMenuShowing;
+        }
+
         #region Data Loading Methods
-        
+
         private async Task LoadClientsAsync()
         {
             _clients = await _clientRepository.GetClientsAsync();
         }
         private async Task LoadEngineersAsync()
         {
-            _engineers = await _engineerRepository.GetEmployeesAsync(EnumEmployeeType.Engineer);
+            _engineers = await _engineerRepository.GetEmployeesAsync(EmployeeType.Engineer);
         }
 
         private async Task LoadUsersAsync()
@@ -177,6 +229,13 @@ namespace Spectrum.Views.Projects
         {
             _cities = await _cityRepository.GetCitiesAsync();
         }
+
+        private async Task LoadAddendumsAsync()
+        {
+            await Task.CompletedTask;
+            _addendums = (_projectModel.Addendums ?? new List<AddendumModel>()).ToList();
+        }
+
         #endregion
 
         #endregion
@@ -187,49 +246,35 @@ namespace Spectrum.Views.Projects
         {
             _projectModel.Location = _projectModel.Location ?? new LocationInfoModel();
             _projectModel.ContractDetails = _projectModel.ContractDetails ?? new ContractDetailModel();
+            _projectModel.ProjectHandovers = _projectModel.ProjectHandovers ?? new List<ProjectHandoverModel>();
+            NormalizeLookupValues();
+            InitializeProjectHandovers();
+            InitializeDocumentBindings();
 
             bsProject.DataSource = _projectModel;
             bsContractDetails.DataSource = _projectModel.ContractDetails;
             bsLocationInfo.DataSource = _projectModel.Location;
 
-            cboClients.Properties.DataSource = null;
-            cboClients.Properties.DisplayMember = "ClientName";
-            cboClients.Properties.ValueMember = "ClientName";
-            cboClients.Properties.DataSource = _clients;
+            gcAddendum.DataSource = _addendums;
 
-            // Contract management should share the same Client list as Project Information.
-            // Keep it using the same key (client _id) so newly added clients are available immediately.
-            cboContractClient.Properties.DataSource = null;
-            cboContractClient.Properties.DataSource = _clients;
+            ConfigureLookupBindings();
 
-            cboEngineers.Properties.DataSource = null;
-            cboEngineers.Properties.DataSource = _engineers;
-
-            cboUsers.Properties.DataSource = null;
-            cboUsers.Properties.DataSource = _users;
-
-            cboPersonInCharge.Properties.DataSource = null;
-            cboPersonInCharge.Properties.DataSource = _users;
-
-            cboOperatingUsers.Properties.DataSource = null;
-            cboOperatingUsers.Properties.DataSource = _users;
-
-           BindCheckedComboBoxItems(cboServicesProvided,
-                _services.Select(x => x.ServiceName),
-                _projectModel.ContractDetails.ServicesProvided);
+            BindCheckedComboBoxItems(cboServicesProvided,
+                 _services.Select(x => x.ServiceName),
+                 _projectModel.ContractDetails.ServicesProvided);
 
             BindCheckedComboBoxItems(cboServicesType,
                 _serviceTypes.Select(x => x.ServiceType),
                 _projectModel.ContractDetails.ServiceTypes);
 
             cboAreas.Properties.DataSource = null;
-            cboAreas.Properties.DisplayMember = "AreaCode";
-            cboAreas.Properties.ValueMember = "AreaCode";
+            cboAreas.Properties.DisplayMember = "AreaName";
+            cboAreas.Properties.ValueMember = "AreaName";
             cboAreas.Properties.DataSource = _areas;
 
             cboLocations.Properties.DataSource = null;
             cboLocations.Properties.DisplayMember = "LocationName";
-            cboLocations.Properties.ValueMember = "_id";
+            cboLocations.Properties.ValueMember = "LocationName";
             cboLocations.Properties.DataSource = _locations;
 
             cboCountries.Properties.DataSource = null;
@@ -250,16 +295,322 @@ namespace Spectrum.Views.Projects
             // Whenever user changes selection, update project model Location via reflection
             cboLocations.EditValueChanged += cboLocations_EditValueChanged;
 
-            // Keep contract client in sync with project client.
-            cboClients.EditValueChanged -= cboClients_EditValueChanged;
-            cboClients.EditValueChanged += cboClients_EditValueChanged;
-            SyncContractClientFromProjectClient();
-
             //cboStatus.Properties.Items.Clear();
             //cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
+
+            var fontStyle = _projectModel.IsProtected ? FontStyle.Bold : FontStyle.Regular;
+            var foreColor = _projectModel.IsProtected ? Color.Red : Color.Black;
+            var font = new Font("Tahoma", 8, fontStyle);
+
+            var appearances = new[]
+            {
+                btnProtected.ItemAppearance.Normal,
+                btnProtected.ItemAppearance.Hovered,
+                btnProtected.ItemAppearance.Pressed
+            };
+
+            foreach (var appearance in appearances)
+            {
+                appearance.Font = font;
+                appearance.ForeColor = foreColor;
+            }
         }
 
         #endregion
+
+        private void ConfigureLookupBindings()
+        {
+            cboClients.DataBindings.Clear();
+            cboClients.DataBindings.Add("EditValue", bsProject, "ClientIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
+            cboClients.Properties.DataSource = null;
+            cboClients.Properties.DisplayMember = "ClientName";
+            cboClients.Properties.ValueMember = "_id";
+            cboClients.Properties.DataSource = _clients;
+
+            cboFundedBy.DataBindings.Clear();
+            cboFundedBy.DataBindings.Add("EditValue", bsContractDetails, "SponsorId", true, DataSourceUpdateMode.OnPropertyChanged);
+            cboFundedBy.Properties.DataSource = null;
+            cboFundedBy.Properties.DisplayMember = "ClientName";
+            cboFundedBy.Properties.ValueMember = "_id";
+            cboFundedBy.Properties.DataSource = _clients;
+
+            cboEngineers.DataBindings.Clear();
+            cboEngineers.DataBindings.Add("EditValue", bsProject, "EngineerIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
+            cboEngineers.Properties.DataSource = null;
+            cboEngineers.Properties.DisplayMember = "FullName";
+            cboEngineers.Properties.ValueMember = "_id";
+            cboEngineers.Properties.DataSource = _engineers;
+
+            cboUsers.DataBindings.Clear();
+            cboUsers.DataBindings.Add("EditValue", bsProject, "UserIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
+            cboUsers.Properties.DataSource = null;
+            cboUsers.Properties.DisplayMember = "Username";
+            cboUsers.Properties.ValueMember = "_id";
+            cboUsers.Properties.DataSource = _users;
+
+            cboPersonInCharge.DataBindings.Clear();
+            cboPersonInCharge.DataBindings.Add("EditValue", bsProject, "EngineerIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
+            cboPersonInCharge.Properties.DataSource = null;
+            cboPersonInCharge.Properties.DisplayMember = "FullName";
+            cboPersonInCharge.Properties.ValueMember = "_id";
+            cboPersonInCharge.Properties.DataSource = _engineers;
+
+            cboEngineers.EditValueChanged -= cboEngineers_EditValueChanged;
+            cboEngineers.EditValueChanged += cboEngineers_EditValueChanged;
+
+        }
+
+        private void InitializeProjectHandovers()
+        {
+            _projectHandovers = new BindingList<ProjectHandoverModel>(_projectModel.ProjectHandovers.ToList());
+            gcJobDetails.DataSource = _projectHandovers;
+        }
+
+        private void InitializeDocumentBindings()
+        {
+            _documents = LoadDocumentsForProject();
+            gcDocuments.DataSource = _documents;
+        }
+
+        private BindingList<DocumentModel> LoadDocumentsForProject()
+        {
+            var documents = new BindingList<DocumentModel>();
+            var projectId = _projectModel?._id;
+            if (string.IsNullOrWhiteSpace(projectId))
+                return documents;
+
+            var connection = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
+            var rootFolder = string.IsNullOrWhiteSpace(connection?.ProjectsDocumentsFolder)
+                ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpectrumApp", "Projects")
+                : connection.ProjectsDocumentsFolder;
+
+            if (!Directory.Exists(rootFolder))
+                return documents;
+
+            var prefix = projectId + "_";
+            var files = Directory.GetFiles(rootFolder)
+                .Where(path => Path.GetFileName(path).StartsWith(prefix, StringComparison.OrdinalIgnoreCase));
+
+            foreach (var filePath in files)
+            {
+                try
+                {
+                    documents.Add(new DocumentModel
+                    {
+                        DocumentName = GetDisplayDocumentName(projectId, filePath),
+                        OriginPath = filePath,
+                        DocumentDate = File.GetCreationTime(filePath),
+                        StreamedDate = DateTime.Now,
+                        DocumentContent = File.ReadAllBytes(filePath)
+                    });
+                }
+                catch
+                {
+                }
+            }
+
+            return documents;
+        }
+
+        private static string GetDisplayDocumentName(string recordId, string filePath)
+        {
+            var fileName = Path.GetFileName(filePath);
+            var prefix = (recordId ?? string.Empty) + "_";
+            return fileName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+                ? fileName.Substring(prefix.Length)
+                : fileName;
+        }
+
+        private static BindingList<DocumentModel> LoadDocumentsFromSourceFile(string sourceFile)
+        {
+            var documents = new BindingList<DocumentModel>();
+            if (string.IsNullOrWhiteSpace(sourceFile)) return documents;
+
+            var filePaths = sourceFile.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Trim())
+                .Where(x => !string.IsNullOrWhiteSpace(x));
+
+            foreach (var filePath in filePaths)
+            {
+                try
+                {
+                    if (!File.Exists(filePath)) continue;
+
+                    documents.Add(new DocumentModel
+                    {
+                        DocumentName = Path.GetFileName(filePath),
+                        OriginPath = filePath,
+                        DocumentDate = File.GetCreationTime(filePath),
+                        StreamedDate = DateTime.Now,
+                        DocumentContent = File.ReadAllBytes(filePath)
+                    });
+                }
+                catch
+                {
+                }
+            }
+
+            return documents;
+        }
+
+        private void PersistDocumentLinks()
+        {
+            if (_projectModel == null) return;
+
+            _projectModel.SourceFile = string.Join(";",
+                _documents.Where(x => x != null && !string.IsNullOrWhiteSpace(x.OriginPath))
+                    .Select(x => x.OriginPath)
+                    .Distinct(StringComparer.OrdinalIgnoreCase));
+        }
+
+        private void NormalizeLookupValues()
+        {
+            _projectModel.ClientIdValue = ResolveClientId(_projectModel.ClientIdValue, _projectModel.ClientName);
+            _projectModel.EngineerIdValue = ResolveEngineerId(_projectModel.EngineerIdValue, _projectModel.EngineerInCharge);
+            _projectModel.Username = ResolveProjectUsername(_projectModel.Username);
+            _projectModel.UserIdValue = ResolveUserId(_projectModel.UserIdValue, _projectModel.Username);
+            _projectModel.ContractDetails.SponsorId = ResolveClientId(_projectModel.ContractDetails.SponsorId, _projectModel.ContractDetails.SponsorId);
+        }
+
+        private string ResolveProjectUsername(string username)
+        {
+            if (!string.IsNullOrWhiteSpace(username)) return username;
+            return string.IsNullOrWhiteSpace(CurrentUser.UserName) ? null : CurrentUser.UserName;
+        }
+
+        private string ResolveClientId(string idValue, string nameValue)
+        {
+            if (IsValidObjectId(idValue) && _clients.Any(c => c._id == idValue)) return idValue;
+
+            var candidateName = !string.IsNullOrWhiteSpace(nameValue) ? nameValue : idValue;
+            if (string.IsNullOrWhiteSpace(candidateName)) return null;
+
+            var client = _clients.FirstOrDefault(c => string.Equals(c.ClientName, candidateName, StringComparison.OrdinalIgnoreCase));
+            return client?._id;
+        }
+
+        private string ResolveEngineerId(string idValue, string nameValue)
+        {
+            if (IsValidObjectId(idValue) && _engineers.Any(e => e._id == idValue)) return idValue;
+
+            if (string.IsNullOrWhiteSpace(nameValue)) return null;
+
+            var engineer = _engineers.FirstOrDefault(e =>
+                string.Equals(e.FullName, nameValue, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(e.FirstName, nameValue, StringComparison.OrdinalIgnoreCase));
+
+            return engineer?._id;
+        }
+
+        private string ResolveUserId(string idValue, string username)
+        {
+            if (IsValidObjectId(idValue) && _users.Any(u => u._id == idValue)) return idValue;
+            if (string.IsNullOrWhiteSpace(username)) return null;
+
+            var user = _users.FirstOrDefault(u => string.Equals(u.Username, username, StringComparison.OrdinalIgnoreCase));
+            return user?._id;
+        }
+
+        private static bool IsValidObjectId(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value) || value.Length != 24) return false;
+
+            for (var i = 0; i < value.Length; i++)
+            {
+                var character = value[i];
+                var isDigit = character >= '0' && character <= '9';
+                var isLowerHex = character >= 'a' && character <= 'f';
+                var isUpperHex = character >= 'A' && character <= 'F';
+
+                if (!isDigit && !isLowerHex && !isUpperHex)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void ItemNew_Click(object sender, EventArgs e)
+        {
+            if (!CanManageAddendums()) return;
+
+            _addendumModel = new AddendumModel();
+
+            AddendumEditForm form = new AddendumEditForm(_addendumModel, _addendums);
+            form.SendUpdatedAddendum += RcvUpdatedAddendum;
+            form.ShowDialog();
+        }
+
+        private void ItemEdit_Click(object sender, EventArgs e)
+        {
+            if (!CanManageAddendums()) return;
+
+            var addendumId = gvAddendum.GetFocusedRowCellValue("_id")?.ToString();
+
+            if (string.IsNullOrWhiteSpace(addendumId)) return;
+
+            _addendumModel = _addendums.FirstOrDefault(x => x._id == addendumId) ?? new AddendumModel();
+            AddendumEditForm form = new AddendumEditForm(_addendumModel, _addendums);
+            form.SendUpdatedAddendum += RcvUpdatedAddendum;
+            form.ShowDialog();
+        }
+
+        private void ItemDelete_Click(object sender, EventArgs e)
+        {
+            if (!CanManageAddendums()) return;
+
+            if (!ConfirmAction("Delete row?", "Confirmation")) return;
+            gvAddendum.SetRowCellValue(gvAddendum.FocusedRowHandle, "Deleted", true);
+        }
+
+        private void gvAddendum_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
+        {
+            if (!CanManageAddendums())
+            {
+                e.Menu = null;
+                return;
+            }
+
+            if (e.MenuType != GridMenuType.Row && e.MenuType != GridMenuType.User) return;
+
+            var view = sender as GridView;
+            if (view == null) return;
+
+            if (e.HitInfo.InRow || e.HitInfo.InRowCell)
+            {
+                view.FocusedRowHandle = e.HitInfo.RowHandle;
+            }
+
+            if (e.Menu == null)
+            {
+                e.Menu = new GridViewMenu(view);
+            }
+
+            e.Menu.Items.Clear();
+            foreach (var menuItem in _addendumMenuItems)
+            {
+                e.Menu.Items.Add(menuItem);
+            }
+        }
+
+        private bool CanManageAddendums()
+        {
+            if (!ValidateData() || string.IsNullOrWhiteSpace(_projectModel?._id))
+            {
+                XtraMessageBox.Show("Finish project first, then add addendum.", "Addendum",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ConfirmAction(string message, string title)
+        {
+            return XtraMessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2) == DialogResult.Yes;
+        }
 
         #region ApplyDefaults and Permissions Methods
         private void ApplyDefaults()
@@ -269,6 +620,24 @@ namespace Spectrum.Views.Projects
                 _projectModel.Status = ProjectStatus.Active;
                 _projectModel.ProjectDate = DateTime.Today;
             }
+
+            // Wire document thumbnail/icon rendering
+            gvDocuments.GetThumbnailImage += TileView1_GetThumbnailImage;
+            gvDocuments.OptionsImageLoad.RandomShow = true;
+            gvDocuments.OptionsImageLoad.LoadThumbnailImagesFromDataSource = false;
+            gvDocuments.OptionsImageLoad.AsyncLoad = true;
+
+            // Wire document context button events (delete bin + hover visibility)
+            gvDocuments.ContextButtonClick += gvDocuments_ContextButtonClick;
+            gvDocuments.ContextButtonCustomize += gvDocuments_ContextButtonCustomize;
+            gvDocuments.FocusedRowChanged += gvDocuments_FocusedRowChanged;
+        }
+
+        private void TileView1_GetThumbnailImage(object sender, ThumbnailImageEventArgs e)
+        {
+            var fileName = (string)gvDocuments.GetRowCellValue(e.DataSourceIndex, colName);
+            var ext = Path.GetExtension(fileName);
+            e.ThumbnailImage = HelperApplication.GetFileExtensionImage(ext, IconSizeType.Large, new Size(64, 64));
         }
 
         private void ApplyPermissions()
@@ -278,39 +647,10 @@ namespace Spectrum.Views.Projects
             btnSaveAndClose.Enabled = _isAdmin || _canEdit;
             btnPrint.Enabled = _isAdmin || _canPrint;
             btnDelete.Enabled = _isAdmin || _canDelete;
+            btnProtected.Enabled = _isAdmin || _isProtected;
         }
 
         #endregion
-
-        private void SyncContractClientFromProjectClient()
-        {
-            try
-            {
-                if (cboContractClient == null) return;
-                if (cboClients == null) return;
-
-                var editValue = cboClients.EditValue;
-                if (editValue == null)
-                {
-                    cboContractClient.EditValue = null;
-                    return;
-                }
-
-                // Preferred behavior: both combos use client _id as EditValue.
-                var value = editValue.ToString();
-                if (_clients == null) return;
-
-                var client = _clients.FirstOrDefault(c => c._id == value)
-                    ?? _clients.FirstOrDefault(c => string.Equals(c.ClientName, value, StringComparison.OrdinalIgnoreCase))
-                    ?? _clients.FirstOrDefault(c => string.Equals(c.ClientName, cboClients.Text, StringComparison.OrdinalIgnoreCase));
-
-                if (client != null) cboContractClient.EditValue = client._id;
-            }
-            catch
-            {
-                // ignore
-            }
-        }
 
         private void cboLocations_EditValueChanged(object sender, EventArgs e)
         {
@@ -335,12 +675,6 @@ namespace Spectrum.Views.Projects
             {
                 // ignore
             }
-        }
-
-
-        private void cboClients_EditValueChanged(object sender, EventArgs e)
-        {
-            SyncContractClientFromProjectClient();
         }
 
         private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
@@ -390,22 +724,45 @@ namespace Spectrum.Views.Projects
             {
                 BindingContext[bsProject].EndCurrentEdit();
                 BindingContext[bsContractDetails].EndCurrentEdit();
+                gvJobDetails.CloseEditor();
+                gvJobDetails.UpdateCurrentRow();
                 _projectModel = (ProjectModel)bsProject.Current;
+                _projectModel.ProjectHandovers = _projectHandovers.Where(x => x != null).ToList();
+                PersistDocumentLinks();
 
                 // derive client / engineer names from selected values
                 if (cboClients.EditValue != null)
                 {
                     var selectedClient = _clients.FirstOrDefault(c => c._id == cboClients.EditValue.ToString());
-                    if (selectedClient != null) _projectModel.ClientName = selectedClient.ClientName;
+                    if (selectedClient != null)
+                    {
+                        _projectModel.ClientIdValue = selectedClient._id;
+                        _projectModel.ClientName = selectedClient.ClientName;
+                    }
                 }
                 if (cboEngineers.EditValue != null)
                 {
                     var selectedEngineer = _engineers.FirstOrDefault(e => e._id == cboEngineers.EditValue.ToString());
-                    if (selectedEngineer != null) _projectModel.EngineerInCharge = selectedEngineer.FirstName;
+                    if (selectedEngineer != null)
+                    {
+                        _projectModel.EngineerIdValue = selectedEngineer._id;
+                        _projectModel.EngineerInCharge = selectedEngineer.FullName;
+                    }
                 }
+                if (cboUsers.EditValue != null)
+                {
+                    var selectedUser = _users.FirstOrDefault(u => u._id == cboUsers.EditValue.ToString());
+                    if (selectedUser != null)
+                    {
+                        _projectModel.UserIdValue = selectedUser._id;
+                        _projectModel.Username = selectedUser.Username;
+                    }
+                }
+                _projectModel.ContractDetails = _projectModel.ContractDetails ?? new ContractDetailModel();
+                var sponsorId = cboFundedBy.EditValue?.ToString();
+                _projectModel.ContractDetails.SponsorId = string.IsNullOrWhiteSpace(sponsorId) ? null : sponsorId;
 
                 // Save selected services and service types
-                _projectModel.ContractDetails = _projectModel.ContractDetails ?? new ContractDetailModel();
                 _projectModel.ContractDetails.ServicesProvided = GetCheckedItems(cboServicesProvided);
                 _projectModel.ContractDetails.ServiceTypes = GetCheckedItems(cboServicesType);
 
@@ -546,68 +903,6 @@ namespace Spectrum.Views.Projects
             }
         }
 
-
-        #region Add new data
-        private void cboPersonInCharge_AddNewValue(object sender, AddNewValueEventArgs e)
-        {
-            UserEditForm frm = new UserEditForm(new UserModel());
-            frm.SendUpdatedUser += RcvUpdatedPersonInChargeAsync;
-            frm.ShowDialog();
-        }
-
-        private void RcvUpdatedPersonInChargeAsync(object sender, EventArgs e)
-        {
-            if (sender == null) return;
-            _userModel = sender as UserModel;
-
-            _users.Add(_userModel);
-
-            cboUsers.Properties.DataSource = null;
-            cboUsers.Properties.DataSource = _users;
-            if (_userModel != null) cboUsers.EditValue = _userModel._id;
-        }
-
-        private void cboOperatingUsers_AddNewValue(object sender, AddNewValueEventArgs e)
-        {
-            UserEditForm frm = new UserEditForm(new UserModel());
-            frm.SendUpdatedUser += RcvOperatingUserAsync;
-            frm.ShowDialog();
-        }
-
-        private void RcvOperatingUserAsync(object sender, EventArgs e)
-        {
-            if (sender == null) return;
-            _userModel = sender as UserModel;
-
-            _users.Add(_userModel);
-
-            cboOperatingUsers.Properties.DataSource = null;
-            cboOperatingUsers.Properties.DataSource = _users;
-            if (_userModel != null) cboOperatingUsers.EditValue = _userModel._id;
-        }
-
-        private void cboUsers_AddNewValue(object sender, AddNewValueEventArgs e)
-        {
-            UserEditForm frm = new UserEditForm(new UserModel());
-            frm.SendUpdatedUser += RcvUpdatedUserAsync;
-            frm.ShowDialog();
-        }
-
-        private void RcvUpdatedUserAsync(object sender, EventArgs e)
-        {
-            if (sender == null) return;
-            _userModel = sender as UserModel;
-
-            _users.Add(_userModel);
-
-            cboUsers.Properties.DataSource = null;
-            cboUsers.Properties.DataSource = _users;
-            if (_userModel != null) cboUsers.EditValue = _userModel._id;
-        }
-
-
-        #endregion
-
         private void cboCountries_AddNewValue(object sender, AddNewValueEventArgs e)
         {
             CountryEditForm frm = new CountryEditForm(new CountryModel());
@@ -643,7 +938,7 @@ namespace Spectrum.Views.Projects
             var service = sender as ServiceModel;
             if (service == null) return;
 
-         if (_services.All(x => !string.Equals(x.ServiceName, service.ServiceName, StringComparison.OrdinalIgnoreCase)))
+            if (_services.All(x => !string.Equals(x.ServiceName, service.ServiceName, StringComparison.OrdinalIgnoreCase)))
             {
                 _services.Add(service);
             }
@@ -667,7 +962,7 @@ namespace Spectrum.Views.Projects
             var serviceType = sender as ServiceTypeModel;
             if (serviceType == null) return;
 
-         if (_serviceTypes.All(x => !string.Equals(x.ServiceType, serviceType.ServiceType, StringComparison.OrdinalIgnoreCase)))
+            if (_serviceTypes.All(x => !string.Equals(x.ServiceType, serviceType.ServiceType, StringComparison.OrdinalIgnoreCase)))
             {
                 _serviceTypes.Add(serviceType);
             }
@@ -724,7 +1019,7 @@ namespace Spectrum.Views.Projects
 
             cboAreas.Properties.DataSource = null;
             cboAreas.Properties.DataSource = _areas;
-            if (_areaModel != null) cboAreas.EditValue = _areaModel.AreaCode;
+            if (_areaModel != null) cboAreas.EditValue = _areaModel.AreaName;
         }
 
         private void RcvUpdatedLocation(object sender, EventArgs e)
@@ -755,7 +1050,42 @@ namespace Spectrum.Views.Projects
 
             cboEngineers.Properties.DataSource = null;
             cboEngineers.Properties.DataSource = _engineers;
-            if (_engineerModel != null) cboEngineers.EditValue = _engineerModel.FullName;
+            if (_engineerModel != null) cboEngineers.EditValue = _engineerModel._id;
+        }
+
+        private void cboEngineers_EditValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cboEngineers.EditValue == null) return;
+
+                var selectedEngineerId = cboEngineers.EditValue.ToString();
+                var selectedEngineer = _engineers.FirstOrDefault(x => x._id == selectedEngineerId);
+                if (selectedEngineer == null) return;
+
+                var previousEngineerId = _projectModel.EngineerIdValue;
+                var previousEngineerName = _projectModel.EngineerInCharge;
+                if (!string.IsNullOrWhiteSpace(previousEngineerId) &&
+                    !string.Equals(previousEngineerId, selectedEngineerId, StringComparison.OrdinalIgnoreCase) &&
+                    !string.IsNullOrWhiteSpace(previousEngineerName))
+                {
+                    _projectHandovers.Add(new ProjectHandoverModel
+                    {
+                        _id = Guid.NewGuid().ToString("N"),
+                        HandingOver = previousEngineerName,
+                        HandingOverDate = DateTime.UtcNow
+                    });
+                    gvJobDetails.RefreshData();
+                }
+
+                _projectModel.EngineerIdValue = selectedEngineer._id;
+                _projectModel.EngineerInCharge = selectedEngineer.FullName;
+                bsProject.ResetBindings(false);
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         private void RcvUpdatedClient(object sender, EventArgs e)
@@ -767,21 +1097,9 @@ namespace Spectrum.Views.Projects
 
             cboClients.Properties.DataSource = null;
             cboClients.Properties.DisplayMember = "ClientName";
-            cboClients.Properties.ValueMember = "ClientName";
+            cboClients.Properties.ValueMember = "_id";
             cboClients.Properties.DataSource = _clients;
-
-            // Refresh contract management client lookup as well
-            cboContractClient.Properties.DataSource = null;
-            cboContractClient.Properties.DisplayMember = "ClientName";
-            cboContractClient.Properties.ValueMember = "ClientName";
-            cboContractClient.Properties.DataSource = _clients;
-
-            if (_clientModel != null)
-            {
-                // Prefer selecting by id (ValueMember is typically _id on these lookups)
-                cboClients.EditValue = _clientModel._id;
-                SyncContractClientFromProjectClient();
-            }
+            if (_clientModel != null) cboClients.EditValue = _clientModel._id;
         }
 
         private void tabDetails_Click(object sender, EventArgs e)
@@ -805,6 +1123,175 @@ namespace Spectrum.Views.Projects
                     rpExpenses.Visible = false;
                     rcMain.SelectPage(rpMain);
                     break;
+            }
+        }
+
+        private void gvDocuments_ContextButtonCustomize(object sender, WinExplorerViewContextButtonCustomizeEventArgs e)
+        {
+            if (gvDocuments.FocusedRowHandle == e.RowHandle)
+            {
+                e.Item.AppearanceNormal.ForeColor = Color.White;
+                e.Item.AppearanceHover.ForeColor = Color.White;
+            }
+        }
+
+        private void gvDocuments_FocusedRowChanged(object sender, FocusedRowChangedEventArgs e)
+        {
+            gvDocuments.RefreshContextButtons();
+        }
+
+        private void openDocuments_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            try
+            {
+                var projectId = _projectModel?._id;
+                if (string.IsNullOrWhiteSpace(projectId))
+                {
+                    XtraMessageBox.Show("Please save the project record first to generate an ID for archived attachments.", "Save Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                var ofd = new OpenFileDialog
+                {
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    Multiselect = true,
+                    Filter = @"All Files (*.*)|*.*" +
+                             @"|PDF Portable Document Format (*.pdf)|*.pdf" +
+                             @"|PNG Portable Network Graphics (*.png)|*.png" +
+                             @"|JPEG File Interchange Format (*.jpg *.jpeg *jfif)|*.jpg;*.jpeg;*.jfif" +
+                             @"|BMP Windows Bitmap (*.bmp)|*.bmp" +
+                             @"|TIF Tagged Imaged File Format (*.tif *.tiff)|*.tif;*.tiff" +
+                             @"|GIF Graphics Interchange Format (*.gif)|*.gif"
+                };
+
+                if (ofd.ShowDialog() != DialogResult.OK) return;
+
+                var connection = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
+                var rootFolder = string.IsNullOrWhiteSpace(connection?.ProjectsDocumentsFolder)
+                    ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpectrumApp", "Projects")
+                    : connection.ProjectsDocumentsFolder;
+                Directory.CreateDirectory(rootFolder);
+
+                foreach (var file in ofd.FileNames)
+                {
+                    try
+                    {
+                        string fileName = Path.GetFileName(file);
+                        string archivedFileName = projectId + "_" + fileName;
+                        string destinationPath = Path.Combine(rootFolder, archivedFileName);
+
+                        if (File.Exists(destinationPath))
+                        {
+                            var result = XtraMessageBox.Show($"File '{archivedFileName}' already exists. Overwrite?", "Confirm Overwrite", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                            if (result == DialogResult.Cancel)
+                            {
+                                break;
+                            }
+                            if (result == DialogResult.No)
+                            {
+                                continue;
+                            }
+                        }
+
+                        File.Copy(file, destinationPath, true);
+
+                        _documents.Add(new DocumentModel
+                        {
+                            DocumentName = fileName,
+                            OriginPath = destinationPath,
+                            DocumentDate = File.GetCreationTime(destinationPath),
+                            StreamedDate = DateTime.Now,
+                            DocumentContent = File.ReadAllBytes(destinationPath)
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        XtraMessageBox.Show(ex.Message, @"Copy Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                PersistDocumentLinks();
+                gcDocuments.RefreshDataSource();
+            }
+            catch (Exception exception)
+            {
+                XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void gvDocuments_DoubleClick(object sender, EventArgs e)
+        {
+            OpenSelectedDocument();
+        }
+
+        private void gvDocuments_ContextButtonClick(object sender, DevExpress.Utils.ContextItemClickEventArgs e)
+        {
+            try
+            {
+                var focusedRowHandle = gvDocuments.FocusedRowHandle;
+                if (focusedRowHandle < 0)
+                {
+                    return;
+                }
+
+                var document = gvDocuments.GetRow(focusedRowHandle) as DocumentModel;
+                if (document == null || string.IsNullOrWhiteSpace(document.OriginPath))
+                {
+                    return;
+                }
+
+                var result = XtraMessageBox.Show(
+                    $"Are you sure you want to delete '{document.DocumentName}'?\n\nThis will permanently delete the file from disk.",
+                    "Confirm Delete",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2);
+
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
+
+                // Delete the physical file
+                if (File.Exists(document.OriginPath))
+                {
+                    File.Delete(document.OriginPath);
+                }
+
+                // Remove from the binding list
+                _documents.RemoveAt(focusedRowHandle);
+
+                XtraMessageBox.Show("Document deleted successfully.", "Delete Document", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                XtraMessageBox.Show($"Access denied: {ex.Message}\n\nPlease check file permissions.", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException ex)
+            {
+                XtraMessageBox.Show($"File error: {ex.Message}\n\nThe file may be in use by another application.", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show($"Error deleting document: {ex.Message}", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void OpenSelectedDocument()
+        {
+            try
+            {
+                var document = gvDocuments.GetFocusedRow() as DocumentModel;
+                if (document == null || string.IsNullOrWhiteSpace(document.OriginPath) || !File.Exists(document.OriginPath))
+                {
+                    return;
+                }
+
+                Process.Start(document.OriginPath);
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(ex.Message, "Open Document", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -859,6 +1346,81 @@ namespace Spectrum.Views.Projects
             catch (Exception ex)
             {
                 ShowError("Error while selecting location", ex);
+            }
+        }
+
+        private void gvAddendum_DoubleClick(object sender, EventArgs e)
+        {
+            if (!CanManageAddendums()) return;
+
+            var addendumId = gvAddendum.GetFocusedRowCellValue("_id")?.ToString();
+
+            if (string.IsNullOrWhiteSpace(addendumId))
+            {
+                _addendumModel = new AddendumModel();
+            }
+            else
+            {
+                _addendumModel = _addendums.FirstOrDefault(x => x._id == addendumId) ?? new AddendumModel();
+            }
+
+            AddendumEditForm form = new AddendumEditForm(_addendumModel, _addendums);
+            form.SendUpdatedAddendum += RcvUpdatedAddendum;
+            form.ShowDialog();
+        }
+
+        private void RcvUpdatedAddendum(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+
+            _addendumModel = sender as AddendumModel;
+            if (_addendumModel == null) return;
+
+            var existingAddendum = _addendums.FirstOrDefault(x => x._id == _addendumModel._id);
+            if (existingAddendum == null)
+            {
+                _addendums.Add(_addendumModel);
+            }
+            else
+            {
+                var index = _addendums.IndexOf(existingAddendum);
+                if (index >= 0)
+                {
+                    _addendums[index] = _addendumModel;
+                }
+            }
+
+            _projectModel.Addendums = _addendums.ToList();
+            gcAddendum.DataSource = null;
+            gcAddendum.DataSource = _addendums;
+            gvAddendum.RefreshData();
+        }
+
+        private void btnProtected_CheckedChanged(object sender, ItemClickEventArgs e)
+        {
+            _projectModel.IsProtected = btnProtected.Checked;
+
+            var fontStyle = btnProtected.Checked
+                ? FontStyle.Bold
+                : FontStyle.Regular;
+
+            var foreColor = btnProtected.Checked
+                ? Color.Red
+                : Color.Black;
+
+            var font = new Font("Tahoma", 8, fontStyle);
+
+            var appearances = new[]
+            {
+                btnProtected.ItemAppearance.Normal,
+                btnProtected.ItemAppearance.Hovered,
+                btnProtected.ItemAppearance.Pressed
+            };
+
+            foreach (var appearance in appearances)
+            {
+                appearance.Font = font;
+                appearance.ForeColor = foreColor;
             }
         }
     }

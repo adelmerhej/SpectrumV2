@@ -1,8 +1,8 @@
-﻿using SpectrumV1.Models.Common.Roles;
+﻿using Spectrum.Models.Common.Roles;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.Common.Roles
+namespace Spectrum.DataLayers.Common.Roles
 {
     public interface IRoleRepository
     {

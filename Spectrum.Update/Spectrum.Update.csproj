@@ -7,8 +7,8 @@
     <ProjectGuid>{D9750722-A1ED-4646-9E6E-2AC0A20E1B05}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpectrumV1.Update</RootNamespace>
-    <AssemblyName>SpectrumV1.Update</AssemblyName>
+    <RootNamespace>Spectrum.Update</RootNamespace>
+    <AssemblyName>Spectrum.Update</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

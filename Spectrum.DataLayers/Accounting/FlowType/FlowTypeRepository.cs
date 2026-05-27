@@ -1,13 +1,13 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using Spectrum.DataLayers.DataAccess;
-using SpectrumV1.Models.Accounting.FlowType;
+using Spectrum.Models.Accounting.FlowType;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.Accounting.FlowType
+namespace Spectrum.DataLayers.Accounting.FlowType
 {
     public class FlowTypeRepository : IFlowTypeRepository, IDisposable
     {
@@ -43,6 +43,18 @@ namespace SpectrumV1.DataLayers.Accounting.FlowType
             if (string.IsNullOrWhiteSpace(flowTypeName)) return null;
             var pattern = "^" + Regex.Escape(flowTypeName.Trim()) + "$"; // exact match
             var filter = Builders<FlowTypeModel>.Filter.Regex(u => u.FlowTypeName, new BsonRegularExpression(pattern, "i"));
+            return await _flowTypes.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<FlowTypeModel> GetDefaultFlowTypeAsync(string excludedId = null)
+        {
+            var filter = Builders<FlowTypeModel>.Filter.Eq(u => u.IsDefault, true);
+
+            if (!string.IsNullOrWhiteSpace(excludedId))
+            {
+                filter &= Builders<FlowTypeModel>.Filter.Ne(u => u._id, excludedId);
+            }
+
             return await _flowTypes.Find(filter).FirstOrDefaultAsync();
         }
 

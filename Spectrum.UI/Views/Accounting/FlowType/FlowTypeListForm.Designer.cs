@@ -304,7 +304,7 @@
             // 
             // bsFlowTypes
             // 
-            this.bsFlowTypes.DataSource = typeof(SpectrumV1.Models.Accounting.FlowType.FlowTypeModel);
+            this.bsFlowTypes.DataSource = typeof(Spectrum.Models.Accounting.FlowType.FlowTypeModel);
             // 
             // colFlowTypeName
             // 

@@ -1,8 +1,8 @@
-﻿using SpectrumV1.Models.Accounting.Journals;
+﻿using Spectrum.Models.Accounting.Journals;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.Accounting.Journals
+namespace Spectrum.DataLayers.Accounting.Journals
 {
     public interface IJournalRepository
     {
@@ -15,6 +15,8 @@ namespace SpectrumV1.DataLayers.Accounting.Journals
 
         // A custom query example
         Task<JournalModel> GetJournalByJvNo(string jvNo);
+        Task<string> GetNextJvNoAsync(int workingYear);
+        Task<string> GetNextReferenceAsync();
         Task<long> GetCountAsync();
     }
 }

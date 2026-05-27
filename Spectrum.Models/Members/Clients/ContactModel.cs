@@ -24,16 +24,15 @@ namespace Spectrum.Models.Members.Clients
 		public string MobileNumber { get; set; }
 		public bool IsPrimary { get; set; }
 
-		#region Implementation of ICloneable
+        #region Implementation of ICloneable
 
-		/// <summary>Creates a new object that is a copy of the current instance.</summary>
-		/// <returns>A new object that is a copy of this instance.</returns>
-		public object Clone()
-		{
-			var recordModel = (ContactModel)MemberwiseClone();
-			return recordModel;
-		}
+        /// <summary>Creates a new object that is a copy of the current instance.</summary>
+        /// <returns>A new object that is a copy of this instance.</returns>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

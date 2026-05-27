@@ -13,6 +13,8 @@ using Spectrum.Utilities.Common;
 using Spectrum.Utilities.Enums;
 using Spectrum.Views.Main.Connections;
 using Spectrum.Views.Main.Update;
+using Spectrum.DataLayers.EmployeeTypes;
+using Spectrum.Models.HumanResources.EmployeeTypes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -372,7 +374,7 @@ namespace Spectrum.Utilities
 					companyRepo.AddNewCompanyAsync(defaultCompany).Wait();
 				}
 
-				//2- Check collection Companies and add default if empty
+				//2- Check collection Branches and add default if empty
 				var branchRepo = new DataLayers.Common.Branches.BranchRepository(DatabaseFactory.ProfilePrimary);
 				var branchCount = branchRepo.GetCountAsync().Result;
 				if (branchCount == 0)
@@ -584,7 +586,26 @@ namespace Spectrum.Utilities
 					};
 					userRepo.AddNewUserAsync(defaultUser).Wait();
 				}
-			}
+
+
+                var employeeTypeRepo = new EmployeeTypeRepository(DatabaseFactory.ProfilePrimary);
+                var employeeType = employeeTypeRepo.GetCountAsync().Result;
+                if (employeeType == 0)
+                {
+                    var defaultEmployeeType = new EmployeeTypeModel
+                    {
+                        TypeName = "Engineer",
+                        Company = "Spectrum Lebanon",
+                        Branch = "Default Branch",
+                        CreatedBy = "admin",
+                        CreatedAt = DateTime.Now,
+                        IsDefault = true,
+                        Active = true,
+                        WorkingYear = DateTime.Now.Year,
+                    };
+                    employeeTypeRepo.AddNewEmployeeTypeAsync(defaultEmployeeType).Wait();
+                }
+            }
 			catch (Exception ex)
 			{
 				SafeShowMessageBox(ex.Message, $@"Error {ex.HResult.ToString()}", MessageBoxButtons.OK,

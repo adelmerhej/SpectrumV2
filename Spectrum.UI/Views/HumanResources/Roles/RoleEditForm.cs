@@ -1,8 +1,8 @@
 ﻿using DevExpress.XtraEditors;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Utilities;
-using SpectrumV1.DataLayers.Common.Roles;
-using SpectrumV1.Models.Common.Roles;
+using Spectrum.DataLayers.Common.Roles;
+using Spectrum.Models.Common.Roles;
 using System;
 using System.Text;
 using System.Threading.Tasks;

@@ -197,15 +197,11 @@
             this.bsRelatedProjects = new System.Windows.Forms.BindingSource(this.components);
             this.gvRelatedProjects = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.col_id1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colProjectReference = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProjectName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colClientName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDescription = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStatus = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTotalBudget = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStartedDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDeadline = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colActualEndDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFinancialSummary = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNotes1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colActive1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.txtNotes = new DevExpress.XtraEditors.MemoEdit();
@@ -1033,7 +1029,7 @@
             // txtPoBox2
             // 
             this.txtPoBox2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "PoBox2", true));
-            this.txtPoBox2.Location = new System.Drawing.Point(113, 182);
+            this.txtPoBox2.Location = new System.Drawing.Point(113, 181);
             this.txtPoBox2.MenuManager = this.ribbonControl;
             this.txtPoBox2.Name = "txtPoBox2";
             this.txtPoBox2.Size = new System.Drawing.Size(233, 22);
@@ -1043,7 +1039,7 @@
             // txtFaxNumber2
             // 
             this.txtFaxNumber2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "FaxNumberSecond", true));
-            this.txtFaxNumber2.Location = new System.Drawing.Point(113, 153);
+            this.txtFaxNumber2.Location = new System.Drawing.Point(113, 152);
             this.txtFaxNumber2.MenuManager = this.ribbonControl;
             this.txtFaxNumber2.Name = "txtFaxNumber2";
             editorButtonImageOptions5.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions5.SvgImage")));
@@ -1056,7 +1052,8 @@
             // 
             // txtPhoneNumberSecond3
             // 
-            this.txtPhoneNumberSecond3.Location = new System.Drawing.Point(538, 124);
+            this.txtPhoneNumberSecond3.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "PhoneNumberSecond3", true));
+            this.txtPhoneNumberSecond3.Location = new System.Drawing.Point(538, 123);
             this.txtPhoneNumberSecond3.MenuManager = this.ribbonControl;
             this.txtPhoneNumberSecond3.Name = "txtPhoneNumberSecond3";
             editorButtonImageOptions6.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions6.SvgImage")));
@@ -1069,7 +1066,8 @@
             // 
             // txtPhoneNumberSecond1
             // 
-            this.txtPhoneNumberSecond1.Location = new System.Drawing.Point(113, 124);
+            this.txtPhoneNumberSecond1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "PhoneNumberSecond1", true));
+            this.txtPhoneNumberSecond1.Location = new System.Drawing.Point(113, 123);
             this.txtPhoneNumberSecond1.MenuManager = this.ribbonControl;
             this.txtPhoneNumberSecond1.Name = "txtPhoneNumberSecond1";
             editorButtonImageOptions7.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions7.SvgImage")));
@@ -1082,7 +1080,8 @@
             // 
             // txtPhoneNumberSecond2
             // 
-            this.txtPhoneNumberSecond2.Location = new System.Drawing.Point(350, 124);
+            this.txtPhoneNumberSecond2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "PhoneNumberSecond2", true));
+            this.txtPhoneNumberSecond2.Location = new System.Drawing.Point(350, 123);
             this.txtPhoneNumberSecond2.MenuManager = this.ribbonControl;
             this.txtPhoneNumberSecond2.Name = "txtPhoneNumberSecond2";
             editorButtonImageOptions8.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions8.SvgImage")));
@@ -1095,15 +1094,17 @@
             // 
             // txtAddress2
             // 
+            this.txtAddress2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "Address2", true));
             this.txtAddress2.Location = new System.Drawing.Point(113, 66);
             this.txtAddress2.MenuManager = this.ribbonControl;
             this.txtAddress2.Name = "txtAddress2";
-            this.txtAddress2.Size = new System.Drawing.Size(637, 54);
+            this.txtAddress2.Size = new System.Drawing.Size(637, 53);
             this.txtAddress2.StyleController = this.layoutControl2;
             this.txtAddress2.TabIndex = 6;
             // 
             // cboCities2
             // 
+            this.cboCities2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "City2", true));
             this.cboCities2.Location = new System.Drawing.Point(528, 40);
             this.cboCities2.MenuManager = this.ribbonControl;
             this.cboCities2.Name = "cboCities2";
@@ -1147,6 +1148,7 @@
             // 
             // cboCountries2
             // 
+            this.cboCountries2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsClient, "Country2", true));
             this.cboCountries2.Location = new System.Drawing.Point(113, 40);
             this.cboCountries2.MenuManager = this.ribbonControl;
             this.cboCountries2.Name = "cboCountries2";
@@ -1221,9 +1223,9 @@
             // 
             // emptySpaceItem13
             // 
-            this.emptySpaceItem13.Location = new System.Drawing.Point(0, 194);
+            this.emptySpaceItem13.Location = new System.Drawing.Point(0, 193);
             this.emptySpaceItem13.Name = "emptySpaceItem13";
-            this.emptySpaceItem13.Size = new System.Drawing.Size(740, 11);
+            this.emptySpaceItem13.Size = new System.Drawing.Size(740, 12);
             // 
             // lblCity2
             // 
@@ -1241,14 +1243,14 @@
             this.lblAddress2.Control = this.txtAddress2;
             this.lblAddress2.Location = new System.Drawing.Point(0, 52);
             this.lblAddress2.Name = "lblAddress2";
-            this.lblAddress2.Size = new System.Drawing.Size(740, 58);
+            this.lblAddress2.Size = new System.Drawing.Size(740, 57);
             this.lblAddress2.Text = "Address";
             this.lblAddress2.TextSize = new System.Drawing.Size(84, 16);
             // 
             // lblPhoneNumberSecond2
             // 
             this.lblPhoneNumberSecond2.Control = this.txtPhoneNumberSecond2;
-            this.lblPhoneNumberSecond2.Location = new System.Drawing.Point(336, 110);
+            this.lblPhoneNumberSecond2.Location = new System.Drawing.Point(336, 109);
             this.lblPhoneNumberSecond2.Name = "lblPhoneNumberSecond2";
             this.lblPhoneNumberSecond2.Size = new System.Drawing.Size(188, 29);
             this.lblPhoneNumberSecond2.TextVisible = false;
@@ -1256,7 +1258,7 @@
             // lblPhoneNumberSecond1
             // 
             this.lblPhoneNumberSecond1.Control = this.txtPhoneNumberSecond1;
-            this.lblPhoneNumberSecond1.Location = new System.Drawing.Point(0, 110);
+            this.lblPhoneNumberSecond1.Location = new System.Drawing.Point(0, 109);
             this.lblPhoneNumberSecond1.Name = "lblPhoneNumberSecond1";
             this.lblPhoneNumberSecond1.Size = new System.Drawing.Size(336, 29);
             this.lblPhoneNumberSecond1.Text = "Phone Number";
@@ -1265,7 +1267,7 @@
             // lblPhoneNumberSecond3
             // 
             this.lblPhoneNumberSecond3.Control = this.txtPhoneNumberSecond3;
-            this.lblPhoneNumberSecond3.Location = new System.Drawing.Point(524, 110);
+            this.lblPhoneNumberSecond3.Location = new System.Drawing.Point(524, 109);
             this.lblPhoneNumberSecond3.Name = "lblPhoneNumberSecond3";
             this.lblPhoneNumberSecond3.Size = new System.Drawing.Size(216, 29);
             this.lblPhoneNumberSecond3.TextVisible = false;
@@ -1273,7 +1275,7 @@
             // lblFaxNumber2
             // 
             this.lblFaxNumber2.Control = this.txtFaxNumber2;
-            this.lblFaxNumber2.Location = new System.Drawing.Point(0, 139);
+            this.lblFaxNumber2.Location = new System.Drawing.Point(0, 138);
             this.lblFaxNumber2.Name = "lblFaxNumber2";
             this.lblFaxNumber2.Size = new System.Drawing.Size(336, 29);
             this.lblFaxNumber2.Text = "Fax Number";
@@ -1282,7 +1284,7 @@
             // lblPoBox2
             // 
             this.lblPoBox2.Control = this.txtPoBox2;
-            this.lblPoBox2.Location = new System.Drawing.Point(0, 168);
+            this.lblPoBox2.Location = new System.Drawing.Point(0, 167);
             this.lblPoBox2.Name = "lblPoBox2";
             this.lblPoBox2.Size = new System.Drawing.Size(336, 26);
             this.lblPoBox2.Text = "PoBox";
@@ -1305,7 +1307,7 @@
             // 
             // emptySpaceItem15
             // 
-            this.emptySpaceItem15.Location = new System.Drawing.Point(336, 139);
+            this.emptySpaceItem15.Location = new System.Drawing.Point(336, 138);
             this.emptySpaceItem15.Name = "emptySpaceItem15";
             this.emptySpaceItem15.Size = new System.Drawing.Size(404, 55);
             // 
@@ -1507,21 +1509,17 @@
             // 
             // bsRelatedProjects
             // 
-            this.bsRelatedProjects.DataSource = typeof(Spectrum.Models.Operations.Projects.ProjectModel);
+            this.bsRelatedProjects.DataSource = typeof(Spectrum.Models.Projects.ProjectModel);
             // 
             // gvRelatedProjects
             // 
             this.gvRelatedProjects.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id1,
+            this.colProjectReference,
             this.colProjectName,
             this.colClientName,
-            this.colDescription,
             this.colStatus,
-            this.colTotalBudget,
-            this.colStartedDate,
-            this.colDeadline,
             this.colActualEndDate,
-            this.colFinancialSummary,
             this.colNotes1,
             this.colActive1});
             this.gvRelatedProjects.GridControl = this.gcRelatedProjects;
@@ -1542,30 +1540,32 @@
             this.col_id1.Name = "col_id1";
             this.col_id1.Width = 94;
             // 
+            // colProjectReference
+            // 
+            this.colProjectReference.FieldName = "Reference";
+            this.colProjectReference.MinWidth = 25;
+            this.colProjectReference.Name = "colProjectReference";
+            this.colProjectReference.Visible = true;
+            this.colProjectReference.VisibleIndex = 0;
+            this.colProjectReference.Width = 174;
+            // 
             // colProjectName
             // 
             this.colProjectName.FieldName = "ProjectName";
             this.colProjectName.MinWidth = 25;
             this.colProjectName.Name = "colProjectName";
             this.colProjectName.Visible = true;
-            this.colProjectName.VisibleIndex = 0;
-            this.colProjectName.Width = 174;
+            this.colProjectName.VisibleIndex = 1;
+            this.colProjectName.Width = 682;
             // 
             // colClientName
             // 
             this.colClientName.FieldName = "ClientName";
             this.colClientName.MinWidth = 25;
             this.colClientName.Name = "colClientName";
+            this.colClientName.Visible = true;
+            this.colClientName.VisibleIndex = 2;
             this.colClientName.Width = 203;
-            // 
-            // colDescription
-            // 
-            this.colDescription.FieldName = "Description";
-            this.colDescription.MinWidth = 25;
-            this.colDescription.Name = "colDescription";
-            this.colDescription.Visible = true;
-            this.colDescription.VisibleIndex = 1;
-            this.colDescription.Width = 682;
             // 
             // colStatus
             // 
@@ -1574,40 +1574,12 @@
             this.colStatus.Name = "colStatus";
             this.colStatus.Width = 111;
             // 
-            // colTotalBudget
-            // 
-            this.colTotalBudget.FieldName = "TotalBudget";
-            this.colTotalBudget.MinWidth = 25;
-            this.colTotalBudget.Name = "colTotalBudget";
-            this.colTotalBudget.Width = 147;
-            // 
-            // colStartedDate
-            // 
-            this.colStartedDate.FieldName = "StartedDate";
-            this.colStartedDate.MinWidth = 25;
-            this.colStartedDate.Name = "colStartedDate";
-            this.colStartedDate.Width = 142;
-            // 
-            // colDeadline
-            // 
-            this.colDeadline.FieldName = "Deadline";
-            this.colDeadline.MinWidth = 25;
-            this.colDeadline.Name = "colDeadline";
-            this.colDeadline.Width = 152;
-            // 
             // colActualEndDate
             // 
-            this.colActualEndDate.FieldName = "ActualEndDate";
+            this.colActualEndDate.FieldName = "ContractDetails.ActualCompletionDate";
             this.colActualEndDate.MinWidth = 25;
             this.colActualEndDate.Name = "colActualEndDate";
             this.colActualEndDate.Width = 147;
-            // 
-            // colFinancialSummary
-            // 
-            this.colFinancialSummary.FieldName = "FinancialSummary";
-            this.colFinancialSummary.MinWidth = 25;
-            this.colFinancialSummary.Name = "colFinancialSummary";
-            this.colFinancialSummary.Width = 149;
             // 
             // colNotes1
             // 
@@ -2116,15 +2088,11 @@
 		private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
 		private System.Windows.Forms.BindingSource bsRelatedProjects;
 		private DevExpress.XtraGrid.Columns.GridColumn col_id1;
-		private DevExpress.XtraGrid.Columns.GridColumn colProjectName;
+		private DevExpress.XtraGrid.Columns.GridColumn colProjectReference;
 		private DevExpress.XtraGrid.Columns.GridColumn colClientName;
-		private DevExpress.XtraGrid.Columns.GridColumn colDescription;
+		private DevExpress.XtraGrid.Columns.GridColumn colProjectName;
 		private DevExpress.XtraGrid.Columns.GridColumn colStatus;
-		private DevExpress.XtraGrid.Columns.GridColumn colTotalBudget;
-		private DevExpress.XtraGrid.Columns.GridColumn colStartedDate;
-		private DevExpress.XtraGrid.Columns.GridColumn colDeadline;
 		private DevExpress.XtraGrid.Columns.GridColumn colActualEndDate;
-		private DevExpress.XtraGrid.Columns.GridColumn colFinancialSummary;
 		private DevExpress.XtraGrid.Columns.GridColumn colNotes1;
 		private DevExpress.XtraGrid.Columns.GridColumn colActive1;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;

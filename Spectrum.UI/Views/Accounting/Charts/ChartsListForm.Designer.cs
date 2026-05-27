@@ -70,6 +70,8 @@
             this.bsCharts = new System.Windows.Forms.BindingSource(this.components);
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btnMigrateCharts = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.rcCharts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
@@ -91,10 +93,11 @@
             this.btnPrint,
             this.btnRefresh,
             this.btnClose,
-            this.btnResetGridStyle});
+            this.btnResetGridStyle,
+            this.btnMigrateCharts});
             this.rcCharts.Location = new System.Drawing.Point(0, 0);
             this.rcCharts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rcCharts.MaxItemId = 43;
+            this.rcCharts.MaxItemId = 44;
             this.rcCharts.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
             this.rcCharts.Name = "rcCharts";
             this.rcCharts.OptionsMenuMinWidth = 385;
@@ -221,7 +224,8 @@
             // rpViewSettings
             // 
             this.rpViewSettings.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup2});
+            this.ribbonPageGroup2,
+            this.ribbonPageGroup3});
             this.rpViewSettings.Name = "rpViewSettings";
             this.rpViewSettings.Text = "VIEW SETTINGS";
             // 
@@ -286,6 +290,7 @@
             this.chartTreeList.TabIndex = 4;
             this.chartTreeList.TreeLevelWidth = 21;
             this.chartTreeList.TreeViewColumn = this.colParentId;
+            this.chartTreeList.NodeCellStyle += new DevExpress.XtraTreeList.GetCustomNodeCellStyleEventHandler(this.chartTreeList_NodeCellStyle);
             this.chartTreeList.DoubleClick += new System.EventHandler(this.chartTreeList_DoubleClick);
             // 
             // treeListBand5
@@ -523,6 +528,20 @@
             this.layoutControlItem1.Size = new System.Drawing.Size(1388, 541);
             this.layoutControlItem1.TextVisible = false;
             // 
+            // ribbonPageGroup3
+            // 
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnMigrateCharts);
+            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.Text = "Migration";
+            // 
+            // btnMigrateCharts
+            // 
+            this.btnMigrateCharts.Caption = "Migrate Charts";
+            this.btnMigrateCharts.Id = 43;
+            this.btnMigrateCharts.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnMigrateCharts.ImageOptions.SvgImage")));
+            this.btnMigrateCharts.Name = "btnMigrateCharts";
+            this.btnMigrateCharts.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnMigrateCharts_ItemClick);
+            // 
             // ChartsListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -591,5 +610,7 @@
         private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand2;
         private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand3;
         private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand8;
+        private DevExpress.XtraBars.BarButtonItem btnMigrateCharts;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
     }
 }

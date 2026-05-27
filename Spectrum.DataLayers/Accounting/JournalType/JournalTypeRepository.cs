@@ -1,13 +1,13 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using Spectrum.DataLayers.DataAccess;
-using SpectrumV1.Models.Accounting.JournalType;
+using Spectrum.Models.Accounting.JournalType;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.Accounting.JournalType
+namespace Spectrum.DataLayers.Accounting.JournalType
 {
     public class JournalTypeRepository : IJournalTypeRepository, IDisposable
     {
@@ -43,6 +43,18 @@ namespace SpectrumV1.DataLayers.Accounting.JournalType
             if (string.IsNullOrWhiteSpace(code)) return null;
             var pattern = "^" + Regex.Escape(code.Trim()) + "$"; // exact match
             var filter = Builders<JournalTypeModel>.Filter.Regex(u => u.Code, new BsonRegularExpression(pattern, "i"));
+            return await _journalTypes.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<JournalTypeModel> GetDefaultJournalTypeAsync(string excludedId = null)
+        {
+            var filter = Builders<JournalTypeModel>.Filter.Eq(u => u.IsDefault, true);
+
+            if (!string.IsNullOrWhiteSpace(excludedId))
+            {
+                filter &= Builders<JournalTypeModel>.Filter.Ne(u => u._id, excludedId);
+            }
+
             return await _journalTypes.Find(filter).FirstOrDefaultAsync();
         }
 

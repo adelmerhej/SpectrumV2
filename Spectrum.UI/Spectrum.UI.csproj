@@ -53,6 +53,7 @@
     <Reference Include="DevExpress.XtraGrid.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraTreeList.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
@@ -78,6 +79,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BusinessLogic\Users\LoginService.cs" />
+    <Compile Include="Utilities\AttachedDocumentsHelper.cs" />
     <Compile Include="Utilities\FileSystemImageCache.cs" />
     <Compile Include="Utilities\FileSystemImageHelper.cs" />
     <Compile Include="Utilities\HelperApplication.cs" />
@@ -155,6 +157,18 @@
     </Compile>
     <Compile Include="Views\Accounting\JournalType\JournalTypesListForm.Designer.cs">
       <DependentUpon>JournalTypesListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounting\Reports\Ledgers\TrialBalanceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\Reports\Ledgers\TrialBalanceForm.Designer.cs">
+      <DependentUpon>TrialBalanceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounting\Reports\StatementReports\StatementOfAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\Reports\StatementReports\StatementOfAccount.Designer.cs">
+      <DependentUpon>StatementOfAccount.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Common\Areas\AreaEditForm.cs">
       <SubType>Form</SubType>
@@ -378,6 +392,9 @@
     <Compile Include="Views\HumanResources\Employees\Status\StatusListForm.Designer.cs">
       <DependentUpon>StatusListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\HumanResources\HRCVs\AiSummaryReviewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\HumanResources\HRCVs\HrCvEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -486,6 +503,18 @@
     <Compile Include="Views\Members\Engineers\EngineersListForm.Designer.cs">
       <DependentUpon>EngineersListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Members\Suppliers\SupplierEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Suppliers\SupplierEditForm.Designer.cs">
+      <DependentUpon>SupplierEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Suppliers\SuppliersListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Suppliers\SuppliersListForm.Designer.cs">
+      <DependentUpon>SuppliersListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\ProjectEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -497,6 +526,30 @@
     </Compile>
     <Compile Include="Views\Projects\ProjectsListForm.Designer.cs">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\Reports\ProjectReportDesignerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\Reports\ProjectReportDesignerForm.Designer.cs">
+      <DependentUpon>ProjectReportDesignerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\Settings\Addendum\AddendumEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\Settings\Addendum\AddendumEditForm.Designer.cs">
+      <DependentUpon>AddendumEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\Settings\ProjectTypes\ProjectTypeEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\Settings\ProjectTypes\ProjectTypeEditForm.Designer.cs">
+      <DependentUpon>ProjectTypeEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\Settings\ProjectTypes\ProjectTypesListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\Settings\ProjectTypes\ProjectTypesListForm.Designer.cs">
+      <DependentUpon>ProjectTypesListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Reports\DocumentViewerForm.cs">
       <SubType>Form</SubType>
@@ -522,12 +575,6 @@
     <Compile Include="Views\Transactions\Invoices\InvoicesListForm.Designer.cs">
       <DependentUpon>InvoicesListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Transactions\Invoices\MyInvoiceForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Transactions\Invoices\MyInvoiceForm.Designer.cs">
-      <DependentUpon>MyInvoiceForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Transactions\Receipts\ReceiptEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -545,6 +592,12 @@
     </Compile>
     <Compile Include="Views\Transactions\Statements\StatementOfAccountForm.Designer.cs">
       <DependentUpon>StatementOfAccountForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Upgrade\ChartMigrateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Upgrade\ChartMigrateForm.Designer.cs">
+      <DependentUpon>ChartMigrateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\ChangePasswordForm.cs">
       <SubType>Form</SubType>
@@ -621,6 +674,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\JournalType\JournalTypesListForm.resx">
       <DependentUpon>JournalTypesListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\Reports\Ledgers\TrialBalanceForm.resx">
+      <DependentUpon>TrialBalanceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\Reports\StatementReports\StatementOfAccount.resx">
+      <DependentUpon>StatementOfAccount.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Common\Areas\AreaEditForm.resx">
       <DependentUpon>AreaEditForm.cs</DependentUpon>
@@ -784,12 +843,27 @@
     <EmbeddedResource Include="Views\Members\Engineers\EngineersListForm.resx">
       <DependentUpon>EngineersListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Suppliers\SupplierEditForm.resx">
+      <DependentUpon>SupplierEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Suppliers\SuppliersListForm.resx">
+      <DependentUpon>SuppliersListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Projects\ProjectEditForm.resx">
       <DependentUpon>ProjectEditForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Projects\ProjectsListForm.resx">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Projects\Settings\Addendum\AddendumEditForm.resx">
+      <DependentUpon>AddendumEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Projects\Settings\ProjectTypes\ProjectTypeEditForm.resx">
+      <DependentUpon>ProjectTypeEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Projects\Settings\ProjectTypes\ProjectTypesListForm.resx">
+      <DependentUpon>ProjectTypesListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Reports\DocumentViewerForm.resx">
       <DependentUpon>DocumentViewerForm.cs</DependentUpon>
@@ -803,10 +877,6 @@
     <EmbeddedResource Include="Views\Transactions\Invoices\InvoicesListForm.resx">
       <DependentUpon>InvoicesListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Transactions\Invoices\MyInvoiceForm.resx">
-      <DependentUpon>MyInvoiceForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Transactions\Receipts\ReceiptEditForm.resx">
       <DependentUpon>ReceiptEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -815,6 +885,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Transactions\Statements\StatementOfAccountForm.resx">
       <DependentUpon>StatementOfAccountForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Upgrade\ChartMigrateForm.resx">
+      <DependentUpon>ChartMigrateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Users\ChangePasswordForm.resx">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
@@ -833,6 +906,8 @@
     </EmbeddedResource>
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Accounting.Journals.JournalDetailModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Accounting.Journals.JournalModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.CnssInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmergencyContactInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmployeeContactInfo.datasource" />
@@ -840,8 +915,12 @@
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.SyndicatInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkExperienceInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkingPermitInfo.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Suppliers.SupplierModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Operations.Projects.Settings.ProjectTypes.ProjectTypeModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Projects.AddendumModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.ContractDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.LocationInfoModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Projects.ProjectModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.Banks.BankModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.CostCenter.CostCenterModel.datasource" />
     <None Include="Properties\DataSources\SpectrumV1.Models.Accounting.FlowType.FlowTypeModel.datasource" />
@@ -920,11 +999,12 @@
     <None Include="Resources\professor.svg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Accounting\Reports\" />
-    <Folder Include="Views\Accounting\Settings\" />
-    <Folder Include="Views\Accounting\Statements\" />
-    <Folder Include="Views\Members\Engineers\Sattus\" />
-    <Folder Include="Views\Members\Suppliers\" />
+    <Folder Include="Views\Accounting\Closing\LockDates\" />
+    <Folder Include="Views\Accounting\Closing\Reconcile\" />
+    <Folder Include="Views\Accounting\Closing\TaxReturns\" />
+    <Folder Include="Views\Accounting\Reports\Management\" />
+    <Folder Include="Views\Accounting\Reports\PartnerReports\" />
+    <Folder Include="Views\Accounting\Reports\TaxesAndFiscal\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spectrum.DataLayers\Spectrum.DataLayers.csproj">

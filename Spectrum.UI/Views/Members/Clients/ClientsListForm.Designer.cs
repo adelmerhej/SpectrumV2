@@ -397,6 +397,8 @@
             this.gvClients.OptionsView.ShowGroupPanel = false;
             this.gvClients.OptionsView.ShowIndicator = false;
             this.gvClients.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
+            this.gvClients.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvClients_RowCellStyle);
+            this.gvClients.DoubleClick += new System.EventHandler(this.gvClients_DoubleClick);
             // 
             // col_id
             // 

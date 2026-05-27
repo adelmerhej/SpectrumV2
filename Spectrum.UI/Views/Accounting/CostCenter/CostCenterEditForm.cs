@@ -1,8 +1,8 @@
 ﻿using DevExpress.XtraEditors;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Utilities;
-using SpectrumV1.DataLayers.Accounting.CostCenter;
-using SpectrumV1.Models.Accounting.CostCenter;
+using Spectrum.DataLayers.Accounting.CostCenter;
+using Spectrum.Models.Accounting.CostCenter;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +29,7 @@ namespace Spectrum.Views.Accounting.CostCenter
         {
             InitializeComponent();
 
-            _costCenterModel = model;
+            _costCenterModel = model ?? new CostCenterModel();
 
             StartLoading();
         }
@@ -38,7 +38,7 @@ namespace Spectrum.Views.Accounting.CostCenter
         {
             await InitializeBindings();
             WireUpBindings();
-            ApplyDefaults();
+            await ApplyDefaults();
             ApplyPermissions();
         }
 
@@ -67,9 +67,10 @@ namespace Spectrum.Views.Accounting.CostCenter
             bsCostCenter.DataSource = _costCenterModel;
         }
 
-        private void ApplyDefaults()
+        private async Task ApplyDefaults()
         {
-
+            var defaultCostCenter = await _costCenterRepository.GetDefaultCostCenterAsync(_costCenterModel._id);
+            chkIsDefault.Enabled = defaultCostCenter == null;
         }
 
         private void ApplyPermissions()
@@ -106,6 +107,17 @@ namespace Spectrum.Views.Accounting.CostCenter
                 BindingContext[bsCostCenter].EndCurrentEdit();
                 _costCenterModel = (CostCenterModel)bsCostCenter.Current;
 
+                if (_costCenterModel.IsDefault)
+                {
+                    var defaultCostCenter = await _costCenterRepository.GetDefaultCostCenterAsync(_costCenterModel._id);
+                    if (defaultCostCenter != null)
+                    {
+                        chkIsDefault.Enabled = false;
+                        XtraMessageBox.Show("A default cost center already exists. Only one record can be marked as default.",
+                            @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
 
                 if (string.IsNullOrEmpty(_costCenterModel._id))
                 {

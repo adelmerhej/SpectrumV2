@@ -8,8 +8,8 @@ namespace Spectrum.Models.Projects
 	{
 		// An addendum is stored as a subdocument in a list, one record per addendum
 		public int Sequence { get; set; }                 // 1,2,3... useful if CSV had Add 1, Add 2, etc.
-		public string Title { get; set; }                 // optional descriptive title
-		public DateTime? BODDate { get; set; }            // "Adde1 BOD Date", etc.
+		public string Subject { get; set; }                 // optional descriptive Subject
+        public DateTime? BODDate { get; set; }            // "Adde1 BOD Date", etc.
 		public string DecisionNo { get; set; }            //
 
 		[BsonRepresentation(BsonType.Decimal128)]
@@ -28,16 +28,15 @@ namespace Spectrum.Models.Projects
 		public DateTime? EffectiveDate { get; set; }
 
 
-		#region Implementation of ICloneable
+        #region Implementation of ICloneable
 
-		/// <summary>Creates a new object that is a copy of the current instance.</summary>
-		/// <returns>A new object that is a copy of this instance.</returns>
-		public object Clone()
-		{
-			var recordModel = (AddendumModel)MemberwiseClone();
-			return recordModel;
-		}
+        /// <summary>Creates a new object that is a copy of the current instance.</summary>
+        /// <returns>A new object that is a copy of this instance.</returns>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

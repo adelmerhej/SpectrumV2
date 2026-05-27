@@ -11,7 +11,7 @@ namespace Spectrum.Utilities.Enums
 		SqLite
 	}
 
-    public enum EnumEmployeeType
+    public enum EmployeeType
     {
         Employee = 1,
         Engineer = 2

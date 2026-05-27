@@ -1,13 +1,13 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using Spectrum.DataLayers.DataAccess;
-using SpectrumV1.Models.HumanResources.Candidates;
+using Spectrum.Models.HumanResources.Candidates;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.HumanResources.Candidates
+namespace Spectrum.DataLayers.HumanResources.Candidates
 {
     public class CandidateRepository : ICandidateRepository, IDisposable
     {
