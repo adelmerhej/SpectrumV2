@@ -60,6 +60,9 @@
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.btnParseWithAI = new DevExpress.XtraEditors.SimpleButton();
+            this.xtraTabControlEducationWork = new DevExpress.XtraTab.XtraTabControl();
+            this.xtraTabPageEducation = new DevExpress.XtraTab.XtraTabPage();
+            this.xtraTabPageWork = new DevExpress.XtraTab.XtraTabPage();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bsEducationEntry = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -125,6 +128,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControlEducationWork)).BeginInit();
+            this.xtraTabControlEducationWork.SuspendLayout();
+            this.xtraTabPageEducation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsEducationEntry)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -439,7 +445,7 @@
             // 
             this.mainLayout.Controls.Add(this.simpleButton1);
             this.mainLayout.Controls.Add(this.btnParseWithAI);
-            this.mainLayout.Controls.Add(this.gridControl1);
+            this.mainLayout.Controls.Add(this.xtraTabControlEducationWork);
             this.mainLayout.Controls.Add(this.txtSummary);
             this.mainLayout.Controls.Add(this.txtYearsOfExperience);
             this.mainLayout.Controls.Add(this.txtPosition);
@@ -490,16 +496,41 @@
             this.btnParseWithAI.Text = "Parse With AI";
             this.btnParseWithAI.Click += new System.EventHandler(this.btnParseWithAI_Click);
             // 
+            // xtraTabControlEducationWork
+            // 
+            this.xtraTabControlEducationWork.Location = new System.Drawing.Point(22, 390);
+            this.xtraTabControlEducationWork.Name = "xtraTabControlEducationWork";
+            this.xtraTabControlEducationWork.SelectedTabPage = this.xtraTabPageEducation;
+            this.xtraTabControlEducationWork.Size = new System.Drawing.Size(1126, 95);
+            this.xtraTabControlEducationWork.TabIndex = 23;
+            this.xtraTabControlEducationWork.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
+            this.xtraTabPageEducation,
+            this.xtraTabPageWork});
+            // 
+            // xtraTabPageEducation
+            // 
+            this.xtraTabPageEducation.Controls.Add(this.gridControl1);
+            this.xtraTabPageEducation.Name = "xtraTabPageEducation";
+            this.xtraTabPageEducation.Size = new System.Drawing.Size(1124, 70);
+            this.xtraTabPageEducation.Text = "Education";
+            // 
+            // xtraTabPageWork
+            // 
+            this.xtraTabPageWork.Name = "xtraTabPageWork";
+            this.xtraTabPageWork.Size = new System.Drawing.Size(1124, 70);
+            this.xtraTabPageWork.Text = "Work";
+            // 
             // gridControl1
             // 
             this.gridControl1.DataSource = this.bsEducationEntry;
+            this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridControl1.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gridControl1.Location = new System.Drawing.Point(22, 390);
+            this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gridControl1.MenuManager = this.ribbonControl;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1126, 95);
+            this.gridControl1.Size = new System.Drawing.Size(1124, 70);
             this.gridControl1.TabIndex = 20;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -1082,7 +1113,7 @@
             // 
             // layoutControlItem4
             // 
-            this.layoutControlItem4.Control = this.gridControl1;
+            this.layoutControlItem4.Control = this.xtraTabControlEducationWork;
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(1130, 99);
@@ -1130,6 +1161,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControlEducationWork)).EndInit();
+            this.xtraTabControlEducationWork.ResumeLayout(false);
+            this.xtraTabPageEducation.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsEducationEntry)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
@@ -1265,6 +1299,9 @@
         private DevExpress.XtraEditors.ComboBoxEdit cboGenders;
         private DevExpress.XtraEditors.SimpleButton btnParseWithAI;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.XtraTab.XtraTabControl xtraTabControlEducationWork;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPageEducation;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPageWork;
         private DevExpress.XtraEditors.SearchLookUpEdit cboCities;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;

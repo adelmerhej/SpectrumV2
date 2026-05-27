@@ -5,6 +5,10 @@ namespace Spectrum.Models.Common.Areas
 {
 	public class LocationModel : EntityObject, ICloneable
 	{
+       [BsonElement("LocationCode")]
+		[BsonIgnoreIfNull]
+		public string LocationCode { get; set; }
+
 		[BsonElement("LocationName")]
 		public string LocationName { get; set; }
 

@@ -313,42 +313,8 @@ namespace Spectrum.Views.HumanResources.HRCVs
             if (_workGridControl != null)
                 return;
 
-            var parent = gridControl1.Parent;
-            if (parent == null)
-                return;
-
-            var bounds = gridControl1.Bounds;
-            var tab = new XtraTabControl
-            {
-                Name = "tabEducationWork",
-                Bounds = bounds,
-                Anchor = gridControl1.Anchor
-            };
-
-            var pageEducation = new XtraTabPage { Text = "Education" };
-            var pageWork = new XtraTabPage { Text = "Work" };
-
-            _educationGridControl = new GridControl
-            {
-                DataSource = bsEducationEntry,
-                Dock = DockStyle.Fill,
-                MenuManager = ribbonControl
-            };
-
-            _educationGridView = new GridView
-            {
-                GridControl = _educationGridControl,
-                OptionsView = { ShowGroupPanel = false, ColumnAutoWidth = false }
-            };
-
-            _educationGridView.Columns.AddVisible("Degree", "Degree");
-            _educationGridView.Columns.AddVisible("Institution", "Institution");
-            _educationGridView.Columns.AddVisible("Year", "Year");
-            _educationGridView.Columns.AddVisible("Specialization", "Specialization");
-
-            _educationGridControl.MainView = _educationGridView;
-            _educationGridControl.ViewCollection.Add(_educationGridView);
-            pageEducation.Controls.Add(_educationGridControl);
+            layoutControlGroup4.Text = "Education / Work";
+            xtraTabControlEducationWork.SelectedTabPage = xtraTabPageEducation;
 
             _workGridControl = new GridControl
             {
@@ -369,14 +335,7 @@ namespace Spectrum.Views.HumanResources.HRCVs
 
             _workGridControl.MainView = _workGridView;
             _workGridControl.ViewCollection.Add(_workGridView);
-            pageWork.Controls.Add(_workGridControl);
-
-            tab.TabPages.AddRange(new[] { pageEducation, pageWork });
-            tab.SelectedTabPage = pageEducation;
-            parent.Controls.Add(tab);
-            tab.BringToFront();
-
-            gridControl1.Visible = false;
+            xtraTabPageWork.Controls.Add(_workGridControl);
         }
 
         private void ApplyDefaults()
