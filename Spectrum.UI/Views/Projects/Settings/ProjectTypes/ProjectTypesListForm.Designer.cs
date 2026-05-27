@@ -47,25 +47,27 @@
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
             this.gcProjectTypes = new DevExpress.XtraGrid.GridControl();
-            this.gvProjectTypes = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.repCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
-            this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.bsProjectTypes = new System.Windows.Forms.BindingSource(this.components);
-            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gvProjectTypes = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.colDescription = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSector = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.rcProjectsType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcProjectTypes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsProjectTypes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvProjectTypes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsProjectTypes)).BeginInit();
             this.SuspendLayout();
             // 
             // rcProjectsType
@@ -249,11 +251,17 @@
             this.gcProjectTypes.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvProjectTypes});
             // 
+            // bsProjectTypes
+            // 
+            this.bsProjectTypes.DataSource = typeof(Spectrum.Models.Operations.Projects.Settings.ProjectTypes.ProjectTypeModel);
+            // 
             // gvProjectTypes
             // 
             this.gvProjectTypes.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id,
-            this.colName,
+            this.colType,
+            this.colSector,
+            this.colDescription,
             this.colNotes,
             this.colIsDefault,
             this.colActive});
@@ -270,10 +278,56 @@
             this.gvProjectTypes.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gvProjectTypes_RowCellStyle);
             this.gvProjectTypes.DoubleClick += new System.EventHandler(this.gvProjectTypes_DoubleClick);
             // 
+            // col_id
+            // 
+            this.col_id.FieldName = "_id";
+            this.col_id.MinWidth = 25;
+            this.col_id.Name = "col_id";
+            this.col_id.Width = 94;
+            // 
+            // colType
+            // 
+            this.colType.Caption = "Type";
+            this.colType.FieldName = "Type";
+            this.colType.MinWidth = 25;
+            this.colType.Name = "colType";
+            this.colType.Visible = true;
+            this.colType.VisibleIndex = 0;
+            this.colType.Width = 48;
+            // 
+            // colNotes
+            // 
+            this.colNotes.FieldName = "Notes";
+            this.colNotes.MinWidth = 25;
+            this.colNotes.Name = "colNotes";
+            this.colNotes.Visible = true;
+            this.colNotes.VisibleIndex = 3;
+            this.colNotes.Width = 385;
+            // 
+            // colIsDefault
+            // 
+            this.colIsDefault.ColumnEdit = this.repCheckEdit;
+            this.colIsDefault.FieldName = "IsDefault";
+            this.colIsDefault.MinWidth = 25;
+            this.colIsDefault.Name = "colIsDefault";
+            this.colIsDefault.Visible = true;
+            this.colIsDefault.VisibleIndex = 4;
+            this.colIsDefault.Width = 94;
+            // 
             // repCheckEdit
             // 
             this.repCheckEdit.AutoHeight = false;
             this.repCheckEdit.Name = "repCheckEdit";
+            // 
+            // colActive
+            // 
+            this.colActive.ColumnEdit = this.repCheckEdit;
+            this.colActive.FieldName = "Active";
+            this.colActive.MinWidth = 25;
+            this.colActive.Name = "colActive";
+            this.colActive.Visible = true;
+            this.colActive.VisibleIndex = 5;
+            this.colActive.Width = 94;
             // 
             // Root
             // 
@@ -293,54 +347,25 @@
             this.layoutControlItem1.Size = new System.Drawing.Size(1356, 605);
             this.layoutControlItem1.TextVisible = false;
             // 
-            // bsProjectTypes
+            // colDescription
             // 
-            this.bsProjectTypes.DataSource = typeof(Spectrum.Models.Operations.Projects.Settings.ProjectTypes.ProjectTypeModel);
+            this.colDescription.Caption = "Description";
+            this.colDescription.FieldName = "Description";
+            this.colDescription.MinWidth = 25;
+            this.colDescription.Name = "colDescription";
+            this.colDescription.Visible = true;
+            this.colDescription.VisibleIndex = 2;
+            this.colDescription.Width = 666;
             // 
-            // colName
+            // colSector
             // 
-            this.colName.FieldName = "Name";
-            this.colName.MinWidth = 25;
-            this.colName.Name = "colName";
-            this.colName.Visible = true;
-            this.colName.VisibleIndex = 0;
-            this.colName.Width = 275;
-            // 
-            // col_id
-            // 
-            this.col_id.FieldName = "_id";
-            this.col_id.MinWidth = 25;
-            this.col_id.Name = "col_id";
-            this.col_id.Width = 94;
-            // 
-            // colNotes
-            // 
-            this.colNotes.FieldName = "Notes";
-            this.colNotes.MinWidth = 25;
-            this.colNotes.Name = "colNotes";
-            this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 1;
-            this.colNotes.Width = 385;
-            // 
-            // colIsDefault
-            // 
-            this.colIsDefault.ColumnEdit = this.repCheckEdit;
-            this.colIsDefault.FieldName = "IsDefault";
-            this.colIsDefault.MinWidth = 25;
-            this.colIsDefault.Name = "colIsDefault";
-            this.colIsDefault.Visible = true;
-            this.colIsDefault.VisibleIndex = 2;
-            this.colIsDefault.Width = 94;
-            // 
-            // colActive
-            // 
-            this.colActive.ColumnEdit = this.repCheckEdit;
-            this.colActive.FieldName = "Active";
-            this.colActive.MinWidth = 25;
-            this.colActive.Name = "colActive";
-            this.colActive.Visible = true;
-            this.colActive.VisibleIndex = 3;
-            this.colActive.Width = 94;
+            this.colSector.Caption = "Sector";
+            this.colSector.FieldName = "Sector";
+            this.colSector.MinWidth = 25;
+            this.colSector.Name = "colSector";
+            this.colSector.Visible = true;
+            this.colSector.VisibleIndex = 1;
+            this.colSector.Width = 170;
             // 
             // ProjectTypesListForm
             // 
@@ -357,11 +382,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcProjectTypes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsProjectTypes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvProjectTypes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsProjectTypes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -391,9 +416,11 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private System.Windows.Forms.BindingSource bsProjectTypes;
         private DevExpress.XtraGrid.Columns.GridColumn col_id;
-        private DevExpress.XtraGrid.Columns.GridColumn colName;
+        private DevExpress.XtraGrid.Columns.GridColumn colType;
         private DevExpress.XtraGrid.Columns.GridColumn colNotes;
         private DevExpress.XtraGrid.Columns.GridColumn colIsDefault;
         private DevExpress.XtraGrid.Columns.GridColumn colActive;
+        private DevExpress.XtraGrid.Columns.GridColumn colSector;
+        private DevExpress.XtraGrid.Columns.GridColumn colDescription;
     }
 }

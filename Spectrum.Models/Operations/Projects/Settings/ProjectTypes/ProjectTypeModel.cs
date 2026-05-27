@@ -5,9 +5,14 @@ namespace Spectrum.Models.Operations.Projects.Settings.ProjectTypes
 {
     public class ProjectTypeModel : EntityObject, ICloneable
     {
-        [BsonElement("Name")]
-        public string Name { get; set; }
+        [BsonElement("Type")]
+        public string Type { get; set; }
 
+        [BsonElement("Sector")]
+        public string Sector { get; set; }
+
+        [BsonElement("Description")]
+        public string Description { get; set; }
 
         #region Implementation of ICloneable
 

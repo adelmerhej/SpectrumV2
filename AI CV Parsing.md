@@ -630,4 +630,13 @@ Use this checklist when resuming work in the next branch/session.
 - Provider-aware OpenAI/DeepSeek routing is implemented.
 - RichText review surface is implemented and displayed post-parse.
 - Candidate conversion baseline to Employee/Engineer is implemented.
+
+---
+
+## Session update - Project Types report preview binding
+
+- File updated: `Spectrum.UI\Views\Projects\Settings\ProjectTypes\ProjectTypesListForm.cs`
+- Issue addressed: `btnPrint_ItemClick` already awaited `GetProjectTypesAsync()`, but the fetched `_dataReportModels` list was never assigned to `ProjectTypeReport`, so the preview could open without displaying rows.
+- Change made: assigned `report.DataSource = _dataReportModels;` before setting the viewer document source and showing the modal preview.
+- Result: the report preview now opens after the async fetch completes and renders the retrieved project type data correctly.
 - Full solution build succeeded after latest fixes.

@@ -6,9 +6,11 @@ using Spectrum.DataLayers.DataAccess;
 using Spectrum.DataLayers.Projects.Settings.ProjectTypes;
 using Spectrum.Models.Operations.Projects.Settings.ProjectTypes;
 using Spectrum.Models.Users;
+using Spectrum.Reports.Projects.Settings.ProjectTypes;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
+using Spectrum.Views.Reports;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -24,6 +26,7 @@ namespace Spectrum.Views.Projects.Settings.ProjectTypes
         private ProjectTypeEditForm _projectTypeEditForm;
 
         private ProjectTypeModel _projectTypeModel = new ProjectTypeModel();
+        private List<ProjectTypeModel> _dataReportModels = new List<ProjectTypeModel>();
         private IList<ProjectTypeModel> _projectTypes = new List<ProjectTypeModel>();
 
         private readonly ProjectTypeRepository _projectTypeRepository = new ProjectTypeRepository(DatabaseFactory.ProfilePrimary);
@@ -151,9 +154,26 @@ namespace Spectrum.Views.Projects.Settings.ProjectTypes
             StartLoading();
         }
 
-        private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
         {
-            gcProjectTypes.ShowRibbonPrintPreview();
+            try
+            {
+                _dataReportModels = await _projectTypeRepository.GetProjectTypesAsync();
+
+                var previewForm = new DocumentViewerForm();
+                var report = new ProjectTypeReport();
+
+                report.DataSource = _dataReportModels;
+
+                previewForm.Viewer.DocumentSource = report;
+
+                previewForm.ShowDialog();
+            }
+            catch (Exception exception)
+            {
+                XtraMessageBox.Show(exception.Message, "Report Data Error!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
@@ -163,7 +183,7 @@ namespace Spectrum.Views.Projects.Settings.ProjectTypes
             try
             {
                 string id = gvProjectTypes.GetFocusedRowCellValue("_id").ToString();
-                string name = gvProjectTypes.GetFocusedRowCellValue("ProjectTypeName").ToString();
+                string name = gvProjectTypes.GetFocusedRowCellValue("Name").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {

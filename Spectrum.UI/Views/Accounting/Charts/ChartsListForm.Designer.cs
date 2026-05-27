@@ -38,6 +38,7 @@
             this.btnRefresh = new DevExpress.XtraBars.BarButtonItem();
             this.btnClose = new DevExpress.XtraBars.BarButtonItem();
             this.btnResetGridStyle = new DevExpress.XtraBars.BarButtonItem();
+            this.btnMigrateCharts = new DevExpress.XtraBars.BarButtonItem();
             this.rpCharts = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -45,6 +46,7 @@
             this.ribbonPageGroup11 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpViewSettings = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
             this.chartTreeList = new DevExpress.XtraTreeList.TreeList();
@@ -70,8 +72,6 @@
             this.bsCharts = new System.Windows.Forms.BindingSource(this.components);
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.btnMigrateCharts = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.rcCharts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
@@ -175,6 +175,14 @@
             this.btnResetGridStyle.Name = "btnResetGridStyle";
             this.btnResetGridStyle.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnResetGridStyle_ItemClick);
             // 
+            // btnMigrateCharts
+            // 
+            this.btnMigrateCharts.Caption = "Migrate Charts";
+            this.btnMigrateCharts.Id = 43;
+            this.btnMigrateCharts.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnMigrateCharts.ImageOptions.SvgImage")));
+            this.btnMigrateCharts.Name = "btnMigrateCharts";
+            this.btnMigrateCharts.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnMigrateCharts_ItemClick);
+            // 
             // rpCharts
             // 
             this.rpCharts.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -235,6 +243,12 @@
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "Grid Settings";
             // 
+            // ribbonPageGroup3
+            // 
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnMigrateCharts);
+            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.Text = "Migration";
+            // 
             // ribbonStatusBar1
             // 
             this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 758);
@@ -276,7 +290,7 @@
             this.colNotes});
             this.chartTreeList.DataSource = this.bsCharts;
             this.chartTreeList.KeyFieldName = "Id";
-            this.chartTreeList.Location = new System.Drawing.Point(14, 14);
+            this.chartTreeList.Location = new System.Drawing.Point(12, 12);
             this.chartTreeList.MenuManager = this.rcCharts;
             this.chartTreeList.MinWidth = 23;
             this.chartTreeList.Name = "chartTreeList";
@@ -286,7 +300,7 @@
             this.chartTreeList.OptionsView.AutoWidth = false;
             this.chartTreeList.OptionsView.ShowTreeLines = DevExpress.Utils.DefaultBoolean.True;
             this.chartTreeList.ParentFieldName = "ParentId";
-            this.chartTreeList.Size = new System.Drawing.Size(1384, 537);
+            this.chartTreeList.Size = new System.Drawing.Size(1388, 541);
             this.chartTreeList.TabIndex = 4;
             this.chartTreeList.TreeLevelWidth = 21;
             this.chartTreeList.TreeViewColumn = this.colParentId;
@@ -308,6 +322,7 @@
             this.colParentId.FieldName = "ParentId";
             this.colParentId.Name = "colParentId";
             this.colParentId.OptionsColumn.AllowSort = true;
+            this.colParentId.SortOrder = System.Windows.Forms.SortOrder.Ascending;
             this.colParentId.Visible = true;
             this.colParentId.VisibleIndex = 0;
             // 
@@ -525,22 +540,8 @@
             this.layoutControlItem1.Control = this.chartTreeList;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1388, 541);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1392, 545);
             this.layoutControlItem1.TextVisible = false;
-            // 
-            // ribbonPageGroup3
-            // 
-            this.ribbonPageGroup3.ItemLinks.Add(this.btnMigrateCharts);
-            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
-            this.ribbonPageGroup3.Text = "Migration";
-            // 
-            // btnMigrateCharts
-            // 
-            this.btnMigrateCharts.Caption = "Migrate Charts";
-            this.btnMigrateCharts.Id = 43;
-            this.btnMigrateCharts.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnMigrateCharts.ImageOptions.SvgImage")));
-            this.btnMigrateCharts.Name = "btnMigrateCharts";
-            this.btnMigrateCharts.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnMigrateCharts_ItemClick);
             // 
             // ChartsListForm
             // 
