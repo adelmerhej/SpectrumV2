@@ -374,7 +374,7 @@ namespace Spectrum.Reports.Adapters.Projects
         private IEnumerable<FieldDescriptor> GetAddendumFields(List<AddendumModel> addendums, int addendumCount)
         {
             yield return CreateProjectRowField("Addendum.Sequence", "Addendum #", "Addendum", typeof(int), null, project => project.Addendums ?? new List<AddendumModel>(), addendum => addendum.Sequence);
-            yield return CreateProjectRowField("Addendum.Title", "Addendum Title", "Addendum", typeof(string), null, project => project.Addendums ?? new List<AddendumModel>(), addendum => addendum.Title);
+            yield return CreateProjectRowField("Addendum.Subject", "Addendum Subject", "Addendum", typeof(string), null, project => project.Addendums ?? new List<AddendumModel>(), addendum => addendum.Subject);
             yield return CreateProjectRowField("Addendum.Reference", "Addendum Reference", "Addendum", typeof(string), null, project => project.Addendums ?? new List<AddendumModel>(), addendum => addendum.Reference);
             yield return CreateProjectRowField("Addendum.DecisionNo", "Decision No", "Addendum", typeof(string), null, project => project.Addendums ?? new List<AddendumModel>(), addendum => addendum.DecisionNo);
             yield return CreateProjectRowField("Addendum.BODDate", "BOD Date", "Addendum", typeof(DateTime?), "d", project => project.Addendums ?? new List<AddendumModel>(), addendum => addendum.BODDate);
@@ -926,7 +926,7 @@ namespace Spectrum.Reports.Adapters.Projects
                 var targetRow = row + 2;
 
                 worksheet.Cells[targetRow, 0].Value = addendum.Sequence;
-                worksheet.Cells[targetRow, 1].Value = addendum.Title ?? string.Empty;
+                worksheet.Cells[targetRow, 1].Value = addendum.Subject ?? string.Empty;
                 worksheet.Cells[targetRow, 2].Value = addendum.Reference ?? string.Empty;
                 worksheet.Cells[targetRow, 3].Value = addendum.DecisionNo ?? string.Empty;
                 worksheet.Cells[targetRow, 4].Value = addendum.BODDate;
@@ -1068,7 +1068,7 @@ namespace Spectrum.Reports.Adapters.Projects
                 var addendum = new AddendumModel
                 {
                     Sequence = ReportSpreadsheetHelper.GetCellInt(worksheet, row, 0),
-                    Title = ReportSpreadsheetHelper.GetCellText(worksheet, row, 1),
+                    Subject = ReportSpreadsheetHelper.GetCellText(worksheet, row, 1),
                     Reference = ReportSpreadsheetHelper.GetCellText(worksheet, row, 2),
                     DecisionNo = ReportSpreadsheetHelper.GetCellText(worksheet, row, 3),
                     BODDate = ReportSpreadsheetHelper.GetCellDate(worksheet, row, 4),
@@ -1080,7 +1080,7 @@ namespace Spectrum.Reports.Adapters.Projects
                 };
 
                 if (addendum.Sequence == 0
-                    && string.IsNullOrWhiteSpace(addendum.Title)
+                    && string.IsNullOrWhiteSpace(addendum.Subject)
                     && string.IsNullOrWhiteSpace(addendum.Reference)
                     && string.IsNullOrWhiteSpace(addendum.DecisionNo)
                     && !addendum.BODDate.HasValue
