@@ -267,7 +267,7 @@
             // 
             // bsRole
             // 
-            this.bsRole.DataSource = typeof(SpectrumV1.Models.Common.Roles.RoleModel);
+            this.bsRole.DataSource = typeof(Spectrum.Models.Common.Roles.RoleModel);
             // 
             // RoleEditForm
             // 

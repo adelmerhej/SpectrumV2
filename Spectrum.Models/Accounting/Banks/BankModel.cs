@@ -1,8 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using Spectrum.Models;
 using System;
 
-namespace SpectrumV1.Models.Accounting.Banks
+namespace Spectrum.Models.Accounting.Banks
 {
     public class BankModel : EntityObject, ICloneable
     {
@@ -15,8 +14,7 @@ namespace SpectrumV1.Models.Accounting.Banks
         /// <returns>A new object that is a copy of this instance.</returns>
         public object Clone()
         {
-            var recordModel = (BankModel)MemberwiseClone();
-            return recordModel;
+            return MemberwiseClone();
         }
 
         #endregion

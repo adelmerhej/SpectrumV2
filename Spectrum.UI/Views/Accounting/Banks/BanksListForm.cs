@@ -2,19 +2,19 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
-using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
-using SpectrumV1.DataLayers.Accounting.Banks;
-using SpectrumV1.Models.Accounting.Banks;
+using Spectrum.Models.Accounting.Banks;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Spectrum.DataLayers.Accounting.Banks;
+using Spectrum.DataLayers.DataAccess;
 
 namespace Spectrum.Views.Accounting.Banks
 {

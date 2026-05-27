@@ -1,17 +1,15 @@
-﻿using SpectrumV1.Models.Accounting.FlowType;
-using System;
+﻿using Spectrum.Models.Accounting.FlowType;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.Accounting.FlowType
+namespace Spectrum.DataLayers.Accounting.FlowType
 {
     public interface IFlowTypeRepository
     {
         // CRUD Operations
         Task<List<FlowTypeModel>> GetFlowTypesAsync();
         Task<FlowTypeModel> GetFlowTypeByIdAsync(string id);
+        Task<FlowTypeModel> GetDefaultFlowTypeAsync(string excludedId = null);
         Task<string> AddNewFlowTypeAsync(FlowTypeModel flowType);
         Task<bool> UpdateFlowTypeAsync(FlowTypeModel flowType);
         Task<bool> DeleteFlowTypeAsync(string id);

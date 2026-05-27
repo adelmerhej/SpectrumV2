@@ -2,18 +2,35 @@
 using MongoDB.Driver;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Utilities.Enums;
-using SpectrumV1.Models.HumanResources.EmployeeTypes;
+using Spectrum.Models.HumanResources.EmployeeTypes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.EmployeeTypes
+namespace Spectrum.DataLayers.EmployeeTypes
 {
     public class EmployeeTypeRepository : IEmployeeTypeRepository, IDisposable
     {
         private readonly IMongoCollection<EmployeeTypeModel> _employeeType;
         private const string CollectionName = "EmployeeTypes";
+
+        public static EmployeeTypeModel ResolveEmployeeTypeModel(IEnumerable<EmployeeTypeModel> employeeTypes, EmployeeTypeModel employeeTypeModel = null, EmployeeType? employeeType = null)
+        {
+            if (employeeTypes == null) return employeeTypeModel;
+
+            var employeeTypeId = employeeTypeModel != null ? employeeTypeModel._id : null;
+            var employeeTypeName = employeeType.HasValue
+                ? employeeType.Value.ToString()
+                : employeeTypeModel != null ? employeeTypeModel.TypeName : null;
+
+            return employeeTypes.FirstOrDefault(x =>
+                       x != null &&
+                       ((!string.IsNullOrWhiteSpace(employeeTypeId) && x._id == employeeTypeId) ||
+                        (!string.IsNullOrWhiteSpace(employeeTypeName) && string.Equals(x.TypeName, employeeTypeName, StringComparison.OrdinalIgnoreCase))))
+                   ?? employeeTypeModel;
+        }
 
         // Constructor for dependency injection
         public EmployeeTypeRepository(string profileName)
@@ -34,6 +51,18 @@ namespace SpectrumV1.DataLayers.EmployeeTypes
             return await _employeeType.Find(filter).FirstOrDefaultAsync();
         }
 
+        public async Task<EmployeeTypeModel> GetDefaultEmployeeTypeAsync(string excludedId = null)
+        {
+            var filter = Builders<EmployeeTypeModel>.Filter.Eq(u => u.IsDefault, true);
+
+            if (!string.IsNullOrWhiteSpace(excludedId))
+            {
+                filter &= Builders<EmployeeTypeModel>.Filter.Ne(u => u._id, excludedId);
+            }
+
+            return await _employeeType.Find(filter).FirstOrDefaultAsync();
+        }
+
         public async Task<EmployeeTypeModel> GetEmployeeTypeByName(string employeeTypeName)
         {
             if (string.IsNullOrWhiteSpace(employeeTypeName)) return null;
@@ -42,7 +71,7 @@ namespace SpectrumV1.DataLayers.EmployeeTypes
             return await _employeeType.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<EmployeeTypeModel> GetEmployeeTypeByType(EnumEmployeeType employeeType)
+        public async Task<EmployeeTypeModel> GetEmployeeTypeByType(EmployeeType employeeType)
         {
             var typeName = employeeType.ToString();
             var pattern = "^" + Regex.Escape(typeName) + "$"; // exact match

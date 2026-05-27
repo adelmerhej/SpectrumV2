@@ -267,7 +267,7 @@
             // 
             // bsBank
             // 
-            this.bsBank.DataSource = typeof(SpectrumV1.Models.Accounting.Banks.BankModel);
+            this.bsBank.DataSource = typeof(Spectrum.Models.Accounting.Banks.BankModel);
             // 
             // BankEditForm
             // 

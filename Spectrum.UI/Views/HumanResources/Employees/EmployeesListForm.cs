@@ -9,14 +9,14 @@ using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
 using Spectrum.UI.Utilities;
-using SpectrumV1.DataLayers.HumanResources.Employees;
+using Spectrum.DataLayers.HumanResources.Employees;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SpectrumV1.Models.HumanResources.EmployeeTypes;
+using Spectrum.Models.HumanResources.EmployeeTypes;
 
 namespace Spectrum.Views.HumanResources.Employees
 {
@@ -100,7 +100,10 @@ namespace Spectrum.Views.HumanResources.Employees
 						_id = p.EngineerId,
 						FirstName = firstName,
 						LastName = lastName,
-						EmployeeType = "Engineer",
+                        EmployeeType = new EmployeeTypeModel
+                        {
+                            TypeName = Utilities.Enums.EmployeeType.Engineer.ToString()
+                        },
 						Nationality = p.Country,
 						PlaceOfBirth = p.City,
 						IdCardOrPassportNo = null,

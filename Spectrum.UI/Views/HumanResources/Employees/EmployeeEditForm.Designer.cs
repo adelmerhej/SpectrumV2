@@ -68,10 +68,10 @@
             this.tabEmployeeInformation = new DevExpress.XtraTab.XtraTabPage();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.txtYearsOfExperience = new DevExpress.XtraEditors.TextEdit();
+            this.bsEmployee = new System.Windows.Forms.BindingSource(this.components);
             this.txtSyndicatNo = new DevExpress.XtraEditors.TextEdit();
             this.bsSyndicat = new System.Windows.Forms.BindingSource(this.components);
             this.txtRecordRegister = new DevExpress.XtraEditors.TextEdit();
-            this.bsEmployee = new System.Windows.Forms.BindingSource(this.components);
             this.txtRegistrationNo = new DevExpress.XtraEditors.TextEdit();
             this.bsWorkingpermit = new System.Windows.Forms.BindingSource(this.components);
             this.chkLeftWork = new DevExpress.XtraEditors.CheckEdit();
@@ -230,10 +230,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtYearsOfExperience.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsEmployee)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSyndicatNo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsSyndicat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRecordRegister.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsEmployee)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRegistrationNo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsWorkingpermit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkLeftWork.Properties)).BeginInit();
@@ -411,7 +411,7 @@
             this.ribbonControl.OptionsMenuMinWidth = 385;
             this.ribbonControl.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
-            this.ribbonControl.Size = new System.Drawing.Size(1222, 193);
+            this.ribbonControl.Size = new System.Drawing.Size(1254, 193);
             this.ribbonControl.StatusBar = this.ribbonStatusBar1;
             // 
             // btnSave
@@ -632,10 +632,10 @@
             // 
             // ribbonStatusBar1
             // 
-            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 807);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 764);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl;
-            this.ribbonStatusBar1.Size = new System.Drawing.Size(1222, 30);
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(1254, 30);
             // 
             // mainLayout
             // 
@@ -645,7 +645,7 @@
             this.mainLayout.Name = "mainLayout";
             this.mainLayout.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(1108, 27, 812, 500);
             this.mainLayout.Root = this.Root;
-            this.mainLayout.Size = new System.Drawing.Size(1222, 614);
+            this.mainLayout.Size = new System.Drawing.Size(1254, 571);
             this.mainLayout.TabIndex = 18;
             this.mainLayout.Text = "dataLayoutControl1";
             // 
@@ -654,7 +654,7 @@
             this.grpEmployeeInformation.Location = new System.Drawing.Point(14, 14);
             this.grpEmployeeInformation.Name = "grpEmployeeInformation";
             this.grpEmployeeInformation.SelectedTabPage = this.tabEmployeeInformation;
-            this.grpEmployeeInformation.Size = new System.Drawing.Size(1194, 586);
+            this.grpEmployeeInformation.Size = new System.Drawing.Size(1226, 543);
             this.grpEmployeeInformation.TabIndex = 16;
             this.grpEmployeeInformation.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.tabEmployeeInformation,
@@ -667,7 +667,7 @@
             // 
             this.tabEmployeeInformation.Controls.Add(this.layoutControl1);
             this.tabEmployeeInformation.Name = "tabEmployeeInformation";
-            this.tabEmployeeInformation.Size = new System.Drawing.Size(1192, 556);
+            this.tabEmployeeInformation.Size = new System.Drawing.Size(1224, 513);
             this.tabEmployeeInformation.Text = "Employee Information";
             // 
             // layoutControl1
@@ -700,18 +700,23 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1192, 556);
+            this.layoutControl1.Size = new System.Drawing.Size(1224, 513);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutSecond";
             // 
             // txtYearsOfExperience
             // 
-            this.txtYearsOfExperience.Location = new System.Drawing.Point(749, 428);
+            this.txtYearsOfExperience.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "YearsOfExperience", true));
+            this.txtYearsOfExperience.Location = new System.Drawing.Point(754, 428);
             this.txtYearsOfExperience.MenuManager = this.ribbonControl;
             this.txtYearsOfExperience.Name = "txtYearsOfExperience";
-            this.txtYearsOfExperience.Size = new System.Drawing.Size(415, 22);
+            this.txtYearsOfExperience.Size = new System.Drawing.Size(421, 22);
             this.txtYearsOfExperience.StyleController = this.layoutControl1;
             this.txtYearsOfExperience.TabIndex = 27;
+            // 
+            // bsEmployee
+            // 
+            this.bsEmployee.DataSource = typeof(Spectrum.Models.HumanResources.Employees.EmployeeModel);
             // 
             // txtSyndicatNo
             // 
@@ -719,7 +724,7 @@
             this.txtSyndicatNo.Location = new System.Drawing.Point(156, 402);
             this.txtSyndicatNo.MenuManager = this.ribbonControl;
             this.txtSyndicatNo.Name = "txtSyndicatNo";
-            this.txtSyndicatNo.Size = new System.Drawing.Size(423, 22);
+            this.txtSyndicatNo.Size = new System.Drawing.Size(428, 22);
             this.txtSyndicatNo.StyleController = this.layoutControl1;
             this.txtSyndicatNo.TabIndex = 23;
             // 
@@ -730,16 +735,12 @@
             // txtRecordRegister
             // 
             this.txtRecordRegister.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "RecordRegister", true));
-            this.txtRecordRegister.Location = new System.Drawing.Point(735, 144);
+            this.txtRecordRegister.Location = new System.Drawing.Point(740, 144);
             this.txtRecordRegister.MenuManager = this.ribbonControl;
             this.txtRecordRegister.Name = "txtRecordRegister";
-            this.txtRecordRegister.Size = new System.Drawing.Size(429, 22);
+            this.txtRecordRegister.Size = new System.Drawing.Size(435, 22);
             this.txtRecordRegister.StyleController = this.layoutControl1;
             this.txtRecordRegister.TabIndex = 22;
-            // 
-            // bsEmployee
-            // 
-            this.bsEmployee.DataSource = typeof(Spectrum.Models.HumanResources.Employees.EmployeeModel);
             // 
             // txtRegistrationNo
             // 
@@ -747,7 +748,7 @@
             this.txtRegistrationNo.Location = new System.Drawing.Point(156, 286);
             this.txtRegistrationNo.MenuManager = this.ribbonControl;
             this.txtRegistrationNo.Name = "txtRegistrationNo";
-            this.txtRegistrationNo.Size = new System.Drawing.Size(424, 22);
+            this.txtRegistrationNo.Size = new System.Drawing.Size(429, 22);
             this.txtRegistrationNo.StyleController = this.layoutControl1;
             this.txtRegistrationNo.TabIndex = 20;
             // 
@@ -758,21 +759,21 @@
             // chkLeftWork
             // 
             this.chkLeftWork.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "LeftWork", true));
-            this.chkLeftWork.Location = new System.Drawing.Point(887, 116);
+            this.chkLeftWork.Location = new System.Drawing.Point(895, 116);
             this.chkLeftWork.MenuManager = this.ribbonControl;
             this.chkLeftWork.Name = "chkLeftWork";
             this.chkLeftWork.Properties.Caption = "Left Work";
-            this.chkLeftWork.Size = new System.Drawing.Size(277, 24);
+            this.chkLeftWork.Size = new System.Drawing.Size(280, 24);
             this.chkLeftWork.StyleController = this.layoutControl1;
             this.chkLeftWork.TabIndex = 19;
             // 
             // txtMobileNo
             // 
             this.txtMobileNo.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmergencyContact, "MobileNo", true));
-            this.txtMobileNo.Location = new System.Drawing.Point(750, 312);
+            this.txtMobileNo.Location = new System.Drawing.Point(755, 312);
             this.txtMobileNo.MenuManager = this.ribbonControl;
             this.txtMobileNo.Name = "txtMobileNo";
-            this.txtMobileNo.Size = new System.Drawing.Size(414, 22);
+            this.txtMobileNo.Size = new System.Drawing.Size(420, 22);
             this.txtMobileNo.StyleController = this.layoutControl1;
             this.txtMobileNo.TabIndex = 18;
             // 
@@ -783,30 +784,30 @@
             // txtContactName
             // 
             this.txtContactName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmergencyContact, "ContactName", true));
-            this.txtContactName.Location = new System.Drawing.Point(750, 286);
+            this.txtContactName.Location = new System.Drawing.Point(755, 286);
             this.txtContactName.MenuManager = this.ribbonControl;
             this.txtContactName.Name = "txtContactName";
-            this.txtContactName.Size = new System.Drawing.Size(414, 22);
+            this.txtContactName.Size = new System.Drawing.Size(420, 22);
             this.txtContactName.StyleController = this.layoutControl1;
             this.txtContactName.TabIndex = 17;
             // 
             // txtIdCardOrPassportNo
             // 
             this.txtIdCardOrPassportNo.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "IdCardOrPassportNo", true));
-            this.txtIdCardOrPassportNo.Location = new System.Drawing.Point(735, 170);
+            this.txtIdCardOrPassportNo.Location = new System.Drawing.Point(740, 170);
             this.txtIdCardOrPassportNo.MenuManager = this.ribbonControl;
             this.txtIdCardOrPassportNo.Name = "txtIdCardOrPassportNo";
-            this.txtIdCardOrPassportNo.Size = new System.Drawing.Size(429, 22);
+            this.txtIdCardOrPassportNo.Size = new System.Drawing.Size(435, 22);
             this.txtIdCardOrPassportNo.StyleController = this.layoutControl1;
             this.txtIdCardOrPassportNo.TabIndex = 13;
             // 
             // txtMotherName
             // 
             this.txtMotherName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "MotherFullName", true));
-            this.txtMotherName.Location = new System.Drawing.Point(735, 90);
+            this.txtMotherName.Location = new System.Drawing.Point(740, 90);
             this.txtMotherName.MenuManager = this.ribbonControl;
             this.txtMotherName.Name = "txtMotherName";
-            this.txtMotherName.Size = new System.Drawing.Size(429, 22);
+            this.txtMotherName.Size = new System.Drawing.Size(435, 22);
             this.txtMotherName.StyleController = this.layoutControl1;
             this.txtMotherName.TabIndex = 11;
             // 
@@ -816,27 +817,27 @@
             this.txtFatherName.Location = new System.Drawing.Point(156, 90);
             this.txtFatherName.MenuManager = this.ribbonControl;
             this.txtFatherName.Name = "txtFatherName";
-            this.txtFatherName.Size = new System.Drawing.Size(437, 22);
+            this.txtFatherName.Size = new System.Drawing.Size(442, 22);
             this.txtFatherName.StyleController = this.layoutControl1;
             this.txtFatherName.TabIndex = 7;
             // 
             // txtLastName
             // 
             this.txtLastName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "LastName", true));
-            this.txtLastName.Location = new System.Drawing.Point(737, 14);
+            this.txtLastName.Location = new System.Drawing.Point(742, 14);
             this.txtLastName.MenuManager = this.ribbonControl;
             this.txtLastName.Name = "txtLastName";
-            this.txtLastName.Size = new System.Drawing.Size(441, 22);
+            this.txtLastName.Size = new System.Drawing.Size(447, 22);
             this.txtLastName.StyleController = this.layoutControl1;
             this.txtLastName.TabIndex = 6;
             // 
             // txtFirstName
             // 
             this.txtFirstName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "FirstName", true));
-            this.txtFirstName.Location = new System.Drawing.Point(370, 14);
+            this.txtFirstName.Location = new System.Drawing.Point(372, 14);
             this.txtFirstName.MenuManager = this.ribbonControl;
             this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.Size = new System.Drawing.Size(225, 22);
+            this.txtFirstName.Size = new System.Drawing.Size(228, 22);
             this.txtFirstName.StyleController = this.layoutControl1;
             this.txtFirstName.TabIndex = 5;
             // 
@@ -849,7 +850,7 @@
             this.txtEmployeeNo.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             this.txtEmployeeNo.Properties.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
             this.txtEmployeeNo.Properties.MaskSettings.Set("mask", "d");
-            this.txtEmployeeNo.Size = new System.Drawing.Size(96, 22);
+            this.txtEmployeeNo.Size = new System.Drawing.Size(98, 22);
             this.txtEmployeeNo.StyleController = this.layoutControl1;
             this.txtEmployeeNo.TabIndex = 4;
             this.txtEmployeeNo.TabStop = false;
@@ -858,7 +859,7 @@
             // 
             this.dtDateOfBirth.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "DateOfBirth", true));
             this.dtDateOfBirth.EditValue = null;
-            this.dtDateOfBirth.Location = new System.Drawing.Point(735, 116);
+            this.dtDateOfBirth.Location = new System.Drawing.Point(740, 116);
             this.dtDateOfBirth.MenuManager = this.ribbonControl;
             this.dtDateOfBirth.Name = "dtDateOfBirth";
             this.dtDateOfBirth.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -875,7 +876,7 @@
             this.dtDateOfBirth.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.DateTimeMaskManager));
             this.dtDateOfBirth.Properties.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
             this.dtDateOfBirth.Properties.UseMaskAsDisplayFormat = true;
-            this.dtDateOfBirth.Size = new System.Drawing.Size(148, 22);
+            this.dtDateOfBirth.Size = new System.Drawing.Size(151, 22);
             this.dtDateOfBirth.StyleController = this.layoutControl1;
             this.dtDateOfBirth.TabIndex = 12;
             // 
@@ -892,7 +893,7 @@
             this.cboPlaceOfBirth.Properties.PopupView = this.searchLookUpEdit1View;
             this.cboPlaceOfBirth.Properties.ShowAddNewButton = true;
             this.cboPlaceOfBirth.Properties.ValueMember = "CityName";
-            this.cboPlaceOfBirth.Size = new System.Drawing.Size(437, 22);
+            this.cboPlaceOfBirth.Size = new System.Drawing.Size(442, 22);
             this.cboPlaceOfBirth.StyleController = this.layoutControl1;
             this.cboPlaceOfBirth.TabIndex = 9;
             this.cboPlaceOfBirth.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboPlaceOfBirth_AddNewValue);
@@ -936,7 +937,7 @@
             this.cboNationality.Properties.PopupView = this.gridView1;
             this.cboNationality.Properties.ShowAddNewButton = true;
             this.cboNationality.Properties.ValueMember = "CountryName";
-            this.cboNationality.Size = new System.Drawing.Size(437, 22);
+            this.cboNationality.Size = new System.Drawing.Size(442, 22);
             this.cboNationality.StyleController = this.layoutControl1;
             this.cboNationality.TabIndex = 21;
             this.cboNationality.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboNationality_AddNewValue);
@@ -970,7 +971,7 @@
             // cboEmployeeType
             // 
             this.cboEmployeeType.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "EmployeeType", true));
-            this.cboEmployeeType.Location = new System.Drawing.Point(735, 196);
+            this.cboEmployeeType.Location = new System.Drawing.Point(740, 196);
             this.cboEmployeeType.MenuManager = this.ribbonControl;
             this.cboEmployeeType.Name = "cboEmployeeType";
             this.cboEmployeeType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -979,7 +980,7 @@
             this.cboEmployeeType.Properties.NullText = "";
             this.cboEmployeeType.Properties.PopupView = this.gridView2;
             this.cboEmployeeType.Properties.ShowAddNewButton = true;
-            this.cboEmployeeType.Size = new System.Drawing.Size(429, 22);
+            this.cboEmployeeType.Size = new System.Drawing.Size(435, 22);
             this.cboEmployeeType.StyleController = this.layoutControl1;
             this.cboEmployeeType.TabIndex = 14;
             // 
@@ -1028,7 +1029,7 @@
             this.dtPermitDate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtPermitDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
             this.dtPermitDate.Properties.UseMaskAsDisplayFormat = true;
-            this.dtPermitDate.Size = new System.Drawing.Size(424, 22);
+            this.dtPermitDate.Size = new System.Drawing.Size(429, 22);
             this.dtPermitDate.StyleController = this.layoutControl1;
             this.dtPermitDate.TabIndex = 15;
             // 
@@ -1051,7 +1052,7 @@
             this.dtRegistrationDate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtRegistrationDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
             this.dtRegistrationDate.Properties.UseMaskAsDisplayFormat = true;
-            this.dtRegistrationDate.Size = new System.Drawing.Size(423, 22);
+            this.dtRegistrationDate.Size = new System.Drawing.Size(428, 22);
             this.dtRegistrationDate.StyleController = this.layoutControl1;
             this.dtRegistrationDate.TabIndex = 24;
             // 
@@ -1066,7 +1067,7 @@
             this.cboRegistrationPlace.Properties.NullText = "";
             this.cboRegistrationPlace.Properties.PopupView = this.gridView3;
             this.cboRegistrationPlace.Properties.ShowAddNewButton = true;
-            this.cboRegistrationPlace.Size = new System.Drawing.Size(423, 22);
+            this.cboRegistrationPlace.Size = new System.Drawing.Size(428, 22);
             this.cboRegistrationPlace.StyleController = this.layoutControl1;
             this.cboRegistrationPlace.TabIndex = 25;
             // 
@@ -1079,8 +1080,9 @@
             // 
             // dtWorkingDate
             // 
+            this.dtWorkingDate.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "WorkingDate", true));
             this.dtWorkingDate.EditValue = null;
-            this.dtWorkingDate.Location = new System.Drawing.Point(749, 402);
+            this.dtWorkingDate.Location = new System.Drawing.Point(754, 402);
             this.dtWorkingDate.MenuManager = this.ribbonControl;
             this.dtWorkingDate.Name = "dtWorkingDate";
             this.dtWorkingDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1094,13 +1096,14 @@
             this.dtWorkingDate.Properties.EditFormat.FormatString = "";
             this.dtWorkingDate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtWorkingDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
-            this.dtWorkingDate.Size = new System.Drawing.Size(415, 22);
+            this.dtWorkingDate.Size = new System.Drawing.Size(421, 22);
             this.dtWorkingDate.StyleController = this.layoutControl1;
             this.dtWorkingDate.TabIndex = 26;
             // 
             // cboActualPosition
             // 
-            this.cboActualPosition.Location = new System.Drawing.Point(749, 454);
+            this.cboActualPosition.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "ActualPosition", true));
+            this.cboActualPosition.Location = new System.Drawing.Point(754, 454);
             this.cboActualPosition.MenuManager = this.ribbonControl;
             this.cboActualPosition.Name = "cboActualPosition";
             this.cboActualPosition.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1108,7 +1111,7 @@
             this.cboActualPosition.Properties.NullText = "";
             this.cboActualPosition.Properties.PopupView = this.gridView4;
             this.cboActualPosition.Properties.ShowAddNewButton = true;
-            this.cboActualPosition.Size = new System.Drawing.Size(415, 22);
+            this.cboActualPosition.Size = new System.Drawing.Size(421, 22);
             this.cboActualPosition.StyleController = this.layoutControl1;
             this.cboActualPosition.TabIndex = 28;
             // 
@@ -1132,7 +1135,7 @@
             this.cboFamilyStatus.Properties.PopupView = this.gridView5;
             this.cboFamilyStatus.Properties.ShowAddNewButton = true;
             this.cboFamilyStatus.Properties.ValueMember = "Status";
-            this.cboFamilyStatus.Size = new System.Drawing.Size(437, 22);
+            this.cboFamilyStatus.Size = new System.Drawing.Size(442, 22);
             this.cboFamilyStatus.StyleController = this.layoutControl1;
             this.cboFamilyStatus.TabIndex = 10;
             this.cboFamilyStatus.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboFamilyStatus_AddNewValue);
@@ -1176,7 +1179,7 @@
             this.cboBloodType.Properties.PopupView = this.gridView6;
             this.cboBloodType.Properties.ShowAddNewButton = true;
             this.cboBloodType.Properties.ValueMember = "BloodTypeName";
-            this.cboBloodType.Size = new System.Drawing.Size(437, 22);
+            this.cboBloodType.Size = new System.Drawing.Size(442, 22);
             this.cboBloodType.StyleController = this.layoutControl1;
             this.cboBloodType.TabIndex = 8;
             this.cboBloodType.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboBloodType_AddNewValue);
@@ -1228,7 +1231,7 @@
             this.layoutControlGroup6,
             this.emptySpaceItem9});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1192, 556);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1203, 514);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // lblEmployeeNo
@@ -1236,25 +1239,25 @@
             this.lblEmployeeNo.Control = this.txtEmployeeNo;
             this.lblEmployeeNo.Location = new System.Drawing.Point(0, 0);
             this.lblEmployeeNo.Name = "lblEmployeeNo";
-            this.lblEmployeeNo.Size = new System.Drawing.Size(228, 26);
+            this.lblEmployeeNo.Size = new System.Drawing.Size(230, 26);
             this.lblEmployeeNo.Text = "Employee No";
             this.lblEmployeeNo.TextSize = new System.Drawing.Size(113, 16);
             // 
             // lblFirstName
             // 
             this.lblFirstName.Control = this.txtFirstName;
-            this.lblFirstName.Location = new System.Drawing.Point(228, 0);
+            this.lblFirstName.Location = new System.Drawing.Point(230, 0);
             this.lblFirstName.Name = "lblFirstName";
-            this.lblFirstName.Size = new System.Drawing.Size(357, 26);
+            this.lblFirstName.Size = new System.Drawing.Size(360, 26);
             this.lblFirstName.Text = "First Name";
             this.lblFirstName.TextSize = new System.Drawing.Size(113, 16);
             // 
             // lblLastName
             // 
             this.lblLastName.Control = this.txtLastName;
-            this.lblLastName.Location = new System.Drawing.Point(595, 0);
+            this.lblLastName.Location = new System.Drawing.Point(600, 0);
             this.lblLastName.Name = "lblLastName";
-            this.lblLastName.Size = new System.Drawing.Size(573, 26);
+            this.lblLastName.Size = new System.Drawing.Size(579, 26);
             this.lblLastName.Text = "Last Name";
             this.lblLastName.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1262,7 +1265,7 @@
             // 
             this.emptySpaceItem2.Location = new System.Drawing.Point(0, 26);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(1168, 10);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(1179, 10);
             // 
             // layoutControlGroup2
             // 
@@ -1282,7 +1285,7 @@
             this.lblRecordRegister});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 36);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1168, 186);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1179, 186);
             this.layoutControlGroup2.Text = "Employee Personal ";
             // 
             // lblFatherName
@@ -1290,7 +1293,7 @@
             this.lblFatherName.Control = this.txtFatherName;
             this.lblFatherName.Location = new System.Drawing.Point(0, 0);
             this.lblFatherName.Name = "lblFatherName";
-            this.lblFatherName.Size = new System.Drawing.Size(569, 26);
+            this.lblFatherName.Size = new System.Drawing.Size(574, 26);
             this.lblFatherName.Text = "Father Name";
             this.lblFatherName.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1299,7 +1302,7 @@
             this.lblBloodType.Control = this.cboBloodType;
             this.lblBloodType.Location = new System.Drawing.Point(0, 26);
             this.lblBloodType.Name = "lblBloodType";
-            this.lblBloodType.Size = new System.Drawing.Size(569, 26);
+            this.lblBloodType.Size = new System.Drawing.Size(574, 26);
             this.lblBloodType.Text = "Blood Type";
             this.lblBloodType.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1308,58 +1311,58 @@
             this.lblFamilyStatus.Control = this.cboFamilyStatus;
             this.lblFamilyStatus.Location = new System.Drawing.Point(0, 104);
             this.lblFamilyStatus.Name = "lblFamilyStatus";
-            this.lblFamilyStatus.Size = new System.Drawing.Size(569, 28);
+            this.lblFamilyStatus.Size = new System.Drawing.Size(574, 28);
             this.lblFamilyStatus.Text = "Family Status";
             this.lblFamilyStatus.TextSize = new System.Drawing.Size(113, 16);
             // 
             // lblMotherName
             // 
             this.lblMotherName.Control = this.txtMotherName;
-            this.lblMotherName.Location = new System.Drawing.Point(579, 0);
+            this.lblMotherName.Location = new System.Drawing.Point(584, 0);
             this.lblMotherName.Name = "lblMotherName";
-            this.lblMotherName.Size = new System.Drawing.Size(561, 26);
+            this.lblMotherName.Size = new System.Drawing.Size(567, 26);
             this.lblMotherName.Text = "Mother Name";
             this.lblMotherName.TextSize = new System.Drawing.Size(113, 16);
             // 
             // lblDateOfBirth
             // 
             this.lblDateOfBirth.Control = this.dtDateOfBirth;
-            this.lblDateOfBirth.Location = new System.Drawing.Point(579, 26);
+            this.lblDateOfBirth.Location = new System.Drawing.Point(584, 26);
             this.lblDateOfBirth.Name = "lblDateOfBirth";
-            this.lblDateOfBirth.Size = new System.Drawing.Size(280, 28);
+            this.lblDateOfBirth.Size = new System.Drawing.Size(283, 28);
             this.lblDateOfBirth.Text = "Date of Birth";
             this.lblDateOfBirth.TextSize = new System.Drawing.Size(113, 16);
             // 
             // lblIdCardOrPassportNo
             // 
             this.lblIdCardOrPassportNo.Control = this.txtIdCardOrPassportNo;
-            this.lblIdCardOrPassportNo.Location = new System.Drawing.Point(579, 80);
+            this.lblIdCardOrPassportNo.Location = new System.Drawing.Point(584, 80);
             this.lblIdCardOrPassportNo.Name = "lblIdCardOrPassportNo";
-            this.lblIdCardOrPassportNo.Size = new System.Drawing.Size(561, 26);
+            this.lblIdCardOrPassportNo.Size = new System.Drawing.Size(567, 26);
             this.lblIdCardOrPassportNo.Text = "ID/Passport No";
             this.lblIdCardOrPassportNo.TextSize = new System.Drawing.Size(113, 16);
             // 
             // lblEmployeeType
             // 
             this.lblEmployeeType.Control = this.cboEmployeeType;
-            this.lblEmployeeType.Location = new System.Drawing.Point(579, 106);
+            this.lblEmployeeType.Location = new System.Drawing.Point(584, 106);
             this.lblEmployeeType.Name = "lblEmployeeType";
-            this.lblEmployeeType.Size = new System.Drawing.Size(561, 26);
+            this.lblEmployeeType.Size = new System.Drawing.Size(567, 26);
             this.lblEmployeeType.Text = "Employee Type";
             this.lblEmployeeType.TextSize = new System.Drawing.Size(113, 16);
             // 
             // emptySpaceItem1
             // 
-            this.emptySpaceItem1.Location = new System.Drawing.Point(569, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(574, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
             this.emptySpaceItem1.Size = new System.Drawing.Size(10, 132);
             // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.chkLeftWork;
-            this.layoutControlItem1.Location = new System.Drawing.Point(859, 26);
+            this.layoutControlItem1.Location = new System.Drawing.Point(867, 26);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(281, 28);
+            this.layoutControlItem1.Size = new System.Drawing.Size(284, 28);
             this.layoutControlItem1.TextVisible = false;
             // 
             // lblNationality
@@ -1367,7 +1370,7 @@
             this.lblNationality.Control = this.cboNationality;
             this.lblNationality.Location = new System.Drawing.Point(0, 78);
             this.lblNationality.Name = "lblNationality";
-            this.lblNationality.Size = new System.Drawing.Size(569, 26);
+            this.lblNationality.Size = new System.Drawing.Size(574, 26);
             this.lblNationality.Text = "Nationality";
             this.lblNationality.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1376,16 +1379,16 @@
             this.lblPlaceOfBirth.Control = this.cboPlaceOfBirth;
             this.lblPlaceOfBirth.Location = new System.Drawing.Point(0, 52);
             this.lblPlaceOfBirth.Name = "lblPlaceOfBirth";
-            this.lblPlaceOfBirth.Size = new System.Drawing.Size(569, 26);
+            this.lblPlaceOfBirth.Size = new System.Drawing.Size(574, 26);
             this.lblPlaceOfBirth.Text = "Place of Birth";
             this.lblPlaceOfBirth.TextSize = new System.Drawing.Size(113, 16);
             // 
             // lblRecordRegister
             // 
             this.lblRecordRegister.Control = this.txtRecordRegister;
-            this.lblRecordRegister.Location = new System.Drawing.Point(579, 54);
+            this.lblRecordRegister.Location = new System.Drawing.Point(584, 54);
             this.lblRecordRegister.Name = "lblRecordRegister";
-            this.lblRecordRegister.Size = new System.Drawing.Size(561, 26);
+            this.lblRecordRegister.Size = new System.Drawing.Size(567, 26);
             this.lblRecordRegister.Text = "Record Register";
             this.lblRecordRegister.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1393,7 +1396,7 @@
             // 
             this.emptySpaceItem3.Location = new System.Drawing.Point(0, 222);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(1168, 10);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(1179, 10);
             // 
             // layoutControlGroup3
             // 
@@ -1403,7 +1406,7 @@
             this.lblRegistrationNo});
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 232);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(584, 106);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(589, 106);
             this.layoutControlGroup3.Text = "Working Permit ";
             // 
             // lblPermitDate
@@ -1411,7 +1414,7 @@
             this.lblPermitDate.Control = this.dtPermitDate;
             this.lblPermitDate.Location = new System.Drawing.Point(0, 26);
             this.lblPermitDate.Name = "lblPermitDate";
-            this.lblPermitDate.Size = new System.Drawing.Size(556, 26);
+            this.lblPermitDate.Size = new System.Drawing.Size(561, 26);
             this.lblPermitDate.Text = "Permit Date";
             this.lblPermitDate.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1420,7 +1423,7 @@
             this.lblRegistrationNo.Control = this.txtRegistrationNo;
             this.lblRegistrationNo.Location = new System.Drawing.Point(0, 0);
             this.lblRegistrationNo.Name = "lblRegistrationNo";
-            this.lblRegistrationNo.Size = new System.Drawing.Size(556, 26);
+            this.lblRegistrationNo.Size = new System.Drawing.Size(561, 26);
             this.lblRegistrationNo.Text = "Registration No";
             this.lblRegistrationNo.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1430,9 +1433,9 @@
             this.layoutControlGroup4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lblContactName,
             this.lblMobileNo});
-            this.layoutControlGroup4.Location = new System.Drawing.Point(594, 232);
+            this.layoutControlGroup4.Location = new System.Drawing.Point(599, 232);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
-            this.layoutControlGroup4.Size = new System.Drawing.Size(574, 106);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(580, 106);
             this.layoutControlGroup4.Text = "Emergency Contact";
             // 
             // lblContactName
@@ -1440,7 +1443,7 @@
             this.lblContactName.Control = this.txtContactName;
             this.lblContactName.Location = new System.Drawing.Point(0, 0);
             this.lblContactName.Name = "lblContactName";
-            this.lblContactName.Size = new System.Drawing.Size(546, 26);
+            this.lblContactName.Size = new System.Drawing.Size(552, 26);
             this.lblContactName.Text = "Contact Name";
             this.lblContactName.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1449,13 +1452,13 @@
             this.lblMobileNo.Control = this.txtMobileNo;
             this.lblMobileNo.Location = new System.Drawing.Point(0, 26);
             this.lblMobileNo.Name = "lblMobileNo";
-            this.lblMobileNo.Size = new System.Drawing.Size(546, 26);
+            this.lblMobileNo.Size = new System.Drawing.Size(552, 26);
             this.lblMobileNo.Text = "Contact Phone";
             this.lblMobileNo.TextSize = new System.Drawing.Size(113, 16);
             // 
             // emptySpaceItem5
             // 
-            this.emptySpaceItem5.Location = new System.Drawing.Point(584, 232);
+            this.emptySpaceItem5.Location = new System.Drawing.Point(589, 232);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
             this.emptySpaceItem5.Size = new System.Drawing.Size(10, 106);
             // 
@@ -1463,17 +1466,17 @@
             // 
             this.emptySpaceItem6.Location = new System.Drawing.Point(0, 338);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(1168, 10);
+            this.emptySpaceItem6.Size = new System.Drawing.Size(1179, 10);
             // 
             // emptySpaceItem7
             // 
-            this.emptySpaceItem7.Location = new System.Drawing.Point(585, 0);
+            this.emptySpaceItem7.Location = new System.Drawing.Point(590, 0);
             this.emptySpaceItem7.Name = "emptySpaceItem7";
             this.emptySpaceItem7.Size = new System.Drawing.Size(10, 26);
             // 
             // emptySpaceItem8
             // 
-            this.emptySpaceItem8.Location = new System.Drawing.Point(583, 348);
+            this.emptySpaceItem8.Location = new System.Drawing.Point(588, 348);
             this.emptySpaceItem8.Name = "emptySpaceItem8";
             this.emptySpaceItem8.Size = new System.Drawing.Size(10, 132);
             // 
@@ -1486,7 +1489,7 @@
             this.lblRegistrationPlace});
             this.layoutControlGroup5.Location = new System.Drawing.Point(0, 348);
             this.layoutControlGroup5.Name = "layoutControlGroup5";
-            this.layoutControlGroup5.Size = new System.Drawing.Size(583, 132);
+            this.layoutControlGroup5.Size = new System.Drawing.Size(588, 132);
             this.layoutControlGroup5.Text = "Syndicat ";
             // 
             // lblSyndicatNo
@@ -1494,7 +1497,7 @@
             this.lblSyndicatNo.Control = this.txtSyndicatNo;
             this.lblSyndicatNo.Location = new System.Drawing.Point(0, 0);
             this.lblSyndicatNo.Name = "lblSyndicatNo";
-            this.lblSyndicatNo.Size = new System.Drawing.Size(555, 26);
+            this.lblSyndicatNo.Size = new System.Drawing.Size(560, 26);
             this.lblSyndicatNo.Text = "Syndicat No";
             this.lblSyndicatNo.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1503,7 +1506,7 @@
             this.lblRegistrationDate.Control = this.dtRegistrationDate;
             this.lblRegistrationDate.Location = new System.Drawing.Point(0, 26);
             this.lblRegistrationDate.Name = "lblRegistrationDate";
-            this.lblRegistrationDate.Size = new System.Drawing.Size(555, 26);
+            this.lblRegistrationDate.Size = new System.Drawing.Size(560, 26);
             this.lblRegistrationDate.Text = "Registration Date";
             this.lblRegistrationDate.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1512,7 +1515,7 @@
             this.lblRegistrationPlace.Control = this.cboRegistrationPlace;
             this.lblRegistrationPlace.Location = new System.Drawing.Point(0, 52);
             this.lblRegistrationPlace.Name = "lblRegistrationPlace";
-            this.lblRegistrationPlace.Size = new System.Drawing.Size(555, 26);
+            this.lblRegistrationPlace.Size = new System.Drawing.Size(560, 26);
             this.lblRegistrationPlace.Text = "Registration Place";
             this.lblRegistrationPlace.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1523,9 +1526,9 @@
             this.lblWorkingDate,
             this.lblYearsOfExperience,
             this.lblActualPosition});
-            this.layoutControlGroup6.Location = new System.Drawing.Point(593, 348);
+            this.layoutControlGroup6.Location = new System.Drawing.Point(598, 348);
             this.layoutControlGroup6.Name = "layoutControlGroup6";
-            this.layoutControlGroup6.Size = new System.Drawing.Size(575, 132);
+            this.layoutControlGroup6.Size = new System.Drawing.Size(581, 132);
             this.layoutControlGroup6.Text = "Working @ Spectrum";
             // 
             // lblWorkingDate
@@ -1533,7 +1536,7 @@
             this.lblWorkingDate.Control = this.dtWorkingDate;
             this.lblWorkingDate.Location = new System.Drawing.Point(0, 0);
             this.lblWorkingDate.Name = "lblWorkingDate";
-            this.lblWorkingDate.Size = new System.Drawing.Size(547, 26);
+            this.lblWorkingDate.Size = new System.Drawing.Size(553, 26);
             this.lblWorkingDate.Text = "Working Date";
             this.lblWorkingDate.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1542,7 +1545,7 @@
             this.lblYearsOfExperience.Control = this.txtYearsOfExperience;
             this.lblYearsOfExperience.Location = new System.Drawing.Point(0, 26);
             this.lblYearsOfExperience.Name = "lblYearsOfExperience";
-            this.lblYearsOfExperience.Size = new System.Drawing.Size(547, 26);
+            this.lblYearsOfExperience.Size = new System.Drawing.Size(553, 26);
             this.lblYearsOfExperience.Text = "Years of Experience";
             this.lblYearsOfExperience.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1551,7 +1554,7 @@
             this.lblActualPosition.Control = this.cboActualPosition;
             this.lblActualPosition.Location = new System.Drawing.Point(0, 52);
             this.lblActualPosition.Name = "lblActualPosition";
-            this.lblActualPosition.Size = new System.Drawing.Size(547, 26);
+            this.lblActualPosition.Size = new System.Drawing.Size(553, 26);
             this.lblActualPosition.Text = "Actual Position";
             this.lblActualPosition.TextSize = new System.Drawing.Size(113, 16);
             // 
@@ -1559,13 +1562,13 @@
             // 
             this.emptySpaceItem9.Location = new System.Drawing.Point(0, 480);
             this.emptySpaceItem9.Name = "emptySpaceItem9";
-            this.emptySpaceItem9.Size = new System.Drawing.Size(1168, 52);
+            this.emptySpaceItem9.Size = new System.Drawing.Size(1179, 10);
             // 
             // tabEmployeeContactInfo
             // 
             this.tabEmployeeContactInfo.Controls.Add(this.layoutControl5);
             this.tabEmployeeContactInfo.Name = "tabEmployeeContactInfo";
-            this.tabEmployeeContactInfo.Size = new System.Drawing.Size(1192, 556);
+            this.tabEmployeeContactInfo.Size = new System.Drawing.Size(1228, 517);
             this.tabEmployeeContactInfo.Text = "Employee Contact Info";
             // 
             // layoutControl5
@@ -1579,16 +1582,17 @@
             this.layoutControl5.Location = new System.Drawing.Point(0, 0);
             this.layoutControl5.Name = "layoutControl5";
             this.layoutControl5.Root = this.layoutControlGroup10;
-            this.layoutControl5.Size = new System.Drawing.Size(1192, 556);
+            this.layoutControl5.Size = new System.Drawing.Size(1228, 517);
             this.layoutControl5.TabIndex = 0;
             this.layoutControl5.Text = "layoutControl5";
             // 
             // txtAddress
             // 
+            this.txtAddress.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsEmployee, "Address", true));
             this.txtAddress.Location = new System.Drawing.Point(130, 128);
             this.txtAddress.MenuManager = this.ribbonControl;
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(562, 92);
+            this.txtAddress.Size = new System.Drawing.Size(584, 83);
             this.txtAddress.StyleController = this.layoutControl5;
             this.txtAddress.TabIndex = 8;
             // 
@@ -1598,7 +1602,7 @@
             this.txtEmail.Location = new System.Drawing.Point(130, 92);
             this.txtEmail.MenuManager = this.ribbonControl;
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(562, 22);
+            this.txtEmail.Size = new System.Drawing.Size(584, 22);
             this.txtEmail.StyleController = this.layoutControl5;
             this.txtEmail.TabIndex = 7;
             // 
@@ -1612,7 +1616,7 @@
             this.txtAbroadMobileNo.Location = new System.Drawing.Point(130, 66);
             this.txtAbroadMobileNo.MenuManager = this.ribbonControl;
             this.txtAbroadMobileNo.Name = "txtAbroadMobileNo";
-            this.txtAbroadMobileNo.Size = new System.Drawing.Size(562, 22);
+            this.txtAbroadMobileNo.Size = new System.Drawing.Size(584, 22);
             this.txtAbroadMobileNo.StyleController = this.layoutControl5;
             this.txtAbroadMobileNo.TabIndex = 6;
             // 
@@ -1622,7 +1626,7 @@
             this.txtLocalMobileNo.Location = new System.Drawing.Point(130, 40);
             this.txtLocalMobileNo.MenuManager = this.ribbonControl;
             this.txtLocalMobileNo.Name = "txtLocalMobileNo";
-            this.txtLocalMobileNo.Size = new System.Drawing.Size(562, 22);
+            this.txtLocalMobileNo.Size = new System.Drawing.Size(584, 22);
             this.txtLocalMobileNo.StyleController = this.layoutControl5;
             this.txtLocalMobileNo.TabIndex = 5;
             // 
@@ -1632,7 +1636,7 @@
             this.txtLocalFixPhone.Location = new System.Drawing.Point(130, 14);
             this.txtLocalFixPhone.MenuManager = this.ribbonControl;
             this.txtLocalFixPhone.Name = "txtLocalFixPhone";
-            this.txtLocalFixPhone.Size = new System.Drawing.Size(562, 22);
+            this.txtLocalFixPhone.Size = new System.Drawing.Size(584, 22);
             this.txtLocalFixPhone.StyleController = this.layoutControl5;
             this.txtLocalFixPhone.TabIndex = 4;
             // 
@@ -1650,7 +1654,7 @@
             this.emptySpaceItem19,
             this.emptySpaceItem17});
             this.layoutControlGroup10.Name = "layoutControlGroup10";
-            this.layoutControlGroup10.Size = new System.Drawing.Size(1192, 556);
+            this.layoutControlGroup10.Size = new System.Drawing.Size(1228, 517);
             this.layoutControlGroup10.TextVisible = false;
             // 
             // lblLocalFixPhone
@@ -1658,7 +1662,7 @@
             this.lblLocalFixPhone.Control = this.txtLocalFixPhone;
             this.lblLocalFixPhone.Location = new System.Drawing.Point(0, 0);
             this.lblLocalFixPhone.Name = "lblLocalFixPhone";
-            this.lblLocalFixPhone.Size = new System.Drawing.Size(682, 26);
+            this.lblLocalFixPhone.Size = new System.Drawing.Size(704, 26);
             this.lblLocalFixPhone.Text = "Local Fix Phone";
             this.lblLocalFixPhone.TextSize = new System.Drawing.Size(101, 16);
             // 
@@ -1667,7 +1671,7 @@
             this.lblLocalMobileNo.Control = this.txtLocalMobileNo;
             this.lblLocalMobileNo.Location = new System.Drawing.Point(0, 26);
             this.lblLocalMobileNo.Name = "lblLocalMobileNo";
-            this.lblLocalMobileNo.Size = new System.Drawing.Size(682, 26);
+            this.lblLocalMobileNo.Size = new System.Drawing.Size(704, 26);
             this.lblLocalMobileNo.Text = "Local Mobile No";
             this.lblLocalMobileNo.TextSize = new System.Drawing.Size(101, 16);
             // 
@@ -1676,7 +1680,7 @@
             this.lblAbroadMobileNo.Control = this.txtAbroadMobileNo;
             this.lblAbroadMobileNo.Location = new System.Drawing.Point(0, 52);
             this.lblAbroadMobileNo.Name = "lblAbroadMobileNo";
-            this.lblAbroadMobileNo.Size = new System.Drawing.Size(682, 26);
+            this.lblAbroadMobileNo.Size = new System.Drawing.Size(704, 26);
             this.lblAbroadMobileNo.Text = "Abroad Mobile No";
             this.lblAbroadMobileNo.TextSize = new System.Drawing.Size(101, 16);
             // 
@@ -1685,42 +1689,42 @@
             this.lblEmail.Control = this.txtEmail;
             this.lblEmail.Location = new System.Drawing.Point(0, 78);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(682, 26);
+            this.lblEmail.Size = new System.Drawing.Size(704, 26);
             this.lblEmail.Text = "Email";
             this.lblEmail.TextSize = new System.Drawing.Size(101, 16);
             // 
             // emptySpaceItem18
             // 
-            this.emptySpaceItem18.Location = new System.Drawing.Point(682, 0);
+            this.emptySpaceItem18.Location = new System.Drawing.Point(704, 0);
             this.emptySpaceItem18.Name = "emptySpaceItem18";
-            this.emptySpaceItem18.Size = new System.Drawing.Size(486, 532);
+            this.emptySpaceItem18.Size = new System.Drawing.Size(500, 493);
             // 
             // lblAddress
             // 
             this.lblAddress.Control = this.txtAddress;
             this.lblAddress.Location = new System.Drawing.Point(0, 114);
             this.lblAddress.Name = "lblAddress";
-            this.lblAddress.Size = new System.Drawing.Size(682, 96);
+            this.lblAddress.Size = new System.Drawing.Size(704, 87);
             this.lblAddress.Text = "Address";
             this.lblAddress.TextSize = new System.Drawing.Size(101, 16);
             // 
             // emptySpaceItem19
             // 
-            this.emptySpaceItem19.Location = new System.Drawing.Point(0, 210);
+            this.emptySpaceItem19.Location = new System.Drawing.Point(0, 201);
             this.emptySpaceItem19.Name = "emptySpaceItem19";
-            this.emptySpaceItem19.Size = new System.Drawing.Size(682, 322);
+            this.emptySpaceItem19.Size = new System.Drawing.Size(704, 292);
             // 
             // emptySpaceItem17
             // 
             this.emptySpaceItem17.Location = new System.Drawing.Point(0, 104);
             this.emptySpaceItem17.Name = "emptySpaceItem17";
-            this.emptySpaceItem17.Size = new System.Drawing.Size(682, 10);
+            this.emptySpaceItem17.Size = new System.Drawing.Size(704, 10);
             // 
             // tabCNSSDetails
             // 
             this.tabCNSSDetails.Controls.Add(this.layoutControl2);
             this.tabCNSSDetails.Name = "tabCNSSDetails";
-            this.tabCNSSDetails.Size = new System.Drawing.Size(1196, 560);
+            this.tabCNSSDetails.Size = new System.Drawing.Size(1228, 517);
             this.tabCNSSDetails.Text = "CNSS Details";
             // 
             // layoutControl2
@@ -1735,7 +1739,7 @@
             this.layoutControl2.Location = new System.Drawing.Point(0, 0);
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.Root = this.layoutControlGroup7;
-            this.layoutControl2.Size = new System.Drawing.Size(1196, 560);
+            this.layoutControl2.Size = new System.Drawing.Size(1228, 517);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "layoutControl2";
             // 
@@ -1745,7 +1749,7 @@
             this.txtSpouseRegistration.Location = new System.Drawing.Point(143, 118);
             this.txtSpouseRegistration.MenuManager = this.ribbonControl;
             this.txtSpouseRegistration.Name = "txtSpouseRegistration";
-            this.txtSpouseRegistration.Size = new System.Drawing.Size(549, 22);
+            this.txtSpouseRegistration.Size = new System.Drawing.Size(568, 22);
             this.txtSpouseRegistration.StyleController = this.layoutControl2;
             this.txtSpouseRegistration.TabIndex = 8;
             // 
@@ -1759,7 +1763,7 @@
             this.txtNoOfBeneficiary.Location = new System.Drawing.Point(143, 92);
             this.txtNoOfBeneficiary.MenuManager = this.ribbonControl;
             this.txtNoOfBeneficiary.Name = "txtNoOfBeneficiary";
-            this.txtNoOfBeneficiary.Size = new System.Drawing.Size(549, 22);
+            this.txtNoOfBeneficiary.Size = new System.Drawing.Size(568, 22);
             this.txtNoOfBeneficiary.StyleController = this.layoutControl2;
             this.txtNoOfBeneficiary.TabIndex = 7;
             // 
@@ -1769,7 +1773,7 @@
             this.txtNoOfChildren.Location = new System.Drawing.Point(143, 66);
             this.txtNoOfChildren.MenuManager = this.ribbonControl;
             this.txtNoOfChildren.Name = "txtNoOfChildren";
-            this.txtNoOfChildren.Size = new System.Drawing.Size(549, 22);
+            this.txtNoOfChildren.Size = new System.Drawing.Size(568, 22);
             this.txtNoOfChildren.StyleController = this.layoutControl2;
             this.txtNoOfChildren.TabIndex = 6;
             // 
@@ -1779,7 +1783,7 @@
             this.txtCnssRegistrationNo.Location = new System.Drawing.Point(143, 40);
             this.txtCnssRegistrationNo.MenuManager = this.ribbonControl;
             this.txtCnssRegistrationNo.Name = "txtCnssRegistrationNo";
-            this.txtCnssRegistrationNo.Size = new System.Drawing.Size(549, 22);
+            this.txtCnssRegistrationNo.Size = new System.Drawing.Size(568, 22);
             this.txtCnssRegistrationNo.StyleController = this.layoutControl2;
             this.txtCnssRegistrationNo.TabIndex = 5;
             // 
@@ -1802,7 +1806,7 @@
             this.dtCnssRegistrationDate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtCnssRegistrationDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
             this.dtCnssRegistrationDate.Properties.UseMaskAsDisplayFormat = true;
-            this.dtCnssRegistrationDate.Size = new System.Drawing.Size(214, 22);
+            this.dtCnssRegistrationDate.Size = new System.Drawing.Size(224, 22);
             this.dtCnssRegistrationDate.StyleController = this.layoutControl2;
             this.dtCnssRegistrationDate.TabIndex = 4;
             // 
@@ -1824,7 +1828,7 @@
             this.dtCnssLeaveDate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtCnssLeaveDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
             this.dtCnssLeaveDate.Properties.UseMaskAsDisplayFormat = true;
-            this.dtCnssLeaveDate.Size = new System.Drawing.Size(214, 22);
+            this.dtCnssLeaveDate.Size = new System.Drawing.Size(224, 22);
             this.dtCnssLeaveDate.StyleController = this.layoutControl2;
             this.dtCnssLeaveDate.TabIndex = 9;
             // 
@@ -1844,7 +1848,7 @@
             this.emptySpaceItem13,
             this.emptySpaceItem12});
             this.layoutControlGroup7.Name = "layoutControlGroup7";
-            this.layoutControlGroup7.Size = new System.Drawing.Size(1196, 560);
+            this.layoutControlGroup7.Size = new System.Drawing.Size(1228, 517);
             this.layoutControlGroup7.TextVisible = false;
             // 
             // lblCnssRegistrationDate
@@ -1852,7 +1856,7 @@
             this.lblCnssRegistrationDate.Control = this.dtCnssRegistrationDate;
             this.lblCnssRegistrationDate.Location = new System.Drawing.Point(0, 0);
             this.lblCnssRegistrationDate.Name = "lblCnssRegistrationDate";
-            this.lblCnssRegistrationDate.Size = new System.Drawing.Size(347, 26);
+            this.lblCnssRegistrationDate.Size = new System.Drawing.Size(357, 26);
             this.lblCnssRegistrationDate.Text = "Registration Date";
             this.lblCnssRegistrationDate.TextSize = new System.Drawing.Size(114, 16);
             // 
@@ -1861,7 +1865,7 @@
             this.lblCnssRegistrationNo.Control = this.txtCnssRegistrationNo;
             this.lblCnssRegistrationNo.Location = new System.Drawing.Point(0, 26);
             this.lblCnssRegistrationNo.Name = "lblCnssRegistrationNo";
-            this.lblCnssRegistrationNo.Size = new System.Drawing.Size(682, 26);
+            this.lblCnssRegistrationNo.Size = new System.Drawing.Size(701, 26);
             this.lblCnssRegistrationNo.Text = "Registration No";
             this.lblCnssRegistrationNo.TextSize = new System.Drawing.Size(114, 16);
             // 
@@ -1870,7 +1874,7 @@
             this.lblCnssNoOfChildren.Control = this.txtNoOfChildren;
             this.lblCnssNoOfChildren.Location = new System.Drawing.Point(0, 52);
             this.lblCnssNoOfChildren.Name = "lblCnssNoOfChildren";
-            this.lblCnssNoOfChildren.Size = new System.Drawing.Size(682, 26);
+            this.lblCnssNoOfChildren.Size = new System.Drawing.Size(701, 26);
             this.lblCnssNoOfChildren.Text = "No of Children";
             this.lblCnssNoOfChildren.TextSize = new System.Drawing.Size(114, 16);
             // 
@@ -1879,7 +1883,7 @@
             this.lblNoOfBeneficiary.Control = this.txtNoOfBeneficiary;
             this.lblNoOfBeneficiary.Location = new System.Drawing.Point(0, 78);
             this.lblNoOfBeneficiary.Name = "lblNoOfBeneficiary";
-            this.lblNoOfBeneficiary.Size = new System.Drawing.Size(682, 26);
+            this.lblNoOfBeneficiary.Size = new System.Drawing.Size(701, 26);
             this.lblNoOfBeneficiary.Text = "No of Beneficiary";
             this.lblNoOfBeneficiary.TextSize = new System.Drawing.Size(114, 16);
             // 
@@ -1888,48 +1892,48 @@
             this.lblSpouseRegistration.Control = this.txtSpouseRegistration;
             this.lblSpouseRegistration.Location = new System.Drawing.Point(0, 104);
             this.lblSpouseRegistration.Name = "lblSpouseRegistration";
-            this.lblSpouseRegistration.Size = new System.Drawing.Size(682, 26);
+            this.lblSpouseRegistration.Size = new System.Drawing.Size(701, 26);
             this.lblSpouseRegistration.Text = "Spouse Registration";
             this.lblSpouseRegistration.TextSize = new System.Drawing.Size(114, 16);
             // 
             // emptySpaceItem11
             // 
-            this.emptySpaceItem11.Location = new System.Drawing.Point(682, 0);
+            this.emptySpaceItem11.Location = new System.Drawing.Point(701, 0);
             this.emptySpaceItem11.Name = "emptySpaceItem11";
-            this.emptySpaceItem11.Size = new System.Drawing.Size(490, 536);
+            this.emptySpaceItem11.Size = new System.Drawing.Size(503, 493);
             // 
             // lblCnssLeaveDate
             // 
             this.lblCnssLeaveDate.Control = this.dtCnssLeaveDate;
             this.lblCnssLeaveDate.Location = new System.Drawing.Point(0, 130);
             this.lblCnssLeaveDate.Name = "lblCnssLeaveDate";
-            this.lblCnssLeaveDate.Size = new System.Drawing.Size(347, 26);
+            this.lblCnssLeaveDate.Size = new System.Drawing.Size(357, 26);
             this.lblCnssLeaveDate.Text = "Cnss Leave Date";
             this.lblCnssLeaveDate.TextSize = new System.Drawing.Size(114, 16);
             // 
             // emptySpaceItem10
             // 
-            this.emptySpaceItem10.Location = new System.Drawing.Point(347, 130);
+            this.emptySpaceItem10.Location = new System.Drawing.Point(357, 130);
             this.emptySpaceItem10.Name = "emptySpaceItem10";
-            this.emptySpaceItem10.Size = new System.Drawing.Size(335, 26);
+            this.emptySpaceItem10.Size = new System.Drawing.Size(344, 26);
             // 
             // emptySpaceItem13
             // 
             this.emptySpaceItem13.Location = new System.Drawing.Point(0, 156);
             this.emptySpaceItem13.Name = "emptySpaceItem13";
-            this.emptySpaceItem13.Size = new System.Drawing.Size(682, 380);
+            this.emptySpaceItem13.Size = new System.Drawing.Size(701, 337);
             // 
             // emptySpaceItem12
             // 
-            this.emptySpaceItem12.Location = new System.Drawing.Point(347, 0);
+            this.emptySpaceItem12.Location = new System.Drawing.Point(357, 0);
             this.emptySpaceItem12.Name = "emptySpaceItem12";
-            this.emptySpaceItem12.Size = new System.Drawing.Size(335, 26);
+            this.emptySpaceItem12.Size = new System.Drawing.Size(344, 26);
             // 
             // tabEducationTraining
             // 
             this.tabEducationTraining.Controls.Add(this.layoutControl3);
             this.tabEducationTraining.Name = "tabEducationTraining";
-            this.tabEducationTraining.Size = new System.Drawing.Size(1196, 560);
+            this.tabEducationTraining.Size = new System.Drawing.Size(1228, 517);
             this.tabEducationTraining.Text = "Education / Training";
             // 
             // layoutControl3
@@ -1944,7 +1948,7 @@
             this.layoutControl3.Location = new System.Drawing.Point(0, 0);
             this.layoutControl3.Name = "layoutControl3";
             this.layoutControl3.Root = this.layoutControlGroup8;
-            this.layoutControl3.Size = new System.Drawing.Size(1196, 560);
+            this.layoutControl3.Size = new System.Drawing.Size(1228, 517);
             this.layoutControl3.TabIndex = 0;
             this.layoutControl3.Text = "layoutControl3";
             // 
@@ -1954,7 +1958,7 @@
             this.txtWorkLocation.Location = new System.Drawing.Point(175, 144);
             this.txtWorkLocation.MenuManager = this.ribbonControl;
             this.txtWorkLocation.Name = "txtWorkLocation";
-            this.txtWorkLocation.Size = new System.Drawing.Size(515, 22);
+            this.txtWorkLocation.Size = new System.Drawing.Size(534, 22);
             this.txtWorkLocation.StyleController = this.layoutControl3;
             this.txtWorkLocation.TabIndex = 9;
             // 
@@ -1968,7 +1972,7 @@
             this.txtYearsAtSpectrum.Location = new System.Drawing.Point(175, 118);
             this.txtYearsAtSpectrum.MenuManager = this.ribbonControl;
             this.txtYearsAtSpectrum.Name = "txtYearsAtSpectrum";
-            this.txtYearsAtSpectrum.Size = new System.Drawing.Size(515, 22);
+            this.txtYearsAtSpectrum.Size = new System.Drawing.Size(534, 22);
             this.txtYearsAtSpectrum.StyleController = this.layoutControl3;
             this.txtYearsAtSpectrum.TabIndex = 8;
             // 
@@ -1978,7 +1982,7 @@
             this.txtTotalYearsOfExperience.Location = new System.Drawing.Point(175, 66);
             this.txtTotalYearsOfExperience.MenuManager = this.ribbonControl;
             this.txtTotalYearsOfExperience.Name = "txtTotalYearsOfExperience";
-            this.txtTotalYearsOfExperience.Size = new System.Drawing.Size(515, 22);
+            this.txtTotalYearsOfExperience.Size = new System.Drawing.Size(534, 22);
             this.txtTotalYearsOfExperience.StyleController = this.layoutControl3;
             this.txtTotalYearsOfExperience.TabIndex = 6;
             // 
@@ -1988,7 +1992,7 @@
             this.txtWorkingPosition.Location = new System.Drawing.Point(175, 40);
             this.txtWorkingPosition.MenuManager = this.ribbonControl;
             this.txtWorkingPosition.Name = "txtWorkingPosition";
-            this.txtWorkingPosition.Size = new System.Drawing.Size(515, 22);
+            this.txtWorkingPosition.Size = new System.Drawing.Size(534, 22);
             this.txtWorkingPosition.StyleController = this.layoutControl3;
             this.txtWorkingPosition.TabIndex = 5;
             // 
@@ -1998,7 +2002,7 @@
             this.txtOfficialWorkingDay.Location = new System.Drawing.Point(175, 14);
             this.txtOfficialWorkingDay.MenuManager = this.ribbonControl;
             this.txtOfficialWorkingDay.Name = "txtOfficialWorkingDay";
-            this.txtOfficialWorkingDay.Size = new System.Drawing.Size(515, 22);
+            this.txtOfficialWorkingDay.Size = new System.Drawing.Size(534, 22);
             this.txtOfficialWorkingDay.StyleController = this.layoutControl3;
             this.txtOfficialWorkingDay.TabIndex = 4;
             // 
@@ -2021,7 +2025,7 @@
             this.dtSpectrumWorkingDate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtSpectrumWorkingDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
             this.dtSpectrumWorkingDate.Properties.UseMaskAsDisplayFormat = true;
-            this.dtSpectrumWorkingDate.Size = new System.Drawing.Size(213, 22);
+            this.dtSpectrumWorkingDate.Size = new System.Drawing.Size(224, 22);
             this.dtSpectrumWorkingDate.StyleController = this.layoutControl3;
             this.dtSpectrumWorkingDate.TabIndex = 7;
             // 
@@ -2040,7 +2044,7 @@
             this.emptySpaceItem16,
             this.emptySpaceItem14});
             this.layoutControlGroup8.Name = "layoutControlGroup8";
-            this.layoutControlGroup8.Size = new System.Drawing.Size(1196, 560);
+            this.layoutControlGroup8.Size = new System.Drawing.Size(1228, 517);
             this.layoutControlGroup8.TextVisible = false;
             // 
             // lblOfficialWorkingDay
@@ -2048,7 +2052,7 @@
             this.lblOfficialWorkingDay.Control = this.txtOfficialWorkingDay;
             this.lblOfficialWorkingDay.Location = new System.Drawing.Point(0, 0);
             this.lblOfficialWorkingDay.Name = "lblOfficialWorkingDay";
-            this.lblOfficialWorkingDay.Size = new System.Drawing.Size(680, 26);
+            this.lblOfficialWorkingDay.Size = new System.Drawing.Size(699, 26);
             this.lblOfficialWorkingDay.Text = "Official Working Day";
             this.lblOfficialWorkingDay.TextSize = new System.Drawing.Size(146, 16);
             // 
@@ -2057,7 +2061,7 @@
             this.lblWorkingPosition.Control = this.txtWorkingPosition;
             this.lblWorkingPosition.Location = new System.Drawing.Point(0, 26);
             this.lblWorkingPosition.Name = "lblWorkingPosition";
-            this.lblWorkingPosition.Size = new System.Drawing.Size(680, 26);
+            this.lblWorkingPosition.Size = new System.Drawing.Size(699, 26);
             this.lblWorkingPosition.Text = "Working Position";
             this.lblWorkingPosition.TextSize = new System.Drawing.Size(146, 16);
             // 
@@ -2066,7 +2070,7 @@
             this.lblTotalYearsOfExperience.Control = this.txtTotalYearsOfExperience;
             this.lblTotalYearsOfExperience.Location = new System.Drawing.Point(0, 52);
             this.lblTotalYearsOfExperience.Name = "lblTotalYearsOfExperience";
-            this.lblTotalYearsOfExperience.Size = new System.Drawing.Size(680, 26);
+            this.lblTotalYearsOfExperience.Size = new System.Drawing.Size(699, 26);
             this.lblTotalYearsOfExperience.Text = "Total Years of Experience";
             this.lblTotalYearsOfExperience.TextSize = new System.Drawing.Size(146, 16);
             // 
@@ -2075,7 +2079,7 @@
             this.lblSpectrumWorkingDate.Control = this.dtSpectrumWorkingDate;
             this.lblSpectrumWorkingDate.Location = new System.Drawing.Point(0, 78);
             this.lblSpectrumWorkingDate.Name = "lblSpectrumWorkingDate";
-            this.lblSpectrumWorkingDate.Size = new System.Drawing.Size(378, 26);
+            this.lblSpectrumWorkingDate.Size = new System.Drawing.Size(389, 26);
             this.lblSpectrumWorkingDate.Text = "Spectrum Working Date";
             this.lblSpectrumWorkingDate.TextSize = new System.Drawing.Size(146, 16);
             // 
@@ -2084,7 +2088,7 @@
             this.lblYearsAtSpectrum.Control = this.txtYearsAtSpectrum;
             this.lblYearsAtSpectrum.Location = new System.Drawing.Point(0, 104);
             this.lblYearsAtSpectrum.Name = "lblYearsAtSpectrum";
-            this.lblYearsAtSpectrum.Size = new System.Drawing.Size(680, 26);
+            this.lblYearsAtSpectrum.Size = new System.Drawing.Size(699, 26);
             this.lblYearsAtSpectrum.Text = "Years at Spectrum";
             this.lblYearsAtSpectrum.TextSize = new System.Drawing.Size(146, 16);
             // 
@@ -2093,33 +2097,33 @@
             this.lblWorkLocation.Control = this.txtWorkLocation;
             this.lblWorkLocation.Location = new System.Drawing.Point(0, 130);
             this.lblWorkLocation.Name = "lblWorkLocation";
-            this.lblWorkLocation.Size = new System.Drawing.Size(680, 26);
+            this.lblWorkLocation.Size = new System.Drawing.Size(699, 26);
             this.lblWorkLocation.Text = "Work Location";
             this.lblWorkLocation.TextSize = new System.Drawing.Size(146, 16);
             // 
             // emptySpaceItem15
             // 
-            this.emptySpaceItem15.Location = new System.Drawing.Point(680, 0);
+            this.emptySpaceItem15.Location = new System.Drawing.Point(699, 0);
             this.emptySpaceItem15.Name = "emptySpaceItem15";
-            this.emptySpaceItem15.Size = new System.Drawing.Size(492, 536);
+            this.emptySpaceItem15.Size = new System.Drawing.Size(505, 493);
             // 
             // emptySpaceItem16
             // 
             this.emptySpaceItem16.Location = new System.Drawing.Point(0, 156);
             this.emptySpaceItem16.Name = "emptySpaceItem16";
-            this.emptySpaceItem16.Size = new System.Drawing.Size(680, 380);
+            this.emptySpaceItem16.Size = new System.Drawing.Size(699, 337);
             // 
             // emptySpaceItem14
             // 
-            this.emptySpaceItem14.Location = new System.Drawing.Point(378, 78);
+            this.emptySpaceItem14.Location = new System.Drawing.Point(389, 78);
             this.emptySpaceItem14.Name = "emptySpaceItem14";
-            this.emptySpaceItem14.Size = new System.Drawing.Size(302, 26);
+            this.emptySpaceItem14.Size = new System.Drawing.Size(310, 26);
             // 
             // tabDocumentLink
             // 
             this.tabDocumentLink.Controls.Add(this.layoutControl4);
             this.tabDocumentLink.Name = "tabDocumentLink";
-            this.tabDocumentLink.Size = new System.Drawing.Size(1196, 560);
+            this.tabDocumentLink.Size = new System.Drawing.Size(1228, 517);
             this.tabDocumentLink.Text = "Document Link";
             // 
             // layoutControl4
@@ -2130,7 +2134,7 @@
             this.layoutControl4.Location = new System.Drawing.Point(0, 0);
             this.layoutControl4.Name = "layoutControl4";
             this.layoutControl4.Root = this.layoutControlGroup9;
-            this.layoutControl4.Size = new System.Drawing.Size(1196, 560);
+            this.layoutControl4.Size = new System.Drawing.Size(1228, 517);
             this.layoutControl4.TabIndex = 0;
             this.layoutControl4.Text = "layoutControl4";
             // 
@@ -2138,11 +2142,11 @@
             // 
             this.gcDocuments.DataSource = this.bsDocuments;
             this.gcDocuments.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(5);
-            this.gcDocuments.Location = new System.Drawing.Point(14, 46);
+            this.gcDocuments.Location = new System.Drawing.Point(14, 47);
             this.gcDocuments.MainView = this.gvDocuments;
             this.gcDocuments.Margin = new System.Windows.Forms.Padding(4);
             this.gcDocuments.Name = "gcDocuments";
-            this.gcDocuments.Size = new System.Drawing.Size(1168, 389);
+            this.gcDocuments.Size = new System.Drawing.Size(1200, 355);
             this.gcDocuments.TabIndex = 8;
             this.gcDocuments.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDocuments});
@@ -2169,7 +2173,9 @@
             this.gvDocuments.OptionsView.Style = DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewStyle.Tiles;
             this.gvDocuments.OptionsViewStyles.Tiles.ContextButtonsUseFullItemArea = true;
             this.gvDocuments.ContextButtonCustomize += new DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewContextButtonCustomizeEventHandler(this.gvDocuments_ContextButtonCustomize);
+            this.gvDocuments.ContextButtonClick += new DevExpress.Utils.ContextItemClickEventHandler(this.gvDocuments_ContextButtonClick);
             this.gvDocuments.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvDocuments_FocusedRowChanged);
+            this.gvDocuments.DoubleClick += new System.EventHandler(this.gvDocuments_DoubleClick);
             // 
             // colDocumentId
             // 
@@ -2214,7 +2220,7 @@
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton(),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", "loadFile", null, DevExpress.Utils.ToolTipAnchor.Default)});
-            this.openDocuments.Size = new System.Drawing.Size(1069, 28);
+            this.openDocuments.Size = new System.Drawing.Size(1101, 29);
             this.openDocuments.StyleController = this.layoutControl4;
             this.openDocuments.TabIndex = 7;
             this.openDocuments.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.openDocuments_ButtonClick);
@@ -2228,30 +2234,30 @@
             this.lblDocumentLink,
             this.layoutControlItem2});
             this.layoutControlGroup9.Name = "layoutControlGroup9";
-            this.layoutControlGroup9.Size = new System.Drawing.Size(1196, 560);
+            this.layoutControlGroup9.Size = new System.Drawing.Size(1228, 517);
             this.layoutControlGroup9.TextVisible = false;
             // 
             // emptySpaceItem4
             // 
-            this.emptySpaceItem4.Location = new System.Drawing.Point(0, 425);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(0, 392);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(1172, 111);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(1204, 101);
             // 
             // lblDocumentLink
             // 
             this.lblDocumentLink.Control = this.openDocuments;
             this.lblDocumentLink.Location = new System.Drawing.Point(0, 0);
             this.lblDocumentLink.Name = "lblDocumentLink";
-            this.lblDocumentLink.Size = new System.Drawing.Size(1172, 32);
+            this.lblDocumentLink.Size = new System.Drawing.Size(1204, 33);
             this.lblDocumentLink.Text = "Document Link";
             this.lblDocumentLink.TextSize = new System.Drawing.Size(84, 16);
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.gcDocuments;
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 32);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 33);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(1172, 393);
+            this.layoutControlItem2.Size = new System.Drawing.Size(1204, 359);
             this.layoutControlItem2.TextVisible = false;
             // 
             // Root
@@ -2261,7 +2267,7 @@
             this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.tabJobInfo});
             this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(1222, 614);
+            this.Root.Size = new System.Drawing.Size(1254, 571);
             this.Root.TextVisible = false;
             // 
             // tabJobInfo
@@ -2269,7 +2275,7 @@
             this.tabJobInfo.Control = this.grpEmployeeInformation;
             this.tabJobInfo.Location = new System.Drawing.Point(0, 0);
             this.tabJobInfo.Name = "tabJobInfo";
-            this.tabJobInfo.Size = new System.Drawing.Size(1198, 590);
+            this.tabJobInfo.Size = new System.Drawing.Size(1230, 547);
             this.tabJobInfo.Text = "Job Information";
             this.tabJobInfo.TextVisible = false;
             // 
@@ -2277,7 +2283,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1222, 837);
+            this.ClientSize = new System.Drawing.Size(1254, 794);
             this.Controls.Add(this.mainLayout);
             this.Controls.Add(this.ribbonControl);
             this.Controls.Add(this.ribbonStatusBar1);
@@ -2295,10 +2301,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtYearsOfExperience.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsEmployee)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSyndicatNo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsSyndicat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRecordRegister.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsEmployee)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRegistrationNo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsWorkingpermit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkLeftWork.Properties)).EndInit();

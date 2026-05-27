@@ -1,19 +1,36 @@
-﻿using DevExpress.Utils.Menu;
+﻿using DevExpress.Utils;
+using DevExpress.Utils.Menu;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.WinExplorer;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.DataLayers.HumanResources.JobPositions;
 using Spectrum.Models.Common.Countries;
 using Spectrum.Models.HumanResources.Employees;
+using Spectrum.Models.HumanResources.JobPositions;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Enums;
-using SpectrumV1.DataLayers.EmployeeTypes;
-using SpectrumV1.DataLayers.HumanResources.Employees;
-using SpectrumV1.Models.HumanResources.EmployeeTypes;
+using Spectrum.Views.Common.Countries;
+using Spectrum.Views.HumanResources.Common.BloodTypes;
+using Spectrum.Views.HumanResources.Employees.Status;
+using Spectrum.DataLayers.EmployeeTypes;
+using Spectrum.DataLayers.HumanResources.BloodTypes;
+using Spectrum.DataLayers.HumanResources.Employees;
+using Spectrum.DataLayers.HumanResources.Employees.EmployeeStatus;
+using Spectrum.Models.Common.Documents;
+using Spectrum.Models.HumanResources.BloodTypes;
+using Spectrum.Models.HumanResources.Employees.EmployeeStatus;
+using Spectrum.Models.HumanResources.EmployeeTypes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,21 +42,41 @@ namespace Spectrum.Views.Members.Engineers
     {
         private EmployeeModel _employeeModel = new EmployeeModel();
 
-        private IList<CityModel> _cities = new List<CityModel>();
         private IList<CountryModel> _countries = new List<CountryModel>();
+        private CountryModel _countryModel = new CountryModel();
+
+        private IList<CityModel> _cities = new List<CityModel>();
+        private CityModel _cityModel = new CityModel();
+
+        private IList<EmployeeTypeModel> _employeeTypes = new List<EmployeeTypeModel>();
+        private EmployeeTypeModel _employeeTypeModel = new EmployeeTypeModel();
+
+        private IList<BloodTypeModel> _bloodTypes = new List<BloodTypeModel>();
+        private BloodTypeModel _bloodTypeModel = new BloodTypeModel();
+
+        private IList<StatusModel> _status = new List<StatusModel>();
+        private StatusModel _statusModel = new StatusModel();
+
+        private IList<JobPositionModel> _jobPositions = new List<JobPositionModel>();
+        private JobPositionModel _jobPositionModel = new JobPositionModel();
+        private BindingList<DocumentModel> _documents = new BindingList<DocumentModel>();
 
         private readonly EmployeeRepository _employeeRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
         private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
         private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
-        private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
         private readonly EmployeeTypeRepository _employeeTypeRepository = new EmployeeTypeRepository(DatabaseFactory.ProfilePrimary);
+        private readonly BloodTypeRepository _bloodTypeRepository = new BloodTypeRepository(DatabaseFactory.ProfilePrimary);
+        private readonly StatusRepository _statusRepository = new StatusRepository(DatabaseFactory.ProfilePrimary);
+        private readonly JobPositionRepository _jobPositionRepository = new JobPositionRepository(DatabaseFactory.ProfilePrimary);
+        private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
-        // init permission variables
+        //Init permissionvariables
         private bool _canAdd = true;
         private bool _canEdit = true;
         private bool _canDelete = true;
         private bool _canPrint = true;
         private bool _isAdmin = true;
+        private bool _isProtected = true;
 
         private DXMenuItem[] _menuItems;
 
@@ -64,7 +101,6 @@ namespace Spectrum.Views.Members.Engineers
                 WireUpBindings();
                 await ApplyDefaultsAsync();
                 ApplyPermissions();
-                InitializeMenuItems();
             }
             catch (Exception ex)
             {
@@ -78,8 +114,12 @@ namespace Spectrum.Views.Members.Engineers
             {
                 var loadTasks = new[]
                 {
-                    LoadCitiesAsync(),
                     LoadCountriesAsync(),
+                    LoadCitiesAsync(),
+                    LoadStatusAsync(),
+                    LoadBloodTypeAsync(),
+                    LoadEmployeeTypesAsync(),
+                    LoadJobPositionsAsync(),
                 };
 
                 await Task.WhenAll(loadTasks);
@@ -90,37 +130,175 @@ namespace Spectrum.Views.Members.Engineers
             }
         }
 
-        private async Task LoadCitiesAsync()
-        {
-            _cities = await _cityRepository.GetCitiesAsync();
-        }
-
         private async Task LoadCountriesAsync()
         {
             _countries = await _countryRepository.GetCountriesAsync();
         }
 
+        private async Task LoadCitiesAsync()
+        {
+            _cities = await _cityRepository.GetCitiesAsync();
+        }
+
+        private async Task LoadStatusAsync()
+        {
+            _status = await _statusRepository.GetStatusAsync();
+        }
+
+        private async Task LoadBloodTypeAsync()
+        {
+            _bloodTypes = await _bloodTypeRepository.GetBloodTypesAsync();
+        }
+
+        private async Task LoadEmployeeTypesAsync()
+        {
+            _employeeTypes = await _employeeTypeRepository.GetEmployeeTypesAsync();
+        }
+
+        private async Task LoadJobPositionsAsync()
+        {
+            _jobPositions = await _jobPositionRepository.GetJobPositionsAsync();
+        }
+
+
+        //_bloodTypeRepository
         private void WireUpBindings()
         {
-            bsEngineer.DataSource = _employeeModel;
+            EnsureSubObjectsInitialized();
+
+            if (_employeeModel.EmployeeType != null)
+            {
+                _employeeModel.EmployeeType = EmployeeTypeRepository.ResolveEmployeeTypeModel(_employeeTypes, _employeeModel.EmployeeType);
+            }
+
+            bsEmployee.DataSource = _employeeModel;
+            bsWorkingpermit.DataSource = _employeeModel.WorkingPermit;
+            bsSyndicat.DataSource = _employeeModel.Syndicat;
+            bsEmergencyContact.DataSource = _employeeModel.EmergencyContact;
+            bsEmployeeContactInfo.DataSource = _employeeModel.ContactInfo;
+            bsCnss.DataSource = _employeeModel.Cnss;
+            bsWorkExperience.DataSource = _employeeModel.WorkExperience;
+            InitializeDocumentBindings();
 
             cboNationality.Properties.DataSource = _countries;
             cboPlaceOfBirth.Properties.DataSource = _cities;
+            cboRegistrationPlace.Properties.DataSource = _cities;
+            cboEmployeeType.Properties.DataSource = _employeeTypes;
+            cboBloodType.Properties.DataSource = _bloodTypes;
+            cboFamilyStatus.Properties.DataSource = _status;
+        }
+
+        private void EnsureSubObjectsInitialized()
+        {
+            if (_employeeModel.WorkingPermit == null)
+                _employeeModel.WorkingPermit = new WorkingPermitInfo();
+            if (_employeeModel.Syndicat == null)
+                _employeeModel.Syndicat = new SyndicatInfo();
+            if (_employeeModel.EmergencyContact == null)
+                _employeeModel.EmergencyContact = new EmergencyContactInfo();
+            if (_employeeModel.ContactInfo == null)
+                _employeeModel.ContactInfo = new EmployeeContactInfo();
+            if (_employeeModel.Cnss == null)
+                _employeeModel.Cnss = new CnssInfo();
+            if (_employeeModel.WorkExperience == null)
+                _employeeModel.WorkExperience = new WorkExperienceInfo();
+            if (_employeeModel.Financial == null)
+                _employeeModel.Financial = new FinancialInfo();
         }
 
         private async Task ApplyDefaultsAsync()
         {
-            if (_employeeModel.EmployeeType == null || _employeeModel.EnumEmployeeType != EnumEmployeeType.Engineer)
+            if (string.IsNullOrEmpty(_employeeModel._id))
             {
-                var employeeType = await _employeeTypeRepository.GetEmployeeTypeByType(EnumEmployeeType.Engineer);
-                if (employeeType == null)
-                {
-                    employeeType = new EmployeeTypeModel { TypeName = EnumEmployeeType.Engineer.ToString() };
-                    await _employeeTypeRepository.AddNewEmployeeTypeAsync(employeeType);
-                }
-                _employeeModel.EmployeeType = employeeType.TypeName;
-                _employeeModel.EnumEmployeeType = EnumEmployeeType.Engineer;
+                int latestNo = await _employeeRepository.GetLatestEmployeeNoAsync();
+                _employeeModel.EmployeeNo = latestNo + 1;
+                bsEmployee.ResetBindings(false);
             }
+
+            gvDocuments.GetThumbnailImage += TileView1_GetThumbnailImage;
+            gvDocuments.OptionsImageLoad.RandomShow = true;
+            gvDocuments.OptionsImageLoad.LoadThumbnailImagesFromDataSource = false;
+            gvDocuments.OptionsImageLoad.AsyncLoad = true;
+
+            var engineerType = EmployeeTypeRepository.ResolveEmployeeTypeModel(_employeeTypes, employeeType: EmployeeType.Engineer);
+            if (engineerType != null)
+            {
+                _employeeModel.EmployeeType = engineerType;
+                bsEmployee.ResetBindings(false);
+            }
+        }
+
+        private void TileView1_GetThumbnailImage(object sender, ThumbnailImageEventArgs e)
+        {
+            var fileName = (string)gvDocuments.GetRowCellValue(e.DataSourceIndex, colName);
+            var ext = Path.GetExtension(fileName);
+            e.ThumbnailImage = HelperApplication.GetFileExtensionImage(ext, IconSizeType.Large, new Size(64, 64));
+        }
+
+        private void InitializeDocumentBindings()
+        {
+            _documents = LoadDocumentsForEngineer();
+            bsDocuments.DataSource = _documents;
+            gcDocuments.DataSource = _documents;
+        }
+
+        private BindingList<DocumentModel> LoadDocumentsForEngineer()
+        {
+            var documents = new BindingList<DocumentModel>();
+            var engineerId = _employeeModel?._id;
+            if (string.IsNullOrWhiteSpace(engineerId))
+                return documents;
+
+            var connection = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
+            var rootFolder = string.IsNullOrWhiteSpace(connection?.EngineersDocumentsFolder)
+                ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpectrumApp", "Engineers")
+                : connection.EngineersDocumentsFolder;
+
+            if (!Directory.Exists(rootFolder))
+                return documents;
+
+            var prefix = engineerId + "_";
+            var files = Directory.GetFiles(rootFolder)
+                .Where(path => Path.GetFileName(path).StartsWith(prefix, StringComparison.OrdinalIgnoreCase));
+
+            foreach (var filePath in files)
+            {
+                try
+                {
+                    documents.Add(new DocumentModel
+                    {
+                        DocumentName = GetDisplayDocumentName(engineerId, filePath),
+                        OriginPath = filePath,
+                        DocumentDate = File.GetCreationTime(filePath),
+                        StreamedDate = DateTime.Now,
+                        DocumentContent = File.ReadAllBytes(filePath)
+                    });
+                }
+                catch
+                {
+                }
+            }
+
+            return documents;
+        }
+
+        private static string GetDisplayDocumentName(string recordId, string filePath)
+        {
+            var fileName = Path.GetFileName(filePath);
+            var prefix = (recordId ?? string.Empty) + "_";
+            return fileName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+                ? fileName.Substring(prefix.Length)
+                : fileName;
+        }
+
+        private void PersistDocumentLinks()
+        {
+            if (_employeeModel == null) return;
+
+            _employeeModel.DocumentLink = string.Join(";",
+                _documents.Where(x => x != null && !string.IsNullOrWhiteSpace(x.OriginPath))
+                    .Select(x => x.OriginPath)
+                    .Distinct(StringComparer.OrdinalIgnoreCase));
         }
 
         private void ApplyPermissions()
@@ -147,7 +325,8 @@ namespace Spectrum.Views.Members.Engineers
 
         private void ItemNew_Click(object sender, EventArgs e)
         {
-            //btnAddNewContact_ItemClick(sender, null);
+            _employeeModel = new EmployeeModel();
+            StartLoading();
         }
 
         private void ItemEdit_Click(object sender, EventArgs e)
@@ -170,20 +349,23 @@ namespace Spectrum.Views.Members.Engineers
             StartLoading();
         }
 
-        private void btnSave_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnSave_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (ValidateData())
             {
-                SaveData();
+                await SaveDataAsync();
             }
         }
 
-        private void btnSaveAndClose_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnSaveAndClose_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (ValidateData())
             {
-                SaveData();
-                Close();
+                var saved = await SaveDataAsync();
+                if (saved)
+                {
+                    Close();
+                }
             }
         }
 
@@ -211,67 +393,23 @@ namespace Spectrum.Views.Members.Engineers
 
         #endregion
 
-        #region Save Operations
-
-        private async void SaveData()
+        private void ShowError(string message, Exception ex)
         {
-            try
-            {
-                BindingContext[bsEngineer].EndCurrentEdit();
-                _employeeModel = (EmployeeModel)bsEngineer.Current;
-
-                SplitFullName(txtName.Text);
-
-                bool isNewEngineer = string.IsNullOrEmpty(_employeeModel._id);
-
-                if (isNewEngineer)
-                {
-                    await CreateNewEngineerAsync();
-                }
-                else
-                {
-                    await UpdateExistingEngineerAsync();
-                }
-
-                SendUpdatedEngineer?.Invoke(_employeeModel, EventArgs.Empty);
-            }
-            catch (Exception ex)
-            {
-                ShowError("Error saving engineer", ex);
-            }
+            XtraMessageBox.Show(
+                $"{message}\n\nDetails: {ex.Message}",
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
         }
 
-        private async Task CreateNewEngineerAsync()
-        {
-            _logInfoRepository.CreateLogInfo(_employeeModel);
-
-            var newEngineerId = await _employeeRepository.AddNewEmployeeAsync(_employeeModel);
-
-            if (string.IsNullOrEmpty(newEngineerId))
-            {
-                throw new Exception($"Error while saving engineer: {txtName.Text}");
-            }
-        }
-
-        private async Task UpdateExistingEngineerAsync()
-        {
-            _logInfoRepository.UpdateLogInfo(_employeeModel);
-            await _employeeRepository.UpdateEmployeeAsync(_employeeModel);
-        }
-
-        #endregion
-
-        #region Validation
 
         private bool ValidateData()
         {
             var validationErrors = new List<string>();
 
-            ValidateEngineerName(validationErrors);
-            ValidateCountry(validationErrors);
-            ValidateCity(validationErrors);
-            ValidateAddress(validationErrors);
-            ValidatePhoneNumber(validationErrors);
+            ValidateEmployeeNo(validationErrors);
+            ValidateFirstName(validationErrors);
+            ValidateLastName(validationErrors);
 
             if (validationErrors.Any())
             {
@@ -282,60 +420,30 @@ namespace Spectrum.Views.Members.Engineers
             return true;
         }
 
-        private void ValidateEngineerName(List<string> errors)
+        private void ValidateEmployeeNo(List<string> errors)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
+            if (string.IsNullOrWhiteSpace(txtEmployeeNo.Text))
             {
-                errors.Add("Engineer Name cannot be empty.");
-                txtName.Focus();
+                errors.Add("Employee No cannot be empty.");
+                txtEmployeeNo.Focus();
             }
         }
 
-        private void ValidateCountry(List<string> errors)
+        private void ValidateFirstName(List<string> errors)
         {
-            if (string.IsNullOrWhiteSpace(cboNationality.Text))
+            if (string.IsNullOrWhiteSpace(txtFirstName.Text))
             {
-                errors.Add("Country Name cannot be empty.");
-                if (!errors.Any(e => e.Contains("Country Name")))
-                {
-                    cboNationality.Focus();
-                }
+                errors.Add("Employee Name cannot be empty.");
+                txtFirstName.Focus();
             }
         }
 
-        private void ValidateCity(List<string> errors)
+        private void ValidateLastName(List<string> errors)
         {
-            if (string.IsNullOrWhiteSpace(cboPlaceOfBirth.Text))
+            if (string.IsNullOrWhiteSpace(txtLastName.Text))
             {
-                errors.Add("City Region Name cannot be empty.");
-                if (errors.Count == 1)
-                {
-                    cboPlaceOfBirth.Focus();
-                }
-            }
-        }
-
-        private void ValidateAddress(List<string> errors)
-        {
-            if (string.IsNullOrWhiteSpace(txtAddress.Text))
-            {
-                errors.Add("Address Name cannot be empty.");
-                if (errors.Count == 1)
-                {
-                    txtAddress.Focus();
-                }
-            }
-        }
-
-        private void ValidatePhoneNumber(List<string> errors)
-        {
-            if (string.IsNullOrWhiteSpace(txtLocalFixPhone.Text))
-            {
-                errors.Add("At least one phone number is required.");
-                if (errors.Count == 1)
-                {
-                    txtLocalFixPhone.Focus();
-                }
+                errors.Add("Last Name cannot be empty.");
+                txtLastName.Focus();
             }
         }
 
@@ -357,80 +465,325 @@ namespace Spectrum.Views.Members.Engineers
                 "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
-        #endregion
-
-        #region Helper Methods
-
-        private void SplitFullName(string fullName)
+        private async Task<bool> SaveDataAsync()
         {
-            var trimmed = (fullName ?? string.Empty).Trim();
-            var spaceIndex = trimmed.IndexOf(' ');
-            if (spaceIndex > 0)
+            try
             {
-                _employeeModel.FirstName = trimmed.Substring(0, spaceIndex);
-                _employeeModel.LastName = trimmed.Substring(spaceIndex + 1).Trim();
+                BindingContext[bsEmployee].EndCurrentEdit();
+                BindingContext[bsWorkingpermit].EndCurrentEdit();
+                BindingContext[bsSyndicat].EndCurrentEdit();
+                BindingContext[bsEmergencyContact].EndCurrentEdit();
+                BindingContext[bsEmployeeContactInfo].EndCurrentEdit();
+                BindingContext[bsCnss].EndCurrentEdit();
+                BindingContext[bsWorkExperience].EndCurrentEdit();
+
+                _employeeModel = bsEmployee.Current as EmployeeModel;
+                if (_employeeModel == null)
+                {
+                    throw new InvalidOperationException("Employee data is not available for saving.");
+                }
+
+                PersistDocumentLinks();
+                bool isNewEmployee = string.IsNullOrEmpty(_employeeModel._id);
+                _employeeModel.EmployeeType = EmployeeTypeRepository.ResolveEmployeeTypeModel(_employeeTypes, _employeeModel.EmployeeType, EmployeeType.Engineer);
+
+                if (isNewEmployee)
+                {
+                    _logInfoRepository.CreateLogInfo(_employeeModel);
+                    await _employeeRepository.AddNewEmployeeAsync(_employeeModel);
+                }
+                else
+                {
+                    _logInfoRepository.UpdateLogInfo(_employeeModel);
+                    await _employeeRepository.UpdateEmployeeAsync(_employeeModel);
+                }
+
+                SendUpdatedEngineer(_employeeModel, EventArgs.Empty);
+                return true;
             }
-            else
+            catch (Exception ex)
             {
-                _employeeModel.FirstName = trimmed;
-                _employeeModel.LastName = string.Empty;
+                ShowError("Error saving engineer data", ex);
+                return false;
             }
         }
 
-        private bool ConfirmDelete(string itemName)
+        private void gvDocuments_ContextButtonCustomize(object sender, WinExplorerViewContextButtonCustomizeEventArgs e)
         {
-            return XtraMessageBox.Show(
-                $"Are you sure you want to delete Record: `{itemName}`?",
-                "Confirm Delete",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2) == DialogResult.Yes;
-        }
-
-        private void HandleDeleteError(Exception ex)
-        {
-            string message;
-            switch (ex.Message)
+            if (gvDocuments.FocusedRowHandle == e.RowHandle)
             {
-                case "-2146233088":
-                    message = "This record is linked to one or more transactions, delete all links first.";
-                    break;
-                default:
-                    message = ex.Message;
-                    break;
+                e.Item.AppearanceNormal.ForeColor = Color.White;
+                e.Item.AppearanceHover.ForeColor = Color.White;
+            }
+        }
+
+        private void gvDocuments_ContextButtonClick(object sender, DevExpress.Utils.ContextItemClickEventArgs e)
+        {
+            try
+            {
+                var focusedRowHandle = gvDocuments.FocusedRowHandle;
+                if (focusedRowHandle < 0)
+                {
+                    return;
+                }
+
+                var document = gvDocuments.GetRow(focusedRowHandle) as DocumentModel;
+                if (document == null || string.IsNullOrWhiteSpace(document.OriginPath))
+                {
+                    return;
+                }
+
+                var result = XtraMessageBox.Show(
+                    $"Are you sure you want to delete '{document.DocumentName}'?\n\nThis will permanently delete the file from disk.",
+                    "Confirm Delete",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2);
+
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
+
+                // Delete the physical file
+                if (File.Exists(document.OriginPath))
+                {
+                    File.Delete(document.OriginPath);
+                }
+
+                // Remove from the binding list
+                _documents.RemoveAt(focusedRowHandle);
+
+                XtraMessageBox.Show("Document deleted successfully.", "Delete Document", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                XtraMessageBox.Show($"Access denied: {ex.Message}\n\nPlease check file permissions.", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException ex)
+            {
+                XtraMessageBox.Show($"File error: {ex.Message}\n\nThe file may be in use by another application.", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show($"Error deleting document: {ex.Message}", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void gvDocuments_FocusedRowChanged(object sender, FocusedRowChangedEventArgs e)
+        {
+            gvDocuments.RefreshContextButtons();
+        }
+
+        private void gvDocuments_DoubleClick(object sender, EventArgs e)
+        {
+            OpenSelectedDocument();
+        }
+
+        private void OpenSelectedDocument()
+        {
+            try
+            {
+                var document = gvDocuments.GetFocusedRow() as DocumentModel;
+                if (document == null || string.IsNullOrWhiteSpace(document.OriginPath) || !File.Exists(document.OriginPath))
+                {
+                    return;
+                }
+
+                Process.Start(document.OriginPath);
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(ex.Message, "Open Document", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void openDocuments_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            try
+            {
+                var engineerId = _employeeModel?._id;
+                if (string.IsNullOrWhiteSpace(engineerId))
+                {
+                    XtraMessageBox.Show("Please save the engineer record first to generate an ID for archived attachments.", "Save Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                var ofd = new OpenFileDialog
+                {
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    Multiselect = true,
+                    Filter = @"All Files (*.*)|*.*" +
+                             @"|PDF Portable Document Format (*.pdf)|*.pdf" +
+                             @"|PNG Portable Network Graphics (*.png)|*.png" +
+                             @"|JPEG File Interchange Format (*.jpg *.jpeg *jfif)|*.jpg;*.jpeg;*.jfif" +
+                             @"|BMP Windows Bitmap (*.bmp)|*.bmp" +
+                             @"|TIF Tagged Imaged File Format (*.tif *.tiff)|*.tif;*.tiff" +
+                             @"|GIF Graphics Interchange Format (*.gif)|*.gif"
+                };
+
+                if (ofd.ShowDialog() != DialogResult.OK) return;
+
+                var connection = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
+                var rootFolder = string.IsNullOrWhiteSpace(connection?.EngineersDocumentsFolder)
+                    ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpectrumApp", "Engineers")
+                    : connection.EngineersDocumentsFolder;
+                Directory.CreateDirectory(rootFolder);
+
+                foreach (var file in ofd.FileNames)
+                {
+                    try
+                    {
+                        string fileName = Path.GetFileName(file);
+                        string archivedFileName = engineerId + "_" + fileName;
+                        string destinationPath = Path.Combine(rootFolder, archivedFileName);
+
+                        if (File.Exists(destinationPath))
+                        {
+                            var result = XtraMessageBox.Show($"File '{archivedFileName}' already exists. Overwrite?", "Confirm Overwrite", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                            if (result == DialogResult.Cancel)
+                            {
+                                break;
+                            }
+                            if (result == DialogResult.No)
+                            {
+                                continue;
+                            }
+                        }
+
+                        File.Copy(file, destinationPath, true);
+
+                        var newDocument = new DocumentModel
+                        {
+                            DocumentName = fileName,
+                            OriginPath = destinationPath,
+                            DocumentDate = File.GetCreationTime(destinationPath),
+                            StreamedDate = DateTime.Now,
+                            DocumentContent = File.ReadAllBytes(destinationPath)
+                        };
+
+                        bsDocuments.Add(newDocument);
+                    }
+                    catch (Exception ex)
+                    {
+                        XtraMessageBox.Show(ex.Message, @"Copy Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                PersistDocumentLinks();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #region Context Menu Events
+
+        private void btnEditContact_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (_employeeModel.ContactInfo == null)
+            {
+                _employeeModel.ContactInfo = new EmployeeContactInfo();
             }
 
-            XtraMessageBox.Show(message, "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            bsEmployeeContactInfo.DataSource = _employeeModel.ContactInfo;
+            bsEmployee.ResetBindings(false);
+            XtraMessageBox.Show("Edit contact information in the Engineer Info tab.", "Engineer Contact Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void ShowError(string message, Exception ex)
+        private void btnDeleteContact_ItemClick(object sender, ItemClickEventArgs e)
         {
-            XtraMessageBox.Show(
-                $"{message}\n\nDetails: {ex.Message}",
-                "Error",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+            var contactInfo = _employeeModel.ContactInfo;
+
+            if (contactInfo != null)
+            {
+                var result = XtraMessageBox.Show("Are you sure you want to delete this contact information?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    _employeeModel.ContactInfo = new EmployeeContactInfo();
+                    bsEmployeeContactInfo.DataSource = _employeeModel.ContactInfo;
+                    bsEmployee.ResetBindings(false);
+                }
+            }
         }
 
-        #endregion
-
-        private void cboStatus_AddNewValue(object sender, AddNewValueEventArgs e)
+        private void cboBloodType_AddNewValue(object sender, AddNewValueEventArgs e)
         {
-            //StatusEditForm frm = new StatusEditForm(new StatusModel());
-            //frm.SendUpdatedStatus += RcvUpdatedStatusAsync;
-            //frm.ShowDialog();
+            BloodTypeEditForm frm = new BloodTypeEditForm(new BloodTypeModel());
+            frm.SendUpdatedBloodType += RcvUpdatedBloodTypeAsync;
+            frm.ShowDialog();
         }
 
-        private void RcvUpdatedStatusAsync(object sender, EventArgs e)
+        private void RcvUpdatedBloodTypeAsync(object sender, EventArgs e)
         {
             if (sender == null) return;
-            //var statusModel = sender as StatusModel;
+            _bloodTypeModel = sender as BloodTypeModel;
 
-            //_status.Add(statusModel);
+            _bloodTypes.Add(_bloodTypeModel);
 
-            //cboStatus.Properties.DataSource = null;
-            //cboStatus.Properties.DataSource = _status;
-            //if (statusModel != null) cboStatus.EditValue = statusModel._id;
+            cboBloodType.Properties.DataSource = null;
+            cboBloodType.Properties.DataSource = _bloodTypes;
+            if (_bloodTypeModel != null) cboBloodType.EditValue = _bloodTypeModel._id;
         }
+
+        private void cboPlaceOfBirth_AddNewValue(object sender, AddNewValueEventArgs e)
+        {
+            CityEditForm frm = new CityEditForm(new CityModel());
+            frm.SendUpdatedCity += RcvUpdatedCityAsync;
+            frm.ShowDialog();
+        }
+
+        private void RcvUpdatedCityAsync(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _cityModel = sender as CityModel;
+
+            _cities.Add(_cityModel);
+
+            cboPlaceOfBirth.Properties.DataSource = null;
+            cboPlaceOfBirth.Properties.DataSource = _cities;
+            if (_cityModel != null) cboPlaceOfBirth.EditValue = _cityModel._id;
+        }
+
+        private void cboNationality_AddNewValue(object sender, AddNewValueEventArgs e)
+        {
+            CountryEditForm frm = new CountryEditForm(new CountryModel());
+            frm.SendUpdatedCountry += RcvUpdatedCountryAsync;
+            frm.ShowDialog();
+        }
+
+        private void RcvUpdatedCountryAsync(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _countryModel = sender as CountryModel;
+
+            _countries.Add(_countryModel);
+
+            cboNationality.Properties.DataSource = null;
+            cboNationality.Properties.DataSource = _countries;
+            if (_countryModel != null) cboNationality.EditValue = _countryModel._id;
+        }
+
+        private void cboFamilyStatus_AddNewValue(object sender, AddNewValueEventArgs e)
+        {
+            StatusEditForm frm = new StatusEditForm(new StatusModel());
+            frm.SendUpdatedStatus += RcvUpdatedFamilyStatusAsync;
+            frm.ShowDialog();
+        }
+
+        private void RcvUpdatedFamilyStatusAsync(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _statusModel = sender as StatusModel;
+
+            _status.Add(_statusModel);
+
+            cboFamilyStatus.Properties.DataSource = null;
+            cboFamilyStatus.Properties.DataSource = _status;
+            if (_statusModel != null) cboFamilyStatus.EditValue = _statusModel._id;
+        }
+
+        #endregion
     }
 }

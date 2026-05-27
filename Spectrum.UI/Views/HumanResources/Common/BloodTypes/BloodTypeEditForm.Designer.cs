@@ -267,7 +267,7 @@
             // 
             // bsBloodType
             // 
-            this.bsBloodType.DataSource = typeof(SpectrumV1.Models.HumanResources.BloodTypes.BloodTypeModel);
+            this.bsBloodType.DataSource = typeof(Spectrum.Models.HumanResources.BloodTypes.BloodTypeModel);
             // 
             // BloodTypeEditForm
             // 

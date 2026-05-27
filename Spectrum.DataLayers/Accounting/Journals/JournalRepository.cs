@@ -1,13 +1,14 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using Spectrum.DataLayers.DataAccess;
-using SpectrumV1.Models.Accounting.Journals;
+using Spectrum.Models.Accounting.Journals;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.Accounting.Journals
+namespace Spectrum.DataLayers.Accounting.Journals
 {
     public class JournalRepository : IJournalRepository, IDisposable
     {
@@ -39,6 +40,35 @@ namespace SpectrumV1.DataLayers.Accounting.Journals
             var pattern = "^" + Regex.Escape(jvNo.Trim()) + "$"; // exact match
             var filter = Builders<JournalModel>.Filter.Regex(u => u.JvNo, new BsonRegularExpression(pattern, "i"));
             return await _journals.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<string> GetNextJvNoAsync(int workingYear)
+        {
+            var filter = Builders<JournalModel>.Filter.Eq(journal => journal.WorkingYear, workingYear);
+            var journals = await _journals.Find(filter)
+                .Project(journal => journal.JvNo)
+                .ToListAsync();
+
+            var nextJvNo = journals
+                .Select(ParseJvNo)
+                .DefaultIfEmpty(0)
+                .Max() + 1;
+
+            return nextJvNo.ToString();
+        }
+
+        public async Task<string> GetNextReferenceAsync()
+        {
+            var references = await _journals.Find(journal => true)
+                .Project(journal => journal.Reference)
+                .ToListAsync();
+
+            var nextReference = references
+                .Select(ParseReference)
+                .DefaultIfEmpty(0)
+                .Max() + 1;
+
+            return nextReference.ToString().PadLeft(6, '0');
         }
 
         /// <summary>
@@ -94,6 +124,16 @@ namespace SpectrumV1.DataLayers.Accounting.Journals
         public async Task<long> GetCountAsync()
         {
             return await _journals.CountDocumentsAsync(new BsonDocument());
+        }
+
+        private static int ParseJvNo(string jvNo)
+        {
+            return int.TryParse(jvNo, out var parsedJvNo) ? parsedJvNo : 0;
+        }
+
+        private static int ParseReference(string reference)
+        {
+            return int.TryParse(reference, out var parsedReference) ? parsedReference : 0;
         }
 
         #region Implementation of IDisposable

@@ -267,7 +267,7 @@
             // 
             // bsFlowType
             // 
-            this.bsFlowType.DataSource = typeof(SpectrumV1.Models.Accounting.FlowType.FlowTypeModel);
+            this.bsFlowType.DataSource = typeof(Spectrum.Models.Accounting.FlowType.FlowTypeModel);
             // 
             // FlowTypeEditForm
             // 

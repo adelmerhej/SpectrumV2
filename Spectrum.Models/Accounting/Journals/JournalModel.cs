@@ -2,9 +2,10 @@
 using Spectrum.Models;
 using System;
 
-namespace SpectrumV1.Models.Accounting.Journals
+namespace Spectrum.Models.Accounting.Journals
 {
-    public class JournalModel : EntityObject, ICloneable
+    public class 
+        JournalModel : EntityObject, ICloneable
     {
         [BsonElement("JvNo")]
         public string JvNo { get; set; }

@@ -1,13 +1,13 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using Spectrum.DataLayers.DataAccess;
-using SpectrumV1.Models.Accounting.Banks;
+using Spectrum.Models.Accounting.Banks;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.Accounting.Banks
+namespace Spectrum.DataLayers.Accounting.Banks
 {
     public class BankRepository : IBankRepository, IDisposable
     {
@@ -35,6 +35,18 @@ namespace SpectrumV1.DataLayers.Accounting.Banks
         public async Task<BankModel> GetBankByIdAsync(string id)
         {
             var filter = Builders<BankModel>.Filter.Eq(u => u._id, id);
+            return await _banks.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<BankModel> GetDefaultBankAsync(string excludedId = null)
+        {
+            var filter = Builders<BankModel>.Filter.Eq(u => u.IsDefault, true);
+
+            if (!string.IsNullOrWhiteSpace(excludedId))
+            {
+                filter &= Builders<BankModel>.Filter.Ne(u => u._id, excludedId);
+            }
+
             return await _banks.Find(filter).FirstOrDefaultAsync();
         }
 

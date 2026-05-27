@@ -1,16 +1,13 @@
 ﻿using Spectrum.Models;
 using System;
 
-namespace SpectrumV1.Models.Accounting.JournalType
+namespace Spectrum.Models.Accounting.JournalType
 {
     public class JournalTypeModel : EntityObject, ICloneable
     {
         public string Code { get; set; }
         public string Name { get; set; }
-        public int ChartId { get; set; }
         public string SpecialReport { get; set; }
-
-
 
         #region Implementation of ICloneable
 

@@ -18,16 +18,15 @@ namespace Spectrum.Models.Users
 		public int ProvinceId { get; set; }
 		public DateTime? BirthDate { get; set; }
 
-		#region Implementation of ICloneable
+        #region Implementation of ICloneable
 
-		/// <summary>Creates a new object that is a copy of the current instance.</summary>
-		/// <returns>A new object that is a copy of this instance.</returns>
-		public object Clone()
-		{
-			var recordModel = (UserDetailModel)MemberwiseClone();
-			return recordModel;
-		}
+        /// <summary>Creates a new object that is a copy of the current instance.</summary>
+        /// <returns>A new object that is a copy of this instance.</returns>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

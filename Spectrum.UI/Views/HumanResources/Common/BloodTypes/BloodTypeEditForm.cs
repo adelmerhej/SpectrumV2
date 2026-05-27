@@ -1,8 +1,8 @@
 ﻿using DevExpress.XtraEditors;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Utilities;
-using SpectrumV1.DataLayers.HumanResources.BloodTypes;
-using SpectrumV1.Models.HumanResources.BloodTypes;
+using Spectrum.DataLayers.HumanResources.BloodTypes;
+using Spectrum.Models.HumanResources.BloodTypes;
 using System;
 using System.Text;
 using System.Threading.Tasks;

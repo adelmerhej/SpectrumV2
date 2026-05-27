@@ -71,7 +71,7 @@
             // 
             // bsEmployeeTypes
             // 
-            this.bsEmployeeTypes.DataSource = typeof(SpectrumV1.Models.HumanResources.EmployeeTypes.EmployeeTypeModel);
+            this.bsEmployeeTypes.DataSource = typeof(Spectrum.Models.HumanResources.EmployeeTypes.EmployeeTypeModel);
             // 
             // rcEmployeeTypeList
             // 

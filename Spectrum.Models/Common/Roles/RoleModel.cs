@@ -2,7 +2,7 @@
 using Spectrum.Models;
 using System;
 
-namespace SpectrumV1.Models.Common.Roles
+namespace Spectrum.Models.Common.Roles
 {
     public class RoleModel : EntityObject, ICloneable
     {

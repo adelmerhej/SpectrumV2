@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
             this.gcChartDetails = new DevExpress.XtraGrid.GridControl();
+            this.bsChartDetails = new System.Windows.Forms.BindingSource(this.components);
             this.gvChartDetails = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCurrencyId = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -53,12 +54,12 @@
             this.colLocked = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repCharts = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.chkLocked = new DevExpress.XtraEditors.CheckEdit();
+            this.bsChart = new System.Windows.Forms.BindingSource(this.components);
             this.chkProtected = new DevExpress.XtraEditors.CheckEdit();
             this.chkActive = new DevExpress.XtraEditors.CheckEdit();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.txtAccountName = new DevExpress.XtraEditors.TextEdit();
-            this.bsChart = new System.Windows.Forms.BindingSource(this.components);
             this.txtAccountNumber = new DevExpress.XtraEditors.TextEdit();
             this.txtSerial = new DevExpress.XtraEditors.TextEdit();
             this.txtNotes = new DevExpress.XtraEditors.MemoEdit();
@@ -83,20 +84,20 @@
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.bsChartDetails = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcChartDetails)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsChartDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvChartDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCurrencies)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCostsCenter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkFormat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCharts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkLocked.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkProtected.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAccountName.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAccountNumber.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSerial.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).BeginInit();
@@ -121,7 +122,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsChartDetails)).BeginInit();
             this.SuspendLayout();
             // 
             // mainLayout
@@ -161,6 +161,10 @@
             this.gcChartDetails.TabIndex = 17;
             this.gcChartDetails.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvChartDetails});
+            // 
+            // bsChartDetails
+            // 
+            this.bsChartDetails.DataSource = typeof(Spectrum.Models.Accounting.Charts.ChartDetailModel);
             // 
             // gvChartDetails
             // 
@@ -413,20 +417,24 @@
             // chkLocked
             // 
             this.chkLocked.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Locked", true));
-            this.chkLocked.Location = new System.Drawing.Point(446, 296);
+            this.chkLocked.Location = new System.Drawing.Point(489, 296);
             this.chkLocked.Name = "chkLocked";
             this.chkLocked.Properties.Caption = "Locked";
-            this.chkLocked.Size = new System.Drawing.Size(131, 24);
+            this.chkLocked.Size = new System.Drawing.Size(108, 24);
             this.chkLocked.StyleController = this.mainLayout;
             this.chkLocked.TabIndex = 16;
+            // 
+            // bsChart
+            // 
+            this.bsChart.DataSource = typeof(Spectrum.Models.Accounting.Charts.ChartModel);
             // 
             // chkProtected
             // 
             this.chkProtected.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "IsProtected", true));
-            this.chkProtected.Location = new System.Drawing.Point(303, 296);
+            this.chkProtected.Location = new System.Drawing.Point(260, 296);
             this.chkProtected.Name = "chkProtected";
             this.chkProtected.Properties.Caption = "Protected";
-            this.chkProtected.Size = new System.Drawing.Size(139, 24);
+            this.chkProtected.Size = new System.Drawing.Size(225, 24);
             this.chkProtected.StyleController = this.mainLayout;
             this.chkProtected.TabIndex = 15;
             this.chkProtected.Visible = false;
@@ -434,10 +442,10 @@
             // chkActive
             // 
             this.chkActive.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Active", true));
-            this.chkActive.Location = new System.Drawing.Point(581, 296);
+            this.chkActive.Location = new System.Drawing.Point(601, 296);
             this.chkActive.Name = "chkActive";
             this.chkActive.Properties.Caption = "Active";
-            this.chkActive.Size = new System.Drawing.Size(157, 24);
+            this.chkActive.Size = new System.Drawing.Size(137, 24);
             this.chkActive.StyleController = this.mainLayout;
             this.chkActive.TabIndex = 14;
             // 
@@ -470,10 +478,6 @@
             this.txtAccountName.Size = new System.Drawing.Size(587, 22);
             this.txtAccountName.StyleController = this.mainLayout;
             this.txtAccountName.TabIndex = 8;
-            // 
-            // bsChart
-            // 
-            this.bsChart.DataSource = typeof(Spectrum.Models.Accounting.Charts.ChartModel);
             // 
             // txtAccountNumber
             // 
@@ -669,31 +673,31 @@
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.chkActive;
-            this.layoutControlItem1.Location = new System.Drawing.Point(567, 282);
+            this.layoutControlItem1.Location = new System.Drawing.Point(587, 282);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(161, 28);
+            this.layoutControlItem1.Size = new System.Drawing.Size(141, 28);
             this.layoutControlItem1.TextVisible = false;
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.chkProtected;
-            this.layoutControlItem2.Location = new System.Drawing.Point(289, 282);
+            this.layoutControlItem2.Location = new System.Drawing.Point(246, 282);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(143, 28);
+            this.layoutControlItem2.Size = new System.Drawing.Size(229, 28);
             this.layoutControlItem2.TextVisible = false;
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.Location = new System.Drawing.Point(0, 282);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(289, 28);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(246, 28);
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.chkLocked;
-            this.layoutControlItem3.Location = new System.Drawing.Point(432, 282);
+            this.layoutControlItem3.Location = new System.Drawing.Point(475, 282);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(135, 28);
+            this.layoutControlItem3.Size = new System.Drawing.Size(112, 28);
             this.layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem4
@@ -703,10 +707,6 @@
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(728, 179);
             this.layoutControlItem4.TextVisible = false;
-            // 
-            // bsChartDetails
-            // 
-            this.bsChartDetails.DataSource = typeof(Spectrum.Models.Accounting.Charts.ChartDetailModel);
             // 
             // ChartEditForm
             // 
@@ -721,16 +721,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcChartDetails)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsChartDetails)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvChartDetails)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCurrencies)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCostsCenter)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkFormat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCharts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkLocked.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsChart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkProtected.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAccountName.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsChart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAccountNumber.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSerial.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNotes.Properties)).EndInit();
@@ -755,7 +756,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsChartDetails)).EndInit();
             this.ResumeLayout(false);
 
 		}

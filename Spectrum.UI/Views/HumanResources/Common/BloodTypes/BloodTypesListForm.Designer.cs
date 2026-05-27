@@ -299,7 +299,7 @@
             // 
             // bsBloodTypes
             // 
-            this.bsBloodTypes.DataSource = typeof(SpectrumV1.Models.HumanResources.BloodTypes.BloodTypeModel);
+            this.bsBloodTypes.DataSource = typeof(Spectrum.Models.HumanResources.BloodTypes.BloodTypeModel);
             // 
             // colBloodTypeName
             // 

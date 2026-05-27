@@ -1,8 +1,8 @@
-﻿using SpectrumV1.Models.HumanResources.BloodTypes;
+﻿using Spectrum.Models.HumanResources.BloodTypes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SpectrumV1.DataLayers.HumanResources.BloodTypes
+namespace Spectrum.DataLayers.HumanResources.BloodTypes
 {
     public interface IBloodTypeRepository
     {

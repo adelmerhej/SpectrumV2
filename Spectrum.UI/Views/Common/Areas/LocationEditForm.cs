@@ -150,14 +150,6 @@ namespace Spectrum.Views.Common.Areas
 				txtName.Focus();
 			}
 
-			if (txtCode.Text == "")
-			{
-				messageNumber += 1;
-				validateMessage.Append("\n- Code cannot be empty.");
-				validateReturnValue = false;
-				txtCode.Focus();
-			}
-
 			if (!validateReturnValue)
 			{
 				validateMessage.Insert(0, "The following need your attention:");

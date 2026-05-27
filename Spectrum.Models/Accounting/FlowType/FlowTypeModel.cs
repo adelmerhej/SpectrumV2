@@ -2,7 +2,7 @@
 using Spectrum.Models;
 using System;
 
-namespace SpectrumV1.Models.Accounting.FlowType
+namespace Spectrum.Models.Accounting.FlowType
 {
     public class FlowTypeModel : EntityObject, ICloneable
     {

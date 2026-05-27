@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JournalsListForm));
             this.gvJournalDetails = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -106,6 +107,7 @@
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.bsJournals = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gvJournalDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCharts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repChartList)).BeginInit();
@@ -126,6 +128,7 @@
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsJournals)).BeginInit();
             this.SuspendLayout();
             // 
             // gvJournalDetails
@@ -491,6 +494,7 @@
             // 
             // gcJournals
             // 
+            this.gcJournals.DataSource = this.bsJournals;
             this.gcJournals.EmbeddedNavigator.Buttons.Append.Visible = false;
             this.gcJournals.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
             this.gcJournals.EmbeddedNavigator.Buttons.Edit.Visible = false;
@@ -977,6 +981,10 @@
             this.layoutControlItem1.Size = new System.Drawing.Size(1355, 515);
             this.layoutControlItem1.TextVisible = false;
             // 
+            // bsJournals
+            // 
+            this.bsJournals.DataSource = typeof(Spectrum.Models.Accounting.Journals.JournalModel);
+            // 
             // JournalsListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1010,6 +1018,7 @@
             this.mainLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsJournals)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1093,5 +1102,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit repWorkingYears;
         private DevExpress.XtraGrid.Views.Grid.GridView repositoryItemSearchLookUpEdit1View;
+        private System.Windows.Forms.BindingSource bsJournals;
     }
 }

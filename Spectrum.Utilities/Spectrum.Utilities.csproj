@@ -7,8 +7,8 @@
     <ProjectGuid>{9D7624DA-A00A-4D68-B72D-D432438D4E13}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpectrumV1.Utilities</RootNamespace>
-    <AssemblyName>SpectrumV1.Utilities</AssemblyName>
+    <RootNamespace>Spectrum.Utilities</RootNamespace>
+    <AssemblyName>Spectrum.Utilities</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

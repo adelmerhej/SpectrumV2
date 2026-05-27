@@ -1,7 +1,7 @@
 ﻿using Spectrum.Models;
 using System;
 
-namespace SpectrumV1.Models.Common.Documents
+namespace Spectrum.Models.Common.Documents
 {
     public class DocumentModel : EntityObject
     {

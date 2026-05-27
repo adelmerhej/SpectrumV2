@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Accounting.Charts;
 using Spectrum.Utilities.Enums;
+using Spectrum.Models.Accounting.Banks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,6 +66,17 @@ namespace Spectrum.DataLayers.Accounting.Charts
             return await _charts.Find(filter).ToListAsync();
         }
 
+        public async Task<ChartModel> GetDefaultChartAsync(string excludedId = null)
+        {
+            var filter = Builders<ChartModel>.Filter.Eq(u => u.IsDefault, true);
+
+            if (!string.IsNullOrWhiteSpace(excludedId))
+            {
+                filter &= Builders<ChartModel>.Filter.Ne(u => u._id, excludedId);
+            }
+
+            return await _charts.Find(filter).FirstOrDefaultAsync();
+        }
 
         public string GetNewSerial(string accountNumber, string company)
 		{
