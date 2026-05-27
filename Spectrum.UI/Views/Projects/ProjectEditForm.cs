@@ -1,7 +1,10 @@
+using DevExpress.Utils.Menu;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraGrid.Menu;
+using DevExpress.XtraGrid.Views.Grid;
 using Spectrum.DataLayers.Common.Areas;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.Common.Locations;
@@ -10,6 +13,7 @@ using Spectrum.DataLayers.DataAccess;
 using Spectrum.DataLayers.HumanResources.Employees;
 using Spectrum.DataLayers.Members.Clients;
 using Spectrum.DataLayers.Projects;
+using Spectrum.DataLayers.Projects.Settings.Addendum;
 using Spectrum.DataLayers.Users;
 using Spectrum.Models.Common.Areas;
 using Spectrum.Models.Common.Countries;
@@ -24,9 +28,11 @@ using Spectrum.Views.Common.Countries;
 using Spectrum.Views.Common.Services;
 using Spectrum.Views.Members.Clients;
 using Spectrum.Views.Members.Engineers;
+using Spectrum.Views.Projects.Settings.Addendum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +60,9 @@ namespace Spectrum.Views.Projects
         private IList<CityModel> _cities = new List<CityModel>();
         private CityModel _cityModel = new CityModel();
 
+        private AddendumModel _addendumModel = new AddendumModel();
+        private IList<AddendumModel> _addendums = new List<AddendumModel>();
+
         private IList<AreaModel> _areas = new List<AreaModel>();
         private AreaModel _areaModel = new AreaModel();
         private IList<LocationModel> _locations = new List<LocationModel>();
@@ -72,6 +81,7 @@ namespace Spectrum.Views.Projects
         private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
         private readonly LocationRepository _locationRepository = new LocationRepository(DatabaseFactory.ProfilePrimary);
         private readonly AreaRepository _areaRepository = new AreaRepository(DatabaseFactory.ProfilePrimary);
+        private readonly AddendumRepository _addendumRepository = new AddendumRepository(DatabaseFactory.ProfilePrimary);
 
         private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
@@ -81,6 +91,8 @@ namespace Spectrum.Views.Projects
         private bool _canPrint = true;
         private bool _isAdmin = true;
         private bool _isProtected = true;
+
+        private DXMenuItem[] _addendumMenuItems;
 
         public EventHandler SendUpdatedProject;
 
@@ -100,6 +112,7 @@ namespace Spectrum.Views.Projects
                 WireUpBindings();
                 ApplyDefaults();
                 ApplyPermissions();
+                InitializeMenuItems();
             }
             catch (Exception ex)
             {
@@ -123,6 +136,7 @@ namespace Spectrum.Views.Projects
                     LoadAreasAsync(),
                     LoadCountriesAsync(),
                     LoadCitiesAsync(),
+                    LoadAddendumsAsync(),
                 };
 
                 await Task.WhenAll(loadTasks);
@@ -131,6 +145,19 @@ namespace Spectrum.Views.Projects
             {
                 throw new Exception("Error loading form data", ex);
             }
+        }
+
+        private void InitializeMenuItems()
+        {
+            _addendumMenuItems = new[]
+            {
+                new DXMenuItem("New", ItemNew_Click),
+                new DXMenuItem("Edit", ItemEdit_Click),
+                new DXMenuItem("Delete", ItemDelete_Click)
+            };
+
+            gvAddendum.PopupMenuShowing -= gvAddendum_PopupMenuShowing;
+            gvAddendum.PopupMenuShowing += gvAddendum_PopupMenuShowing;
         }
 
         #region Data Loading Methods
@@ -178,6 +205,13 @@ namespace Spectrum.Views.Projects
         {
             _cities = await _cityRepository.GetCitiesAsync();
         }
+
+        private async Task LoadAddendumsAsync()
+        {
+            await Task.CompletedTask;
+            _addendums = (_projectModel.Addendums ?? new List<AddendumModel>()).ToList();
+        }
+
         #endregion
 
         #endregion
@@ -195,6 +229,8 @@ namespace Spectrum.Views.Projects
             bsProject.DataSource = _projectModel;
             bsContractDetails.DataSource = _projectModel.ContractDetails;
             bsLocationInfo.DataSource = _projectModel.Location;
+
+            gcAddendum.DataSource = _addendums;
 
             ConfigureLookupBindings();
 
@@ -236,6 +272,23 @@ namespace Spectrum.Views.Projects
 
             //cboStatus.Properties.Items.Clear();
             //cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
+
+            var fontStyle = _projectModel.IsProtected ? FontStyle.Bold : FontStyle.Regular;
+            var foreColor = _projectModel.IsProtected ? Color.Red : Color.Black;
+            var font = new Font("Tahoma", 8, fontStyle);
+
+            var appearances = new[]
+            {
+                btnProtected.ItemAppearance.Normal,
+                btnProtected.ItemAppearance.Hovered,
+                btnProtected.ItemAppearance.Pressed
+            };
+
+            foreach (var appearance in appearances)
+            {
+                appearance.Font = font;
+                appearance.ForeColor = foreColor;
+            }
         }
 
         #endregion
@@ -356,6 +409,87 @@ namespace Spectrum.Views.Projects
             return true;
         }
 
+        private void ItemNew_Click(object sender, EventArgs e)
+        {
+            if (!CanManageAddendums()) return;
+
+            _addendumModel = new AddendumModel();
+
+            AddendumEditForm form = new AddendumEditForm(_addendumModel, _addendums);
+            form.SendUpdatedAddendum += RcvUpdatedAddendum;
+            form.ShowDialog();
+        }
+
+        private void ItemEdit_Click(object sender, EventArgs e)
+        {
+            if (!CanManageAddendums()) return;
+
+            var addendumId = gvAddendum.GetFocusedRowCellValue("_id")?.ToString();
+
+            if (string.IsNullOrWhiteSpace(addendumId)) return;
+
+            _addendumModel = _addendums.FirstOrDefault(x => x._id == addendumId) ?? new AddendumModel();
+            AddendumEditForm form = new AddendumEditForm(_addendumModel, _addendums);
+            form.SendUpdatedAddendum += RcvUpdatedAddendum;
+            form.ShowDialog();
+        }
+
+        private void ItemDelete_Click(object sender, EventArgs e)
+        {
+            if (!CanManageAddendums()) return;
+
+            if (!ConfirmAction("Delete row?", "Confirmation")) return;
+            gvAddendum.SetRowCellValue(gvAddendum.FocusedRowHandle, "Deleted", true);
+        }
+
+        private void gvAddendum_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
+        {
+            if (!CanManageAddendums())
+            {
+                e.Menu = null;
+                return;
+            }
+
+            if (e.MenuType != GridMenuType.Row && e.MenuType != GridMenuType.User) return;
+
+            var view = sender as GridView;
+            if (view == null) return;
+
+            if (e.HitInfo.InRow || e.HitInfo.InRowCell)
+            {
+                view.FocusedRowHandle = e.HitInfo.RowHandle;
+            }
+
+            if (e.Menu == null)
+            {
+                e.Menu = new GridViewMenu(view);
+            }
+
+            e.Menu.Items.Clear();
+            foreach (var menuItem in _addendumMenuItems)
+            {
+                e.Menu.Items.Add(menuItem);
+            }
+        }
+
+        private bool CanManageAddendums()
+        {
+            if (!ValidateData() || string.IsNullOrWhiteSpace(_projectModel?._id))
+            {
+                XtraMessageBox.Show("Finish project first, then add addendum.", "Addendum",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ConfirmAction(string message, string title)
+        {
+            return XtraMessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2) == DialogResult.Yes;
+        }
+
         #region ApplyDefaults and Permissions Methods
         private void ApplyDefaults()
         {
@@ -373,6 +507,7 @@ namespace Spectrum.Views.Projects
             btnSaveAndClose.Enabled = _isAdmin || _canEdit;
             btnPrint.Enabled = _isAdmin || _canPrint;
             btnDelete.Enabled = _isAdmin || _canDelete;
+            btnProtected.Enabled = _isAdmin || _isProtected;
         }
 
         #endregion
@@ -901,6 +1036,81 @@ namespace Spectrum.Views.Projects
             catch (Exception ex)
             {
                 ShowError("Error while selecting location", ex);
+            }
+        }
+
+        private void gvAddendum_DoubleClick(object sender, EventArgs e)
+        {
+            if (!CanManageAddendums()) return;
+
+            var addendumId = gvAddendum.GetFocusedRowCellValue("_id")?.ToString();
+
+            if (string.IsNullOrWhiteSpace(addendumId))
+            {
+                _addendumModel = new AddendumModel();
+            }
+            else
+            {
+                _addendumModel = _addendums.FirstOrDefault(x => x._id == addendumId) ?? new AddendumModel();
+            }
+
+            AddendumEditForm form = new AddendumEditForm(_addendumModel, _addendums);
+            form.SendUpdatedAddendum += RcvUpdatedAddendum;
+            form.ShowDialog();
+        }
+
+        private void RcvUpdatedAddendum(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+
+            _addendumModel = sender as AddendumModel;
+            if (_addendumModel == null) return;
+
+            var existingAddendum = _addendums.FirstOrDefault(x => x._id == _addendumModel._id);
+            if (existingAddendum == null)
+            {
+                _addendums.Add(_addendumModel);
+            }
+            else
+            {
+                var index = _addendums.IndexOf(existingAddendum);
+                if (index >= 0)
+                {
+                    _addendums[index] = _addendumModel;
+                }
+            }
+
+            _projectModel.Addendums = _addendums.ToList();
+            gcAddendum.DataSource = null;
+            gcAddendum.DataSource = _addendums;
+            gvAddendum.RefreshData();
+        }
+
+        private void btnProtected_CheckedChanged(object sender, ItemClickEventArgs e)
+        {
+            _projectModel.IsProtected = btnProtected.Checked;
+
+            var fontStyle = btnProtected.Checked
+                ? FontStyle.Bold
+                : FontStyle.Regular;
+
+            var foreColor = btnProtected.Checked
+                ? Color.Red
+                : Color.Black;
+
+            var font = new Font("Tahoma", 8, fontStyle);
+
+            var appearances = new[]
+            {
+                btnProtected.ItemAppearance.Normal,
+                btnProtected.ItemAppearance.Hovered,
+                btnProtected.ItemAppearance.Pressed
+            };
+
+            foreach (var appearance in appearances)
+            {
+                appearance.Font = font;
+                appearance.ForeColor = foreColor;
             }
         }
     }

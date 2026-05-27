@@ -19,6 +19,8 @@ namespace Spectrum.Views.Upgrade
 {
     public partial class ChartMigrateForm : XtraForm
     {
+        private static readonly string[] RequiredChartColumns = { "acno", "glacno", "acname1", "detail", "crid" };
+
         private ConnectionModel _connectionModel = new ConnectionModel();
         private ChartModel _chartModel = new ChartModel();
         private IList<ChartDetailModel> _chartDetails = new List<ChartDetailModel>();
@@ -172,7 +174,8 @@ namespace Spectrum.Views.Upgrade
                 MessageBoxIcon.Error);
         }
 
-        private void btnReadFile_Click(object sender, EventArgs e)
+        private void btnReadFile_Click
+            (object sender, EventArgs e)
         {
             try
             {
@@ -192,9 +195,16 @@ namespace Spectrum.Views.Upgrade
                 progressBarLayout.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
                 progressBarControl1.Position = 0;
 
-                var previewTable = LoadPreviewTable(filePath);
+                var sourceTable = LoadPreviewTable(filePath);
+                if (!TryCreatePreviewTable(sourceTable, out var previewTable))
+                {
+                    gcPreview.DataSource = null;
+                    UpdatePreviewCounter(0, 0, 0);
+                    XtraMessageBox.Show("This is not chart of account file.", "Read file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 gcPreview.DataSource = previewTable;
-                gvPreview.PopulateColumns();
                 gvPreview.BestFitColumns();
 
                 progressBarControl1.Position = 100;
@@ -215,6 +225,78 @@ namespace Spectrum.Views.Upgrade
         private DataTable LoadPreviewTable(string filePath)
         {
             return ReportSpreadsheetHelper.LoadWorksheetPreview(filePath);
+        }
+
+        private bool TryCreatePreviewTable(DataTable sourceTable, out DataTable previewTable)
+        {
+            previewTable = CreatePreviewTableStructure();
+
+            if (!TryGetColumnMap(sourceTable, out var columnMap))
+            {
+                return false;
+            }
+
+            foreach (DataRow sourceRow in sourceTable.Rows)
+            {
+                var previewRow = previewTable.NewRow();
+                previewRow["acno"] = sourceRow[columnMap["acno"]];
+                previewRow["glacno"] = sourceRow[columnMap["glacno"]];
+                previewRow["Number"] = string.Empty;
+                previewRow["Serial"] = string.Empty;
+                previewRow["acname1"] = sourceRow[columnMap["acname1"]];
+                previewRow["detail"] = sourceRow[columnMap["detail"]];
+                previewRow["crid"] = sourceRow[columnMap["crid"]];
+                previewTable.Rows.Add(previewRow);
+            }
+
+            return true;
+        }
+
+        private bool TryGetColumnMap(DataTable sourceTable, out Dictionary<string, string> columnMap)
+        {
+            columnMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+            if (sourceTable == null || sourceTable.Columns.Count == 0)
+            {
+                return false;
+            }
+
+            var sourceColumns = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            foreach (DataColumn column in sourceTable.Columns)
+            {
+                var columnName = (column.ColumnName ?? string.Empty).Trim();
+                if (string.IsNullOrWhiteSpace(columnName) || sourceColumns.ContainsKey(columnName))
+                {
+                    continue;
+                }
+
+                sourceColumns.Add(columnName, column.ColumnName);
+            }
+
+            foreach (var requiredColumn in RequiredChartColumns)
+            {
+                if (!sourceColumns.ContainsKey(requiredColumn))
+                {
+                    return false;
+                }
+
+                columnMap.Add(requiredColumn, sourceColumns[requiredColumn]);
+            }
+
+            return true;
+        }
+
+        private DataTable CreatePreviewTableStructure()
+        {
+            var previewTable = new DataTable();
+            previewTable.Columns.Add("acno");
+            previewTable.Columns.Add("glacno");
+            previewTable.Columns.Add("Number");
+            previewTable.Columns.Add("Serial");
+            previewTable.Columns.Add("acname1");
+            previewTable.Columns.Add("detail");
+            previewTable.Columns.Add("crid");
+            return previewTable;
         }
 
         private void UpdatePreviewCounter(int totalRecords, int validRecords, int invalidRecords)

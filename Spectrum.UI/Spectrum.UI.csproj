@@ -529,6 +529,12 @@
     <Compile Include="Views\Projects\Reports\ProjectReportDesignerForm.Designer.cs">
       <DependentUpon>ProjectReportDesignerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Projects\Settings\Addendum\AddendumEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Projects\Settings\Addendum\AddendumEditForm.Designer.cs">
+      <DependentUpon>AddendumEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\Settings\ProjectTypes\ProjectTypeEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -846,6 +852,9 @@
     <EmbeddedResource Include="Views\Projects\ProjectsListForm.resx">
       <DependentUpon>ProjectsListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Projects\Settings\Addendum\AddendumEditForm.resx">
+      <DependentUpon>AddendumEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Projects\Settings\ProjectTypes\ProjectTypeEditForm.resx">
       <DependentUpon>ProjectTypeEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -904,6 +913,7 @@
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkingPermitInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Members.Suppliers.SupplierModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Operations.Projects.Settings.ProjectTypes.ProjectTypeModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Projects.AddendumModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.ContractDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.LocationInfoModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.ProjectModel.datasource" />
