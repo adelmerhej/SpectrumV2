@@ -6,9 +6,9 @@ using System.Drawing;
 
 namespace Spectrum.Reports.Common.Countries
 {
-    public partial class ContinentsListReports : DevExpress.XtraReports.UI.XtraReport
+    public partial class CitiesListReport : DevExpress.XtraReports.UI.XtraReport
     {
-        public ContinentsListReports()
+        public CitiesListReport()
         {
             InitializeComponent();
         }

@@ -80,11 +80,35 @@
     <Compile Include="Adapters\HumanResources\Employees\EmployeeReportAdapter.cs" />
     <Compile Include="Adapters\Projects\ProjectReportAdapter.cs" />
     <Compile Include="Adapters\ReportAdapterBase.cs" />
-    <Compile Include="Common\Countries\ContinentsListReports.cs">
+    <Compile Include="Common\Countries\CitiesListReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Countries\CitiesListReport.Designer.cs">
+      <DependentUpon>CitiesListReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Countries\ContinentsListReport.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Common\Countries\ContinentsListReports.Designer.cs">
-      <DependentUpon>ContinentsListReports.cs</DependentUpon>
+      <DependentUpon>ContinentsListReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Countries\CountriesListReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Countries\CountriesListReport.Designer.cs">
+      <DependentUpon>CountriesListReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Countries\DistrictsListReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Countries\DistrictsListReport.Designer.cs">
+      <DependentUpon>DistrictsListReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Countries\ProvincesListReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Countries\ProvincesListReport.Designer.cs">
+      <DependentUpon>ProvincesListReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\Countries\RegionsListReport.cs">
       <SubType>Component</SubType>
@@ -145,8 +169,20 @@
     <EmbeddedResource Include="Accounting\StatementReports\StatementOfAccountReport.resx">
       <DependentUpon>StatementOfAccountReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Common\Countries\CitiesListReport.resx">
+      <DependentUpon>CitiesListReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Common\Countries\ContinentsListReports.resx">
-      <DependentUpon>ContinentsListReports.cs</DependentUpon>
+      <DependentUpon>ContinentsListReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Countries\CountriesListReport.resx">
+      <DependentUpon>CountriesListReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Countries\DistrictsListReport.resx">
+      <DependentUpon>DistrictsListReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Countries\ProvincesListReport.resx">
+      <DependentUpon>ProvincesListReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\Countries\RegionsListReport.resx">
       <DependentUpon>RegionsListReport.cs</DependentUpon>

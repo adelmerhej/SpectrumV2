@@ -52,17 +52,6 @@ namespace Spectrum.Views.Common.Countries
 		{
 			InitializeComponent();
 
-			// wire events
-			btnNew.ItemClick += btnNew_ItemClick;
-			btnEdit.ItemClick += btnEdit_ItemClick;
-			btnDelete.ItemClick += btnDelete_ItemClick;
-			btnPrint.ItemClick += btnPrint_ItemClick;
-			btnRefresh.ItemClick += btnRefresh_ItemClick;
-			btnClose.ItemClick += btnClose_ItemClick;
-			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
-			gvRegions.DoubleClick += gvRegions_DoubleClick;
-			gvRegions.RowCellStyle += gvRegions_RowCellStyle;
-
 			StartLoading();
 		}
 
@@ -355,10 +344,5 @@ namespace Spectrum.Views.Common.Countries
 				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
 			}
 		}
-
-        private void btnPrint_ItemClick_1(object sender, ItemClickEventArgs e)
-        {
-
-        }
     }
 }

@@ -6,9 +6,11 @@ using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Common.Countries;
 using Spectrum.Models.Users;
+using Spectrum.Reports.Common.Countries;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
+using Spectrum.Views.Reports;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,322 +20,329 @@ using System.Windows.Forms;
 
 namespace Spectrum.Views.Common.Countries
 {
-	public partial class CountriesListForm : RibbonForm, IFormWithRibbon
-	{
-		private bool _resetMenu;
-		private CountryEditForm _countryEditForm;
+    public partial class CountriesListForm : RibbonForm, IFormWithRibbon
+    {
+        private bool _resetMenu;
+        private CountryEditForm _countryEditForm;
 
-		private CountryModel _countryModel = new CountryModel();
-		private IList<CountryModel> _countries = new List<CountryModel>();
+        private CountryModel _countryModel = new CountryModel();
+        private IList<CountryModel> _countries = new List<CountryModel>();
+        private List<CountryModel> _dataReportModels = new List<CountryModel>();
 
-		private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
+        private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
 
-		//Init permissionvariables
-		private bool _canAdd = true;
-		private bool _canEdit = true;
-		private bool _canDelete = true;
-		private bool _canPrint = true;
-		private bool _isAdmin = true;
-		private bool _isProtected = true;
+        //Init permissionvariables
+        private bool _canAdd = true;
+        private bool _canEdit = true;
+        private bool _canDelete = true;
+        private bool _canPrint = true;
+        private bool _isAdmin = true;
+        private bool _isProtected = true;
 
-		#region Implementation of IFormWithRibbon
+        #region Implementation of IFormWithRibbon
 
-		public RibbonControl MainRibbon => rcCountriesList;
-		public RibbonPage DefaultPage => rpCountriesList;
-
-
-		#endregion
-
-		public CountriesListForm()
-		{
-			InitializeComponent();
-
-			// wire events
-			btnNew.ItemClick += btnNew_ItemClick;
-			btnEdit.ItemClick += btnEdit_ItemClick;
-			btnDelete.ItemClick += btnDelete_ItemClick;
-			btnPrint.ItemClick += btnPrint_ItemClick;
-			btnRefresh.ItemClick += btnRefresh_ItemClick;
-			btnClose.ItemClick += btnClose_ItemClick;
-			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
-			gvCountries.DoubleClick += gvCountries_DoubleClick;
-			gvCountries.RowCellStyle += gvCountries_RowCellStyle;
-
-			StartLoading();
-		}
-
-		private async void StartLoading()
-		{
-			await InitializeBindings();
-			WireUpBindings();
-			ApplyDefaults();
-			ApplyPermissions();
-		}
-
-		private async Task InitializeBindings()
-		{
-			try
-			{
-				//	//
-				//	_formId = _formRepository.SelectFormByName(_formName);
-				//	_userPermission = _userPermissionRepository.SelectUserPermissionById(CurrentUser.UserId, _formId);
-				//	if (_userPermission is { Count: > 0 })
-				//	{
-				//		var isProtected = _userPermission.SingleOrDefault(x => x.ControlName == "IsProtected")?.Value;
-				//		if (isProtected != null) _isProtected = (bool)isProtected;
-				//	}
-				//	//
-
-				_countries = await _countryRepository.GetCountriesAsync();
-			}
-			catch (Exception ex)
-			{
-				XtraMessageBox.Show(ex.Message, @"Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-		}
-
-		private void WireUpBindings()
-		{
-			gcCountries.DataSource = null;
-			gcCountries.DataSource = _countries;
-		}
-
-		private void ApplyDefaults()
-		{
-
-		}
-
-		private void ApplyPermissions()
-		{
-			//if (_userPermission == null) return;
-			//if (_userPermission.Count <= 0) return;
-
-			//var canAdd = _userPermission.SingleOrDefault(x => x.ControlName == "CanAdd")?.Value;
-			//if (canAdd != null) _canAdd = (bool)canAdd;
-
-			//var canEdit = _userPermission.SingleOrDefault(x => x.ControlName == "CanEdit")?.Value;
-			//if (canEdit != null) _canEdit = (bool)canEdit;
-
-			//var canDelete = _userPermission.SingleOrDefault(x => x.ControlName == "CanDelete")?.Value;
-			//if (canDelete != null) _canDelete = (bool)canDelete;
-
-			//var canPrint = _userPermission.SingleOrDefault(x => x.ControlName == "CanPrint")?.Value;
-			//if (canPrint != null) _canPrint = (bool)canPrint;
-
-			//var isAdmin = _userPermission.SingleOrDefault(x => x.ControlName == "IsAdmin")?.Value;
-			//if (isAdmin != null) _isAdmin = (bool)isAdmin;
-
-			btnNew.Enabled = _isAdmin || _canAdd;
-			btnEdit.Enabled = _isAdmin || _canEdit;
-			btnPrint.Enabled = _isAdmin || _canPrint;
-			btnDelete.Enabled = _isAdmin || _canDelete;
-		}
+        public RibbonControl MainRibbon => rcCountriesList;
+        public RibbonPage DefaultPage => rpCountriesList;
 
 
-		#region Buttons Events
+        #endregion
 
-		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
-		{
-			ShowCountryEditor(new CountryModel());
-		}
+        public CountriesListForm()
+        {
+            InitializeComponent();
 
-		private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
-		{
-			if (!_countries.Any()) return;
+            StartLoading();
+        }
 
-			try
-			{
-				string currentRowId = gvCountries.GetFocusedRowCellValue("_id").ToString();
-				if (string.IsNullOrEmpty(currentRowId)) return;
+        private async void StartLoading()
+        {
+            await InitializeBindings();
+            WireUpBindings();
+            ApplyDefaults();
+            ApplyPermissions();
+        }
 
-				_countryModel = _countries.SingleOrDefault(x => x._id == currentRowId);
-				if (_countryModel == null) return;
+        private async Task InitializeBindings()
+        {
+            try
+            {
+                //	//
+                //	_formId = _formRepository.SelectFormByName(_formName);
+                //	_userPermission = _userPermissionRepository.SelectUserPermissionById(CurrentUser.UserId, _formId);
+                //	if (_userPermission is { Count: > 0 })
+                //	{
+                //		var isProtected = _userPermission.SingleOrDefault(x => x.ControlName == "IsProtected")?.Value;
+                //		if (isProtected != null) _isProtected = (bool)isProtected;
+                //	}
+                //	//
 
-				ShowCountryEditor(_countryModel);
-			}
-			catch (Exception exception)
-			{
-				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-		}
+                _countries = await _countryRepository.GetCountriesAsync();
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(ex.Message, @"Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-		private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
-		{
-			StartLoading();
-		}
+        private void WireUpBindings()
+        {
+            gcCountries.DataSource = null;
+            gcCountries.DataSource = _countries;
+        }
 
-		private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
-		{
-			gcCountries.ShowRibbonPrintPreview();
-		}
+        private void ApplyDefaults()
+        {
 
-		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
-		{
-			if (!CanDelete()) return;
+        }
 
-			try
-			{
-				string id = gvCountries.GetFocusedRowCellValue("_id").ToString();
-				string name = gvCountries.GetFocusedRowCellValue("CountryName").ToString();
+        private void ApplyPermissions()
+        {
+            //if (_userPermission == null) return;
+            //if (_userPermission.Count <= 0) return;
 
-				if (!string.IsNullOrEmpty(id))
-				{
-					if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
-							"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-							MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-					{
-						_countryModel = gvCountries.GetFocusedRow() as CountryModel;
-						if (_countryModel == null)
-						{
-							return;
-						}
-						_countryModel.Deleted = true;
+            //var canAdd = _userPermission.SingleOrDefault(x => x.ControlName == "CanAdd")?.Value;
+            //if (canAdd != null) _canAdd = (bool)canAdd;
 
-						//delete the record
-						await _countryRepository.DeleteCountryAsync(_countryModel._id);
-						RcvUpdatedCountryAsync(_countryModel, EventArgs.Empty);
-					}
-				}
-			}
-			catch (Exception exception)
-			{
-				switch (exception.Message)
-				{
-					case "-2146233088":
-						XtraMessageBox.Show("This record is linked to one or more transactions, delete all links first.",
-							"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						break;
+            //var canEdit = _userPermission.SingleOrDefault(x => x.ControlName == "CanEdit")?.Value;
+            //if (canEdit != null) _canEdit = (bool)canEdit;
 
-					default:
-						XtraMessageBox.Show(exception.Message,
-							"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						break;
-				}
-			}
-		}
+            //var canDelete = _userPermission.SingleOrDefault(x => x.ControlName == "CanDelete")?.Value;
+            //if (canDelete != null) _canDelete = (bool)canDelete;
 
-		private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
-		{
-			Close();
-		}
+            //var canPrint = _userPermission.SingleOrDefault(x => x.ControlName == "CanPrint")?.Value;
+            //if (canPrint != null) _canPrint = (bool)canPrint;
 
-		private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
-		{
-			if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
-				MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
-				DialogResult.Yes)
-			{
-				_resetMenu = true;
-				LayoutsStyle.ResetLayoutGrid(gvCountries, CurrentUser.UserName, CurrentUser.Company);
-			}
-		}
+            //var isAdmin = _userPermission.SingleOrDefault(x => x.ControlName == "IsAdmin")?.Value;
+            //if (isAdmin != null) _isAdmin = (bool)isAdmin;
 
-		#endregion
+            btnNew.Enabled = _isAdmin || _canAdd;
+            btnEdit.Enabled = _isAdmin || _canEdit;
+            btnPrint.Enabled = _isAdmin || _canPrint;
+            btnDelete.Enabled = _isAdmin || _canDelete;
+        }
 
 
-		private async void RcvUpdatedCountryAsync(object sender, EventArgs e)
-		{
-			if (sender == null) return;
-			_countryModel = sender as CountryModel;
+        #region Buttons Events
 
-			if (_countryModel != null && (_countryModel.LastModifiedDate == null || _countryModel.Deleted))
-			{
-				await InitializeBindings();
-				WireUpBindings();
-			}
-			else
-			{
-				gvCountries.UpdateCurrentRow();
-			}
-		}
+        private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ShowCountryEditor(new CountryModel());
+        }
 
-		private void gvCountries_DoubleClick(object sender, EventArgs e)
-		{
-			if (!_countries.Any()) return;
+        private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (!_countries.Any()) return;
 
-			try
-			{
-				string currentRowId = gvCountries.GetFocusedRowCellValue("_id").ToString();
-				if (string.IsNullOrEmpty(currentRowId)) return;
+            try
+            {
+                string currentRowId = gvCountries.GetFocusedRowCellValue("_id").ToString();
+                if (string.IsNullOrEmpty(currentRowId)) return;
 
-				_countryModel = _countries.SingleOrDefault(x => x._id == currentRowId);
-				if (_countryModel == null) return;
+                _countryModel = _countries.SingleOrDefault(x => x._id == currentRowId);
+                if (_countryModel == null) return;
 
-				ShowCountryEditor(_countryModel);
-			}
-			catch (Exception exception)
-			{
-				XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-		}
+                ShowCountryEditor(_countryModel);
+            }
+            catch (Exception exception)
+            {
+                XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-		private bool CanDelete()
-		{
-			CountryModel dataBoundItem = gvCountries.GetFocusedRow() as CountryModel;
+        private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            StartLoading();
+        }
 
-			if (gvCountries == null || gvCountries.SelectedRowsCount == 0) return false;
-			if (gvCountries.SelectedRowsCount > 1)
-			{
-				XtraMessageBox.Show("Only one record can be selected at a time, please try again",
-					"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return false;
-			}
+        private async void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            try
+            {
+                _dataReportModels = await _countryRepository.GetCountriesAsync();
 
-			if (dataBoundItem != null && dataBoundItem.IsDefault)
-			{
-				XtraMessageBox.Show("Cannot delete system record!",
-					"Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return false;
-			}
+                var previewForm = new DocumentViewerForm();
+                var report = new CountriesListReport();
 
-			return true;
-		}
+                report.DataSource = _dataReportModels;
 
-		private void ShowCountryEditor(CountryModel model)
-		{
-			if (_countryEditForm == null || _countryEditForm.IsDisposed)
-			{
-				_countryEditForm = new CountryEditForm(model);
-				_countryEditForm.SendUpdatedCountry += RcvUpdatedCountryAsync;
-				_countryEditForm.FormClosed += CountryEditForm_FormClosed;
-				_countryEditForm.Show(this);
-				return;
-			}
+                previewForm.Viewer.DocumentSource = report;
 
-			if (_countryEditForm.WindowState == FormWindowState.Minimized)
-				_countryEditForm.WindowState = FormWindowState.Normal;
+                previewForm.ShowDialog();
+            }
+            catch (Exception exception)
+            {
+                XtraMessageBox.Show(exception.Message, "Report Data Error!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
 
-			_countryEditForm.Activate();
-			_countryEditForm.BringToFront();
-		}
+        private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (!CanDelete()) return;
 
-		private void CountryEditForm_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			var form = sender as CountryEditForm;
-			if (form != null)
-			{
-				form.SendUpdatedCountry -= RcvUpdatedCountryAsync;
-				form.FormClosed -= CountryEditForm_FormClosed;
-			}
-			if (ReferenceEquals(_countryEditForm, sender))
-				_countryEditForm = null;
-		}
+            try
+            {
+                string id = gvCountries.GetFocusedRowCellValue("_id").ToString();
+                string name = gvCountries.GetFocusedRowCellValue("CountryName").ToString();
 
-		private void gvCountries_RowCellStyle(object sender, RowCellStyleEventArgs e)
-		{
-			var view = sender as GridView;
-			if (view == null || e.RowHandle < 0) return;
-			bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
-			bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
-			if (!isActive)
-			{
-				e.Appearance.ForeColor = Color.Gray;
-				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-			}
-			if (isDefault)
-			{
-				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-			}
-		}
-	}
+                if (!string.IsNullOrEmpty(id))
+                {
+                    if (XtraMessageBox.Show($"Are you sure you want to delete Record: `{name}`?",
+                            "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                            MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+                        _countryModel = gvCountries.GetFocusedRow() as CountryModel;
+                        if (_countryModel == null)
+                        {
+                            return;
+                        }
+                        _countryModel.Deleted = true;
+
+                        //delete the record
+                        await _countryRepository.DeleteCountryAsync(_countryModel._id);
+                        RcvUpdatedCountryAsync(_countryModel, EventArgs.Empty);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                switch (exception.Message)
+                {
+                    case "-2146233088":
+                        XtraMessageBox.Show("This record is linked to one or more transactions, delete all links first.",
+                            "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        XtraMessageBox.Show(exception.Message,
+                            "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+            }
+        }
+
+        private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Close();
+        }
+
+        private void btnResetGridStyle_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (XtraMessageBox.Show("This will reset Grid layout next login, to its default settings.\nAre you sure you want to continue?", "Reset Menu...",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==
+                DialogResult.Yes)
+            {
+                _resetMenu = true;
+                LayoutsStyle.ResetLayoutGrid(gvCountries, CurrentUser.UserName, CurrentUser.Company);
+            }
+        }
+
+        #endregion
+
+
+        private async void RcvUpdatedCountryAsync(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            _countryModel = sender as CountryModel;
+
+            if (_countryModel != null && (_countryModel.LastModifiedDate == null || _countryModel.Deleted))
+            {
+                await InitializeBindings();
+                WireUpBindings();
+            }
+            else
+            {
+                gvCountries.UpdateCurrentRow();
+            }
+        }
+
+        private void gvCountries_DoubleClick(object sender, EventArgs e)
+        {
+            if (!_countries.Any()) return;
+
+            try
+            {
+                string currentRowId = gvCountries.GetFocusedRowCellValue("_id").ToString();
+                if (string.IsNullOrEmpty(currentRowId)) return;
+
+                _countryModel = _countries.SingleOrDefault(x => x._id == currentRowId);
+                if (_countryModel == null) return;
+
+                ShowCountryEditor(_countryModel);
+            }
+            catch (Exception exception)
+            {
+                XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool CanDelete()
+        {
+            CountryModel dataBoundItem = gvCountries.GetFocusedRow() as CountryModel;
+
+            if (gvCountries == null || gvCountries.SelectedRowsCount == 0) return false;
+            if (gvCountries.SelectedRowsCount > 1)
+            {
+                XtraMessageBox.Show("Only one record can be selected at a time, please try again",
+                    "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (dataBoundItem != null && dataBoundItem.IsDefault)
+            {
+                XtraMessageBox.Show("Cannot delete system record!",
+                    "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void ShowCountryEditor(CountryModel model)
+        {
+            if (_countryEditForm == null || _countryEditForm.IsDisposed)
+            {
+                _countryEditForm = new CountryEditForm(model);
+                _countryEditForm.SendUpdatedCountry += RcvUpdatedCountryAsync;
+                _countryEditForm.FormClosed += CountryEditForm_FormClosed;
+                _countryEditForm.Show(this);
+                return;
+            }
+
+            if (_countryEditForm.WindowState == FormWindowState.Minimized)
+                _countryEditForm.WindowState = FormWindowState.Normal;
+
+            _countryEditForm.Activate();
+            _countryEditForm.BringToFront();
+        }
+
+        private void CountryEditForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            var form = sender as CountryEditForm;
+            if (form != null)
+            {
+                form.SendUpdatedCountry -= RcvUpdatedCountryAsync;
+                form.FormClosed -= CountryEditForm_FormClosed;
+            }
+            if (ReferenceEquals(_countryEditForm, sender))
+                _countryEditForm = null;
+        }
+
+        private void gvCountries_RowCellStyle(object sender, RowCellStyleEventArgs e)
+        {
+            var view = sender as GridView;
+            if (view == null || e.RowHandle < 0) return;
+            bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
+            bool isDefault = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "IsDefault")) ?? false;
+            if (!isActive)
+            {
+                e.Appearance.ForeColor = Color.Gray;
+                e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
+            }
+            if (isDefault)
+            {
+                e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+            }
+        }
+    }
 }
