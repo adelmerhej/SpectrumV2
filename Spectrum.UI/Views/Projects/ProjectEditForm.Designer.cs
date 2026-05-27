@@ -1,15 +1,15 @@
 ﻿namespace Spectrum.Views.Projects
 {
-	partial class ProjectEditForm
-	{
-		private System.ComponentModel.IContainer components = null;
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null)) components.Dispose();
-			base.Dispose(disposing);
-		}
-		private void InitializeComponent()
-		{
+    partial class ProjectEditForm
+    {
+        private System.ComponentModel.IContainer components = null;
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null)) components.Dispose();
+            base.Dispose(disposing);
+        }
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectEditForm));
             DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
@@ -363,31 +363,32 @@
             this.tabProjectInformation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projectInfoLayout)).BeginInit();
             this.projectInfoLayout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tablePanel1)).BeginInit();
-            this.tablePanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cboCities.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsLocationInfo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit3View)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboCountries.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboLocations.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewLocations)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboAreas.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewAreas)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceYear.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtExpiryDate.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtExpiryDate.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceDate.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceDate.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboEngineers.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboClients.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDescription.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtJProjectDate.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtJProjectDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtReferenceNo.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtReference.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtProjectDate.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtProjectDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtProjectName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboClients.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboEngineers.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceDate.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtExpiryDate.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtExpiryDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceYear.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceYear.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboAreas.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsLocationInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboLocations.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCountries.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCities.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboProjectType.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblProjectType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblReference)).BeginInit();
@@ -416,11 +417,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.cboContactEmail.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsContractDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtCompletitionDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtCompletitionDate.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtCompletitionDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtExtension.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtSignatureDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtSignatureDate.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtSignatureDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtContractLink.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtContractPeriod.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtContractNo.Properties)).BeginInit();
@@ -480,7 +481,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repInvCheckEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            this.tabExpenseGroup.ResumeLayout(false);
+            this.tabExpenseGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutCostSheetsGrid)).BeginInit();
             this.layoutCostSheetsGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcCosts)).BeginInit();
@@ -3481,7 +3482,6 @@
             this.gvDocuments.OptionsBehavior.Editable = false;
             this.gvDocuments.OptionsView.Style = DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewStyle.Tiles;
             this.gvDocuments.OptionsViewStyles.Tiles.ContextButtonsUseFullItemArea = true;
-            this.gvDocuments.DoubleClick += new System.EventHandler(this.gvDocuments_DoubleClick);
             // 
             // colDocumentId
             // 
@@ -3530,7 +3530,6 @@
             this.openDocuments.Size = new System.Drawing.Size(1332, 50);
             this.openDocuments.StyleController = this.layoutAttachedDocumnets;
             this.openDocuments.TabIndex = 6;
-            this.openDocuments.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.openDocuments_ButtonClick);
             // 
             // layoutControlGroup5
             // 
@@ -4125,65 +4124,65 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		private System.Windows.Forms.BindingSource bsProject;
-		private DevExpress.XtraBars.Ribbon.RibbonControl rcMain;
-		private DevExpress.XtraBars.BarButtonItem btnSave;
-		private DevExpress.XtraBars.BarButtonItem btnClose;
-		private DevExpress.XtraBars.BarButtonItem btnSaveAndClose;
-		private DevExpress.XtraBars.BarButtonItem btnDelete;
-		private DevExpress.XtraBars.BarButtonItem biMailMerge;
-		private DevExpress.XtraBars.BarButtonItem biMeeting;
-		private DevExpress.XtraBars.BarButtonItem bmiPrintProfile;
-		private DevExpress.XtraBars.BarButtonItem bmiPrintSummary;
-		private DevExpress.XtraBars.BarButtonItem btnPrint;
-		private DevExpress.XtraBars.BarButtonItem bmiPrintDirectory;
-		private DevExpress.XtraBars.BarButtonItem bmiPrintTaskList;
-		private DevExpress.XtraBars.RibbonGalleryBarItem galleryQuickLetters;
-		private DevExpress.XtraBars.BarButtonItem biShowMap;
-		private DevExpress.XtraBars.BarButtonItem btnRefresh;
-		private DevExpress.XtraBars.BarButtonItem btnNew;
-		private DevExpress.XtraBars.RibbonGalleryBarItem rgJobStatusAction;
-		private DevExpress.XtraBars.BarButtonItem btnNewInvoice;
-		private DevExpress.XtraBars.BarButtonItem btnNewExpense;
-		private DevExpress.XtraBars.BarCheckItem btnProtected;
-		private DevExpress.XtraBars.BarButtonItem btnCloseInvoice;
-		private DevExpress.XtraBars.BarButtonItem btnSaveInvoice;
-		private DevExpress.XtraBars.BarButtonItem btnSaveAndCloseInvoice;
-		private DevExpress.XtraBars.BarButtonItem btnRefreshInvoice;
-		private DevExpress.XtraBars.BarButtonItem btnDeleteInvoice;
-		private DevExpress.XtraBars.BarButtonItem btnPrintInvoice;
-		private DevExpress.XtraBars.BarButtonItem btnPrintOriginalInvoice;
-		private DevExpress.XtraBars.BarButtonItem btnCloseExpense;
-		private DevExpress.XtraBars.BarButtonItem btnSaveExpense;
-		private DevExpress.XtraBars.BarButtonItem btnSaveAndCloseExpense;
-		private DevExpress.XtraBars.BarButtonItem btnRefreshExpense;
-		private DevExpress.XtraBars.BarButtonItem btnDeleteExpense;
-		private DevExpress.XtraBars.BarButtonItem btnPrintExpenses;
-		private DevExpress.XtraBars.Ribbon.RibbonPage rpMain;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup8;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup9;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup rpgSecurity;
-		private DevExpress.XtraBars.Ribbon.RibbonPage rpInvoices;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup10;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup11;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup12;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup13;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup15;
-		private DevExpress.XtraBars.Ribbon.RibbonPage rpExpenses;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup5;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup16;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup17;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup18;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup19;
-		private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup21;
-		private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar1;
+        }
+        private System.Windows.Forms.BindingSource bsProject;
+        private DevExpress.XtraBars.Ribbon.RibbonControl rcMain;
+        private DevExpress.XtraBars.BarButtonItem btnSave;
+        private DevExpress.XtraBars.BarButtonItem btnClose;
+        private DevExpress.XtraBars.BarButtonItem btnSaveAndClose;
+        private DevExpress.XtraBars.BarButtonItem btnDelete;
+        private DevExpress.XtraBars.BarButtonItem biMailMerge;
+        private DevExpress.XtraBars.BarButtonItem biMeeting;
+        private DevExpress.XtraBars.BarButtonItem bmiPrintProfile;
+        private DevExpress.XtraBars.BarButtonItem bmiPrintSummary;
+        private DevExpress.XtraBars.BarButtonItem btnPrint;
+        private DevExpress.XtraBars.BarButtonItem bmiPrintDirectory;
+        private DevExpress.XtraBars.BarButtonItem bmiPrintTaskList;
+        private DevExpress.XtraBars.RibbonGalleryBarItem galleryQuickLetters;
+        private DevExpress.XtraBars.BarButtonItem biShowMap;
+        private DevExpress.XtraBars.BarButtonItem btnRefresh;
+        private DevExpress.XtraBars.BarButtonItem btnNew;
+        private DevExpress.XtraBars.RibbonGalleryBarItem rgJobStatusAction;
+        private DevExpress.XtraBars.BarButtonItem btnNewInvoice;
+        private DevExpress.XtraBars.BarButtonItem btnNewExpense;
+        private DevExpress.XtraBars.BarCheckItem btnProtected;
+        private DevExpress.XtraBars.BarButtonItem btnCloseInvoice;
+        private DevExpress.XtraBars.BarButtonItem btnSaveInvoice;
+        private DevExpress.XtraBars.BarButtonItem btnSaveAndCloseInvoice;
+        private DevExpress.XtraBars.BarButtonItem btnRefreshInvoice;
+        private DevExpress.XtraBars.BarButtonItem btnDeleteInvoice;
+        private DevExpress.XtraBars.BarButtonItem btnPrintInvoice;
+        private DevExpress.XtraBars.BarButtonItem btnPrintOriginalInvoice;
+        private DevExpress.XtraBars.BarButtonItem btnCloseExpense;
+        private DevExpress.XtraBars.BarButtonItem btnSaveExpense;
+        private DevExpress.XtraBars.BarButtonItem btnSaveAndCloseExpense;
+        private DevExpress.XtraBars.BarButtonItem btnRefreshExpense;
+        private DevExpress.XtraBars.BarButtonItem btnDeleteExpense;
+        private DevExpress.XtraBars.BarButtonItem btnPrintExpenses;
+        private DevExpress.XtraBars.Ribbon.RibbonPage rpMain;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup8;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup7;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup9;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup rpgSecurity;
+        private DevExpress.XtraBars.Ribbon.RibbonPage rpInvoices;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup10;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup11;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup12;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup13;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup15;
+        private DevExpress.XtraBars.Ribbon.RibbonPage rpExpenses;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup5;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup16;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup17;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup18;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup19;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup21;
+        private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar1;
         private DevExpress.XtraDataLayout.DataLayoutControl mainLayout;
         private DevExpress.XtraEditors.MemoEdit txtNotes;
         private DevExpress.XtraEditors.TextEdit txtProfitLL;
@@ -4447,4 +4446,3 @@
         private DevExpress.XtraGrid.Columns.GridColumn colActive1;
     }
 }
-
