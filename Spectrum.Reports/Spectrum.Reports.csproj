@@ -80,6 +80,18 @@
     <Compile Include="Adapters\HumanResources\Employees\EmployeeReportAdapter.cs" />
     <Compile Include="Adapters\Projects\ProjectReportAdapter.cs" />
     <Compile Include="Adapters\ReportAdapterBase.cs" />
+    <Compile Include="Common\Countries\ContinentsListReports.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Countries\ContinentsListReports.Designer.cs">
+      <DependentUpon>ContinentsListReports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Countries\RegionsListReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Countries\RegionsListReport.Designer.cs">
+      <DependentUpon>RegionsListReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\ReportSpreadsheetHelper.cs" />
     <Compile Include="Editors\DefaultSpreadsheetReportEditorAdapter.cs" />
     <Compile Include="Editors\ISpreadsheetReportEditorAdapter.cs" />
@@ -132,6 +144,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Accounting\StatementReports\StatementOfAccountReport.resx">
       <DependentUpon>StatementOfAccountReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Countries\ContinentsListReports.resx">
+      <DependentUpon>ContinentsListReports.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Countries\RegionsListReport.resx">
+      <DependentUpon>RegionsListReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Members\Clients\ClientsListReport.resx">
       <DependentUpon>ClientsListReport.cs</DependentUpon>
