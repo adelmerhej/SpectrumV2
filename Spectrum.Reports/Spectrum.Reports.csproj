@@ -81,6 +81,7 @@
     <Compile Include="Adapters\Projects\ProjectReportAdapter.cs" />
     <Compile Include="Adapters\ReportAdapterBase.cs" />
     <Compile Include="Common\ReportSpreadsheetHelper.cs" />
+    <Compile Include="Editors\DefaultSpreadsheetReportEditorAdapter.cs" />
     <Compile Include="Editors\ISpreadsheetReportEditorAdapter.cs" />
     <Compile Include="Editors\OrderSpreadsheetReportEditorAdapter.cs" />
     <Compile Include="Editors\SpreadsheetReportEditorAdapterRegistry.cs" />

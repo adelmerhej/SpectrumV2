@@ -13,7 +13,7 @@ using System.Linq;
 
 namespace Spectrum.Reports.Adapters.HumanResources.Employees
 {
-    public class EmployeeReportAdapter : ReportAdapterBase, IWorksheetRequirements
+    public class EmployeeReportAdapter : ReportAdapterBase
     {
         private readonly EmployeeModel _employee;
         private BindingList<EducationInfo> _educationBindingList;
@@ -22,11 +22,6 @@ namespace Spectrum.Reports.Adapters.HumanResources.Employees
         {
             _employee = employee ?? throw new ArgumentNullException(nameof(employee));
             _educationBindingList = CreateEducationBindingList(_employee.Education);
-        }
-
-        public IEnumerable<string> RequiredWorksheetNames()
-        {
-            return new[] { "Employee Summary", "Education" };
         }
 
         public override string Title
@@ -353,7 +348,6 @@ namespace Spectrum.Reports.Adapters.HumanResources.Employees
             _employee.LeftWork = GetBoolean(values, "Left Work");
             _employee.DocumentLink = GetString(values, "Document Link");
 
-            EnsureNestedInfo();
             _employee.ContactInfo.Email = GetString(values, "Email");
             _employee.ContactInfo.LocalMobileNo = GetString(values, "Local Mobile");
             _employee.ContactInfo.AbroadMobileNo = GetString(values, "Abroad Mobile");
@@ -491,22 +485,6 @@ namespace Spectrum.Reports.Adapters.HumanResources.Employees
             yield return new FieldDescriptor("Employee.Education.SchoolOrUniversity", "School / University", "Education", typeof(string), null, null, i => i < count ? education[i].SchoolOrUniversity : null, count);
             yield return new FieldDescriptor("Employee.Education.Place", "Education Place", "Education", typeof(string), null, null, i => i < count ? education[i].Place : null, count);
             yield return new FieldDescriptor("Employee.Education.GraduationYear", "Graduation Year", "Education", typeof(int?), null, null, i => i < count ? education[i].GraduationYear : null, count);
-        }
-
-        private void EnsureNestedInfo()
-        {
-            if (_employee.ContactInfo == null)
-                _employee.ContactInfo = new EmployeeContactInfo();
-            if (_employee.EmergencyContact == null)
-                _employee.EmergencyContact = new EmergencyContactInfo();
-            if (_employee.Cnss == null)
-                _employee.Cnss = new CnssInfo();
-            if (_employee.Syndicat == null)
-                _employee.Syndicat = new SyndicatInfo();
-            if (_employee.WorkingPermit == null)
-                _employee.WorkingPermit = new WorkingPermitInfo();
-            if (_employee.Financial == null)
-                _employee.Financial = new FinancialInfo();
         }
 
         private static BindingList<EducationInfo> CreateEducationBindingList(List<EducationInfo> education)

@@ -6,29 +6,32 @@ using System.IO;
 
 namespace Spectrum.Reports.Interfaces
 {
-    /// <summary>
-    /// Identifies a grid-row entity that exposes a numeric Id.
-    /// </summary>
     public interface IHasId
     {
         long Id { get; }
     }
 
-    /// <summary>
-    /// Optional interface implemented by adapters that require specific worksheet names
-    /// to be present in the editable workbook (for example: "Invoices", "Addendums").
-    /// </summary>
     public interface IWorksheetRequirements
     {
-        /// <summary>
-        /// Returns the set of worksheet names that the adapter expects to exist in the workbook.
-        /// </summary>
         IEnumerable<string> RequiredWorksheetNames();
     }
 
     /// <summary>
-    /// Describes a single column for the DevExpress GridControl.
+    /// Implemented by adapters that expose one or more spreadsheet sheets
+    /// whose rows can be added and removed interactively.
+    /// The <see cref="DefaultSpreadsheetReportEditorAdapter"/> uses this to
+    /// provide row-edit behaviour for any adapter without requiring a
+    /// bespoke <see cref="ISpreadsheetReportEditorAdapter"/> implementation.
     /// </summary>
+    public interface IEditableSheetProvider
+    {
+        /// <summary>
+        /// Returns the names of sheets whose data rows may be added or removed.
+        /// Order is significant: the first name is treated as the primary sheet.
+        /// </summary>
+        IEnumerable<string> GetEditableSheetNames();
+    }
+
     public class GridColumnDescriptor
     {
         public string FieldName { get; set; }
@@ -49,9 +52,6 @@ namespace Spectrum.Reports.Interfaces
         }
     }
 
-    /// <summary>
-    /// Describes a quick-action toolbar button.
-    /// </summary>
     public class QuickActionDescriptor
     {
         public string Name { get; set; }
@@ -72,10 +72,6 @@ namespace Spectrum.Reports.Interfaces
         }
     }
 
-    /// <summary>
-    /// Describes a single field available for report building.
-    /// Scalar fields have <see cref="GetValue"/>; collection/row-level fields have <see cref="GetRowValue"/>.
-    /// </summary>
     public class FieldDescriptor
     {
         public string Key { get; set; }
@@ -86,15 +82,22 @@ namespace Spectrum.Reports.Interfaces
         public Func<object> GetValue { get; set; }
         public Func<int, object> GetRowValue { get; set; }
         public int RowCount { get; set; }
+        public Func<int, object> GetSelectedValue { get; set; }
+        public Func<int, int, object> GetSelectedRowValue { get; set; }
+        public Func<int, int> GetSelectedRowCount { get; set; }
 
         public bool IsRowLevel { get { return GetRowValue != null; } }
+        public bool HasSelectedRecordValues { get { return GetSelectedValue != null || GetSelectedRowValue != null; } }
 
         public FieldDescriptor() { }
 
         public FieldDescriptor(string key, string caption, string category,
             Type valueType = null, string formatString = null,
             Func<object> getValue = null,
-            Func<int, object> getRowValue = null, int rowCount = 0)
+            Func<int, object> getRowValue = null, int rowCount = 0,
+            Func<int, object> getSelectedValue = null,
+            Func<int, int, object> getSelectedRowValue = null,
+            Func<int, int> getSelectedRowCount = null)
         {
             Key = key;
             Caption = caption;
@@ -104,55 +107,46 @@ namespace Spectrum.Reports.Interfaces
             GetValue = getValue;
             GetRowValue = getRowValue;
             RowCount = rowCount;
+            GetSelectedValue = getSelectedValue;
+            GetSelectedRowValue = getSelectedRowValue;
+            GetSelectedRowCount = getSelectedRowCount;
         }
     }
 
-    /// <summary>
-    /// Adapter contract that bridges a domain entity to the ReportPreviewControl.
-    /// Implement per model to feed grid data, spreadsheet streams, exports, and XtraReports.
-    /// </summary>
+    public class ReportRecordDescriptor
+    {
+        public string Key { get; set; }
+        public string Caption { get; set; }
+        public object Model { get; set; }
+
+        public override string ToString()
+        {
+            return Caption ?? Key ?? base.ToString();
+        }
+    }
+
+    public interface IMultiRecordReportAdapter
+    {
+        IList<ReportRecordDescriptor> GetAvailableRecords();
+        IList<ReportRecordDescriptor> GetSelectedRecords();
+        ReportRecordDescriptor GetActiveRecord();
+        void UpdateRecordSelection(IList<string> selectedKeys, string activeKey);
+    }
+
     public interface IReportAdapter : IDisposable
     {
-        /// <summary>Display title shown in the toolbar / form caption.</summary>
         string Title { get; }
-
-        /// <summary>The bound domain entity.</summary>
         object Model { get; }
-
-        /// <summary>Column metadata for GridControl auto-configuration.</summary>
         IList<GridColumnDescriptor> GetGridColumns();
-
-        /// <summary>Data source for GridControl (must implement IBindingList for change tracking).</summary>
         IBindingList GetGridDataSource();
-
-        /// <summary>
-        /// Returns a stream containing CSV or XLSX data for SpreadsheetControl.
-        /// <paramref name="format"/> should be "csv" or "xlsx".
-        /// </summary>
         Stream GetSpreadsheetStream(out string format);
-
-        /// <summary>Toolbar quick-action descriptors.</summary>
         IList<QuickActionDescriptor> GetQuickActions();
-
-        /// <summary>Recalculate derived / summary fields after a grid edit.</summary>
         void Recalculate();
-
-        /// <summary>Key-value pairs for the summary panel (label ظْ formatted value).</summary>
         IList<KeyValuePair<string, string>> GetSummaryFields();
-
-        /// <summary>Generate full CSV string for file export.</summary>
         string ExportToCsvString();
-
-        /// <summary>Generate XLSX byte array for file export. Return null if unsupported.</summary>
         byte[] ExportToXlsxBytes();
-
-        /// <summary>Build/load an XtraReport for print preview. Return null if unsupported.</summary>
         XtraReport BuildReport();
-
-        /// <summary>Apply editable spreadsheet worksheet changes back to the underlying model.</summary>
         void ApplySpreadsheetChanges(DevExpress.Spreadsheet.IWorkbook workbook);
-
-        /// <summary>Available field descriptors for dynamic report building.</summary>
         IList<FieldDescriptor> GetFieldDescriptors();
     }
 }

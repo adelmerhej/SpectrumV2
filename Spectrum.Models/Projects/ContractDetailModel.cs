@@ -1,11 +1,13 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Spectrum.Models.Projects.Serializers;
 using System;
 using System.Collections.Generic;
 
 namespace Spectrum.Models.Projects
 {
 	// Embedded document for contract, financial, and warranty terms
+	[BsonIgnoreExtraElements]
 	public class ContractDetailModel
 	{// ==========================================================
 	 // Contract References & Core Info
@@ -13,17 +15,17 @@ namespace Spectrum.Models.Projects
 
 		// Reference to Services lookup collection
 		[BsonElement("ServiceId")]
-		[BsonRepresentation(BsonType.ObjectId)]
+		[BsonSerializer(typeof(SafeObjectIdSerializer))]
 		public string ServiceId { get; set; }
 
 		// Reference to Type lookup collection
 		[BsonElement("TypeId")]
-		[BsonRepresentation(BsonType.ObjectId)]
+		[BsonSerializer(typeof(SafeObjectIdSerializer))]
 		public string TypeId { get; set; }
 
 		// Reference to Sponsor/Funder collection
 		[BsonElement("SponsorId")]
-		[BsonRepresentation(BsonType.ObjectId)]
+		[BsonSerializer(typeof(SafeObjectIdSerializer))]
 		public string SponsorId { get; set; }
 
 
@@ -86,42 +88,6 @@ namespace Spectrum.Models.Projects
 		[BsonRepresentation(BsonType.Decimal128)]
 		[BsonElement("InitialTtcAmount")]
 		public decimal? InitialTtcAmount { get; set; }
-
-
-		// ==========================================================
-		// Addendums (Could be an Array of Addendum objects for better scalability)
-		// For simplicity, sticking to the provided structure.
-		// ==========================================================
-
-		[BsonElement("Addendum1Ref")]
-		public string Addendum1Ref { get; set; }
-
-		[BsonRepresentation(BsonType.Decimal128)]
-		[BsonElement("Addendum1Amount")]
-		public decimal? Addendum1Amount { get; set; }
-
-		[BsonRepresentation(BsonType.Decimal128)]
-		[BsonElement("Addendum1Vat")]
-		public decimal? Addendum1Vat { get; set; }
-
-		[BsonRepresentation(BsonType.Decimal128)]
-		[BsonElement("Addendum1Ttc")]
-		public decimal? Addendum1Ttc { get; set; }
-
-		[BsonElement("Addendum1BoardDate")]
-		public DateTime? Addendum1BoardDate { get; set; }
-
-		[BsonRepresentation(BsonType.Decimal128)]
-		[BsonElement("Addendum2Amount")]
-		public decimal? Addendum2Amount { get; set; } // Assuming this is Addendum 2 or final adjustment
-
-		[BsonRepresentation(BsonType.Decimal128)]
-		[BsonElement("Addendum2Vat")]
-		public decimal? Addendum2Vat { get; set; }
-
-		[BsonRepresentation(BsonType.Decimal128)]
-		[BsonElement("Addendum2Ttc")]
-		public decimal? Addendum2Ttc { get; set; }
 
 
 		// ==========================================================

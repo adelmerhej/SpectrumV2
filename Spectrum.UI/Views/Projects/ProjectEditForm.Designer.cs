@@ -1,4 +1,4 @@
-namespace Spectrum.Views.Projects
+﻿namespace Spectrum.Views.Projects
 {
 	partial class ProjectEditForm
 	{
@@ -363,32 +363,31 @@ namespace Spectrum.Views.Projects
             this.tabProjectInformation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projectInfoLayout)).BeginInit();
             this.projectInfoLayout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtReferenceNo.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtReference.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtProjectDate.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtProjectDate.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtProjectName.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboClients.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboEngineers.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceDate.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceDate.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtExpiryDate.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtExpiryDate.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceYear.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceYear.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboAreas.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsLocationInfo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboLocations.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboCountries.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tablePanel1)).BeginInit();
+            this.tablePanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cboCities.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboProjectType.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsLocationInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit3View)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCountries.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboLocations.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewLocations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboAreas.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewAreas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceYear.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtExpiryDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtExpiryDate.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtIssuanceDate.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboEngineers.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboClients.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDescription.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtJProjectDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtJProjectDate.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtReferenceNo.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtProjectName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblProjectType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblReference)).BeginInit();
@@ -417,11 +416,11 @@ namespace Spectrum.Views.Projects
             ((System.ComponentModel.ISupportInitialize)(this.cboContactEmail.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsContractDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtCompletitionDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtCompletitionDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtCompletitionDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtExtension.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtSignatureDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtSignatureDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtSignatureDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtContractLink.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtContractPeriod.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtContractNo.Properties)).BeginInit();
@@ -481,7 +480,7 @@ namespace Spectrum.Views.Projects
             ((System.ComponentModel.ISupportInitialize)(this.repInvCheckEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            this.tabExpenseGroup.SuspendLayout();
+            this.tabExpenseGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutCostSheetsGrid)).BeginInit();
             this.layoutCostSheetsGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcCosts)).BeginInit();
@@ -3482,6 +3481,7 @@ namespace Spectrum.Views.Projects
             this.gvDocuments.OptionsBehavior.Editable = false;
             this.gvDocuments.OptionsView.Style = DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewStyle.Tiles;
             this.gvDocuments.OptionsViewStyles.Tiles.ContextButtonsUseFullItemArea = true;
+            this.gvDocuments.DoubleClick += new System.EventHandler(this.gvDocuments_DoubleClick);
             // 
             // colDocumentId
             // 
@@ -3530,6 +3530,7 @@ namespace Spectrum.Views.Projects
             this.openDocuments.Size = new System.Drawing.Size(1332, 50);
             this.openDocuments.StyleController = this.layoutAttachedDocumnets;
             this.openDocuments.TabIndex = 6;
+            this.openDocuments.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.openDocuments_ButtonClick);
             // 
             // layoutControlGroup5
             // 
@@ -4446,3 +4447,4 @@ namespace Spectrum.Views.Projects
         private DevExpress.XtraGrid.Columns.GridColumn colActive1;
     }
 }
+

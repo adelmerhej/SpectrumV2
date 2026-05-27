@@ -21,15 +21,17 @@ namespace Spectrum.DataLayers.HumanResources.Employees.Services
         private static readonly HttpClient _httpClient = new HttpClient();
         private readonly string _apiKey;
         private readonly string _model;
+        private readonly string _provider;
         private bool _disposed;
 
-        public CvParsingService(string apiKey, string model = "gpt-4.1")
+        public CvParsingService(string apiKey, string model = "gpt-4.1", string provider = "OpenAI")
         {
             if (string.IsNullOrWhiteSpace(apiKey))
                 throw new ArgumentNullException(nameof(apiKey));
 
             _apiKey = apiKey;
             _model = model;
+            _provider = string.IsNullOrWhiteSpace(provider) ? "OpenAI" : provider;
         }
 
         #region Public API
@@ -41,19 +43,40 @@ namespace Spectrum.DataLayers.HumanResources.Employees.Services
             if (!File.Exists(filePath))
                 throw new FileNotFoundException("CV file not found.", filePath);
 
-            // 1. Extract text from file
             var cvText = ExtractText(filePath);
+            return await ParseCvTextAsync(cvText, cancellationToken).ConfigureAwait(false);
+        }
 
-            // 2. Send to AI for parsing
+        public async Task<CandidateModel> ParseCvTextAsync(string cvText, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (string.IsNullOrWhiteSpace(cvText))
+                throw new ArgumentNullException(nameof(cvText));
+
             var jsonResult = await CallAiParser(cvText, cancellationToken).ConfigureAwait(false);
-
-            // 3. Normalize AI JSON before deserialization
             jsonResult = NormalizeCandidateJson(jsonResult);
 
-            // 4. Deserialize into model
             var candidate = JsonConvert.DeserializeObject<CandidateModel>(jsonResult);
-
             return candidate;
+        }
+
+        public Task<CvPreprocessingResultModel> PreprocessCvAsync(string filePath, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+                throw new ArgumentNullException(nameof(filePath));
+            if (!File.Exists(filePath))
+                throw new FileNotFoundException("CV file not found.", filePath);
+
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var rawText = ExtractText(filePath);
+            var artifact = BuildPreprocessingArtifact(filePath, rawText);
+
+            return Task.FromResult(new CvPreprocessingResultModel
+            {
+                FilePath = filePath,
+                RawExtractedText = rawText,
+                NormalizedPreprocessedJson = artifact
+            });
         }
 
         #endregion
@@ -63,19 +86,10 @@ namespace Spectrum.DataLayers.HumanResources.Employees.Services
         private async Task<string> CallAiParser(string cvText, CancellationToken cancellationToken)
         {
             var prompt = BuildPrompt(cvText);
+            var requestUri = ResolveChatCompletionsEndpoint();
+            var requestBody = BuildChatCompletionsRequestBody(prompt);
 
-            var requestBody = new
-            {
-                model = _model,
-                messages = new[]
-                {
-                    new { role = "system", content = "You are an expert CV parser. Extract structured data accurately." },
-                    new { role = "user", content = prompt }
-                },
-                response_format = new { type = "json_object" }
-            };
-
-            using (var request = new HttpRequestMessage(HttpMethod.Post, "https://api.openai.com/v1/chat/completions"))
+            using (var request = new HttpRequestMessage(HttpMethod.Post, requestUri))
             {
                 request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
                 request.Content = new StringContent(
@@ -98,6 +112,41 @@ namespace Spectrum.DataLayers.HumanResources.Employees.Services
                     return messageContent;
                 }
             }
+        }
+
+        private string ResolveChatCompletionsEndpoint()
+        {
+            if (string.Equals(_provider, "DeepSeek", StringComparison.OrdinalIgnoreCase))
+                return "https://api.deepseek.com/v1/chat/completions";
+
+            return "https://api.openai.com/v1/chat/completions";
+        }
+
+        private object BuildChatCompletionsRequestBody(string prompt)
+        {
+            if (string.Equals(_provider, "DeepSeek", StringComparison.OrdinalIgnoreCase))
+            {
+                return new
+                {
+                    model = _model,
+                    messages = new[]
+                    {
+                        new { role = "system", content = "You are an expert CV parser. Extract structured data accurately." },
+                        new { role = "user", content = prompt }
+                    }
+                };
+            }
+
+            return new
+            {
+                model = _model,
+                messages = new[]
+                {
+                    new { role = "system", content = "You are an expert CV parser. Extract structured data accurately." },
+                    new { role = "user", content = prompt }
+                },
+                response_format = new { type = "json_object" }
+            };
         }
 
         #endregion
@@ -148,6 +197,38 @@ namespace Spectrum.DataLayers.HumanResources.Employees.Services
             {
                 obj[propertyName] = JValue.CreateNull();
             }
+        }
+
+        private string BuildPreprocessingArtifact(string filePath, string rawText)
+        {
+            var extension = Path.GetExtension(filePath)?.ToLowerInvariant();
+            var normalizedWhitespaceText = NormalizeWhitespace(rawText);
+
+            var artifact = new JObject
+            {
+                ["SourceFileName"] = Path.GetFileName(filePath),
+                ["SourceFileExtension"] = extension,
+                ["ExtractedAtUtc"] = DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture),
+                ["RawTextLength"] = rawText?.Length ?? 0,
+                ["NormalizedText"] = normalizedWhitespaceText
+            };
+
+            return artifact.ToString(Formatting.None);
+        }
+
+        private string NormalizeWhitespace(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return string.Empty;
+
+            var lines = value
+                .Replace("\r\n", "\n")
+                .Replace('\r', '\n')
+                .Split('\n')
+                .Select(l => l?.Trim())
+                .Where(l => !string.IsNullOrWhiteSpace(l));
+
+            return string.Join("\n", lines);
         }
 
         #endregion

@@ -153,7 +153,7 @@ namespace Spectrum.Views.Projects.Settings.Addendum
             }
             catch (Exception ex)
             {
-                XtraMessageBox.Show(ex.Message, @"Error Saving user", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XtraMessageBox.Show(ex.Message, @"Error Saving addendum", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -176,7 +176,7 @@ namespace Spectrum.Views.Projects.Settings.Addendum
                 txtSequence.Focus();
             }
 
-            if (txtSequence.Text == "")
+            if (txtReference.Text == "")
             {
                 messageNumber += 1;
                 validateMessage.Append("\n- Reference cannot be empty.");
@@ -184,7 +184,7 @@ namespace Spectrum.Views.Projects.Settings.Addendum
                 txtReference.Focus();
             }
 
-            if (txtSequence.Text == "")
+            if (txtSubject.Text == "")
             {
                 messageNumber += 1;
                 validateMessage.Append("\n- Subject cannot be empty.");

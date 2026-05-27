@@ -1,10 +1,13 @@
+using DevExpress.Utils;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Menu;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.WinExplorer;
 using Spectrum.DataLayers.Common.Areas;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.Common.Locations;
@@ -32,11 +35,14 @@ using Spectrum.Views.Projects.Settings.Addendum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Spectrum.Models.Common.Documents;
 
 namespace Spectrum.Views.Projects
 {
@@ -44,6 +50,7 @@ namespace Spectrum.Views.Projects
     {
         private ProjectModel _projectModel = new ProjectModel();
         private BindingList<ProjectHandoverModel> _projectHandovers = new BindingList<ProjectHandoverModel>();
+        private BindingList<DocumentModel> _documents = new BindingList<DocumentModel>();
 
         private IList<ClientModel> _clients = new List<ClientModel>();
         private ClientModel _clientModel = new ClientModel();
@@ -91,6 +98,7 @@ namespace Spectrum.Views.Projects
         private bool _canPrint = true;
         private bool _isAdmin = true;
         private bool _isProtected = true;
+        private readonly List<string> _loadWarnings = new List<string>();
 
         private DXMenuItem[] _addendumMenuItems;
 
@@ -113,6 +121,14 @@ namespace Spectrum.Views.Projects
                 ApplyDefaults();
                 ApplyPermissions();
                 InitializeMenuItems();
+                if (_loadWarnings.Any())
+                {
+                    XtraMessageBox.Show(
+                        "Some lookup data could not be loaded. The form will remain available with partial data.\n\n" + string.Join("\n", _loadWarnings),
+                        "Lookup Data Warning",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
@@ -123,27 +139,35 @@ namespace Spectrum.Views.Projects
         #region InitializeBindings Methods
         private async Task InitializeBindings()
         {
+            _loadWarnings.Clear();
+
+            var loadTasks = new[]
+            {
+                LoadSafelyAsync("clients", LoadClientsAsync, () => _clients = new List<ClientModel>()),
+                LoadSafelyAsync("engineers", LoadEngineersAsync, () => _engineers = new List<EmployeeModel>()),
+                LoadSafelyAsync("users", LoadUsersAsync, () => _users = new List<UserModel>()),
+                LoadSafelyAsync("services", LoadServicesAsync, () => _services = new List<ServiceModel>()),
+                LoadSafelyAsync("service types", LoadServiceTypesAsync, () => _serviceTypes = new List<ServiceTypeModel>()),
+                LoadSafelyAsync("locations", LoadLocationsAsync, () => _locations = new List<LocationModel>()),
+                LoadSafelyAsync("areas", LoadAreasAsync, () => _areas = new List<AreaModel>()),
+                LoadSafelyAsync("countries", LoadCountriesAsync, () => _countries = new List<CountryModel>()),
+                LoadSafelyAsync("cities", LoadCitiesAsync, () => _cities = new List<CityModel>()),
+                LoadSafelyAsync("addendums", LoadAddendumsAsync, () => _addendums = new List<AddendumModel>()),
+            };
+
+            await Task.WhenAll(loadTasks);
+        }
+
+        private async Task LoadSafelyAsync(string sourceName, Func<Task> loader, Action fallback)
+        {
             try
             {
-                var loadTasks = new[]
-                {
-                    LoadClientsAsync(),
-                    LoadEngineersAsync(),
-                    LoadUsersAsync(),
-                    LoadServicesAsync(),
-                    LoadServiceTypesAsync(),
-                    LoadLocationsAsync(),
-                    LoadAreasAsync(),
-                    LoadCountriesAsync(),
-                    LoadCitiesAsync(),
-                    LoadAddendumsAsync(),
-                };
-
-                await Task.WhenAll(loadTasks);
+                await loader();
             }
             catch (Exception ex)
             {
-                throw new Exception("Error loading form data", ex);
+                fallback?.Invoke();
+                _loadWarnings.Add($"- {sourceName}: {ex.Message}");
             }
         }
 
@@ -225,6 +249,7 @@ namespace Spectrum.Views.Projects
             _projectModel.ProjectHandovers = _projectModel.ProjectHandovers ?? new List<ProjectHandoverModel>();
             NormalizeLookupValues();
             InitializeProjectHandovers();
+            InitializeDocumentBindings();
 
             bsProject.DataSource = _projectModel;
             bsContractDetails.DataSource = _projectModel.ContractDetails;
@@ -339,6 +364,103 @@ namespace Spectrum.Views.Projects
         {
             _projectHandovers = new BindingList<ProjectHandoverModel>(_projectModel.ProjectHandovers.ToList());
             gcJobDetails.DataSource = _projectHandovers;
+        }
+
+        private void InitializeDocumentBindings()
+        {
+            _documents = LoadDocumentsForProject();
+            gcDocuments.DataSource = _documents;
+        }
+
+        private BindingList<DocumentModel> LoadDocumentsForProject()
+        {
+            var documents = new BindingList<DocumentModel>();
+            var projectId = _projectModel?._id;
+            if (string.IsNullOrWhiteSpace(projectId))
+                return documents;
+
+            var connection = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
+            var rootFolder = string.IsNullOrWhiteSpace(connection?.ProjectsDocumentsFolder)
+                ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpectrumApp", "Projects")
+                : connection.ProjectsDocumentsFolder;
+
+            if (!Directory.Exists(rootFolder))
+                return documents;
+
+            var prefix = projectId + "_";
+            var files = Directory.GetFiles(rootFolder)
+                .Where(path => Path.GetFileName(path).StartsWith(prefix, StringComparison.OrdinalIgnoreCase));
+
+            foreach (var filePath in files)
+            {
+                try
+                {
+                    documents.Add(new DocumentModel
+                    {
+                        DocumentName = GetDisplayDocumentName(projectId, filePath),
+                        OriginPath = filePath,
+                        DocumentDate = File.GetCreationTime(filePath),
+                        StreamedDate = DateTime.Now,
+                        DocumentContent = File.ReadAllBytes(filePath)
+                    });
+                }
+                catch
+                {
+                }
+            }
+
+            return documents;
+        }
+
+        private static string GetDisplayDocumentName(string recordId, string filePath)
+        {
+            var fileName = Path.GetFileName(filePath);
+            var prefix = (recordId ?? string.Empty) + "_";
+            return fileName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+                ? fileName.Substring(prefix.Length)
+                : fileName;
+        }
+
+        private static BindingList<DocumentModel> LoadDocumentsFromSourceFile(string sourceFile)
+        {
+            var documents = new BindingList<DocumentModel>();
+            if (string.IsNullOrWhiteSpace(sourceFile)) return documents;
+
+            var filePaths = sourceFile.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Trim())
+                .Where(x => !string.IsNullOrWhiteSpace(x));
+
+            foreach (var filePath in filePaths)
+            {
+                try
+                {
+                    if (!File.Exists(filePath)) continue;
+
+                    documents.Add(new DocumentModel
+                    {
+                        DocumentName = Path.GetFileName(filePath),
+                        OriginPath = filePath,
+                        DocumentDate = File.GetCreationTime(filePath),
+                        StreamedDate = DateTime.Now,
+                        DocumentContent = File.ReadAllBytes(filePath)
+                    });
+                }
+                catch
+                {
+                }
+            }
+
+            return documents;
+        }
+
+        private void PersistDocumentLinks()
+        {
+            if (_projectModel == null) return;
+
+            _projectModel.SourceFile = string.Join(";",
+                _documents.Where(x => x != null && !string.IsNullOrWhiteSpace(x.OriginPath))
+                    .Select(x => x.OriginPath)
+                    .Distinct(StringComparer.OrdinalIgnoreCase));
         }
 
         private void NormalizeLookupValues()
@@ -498,6 +620,24 @@ namespace Spectrum.Views.Projects
                 _projectModel.Status = ProjectStatus.Active;
                 _projectModel.ProjectDate = DateTime.Today;
             }
+
+            // Wire document thumbnail/icon rendering
+            gvDocuments.GetThumbnailImage += TileView1_GetThumbnailImage;
+            gvDocuments.OptionsImageLoad.RandomShow = true;
+            gvDocuments.OptionsImageLoad.LoadThumbnailImagesFromDataSource = false;
+            gvDocuments.OptionsImageLoad.AsyncLoad = true;
+
+            // Wire document context button events (delete bin + hover visibility)
+            gvDocuments.ContextButtonClick += gvDocuments_ContextButtonClick;
+            gvDocuments.ContextButtonCustomize += gvDocuments_ContextButtonCustomize;
+            gvDocuments.FocusedRowChanged += gvDocuments_FocusedRowChanged;
+        }
+
+        private void TileView1_GetThumbnailImage(object sender, ThumbnailImageEventArgs e)
+        {
+            var fileName = (string)gvDocuments.GetRowCellValue(e.DataSourceIndex, colName);
+            var ext = Path.GetExtension(fileName);
+            e.ThumbnailImage = HelperApplication.GetFileExtensionImage(ext, IconSizeType.Large, new Size(64, 64));
         }
 
         private void ApplyPermissions()
@@ -588,6 +728,7 @@ namespace Spectrum.Views.Projects
                 gvJobDetails.UpdateCurrentRow();
                 _projectModel = (ProjectModel)bsProject.Current;
                 _projectModel.ProjectHandovers = _projectHandovers.Where(x => x != null).ToList();
+                PersistDocumentLinks();
 
                 // derive client / engineer names from selected values
                 if (cboClients.EditValue != null)
@@ -982,6 +1123,175 @@ namespace Spectrum.Views.Projects
                     rpExpenses.Visible = false;
                     rcMain.SelectPage(rpMain);
                     break;
+            }
+        }
+
+        private void gvDocuments_ContextButtonCustomize(object sender, WinExplorerViewContextButtonCustomizeEventArgs e)
+        {
+            if (gvDocuments.FocusedRowHandle == e.RowHandle)
+            {
+                e.Item.AppearanceNormal.ForeColor = Color.White;
+                e.Item.AppearanceHover.ForeColor = Color.White;
+            }
+        }
+
+        private void gvDocuments_FocusedRowChanged(object sender, FocusedRowChangedEventArgs e)
+        {
+            gvDocuments.RefreshContextButtons();
+        }
+
+        private void openDocuments_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            try
+            {
+                var projectId = _projectModel?._id;
+                if (string.IsNullOrWhiteSpace(projectId))
+                {
+                    XtraMessageBox.Show("Please save the project record first to generate an ID for archived attachments.", "Save Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                var ofd = new OpenFileDialog
+                {
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    Multiselect = true,
+                    Filter = @"All Files (*.*)|*.*" +
+                             @"|PDF Portable Document Format (*.pdf)|*.pdf" +
+                             @"|PNG Portable Network Graphics (*.png)|*.png" +
+                             @"|JPEG File Interchange Format (*.jpg *.jpeg *jfif)|*.jpg;*.jpeg;*.jfif" +
+                             @"|BMP Windows Bitmap (*.bmp)|*.bmp" +
+                             @"|TIF Tagged Imaged File Format (*.tif *.tiff)|*.tif;*.tiff" +
+                             @"|GIF Graphics Interchange Format (*.gif)|*.gif"
+                };
+
+                if (ofd.ShowDialog() != DialogResult.OK) return;
+
+                var connection = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
+                var rootFolder = string.IsNullOrWhiteSpace(connection?.ProjectsDocumentsFolder)
+                    ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpectrumApp", "Projects")
+                    : connection.ProjectsDocumentsFolder;
+                Directory.CreateDirectory(rootFolder);
+
+                foreach (var file in ofd.FileNames)
+                {
+                    try
+                    {
+                        string fileName = Path.GetFileName(file);
+                        string archivedFileName = projectId + "_" + fileName;
+                        string destinationPath = Path.Combine(rootFolder, archivedFileName);
+
+                        if (File.Exists(destinationPath))
+                        {
+                            var result = XtraMessageBox.Show($"File '{archivedFileName}' already exists. Overwrite?", "Confirm Overwrite", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                            if (result == DialogResult.Cancel)
+                            {
+                                break;
+                            }
+                            if (result == DialogResult.No)
+                            {
+                                continue;
+                            }
+                        }
+
+                        File.Copy(file, destinationPath, true);
+
+                        _documents.Add(new DocumentModel
+                        {
+                            DocumentName = fileName,
+                            OriginPath = destinationPath,
+                            DocumentDate = File.GetCreationTime(destinationPath),
+                            StreamedDate = DateTime.Now,
+                            DocumentContent = File.ReadAllBytes(destinationPath)
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        XtraMessageBox.Show(ex.Message, @"Copy Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                PersistDocumentLinks();
+                gcDocuments.RefreshDataSource();
+            }
+            catch (Exception exception)
+            {
+                XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void gvDocuments_DoubleClick(object sender, EventArgs e)
+        {
+            OpenSelectedDocument();
+        }
+
+        private void gvDocuments_ContextButtonClick(object sender, DevExpress.Utils.ContextItemClickEventArgs e)
+        {
+            try
+            {
+                var focusedRowHandle = gvDocuments.FocusedRowHandle;
+                if (focusedRowHandle < 0)
+                {
+                    return;
+                }
+
+                var document = gvDocuments.GetRow(focusedRowHandle) as DocumentModel;
+                if (document == null || string.IsNullOrWhiteSpace(document.OriginPath))
+                {
+                    return;
+                }
+
+                var result = XtraMessageBox.Show(
+                    $"Are you sure you want to delete '{document.DocumentName}'?\n\nThis will permanently delete the file from disk.",
+                    "Confirm Delete",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2);
+
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
+
+                // Delete the physical file
+                if (File.Exists(document.OriginPath))
+                {
+                    File.Delete(document.OriginPath);
+                }
+
+                // Remove from the binding list
+                _documents.RemoveAt(focusedRowHandle);
+
+                XtraMessageBox.Show("Document deleted successfully.", "Delete Document", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                XtraMessageBox.Show($"Access denied: {ex.Message}\n\nPlease check file permissions.", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException ex)
+            {
+                XtraMessageBox.Show($"File error: {ex.Message}\n\nThe file may be in use by another application.", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show($"Error deleting document: {ex.Message}", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void OpenSelectedDocument()
+        {
+            try
+            {
+                var document = gvDocuments.GetFocusedRow() as DocumentModel;
+                if (document == null || string.IsNullOrWhiteSpace(document.OriginPath) || !File.Exists(document.OriginPath))
+                {
+                    return;
+                }
+
+                Process.Start(document.OriginPath);
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(ex.Message, "Open Document", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

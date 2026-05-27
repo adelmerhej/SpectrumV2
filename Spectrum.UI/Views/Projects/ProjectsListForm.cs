@@ -116,15 +116,29 @@ namespace Spectrum.Views.Projects
 
 		private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
 		{
-            //gcProjects.ShowRibbonPrintPreview();
-            var currentProject = gvProjects.GetFocusedRow() as ProjectModel;
-            if (currentProject == null)
+            var selectedRows = gvProjects.GetSelectedRows()
+                .Select(handle => gvProjects.GetRow(handle) as ProjectModel)
+                .Where(x => x != null)
+                .ToList();
+
+            var activeProject = gvProjects.GetFocusedRow() as ProjectModel;
+            if (activeProject == null)
             {
-                XtraMessageBox.Show("Select a project first.", "Build Report", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                activeProject = selectedRows.FirstOrDefault();
+            }
+
+            if (activeProject == null)
+            {
+                XtraMessageBox.Show("Select at least one project first.", "Build Report", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            using (var form = new ProjectReportDesignerForm(currentProject))
+            if (selectedRows.Count == 0)
+            {
+                selectedRows.Add(activeProject);
+            }
+
+            using (var form = new ProjectReportDesignerForm(activeProject, _projects, selectedRows))
                 form.ShowDialog(this);
         }
 
