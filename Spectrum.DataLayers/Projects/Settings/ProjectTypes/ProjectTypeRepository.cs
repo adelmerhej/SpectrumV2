@@ -49,11 +49,11 @@ namespace Spectrum.DataLayers.Projects.Settings.ProjectTypes
             return await _projectTypes.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<ProjectTypeModel> GetProjectTypeByNameAsync(string projectTypeName)
+        public async Task<ProjectTypeModel> GetProjectTypeBySectorAsync(string projectTypeSector)
         {
-            if (string.IsNullOrWhiteSpace(projectTypeName)) return null;
-            var pattern = "^" + Regex.Escape(projectTypeName.Trim()) + "$"; // exact match
-            var filter = Builders<ProjectTypeModel>.Filter.Regex(u => u.Name, new BsonRegularExpression(pattern, "i"));
+            if (string.IsNullOrWhiteSpace(projectTypeSector)) return null;
+            var pattern = "^" + Regex.Escape(projectTypeSector.Trim()) + "$"; // exact match
+            var filter = Builders<ProjectTypeModel>.Filter.Regex(u => u.Sector, new BsonRegularExpression(pattern, "i"));
             return await _projectTypes.Find(filter).FirstOrDefaultAsync();
         }
 

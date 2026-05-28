@@ -3,12 +3,15 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using Spectrum.DataLayers.Common.Countries;
+using Spectrum.DataLayers.Common.Countries.Interfaces;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Common.Countries;
 using Spectrum.Models.Users;
+using Spectrum.Reports.Common.Countries;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
+using Spectrum.Views.Reports;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -25,8 +28,9 @@ namespace Spectrum.Views.Common.Countries
 
 		private DistrictModel _districtModel = new DistrictModel();
 		private IList<DistrictModel> _districts = new List<DistrictModel>();
+        private List<DistrictModel> _dataReportModels = new List<DistrictModel>();
 
-		private readonly DistrictRepository _districtRepository = new DistrictRepository(DatabaseFactory.ProfilePrimary);
+        private readonly DistrictRepository _districtRepository = new DistrictRepository(DatabaseFactory.ProfilePrimary);
 
 		//Init permissionvariables
 		private bool _canAdd = true;
@@ -47,17 +51,6 @@ namespace Spectrum.Views.Common.Countries
 		public DistrictsListForm()
 		{
 			InitializeComponent();
-
-			// wire events
-			btnNew.ItemClick += btnNew_ItemClick;
-			btnEdit.ItemClick += btnEdit_ItemClick;
-			btnDelete.ItemClick += btnDelete_ItemClick;
-			btnPrint.ItemClick += btnPrint_ItemClick;
-			btnRefresh.ItemClick += btnRefresh_ItemClick;
-			btnClose.ItemClick += btnClose_ItemClick;
-			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
-			gvDistricts.DoubleClick += gvDistricts_DoubleClick;
-			gvDistricts.RowCellStyle += gvDistricts_RowCellStyle;
 
 			StartLoading();
 		}
@@ -162,10 +155,27 @@ namespace Spectrum.Views.Common.Countries
 			StartLoading();
 		}
 
-		private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
+		private async void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			gcDistricts.ShowRibbonPrintPreview();
-		}
+            try
+            {
+                _dataReportModels = await _districtRepository.GetDistrictsAsync();
+
+                var previewForm = new DocumentViewerForm();
+                var report = new DistrictsListReport();
+
+                report.DataSource = _dataReportModels;
+
+                previewForm.Viewer.DocumentSource = report;
+
+                previewForm.ShowDialog();
+            }
+            catch (Exception exception)
+            {
+                XtraMessageBox.Show(exception.Message, "Report Data Error!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
 
 		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
 		{
@@ -337,5 +347,5 @@ namespace Spectrum.Views.Common.Countries
 				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
 			}
 		}
-	}
+    }
 }

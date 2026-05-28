@@ -8,7 +8,7 @@ namespace Spectrum.DataLayers.Projects.Settings.ProjectTypes
     {
         Task<List<ProjectTypeModel>> GetProjectTypesAsync();
         Task<ProjectTypeModel> GetProjectTypeByIdAsync(string id);
-        Task<ProjectTypeModel> GetProjectTypeByNameAsync(string name);
+        Task<ProjectTypeModel> GetProjectTypeBySectorAsync(string sector);
         Task<string> AddNewProjectTypeAsync(ProjectTypeModel projectType);
         Task<bool> UpdateProjectTypeAsync(ProjectTypeModel projectType);
         Task<bool> DeleteProjectTypeAsync(string id);

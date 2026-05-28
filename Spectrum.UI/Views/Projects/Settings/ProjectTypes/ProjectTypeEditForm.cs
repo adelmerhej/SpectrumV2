@@ -150,12 +150,12 @@ namespace Spectrum.Views.Projects.Settings.ProjectTypes
             var messageNumber = 0;
             var validateMessage = new StringBuilder();
 
-            if (txtName.Text == "")
+            if (txtType.Text == "")
             {
                 messageNumber += 1;
                 validateMessage.Append("\n- Name cannot be empty.");
                 validateReturnValue = false;
-                txtName.Focus();
+                txtType.Focus();
             }
 
             if (!validateReturnValue)

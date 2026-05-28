@@ -47,18 +47,6 @@ namespace Spectrum.Views.Users
 		{
 			InitializeComponent();
 
-			// wire events
-			btnNew.ItemClick += btnNew_ItemClick;
-			btnEdit.ItemClick += btnEdit_ItemClick;
-			btnDelete.ItemClick += btnDelete_ItemClick;
-			btnPrint.ItemClick += btnPrint_ItemClick;
-			btnRefresh.ItemClick += btnRefresh_ItemClick;
-			btnClose.ItemClick += btnClose_ItemClick;
-			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
-			FormClosing += UsersListForm_FormClosing;
-			gvUsers.DoubleClick += gvUsers_DoubleClick;
-			gvUsers.RowCellStyle += gvUsers_RowCellStyle;
-
 			StartLoading();
 		}
 
@@ -344,5 +332,5 @@ namespace Spectrum.Views.Users
 				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
 			}
 		}
-	}
+    }
 }

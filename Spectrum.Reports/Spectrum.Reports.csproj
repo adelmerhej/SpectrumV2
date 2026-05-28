@@ -80,6 +80,42 @@
     <Compile Include="Adapters\HumanResources\Employees\EmployeeReportAdapter.cs" />
     <Compile Include="Adapters\Projects\ProjectReportAdapter.cs" />
     <Compile Include="Adapters\ReportAdapterBase.cs" />
+    <Compile Include="Common\Countries\CitiesListReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Countries\CitiesListReport.Designer.cs">
+      <DependentUpon>CitiesListReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Countries\ContinentsListReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Countries\ContinentsListReports.Designer.cs">
+      <DependentUpon>ContinentsListReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Countries\CountriesListReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Countries\CountriesListReport.Designer.cs">
+      <DependentUpon>CountriesListReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Countries\DistrictsListReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Countries\DistrictsListReport.Designer.cs">
+      <DependentUpon>DistrictsListReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Countries\ProvincesListReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Countries\ProvincesListReport.Designer.cs">
+      <DependentUpon>ProvincesListReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Countries\RegionsListReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Countries\RegionsListReport.Designer.cs">
+      <DependentUpon>RegionsListReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\ReportSpreadsheetHelper.cs" />
     <Compile Include="Editors\DefaultSpreadsheetReportEditorAdapter.cs" />
     <Compile Include="Editors\ISpreadsheetReportEditorAdapter.cs" />
@@ -94,6 +130,12 @@
     </Compile>
     <Compile Include="Members\Clients\ClientsListReport.Designer.cs">
       <DependentUpon>ClientsListReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projects\Settings\ProjectTypes\ProjectTypeReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Projects\Settings\ProjectTypes\ProjectTypeReport.Designer.cs">
+      <DependentUpon>ProjectTypeReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Templates\IReportTemplateProvider.cs" />
@@ -127,8 +169,29 @@
     <EmbeddedResource Include="Accounting\StatementReports\StatementOfAccountReport.resx">
       <DependentUpon>StatementOfAccountReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Common\Countries\CitiesListReport.resx">
+      <DependentUpon>CitiesListReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Countries\ContinentsListReports.resx">
+      <DependentUpon>ContinentsListReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Countries\CountriesListReport.resx">
+      <DependentUpon>CountriesListReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Countries\DistrictsListReport.resx">
+      <DependentUpon>DistrictsListReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Countries\ProvincesListReport.resx">
+      <DependentUpon>ProvincesListReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Countries\RegionsListReport.resx">
+      <DependentUpon>RegionsListReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Members\Clients\ClientsListReport.resx">
       <DependentUpon>ClientsListReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projects\Settings\ProjectTypes\ProjectTypeReport.resx">
+      <DependentUpon>ProjectTypeReport.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

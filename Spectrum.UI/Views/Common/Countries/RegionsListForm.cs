@@ -3,12 +3,15 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using Spectrum.DataLayers.Common.Countries;
+using Spectrum.DataLayers.Common.Countries.Interfaces;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Common.Countries;
 using Spectrum.Models.Users;
+using Spectrum.Reports.Common.Countries;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
+using Spectrum.Views.Reports;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -25,7 +28,8 @@ namespace Spectrum.Views.Common.Countries
 
 		private RegionModel _regionModel = new RegionModel();
 		private IList<RegionModel> _regions = new List<RegionModel>();
-
+        private List<RegionModel> _dataReportModels = new List<RegionModel>();
+        
 		private readonly RegionRepository _regionRepository = new RegionRepository(DatabaseFactory.ProfilePrimary);
 
 		//Init permissionvariables
@@ -47,17 +51,6 @@ namespace Spectrum.Views.Common.Countries
 		public RegionsListForm()
 		{
 			InitializeComponent();
-
-			// wire events
-			btnNew.ItemClick += btnNew_ItemClick;
-			btnEdit.ItemClick += btnEdit_ItemClick;
-			btnDelete.ItemClick += btnDelete_ItemClick;
-			btnPrint.ItemClick += btnPrint_ItemClick;
-			btnRefresh.ItemClick += btnRefresh_ItemClick;
-			btnClose.ItemClick += btnClose_ItemClick;
-			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
-			gvRegions.DoubleClick += gvRegions_DoubleClick;
-			gvRegions.RowCellStyle += gvRegions_RowCellStyle;
 
 			StartLoading();
 		}
@@ -161,10 +154,27 @@ namespace Spectrum.Views.Common.Countries
 			StartLoading();
 		}
 
-		private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
+		private async void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			gcRegions.ShowRibbonPrintPreview();
-		}
+            try
+            {
+                _dataReportModels = await _regionRepository.GetRegionsAsync();
+
+                var previewForm = new DocumentViewerForm();
+                var report = new RegionsListReport();
+
+                report.DataSource = _dataReportModels;
+
+                previewForm.Viewer.DocumentSource = report;
+
+                previewForm.ShowDialog();
+            }
+            catch (Exception exception)
+            {
+                XtraMessageBox.Show(exception.Message, "Report Data Error!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
 
 		private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
 		{
@@ -334,5 +344,5 @@ namespace Spectrum.Views.Common.Countries
 				e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
 			}
 		}
-	}
+    }
 }
