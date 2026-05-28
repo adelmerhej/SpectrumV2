@@ -18,12 +18,14 @@ using Spectrum.DataLayers.Members.Clients;
 using Spectrum.Models.Members.Clients;
 using Spectrum.DataLayers.Projects;
 using Spectrum.DataLayers.Projects.Settings.Addendum;
+using Spectrum.DataLayers.Projects.Settings.ProjectTypes;
 using Spectrum.DataLayers.Users;
 using Spectrum.Models.Common.Areas;
 using Spectrum.Models.Common.Countries;
 using Spectrum.Models.Common.Services;
 using Spectrum.Models.HumanResources.Employees;
 using Spectrum.Models.Members.Clients;
+using Spectrum.Models.Operations.Projects.Settings.ProjectTypes;
 using Spectrum.Models.Projects;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
@@ -33,6 +35,7 @@ using Spectrum.Views.Common.Services;
 using Spectrum.Views.Members.Clients;
 using Spectrum.Views.Members.Engineers;
 using Spectrum.Views.Projects.Settings.Addendum;
+using Spectrum.Views.Projects.Settings.ProjectTypes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -79,6 +82,7 @@ namespace Spectrum.Views.Projects
 
         private IList<ServiceModel> _services = new List<ServiceModel>();
         private IList<ServiceTypeModel> _serviceTypes = new List<ServiceTypeModel>();
+        private IList<ProjectTypeModel> _projectTypes = new List<ProjectTypeModel>();
 
         private readonly ProjectRepository _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
         private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
@@ -92,6 +96,7 @@ namespace Spectrum.Views.Projects
         private readonly LocationRepository _locationRepository = new LocationRepository(DatabaseFactory.ProfilePrimary);
         private readonly AreaRepository _areaRepository = new AreaRepository(DatabaseFactory.ProfilePrimary);
         private readonly AddendumRepository _addendumRepository = new AddendumRepository(DatabaseFactory.ProfilePrimary);
+        private readonly ProjectTypeRepository _projectTypeRepository = new ProjectTypeRepository(DatabaseFactory.ProfilePrimary);
 
         private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
@@ -157,6 +162,7 @@ namespace Spectrum.Views.Projects
                 LoadSafelyAsync("countries", LoadCountriesAsync, () => _countries = new List<CountryModel>()),
                 LoadSafelyAsync("cities", LoadCitiesAsync, () => _cities = new List<CityModel>()),
                 LoadSafelyAsync("addendums", LoadAddendumsAsync, () => _addendums = new List<AddendumModel>()),
+                LoadSafelyAsync("project types", LoadProjectTypesAsync, () => _projectTypes = new List<ProjectTypeModel>()),
             };
 
             await Task.WhenAll(loadTasks);
@@ -243,6 +249,11 @@ namespace Spectrum.Views.Projects
         {
             await Task.CompletedTask;
             _addendums = (_projectModel.Addendums ?? new List<AddendumModel>()).ToList();
+        }
+
+        private async Task LoadProjectTypesAsync()
+        {
+            _projectTypes = await _projectTypeRepository.GetProjectTypesAsync();
         }
 
         #endregion
@@ -341,6 +352,19 @@ namespace Spectrum.Views.Projects
 
         private void ConfigureLookupBindings()
         {
+            cboProjectType.DataBindings.Clear();
+            cboProjectType.DataBindings.Add("EditValue", bsProject, "ProjectType", true, DataSourceUpdateMode.OnPropertyChanged);
+            cboProjectType.Properties.DataSource = null;
+            cboProjectType.Properties.DisplayMember = "Type";
+            cboProjectType.Properties.ValueMember = "Type";
+            cboProjectType.Properties.DataSource = _projectTypes;
+            ConfigurePopupGridColumns(gridView8,
+                ("Type", "Type", 180),
+                ("Sector", "Sector", 150),
+                ("Description", "Description", 220));
+            cboProjectType.AddNewValue -= cboProjectType_AddNewValue;
+            cboProjectType.AddNewValue += cboProjectType_AddNewValue;
+
             cboClients.DataBindings.Clear();
             cboClients.DataBindings.Add("EditValue", bsProject, "ClientIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
             cboClients.Properties.DataSource = null;
@@ -1087,6 +1111,29 @@ namespace Spectrum.Views.Projects
             Spectrum.Views.Common.Areas.AreaEditForm frm = new Spectrum.Views.Common.Areas.AreaEditForm(new Spectrum.Models.Common.Areas.AreaModel());
             frm.SendUpdatedArea += RcvUpdatedArea;
             frm.ShowDialog();
+        }
+
+        private void cboProjectType_AddNewValue(object sender, AddNewValueEventArgs e)
+        {
+            var frm = new ProjectTypeEditForm(new ProjectTypeModel());
+            frm.SendUpdatedProjectType += RcvUpdatedProjectType;
+            frm.ShowDialog();
+        }
+
+        private void RcvUpdatedProjectType(object sender, EventArgs e)
+        {
+            if (sender == null) return;
+            var projectType = sender as ProjectTypeModel;
+            if (projectType == null) return;
+
+            if (_projectTypes.All(x => !string.Equals(x.Type, projectType.Type, StringComparison.OrdinalIgnoreCase)))
+            {
+                _projectTypes.Add(projectType);
+            }
+
+            cboProjectType.Properties.DataSource = null;
+            cboProjectType.Properties.DataSource = _projectTypes;
+            cboProjectType.EditValue = projectType.Type;
         }
 
         private void RcvUpdatedArea(object sender, EventArgs e)
