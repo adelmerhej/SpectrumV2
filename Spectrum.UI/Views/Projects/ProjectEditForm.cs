@@ -15,6 +15,7 @@ using Spectrum.DataLayers.Common.Services;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.DataLayers.HumanResources.Employees;
 using Spectrum.DataLayers.Members.Clients;
+using Spectrum.DataLayers.Members.Funders;
 using Spectrum.DataLayers.Projects;
 using Spectrum.DataLayers.Projects.Settings.Addendum;
 using Spectrum.DataLayers.Projects.Settings.ProjectTypes;
@@ -25,6 +26,7 @@ using Spectrum.Models.Common.Documents;
 using Spectrum.Models.Common.Services;
 using Spectrum.Models.HumanResources.Employees;
 using Spectrum.Models.Members.Clients;
+using Spectrum.Models.Members.Funders;
 using Spectrum.Models.Operations.Projects.Settings.ProjectTypes;
 using Spectrum.Models.Projects;
 using Spectrum.Models.Users;
@@ -59,6 +61,8 @@ namespace Spectrum.Views.Projects
         private ClientModel _clientModel = new ClientModel();
         private IList<ContactModel> _contacts = new List<ContactModel>();
 
+        private IList<FunderModel> _funders = new List<FunderModel>();
+
         private IList<EmployeeModel> _engineers = new List<EmployeeModel>();
         private EmployeeModel _engineerModel = new EmployeeModel();
 
@@ -86,6 +90,7 @@ namespace Spectrum.Views.Projects
         private readonly ProjectRepository _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
         private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
         private readonly ContactRepository _contactRepository = new ContactRepository(DatabaseFactory.ProfilePrimary);
+        private readonly FunderRepository _funderRepository = new FunderRepository(DatabaseFactory.ProfilePrimary);
         private readonly EmployeeRepository _engineerRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
         private readonly UserRepository _userRepository = new UserRepository(DatabaseFactory.ProfilePrimary);
         private readonly ServiceRepository _serviceRepository = new ServiceRepository(DatabaseFactory.ProfilePrimary);
@@ -152,6 +157,7 @@ namespace Spectrum.Views.Projects
             {
                 LoadSafelyAsync("clients", LoadClientsAsync, () => _clients = new List<ClientModel>()),
                 LoadSafelyAsync("contacts", LoadContactsAsync, () => _contacts = new List<ContactModel>()),
+                LoadSafelyAsync("funders", LoadFundersAsync, () => _funders = new List<FunderModel>()),
                 LoadSafelyAsync("engineers", LoadEngineersAsync, () => _engineers = new List<EmployeeModel>()),
                 LoadSafelyAsync("users", LoadUsersAsync, () => _users = new List<UserModel>()),
                 LoadSafelyAsync("services", LoadServicesAsync, () => _services = new List<ServiceModel>()),
@@ -203,6 +209,11 @@ namespace Spectrum.Views.Projects
         private async Task LoadContactsAsync()
         {
             _contacts = await _contactRepository.GetContactsAsync();
+        }
+
+        private async Task LoadFundersAsync()
+        {
+            _funders = await _funderRepository.GetFundersAsync();
         }
         private async Task LoadEngineersAsync()
         {
@@ -349,12 +360,12 @@ namespace Spectrum.Views.Projects
             cboFundedBy.DataBindings.Clear();
             cboFundedBy.DataBindings.Add("EditValue", bsContractDetails, "SponsorId", true, DataSourceUpdateMode.OnPropertyChanged);
             cboFundedBy.Properties.DataSource = null;
-            cboFundedBy.Properties.DisplayMember = "ClientName";
+            cboFundedBy.Properties.DisplayMember = "Name";
             cboFundedBy.Properties.ValueMember = "_id";
-            cboFundedBy.Properties.DataSource = _clients;
+            cboFundedBy.Properties.DataSource = _funders;
             ConfigurePopupGridColumns(gridView12,
-                ("ClientInitial", "Initial", 60),
-                ("ClientName", "Client Name", 220));
+                ("Name", "Name", 400),
+                ("Type", "Type", 200));
 
             cboEngineers.DataBindings.Clear();
             cboEngineers.DataBindings.Add("EditValue", bsProject, "EngineerIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
@@ -387,6 +398,14 @@ namespace Spectrum.Views.Projects
 
             cboEngineers.EditValueChanged -= cboEngineers_EditValueChanged;
             cboEngineers.EditValueChanged += cboEngineers_EditValueChanged;
+
+            ConfigurePopupGridColumns(gridView10,
+                ("ContactName", "Contact Name", 200),
+                ("Email", "Email", 400));
+
+            ConfigurePopupGridColumns(gridView13,
+                ("ContactName", "Contact Name", 200),
+                ("Email", "Email", 400));
 
             RefreshContactEmailSource();
 
@@ -516,7 +535,7 @@ namespace Spectrum.Views.Projects
             _projectModel.EngineerIdValue = ResolveEngineerId(_projectModel.EngineerIdValue, _projectModel.EngineerInCharge);
             _projectModel.Username = ResolveProjectUsername(_projectModel.Username);
             _projectModel.UserIdValue = ResolveUserId(_projectModel.UserIdValue, _projectModel.Username);
-            _projectModel.ContractDetails.SponsorId = ResolveClientId(_projectModel.ContractDetails.SponsorId, _projectModel.ContractDetails.SponsorId);
+            _projectModel.ContractDetails.SponsorId = ResolveFunderId(_projectModel.ContractDetails.SponsorId);
         }
 
         private string ResolveProjectUsername(string username)
@@ -534,6 +553,12 @@ namespace Spectrum.Views.Projects
 
             var client = _clients.FirstOrDefault(c => string.Equals(c.ClientName, candidateName, StringComparison.OrdinalIgnoreCase));
             return client?._id;
+        }
+
+        private string ResolveFunderId(string idValue)
+        {
+            if (IsValidObjectId(idValue) && _funders.Any(f => f._id == idValue)) return idValue;
+            return null;
         }
 
         private string ResolveEngineerId(string idValue, string nameValue)
@@ -1181,7 +1206,22 @@ namespace Spectrum.Views.Projects
                 txtContactEmail.EditValue = null;
                 if (_projectModel?.ContractDetails != null)
                     _projectModel.ContractDetails.ClientContactEmail = null;
+
+                var clientId = cboClients.EditValue?.ToString();
+                var selectedClient = string.IsNullOrWhiteSpace(clientId)
+                    ? null
+                    : _clients.FirstOrDefault(c => c._id == clientId);
+
+                // Filter cboClientContact to show only contacts for this client
                 RefreshContactEmailSource();
+
+                // Auto-assign the client's own email from ClientModel
+                if (selectedClient != null && !string.IsNullOrWhiteSpace(selectedClient.Email))
+                {
+                    txtContactEmail.EditValue = selectedClient.Email;
+                    if (_projectModel?.ContractDetails != null)
+                        _projectModel.ContractDetails.ClientContactEmail = selectedClient.Email;
+                }
             }
             catch
             {
@@ -1195,6 +1235,18 @@ namespace Spectrum.Views.Projects
             var contacts = string.IsNullOrWhiteSpace(clientId)
                 ? new List<ContactModel>()
                 : _contacts.Where(c => c.ClientId == clientId).ToList();
+
+            // Filter cboClientContact to show only contacts for this client
+            cboClientContact.Properties.DataSource = null;
+            cboClientContact.Properties.DisplayMember = "ContactName";
+            cboClientContact.Properties.ValueMember = "ContactName";
+            cboClientContact.Properties.DataSource = contacts;
+
+            // Filter txtContactEmail (SearchLookUpEdit) to show emails for this client
+            txtContactEmail.Properties.DataSource = null;
+            txtContactEmail.Properties.DisplayMember = "Email";
+            txtContactEmail.Properties.ValueMember = "Email";
+            txtContactEmail.Properties.DataSource = contacts;
 
             // Restore previously saved email if it matches one of the contacts
             var savedEmail = _projectModel?.ContractDetails?.ClientContactEmail;
@@ -1248,7 +1300,7 @@ namespace Spectrum.Views.Projects
                     ? null
                     : _clients.FirstOrDefault(c => c._id == clientId);
 
-                // Find the contact matching the selected email; fall back to an empty new one scoped to the current client
+                // Find the contact matching the selected email
                 ContactModel contact = null;
                 if (!string.IsNullOrWhiteSpace(email))
                     contact = _contacts.FirstOrDefault(c => string.Equals(c.Email, email, StringComparison.OrdinalIgnoreCase));
@@ -1357,6 +1409,7 @@ namespace Spectrum.Views.Projects
 
         private void openDocuments_ButtonClick(object sender, ButtonPressedEventArgs e)
         {
+            if (!"loadFile".Equals(e.Button.Tag?.ToString())) return;
             try
             {
                 var projectId = _projectModel?._id;

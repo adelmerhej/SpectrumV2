@@ -3,21 +3,22 @@ using System;
 
 namespace Spectrum.Models.Common.Services
 {
-	public class ServiceModel : EntityObject, ICloneable
-	{
-		[BsonElement("ServiceName")]
-		public string ServiceName { get; set; }
+    public class ServiceModel : EntityObject, ICloneable
+    {
+        [BsonElement("ServiceName")]
+        public string ServiceName { get; set; }
 
-		#region Implementation of ICloneable
+        [BsonElement("ServiceCode")]
+        public string ServiceCode { get; set; }
 
-		/// <summary>Creates a new object that is a copy of the current instance.</summary>
-		/// <returns>A new object that is a copy of this instance.</returns>
-		public object Clone()
-		{
-			var recordModel = (ServiceModel)MemberwiseClone();
-			return recordModel;
-		}
+        #region Implementation of ICloneable
 
-		#endregion
-	}
+        public object Clone()
+        {
+            var recordModel = (ServiceModel)MemberwiseClone();
+            return recordModel;
+        }
+
+        #endregion
+    }
 }

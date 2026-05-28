@@ -23,11 +23,7 @@
             DevExpress.XtraBars.Ribbon.GalleryItem galleryItem11 = new DevExpress.XtraBars.Ribbon.GalleryItem();
             DevExpress.XtraBars.Ribbon.GalleryItem galleryItem12 = new DevExpress.XtraBars.Ribbon.GalleryItem();
             DevExpress.Utils.ContextButton contextButton2 = new DevExpress.Utils.ContextButton();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+
             this.bsProject = new System.Windows.Forms.BindingSource(this.components);
             this.rcMain = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
@@ -169,7 +165,11 @@
             this.gridView12 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.txtContactEmail = new DevExpress.XtraEditors.TextEdit();
+            this.gridColumn28 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.txtContactEmail = new DevExpress.XtraEditors.SearchLookUpEdit();
+            this.gridView13 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn29 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn30 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup9 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lblContractNo = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -443,6 +443,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cboFundedBy.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtContactEmail.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblContractNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
@@ -1998,7 +1999,7 @@
             this.cboFundedBy.Name = "cboFundedBy";
             this.cboFundedBy.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cboFundedBy.Properties.DisplayMember = "ClientName";
+            this.cboFundedBy.Properties.DisplayMember = "Name";
             this.cboFundedBy.Properties.NullText = "";
             this.cboFundedBy.Properties.PopupView = this.gridView12;
             this.cboFundedBy.Properties.ValueMember = "_id";
@@ -2010,7 +2011,8 @@
             // 
             this.gridView12.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.gridColumn1,
-            this.gridColumn2});
+            this.gridColumn2,
+            this.gridColumn28});
             this.gridView12.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridView12.Name = "gridView12";
             this.gridView12.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -2025,12 +2027,21 @@
             // 
             // gridColumn2
             // 
-            this.gridColumn2.Caption = "Client Name";
-            this.gridColumn2.FieldName = "ClientName";
+            this.gridColumn2.Caption = "Name";
+            this.gridColumn2.FieldName = "Name";
             this.gridColumn2.Name = "gridColumn2";
             this.gridColumn2.Visible = true;
             this.gridColumn2.VisibleIndex = 0;
-            this.gridColumn2.Width = 948;
+            this.gridColumn2.Width = 600;
+            // 
+            // gridColumn28
+            // 
+            this.gridColumn28.Caption = "Type";
+            this.gridColumn28.FieldName = "Type";
+            this.gridColumn28.Name = "gridColumn28";
+            this.gridColumn28.Visible = true;
+            this.gridColumn28.VisibleIndex = 1;
+            this.gridColumn28.Width = 348;
             // 
             // txtContactEmail
             // 
@@ -2038,9 +2049,46 @@
             this.txtContactEmail.Location = new System.Drawing.Point(143, 190);
             this.txtContactEmail.MenuManager = this.rcMain;
             this.txtContactEmail.Name = "txtContactEmail";
+            this.txtContactEmail.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "View", -1, true, true, false, new DevExpress.XtraEditors.Controls.EditorButtonImageOptions(), new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), new DevExpress.Utils.SerializableAppearanceObject(), new DevExpress.Utils.SerializableAppearanceObject(), new DevExpress.Utils.SerializableAppearanceObject(), new DevExpress.Utils.SerializableAppearanceObject(), "View Contact", "ViewContact", null, DevExpress.Utils.ToolTipAnchor.Default)});
+            this.txtContactEmail.Properties.DisplayMember = "Email";
+            this.txtContactEmail.Properties.NullText = "";
+            this.txtContactEmail.Properties.PopupView = this.gridView13;
+            this.txtContactEmail.Properties.ValueMember = "Email";
             this.txtContactEmail.Size = new System.Drawing.Size(656, 22);
             this.txtContactEmail.StyleController = this.contractsLayout;
             this.txtContactEmail.TabIndex = 14;
+            this.txtContactEmail.EditValueChanged += new System.EventHandler(this.cboContactEmail_EditValueChanged);
+            this.txtContactEmail.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.cboContactEmail_ButtonClick);
+            // 
+            // gridView13
+            // 
+            this.gridView13.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn29,
+            this.gridColumn30});
+            this.gridView13.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView13.Name = "gridView13";
+            this.gridView13.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView13.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn29
+            // 
+            this.gridColumn29.Caption = "Contact Name";
+            this.gridColumn29.FieldName = "ContactName";
+            this.gridColumn29.Name = "gridColumn29";
+            this.gridColumn29.Visible = true;
+            this.gridColumn29.VisibleIndex = 0;
+            this.gridColumn29.Width = 300;
+            // 
+            // gridColumn30
+            // 
+            this.gridColumn30.Caption = "Email";
+            this.gridColumn30.FieldName = "Email";
+            this.gridColumn30.Name = "gridColumn30";
+            this.gridColumn30.Visible = true;
+            this.gridColumn30.VisibleIndex = 1;
+            this.gridColumn30.Width = 356;
             // 
             // layoutControlGroup9
             // 
@@ -3634,6 +3682,7 @@
             this.gvDocuments.OptionsBehavior.Editable = false;
             this.gvDocuments.OptionsView.Style = DevExpress.XtraGrid.Views.WinExplorer.WinExplorerViewStyle.Tiles;
             this.gvDocuments.OptionsViewStyles.Tiles.ContextButtonsUseFullItemArea = true;
+            this.gvDocuments.DoubleClick += new System.EventHandler(this.gvDocuments_DoubleClick);
             // 
             // colDocumentId
             // 
@@ -3673,15 +3722,15 @@
             this.openDocuments.Name = "openDocuments";
             this.openDocuments.Properties.AutoHeight = false;
             this.openDocuments.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(16, 16);
             this.openDocuments.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton(),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", "loadFile", null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Plus, "Add", -1, true, true, false, new DevExpress.XtraEditors.Controls.EditorButtonImageOptions(), new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), new DevExpress.Utils.SerializableAppearanceObject(), new DevExpress.Utils.SerializableAppearanceObject(), new DevExpress.Utils.SerializableAppearanceObject(), new DevExpress.Utils.SerializableAppearanceObject(), "Add Document", "loadFile", null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.openDocuments.Properties.Client = this.gcDocuments;
             this.openDocuments.Size = new System.Drawing.Size(1332, 50);
             this.openDocuments.StyleController = this.layoutAttachedDocumnets;
             this.openDocuments.TabIndex = 6;
+            this.openDocuments.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.openDocuments_ButtonClick);
             // 
             // layoutControlGroup5
             // 
@@ -4178,6 +4227,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cboFundedBy.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtContactEmail.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblContractNo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
@@ -4614,10 +4664,14 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn22;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn23;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn24;
-        private DevExpress.XtraEditors.TextEdit txtContactEmail;
+        private DevExpress.XtraEditors.SearchLookUpEdit txtContactEmail;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView13;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn29;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn30;
         private System.Windows.Forms.BindingSource bsContacts;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn20;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn21;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn28;
         private DevExpress.XtraTab.XtraTabPage tabProjectHistory;
     }
 }
