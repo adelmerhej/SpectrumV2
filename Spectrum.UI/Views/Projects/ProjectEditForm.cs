@@ -106,7 +106,6 @@ namespace Spectrum.Views.Projects
         private bool _isAdmin = true;
         private bool _isProtected = true;
         private readonly List<string> _loadWarnings = new List<string>();
-
         private DXMenuItem[] _addendumMenuItems;
 
         public EventHandler SendUpdatedProject;
@@ -275,6 +274,7 @@ namespace Spectrum.Views.Projects
             bsLocationInfo.DataSource = _projectModel.Location;
 
             gcAddendum.DataSource = _addendums;
+            InitializeProjectHistoryTimeline();
 
             ConfigureLookupBindings();
 
@@ -321,6 +321,9 @@ namespace Spectrum.Views.Projects
                 appearance.Font = font;
                 appearance.ForeColor = foreColor;
             }
+
+            HookProjectHistoryEvents();
+            RefreshProjectHistoryTimeline();
         }
 
         #endregion
@@ -609,6 +612,7 @@ namespace Spectrum.Views.Projects
 
             if (!ConfirmAction("Delete row?", "Confirmation")) return;
             gvAddendum.SetRowCellValue(gvAddendum.FocusedRowHandle, "Deleted", true);
+            RefreshProjectHistoryTimeline();
         }
 
         private void gvAddendum_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
@@ -729,6 +733,143 @@ namespace Spectrum.Views.Projects
         private void dtIssuanceDate_EditValueChanged(object sender, EventArgs e)
         {
             SyncIssuanceYearFromDate();
+            RefreshProjectHistoryTimeline();
+        }
+
+        private void ProjectHistoryDate_EditValueChanged(object sender, EventArgs e)
+        {
+            RefreshProjectHistoryTimeline();
+        }
+
+        private void InitializeProjectHistoryTimeline()
+        {
+            if (projectHistoryTimeline == null) return;
+            projectHistoryTimeline.BorderStyle = BorderStyles.NoBorder;
+            projectHistoryTimeline.Properties.ReadOnly = true;
+            projectHistoryTimeline.Properties.ScrollBars = ScrollBars.Vertical;
+            projectHistoryTimeline.Properties.WordWrap = false;
+            projectHistoryTimeline.Properties.Appearance.BackColor = Color.White;
+            projectHistoryTimeline.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+        }
+
+        private void HookProjectHistoryEvents()
+        {
+            dtIssuanceDate.EditValueChanged -= dtIssuanceDate_EditValueChanged;
+            dtIssuanceDate.EditValueChanged += dtIssuanceDate_EditValueChanged;
+
+            dtSignatureDate.EditValueChanged -= ProjectHistoryDate_EditValueChanged;
+            dtSignatureDate.EditValueChanged += ProjectHistoryDate_EditValueChanged;
+
+            dtCompletitionDate.EditValueChanged -= ProjectHistoryDate_EditValueChanged;
+            dtCompletitionDate.EditValueChanged += ProjectHistoryDate_EditValueChanged;
+
+            dtExpiryDate.EditValueChanged -= ProjectHistoryDate_EditValueChanged;
+            dtExpiryDate.EditValueChanged += ProjectHistoryDate_EditValueChanged;
+        }
+
+        private void RefreshProjectHistoryTimeline()
+        {
+            if (projectHistoryTimeline == null) return;
+
+            var items = BuildProjectHistoryTimelineItems();
+            projectHistoryTimeline.Text = string.Join(
+                Environment.NewLine + Environment.NewLine,
+                items.Select(FormatProjectHistoryTimelineItem));
+        }
+
+        private List<ProjectHistoryTimelineItem> BuildProjectHistoryTimelineItems()
+        {
+            var items = new List<ProjectHistoryTimelineItem>();
+            var contractDetails = _projectModel?.ContractDetails ?? new ContractDetailModel();
+
+            AddProjectHistoryItem(items, _projectModel?.IssuanceDate, "Issuance Date", _projectModel?.Reference);
+            AddProjectHistoryItem(items, contractDetails.SignatureDate, "Signature Date", contractDetails.ContractNumber);
+
+            foreach (var addendum in (_addendums ?? new List<AddendumModel>())
+                         .Where(x => x != null && !x.Deleted)
+                         .OrderBy(x => x.EffectiveDate ?? x.BODDate ?? DateTime.MaxValue)
+                         .ThenBy(x => x.Sequence))
+            {
+                AddProjectHistoryItem(
+                    items,
+                    addendum.EffectiveDate ?? addendum.BODDate,
+                    $"Addendum {addendum.Sequence}",
+                    BuildAddendumHistoryDetails(addendum));
+            }
+
+            AddProjectHistoryItem(items, contractDetails.ActualCompletionDate, "Completion Date", _projectModel?.ProjectName);
+            if (_projectModel?.ExpiryDate != null)
+            {
+                AddProjectHistoryItem(items, _projectModel.ExpiryDate, "Expiry Date", _projectModel.Reference);
+            }
+
+            if (!items.Any())
+            {
+                items.Add(new ProjectHistoryTimelineItem
+                {
+                    EventDate = string.Empty,
+                    Title = "No project history available",
+                    Details = "Dates and addendums will appear here once they are provided.",
+                    Marker = "·"
+                });
+                return items;
+            }
+
+            return items
+                .OrderBy(x => x.SortDate ?? DateTime.MaxValue)
+                .ThenBy(x => x.SortOrder)
+                .ToList();
+        }
+
+        private static void AddProjectHistoryItem(ICollection<ProjectHistoryTimelineItem> items, DateTime? date, string title, string details, int sortOrder = 0)
+        {
+            if (date == null) return;
+
+            items.Add(new ProjectHistoryTimelineItem
+            {
+                SortDate = date,
+                SortOrder = sortOrder,
+                EventDate = date.Value.ToString("dd MMM yyyy"),
+                Title = title,
+                Details = string.IsNullOrWhiteSpace(details) ? string.Empty : details,
+                Marker = "●"
+            });
+        }
+
+        private static string BuildAddendumHistoryDetails(AddendumModel addendum)
+        {
+            var details = new List<string>();
+
+            if (!string.IsNullOrWhiteSpace(addendum.Subject))
+            {
+                details.Add(addendum.Subject.Trim());
+            }
+
+            if (!string.IsNullOrWhiteSpace(addendum.DecisionNo))
+            {
+                details.Add($"Decision No: {addendum.DecisionNo.Trim()}");
+            }
+
+            if (!string.IsNullOrWhiteSpace(addendum.Reference))
+            {
+                details.Add($"Ref: {addendum.Reference.Trim()}");
+            }
+
+            return string.Join(" | ", details.Where(x => !string.IsNullOrWhiteSpace(x)));
+        }
+
+        private static string FormatProjectHistoryTimelineItem(ProjectHistoryTimelineItem item)
+        {
+            if (item == null) return string.Empty;
+
+            if (string.IsNullOrWhiteSpace(item.EventDate))
+            {
+                return item.Title + Environment.NewLine + item.Details;
+            }
+
+            return string.IsNullOrWhiteSpace(item.Details)
+                ? $"{item.Marker} {item.EventDate} - {item.Title}"
+                : $"{item.Marker} {item.EventDate} - {item.Title}{Environment.NewLine}  {item.Details}";
         }
 
         private void SyncIssuanceYearFromDate()
@@ -1609,6 +1750,17 @@ namespace Spectrum.Views.Projects
             gcAddendum.DataSource = null;
             gcAddendum.DataSource = _addendums;
             gvAddendum.RefreshData();
+            RefreshProjectHistoryTimeline();
+        }
+
+        private class ProjectHistoryTimelineItem
+        {
+            public DateTime? SortDate { get; set; }
+            public int SortOrder { get; set; }
+            public string EventDate { get; set; }
+            public string Title { get; set; }
+            public string Details { get; set; }
+            public string Marker { get; set; }
         }
 
         private void btnProtected_CheckedChanged(object sender, ItemClickEventArgs e)
