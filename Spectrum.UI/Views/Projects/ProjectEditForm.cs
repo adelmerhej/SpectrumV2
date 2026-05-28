@@ -15,6 +15,7 @@ using Spectrum.DataLayers.Common.Services;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.DataLayers.HumanResources.Employees;
 using Spectrum.DataLayers.Members.Clients;
+using Spectrum.Models.Members.Clients;
 using Spectrum.DataLayers.Projects;
 using Spectrum.DataLayers.Projects.Settings.Addendum;
 using Spectrum.DataLayers.Users;
@@ -54,6 +55,7 @@ namespace Spectrum.Views.Projects
 
         private IList<ClientModel> _clients = new List<ClientModel>();
         private ClientModel _clientModel = new ClientModel();
+        private IList<ContactModel> _contacts = new List<ContactModel>();
 
         private IList<EmployeeModel> _engineers = new List<EmployeeModel>();
         private EmployeeModel _engineerModel = new EmployeeModel();
@@ -80,6 +82,7 @@ namespace Spectrum.Views.Projects
 
         private readonly ProjectRepository _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
         private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
+        private readonly ContactRepository _contactRepository = new ContactRepository(DatabaseFactory.ProfilePrimary);
         private readonly EmployeeRepository _engineerRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
         private readonly UserRepository _userRepository = new UserRepository(DatabaseFactory.ProfilePrimary);
         private readonly ServiceRepository _serviceRepository = new ServiceRepository(DatabaseFactory.ProfilePrimary);
@@ -144,6 +147,7 @@ namespace Spectrum.Views.Projects
             var loadTasks = new[]
             {
                 LoadSafelyAsync("clients", LoadClientsAsync, () => _clients = new List<ClientModel>()),
+                LoadSafelyAsync("contacts", LoadContactsAsync, () => _contacts = new List<ContactModel>()),
                 LoadSafelyAsync("engineers", LoadEngineersAsync, () => _engineers = new List<EmployeeModel>()),
                 LoadSafelyAsync("users", LoadUsersAsync, () => _users = new List<UserModel>()),
                 LoadSafelyAsync("services", LoadServicesAsync, () => _services = new List<ServiceModel>()),
@@ -189,6 +193,11 @@ namespace Spectrum.Views.Projects
         private async Task LoadClientsAsync()
         {
             _clients = await _clientRepository.GetClientsAsync();
+        }
+
+        private async Task LoadContactsAsync()
+        {
+            _contacts = await _contactRepository.GetContactsAsync();
         }
         private async Task LoadEngineersAsync()
         {
@@ -271,21 +280,33 @@ namespace Spectrum.Views.Projects
             cboAreas.Properties.DisplayMember = "AreaName";
             cboAreas.Properties.ValueMember = "AreaName";
             cboAreas.Properties.DataSource = _areas;
+            ConfigurePopupGridColumns(gridView2,
+                ("AreaCode", "Code", 70),
+                ("AreaName", "Name", 180));
 
             cboLocations.Properties.DataSource = null;
             cboLocations.Properties.DisplayMember = "LocationName";
             cboLocations.Properties.ValueMember = "LocationName";
             cboLocations.Properties.DataSource = _locations;
+            ConfigurePopupGridColumns(gridView5,
+                ("LocationCode", "Code", 70),
+                ("LocationName", "Name", 180));
 
             cboCountries.Properties.DataSource = null;
             cboCountries.Properties.DisplayMember = "CountryName";
             cboCountries.Properties.ValueMember = "CountryName";
             cboCountries.Properties.DataSource = _countries;
+            ConfigurePopupGridColumns(gridView6,
+                ("CountryCode", "Code", 70),
+                ("CountryName", "Name", 180));
 
             cboCities.Properties.DataSource = null;
             cboCities.Properties.DisplayMember = "CityName";
             cboCities.Properties.ValueMember = "CityName";
             cboCities.Properties.DataSource = _cities;
+            ConfigurePopupGridColumns(gridView7,
+                ("CityCode", "Code", 70),
+                ("CityName", "Name", 180));
 
             if (_projectModel.Location != null && !string.IsNullOrWhiteSpace(_projectModel.Location._id))
             {
@@ -326,6 +347,9 @@ namespace Spectrum.Views.Projects
             cboClients.Properties.DisplayMember = "ClientName";
             cboClients.Properties.ValueMember = "_id";
             cboClients.Properties.DataSource = _clients;
+            ConfigurePopupGridColumns(searchLookUpEdit1View,
+                ("ClientInitial", "Initial", 60),
+                ("ClientName", "Client Name", 220));
 
             cboFundedBy.DataBindings.Clear();
             cboFundedBy.DataBindings.Add("EditValue", bsContractDetails, "SponsorId", true, DataSourceUpdateMode.OnPropertyChanged);
@@ -333,6 +357,9 @@ namespace Spectrum.Views.Projects
             cboFundedBy.Properties.DisplayMember = "ClientName";
             cboFundedBy.Properties.ValueMember = "_id";
             cboFundedBy.Properties.DataSource = _clients;
+            ConfigurePopupGridColumns(gridView12,
+                ("ClientInitial", "Initial", 60),
+                ("ClientName", "Client Name", 220));
 
             cboEngineers.DataBindings.Clear();
             cboEngineers.DataBindings.Add("EditValue", bsProject, "EngineerIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
@@ -340,6 +367,9 @@ namespace Spectrum.Views.Projects
             cboEngineers.Properties.DisplayMember = "FullName";
             cboEngineers.Properties.ValueMember = "_id";
             cboEngineers.Properties.DataSource = _engineers;
+            ConfigurePopupGridColumns(gridView1,
+                ("EmployeeNo", "No.", 50),
+                ("FullName", "Engineer", 200));
 
             cboUsers.DataBindings.Clear();
             cboUsers.DataBindings.Add("EditValue", bsProject, "UserIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
@@ -347,6 +377,8 @@ namespace Spectrum.Views.Projects
             cboUsers.Properties.DisplayMember = "Username";
             cboUsers.Properties.ValueMember = "_id";
             cboUsers.Properties.DataSource = _users;
+            ConfigurePopupGridColumns(gridView3,
+                ("Username", "Username", 180));
 
             cboPersonInCharge.DataBindings.Clear();
             cboPersonInCharge.DataBindings.Add("EditValue", bsProject, "EngineerIdValue", true, DataSourceUpdateMode.OnPropertyChanged);
@@ -354,10 +386,57 @@ namespace Spectrum.Views.Projects
             cboPersonInCharge.Properties.DisplayMember = "FullName";
             cboPersonInCharge.Properties.ValueMember = "_id";
             cboPersonInCharge.Properties.DataSource = _engineers;
+            ConfigurePopupGridColumns(gridView4,
+                ("EmployeeNo", "No.", 50),
+                ("FullName", "Engineer", 200));
 
             cboEngineers.EditValueChanged -= cboEngineers_EditValueChanged;
             cboEngineers.EditValueChanged += cboEngineers_EditValueChanged;
 
+            // cboContactEmail: populated from selected client's contacts
+            cboContactEmail.DataBindings.Clear();
+            cboContactEmail.Properties.DisplayMember = "Email";
+            cboContactEmail.Properties.ValueMember = "Email";
+            ConfigurePopupGridColumns(gridView11,
+                ("ContactName", "Contact", 160),
+                ("Email", "Email", 220));
+
+            // Add a view-contact button (person icon) to the right of the combo button
+            var contactViewButton = new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph);
+            contactViewButton.Caption = "";
+            contactViewButton.ToolTip = "View Contact Details";
+            contactViewButton.Kind = DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph;
+            contactViewButton.ImageOptions.Image = DevExpress.Images.ImageResourceCache.Default.GetImage("images/edit/edit_16x16.png");
+            contactViewButton.Tag = "ViewContact";
+            // Only add once (guard against re-entry from RcvUpdatedClient etc.)
+            if (!cboContactEmail.Properties.Buttons.OfType<DevExpress.XtraEditors.Controls.EditorButton>()
+                    .Any(b => "ViewContact".Equals(b.Tag?.ToString())))
+            {
+                cboContactEmail.Properties.Buttons.Add(contactViewButton);
+            }
+
+            RefreshContactEmailSource();
+
+            cboClients.EditValueChanged -= cboClients_EditValueChanged;
+            cboClients.EditValueChanged += cboClients_EditValueChanged;
+            cboContactEmail.EditValueChanged -= cboContactEmail_EditValueChanged;
+            cboContactEmail.EditValueChanged += cboContactEmail_EditValueChanged;
+            cboContactEmail.ButtonClick -= cboContactEmail_ButtonClick;
+            cboContactEmail.ButtonClick += cboContactEmail_ButtonClick;
+
+        }
+
+        private static void ConfigurePopupGridColumns(DevExpress.XtraGrid.Views.Grid.GridView view, params (string fieldName, string caption, int width)[] columns)
+        {
+            view.Columns.Clear();
+            view.OptionsBehavior.AutoPopulateColumns = false;
+            foreach (var (fieldName, caption, width) in columns)
+            {
+                var col = view.Columns.AddField(fieldName);
+                col.Caption = caption;
+                col.Width = width;
+                col.Visible = true;
+            }
         }
 
         private void InitializeProjectHandovers()
@@ -1086,6 +1165,139 @@ namespace Spectrum.Views.Projects
             {
                 // ignore
             }
+        }
+
+        private void cboClients_EditValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Clear stale contact email before refreshing the source
+                cboContactEmail.EditValue = null;
+                if (_projectModel?.ContractDetails != null)
+                    _projectModel.ContractDetails.ClientContactEmail = null;
+                RefreshContactEmailSource();
+            }
+            catch
+            {
+                // ignore
+            }
+        }
+
+        private void RefreshContactEmailSource()
+        {
+            var clientId = cboClients.EditValue?.ToString();
+            var contacts = string.IsNullOrWhiteSpace(clientId)
+                ? new List<ContactModel>()
+                : _contacts.Where(c => c.ClientId == clientId).ToList();
+
+            cboContactEmail.Properties.DataSource = null;
+            cboContactEmail.Properties.DataSource = contacts;
+
+            // Restore previously saved email if it matches one of the contacts
+            var savedEmail = _projectModel?.ContractDetails?.ClientContactEmail;
+            if (!string.IsNullOrWhiteSpace(savedEmail) &&
+                contacts.Any(c => string.Equals(c.Email, savedEmail, StringComparison.OrdinalIgnoreCase)))
+            {
+                cboContactEmail.EditValue = savedEmail;
+            }
+        }
+
+        private void cboContactEmail_EditValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var email = cboContactEmail.EditValue?.ToString();
+                if (_projectModel?.ContractDetails == null) return;
+                _projectModel.ContractDetails.ClientContactEmail = email;
+
+                // Sync client name: find the client that owns this contact email
+                if (!string.IsNullOrWhiteSpace(email))
+                {
+                    var ownerContact = _contacts.FirstOrDefault(x => string.Equals(x.Email, email, StringComparison.OrdinalIgnoreCase));
+                    var ownerClient = ownerContact != null
+                        ? _clients.FirstOrDefault(c => c._id == ownerContact.ClientId)
+                        : null;
+
+                    if (ownerClient != null && !string.Equals(cboClients.EditValue?.ToString(), ownerClient._id, StringComparison.OrdinalIgnoreCase))
+                    {
+                        cboClients.EditValue = ownerClient._id;
+                        _projectModel.ClientIdValue = ownerClient._id;
+                        _projectModel.ClientName = ownerClient.ClientName;
+                        bsProject.ResetBindings(false);
+                    }
+                }
+            }
+            catch
+            {
+                // ignore
+            }
+        }
+
+        private void cboContactEmail_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            if (!"ViewContact".Equals(e.Button.Tag?.ToString())) return;
+
+            try
+            {
+                var email = cboContactEmail.EditValue?.ToString();
+                var clientId = cboClients.EditValue?.ToString();
+                var selectedClient = string.IsNullOrWhiteSpace(clientId)
+                    ? null
+                    : _clients.FirstOrDefault(c => c._id == clientId);
+
+                // Find the contact matching the selected email; fall back to an empty new one scoped to the current client
+                ContactModel contact = null;
+                if (!string.IsNullOrWhiteSpace(email))
+                    contact = _contacts.FirstOrDefault(c => string.Equals(c.Email, email, StringComparison.OrdinalIgnoreCase));
+
+                if (contact == null && selectedClient == null)
+                {
+                    XtraMessageBox.Show(
+                        "Please select a client first.",
+                        "No Client Selected",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+
+                contact = contact ?? new ContactModel
+                {
+                    ClientId = selectedClient?._id,
+                    ClientName = selectedClient?.ClientName
+                };
+
+                var frm = new ContactEditForm(contact, contact.ClientId ?? selectedClient?._id, contact.ClientName ?? selectedClient?.ClientName);
+                frm.SendUpdatedContact += RcvUpdatedContactFromProject;
+                frm.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void RcvUpdatedContactFromProject(object sender, EventArgs e)
+        {
+            if (!(sender is ContactModel updated)) return;
+
+            // Refresh the in-memory contacts list
+            var existing = _contacts.FirstOrDefault(c => c._id == updated._id);
+            if (existing != null)
+            {
+                var idx = _contacts.IndexOf(existing);
+                _contacts[idx] = updated;
+            }
+            else
+            {
+                _contacts.Add(updated);
+            }
+
+            // Refresh the email dropdown for the current client
+            RefreshContactEmailSource();
+
+            // If the updated contact matches the currently selected email, keep it selected
+            if (!string.IsNullOrWhiteSpace(updated.Email))
+                cboContactEmail.EditValue = updated.Email;
         }
 
         private void RcvUpdatedClient(object sender, EventArgs e)
