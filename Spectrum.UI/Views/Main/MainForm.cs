@@ -33,6 +33,7 @@ using Spectrum.Views.Main.Connections;
 using Spectrum.Views.Main.Update;
 using Spectrum.Views.Members.Clients;
 using Spectrum.Views.Members.Engineers;
+using Spectrum.Views.Members.Funders;
 using Spectrum.Views.Members.Suppliers;
 using Spectrum.Views.Projects;
 using Spectrum.Views.Projects.Settings.ProjectTypes;
@@ -683,5 +684,15 @@ namespace Spectrum.Views.Main
         }
 
         #endregion
+
+        private void mnuFunders_Click(object sender, EventArgs e)
+        {
+            OpenForm<FundersListForm>();
+        }
+
+        private void mnuFundersType_Click(object sender, EventArgs e)
+        {
+            OpenForm<FundersTypeListForm>();
+        }
     }
 }

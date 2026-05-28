@@ -1263,11 +1263,14 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dtProjectDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dtProjectDate.Properties.CalendarTimeProperties.MaskSettings.Set("mask", "dd/MM/yyyy");
+            this.dtProjectDate.Properties.CalendarTimeProperties.UseMaskAsDisplayFormat = true;
             this.dtProjectDate.Properties.DisplayFormat.FormatString = "";
             this.dtProjectDate.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtProjectDate.Properties.EditFormat.FormatString = "";
             this.dtProjectDate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.dtProjectDate.Properties.MaskSettings.Set("mask", "");
+            this.dtProjectDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
+            this.dtProjectDate.Properties.UseMaskAsDisplayFormat = true;
             this.dtProjectDate.Size = new System.Drawing.Size(235, 22);
             this.dtProjectDate.StyleController = this.projectInfoLayout;
             this.dtProjectDate.TabIndex = 7;
@@ -1337,11 +1340,14 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dtIssuanceDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dtIssuanceDate.Properties.CalendarTimeProperties.MaskSettings.Set("mask", "dd/MM/yyyy");
+            this.dtIssuanceDate.Properties.CalendarTimeProperties.UseMaskAsDisplayFormat = true;
             this.dtIssuanceDate.Properties.DisplayFormat.FormatString = "";
             this.dtIssuanceDate.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtIssuanceDate.Properties.EditFormat.FormatString = "";
             this.dtIssuanceDate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.dtIssuanceDate.Properties.MaskSettings.Set("mask", "");
+            this.dtIssuanceDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
+            this.dtIssuanceDate.Properties.UseMaskAsDisplayFormat = true;
             this.dtIssuanceDate.Size = new System.Drawing.Size(176, 22);
             this.dtIssuanceDate.StyleController = this.projectInfoLayout;
             this.dtIssuanceDate.TabIndex = 11;
@@ -1357,11 +1363,14 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dtExpiryDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dtExpiryDate.Properties.CalendarTimeProperties.MaskSettings.Set("mask", "dd/MM/yyyy");
+            this.dtExpiryDate.Properties.CalendarTimeProperties.UseMaskAsDisplayFormat = true;
             this.dtExpiryDate.Properties.DisplayFormat.FormatString = "";
             this.dtExpiryDate.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtExpiryDate.Properties.EditFormat.FormatString = "";
             this.dtExpiryDate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.dtExpiryDate.Properties.MaskSettings.Set("mask", "");
+            this.dtExpiryDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
+            this.dtExpiryDate.Properties.UseMaskAsDisplayFormat = true;
             this.dtExpiryDate.Size = new System.Drawing.Size(155, 22);
             this.dtExpiryDate.StyleController = this.projectInfoLayout;
             this.dtExpiryDate.TabIndex = 12;
@@ -1377,11 +1386,14 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dtIssuanceYear.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dtIssuanceYear.Properties.CalendarTimeProperties.MaskSettings.Set("mask", "dd/MM/yyyy");
+            this.dtIssuanceYear.Properties.CalendarTimeProperties.UseMaskAsDisplayFormat = true;
             this.dtIssuanceYear.Properties.DisplayFormat.FormatString = "";
             this.dtIssuanceYear.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtIssuanceYear.Properties.EditFormat.FormatString = "";
             this.dtIssuanceYear.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.dtIssuanceYear.Properties.MaskSettings.Set("mask", "");
+            this.dtIssuanceYear.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
+            this.dtIssuanceYear.Properties.UseMaskAsDisplayFormat = true;
             this.dtIssuanceYear.Size = new System.Drawing.Size(154, 22);
             this.dtIssuanceYear.StyleController = this.projectInfoLayout;
             this.dtIssuanceYear.TabIndex = 13;

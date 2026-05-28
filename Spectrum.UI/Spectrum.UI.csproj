@@ -524,6 +524,30 @@
     <Compile Include="Views\Members\Engineers\EngineersListForm.Designer.cs">
       <DependentUpon>EngineersListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Members\Funders\FunderEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Funders\FunderEditForm.Designer.cs">
+      <DependentUpon>FunderEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Funders\FundersListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Funders\FundersListForm.Designer.cs">
+      <DependentUpon>FundersListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Funders\FunderTypeEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Funders\FunderTypeEditForm.Designer.cs">
+      <DependentUpon>FunderTypeEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Members\Funders\FundersTypeListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Members\Funders\FundersTypeListForm.Designer.cs">
+      <DependentUpon>FundersTypeListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Members\Suppliers\SupplierEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -864,6 +888,18 @@
     <EmbeddedResource Include="Views\Members\Engineers\EngineersListForm.resx">
       <DependentUpon>EngineersListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Funders\FunderEditForm.resx">
+      <DependentUpon>FunderEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Funders\FundersListForm.resx">
+      <DependentUpon>FundersListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Funders\FunderTypeEditForm.resx">
+      <DependentUpon>FunderTypeEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Members\Funders\FundersTypeListForm.resx">
+      <DependentUpon>FundersTypeListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Members\Suppliers\SupplierEditForm.resx">
       <DependentUpon>SupplierEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -936,6 +972,8 @@
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.SyndicatInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkExperienceInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkingPermitInfo.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Funders.FunderModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Funders.FunderTypeModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Members.Suppliers.SupplierModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Operations.Projects.Settings.ProjectTypes.ProjectTypeModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Projects.AddendumModel.datasource" />

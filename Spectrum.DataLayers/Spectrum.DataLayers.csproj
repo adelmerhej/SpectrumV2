@@ -252,6 +252,10 @@
     <Compile Include="Members\Clients\ContactRepository.cs" />
     <Compile Include="Members\Clients\IClientRepository.cs" />
     <Compile Include="Members\Clients\IContactRepository.cs" />
+    <Compile Include="Members\Funders\FunderRepository.cs" />
+    <Compile Include="Members\Funders\FunderTypeRepository.cs" />
+    <Compile Include="Members\Funders\IFunderRepository.cs" />
+    <Compile Include="Members\Funders\IFunderTypeRepository.cs" />
     <Compile Include="Members\Suppliers\ISupplierContactRepository.cs" />
     <Compile Include="Members\Suppliers\ISupplierRepository.cs" />
     <Compile Include="Members\Suppliers\SupplierContactRepository.cs" />

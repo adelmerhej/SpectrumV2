@@ -355,8 +355,8 @@ namespace Spectrum.Views.Projects
             cboProjectType.DataBindings.Clear();
             cboProjectType.DataBindings.Add("EditValue", bsProject, "ProjectType", true, DataSourceUpdateMode.OnPropertyChanged);
             cboProjectType.Properties.DataSource = null;
-            cboProjectType.Properties.DisplayMember = "Type";
-            cboProjectType.Properties.ValueMember = "Type";
+            cboProjectType.Properties.DisplayMember = "Sector";
+            cboProjectType.Properties.ValueMember = "Sector";
             cboProjectType.Properties.DataSource = _projectTypes;
             ConfigurePopupGridColumns(gridView8,
                 ("Type", "Type", 180),

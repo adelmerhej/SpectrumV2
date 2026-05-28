@@ -194,6 +194,8 @@
     <Compile Include="HumanResources\JobPositions\JobPositionModel.cs" />
     <Compile Include="Members\Clients\ClientModel.cs" />
     <Compile Include="Members\Clients\ContactModel.cs" />
+    <Compile Include="Members\Funders\FunderModel.cs" />
+    <Compile Include="Members\Funders\FunderTypeModel.cs" />
     <Compile Include="Members\Suppliers\SupplierContactModel.cs" />
     <Compile Include="Members\Suppliers\SupplierModel.cs" />
     <Compile Include="Operations\Projects\FinancialSummaryModel.cs" />
