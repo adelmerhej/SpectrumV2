@@ -15,6 +15,8 @@ namespace Spectrum.Models.Accounting.Charts
 		public double FAmountOpening { get; set; }
 		public double FAmountDebit { get; set; }
 		public double FAmountCredit { get; set; }
+		public string OldAcNo { get; set; }
+		public string Oldglacno { get; set; }
 
 
 		public string AccountNumber

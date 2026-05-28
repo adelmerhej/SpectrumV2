@@ -49,17 +49,6 @@ namespace Spectrum.Views.HumanResources.Employees.Status
         {
             InitializeComponent();
 
-            // wire events
-            btnNew.ItemClick += btnNew_ItemClick;
-            btnEdit.ItemClick += btnEdit_ItemClick;
-            btnDelete.ItemClick += btnDelete_ItemClick;
-            btnPrint.ItemClick += btnPrint_ItemClick;
-            btnRefresh.ItemClick += btnRefresh_ItemClick;
-            btnClose.ItemClick += btnClose_ItemClick;
-            btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
-            gvStatus.DoubleClick += gvStatus_DoubleClick;
-            gvStatus.RowCellStyle += gvStatus_RowCellStyle;
-
             StartLoading();
         }
 

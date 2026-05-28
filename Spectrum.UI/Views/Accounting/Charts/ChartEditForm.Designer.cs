@@ -30,6 +30,8 @@
 		{
             this.components = new System.ComponentModel.Container();
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
+            this.txtOldglacno = new DevExpress.XtraEditors.TextEdit();
+            this.txtOldacno = new DevExpress.XtraEditors.TextEdit();
             this.gcChartDetails = new DevExpress.XtraGrid.GridControl();
             this.bsChartDetails = new System.Windows.Forms.BindingSource(this.components);
             this.gvChartDetails = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -70,6 +72,8 @@
             this.lblNumber = new DevExpress.XtraLayout.LayoutControlItem();
             this.lblAccountNumber = new DevExpress.XtraLayout.LayoutControlItem();
             this.lblSerial = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lblOldacno = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lblOldglacno = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.grpAccountInfo = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -86,6 +90,8 @@
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOldglacno.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOldacno.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcChartDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsChartDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvChartDetails)).BeginInit();
@@ -108,6 +114,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.lblNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAccountNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblSerial)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblOldacno)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblOldglacno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpAccountInfo)).BeginInit();
@@ -126,6 +134,8 @@
             // 
             // mainLayout
             // 
+            this.mainLayout.Controls.Add(this.txtOldglacno);
+            this.mainLayout.Controls.Add(this.txtOldacno);
             this.mainLayout.Controls.Add(this.gcChartDetails);
             this.mainLayout.Controls.Add(this.chkLocked);
             this.mainLayout.Controls.Add(this.chkProtected);
@@ -142,14 +152,32 @@
             this.mainLayout.Location = new System.Drawing.Point(0, 0);
             this.mainLayout.Name = "mainLayout";
             this.mainLayout.Root = this.Root;
-            this.mainLayout.Size = new System.Drawing.Size(752, 544);
+            this.mainLayout.Size = new System.Drawing.Size(752, 578);
             this.mainLayout.TabIndex = 1;
             this.mainLayout.Text = "layoutControl1";
+            // 
+            // txtOldglacno
+            // 
+            this.txtOldglacno.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Oldglacno", true));
+            this.txtOldglacno.Location = new System.Drawing.Point(487, 80);
+            this.txtOldglacno.Name = "txtOldglacno";
+            this.txtOldglacno.Size = new System.Drawing.Size(237, 22);
+            this.txtOldglacno.StyleController = this.mainLayout;
+            this.txtOldglacno.TabIndex = 20;
+            // 
+            // txtOldacno
+            // 
+            this.txtOldacno.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "OldAcNo", true));
+            this.txtOldacno.Location = new System.Drawing.Point(137, 80);
+            this.txtOldacno.Name = "txtOldacno";
+            this.txtOldacno.Size = new System.Drawing.Size(237, 22);
+            this.txtOldacno.StyleController = this.mainLayout;
+            this.txtOldacno.TabIndex = 19;
             // 
             // gcChartDetails
             // 
             this.gcChartDetails.DataSource = this.bsChartDetails;
-            this.gcChartDetails.Location = new System.Drawing.Point(14, 324);
+            this.gcChartDetails.Location = new System.Drawing.Point(14, 353);
             this.gcChartDetails.MainView = this.gvChartDetails;
             this.gcChartDetails.Name = "gcChartDetails";
             this.gcChartDetails.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -157,7 +185,7 @@
             this.repCharts,
             this.repCostsCenter,
             this.repCurrencies});
-            this.gcChartDetails.Size = new System.Drawing.Size(724, 175);
+            this.gcChartDetails.Size = new System.Drawing.Size(724, 180);
             this.gcChartDetails.TabIndex = 17;
             this.gcChartDetails.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvChartDetails});
@@ -417,7 +445,7 @@
             // chkLocked
             // 
             this.chkLocked.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Locked", true));
-            this.chkLocked.Location = new System.Drawing.Point(489, 296);
+            this.chkLocked.Location = new System.Drawing.Point(489, 325);
             this.chkLocked.Name = "chkLocked";
             this.chkLocked.Properties.Caption = "Locked";
             this.chkLocked.Size = new System.Drawing.Size(108, 24);
@@ -431,7 +459,7 @@
             // chkProtected
             // 
             this.chkProtected.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "IsProtected", true));
-            this.chkProtected.Location = new System.Drawing.Point(260, 296);
+            this.chkProtected.Location = new System.Drawing.Point(260, 325);
             this.chkProtected.Name = "chkProtected";
             this.chkProtected.Properties.Caption = "Protected";
             this.chkProtected.Size = new System.Drawing.Size(225, 24);
@@ -442,7 +470,7 @@
             // chkActive
             // 
             this.chkActive.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Active", true));
-            this.chkActive.Location = new System.Drawing.Point(601, 296);
+            this.chkActive.Location = new System.Drawing.Point(601, 325);
             this.chkActive.Name = "chkActive";
             this.chkActive.Properties.Caption = "Active";
             this.chkActive.Size = new System.Drawing.Size(137, 24);
@@ -452,7 +480,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(601, 503);
+            this.btnCancel.Location = new System.Drawing.Point(601, 537);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(137, 27);
             this.btnCancel.StyleController = this.mainLayout;
@@ -462,7 +490,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(466, 503);
+            this.btnSave.Location = new System.Drawing.Point(466, 537);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(131, 27);
             this.btnSave.StyleController = this.mainLayout;
@@ -473,7 +501,7 @@
             // txtAccountName
             // 
             this.txtAccountName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "AccountName", true));
-            this.txtAccountName.Location = new System.Drawing.Point(137, 170);
+            this.txtAccountName.Location = new System.Drawing.Point(137, 196);
             this.txtAccountName.Name = "txtAccountName";
             this.txtAccountName.Size = new System.Drawing.Size(587, 22);
             this.txtAccountName.StyleController = this.mainLayout;
@@ -482,7 +510,7 @@
             // txtAccountNumber
             // 
             this.txtAccountNumber.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "AccountNumber", true));
-            this.txtAccountNumber.Location = new System.Drawing.Point(137, 80);
+            this.txtAccountNumber.Location = new System.Drawing.Point(137, 106);
             this.txtAccountNumber.Name = "txtAccountNumber";
             this.txtAccountNumber.Properties.ReadOnly = true;
             this.txtAccountNumber.Size = new System.Drawing.Size(587, 22);
@@ -506,9 +534,9 @@
             // txtNotes
             // 
             this.txtNotes.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Notes", true));
-            this.txtNotes.Location = new System.Drawing.Point(137, 222);
+            this.txtNotes.Location = new System.Drawing.Point(137, 248);
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(587, 56);
+            this.txtNotes.Size = new System.Drawing.Size(587, 59);
             this.txtNotes.StyleController = this.mainLayout;
             this.txtNotes.TabIndex = 11;
             // 
@@ -528,7 +556,7 @@
             // cboAccountType
             // 
             this.cboAccountType.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "AccountType", true));
-            this.cboAccountType.Location = new System.Drawing.Point(137, 196);
+            this.cboAccountType.Location = new System.Drawing.Point(137, 222);
             this.cboAccountType.Name = "cboAccountType";
             this.cboAccountType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -554,7 +582,7 @@
             this.layoutControlItem3,
             this.layoutControlItem4});
             this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(752, 544);
+            this.Root.Size = new System.Drawing.Size(752, 578);
             this.Root.TextVisible = false;
             // 
             // grpAccountNumber
@@ -563,10 +591,12 @@
             this.grpAccountNumber.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lblNumber,
             this.lblAccountNumber,
-            this.lblSerial});
+            this.lblSerial,
+            this.lblOldacno,
+            this.lblOldglacno});
             this.grpAccountNumber.Location = new System.Drawing.Point(0, 0);
             this.grpAccountNumber.Name = "grpAccountNumber";
-            this.grpAccountNumber.Size = new System.Drawing.Size(728, 106);
+            this.grpAccountNumber.Size = new System.Drawing.Size(728, 132);
             this.grpAccountNumber.Text = "Account Number";
             // 
             // lblNumber
@@ -581,7 +611,7 @@
             // lblAccountNumber
             // 
             this.lblAccountNumber.Control = this.txtAccountNumber;
-            this.lblAccountNumber.Location = new System.Drawing.Point(0, 26);
+            this.lblAccountNumber.Location = new System.Drawing.Point(0, 52);
             this.lblAccountNumber.Name = "lblAccountNumber";
             this.lblAccountNumber.Size = new System.Drawing.Size(700, 26);
             this.lblAccountNumber.Text = "Account Number";
@@ -596,10 +626,28 @@
             this.lblSerial.Text = "Serial";
             this.lblSerial.TextSize = new System.Drawing.Size(94, 16);
             // 
+            // lblOldacno
+            // 
+            this.lblOldacno.Control = this.txtOldacno;
+            this.lblOldacno.Location = new System.Drawing.Point(0, 26);
+            this.lblOldacno.Name = "lblOldacno";
+            this.lblOldacno.Size = new System.Drawing.Size(350, 26);
+            this.lblOldacno.Text = "Old AcNo";
+            this.lblOldacno.TextSize = new System.Drawing.Size(94, 16);
+            // 
+            // lblOldglacno
+            // 
+            this.lblOldglacno.Control = this.txtOldglacno;
+            this.lblOldglacno.Location = new System.Drawing.Point(350, 26);
+            this.lblOldglacno.Name = "lblOldglacno";
+            this.lblOldglacno.Size = new System.Drawing.Size(350, 26);
+            this.lblOldglacno.Text = "Old glacno";
+            this.lblOldglacno.TextSize = new System.Drawing.Size(94, 16);
+            // 
             // layoutControlItem9
             // 
             this.layoutControlItem9.Control = this.btnSave;
-            this.layoutControlItem9.Location = new System.Drawing.Point(452, 489);
+            this.layoutControlItem9.Location = new System.Drawing.Point(452, 523);
             this.layoutControlItem9.Name = "layoutControlItem9";
             this.layoutControlItem9.Size = new System.Drawing.Size(135, 31);
             this.layoutControlItem9.TextVisible = false;
@@ -607,7 +655,7 @@
             // layoutControlItem10
             // 
             this.layoutControlItem10.Control = this.btnCancel;
-            this.layoutControlItem10.Location = new System.Drawing.Point(587, 489);
+            this.layoutControlItem10.Location = new System.Drawing.Point(587, 523);
             this.layoutControlItem10.Name = "layoutControlItem10";
             this.layoutControlItem10.Size = new System.Drawing.Size(141, 31);
             this.layoutControlItem10.TextVisible = false;
@@ -620,9 +668,9 @@
             this.lblNotes,
             this.emptySpaceItem6,
             this.lblAccountType});
-            this.grpAccountInfo.Location = new System.Drawing.Point(0, 116);
+            this.grpAccountInfo.Location = new System.Drawing.Point(0, 142);
             this.grpAccountInfo.Name = "grpAccountInfo";
-            this.grpAccountInfo.Size = new System.Drawing.Size(728, 166);
+            this.grpAccountInfo.Size = new System.Drawing.Size(728, 169);
             this.grpAccountInfo.Text = "Account Info";
             // 
             // lblAccountName
@@ -639,7 +687,7 @@
             this.lblNotes.Control = this.txtNotes;
             this.lblNotes.Location = new System.Drawing.Point(0, 52);
             this.lblNotes.Name = "lblNotes";
-            this.lblNotes.Size = new System.Drawing.Size(700, 60);
+            this.lblNotes.Size = new System.Drawing.Size(700, 63);
             this.lblNotes.Text = "Notes";
             this.lblNotes.TextSize = new System.Drawing.Size(94, 16);
             // 
@@ -660,20 +708,20 @@
             // 
             // emptySpaceItem3
             // 
-            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 106);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 132);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
             this.emptySpaceItem3.Size = new System.Drawing.Size(728, 10);
             // 
             // emptySpaceItem4
             // 
-            this.emptySpaceItem4.Location = new System.Drawing.Point(0, 489);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(0, 523);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(452, 31);
             // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.chkActive;
-            this.layoutControlItem1.Location = new System.Drawing.Point(587, 282);
+            this.layoutControlItem1.Location = new System.Drawing.Point(587, 311);
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(141, 28);
             this.layoutControlItem1.TextVisible = false;
@@ -681,21 +729,21 @@
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.chkProtected;
-            this.layoutControlItem2.Location = new System.Drawing.Point(246, 282);
+            this.layoutControlItem2.Location = new System.Drawing.Point(246, 311);
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(229, 28);
             this.layoutControlItem2.TextVisible = false;
             // 
             // emptySpaceItem2
             // 
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 282);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 311);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
             this.emptySpaceItem2.Size = new System.Drawing.Size(246, 28);
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.chkLocked;
-            this.layoutControlItem3.Location = new System.Drawing.Point(475, 282);
+            this.layoutControlItem3.Location = new System.Drawing.Point(475, 311);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(112, 28);
             this.layoutControlItem3.TextVisible = false;
@@ -703,16 +751,18 @@
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.gcChartDetails;
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 310);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 339);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(728, 179);
+            this.layoutControlItem4.Size = new System.Drawing.Size(728, 184);
             this.layoutControlItem4.TextVisible = false;
             // 
             // ChartEditForm
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(752, 544);
+            this.CancelButton = this.btnCancel;
+            this.ClientSize = new System.Drawing.Size(752, 578);
             this.Controls.Add(this.mainLayout);
             this.MaximizeBox = false;
             this.Name = "ChartEditForm";
@@ -720,6 +770,8 @@
             this.Text = "Edit Account";
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txtOldglacno.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOldacno.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcChartDetails)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsChartDetails)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvChartDetails)).EndInit();
@@ -742,6 +794,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.lblNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAccountNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblSerial)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblOldacno)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblOldglacno)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpAccountInfo)).EndInit();
@@ -817,5 +871,9 @@
         private System.Windows.Forms.BindingSource bsChart;
         private System.Windows.Forms.BindingSource bsChartDetails;
         private DevExpress.XtraEditors.ComboBoxEdit cboAccountType;
+        private DevExpress.XtraEditors.TextEdit txtOldglacno;
+        private DevExpress.XtraEditors.TextEdit txtOldacno;
+        private DevExpress.XtraLayout.LayoutControlItem lblOldacno;
+        private DevExpress.XtraLayout.LayoutControlItem lblOldglacno;
     }
 }

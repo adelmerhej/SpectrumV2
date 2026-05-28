@@ -290,17 +290,19 @@
             this.colNotes});
             this.chartTreeList.DataSource = this.bsCharts;
             this.chartTreeList.KeyFieldName = "Id";
-            this.chartTreeList.Location = new System.Drawing.Point(12, 12);
+            this.chartTreeList.Location = new System.Drawing.Point(14, 14);
             this.chartTreeList.MenuManager = this.rcCharts;
             this.chartTreeList.MinWidth = 23;
             this.chartTreeList.Name = "chartTreeList";
             this.chartTreeList.OptionsBehavior.Editable = false;
             this.chartTreeList.OptionsBehavior.PopulateServiceColumns = true;
             this.chartTreeList.OptionsFind.AlwaysVisible = true;
+            this.chartTreeList.OptionsNavigation.EnterMovesNextColumn = true;
             this.chartTreeList.OptionsView.AutoWidth = false;
+            this.chartTreeList.OptionsView.ShowHierarchyIndentationLines = DevExpress.Utils.DefaultBoolean.True;
             this.chartTreeList.OptionsView.ShowTreeLines = DevExpress.Utils.DefaultBoolean.True;
             this.chartTreeList.ParentFieldName = "ParentId";
-            this.chartTreeList.Size = new System.Drawing.Size(1388, 541);
+            this.chartTreeList.Size = new System.Drawing.Size(1384, 537);
             this.chartTreeList.TabIndex = 4;
             this.chartTreeList.TreeLevelWidth = 21;
             this.chartTreeList.TreeViewColumn = this.colParentId;
@@ -322,7 +324,6 @@
             this.colParentId.FieldName = "ParentId";
             this.colParentId.Name = "colParentId";
             this.colParentId.OptionsColumn.AllowSort = true;
-            this.colParentId.SortOrder = System.Windows.Forms.SortOrder.Ascending;
             this.colParentId.Visible = true;
             this.colParentId.VisibleIndex = 0;
             // 
@@ -356,7 +357,7 @@
             this.treeListBand6.Columns.Add(this.colAccountTypeId);
             this.treeListBand6.MinWidth = 23;
             this.treeListBand6.Name = "treeListBand6";
-            this.treeListBand6.Width = 370;
+            this.treeListBand6.Width = 502;
             // 
             // colAccountName
             // 
@@ -367,7 +368,7 @@
             this.colAccountName.OptionsColumn.AllowSort = true;
             this.colAccountName.Visible = true;
             this.colAccountName.VisibleIndex = 3;
-            this.colAccountName.Width = 266;
+            this.colAccountName.Width = 450;
             // 
             // colAccountTypeId
             // 
@@ -377,7 +378,7 @@
             this.colAccountTypeId.OptionsColumn.AllowSort = true;
             this.colAccountTypeId.Visible = true;
             this.colAccountTypeId.VisibleIndex = 4;
-            this.colAccountTypeId.Width = 104;
+            this.colAccountTypeId.Width = 90;
             // 
             // treeListBand7
             // 
@@ -504,7 +505,6 @@
             this.colNotes.Name = "colNotes";
             this.colNotes.OptionsColumn.AllowEdit = false;
             this.colNotes.OptionsColumn.AllowSort = true;
-            this.colNotes.SortOrder = System.Windows.Forms.SortOrder.Ascending;
             this.colNotes.Visible = true;
             this.colNotes.VisibleIndex = 11;
             this.colNotes.Width = 271;
@@ -540,7 +540,7 @@
             this.layoutControlItem1.Control = this.chartTreeList;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1392, 545);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1388, 541);
             this.layoutControlItem1.TextVisible = false;
             // 
             // ChartsListForm

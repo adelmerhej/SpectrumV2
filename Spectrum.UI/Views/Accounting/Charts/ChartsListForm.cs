@@ -318,27 +318,6 @@ namespace Spectrum.Views.Accounting.Charts
                 _chartEditForm = null;
         }
 
-        private void chartTreeList_RowCellStyle(object sender, RowCellStyleEventArgs e)
-        {
-            var view = sender as GridView;
-            if (view == null || e.RowHandle < 0) return;
-            bool isActive = HelperApplication.ConvertToBool(view.GetRowCellValue(e.RowHandle, "Active")) ?? false;
-            string type = view.GetRowCellValue(e.RowHandle, "Type")?.ToString();
-            if (!isActive)
-            {
-                e.Appearance.ForeColor = Color.Gray;
-                e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Italic);
-            }
-            if (string.Equals(type, "T", StringComparison.OrdinalIgnoreCase))
-            {
-                e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
-            }
-            else if (string.Equals(type, "R", StringComparison.OrdinalIgnoreCase))
-            {
-                e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Regular);
-            }
-        }
-
         private void ChartsListForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!_resetMenu)
