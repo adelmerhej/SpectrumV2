@@ -350,12 +350,6 @@
     <Compile Include="Views\Common\Services\ServicesListForm.Designer.cs">
       <DependentUpon>ServicesListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Common\Services\ServiceTypeEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Common\Services\ServiceTypeEditForm.Designer.cs">
-      <DependentUpon>ServiceTypeEditForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Dashboard\DashboardActivitiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -972,6 +966,7 @@
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.SyndicatInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkExperienceInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.WorkingPermitInfo.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Members.Clients.ContactModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Members.Funders.FunderModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Members.Funders.FunderTypeModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Members.Suppliers.SupplierModel.datasource" />

@@ -7,7 +7,6 @@ namespace Spectrum.Models.Common.Services
 	{
 		[BsonElement("ServiceName")]
 		public string ServiceName { get; set; }
-		public string ServiceCode { get; set; }
 
 		#region Implementation of ICloneable
 

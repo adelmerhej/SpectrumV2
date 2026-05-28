@@ -311,7 +311,6 @@ namespace Spectrum.Reports.Adapters.Projects
             yield return CreateProjectField("Contract.VAT", "VAT", "Services / Contract", typeof(decimal?), "N2", project => project.ContractDetails?.InitialVatAmount);
             yield return CreateProjectField("Contract.TTC", "TTC", "Services / Contract", typeof(decimal?), "N2", project => project.ContractDetails?.InitialTtcAmount);
             yield return CreateProjectField("Project.ServicesProvided", "Services Provided", "Services / Contract", typeof(string), null, project => string.Join(", ", project.ContractDetails?.ServicesProvided ?? new List<string>()));
-            yield return CreateProjectField("Project.ServiceTypes", "Service Types", "Services / Contract", typeof(string), null, project => string.Join(", ", project.ContractDetails?.ServiceTypes ?? new List<string>()));
         }
 
         private IEnumerable<FieldDescriptor> GetContractDetailFields()

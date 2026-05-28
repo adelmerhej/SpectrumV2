@@ -110,7 +110,6 @@
             this.bsClient = new System.Windows.Forms.BindingSource(this.components);
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn12 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn14 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.txtPoBox1 = new DevExpress.XtraEditors.TextEdit();
             this.cboCities1 = new DevExpress.XtraEditors.SearchLookUpEdit();
@@ -608,7 +607,7 @@
             this.cboLocations1.Properties.NullText = "";
             this.cboLocations1.Properties.PopupView = this.gridView2;
             this.cboLocations1.Properties.ShowAddNewButton = true;
-            this.cboLocations1.Properties.ValueMember = "LocationCode";
+            this.cboLocations1.Properties.ValueMember = "LocationName";
             this.cboLocations1.Size = new System.Drawing.Size(231, 22);
             this.cboLocations1.StyleController = this.layoutControl1;
             this.cboLocations1.TabIndex = 15;
@@ -622,7 +621,6 @@
             // 
             this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.gridColumn12,
-            this.gridColumn13,
             this.gridColumn14});
             this.gridView2.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridView2.Name = "gridView2";
@@ -636,22 +634,13 @@
             this.gridColumn12.Name = "gridColumn12";
             this.gridColumn12.Width = 214;
             // 
-            // gridColumn13
-            // 
-            this.gridColumn13.Caption = "Code";
-            this.gridColumn13.FieldName = "LocationCode";
-            this.gridColumn13.Name = "gridColumn13";
-            this.gridColumn13.Visible = true;
-            this.gridColumn13.VisibleIndex = 0;
-            this.gridColumn13.Width = 133;
-            // 
             // gridColumn14
             // 
             this.gridColumn14.Caption = "Name";
             this.gridColumn14.FieldName = "LocationName";
             this.gridColumn14.Name = "gridColumn14";
             this.gridColumn14.Visible = true;
-            this.gridColumn14.VisibleIndex = 1;
+            this.gridColumn14.VisibleIndex = 0;
             this.gridColumn14.Width = 794;
             // 
             // txtPoBox1
@@ -2084,7 +2073,6 @@
 		private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
 		private DevExpress.XtraGrid.Columns.GridColumn gridColumn11;
 		private DevExpress.XtraGrid.Columns.GridColumn gridColumn12;
-		private DevExpress.XtraGrid.Columns.GridColumn gridColumn13;
 		private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
 		private System.Windows.Forms.BindingSource bsRelatedProjects;
 		private DevExpress.XtraGrid.Columns.GridColumn col_id1;

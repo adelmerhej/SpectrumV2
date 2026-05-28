@@ -312,7 +312,7 @@ namespace Spectrum.Views.Projects
             this.colProjectName.Name = "colProjectName";
             this.colProjectName.Visible = true;
             this.colProjectName.VisibleIndex = 0;
-            this.colProjectName.Width = 285;
+            this.colProjectName.Width = 655;
             // 
             // colClientName
             // 

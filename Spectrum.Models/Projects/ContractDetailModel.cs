@@ -56,9 +56,6 @@ namespace Spectrum.Models.Projects
 		[BsonElement("ServicesProvided")]
 		public List<string> ServicesProvided { get; set; } = new List<string>();
 
-		[BsonElement("ServiceTypes")]
-		public List<string> ServiceTypes { get; set; } = new List<string>();
-
 
 		// ==========================================================
 		// Financial Amounts

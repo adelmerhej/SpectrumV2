@@ -52,7 +52,6 @@
             this.gvServices = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.col_id = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colServiceName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colServiceCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
@@ -261,7 +260,6 @@
             this.gvServices.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.col_id,
             this.colServiceName,
-            this.colServiceCode,
             this.colNotes,
             this.colIsDefault,
             this.colActive});
@@ -292,22 +290,13 @@
             this.colServiceName.VisibleIndex = 0;
             this.colServiceName.Width = 300;
             // 
-            // colServiceCode
-            // 
-            this.colServiceCode.FieldName = "ServiceCode";
-            this.colServiceCode.MinWidth = 25;
-            this.colServiceCode.Name = "colServiceCode";
-            this.colServiceCode.Visible = true;
-            this.colServiceCode.VisibleIndex = 1;
-            this.colServiceCode.Width = 150;
-            // 
             // colNotes
             // 
             this.colNotes.FieldName = "Notes";
             this.colNotes.MinWidth = 25;
             this.colNotes.Name = "colNotes";
             this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 2;
+            this.colNotes.VisibleIndex = 1;
             this.colNotes.Width = 300;
             // 
             // colIsDefault
@@ -317,7 +306,7 @@
             this.colIsDefault.MinWidth = 25;
             this.colIsDefault.Name = "colIsDefault";
             this.colIsDefault.Visible = true;
-            this.colIsDefault.VisibleIndex = 3;
+            this.colIsDefault.VisibleIndex = 2;
             this.colIsDefault.Width = 94;
             // 
             // repCheckEdit
@@ -332,7 +321,7 @@
             this.colActive.MinWidth = 25;
             this.colActive.Name = "colActive";
             this.colActive.Visible = true;
-            this.colActive.VisibleIndex = 4;
+            this.colActive.VisibleIndex = 3;
             this.colActive.Width = 94;
             // 
             // Root
@@ -406,7 +395,6 @@
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
 		private DevExpress.XtraGrid.Columns.GridColumn col_id;
 		private DevExpress.XtraGrid.Columns.GridColumn colServiceName;
-		private DevExpress.XtraGrid.Columns.GridColumn colServiceCode;
 		private DevExpress.XtraGrid.Columns.GridColumn colNotes;
 		private DevExpress.XtraGrid.Columns.GridColumn colIsDefault;
 		private DevExpress.XtraGrid.Columns.GridColumn colActive;

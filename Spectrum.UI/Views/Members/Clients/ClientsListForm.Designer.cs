@@ -424,7 +424,7 @@
             this.colClientName.Name = "colClientName";
             this.colClientName.Visible = true;
             this.colClientName.VisibleIndex = 0;
-            this.colClientName.Width = 300;
+            this.colClientName.Width = 548;
             // 
             // colAddress
             // 

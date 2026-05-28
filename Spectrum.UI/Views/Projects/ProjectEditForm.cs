@@ -4,8 +4,8 @@ using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
-using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Menu;
+using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.WinExplorer;
 using Spectrum.DataLayers.Common.Areas;
@@ -15,13 +15,13 @@ using Spectrum.DataLayers.Common.Services;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.DataLayers.HumanResources.Employees;
 using Spectrum.DataLayers.Members.Clients;
-using Spectrum.Models.Members.Clients;
 using Spectrum.DataLayers.Projects;
 using Spectrum.DataLayers.Projects.Settings.Addendum;
 using Spectrum.DataLayers.Projects.Settings.ProjectTypes;
 using Spectrum.DataLayers.Users;
 using Spectrum.Models.Common.Areas;
 using Spectrum.Models.Common.Countries;
+using Spectrum.Models.Common.Documents;
 using Spectrum.Models.Common.Services;
 using Spectrum.Models.HumanResources.Employees;
 using Spectrum.Models.Members.Clients;
@@ -46,7 +46,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Spectrum.Models.Common.Documents;
 
 namespace Spectrum.Views.Projects
 {
@@ -283,41 +282,17 @@ namespace Spectrum.Views.Projects
                  _services.Select(x => x.ServiceName),
                  _projectModel.ContractDetails.ServicesProvided);
 
-            BindCheckedComboBoxItems(cboServicesType,
-                _serviceTypes.Select(x => x.ServiceType),
-                _projectModel.ContractDetails.ServiceTypes);
-
             cboAreas.Properties.DataSource = null;
-            cboAreas.Properties.DisplayMember = "AreaName";
-            cboAreas.Properties.ValueMember = "AreaName";
             cboAreas.Properties.DataSource = _areas;
-            ConfigurePopupGridColumns(gridView2,
-                ("AreaCode", "Code", 70),
-                ("AreaName", "Name", 180));
 
             cboLocations.Properties.DataSource = null;
-            cboLocations.Properties.DisplayMember = "LocationName";
-            cboLocations.Properties.ValueMember = "LocationName";
             cboLocations.Properties.DataSource = _locations;
-            ConfigurePopupGridColumns(gridView5,
-                ("LocationCode", "Code", 70),
-                ("LocationName", "Name", 180));
 
             cboCountries.Properties.DataSource = null;
-            cboCountries.Properties.DisplayMember = "CountryName";
-            cboCountries.Properties.ValueMember = "CountryName";
             cboCountries.Properties.DataSource = _countries;
-            ConfigurePopupGridColumns(gridView6,
-                ("CountryCode", "Code", 70),
-                ("CountryName", "Name", 180));
 
             cboCities.Properties.DataSource = null;
-            cboCities.Properties.DisplayMember = "CityName";
-            cboCities.Properties.ValueMember = "CityName";
             cboCities.Properties.DataSource = _cities;
-            ConfigurePopupGridColumns(gridView7,
-                ("CityCode", "Code", 70),
-                ("CityName", "Name", 180));
 
             if (_projectModel.Location != null && !string.IsNullOrWhiteSpace(_projectModel.Location._id))
             {
@@ -358,10 +333,6 @@ namespace Spectrum.Views.Projects
             cboProjectType.Properties.DisplayMember = "Sector";
             cboProjectType.Properties.ValueMember = "Sector";
             cboProjectType.Properties.DataSource = _projectTypes;
-            ConfigurePopupGridColumns(gridView8,
-                ("Type", "Type", 180),
-                ("Sector", "Sector", 150),
-                ("Description", "Description", 220));
             cboProjectType.AddNewValue -= cboProjectType_AddNewValue;
             cboProjectType.AddNewValue += cboProjectType_AddNewValue;
 
@@ -417,37 +388,10 @@ namespace Spectrum.Views.Projects
             cboEngineers.EditValueChanged -= cboEngineers_EditValueChanged;
             cboEngineers.EditValueChanged += cboEngineers_EditValueChanged;
 
-            // cboContactEmail: populated from selected client's contacts
-            cboContactEmail.DataBindings.Clear();
-            cboContactEmail.Properties.DisplayMember = "Email";
-            cboContactEmail.Properties.ValueMember = "Email";
-            ConfigurePopupGridColumns(gridView11,
-                ("ContactName", "Contact", 160),
-                ("Email", "Email", 220));
-
-            // Add a view-contact button (person icon) to the right of the combo button
-            var contactViewButton = new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph);
-            contactViewButton.Caption = "";
-            contactViewButton.ToolTip = "View Contact Details";
-            contactViewButton.Kind = DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph;
-            contactViewButton.ImageOptions.Image = DevExpress.Images.ImageResourceCache.Default.GetImage("images/edit/edit_16x16.png");
-            contactViewButton.Tag = "ViewContact";
-            // Only add once (guard against re-entry from RcvUpdatedClient etc.)
-            if (!cboContactEmail.Properties.Buttons.OfType<DevExpress.XtraEditors.Controls.EditorButton>()
-                    .Any(b => "ViewContact".Equals(b.Tag?.ToString())))
-            {
-                cboContactEmail.Properties.Buttons.Add(contactViewButton);
-            }
-
             RefreshContactEmailSource();
 
             cboClients.EditValueChanged -= cboClients_EditValueChanged;
             cboClients.EditValueChanged += cboClients_EditValueChanged;
-            cboContactEmail.EditValueChanged -= cboContactEmail_EditValueChanged;
-            cboContactEmail.EditValueChanged += cboContactEmail_EditValueChanged;
-            cboContactEmail.ButtonClick -= cboContactEmail_ButtonClick;
-            cboContactEmail.ButtonClick += cboContactEmail_ButtonClick;
-
         }
 
         private static void ConfigurePopupGridColumns(DevExpress.XtraGrid.Views.Grid.GridView view, params (string fieldName, string caption, int width)[] columns)
@@ -724,6 +668,8 @@ namespace Spectrum.Views.Projects
                 _projectModel.ProjectDate = DateTime.Today;
             }
 
+            SyncIssuanceYearFromDate();
+
             // Wire document thumbnail/icon rendering
             gvDocuments.GetThumbnailImage += TileView1_GetThumbnailImage;
             gvDocuments.OptionsImageLoad.RandomShow = true;
@@ -772,6 +718,44 @@ namespace Spectrum.Views.Projects
                 _projectModel.Location._id = selected._id;
                 _projectModel.Location.RawLocation = selected.LocationName;
 
+                bsProject.ResetBindings(false);
+            }
+            catch
+            {
+                // ignore
+            }
+        }
+
+        private void dtIssuanceDate_EditValueChanged(object sender, EventArgs e)
+        {
+            SyncIssuanceYearFromDate();
+        }
+
+        private void SyncIssuanceYearFromDate()
+        {
+            try
+            {
+                if (dtIssuanceDate.EditValue == null || dtIssuanceDate.EditValue == DBNull.Value)
+                {
+                    _projectModel.YearOfIssuance = null;
+                    txtIssuanceYear.EditValue = null;
+                    txtIssuanceYear.Text = string.Empty;
+                    bsProject.ResetBindings(false);
+                    return;
+                }
+
+                var issuanceDate = dtIssuanceDate.DateTime;
+                if (issuanceDate == DateTime.MinValue)
+                {
+                    _projectModel.YearOfIssuance = null;
+                    txtIssuanceYear.EditValue = null;
+                    txtIssuanceYear.Text = string.Empty;
+                    bsProject.ResetBindings(false);
+                    return;
+                }
+
+                _projectModel.YearOfIssuance = issuanceDate.Year;
+                txtIssuanceYear.Text = issuanceDate.Year.ToString();
                 bsProject.ResetBindings(false);
             }
             catch
@@ -867,7 +851,6 @@ namespace Spectrum.Views.Projects
 
                 // Save selected services and service types
                 _projectModel.ContractDetails.ServicesProvided = GetCheckedItems(cboServicesProvided);
-                _projectModel.ContractDetails.ServiceTypes = GetCheckedItems(cboServicesType);
 
                 //if (!string.IsNullOrEmpty(cboStatus.Text))
                 //{
@@ -1051,30 +1034,6 @@ namespace Spectrum.Views.Projects
             BindCheckedComboBoxItems(cboServicesProvided, _services.Select(x => x.ServiceName), selectedValues);
         }
 
-        private void cboServicesType_ButtonClick(object sender, ButtonPressedEventArgs e)
-        {
-            if (e.Button.Kind != ButtonPredefines.Plus) return;
-            var frm = new ServiceTypeEditForm(new ServiceTypeModel());
-            frm.SendUpdatedServiceType += RcvUpdatedServiceType;
-            frm.ShowDialog();
-        }
-
-        private void RcvUpdatedServiceType(object sender, EventArgs e)
-        {
-            if (sender == null) return;
-            var serviceType = sender as ServiceTypeModel;
-            if (serviceType == null) return;
-
-            if (_serviceTypes.All(x => !string.Equals(x.ServiceType, serviceType.ServiceType, StringComparison.OrdinalIgnoreCase)))
-            {
-                _serviceTypes.Add(serviceType);
-            }
-
-            var selectedValues = GetCheckedItems(cboServicesType);
-            selectedValues.Add(serviceType.ServiceType);
-            BindCheckedComboBoxItems(cboServicesType, _serviceTypes.Select(x => x.ServiceType), selectedValues);
-        }
-
         private void RcvUpdatedCountry(object sender, EventArgs e)
         {
             if (sender == null) return;
@@ -1219,7 +1178,7 @@ namespace Spectrum.Views.Projects
             try
             {
                 // Clear stale contact email before refreshing the source
-                cboContactEmail.EditValue = null;
+                txtContactEmail.EditValue = null;
                 if (_projectModel?.ContractDetails != null)
                     _projectModel.ContractDetails.ClientContactEmail = null;
                 RefreshContactEmailSource();
@@ -1237,15 +1196,12 @@ namespace Spectrum.Views.Projects
                 ? new List<ContactModel>()
                 : _contacts.Where(c => c.ClientId == clientId).ToList();
 
-            cboContactEmail.Properties.DataSource = null;
-            cboContactEmail.Properties.DataSource = contacts;
-
             // Restore previously saved email if it matches one of the contacts
             var savedEmail = _projectModel?.ContractDetails?.ClientContactEmail;
             if (!string.IsNullOrWhiteSpace(savedEmail) &&
                 contacts.Any(c => string.Equals(c.Email, savedEmail, StringComparison.OrdinalIgnoreCase)))
             {
-                cboContactEmail.EditValue = savedEmail;
+                txtContactEmail.EditValue = savedEmail;
             }
         }
 
@@ -1253,7 +1209,7 @@ namespace Spectrum.Views.Projects
         {
             try
             {
-                var email = cboContactEmail.EditValue?.ToString();
+                var email = txtContactEmail.EditValue?.ToString();
                 if (_projectModel?.ContractDetails == null) return;
                 _projectModel.ContractDetails.ClientContactEmail = email;
 
@@ -1286,7 +1242,7 @@ namespace Spectrum.Views.Projects
 
             try
             {
-                var email = cboContactEmail.EditValue?.ToString();
+                var email = txtContactEmail.EditValue?.ToString();
                 var clientId = cboClients.EditValue?.ToString();
                 var selectedClient = string.IsNullOrWhiteSpace(clientId)
                     ? null
@@ -1344,7 +1300,7 @@ namespace Spectrum.Views.Projects
 
             // If the updated contact matches the currently selected email, keep it selected
             if (!string.IsNullOrWhiteSpace(updated.Email))
-                cboContactEmail.EditValue = updated.Email;
+                txtContactEmail.EditValue = updated.Email;
         }
 
         private void RcvUpdatedClient(object sender, EventArgs e)
