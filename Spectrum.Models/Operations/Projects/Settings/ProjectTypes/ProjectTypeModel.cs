@@ -1,8 +1,11 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Runtime.Serialization;
 
 namespace Spectrum.Models.Operations.Projects.Settings.ProjectTypes
 {
+    [BsonIgnoreExtraElements]
     public class ProjectTypeModel : EntityObject, ICloneable
     {
         [BsonElement("Type")]
@@ -13,6 +16,20 @@ namespace Spectrum.Models.Operations.Projects.Settings.ProjectTypes
 
         [BsonElement("Description")]
         public string Description { get; set; }
+
+        [BsonExtraElements]
+        public BsonDocument ExtraElements { get; set; }
+
+        [OnDeserialized]
+        internal void OnDeserializedMethod(StreamingContext context)
+        {
+            if (!string.IsNullOrWhiteSpace(Type) || ExtraElements == null) return;
+
+            if (ExtraElements.Contains("Name") && ExtraElements["Name"].IsString)
+            {
+                Type = ExtraElements["Name"].AsString;
+            }
+        }
 
         #region Implementation of ICloneable
 

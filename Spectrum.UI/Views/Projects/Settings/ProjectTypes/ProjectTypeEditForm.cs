@@ -122,6 +122,10 @@ namespace Spectrum.Views.Projects.Settings.ProjectTypes
                     _logInfoRepository.CreateLogInfo(_projectTypeModel);
 
                     var newId = await _projectTypeRepository.AddNewProjectTypeAsync(_projectTypeModel);
+                    if (!string.IsNullOrWhiteSpace(newId))
+                    {
+                        _projectTypeModel._id = newId;
+                    }
                 }
                 else
                 {
@@ -130,7 +134,7 @@ namespace Spectrum.Views.Projects.Settings.ProjectTypes
                     await _projectTypeRepository.UpdateProjectTypeAsync(_projectTypeModel);
                 }
 
-                SendUpdatedProjectType(_projectTypeModel, EventArgs.Empty);
+                SendUpdatedProjectType?.Invoke(_projectTypeModel, EventArgs.Empty);
                 Close();
             }
             catch (Exception ex)
