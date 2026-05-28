@@ -1840,7 +1840,7 @@
             // 
             // cboClientContact
             // 
-            this.cboClientContact.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContacts, "ContactName", true));
+            this.cboClientContact.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsProject, "ClientContact", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cboClientContact.Location = new System.Drawing.Point(143, 164);
             this.cboClientContact.MenuManager = this.rcMain;
             this.cboClientContact.Name = "cboClientContact";
@@ -2045,7 +2045,6 @@
             // 
             // txtContactEmail
             // 
-            this.txtContactEmail.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsContractDetails, "ClientContactEmail", true));
             this.txtContactEmail.Location = new System.Drawing.Point(143, 190);
             this.txtContactEmail.MenuManager = this.rcMain;
             this.txtContactEmail.Name = "txtContactEmail";

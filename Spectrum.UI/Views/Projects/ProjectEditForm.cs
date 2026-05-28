@@ -313,6 +313,9 @@ namespace Spectrum.Views.Projects
             // Whenever user changes selection, update project model Location via reflection
             cboLocations.EditValueChanged += cboLocations_EditValueChanged;
 
+            // Refresh contact dropdowns now that cboClients has its bound value from bsProject
+            RefreshContactEmailSource();
+
             //cboStatus.Properties.Items.Clear();
             //cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
 
@@ -399,10 +402,21 @@ namespace Spectrum.Views.Projects
             cboEngineers.EditValueChanged -= cboEngineers_EditValueChanged;
             cboEngineers.EditValueChanged += cboEngineers_EditValueChanged;
 
+            // cboClientContact — stores the contact name in ProjectModel.ClientContact
+            cboClientContact.DataBindings.Clear();
+            cboClientContact.DataBindings.Add("EditValue", bsProject, "ClientContact", true, DataSourceUpdateMode.OnPropertyChanged);
+            cboClientContact.Properties.DisplayMember = "ContactName";
+            cboClientContact.Properties.ValueMember = "ContactName";
             ConfigurePopupGridColumns(gridView10,
                 ("ContactName", "Contact Name", 200),
                 ("Email", "Email", 400));
 
+            // txtContactEmail — value managed manually (no DataBinding; SearchLookUpEdit
+            // re-validates EditValue against DataSource on every source reassignment which
+            // silently wipes the bound model value through the binding write-back path).
+            txtContactEmail.DataBindings.Clear();
+            txtContactEmail.Properties.DisplayMember = "Email";
+            txtContactEmail.Properties.ValueMember = "Email";
             ConfigurePopupGridColumns(gridView13,
                 ("ContactName", "Contact Name", 200),
                 ("Email", "Email", 400));
@@ -874,6 +888,10 @@ namespace Spectrum.Views.Projects
                 var sponsorId = cboFundedBy.EditValue?.ToString();
                 _projectModel.ContractDetails.SponsorId = string.IsNullOrWhiteSpace(sponsorId) ? null : sponsorId;
 
+                // Persist client contact name and email explicitly (SearchLookUpEdit values)
+                _projectModel.ClientContact = cboClientContact.EditValue?.ToString();
+                _projectModel.ContractDetails.ClientContactEmail = txtContactEmail.EditValue?.ToString();
+
                 // Save selected services and service types
                 _projectModel.ContractDetails.ServicesProvided = GetCheckedItems(cboServicesProvided);
 
@@ -1202,25 +1220,42 @@ namespace Spectrum.Views.Projects
         {
             try
             {
-                // Clear stale contact email before refreshing the source
-                txtContactEmail.EditValue = null;
-                if (_projectModel?.ContractDetails != null)
-                    _projectModel.ContractDetails.ClientContactEmail = null;
-
                 var clientId = cboClients.EditValue?.ToString();
                 var selectedClient = string.IsNullOrWhiteSpace(clientId)
                     ? null
                     : _clients.FirstOrDefault(c => c._id == clientId);
 
-                // Filter cboClientContact to show only contacts for this client
+                // When the user actively picks a different client, the previous contact/email
+                // belong to the old client and must be cleared from the model before refreshing
+                // the filtered lists.  We detect a user-driven change by comparing the new
+                // client id against what is already stored on the model.
+                bool clientChanged = _projectModel != null &&
+                                     !string.IsNullOrWhiteSpace(clientId) &&
+                                     _projectModel.ClientIdValue != clientId;
+
+                if (clientChanged && _projectModel.ContractDetails != null)
+                {
+                    _projectModel.ClientContact = null;
+                    _projectModel.ContractDetails.ClientContactEmail = null;
+                }
+
+                // Refresh the filtered contact/email dropdown lists for this client.
+                // RefreshContactEmailSource reads the model to restore values after the
+                // DataSource is replaced, so the model must be in the desired state first.
                 RefreshContactEmailSource();
 
-                // Auto-assign the client's own email from ClientModel
+                // Auto-assign the client's own email if no contact email is set yet
                 if (selectedClient != null && !string.IsNullOrWhiteSpace(selectedClient.Email))
                 {
-                    txtContactEmail.EditValue = selectedClient.Email;
-                    if (_projectModel?.ContractDetails != null)
+                    if (_projectModel?.ContractDetails != null &&
+                        string.IsNullOrWhiteSpace(_projectModel.ContractDetails.ClientContactEmail))
+                    {
                         _projectModel.ContractDetails.ClientContactEmail = selectedClient.Email;
+                        // No DataBinding on txtContactEmail — set the control value directly.
+                        txtContactEmail.EditValueChanged -= cboContactEmail_EditValueChanged;
+                        try { txtContactEmail.EditValue = selectedClient.Email; }
+                        finally { txtContactEmail.EditValueChanged += cboContactEmail_EditValueChanged; }
+                    }
                 }
             }
             catch
@@ -1236,24 +1271,32 @@ namespace Spectrum.Views.Projects
                 ? new List<ContactModel>()
                 : _contacts.Where(c => c.ClientId == clientId).ToList();
 
-            // Filter cboClientContact to show only contacts for this client
+            // cboClientContact — rebuild popup list then restore value from model.
+            // (cboClientContact uses a DataBinding so we just need to repopulate the list.)
             cboClientContact.Properties.DataSource = null;
             cboClientContact.Properties.DisplayMember = "ContactName";
             cboClientContact.Properties.ValueMember = "ContactName";
             cboClientContact.Properties.DataSource = contacts;
 
-            // Filter txtContactEmail (SearchLookUpEdit) to show emails for this client
-            txtContactEmail.Properties.DataSource = null;
-            txtContactEmail.Properties.DisplayMember = "Email";
-            txtContactEmail.Properties.ValueMember = "Email";
-            txtContactEmail.Properties.DataSource = contacts;
-
-            // Restore previously saved email if it matches one of the contacts
+            // txtContactEmail — NO DataBinding (removed to prevent SearchLookUpEdit from
+            // wiping the value via binding write-back when DataSource is replaced).
+            // Rebuild the popup list, then manually restore the value from the model.
             var savedEmail = _projectModel?.ContractDetails?.ClientContactEmail;
-            if (!string.IsNullOrWhiteSpace(savedEmail) &&
-                contacts.Any(c => string.Equals(c.Email, savedEmail, StringComparison.OrdinalIgnoreCase)))
+
+            txtContactEmail.EditValueChanged -= cboContactEmail_EditValueChanged;
+            try
             {
-                txtContactEmail.EditValue = savedEmail;
+                txtContactEmail.Properties.DataSource = null;
+                txtContactEmail.Properties.DisplayMember = "Email";
+                txtContactEmail.Properties.ValueMember = "Email";
+                txtContactEmail.Properties.DataSource = contacts;
+
+                // Restore the saved email directly after the DataSource is settled.
+                txtContactEmail.EditValue = string.IsNullOrWhiteSpace(savedEmail) ? null : (object)savedEmail;
+            }
+            finally
+            {
+                txtContactEmail.EditValueChanged += cboContactEmail_EditValueChanged;
             }
         }
 
