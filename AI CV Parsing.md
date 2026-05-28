@@ -22,12 +22,13 @@ The agent must read this section first and apply these decisions throughout.
 | Status | Value |
 |---|---|
 | Phase in progress | Phase 4.6 — HR CV binding synchronization and saved summary replay implemented |
-| Last updated | 2026-05-26 |
+| Last updated | 2026-05-28 |
 | Updated by | GitHub Copilot |
 
 ## Changelog
 | Version | Change |
 |---|---|
+| v1.13 | Projects module hotfix: wired `ProjectEditForm.cboProjectType` to `ProjectModel.ProjectType` using `ProjectTypeRepository` lookup loading and runtime binding (`DisplayMember/ValueMember = Type`). Enabled functional `Add New` behavior for project type from the project edit screen by wiring `cboProjectType.AddNewValue` to `ProjectTypeEditForm` and refreshing/selecting the newly created type. Added backward-compatible deserialization in `ProjectTypeModel` to map legacy MongoDB documents storing `Name` into the new `Type` field to prevent list/load failures after the ProjectType schema refactor. |
 | v1.12 | Fixed unrelated project-opening regression by hardening `ProjectEditForm` initialization: lookup loads now execute with per-source fault isolation and warning aggregation so one failing data source no longer blocks opening project records. Also fixed HR CV Education tab rendering by replacing runtime re-parenting with a dedicated Education grid bound to `bsEducationEntry` (Work tab behavior preserved). |
 | v1.11 | Implemented HR CV persistence/UI synchronization refinements: added `CandidateModel.ReviewedSummaryTitle`, bound reviewed-title and years-of-experience fields explicitly in `HrCvEditForm`, added runtime Education/Work tab split with work-history grid binding, enabled `View AI Summary` to replay saved formatted summary content from `PreprocessedJson`, and replaced conversion action placeholders with SVG icon assignment + fallback URI behavior. |
 | v1.10 | Expanded OpenAI model catalog in `ApiKeySettingForm` to include GPT-5.4 Nano and additional GPT/o-series options. Updated HR CV review apply flow to set a reviewed CV title in `txtSummary` and ensured parsed education output is explicitly bound to `gridControl1` (`bsEducationEntry`) after apply. |
