@@ -5,6 +5,7 @@ using Spectrum.Models.Common.Countries;
 using Spectrum.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -111,7 +112,48 @@ namespace Spectrum.Views.Common.Countries
 
 		private void ApplyDefaults()
 		{
+			if (_cityModel == null)
+			{
+				_cityModel = new CityModel();
+				bsCity.DataSource = _cityModel;
+			}
 
+			if (!string.IsNullOrWhiteSpace(_cityModel._id))
+			{
+				return;
+			}
+
+			var defaultCountry = _countries.FirstOrDefault(x => x.IsDefault);
+			if (defaultCountry != null)
+			{
+				_cityModel.Country = defaultCountry.CountryName;
+			}
+
+			var defaultProvince = _provinces.FirstOrDefault(x => x.IsDefault);
+			if (defaultProvince != null)
+			{
+				_cityModel.Province = defaultProvince.ProvinceName;
+			}
+
+			var defaultDistrict = _districts.FirstOrDefault(x => x.IsDefault);
+			if (defaultDistrict != null)
+			{
+				_cityModel.District = defaultDistrict.DistrictName;
+			}
+
+			var defaultRegion = _regions.FirstOrDefault(x => x.IsDefault);
+			if (defaultRegion != null)
+			{
+				_cityModel.Region = defaultRegion.RegionName;
+			}
+
+			var defaultContinent = _continents.FirstOrDefault(x => x.IsDefault);
+			if (defaultContinent != null)
+			{
+				_cityModel.Continent = defaultContinent.ContinentName;
+			}
+
+			bsCity.ResetBindings(false);
 		}
 
 		private void ApplyPermissions()
