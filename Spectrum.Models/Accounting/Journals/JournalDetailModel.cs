@@ -10,6 +10,7 @@ namespace Spectrum.Models.Accounting.Journals
         public string JvNo { get; set; }
         public int Line { get; set; }
         public string AccountNumber { get; set; }
+        public string AccountName { get; set; }
         public string CostCenter { get; set; }
         public string FlowType { get; set; }
         public DateTime ValueDate { get; set; }

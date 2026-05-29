@@ -27,6 +27,20 @@ namespace Spectrum.DataLayers.Accounting.Journals
             return await _journalDetails.Find(journalDetail => true).ToListAsync();
         }
 
+        public async Task<List<JournalDetailModel>> GetJournalDetailsByJvNoAsync(string jvNo)
+        {
+            if (string.IsNullOrWhiteSpace(jvNo))
+            {
+                return new List<JournalDetailModel>();
+            }
+
+            var pattern = "^" + Regex.Escape(jvNo.Trim()) + "$";
+            var filter = Builders<JournalDetailModel>.Filter.Regex(u => u.JvNo, new BsonRegularExpression(pattern, "i"));
+            return await _journalDetails.Find(filter)
+                .SortBy(x => x.Line)
+                .ToListAsync();
+        }
+
         public async Task<JournalDetailModel> GetJournalDetailByIdAsync(string id)
         {
             var filter = Builders<JournalDetailModel>.Filter.Eq(u => u._id, id);

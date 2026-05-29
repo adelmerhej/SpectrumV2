@@ -8,6 +8,7 @@ namespace Spectrum.DataLayers.Accounting.Journals
     {
         // CRUD Operations
         Task<List<JournalDetailModel>> GetJournalDetailsAsync();
+        Task<List<JournalDetailModel>> GetJournalDetailsByJvNoAsync(string jvNo);
         Task<JournalDetailModel> GetJournalDetailByIdAsync(string id);
         Task<string> AddNewJournalDetailAsync(JournalDetailModel jDetail);
         Task<bool> UpdateJournalDetailAsync(JournalDetailModel jDetail);

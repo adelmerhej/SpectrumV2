@@ -1,19 +1,27 @@
-﻿using DevExpress.Utils.Menu;
+﻿using DevExpress.Data;
+using DevExpress.Utils.Menu;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Menu;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using Spectrum.DataLayers.Accounting.Charts;
+using Spectrum.DataLayers.Accounting.CostCenter;
+using Spectrum.DataLayers.Accounting.FlowType;
 using Spectrum.DataLayers.Accounting.Journals;
 using Spectrum.DataLayers.Accounting.JournalType;
 using Spectrum.DataLayers.Common.Currencies;
 using Spectrum.DataLayers.Common.Currencies.Interfaces;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Accounting.Charts;
+using Spectrum.Models.Accounting.CostCenter;
+using Spectrum.Models.Accounting.FlowType;
 using Spectrum.Models.Accounting.Journals;
 using Spectrum.Models.Accounting.JournalType;
 using Spectrum.Models.Common.Currencies;
+using Spectrum.Models.Projects;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using System;
@@ -32,11 +40,14 @@ namespace Spectrum.Views.Accounting.Journals
         private IList<JournalDetailModel> _journalDetails = new List<JournalDetailModel>();
 
         private ChartModel _chartModel = new ChartModel();
-        private IList<ChartDetailModel> _chartDetails = new List<ChartDetailModel>();
+        private IList<ChartModel> _charts = new List<ChartModel>();
         private IList<CurrencyModel> _currencies = new List<CurrencyModel>();
 
         private IList<JournalTypeModel> _journalTypes = new List<JournalTypeModel>();
         private IList<IdListModel> deletedList = new List<IdListModel>();
+
+        private IList<CostCenterModel> _costCenters = new List<CostCenterModel>();
+        private IList<FlowTypeModel> _flowTypes = new List<FlowTypeModel>();
 
         private readonly JournalRepository _journalRepository = new JournalRepository(DatabaseFactory.ProfilePrimary);
         private readonly JournalDetailRepository _journalDetailRepository = new JournalDetailRepository(DatabaseFactory.ProfilePrimary);
@@ -46,6 +57,9 @@ namespace Spectrum.Views.Accounting.Journals
         private readonly CurrencyRepository _currencyRepository = new CurrencyRepository(DatabaseFactory.ProfilePrimary);
         private readonly ICurrencyExchangeRepository _currencyExchangeRepository = new CurrencyExchangeRepository(DatabaseFactory.ProfilePrimary);
         private readonly JournalTypeRepository _journalTypeRepository = new JournalTypeRepository(DatabaseFactory.ProfilePrimary);
+
+        private readonly CostCenterRepository _costCenterRepository = new CostCenterRepository(DatabaseFactory.ProfilePrimary);
+        private readonly FlowTypeRepository _flowTypeRepository = new FlowTypeRepository(DatabaseFactory.ProfilePrimary);
 
         private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
@@ -105,7 +119,10 @@ namespace Spectrum.Views.Accounting.Journals
                 {
                     LoadJournalTypesAsync(),
                     LoadCurrenciesAsync(),
-                    LoadChartDetailsAsync(),
+                    LoadChartsAsync(),
+                    LoadJournalDetailsAsync(),
+                    LoadCostCentersAsync(),
+                    LoadFlowTypesAsync()
                 };
 
                 await Task.WhenAll(loadTasks);
@@ -126,9 +143,26 @@ namespace Spectrum.Views.Accounting.Journals
             _currencies = await _currencyRepository.GetCurrenciesAsync();
         }
 
-        private async Task LoadChartDetailsAsync()
+        private async Task LoadChartsAsync()
         {
-            _chartDetails = await _chartDetailRepository.GetChartDetailsAsync();
+            _charts = await _chartRepository.GetChartsAsync();
+        }
+
+        private async Task LoadCostCentersAsync()
+        {
+            _costCenters = await _costCenterRepository.GetCostCentersAsync();
+        }
+
+        private async Task LoadFlowTypesAsync()
+        {
+            _flowTypes = await _flowTypeRepository.GetFlowTypesAsync();
+        }
+
+        private async Task LoadJournalDetailsAsync()
+        {
+            _journalDetails = string.IsNullOrWhiteSpace(_journalModel.JvNo)
+                ? new List<JournalDetailModel>()
+                : await _journalDetailRepository.GetJournalDetailsByJvNoAsync(_journalModel.JvNo);
         }
 
         #endregion
@@ -142,26 +176,28 @@ namespace Spectrum.Views.Accounting.Journals
             }
 
             bsJournal.DataSource = _journalModel;
-            bsJournalDetails.DataSource = _journalDetails;
+            BindGridWithBindingSource(gcJournalDetails, bsJournalDetails, _journalDetails);
 
+            cboJournalTypes.Properties.DataSource = null;
             cboJournalTypes.Properties.DataSource = _journalTypes;
-            cboJournalTypes.Properties.DisplayMember = nameof(JournalTypeModel.Code);
-            cboJournalTypes.Properties.ValueMember = nameof(JournalTypeModel._id);
 
+            cboCurrency.Properties.DataSource = null;
             cboCurrency.Properties.DataSource = _currencies;
-            cboCurrency.Properties.ValueMember = nameof(CurrencyModel._id);
 
-            repCharts.DataSource = _chartDetails;
-            repCharts.ValueMember = nameof(ChartDetailModel._id);
+            repCharts.DataSource = null;
+            repCharts.DataSource = _charts;
 
-            repAccountNames.DataSource = _chartDetails;
-            repAccountNames.ValueMember = nameof(ChartDetailModel._id);
-
+            repCurrencies.DataSource = null;
             repCurrencies.DataSource = _currencies;
-            repCurrencies.ValueMember = nameof(CurrencyModel._id);
 
-            gvJournalDetails.InitNewRow -= gvJournalDetails_InitNewRow;
-            gvJournalDetails.InitNewRow += gvJournalDetails_InitNewRow;
+            repCostCenter.DataSource = null;
+            repCostCenter.DataSource = _costCenters;
+
+            repFlowType.DataSource = null;
+            repFlowType.DataSource = _flowTypes;
+
+            //gvJournalDetails.InitNewRow -= gvJournalDetails_InitNewRow;
+            //gvJournalDetails.InitNewRow += gvJournalDetails_InitNewRow;
         }
 
         private async Task ApplyDefaultsAsync()
@@ -181,10 +217,10 @@ namespace Spectrum.Views.Accounting.Journals
             _journalModel.Reference = await _journalRepository.GetNextReferenceAsync();
 
             var journalType = _journalTypes.FirstOrDefault(x => string.Equals(x.Code, _defaultJournalType, StringComparison.OrdinalIgnoreCase));
-            _journalModel.JournalType = journalType != null ? journalType._id : _defaultJournalType;
+            _journalModel.JournalType = journalType != null ? journalType.Code : _defaultJournalType;
 
             var currency = _currencies.FirstOrDefault(x => string.Equals(x.CurrencyCode, _defaultCurrency, StringComparison.OrdinalIgnoreCase));
-            _journalModel.Currency = currency != null ? currency._id : _defaultCurrency;
+            _journalModel.Currency = currency != null ? currency.CurrencyCode : _defaultCurrency;
 
             bsJournal.ResetBindings(false);
             gcJournalDetails.Focus();
@@ -200,12 +236,25 @@ namespace Spectrum.Views.Accounting.Journals
             btnDelete.Enabled = _isAdmin || _canDelete;
         }
 
+        //private void InitializeMenuItems()
+        //{
+        //    var itemNew = new DXMenuItem("New", ItemNew_Click);
+        //    var itemEdit = new DXMenuItem("Edit", ItemEdit_Click);
+        //    var itemDelete = new DXMenuItem("Delete", ItemDelete_Click);
+        //    _menuItems = new[] { itemNew, itemEdit, itemDelete };
+        //}
+
         private void InitializeMenuItems()
         {
-            var itemNew = new DXMenuItem("New", ItemNew_Click);
-            var itemEdit = new DXMenuItem("Edit", ItemEdit_Click);
-            var itemDelete = new DXMenuItem("Delete", ItemDelete_Click);
-            _menuItems = new[] { itemNew, itemEdit, itemDelete };
+            _menuItems = new[]
+            {
+                new DXMenuItem("New", ItemNew_Click),
+                new DXMenuItem("Edit", ItemEdit_Click),
+                new DXMenuItem("Delete", ItemDelete_Click)
+            };
+
+            gvJournalDetails.PopupMenuShowing -= gvAddendum_PopupMenuShowing;
+            gvJournalDetails.PopupMenuShowing += gvAddendum_PopupMenuShowing;
         }
 
         private void ConfigureJournalDetailsGrid(bool allowEditing)
@@ -215,27 +264,27 @@ namespace Spectrum.Views.Accounting.Journals
             gvJournalDetails.OptionsBehavior.ReadOnly = !allowEditing;
             gvJournalDetails.OptionsBehavior.AllowAddRows = allowEditing ? DevExpress.Utils.DefaultBoolean.True : DevExpress.Utils.DefaultBoolean.False;
             gvJournalDetails.OptionsBehavior.AllowDeleteRows = allowEditing ? DevExpress.Utils.DefaultBoolean.True : DevExpress.Utils.DefaultBoolean.False;
-            gvJournalDetails.OptionsView.NewItemRowPosition = allowEditing ? DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom : DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.None;
+            gvJournalDetails.OptionsView.NewItemRowPosition = allowEditing ? NewItemRowPosition.Bottom : NewItemRowPosition.None;
         }
 
-        private void gvJournalDetails_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
-        {
-            var journalDetail = gvJournalDetails.GetRow(e.RowHandle) as JournalDetailModel;
-            if (journalDetail == null)
-            {
-                return;
-            }
+        //private void gvJournalDetails_InitNewRow(object sender, InitNewRowEventArgs e)
+        //{
+        //    var journalDetail = gvJournalDetails.GetRow(e.RowHandle) as JournalDetailModel;
+        //    if (journalDetail == null)
+        //    {
+        //        return;
+        //    }
 
-            var journalDate = _journalModel.JournalDate == default(DateTime) ? DateTime.Today : _journalModel.JournalDate;
-            journalDetail.JvNo = _journalModel.JvNo;
-            journalDetail.Line = _journalDetails.Any() ? _journalDetails.Max(x => x.Line) + 1 : 1;
-            journalDetail.ValueDate = journalDate;
-            journalDetail.Currency = _journalModel.Currency;
-            journalDetail.Rate = _journalModel.Rate > 0 ? _journalModel.Rate : _defaultRate;
-            journalDetail.WorkingYear = _journalModel.WorkingYear > 0 ? _journalModel.WorkingYear : journalDate.Year;
+        //    var journalDate = _journalModel.JournalDate == default(DateTime) ? DateTime.Today : _journalModel.JournalDate;
+        //    journalDetail.JvNo = _journalModel.JvNo;
+        //    journalDetail.Line = _journalDetails.Any() ? _journalDetails.Max(x => x.Line) + 1 : 1;
+        //    journalDetail.ValueDate = journalDate;
+        //    journalDetail.Currency = _journalModel.Currency;
+        //    journalDetail.Rate = _journalModel.Rate > 0 ? _journalModel.Rate : _defaultRate;
+        //    journalDetail.WorkingYear = _journalModel.WorkingYear > 0 ? _journalModel.WorkingYear : journalDate.Year;
 
-            bsJournalDetails.ResetBindings(false);
-        }
+        //    bsJournalDetails.ResetBindings(false);
+        //}
 
         #endregion
 
@@ -249,14 +298,49 @@ namespace Spectrum.Views.Accounting.Journals
         private void ItemEdit_Click(object sender, EventArgs e)
         {
             // Handle edit item logic here
+            gvJournalDetails.ShowEditor();
         }
 
         private void ItemDelete_Click(object sender, EventArgs e)
         {
-            // Handle delete item logic here
+            if (!ConfirmAction("Delete row?", "Confirmation")) return;
+
+            var journalDetail = gvJournalDetails.GetFocusedRow() as JournalDetailModel;
+            if (journalDetail == null)
+            {
+                return;
+            }
+
+            journalDetail.Deleted = true;
+
+            if (!string.IsNullOrWhiteSpace(journalDetail._id) && deletedList.All(x => x.Id != journalDetail._id))
+            {
+                deletedList.Add(new IdListModel { Id = journalDetail._id });
+                _isDeleted = true;
+            }
+
+            _journalDetails.Remove(journalDetail);
+            bsJournalDetails.ResetBindings(false);
+            EnumerateLines();
         }
 
         #endregion
+
+        #region UI Helper Methods
+
+        private void ShowError(string message, string title = "Error")
+        {
+            XtraMessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private bool ConfirmAction(string message, string title)
+        {
+            return XtraMessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2) == DialogResult.Yes;
+        }
+
+        #endregion
+
 
         #region Button Click Events
 
@@ -597,25 +681,25 @@ namespace Spectrum.Views.Accounting.Journals
             }
         }
 
-        private void gvJournalDetails_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        private void gvJournalDetails_CellValueChanged(object sender, CellValueChangedEventArgs e)
         {
             GridView view = sender as GridView;
 
             try
             {
-                if (e.Column.FieldName == "ChartId")
+                if (e.Column.FieldName == nameof(JournalDetailModel.AccountNumber))
                 {
                     CheckChartOfAccount(sender, e);
                 }
 
                 //Currency
-                if (e.Column.FieldName == "CurrencyId")
+                if (e.Column.FieldName == "Currency")
                 {
                     CheckCurrency(sender, e);
                 }
 
                 //Debit Credit
-                if (e.Column.FieldName == "DebCred")
+                if (e.Column.FieldName == "DbCr")
                 {
                     CalculateRemainingBalance(sender, e);
                 }
@@ -635,33 +719,30 @@ namespace Spectrum.Views.Accounting.Journals
             catch
             {
                 // Handle exceptions if necessary, or log them
+                var err = "";
             }
         }
 
         private void CheckChartOfAccount(GridView view, CellValueChangedEventArgs e)
         {
-            var chartId = view.GetRowCellValue(e.RowHandle, "ChartId")?.ToString();
-            var chartDetail = _chartDetails.FirstOrDefault(c => c._id == chartId);
+            var accountNumber = view.GetRowCellValue(e.RowHandle, nameof(JournalDetailModel.AccountNumber))?.ToString();
+            var chartDetail = _charts.FirstOrDefault(c => string.Equals(c.AccountNumber, accountNumber, StringComparison.OrdinalIgnoreCase));
             if (chartDetail != null)
             {
-                view.SetRowCellValue(e.RowHandle, "AccountName", chartDetail.AccountName);
-                view.SetRowCellValue(e.RowHandle, "CurrencyId", chartDetail.CurrencyId);
+                view.SetRowCellValue(e.RowHandle, nameof(JournalDetailModel.AccountName), chartDetail.AccountName);
             }
         }
 
         #region Chart Event
         private void CheckChartOfAccount(object sender, CellValueChangedEventArgs e)
         {
-            GridView chartView = repCharts.View;
-            int rowHandle = chartView.FocusedRowHandle;
-            string fieldName = "ChartId";
-            object accountName = chartView.GetRowCellValue(rowHandle, fieldName);
+            var view = sender as GridView;
+            if (view == null)
+            {
+                return;
+            }
 
-            GridView view = sender as GridView;
-            view.SetRowCellValue(e.RowHandle, "AccountName", accountName);
-
-            _ = int.TryParse(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["ChartId"]).ToString(), out int chartId);
-
+            CheckChartOfAccount(view, e);
         }
 
         private void CheckCurrency(object sender, CellValueChangedEventArgs e)
@@ -671,10 +752,10 @@ namespace Spectrum.Views.Accounting.Journals
             decimal varAmount = 0;
             //get remaining balance
             decimal varBalanceAmount = 0;
-            if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["CurrencyId"]) != null)
+            if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Currency"]) != null)
             {
-                int currencyId =
-                    int.Parse(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["CurrencyId"]).ToString());
+                string currencyId =
+                    view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Currency"]).ToString();
             }
 
             if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Amount"]) != null)
@@ -686,48 +767,48 @@ namespace Spectrum.Views.Accounting.Journals
         private decimal CalculateRemainingBalance(object sender, CellValueChangedEventArgs e)
         {
             GridView view = sender as GridView;
-            if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["DebCred"]) == null || view.GetRowCellValue(view.FocusedRowHandle, view.Columns["CurrencyId"]) == null)
+            if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["DbCr"]) == null || view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Currency"]) == null)
             {
                 return 0;
             }
             decimal total = 0;
-            int currencyId = int.Parse(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["CurrencyId"]).ToString());
+            string currencyId = view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Currency"]).ToString();
 
             for (int i = 0; i < view.RowCount; i++)
             {
-                if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["DebCred"]).ToString() == "D")
+                if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["DbCr"]).ToString() == "D")
                 {
                     total += Convert.ToDecimal(view.GetRowCellValue(i + 1, "FAmount"));
                 }
-                else if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["DebCred"]).ToString() == "C")
+                else if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["DbCr"]).ToString() == "C")
                 {
                     total -= Convert.ToDecimal(view.GetRowCellValue(i + 1, "FAmount"));
                 }
             }
 
-            total = CalculateRate(2, currencyId, total);
+            total = CalculateRate("USD", currencyId.ToString(), total);
             return total;
         }
 
-        private decimal CalculateRate(int currencyIn, int currencyOut, decimal pValue)
+        private decimal CalculateRate(string currencyIn, string currencyOut, decimal pValue)
         {
             decimal exchangeRate = 0;
             decimal rateValue = 0;
             decimal baseCurrencyValue = 0;
 
-            baseCurrencyValue = GetRate(2);
+            baseCurrencyValue = GetRate("USD");
             exchangeRate = GetRate(currencyIn);
 
             if (currencyIn == currencyOut) rateValue = pValue;
-            if (currencyOut == 1 && currencyIn != currencyOut)
+            if (currencyOut == "LL" && currencyIn != currencyOut)
                 rateValue = pValue * exchangeRate;
-            else if (currencyOut == 2 && currencyIn != currencyOut)
+            else if (currencyOut == "USD" && currencyIn != currencyOut)
                 rateValue = pValue * exchangeRate / baseCurrencyValue;
 
             return rateValue;
         }
 
-        private decimal GetRate(int pCurrencyId)
+        private decimal GetRate(string pCurrencyId)
         {
             var currencyDate = dtJvDate.DateTime;
             decimal rateValue = 0;
@@ -743,18 +824,31 @@ namespace Spectrum.Views.Accounting.Journals
         {
             GridView view = sender as GridView;
 
-            if (view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Amount"]) != null)
+            if (view == null)
             {
-                decimal amountValue = 0;
-                {
-                    decimal.TryParse(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Amount"]).ToString(),
-                        out amountValue);
-                }
-                int curId = int.Parse(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["CurrencyId"])
-                    .ToString());
-                view.SetRowCellValue(e.RowHandle, "LAmount", CalculateRate(curId, 1, amountValue));
-                view.SetRowCellValue(e.RowHandle, "FAmount", CalculateRate(curId, 2, amountValue));
+                return;
             }
+
+            object amountCellValue = view.GetRowCellValue(e.RowHandle, view.Columns["Amount"]);
+            object currencyIdCellValue = view.GetRowCellValue(e.RowHandle, view.Columns["Currency"]);
+
+            if (amountCellValue == null || currencyIdCellValue == null)
+            {
+                return;
+            }
+
+            if (!decimal.TryParse(amountCellValue.ToString(), out decimal amountValue))
+            {
+                return;
+            }
+
+            //if (!int.TryParse(currencyIdCellValue.ToString(), out int curId))
+            //{
+            //    return;
+            //}
+
+            view.SetRowCellValue(e.RowHandle, "LAmount", CalculateRate(currencyIdCellValue.ToString(), "LL", amountValue));
+            view.SetRowCellValue(e.RowHandle, "FAmount", CalculateRate(currencyIdCellValue.ToString(), "USD", amountValue));
         }
 
         private void CalculateCostCenter(object sender, CellValueChangedEventArgs e)
@@ -766,16 +860,16 @@ namespace Spectrum.Views.Accounting.Journals
         #endregion
 
         private void gvJournalDetails_InitNewRow_1(object sender, InitNewRowEventArgs e)
-        {
+            {
             GridView view = sender as GridView;
             bool isValidAmount;
 
             //Set static values to Journal details
-            view.SetRowCellValue(e.RowHandle, view.Columns["JournalId"], _journalModel._id);
+            view.SetRowCellValue(e.RowHandle, view.Columns["JvNo"], _journalModel.JvNo);
             view.SetRowCellValue(e.RowHandle, view.Columns["Line"], view.RowCount);
             view.SetRowCellValue(e.RowHandle, view.Columns["ValueDate"], DateTime.Now);
             view.SetRowCellValue(e.RowHandle, view.Columns["WorkingYear"], CurrentUser.WorkingYear);
-            view.SetRowCellValue(e.RowHandle, view.Columns["CurrencyId"], cboCurrency.EditValue);
+            view.SetRowCellValue(e.RowHandle, view.Columns["Currency"], cboCurrency.EditValue);
             view.SetRowCellValue(e.RowHandle, view.Columns["Rate"], decimal.Parse(txtRate.Text));
 
             int currentRowVisibleIndex = view.GetDataSourceRowIndex(e.RowHandle);
@@ -844,5 +938,141 @@ namespace Spectrum.Views.Accounting.Journals
                 }
             }
         }
+
+        private void BindGridWithBindingSource<T>(GridControl grid, BindingSource bindingSource, T dataSource)
+        {
+            bindingSource.DataSource = dataSource;
+            grid.DataSource = null;
+            grid.DataSource = bindingSource;
+        }
+
+        private void gvAddendum_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
+        {
+            if (!CanManageJournal())
+            {
+                e.Menu = null;
+                return;
+            }
+
+            if (e.MenuType != GridMenuType.Row && e.MenuType != GridMenuType.User) return;
+
+            var view = sender as GridView;
+            if (view == null) return;
+
+            if (e.HitInfo.InRow || e.HitInfo.InRowCell)
+            {
+                view.FocusedRowHandle = e.HitInfo.RowHandle;
+            }
+
+            if (e.Menu == null)
+            {
+                e.Menu = new GridViewMenu(view);
+            }
+
+            e.Menu.Items.Clear();
+            foreach (var menuItem in _menuItems)
+            {
+                e.Menu.Items.Add(menuItem);
+            }
+        }
+
+        private bool CanManageJournal()
+        {
+            if (!ValidateData() || string.IsNullOrWhiteSpace(_journalModel?._id))
+            {
+                XtraMessageBox.Show("Finish journal first, then add details.", "Journal",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void gvJournalDetails_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Delete)
+            {
+                return;
+            }
+
+            ItemDelete_Click(sender, EventArgs.Empty);
+        }
+
+        private void gvJournalDetails_CustomSummaryCalculate(object sender, DevExpress.Data.CustomSummaryEventArgs e)
+        {
+            var summaryId = Convert.ToInt32((e.Item as GridSummaryItem)?.Tag);
+
+            if (e.SummaryProcess != CustomSummaryProcess.Finalize)
+            {
+                return;
+            }
+
+            decimal debitLL;
+            decimal debitUSD;
+            decimal creditLL;
+            decimal creditUSD;
+            decimal totalLL;
+            decimal totalUSD;
+
+            CalculateJournalTotals(out debitLL, out debitUSD, out creditLL, out creditUSD, out totalLL, out totalUSD);
+
+            txtDebitLL.EditValue = debitLL;
+            txtDebitUSD.EditValue = debitUSD;
+            txtCreditLL.EditValue = creditLL;
+            txtCreditUSD.EditValue = creditUSD;
+            txtBalanceLL.EditValue = debitLL - creditLL;
+            txtBalanceUSD.EditValue = debitUSD - creditUSD;
+
+            switch (summaryId)
+            {
+                case 1:
+                    e.TotalValue = totalLL;
+                    break;
+                case 2:
+                    e.TotalValue = totalUSD;
+                    break;
+            }
+        }
+
+        private void CalculateJournalTotals(out decimal debitLL, out decimal debitUSD, out decimal creditLL, out decimal creditUSD, out decimal totalLL, out decimal totalUSD)
+        {
+            debitLL = 0m;
+            debitUSD = 0m;
+            creditLL = 0m;
+            creditUSD = 0m;
+            totalLL = 0m;
+            totalUSD = 0m;
+
+            if (_journalDetails == null)
+            {
+                return;
+            }
+
+            foreach (var journalDetail in _journalDetails)
+            {
+                if (journalDetail == null || journalDetail.Deleted)
+                {
+                    continue;
+                }
+
+                totalLL += journalDetail.LAmount;
+                totalUSD += journalDetail.FAmount;
+
+                if (string.Equals(journalDetail.DbCr, "D", StringComparison.OrdinalIgnoreCase))
+                {
+                    debitLL += journalDetail.LAmount;
+                    debitUSD += journalDetail.FAmount;
+                }
+                else if (string.Equals(journalDetail.DbCr, "C", StringComparison.OrdinalIgnoreCase))
+                {
+                    creditLL += journalDetail.LAmount;
+                    creditUSD += journalDetail.FAmount;
+                }
+            }
+
+            totalLL = debitLL + creditLL;
+            totalUSD = debitUSD + creditUSD;
+        }
+
     }
 }

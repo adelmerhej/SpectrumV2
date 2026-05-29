@@ -52,7 +52,8 @@ namespace Spectrum.DataLayers.Common.Currencies
 
 			return await _currenciesExchange.Find(filter)
 				.SortByDescending(u => u.ExchangeDate)
-				.FirstOrDefaultAsync();
+				.FirstOrDefaultAsync()
+				.ConfigureAwait(false);
 		}
 
 		/// <summary>

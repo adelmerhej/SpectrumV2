@@ -2188,7 +2188,7 @@
             // 
             this.tabProjectHistory.Controls.Add(this.projectHistoryTimeline);
             this.tabProjectHistory.Name = "tabProjectHistory";
-            this.tabProjectHistory.Size = new System.Drawing.Size(813, 326);
+            this.tabProjectHistory.Size = new System.Drawing.Size(815, 328);
             this.tabProjectHistory.Text = "Project History";
             // 
             // projectHistoryTimeline
@@ -2196,7 +2196,7 @@
             this.projectHistoryTimeline.Dock = System.Windows.Forms.DockStyle.Fill;
             this.projectHistoryTimeline.Location = new System.Drawing.Point(0, 0);
             this.projectHistoryTimeline.Name = "projectHistoryTimeline";
-            this.projectHistoryTimeline.Size = new System.Drawing.Size(813, 326);
+            this.projectHistoryTimeline.Size = new System.Drawing.Size(815, 328);
             this.projectHistoryTimeline.TabIndex = 0;
             // 
             // tabUserInformation
@@ -2420,7 +2420,7 @@
             this.tabProjectHandover.Caption = "Project Handover";
             this.tabProjectHandover.Controls.Add(this.layoutJobDetails);
             this.tabProjectHandover.Name = "tabProjectHandover";
-            this.tabProjectHandover.Size = new System.Drawing.Size(1360, 272);
+            this.tabProjectHandover.Size = new System.Drawing.Size(1356, 270);
             // 
             // layoutJobDetails
             // 
@@ -2429,7 +2429,7 @@
             this.layoutJobDetails.Location = new System.Drawing.Point(0, 0);
             this.layoutJobDetails.Name = "layoutJobDetails";
             this.layoutJobDetails.Root = this.layoutControlGroup1;
-            this.layoutJobDetails.Size = new System.Drawing.Size(1360, 272);
+            this.layoutJobDetails.Size = new System.Drawing.Size(1356, 270);
             this.layoutJobDetails.TabIndex = 0;
             this.layoutJobDetails.Text = "layoutControl1";
             // 
@@ -2444,7 +2444,7 @@
             this.repCountries,
             this.repShippers,
             this.repFormatDateEdit});
-            this.gcJobDetails.Size = new System.Drawing.Size(1332, 244);
+            this.gcJobDetails.Size = new System.Drawing.Size(1328, 242);
             this.gcJobDetails.TabIndex = 5;
             this.gcJobDetails.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvJobDetails});
@@ -2542,7 +2542,7 @@
             this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1360, 272);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1356, 270);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -2550,7 +2550,7 @@
             this.layoutControlItem1.Control = this.gcJobDetails;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1336, 248);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1332, 246);
             this.layoutControlItem1.TextVisible = false;
             // 
             // tabSellingGroup
