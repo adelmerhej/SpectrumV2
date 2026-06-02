@@ -1,4 +1,5 @@
 ﻿using DevExpress.Utils;
+using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
@@ -21,11 +22,14 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Spectrum.Utilities
 {
 	public static class HelperApplication
 	{
+		private const int StartWorkingYear = 2020;
+
 		#region Database Connection Result Types
 
 		/// <summary>
@@ -892,6 +896,42 @@ namespace Spectrum.Utilities
             return FileSystemImageCache.Cache.GetFileExtensionImage(ext, sizeType, itemSize);
         }
 
+
+        #endregion
+
+
+        #region get year from working year
+
+        public static void InitializeWorkingYearLookup(BarEditItem cboWorkingYear, RepositoryItemLookUpEdit repWorkingYear)
+        {
+            if (cboWorkingYear == null || repWorkingYear == null) return;
+
+            int currentYear = DateTime.Now.Year;
+            var workingYears = Enumerable.Range(StartWorkingYear, currentYear - StartWorkingYear + 1)
+                .Select(year => new WorkingYearLookupItem
+                {
+                    Year = year,
+                    DisplayText = year == currentYear ? $"{year} YTD" : year.ToString()
+                })
+                .ToList();
+
+            repWorkingYear.DisplayMember = nameof(WorkingYearLookupItem.DisplayText);
+            repWorkingYear.ValueMember = nameof(WorkingYearLookupItem.Year);
+            repWorkingYear.DataSource = workingYears;
+
+            if (!workingYears.Any(x => x.Year == CurrentUser.WorkingYear))
+            {
+                CurrentUser.WorkingYear = currentYear;
+            }
+
+            cboWorkingYear.EditValue = CurrentUser.WorkingYear;
+        }
+
+        private sealed class WorkingYearLookupItem
+        {
+            public int Year { get; set; }
+            public string DisplayText { get; set; }
+        }
 
         #endregion
 

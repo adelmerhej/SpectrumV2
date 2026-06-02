@@ -33,6 +33,13 @@ namespace Spectrum.DataLayers.Accounting.Charts
 			return await _charts.Find(chart => true).ToListAsync();
 		}
 
+        // Interface async implementations (wrapping legacy sync methods)
+        public async Task<List<ChartModel>> GetChartsAsync(int workingYear)
+        {
+            var filter = Builders<ChartModel>.Filter.Eq(x => x.WorkingYear, workingYear);
+            return await _charts.Find(filter).ToListAsync();
+        }
+        
 		public async Task<ChartModel> GetChartByIdAsync(string id)
 		{
 			var filter = Builders<ChartModel>.Filter.Eq(u => u._id, id);

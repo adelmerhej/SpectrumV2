@@ -926,6 +926,8 @@ namespace Spectrum.Views.Projects
             }
         }
 
+        #region Project Button Click Handlers
+
         private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
         {
             _projectModel = new ProjectModel();
@@ -1037,6 +1039,8 @@ namespace Spectrum.Views.Projects
                 XtraMessageBox.Show(exception.Message, "Project save error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        
+        #endregion
 
         private bool ValidateData()
         {
@@ -1511,7 +1515,7 @@ namespace Spectrum.Views.Projects
                     rcMain.SelectPage(rpInvoices);
                     break;
 
-                case "tabCostGroup":
+                case "tabExpenseGroup":
                     rpInvoices.Visible = false;
                     rpExpenses.Visible = true;
                     rcMain.SelectPage(rpExpenses);
@@ -1834,6 +1838,89 @@ namespace Spectrum.Views.Projects
             }
         }
 
+
+        #region Invoice Button Click Handlers (Placeholders)
+
+        private void btnNewInvoice_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnSaveInvoice_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnSaveAndCloseInvoice_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnRefreshInvoice_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnDeleteInvoice_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnPrintInvoice_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnPrintOriginalInvoice_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnCloseInvoice_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        #endregion
+        
+        #region Expense Button Click Handlers (Placeholders)
+
+        private void btnNewExpense_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnSaveExpense_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnSaveAndCloseExpense_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnRefreshExpense_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnDeleteExpense_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnPrintExpenses_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnCloseExpense_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        #endregion
 
     }
 }

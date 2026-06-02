@@ -39,11 +39,14 @@
             this.btnClose = new DevExpress.XtraBars.BarButtonItem();
             this.btnResetGridStyle = new DevExpress.XtraBars.BarButtonItem();
             this.btnMigrateCharts = new DevExpress.XtraBars.BarButtonItem();
+            this.cboWorkingYear = new DevExpress.XtraBars.BarEditItem();
+            this.repWorkingYear = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.rpCharts = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup11 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpViewSettings = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -73,6 +76,7 @@
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.rcCharts)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repWorkingYear)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartTreeList)).BeginInit();
@@ -94,16 +98,19 @@
             this.btnRefresh,
             this.btnClose,
             this.btnResetGridStyle,
-            this.btnMigrateCharts});
+            this.btnMigrateCharts,
+            this.cboWorkingYear});
             this.rcCharts.Location = new System.Drawing.Point(0, 0);
             this.rcCharts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rcCharts.MaxItemId = 44;
+            this.rcCharts.MaxItemId = 45;
             this.rcCharts.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
             this.rcCharts.Name = "rcCharts";
             this.rcCharts.OptionsMenuMinWidth = 385;
             this.rcCharts.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.rpCharts,
             this.rpViewSettings});
+            this.rcCharts.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repWorkingYear});
             this.rcCharts.Size = new System.Drawing.Size(1412, 193);
             this.rcCharts.StatusBar = this.ribbonStatusBar1;
             // 
@@ -183,13 +190,33 @@
             this.btnMigrateCharts.Name = "btnMigrateCharts";
             this.btnMigrateCharts.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnMigrateCharts_ItemClick);
             // 
+            // cboWorkingYear
+            // 
+            this.cboWorkingYear.Caption = "Working Year       ";
+            this.cboWorkingYear.CaptionAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.cboWorkingYear.Edit = this.repWorkingYear;
+            this.cboWorkingYear.EditWidth = 100;
+            this.cboWorkingYear.Id = 44;
+            this.cboWorkingYear.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("cboWorkingYear.ImageOptions.SvgImage")));
+            this.cboWorkingYear.Name = "cboWorkingYear";
+            this.cboWorkingYear.EditValueChanged += new System.EventHandler(this.cboWorkingYear_EditValueChanged);
+            // 
+            // repWorkingYear
+            // 
+            this.repWorkingYear.AutoHeight = false;
+            this.repWorkingYear.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repWorkingYear.Name = "repWorkingYear";
+            this.repWorkingYear.NullText = "";
+            // 
             // rpCharts
             // 
             this.rpCharts.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup1,
             this.ribbonPageGroup6,
             this.ribbonPageGroup8,
-            this.ribbonPageGroup11});
+            this.ribbonPageGroup11,
+            this.ribbonPageGroup4});
             this.rpCharts.Name = "rpCharts";
             this.rpCharts.Text = "CHARTS";
             // 
@@ -228,6 +255,12 @@
             this.ribbonPageGroup11.ItemLinks.Add(this.btnClose);
             this.ribbonPageGroup11.Name = "ribbonPageGroup11";
             this.ribbonPageGroup11.Text = "Close View";
+            // 
+            // ribbonPageGroup4
+            // 
+            this.ribbonPageGroup4.ItemLinks.Add(this.cboWorkingYear);
+            this.ribbonPageGroup4.Name = "ribbonPageGroup4";
+            this.ribbonPageGroup4.Text = "Current Period";
             // 
             // rpViewSettings
             // 
@@ -558,6 +591,7 @@
             this.Text = "Charts List";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChartsListForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.rcCharts)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repWorkingYear)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartTreeList)).EndInit();
@@ -613,5 +647,8 @@
         private DevExpress.XtraTreeList.Columns.TreeListBand treeListBand8;
         private DevExpress.XtraBars.BarButtonItem btnMigrateCharts;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
+        private DevExpress.XtraBars.BarEditItem cboWorkingYear;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repWorkingYear;
     }
 }

@@ -127,15 +127,14 @@ namespace Spectrum.Views.Accounting.Charts
                 BindingContext[bsChart].EndCurrentEdit();
                 _chartModel = (ChartModel)bsChart.Current;
 
-                if (await AccountAlreadyExistsAsync(_chartModel))
-                {
-                    XtraMessageBox.Show(@"This account already exists.", @"Duplicate Account", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
-                }
-
-
                 if (string.IsNullOrEmpty(_chartModel._id))
                 {
+                    if (await AccountAlreadyExistsAsync(_chartModel))
+                    {
+                        XtraMessageBox.Show(@"This account already exists.", @"Duplicate Account", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+
                     _logInfoRepository.CreateLogInfo(_chartModel);
 
                     var newId = await _chartRepository.AddNewChartAsync(_chartModel);

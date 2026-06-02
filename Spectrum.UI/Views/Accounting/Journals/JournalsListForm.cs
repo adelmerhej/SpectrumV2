@@ -43,6 +43,8 @@ namespace Spectrum.Views.Accounting.Journals
         private bool _isAdmin = true;
         private bool _isProtected = true;
 
+        private int wYear = CurrentUser.WorkingYear;
+
         #region Implementation of IFormWithRibbon
 
         public RibbonControl MainRibbon => rcJournals;
@@ -54,6 +56,8 @@ namespace Spectrum.Views.Accounting.Journals
         public JournalsListForm()
         {
             InitializeComponent();
+            HelperApplication.InitializeWorkingYearLookup(cboWorkingYear, repWorkingYear);
+            //cboWorkingYear.EditValueChanged += cboWorkingYear_EditValueChanged;
 
             StartLoading();
         }
@@ -341,6 +345,14 @@ namespace Spectrum.Views.Accounting.Journals
             if (isDefault)
             {
                 e.Appearance.Font = new Font("Tahoma", 8, FontStyle.Bold);
+            }
+        }
+
+        private void cboWorkingYear_EditValueChanged(object sender, EventArgs e)
+        {
+            if (cboWorkingYear.EditValue != null)
+            {
+                wYear = (int)cboWorkingYear.EditValue;
             }
         }
     }

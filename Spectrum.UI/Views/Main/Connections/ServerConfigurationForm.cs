@@ -140,7 +140,7 @@ namespace Spectrum.Views.Main.Connections
 		private void BuildAndUpdateConnectionString()
 		{
 			int.TryParse(txtPort.Text, out var result);
-			var host = string.IsNullOrWhiteSpace(txtHost.Text) ? "localhost" : txtHost.Text.Trim();
+			var host = string.IsNullOrWhiteSpace(txtHost.Text) ? "localhost" : NormalizeMongoHost(txtHost.Text);
 			var port = result == 0 ? 27017 : result;
 			var database = string.IsNullOrWhiteSpace(txtDatabase.Text) ? "spectrumdb" : txtDatabase.Text.Trim();
 			var username = txtUsername.Text.Trim();
@@ -148,14 +148,56 @@ namespace Spectrum.Views.Main.Connections
 			string connectionString;
 			if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
 			{
-				connectionString = $"mongodb://{username}:{password}@{host}:{port}/{database}?authSource={_authDb}";
+				if (IsAtlasSrvHost(host))
+				{
+					connectionString = $"mongodb+srv://{Uri.EscapeDataString(username)}:{Uri.EscapeDataString(password)}@{host}/{database}";
+				}
+				else
+				{
+					connectionString = $"mongodb://{Uri.EscapeDataString(username)}:{Uri.EscapeDataString(password)}@{host}:{port}/{database}?authSource={_authDb}";
+				}
 			}
 			else
 			{
-				connectionString = $"mongodb://{host}:{port}/{database}";
+				connectionString = IsAtlasSrvHost(host)
+					? $"mongodb+srv://{host}/{database}"
+					: $"mongodb://{host}:{port}/{database}";
 			}
 			txtConnectionString.Text = connectionString;
 
+		}
+
+		private static string NormalizeMongoHost(string host)
+		{
+			if (string.IsNullOrWhiteSpace(host))
+				return string.Empty;
+
+			host = host.Trim();
+
+			if (host.StartsWith("mongodb+srv://", StringComparison.OrdinalIgnoreCase))
+				host = host.Substring("mongodb+srv://".Length);
+			else if (host.StartsWith("mongodb://", StringComparison.OrdinalIgnoreCase))
+				host = host.Substring("mongodb://".Length);
+
+			var atIndex = host.LastIndexOf('@');
+			if (atIndex >= 0 && atIndex < host.Length - 1)
+				host = host.Substring(atIndex + 1);
+
+			var slashIndex = host.IndexOf('/');
+			if (slashIndex >= 0)
+				host = host.Substring(0, slashIndex);
+
+			var queryIndex = host.IndexOf('?');
+			if (queryIndex >= 0)
+				host = host.Substring(0, queryIndex);
+
+			return host.Trim();
+		}
+
+		private static bool IsAtlasSrvHost(string host)
+		{
+			return !string.IsNullOrWhiteSpace(host) &&
+				host.IndexOf(".mongodb.net", StringComparison.OrdinalIgnoreCase) >= 0;
 		}
 
 		private void txtPort_EditValueChanged(object sender, EventArgs e)

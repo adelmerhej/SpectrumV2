@@ -1,7 +1,6 @@
 ﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
-using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTreeList;
 using Spectrum.DataLayers.Accounting.Charts;
 using Spectrum.DataLayers.DataAccess;
@@ -38,6 +37,8 @@ namespace Spectrum.Views.Accounting.Charts
         private bool _isAdmin = true;
         private bool _isProtected = true;
 
+        private int wYear = CurrentUser.WorkingYear;
+
         #region Implementation of IFormWithRibbon
 
         public RibbonControl MainRibbon => rcCharts;
@@ -49,6 +50,7 @@ namespace Spectrum.Views.Accounting.Charts
         public ChartsListForm()
         {
             InitializeComponent();
+            HelperApplication.InitializeWorkingYearLookup(cboWorkingYear, repWorkingYear);
 
             StartLoading();
         }
@@ -75,7 +77,7 @@ namespace Spectrum.Views.Accounting.Charts
                 //	}
                 //	//
 
-                _charts = await _chartRepository.GetChartsAsync();
+                _charts = (await _chartRepository.GetChartsAsync(wYear));
             }
             catch (Exception ex)
             {
@@ -377,5 +379,17 @@ namespace Spectrum.Views.Accounting.Charts
             var form = new ChartMigrateForm();
             form.ShowDialog();
         }
+
+        private void cboWorkingYear_EditValueChanged(object sender, EventArgs e)
+        {
+            if (cboWorkingYear.EditValue == null) return;
+
+            if (int.TryParse(cboWorkingYear.EditValue.ToString(), out int selectedYear))
+            {
+                wYear = selectedYear;
+                StartLoading();
+            }
+        }
+
     }
 }

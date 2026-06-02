@@ -77,16 +77,22 @@
             this.mnuInvoicesExpenses = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuAccountsStatement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuPeople = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuClients = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuMembers = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuEngineers = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuClients = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuSuppliers = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.accordionControlSeparator6 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
+            this.mnuFunders = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuFundersType = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.mnuHr = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuEmployees = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuHrCVs = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuSuppliers = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuHRSetup = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuDepartments = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuEmployeeTypes = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuRoles = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuBloodType = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            this.accordionControlSeparator7 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             this.mnuMainAccounting = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuTransactions = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.mnuJournals = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -157,12 +163,11 @@
             this.grpReadingPane = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.dockRight = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.showPendingJobs = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuMembers = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlSeparator7 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
-            this.mnuHr = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuFunders = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.mnuFundersType = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.accordionControlSeparator6 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
+            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.repWorkingYear1 = new DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit();
+            this.repositoryItemSearchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.cboWorkingYear = new DevExpress.XtraBars.BarEditItem();
+            this.repWorkingYear = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonMainForm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
@@ -171,6 +176,9 @@
             this.accordionSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tsRight.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tsViewPendingJobs.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repWorkingYear1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1View)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repWorkingYear)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbonMainForm
@@ -190,10 +198,11 @@
             this.btnResetLayout,
             this.skinRibbonGalleryBarItem1,
             this.skinPaletteRibbonGalleryBarItem1,
-            this.btnLiveUpdate});
+            this.btnLiveUpdate,
+            this.cboWorkingYear});
             this.ribbonMainForm.Location = new System.Drawing.Point(0, 0);
             this.ribbonMainForm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ribbonMainForm.MaxItemId = 71;
+            this.ribbonMainForm.MaxItemId = 73;
             this.ribbonMainForm.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
             this.ribbonMainForm.Name = "ribbonMainForm";
             this.ribbonMainForm.OptionsMenuMinWidth = 515;
@@ -201,6 +210,9 @@
             this.ribbonMainForm.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.rpHome,
             this.rpgMainView});
+            this.ribbonMainForm.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repWorkingYear1,
+            this.repWorkingYear});
             this.ribbonMainForm.Size = new System.Drawing.Size(1441, 193);
             this.ribbonMainForm.StatusBar = this.ribbonStatusBar;
             // 
@@ -300,7 +312,8 @@
             this.rpgDashboard,
             this.ribbonPageGroup3,
             this.rpgAbout,
-            this.rpgExit});
+            this.rpgExit,
+            this.ribbonPageGroup2});
             this.rpHome.Name = "rpHome";
             this.rpHome.Text = "HOME";
             // 
@@ -557,14 +570,18 @@
             this.mnuPeople.Name = "mnuPeople";
             this.mnuPeople.Text = "People";
             // 
-            // mnuClients
+            // mnuMembers
             // 
-            this.mnuClients.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuClients.ImageOptions.SvgImage")));
-            this.mnuClients.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            this.mnuClients.Name = "mnuClients";
-            this.mnuClients.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.mnuClients.Text = "Clients";
-            this.mnuClients.Click += new System.EventHandler(this.mnuClients_Click);
+            this.mnuMembers.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
+            this.mnuEngineers,
+            this.mnuClients,
+            this.mnuSuppliers,
+            this.accordionControlSeparator6,
+            this.mnuFunders,
+            this.mnuFundersType});
+            this.mnuMembers.Expanded = true;
+            this.mnuMembers.Name = "mnuMembers";
+            this.mnuMembers.Text = "Members";
             // 
             // mnuEngineers
             // 
@@ -574,6 +591,56 @@
             this.mnuEngineers.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.mnuEngineers.Text = "Engineers";
             this.mnuEngineers.Click += new System.EventHandler(this.mnuEngineers_Click);
+            // 
+            // mnuClients
+            // 
+            this.mnuClients.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuClients.ImageOptions.SvgImage")));
+            this.mnuClients.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            this.mnuClients.Name = "mnuClients";
+            this.mnuClients.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.mnuClients.Text = "Clients";
+            this.mnuClients.Click += new System.EventHandler(this.mnuClients_Click);
+            // 
+            // mnuSuppliers
+            // 
+            this.mnuSuppliers.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuSuppliers.ImageOptions.SvgImage")));
+            this.mnuSuppliers.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            this.mnuSuppliers.Name = "mnuSuppliers";
+            this.mnuSuppliers.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.mnuSuppliers.Text = "Suppliers";
+            this.mnuSuppliers.Click += new System.EventHandler(this.mnuSuppliers_Click);
+            // 
+            // accordionControlSeparator6
+            // 
+            this.accordionControlSeparator6.Name = "accordionControlSeparator6";
+            // 
+            // mnuFunders
+            // 
+            this.mnuFunders.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuFunders.ImageOptions.SvgImage")));
+            this.mnuFunders.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            this.mnuFunders.Name = "mnuFunders";
+            this.mnuFunders.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.mnuFunders.Text = "Funders";
+            this.mnuFunders.Click += new System.EventHandler(this.mnuFunders_Click);
+            // 
+            // mnuFundersType
+            // 
+            this.mnuFundersType.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuFundersType.ImageOptions.SvgImage")));
+            this.mnuFundersType.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            this.mnuFundersType.Name = "mnuFundersType";
+            this.mnuFundersType.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            this.mnuFundersType.Text = "Funders Type";
+            this.mnuFundersType.Click += new System.EventHandler(this.mnuFundersType_Click);
+            // 
+            // mnuHr
+            // 
+            this.mnuHr.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
+            this.mnuEmployees,
+            this.mnuHrCVs,
+            this.mnuHRSetup});
+            this.mnuHr.Expanded = true;
+            this.mnuHr.Name = "mnuHr";
+            this.mnuHr.Text = "Human Resources";
             // 
             // mnuEmployees
             // 
@@ -592,15 +659,6 @@
             this.mnuHrCVs.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.mnuHrCVs.Text = "HR CVs Review";
             this.mnuHrCVs.Click += new System.EventHandler(this.mnuHrCVs_Click);
-            // 
-            // mnuSuppliers
-            // 
-            this.mnuSuppliers.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuSuppliers.ImageOptions.SvgImage")));
-            this.mnuSuppliers.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            this.mnuSuppliers.Name = "mnuSuppliers";
-            this.mnuSuppliers.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.mnuSuppliers.Text = "Suppliers";
-            this.mnuSuppliers.Click += new System.EventHandler(this.mnuSuppliers_Click);
             // 
             // mnuHRSetup
             // 
@@ -647,6 +705,10 @@
             this.mnuBloodType.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.mnuBloodType.Text = "Blood Type";
             this.mnuBloodType.Click += new System.EventHandler(this.mnuBloodType_Click);
+            // 
+            // accordionControlSeparator7
+            // 
+            this.accordionControlSeparator7.Name = "accordionControlSeparator7";
             // 
             // mnuMainAccounting
             // 
@@ -1313,54 +1375,46 @@
             this.showPendingJobs.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.showPendingJobs.Text = "Show Pending Jobs";
             // 
-            // mnuMembers
+            // ribbonPageGroup2
             // 
-            this.mnuMembers.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.mnuEngineers,
-            this.mnuClients,
-            this.mnuSuppliers,
-            this.accordionControlSeparator6,
-            this.mnuFunders,
-            this.mnuFundersType});
-            this.mnuMembers.Expanded = true;
-            this.mnuMembers.Name = "mnuMembers";
-            this.mnuMembers.Text = "Members";
+            this.ribbonPageGroup2.ItemLinks.Add(this.cboWorkingYear);
+            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
+            this.ribbonPageGroup2.Text = "Current Company/Period";
             // 
-            // accordionControlSeparator7
+            // repWorkingYear1
             // 
-            this.accordionControlSeparator7.Name = "accordionControlSeparator7";
+            this.repWorkingYear1.AutoHeight = false;
+            this.repWorkingYear1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repWorkingYear1.Name = "repWorkingYear1";
+            this.repWorkingYear1.NullText = "";
+            this.repWorkingYear1.PopupView = this.repositoryItemSearchLookUpEdit1View;
             // 
-            // mnuHr
+            // repositoryItemSearchLookUpEdit1View
             // 
-            this.mnuHr.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
-            this.mnuEmployees,
-            this.mnuHrCVs,
-            this.mnuHRSetup});
-            this.mnuHr.Expanded = true;
-            this.mnuHr.Name = "mnuHr";
-            this.mnuHr.Text = "Human Resources";
+            this.repositoryItemSearchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.repositoryItemSearchLookUpEdit1View.Name = "repositoryItemSearchLookUpEdit1View";
+            this.repositoryItemSearchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.repositoryItemSearchLookUpEdit1View.OptionsView.ShowGroupPanel = false;
             // 
-            // mnuFunders
+            // cboWorkingYear
             // 
-            this.mnuFunders.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuFunders.ImageOptions.SvgImage")));
-            this.mnuFunders.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            this.mnuFunders.Name = "mnuFunders";
-            this.mnuFunders.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.mnuFunders.Text = "Funders";
-            this.mnuFunders.Click += new System.EventHandler(this.mnuFunders_Click);
+            this.cboWorkingYear.Caption = "Working Year       ";
+            this.cboWorkingYear.CaptionAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.cboWorkingYear.Edit = this.repWorkingYear;
+            this.cboWorkingYear.EditWidth = 100;
+            this.cboWorkingYear.Id = 72;
+            this.cboWorkingYear.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("cboWorkingYear.ImageOptions.SvgImage")));
+            this.cboWorkingYear.Name = "cboWorkingYear";
+            this.cboWorkingYear.EditValueChanged += new System.EventHandler(this.cboWorkingYear_EditValueChanged);
             // 
-            // mnuFundersType
+            // repWorkingYear
             // 
-            this.mnuFundersType.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("mnuFundersType.ImageOptions.SvgImage")));
-            this.mnuFundersType.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            this.mnuFundersType.Name = "mnuFundersType";
-            this.mnuFundersType.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            this.mnuFundersType.Text = "Funders Type";
-            this.mnuFundersType.Click += new System.EventHandler(this.mnuFundersType_Click);
-            // 
-            // accordionControlSeparator6
-            // 
-            this.accordionControlSeparator6.Name = "accordionControlSeparator6";
+            this.repWorkingYear.AutoHeight = false;
+            this.repWorkingYear.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repWorkingYear.Name = "repWorkingYear";
+            this.repWorkingYear.NullText = "";
             // 
             // MainForm
             // 
@@ -1390,6 +1444,9 @@
             this.accordionSettings.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tsRight.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tsViewPendingJobs.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repWorkingYear1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1View)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repWorkingYear)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1530,5 +1587,10 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement mnuFunders;
         private DevExpress.XtraBars.Navigation.AccordionControlElement mnuFundersType;
         private DevExpress.XtraBars.Navigation.AccordionControlElement mnuHr;
+        private DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit repWorkingYear1;
+        private DevExpress.XtraGrid.Views.Grid.GridView repositoryItemSearchLookUpEdit1View;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
+        private DevExpress.XtraBars.BarEditItem cboWorkingYear;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repWorkingYear;
     }
 }

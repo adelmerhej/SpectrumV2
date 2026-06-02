@@ -56,6 +56,7 @@ namespace Spectrum.Views.Main
         private bool _isVisible;
         private bool _isActive;
         private bool _isAdmin;
+        private int _wYear = CurrentUser.WorkingYear;
 
         private bool _resetMenu;
         private readonly bool _logOut;
@@ -63,6 +64,8 @@ namespace Spectrum.Views.Main
         public MainForm()
         {
             InitializeComponent();
+            HelperApplication.InitializeWorkingYearLookup(cboWorkingYear, repWorkingYear);
+            cboWorkingYear.EditValueChanged += cboWorkingYear_EditValueChanged;
 
             InitializeBindings();
             WireUpBindings();
@@ -693,6 +696,15 @@ namespace Spectrum.Views.Main
         private void mnuFundersType_Click(object sender, EventArgs e)
         {
             OpenForm<FundersTypeListForm>();
+        }
+
+        private void cboWorkingYear_EditValueChanged(object sender, EventArgs e)
+        {
+            if (cboWorkingYear.EditValue != null)
+            {
+                _wYear = (int)cboWorkingYear.EditValue;
+                CurrentUser.WorkingYear = _wYear;
+            }
         }
     }
 }

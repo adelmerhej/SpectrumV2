@@ -63,6 +63,7 @@
             this.colDetailWorkingYear = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDetailLocked = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gcJournals = new DevExpress.XtraGrid.GridControl();
+            this.bsJournals = new System.Windows.Forms.BindingSource(this.components);
             this.gvJournals = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colJvNo = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -86,14 +87,13 @@
             this.barButtonItem12 = new DevExpress.XtraBars.BarButtonItem();
             this.btnRefresh = new DevExpress.XtraBars.BarButtonItem();
             this.btnClose = new DevExpress.XtraBars.BarButtonItem();
-            this.cboWorkingYear = new DevExpress.XtraBars.BarEditItem();
-            this.repWorkingYears = new DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit();
-            this.repositoryItemSearchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.btnPrintFilter = new DevExpress.XtraBars.BarButtonItem();
             this.btnResetGridStyle = new DevExpress.XtraBars.BarButtonItem();
             this.btnPrintStatement = new DevExpress.XtraBars.BarButtonItem();
             this.dtFrom = new DevExpress.XtraBars.BarEditItem();
             this.dtTo = new DevExpress.XtraBars.BarEditItem();
+            this.cboWorkingYear = new DevExpress.XtraBars.BarEditItem();
+            this.repWorkingYear = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.rpJournals = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -103,11 +103,12 @@
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpViewSettings = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.repWorkingYears = new DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit();
+            this.repositoryItemSearchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.bsJournals = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gvJournalDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCharts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repChartList)).BeginInit();
@@ -119,16 +120,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.repCostCenters)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repFlowTypes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcJournals)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsJournals)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvJournals)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repJournalTypes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rcJournals)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repWorkingYear)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repWorkingYears)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1View)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsJournals)).BeginInit();
             this.SuspendLayout();
             // 
             // gvJournalDetails
@@ -526,6 +528,10 @@
             this.gvJournals,
             this.gvJournalDetails});
             // 
+            // bsJournals
+            // 
+            this.bsJournals.DataSource = typeof(Spectrum.Models.Accounting.Journals.JournalModel);
+            // 
             // gvJournals
             // 
             this.gvJournals.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
@@ -704,15 +710,15 @@
             this.barButtonItem12,
             this.btnRefresh,
             this.btnClose,
-            this.cboWorkingYear,
             this.btnPrintFilter,
             this.btnResetGridStyle,
             this.btnPrintStatement,
             this.dtFrom,
-            this.dtTo});
+            this.dtTo,
+            this.cboWorkingYear});
             this.rcJournals.Location = new System.Drawing.Point(0, 0);
             this.rcJournals.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rcJournals.MaxItemId = 66;
+            this.rcJournals.MaxItemId = 67;
             this.rcJournals.MdiMergeStyle = DevExpress.XtraBars.Ribbon.RibbonMdiMergeStyle.Always;
             this.rcJournals.Name = "rcJournals";
             this.rcJournals.OptionsMenuMinWidth = 385;
@@ -720,7 +726,8 @@
             this.rpJournals,
             this.rpViewSettings});
             this.rcJournals.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repWorkingYears});
+            this.repWorkingYears,
+            this.repWorkingYear});
             this.rcJournals.Size = new System.Drawing.Size(1379, 193);
             this.rcJournals.StatusBar = this.ribbonStatusBar1;
             // 
@@ -800,31 +807,6 @@
             this.btnClose.Name = "btnClose";
             this.btnClose.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClose_ItemClick);
             // 
-            // cboWorkingYear
-            // 
-            this.cboWorkingYear.Caption = "Working Year";
-            this.cboWorkingYear.CaptionToEditorIndent = 6;
-            this.cboWorkingYear.Edit = this.repWorkingYears;
-            this.cboWorkingYear.EditWidth = 150;
-            this.cboWorkingYear.Id = 39;
-            this.cboWorkingYear.Name = "cboWorkingYear";
-            // 
-            // repWorkingYears
-            // 
-            this.repWorkingYears.AutoHeight = false;
-            this.repWorkingYears.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repWorkingYears.Name = "repWorkingYears";
-            this.repWorkingYears.NullText = "";
-            this.repWorkingYears.PopupView = this.repositoryItemSearchLookUpEdit1View;
-            // 
-            // repositoryItemSearchLookUpEdit1View
-            // 
-            this.repositoryItemSearchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.repositoryItemSearchLookUpEdit1View.Name = "repositoryItemSearchLookUpEdit1View";
-            this.repositoryItemSearchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
-            this.repositoryItemSearchLookUpEdit1View.OptionsView.ShowGroupPanel = false;
-            // 
             // btnPrintFilter
             // 
             this.btnPrintFilter.Caption = "Print Filter";
@@ -869,6 +851,25 @@
             this.dtTo.Id = 64;
             this.dtTo.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("dtTo.ImageOptions.SvgImage")));
             this.dtTo.Name = "dtTo";
+            // 
+            // cboWorkingYear
+            // 
+            this.cboWorkingYear.Caption = "Working Year       ";
+            this.cboWorkingYear.CaptionAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.cboWorkingYear.Edit = this.repWorkingYear;
+            this.cboWorkingYear.EditWidth = 100;
+            this.cboWorkingYear.Id = 66;
+            this.cboWorkingYear.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("cboWorkingYear.ImageOptions.SvgImage")));
+            this.cboWorkingYear.Name = "cboWorkingYear";
+            this.cboWorkingYear.EditValueChanged += new System.EventHandler(this.cboWorkingYear_EditValueChanged);
+            // 
+            // repWorkingYear
+            // 
+            this.repWorkingYear.AutoHeight = false;
+            this.repWorkingYear.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repWorkingYear.Name = "repWorkingYear";
+            this.repWorkingYear.NullText = "";
             // 
             // rpJournals
             // 
@@ -915,7 +916,7 @@
             this.rpgDepartments.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.rpgDepartments.ItemLinks.Add(this.cboWorkingYear);
             this.rpgDepartments.Name = "rpgDepartments";
-            this.rpgDepartments.Text = "Filter View";
+            this.rpgDepartments.Text = "Current Period";
             // 
             // ribbonPageGroup11
             // 
@@ -944,6 +945,22 @@
             this.ribbonPageGroup3.ItemLinks.Add(this.btnResetGridStyle);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.Text = "Grid Settings";
+            // 
+            // repWorkingYears
+            // 
+            this.repWorkingYears.AutoHeight = false;
+            this.repWorkingYears.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repWorkingYears.Name = "repWorkingYears";
+            this.repWorkingYears.NullText = "";
+            this.repWorkingYears.PopupView = this.repositoryItemSearchLookUpEdit1View;
+            // 
+            // repositoryItemSearchLookUpEdit1View
+            // 
+            this.repositoryItemSearchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.repositoryItemSearchLookUpEdit1View.Name = "repositoryItemSearchLookUpEdit1View";
+            this.repositoryItemSearchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.repositoryItemSearchLookUpEdit1View.OptionsView.ShowGroupPanel = false;
             // 
             // ribbonStatusBar1
             // 
@@ -981,10 +998,6 @@
             this.layoutControlItem1.Size = new System.Drawing.Size(1355, 515);
             this.layoutControlItem1.TextVisible = false;
             // 
-            // bsJournals
-            // 
-            this.bsJournals.DataSource = typeof(Spectrum.Models.Accounting.Journals.JournalModel);
-            // 
             // JournalsListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1009,16 +1022,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.repCostCenters)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repFlowTypes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcJournals)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsJournals)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvJournals)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repJournalTypes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rcJournals)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repWorkingYear)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repWorkingYears)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1View)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsJournals)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1035,7 +1049,6 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem12;
         private DevExpress.XtraBars.BarButtonItem btnRefresh;
         private DevExpress.XtraBars.BarButtonItem btnClose;
-        private DevExpress.XtraBars.BarEditItem cboWorkingYear;
         private DevExpress.XtraBars.BarButtonItem btnPrintFilter;
         private DevExpress.XtraBars.BarButtonItem btnResetGridStyle;
         private DevExpress.XtraBars.BarButtonItem btnPrintStatement;
@@ -1103,5 +1116,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit repWorkingYears;
         private DevExpress.XtraGrid.Views.Grid.GridView repositoryItemSearchLookUpEdit1View;
         private System.Windows.Forms.BindingSource bsJournals;
+        private DevExpress.XtraBars.BarEditItem cboWorkingYear;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repWorkingYear;
     }
 }
