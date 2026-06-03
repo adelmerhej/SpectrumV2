@@ -71,7 +71,6 @@
             this.repJournalTypes = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.colJournalDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReference = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCurrencyId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsPosted = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -280,12 +279,12 @@
             this.repCurrencies.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repCurrencies.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Id", "Id", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("_id", "Id", 20, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("CurrencyCode", "Currency", 60, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default)});
             this.repCurrencies.DisplayMember = "CurrencyCode";
             this.repCurrencies.Name = "repCurrencies";
             this.repCurrencies.NullText = "";
-            this.repCurrencies.ValueMember = "Id";
+            this.repCurrencies.ValueMember = "Currency";
             // 
             // colDetailRate
             // 
@@ -507,7 +506,7 @@
             gridLevelNode1.RelationName = "JournalDetails";
             this.gcJournals.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
             gridLevelNode1});
-            this.gcJournals.Location = new System.Drawing.Point(14, 14);
+            this.gcJournals.Location = new System.Drawing.Point(12, 12);
             this.gcJournals.MainView = this.gvJournals;
             this.gcJournals.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gcJournals.Name = "gcJournals";
@@ -521,7 +520,7 @@
             this.repCostCenters,
             this.repFlowTypes,
             this.repChartList});
-            this.gcJournals.Size = new System.Drawing.Size(1351, 511);
+            this.gcJournals.Size = new System.Drawing.Size(1355, 515);
             this.gcJournals.TabIndex = 5;
             this.gcJournals.UseEmbeddedNavigator = true;
             this.gcJournals.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -540,7 +539,6 @@
             this.colJournalTypeId,
             this.colJournalDate,
             this.colReference,
-            this.colCurrencyId,
             this.colRate,
             this.colIsPosted,
             this.colNotes,
@@ -566,7 +564,7 @@
             // 
             // colId
             // 
-            this.colId.FieldName = "Id";
+            this.colId.FieldName = "_id";
             this.colId.MinWidth = 25;
             this.colId.Name = "colId";
             this.colId.Width = 94;
@@ -584,7 +582,7 @@
             // 
             this.colJournalTypeId.Caption = "JV Type";
             this.colJournalTypeId.ColumnEdit = this.repJournalTypes;
-            this.colJournalTypeId.FieldName = "JournalTypeId";
+            this.colJournalTypeId.FieldName = "JournalType";
             this.colJournalTypeId.MinWidth = 25;
             this.colJournalTypeId.Name = "colJournalTypeId";
             this.colJournalTypeId.Visible = true;
@@ -602,7 +600,7 @@
             this.repJournalTypes.DisplayMember = "Code";
             this.repJournalTypes.Name = "repJournalTypes";
             this.repJournalTypes.NullText = "";
-            this.repJournalTypes.ValueMember = "Id";
+            this.repJournalTypes.ValueMember = "Code";
             // 
             // colJournalDate
             // 
@@ -624,26 +622,16 @@
             this.colReference.VisibleIndex = 3;
             this.colReference.Width = 132;
             // 
-            // colCurrencyId
-            // 
-            this.colCurrencyId.Caption = "Currency";
-            this.colCurrencyId.ColumnEdit = this.repCurrencies;
-            this.colCurrencyId.FieldName = "CurrencyId";
-            this.colCurrencyId.MinWidth = 25;
-            this.colCurrencyId.Name = "colCurrencyId";
-            this.colCurrencyId.Visible = true;
-            this.colCurrencyId.VisibleIndex = 4;
-            this.colCurrencyId.Width = 101;
-            // 
             // colRate
             // 
+            this.colRate.Caption = "Default Rate";
             this.colRate.DisplayFormat.FormatString = "{0:n}";
             this.colRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colRate.FieldName = "Rate";
             this.colRate.MinWidth = 25;
             this.colRate.Name = "colRate";
             this.colRate.Visible = true;
-            this.colRate.VisibleIndex = 5;
+            this.colRate.VisibleIndex = 4;
             this.colRate.Width = 94;
             // 
             // colIsPosted
@@ -654,7 +642,7 @@
             this.colIsPosted.MinWidth = 25;
             this.colIsPosted.Name = "colIsPosted";
             this.colIsPosted.Visible = true;
-            this.colIsPosted.VisibleIndex = 6;
+            this.colIsPosted.VisibleIndex = 5;
             this.colIsPosted.Width = 94;
             // 
             // colNotes
@@ -663,8 +651,8 @@
             this.colNotes.MinWidth = 25;
             this.colNotes.Name = "colNotes";
             this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 7;
-            this.colNotes.Width = 182;
+            this.colNotes.VisibleIndex = 6;
+            this.colNotes.Width = 238;
             // 
             // colWorkingYear
             // 
@@ -672,7 +660,7 @@
             this.colWorkingYear.MinWidth = 25;
             this.colWorkingYear.Name = "colWorkingYear";
             this.colWorkingYear.Visible = true;
-            this.colWorkingYear.VisibleIndex = 8;
+            this.colWorkingYear.VisibleIndex = 7;
             this.colWorkingYear.Width = 112;
             // 
             // colIsProtected
@@ -683,7 +671,7 @@
             this.colIsProtected.MinWidth = 25;
             this.colIsProtected.Name = "colIsProtected";
             this.colIsProtected.Visible = true;
-            this.colIsProtected.VisibleIndex = 9;
+            this.colIsProtected.VisibleIndex = 8;
             this.colIsProtected.Width = 94;
             // 
             // colLocked
@@ -693,7 +681,7 @@
             this.colLocked.MinWidth = 25;
             this.colLocked.Name = "colLocked";
             this.colLocked.Visible = true;
-            this.colLocked.VisibleIndex = 10;
+            this.colLocked.VisibleIndex = 9;
             this.colLocked.Width = 94;
             // 
             // rcJournals
@@ -995,7 +983,7 @@
             this.layoutControlItem1.Control = this.gcJournals;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1355, 515);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1359, 519);
             this.layoutControlItem1.TextVisible = false;
             // 
             // JournalsListForm
@@ -1104,7 +1092,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repJournalTypes;
         private DevExpress.XtraGrid.Columns.GridColumn colJournalDate;
         private DevExpress.XtraGrid.Columns.GridColumn colReference;
-        private DevExpress.XtraGrid.Columns.GridColumn colCurrencyId;
         private DevExpress.XtraGrid.Columns.GridColumn colRate;
         private DevExpress.XtraGrid.Columns.GridColumn colIsPosted;
         private DevExpress.XtraGrid.Columns.GridColumn colNotes;

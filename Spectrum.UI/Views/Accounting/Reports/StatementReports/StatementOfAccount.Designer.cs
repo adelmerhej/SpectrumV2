@@ -73,9 +73,21 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.cboCostCenters = new DevExpress.XtraEditors.SearchLookUpEdit();
+            this.lblCostCenters = new DevExpress.XtraLayout.LayoutControlItem();
+            this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.cboFlowTypes = new DevExpress.XtraEditors.SearchLookUpEdit();
+            this.lblFlowType = new DevExpress.XtraLayout.LayoutControlItem();
+            this.searchLookUpEdit2View = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCurrencyId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCurrencyCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCurrencyName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colChartId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colChartAccountNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colChartAccountName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -125,10 +137,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCostCenters.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblCostCenters)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboFlowTypes.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblFlowType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit2View)).BeginInit();
             this.SuspendLayout();
             // 
             // mainLayout
             // 
+            this.mainLayout.Controls.Add(this.cboFlowTypes);
+            this.mainLayout.Controls.Add(this.cboCostCenters);
             this.mainLayout.Controls.Add(this.rgCurrencyOut);
             this.mainLayout.Controls.Add(this.chkShowProtected);
             this.mainLayout.Controls.Add(this.cboCurrencies);
@@ -175,14 +195,14 @@
             // 
             // cboCurrencies
             // 
-            this.cboCurrencies.Location = new System.Drawing.Point(523, 331);
+            this.cboCurrencies.Location = new System.Drawing.Point(523, 330);
             this.cboCurrencies.Name = "cboCurrencies";
             this.cboCurrencies.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cboCurrencies.Properties.DisplayMember = "CurrencyCode";
             this.cboCurrencies.Properties.NullText = "";
             this.cboCurrencies.Properties.PopupView = this.gridView2;
-            this.cboCurrencies.Properties.ValueMember = "Id";
+            this.cboCurrencies.Properties.ValueMember = "_id";
             this.cboCurrencies.Size = new System.Drawing.Size(231, 22);
             this.cboCurrencies.StyleController = this.mainLayout;
             this.cboCurrencies.TabIndex = 19;
@@ -225,14 +245,19 @@
             this.cboJournalTypes.Name = "cboJournalTypes";
             this.cboJournalTypes.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboJournalTypes.Properties.DisplayMember = "Code";
             this.cboJournalTypes.Properties.NullText = "";
             this.cboJournalTypes.Properties.PopupView = this.gridView1;
+            this.cboJournalTypes.Properties.ValueMember = "_id";
             this.cboJournalTypes.Size = new System.Drawing.Size(231, 22);
             this.cboJournalTypes.StyleController = this.mainLayout;
             this.cboJournalTypes.TabIndex = 16;
             // 
             // gridView1
             // 
+            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn5,
+            this.gridColumn6});
             this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -274,6 +299,10 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dtDateTo.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dtDateTo.Properties.CalendarTimeProperties.MaskSettings.Set("mask", "dd/MM/yyyy");
+            this.dtDateTo.Properties.CalendarTimeProperties.UseMaskAsDisplayFormat = true;
+            this.dtDateTo.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
+            this.dtDateTo.Properties.UseMaskAsDisplayFormat = true;
             this.dtDateTo.Size = new System.Drawing.Size(245, 22);
             this.dtDateTo.StyleController = this.mainLayout;
             this.dtDateTo.TabIndex = 7;
@@ -287,6 +316,10 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dtDateFrom.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dtDateFrom.Properties.CalendarTimeProperties.MaskSettings.Set("mask", "dd/MM/yyyy");
+            this.dtDateFrom.Properties.CalendarTimeProperties.UseMaskAsDisplayFormat = true;
+            this.dtDateFrom.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
+            this.dtDateFrom.Properties.UseMaskAsDisplayFormat = true;
             this.dtDateFrom.Size = new System.Drawing.Size(245, 22);
             this.dtDateFrom.StyleController = this.mainLayout;
             this.dtDateFrom.TabIndex = 6;
@@ -309,7 +342,7 @@
             this.cboAccountNumber.Properties.DisplayMember = "AccountNumber";
             this.cboAccountNumber.Properties.NullText = "";
             this.cboAccountNumber.Properties.PopupView = this.searchLookUpEdit1View;
-            this.cboAccountNumber.Properties.ValueMember = "Id";
+            this.cboAccountNumber.Properties.ValueMember = "_id";
             this.cboAccountNumber.Size = new System.Drawing.Size(170, 22);
             this.cboAccountNumber.StyleController = this.mainLayout;
             this.cboAccountNumber.TabIndex = 4;
@@ -347,9 +380,9 @@
             // 
             // emptySpaceItem1
             // 
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 416);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 418);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(758, 14);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(758, 12);
             // 
             // lblDatesSelection
             // 
@@ -465,7 +498,7 @@
             this.layoutControlItem9});
             this.grpOutput.Location = new System.Drawing.Point(0, 240);
             this.grpOutput.Name = "grpOutput";
-            this.grpOutput.Size = new System.Drawing.Size(386, 176);
+            this.grpOutput.Size = new System.Drawing.Size(386, 178);
             this.grpOutput.Text = "Output";
             // 
             // layoutControlItem5
@@ -496,7 +529,7 @@
             // 
             this.emptySpaceItem7.Location = new System.Drawing.Point(0, 112);
             this.emptySpaceItem7.Name = "emptySpaceItem7";
-            this.emptySpaceItem7.Size = new System.Drawing.Size(358, 10);
+            this.emptySpaceItem7.Size = new System.Drawing.Size(358, 12);
             // 
             // layoutControlItem9
             // 
@@ -513,10 +546,12 @@
             this.lblJournalTypes,
             this.lblCurrencies,
             this.emptySpaceItem8,
+            this.lblCostCenters,
+            this.lblFlowType,
             this.emptySpaceItem9});
             this.grpFilterByType.Location = new System.Drawing.Point(386, 240);
             this.grpFilterByType.Name = "grpFilterByType";
-            this.grpFilterByType.Size = new System.Drawing.Size(372, 176);
+            this.grpFilterByType.Size = new System.Drawing.Size(372, 178);
             this.grpFilterByType.Text = "Filter By Type";
             // 
             // lblJournalTypes
@@ -531,7 +566,7 @@
             // lblCurrencies
             // 
             this.lblCurrencies.Control = this.cboCurrencies;
-            this.lblCurrencies.Location = new System.Drawing.Point(0, 37);
+            this.lblCurrencies.Location = new System.Drawing.Point(0, 36);
             this.lblCurrencies.Name = "lblCurrencies";
             this.lblCurrencies.Size = new System.Drawing.Size(344, 26);
             this.lblCurrencies.Text = "Currency";
@@ -541,13 +576,13 @@
             // 
             this.emptySpaceItem8.Location = new System.Drawing.Point(0, 26);
             this.emptySpaceItem8.Name = "emptySpaceItem8";
-            this.emptySpaceItem8.Size = new System.Drawing.Size(344, 11);
+            this.emptySpaceItem8.Size = new System.Drawing.Size(344, 10);
             // 
             // emptySpaceItem9
             // 
-            this.emptySpaceItem9.Location = new System.Drawing.Point(0, 63);
+            this.emptySpaceItem9.Location = new System.Drawing.Point(0, 62);
             this.emptySpaceItem9.Name = "emptySpaceItem9";
-            this.emptySpaceItem9.Size = new System.Drawing.Size(344, 59);
+            this.emptySpaceItem9.Size = new System.Drawing.Size(344, 10);
             // 
             // layoutControlItem2
             // 
@@ -571,10 +606,108 @@
             this.emptySpaceItem5.Name = "emptySpaceItem5";
             this.emptySpaceItem5.Size = new System.Drawing.Size(405, 31);
             // 
+            // cboCostCenters
+            // 
+            this.cboCostCenters.Location = new System.Drawing.Point(523, 366);
+            this.cboCostCenters.Name = "cboCostCenters";
+            this.cboCostCenters.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboCostCenters.Properties.DisplayMember = "CostCenterName";
+            this.cboCostCenters.Properties.NullText = "";
+            this.cboCostCenters.Properties.PopupView = this.gridView3;
+            this.cboCostCenters.Properties.ValueMember = "_id";
+            this.cboCostCenters.Size = new System.Drawing.Size(231, 22);
+            this.cboCostCenters.StyleController = this.mainLayout;
+            this.cboCostCenters.TabIndex = 22;
+            // 
+            // lblCostCenters
+            // 
+            this.lblCostCenters.Control = this.cboCostCenters;
+            this.lblCostCenters.Location = new System.Drawing.Point(0, 72);
+            this.lblCostCenters.Name = "lblCostCenters";
+            this.lblCostCenters.Size = new System.Drawing.Size(344, 26);
+            this.lblCostCenters.Text = "Cost Center";
+            this.lblCostCenters.TextSize = new System.Drawing.Size(94, 16);
+            // 
+            // gridView3
+            // 
+            this.gridView3.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn1,
+            this.gridColumn2});
+            this.gridView3.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView3.Name = "gridView3";
+            this.gridView3.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView3.OptionsView.ShowGroupPanel = false;
+            // 
+            // cboFlowTypes
+            // 
+            this.cboFlowTypes.Location = new System.Drawing.Point(523, 392);
+            this.cboFlowTypes.Name = "cboFlowTypes";
+            this.cboFlowTypes.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboFlowTypes.Properties.DisplayMember = "FlowTypeName";
+            this.cboFlowTypes.Properties.NullText = "";
+            this.cboFlowTypes.Properties.PopupView = this.searchLookUpEdit2View;
+            this.cboFlowTypes.Properties.ValueMember = "_id";
+            this.cboFlowTypes.Size = new System.Drawing.Size(231, 22);
+            this.cboFlowTypes.StyleController = this.mainLayout;
+            this.cboFlowTypes.TabIndex = 23;
+            // 
+            // lblFlowType
+            // 
+            this.lblFlowType.Control = this.cboFlowTypes;
+            this.lblFlowType.Location = new System.Drawing.Point(0, 98);
+            this.lblFlowType.Name = "lblFlowType";
+            this.lblFlowType.Size = new System.Drawing.Size(344, 26);
+            this.lblFlowType.Text = "Flow Type";
+            this.lblFlowType.TextSize = new System.Drawing.Size(94, 16);
+            // 
+            // searchLookUpEdit2View
+            // 
+            this.searchLookUpEdit2View.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn3,
+            this.gridColumn4});
+            this.searchLookUpEdit2View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.searchLookUpEdit2View.Name = "searchLookUpEdit2View";
+            this.searchLookUpEdit2View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.searchLookUpEdit2View.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.Caption = "Id";
+            this.gridColumn3.FieldName = "_id";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.Width = 336;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Caption = "Flow Type";
+            this.gridColumn4.FieldName = "FlowTypeName";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.Visible = true;
+            this.gridColumn4.VisibleIndex = 0;
+            this.gridColumn4.Width = 799;
+            // 
+            // gridColumn1
+            // 
+            this.gridColumn1.Caption = "Id";
+            this.gridColumn1.FieldName = "_id";
+            this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.Width = 321;
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.Caption = "Cost Center";
+            this.gridColumn2.FieldName = "CostCenterName";
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 0;
+            this.gridColumn2.Width = 814;
+            // 
             // colCurrencyId
             // 
             this.colCurrencyId.Caption = "Id";
-            this.colCurrencyId.FieldName = "Id";
+            this.colCurrencyId.FieldName = "_id";
             this.colCurrencyId.Name = "colCurrencyId";
             this.colCurrencyId.Width = 78;
             // 
@@ -595,6 +728,24 @@
             this.colCurrencyName.Visible = true;
             this.colCurrencyName.VisibleIndex = 1;
             this.colCurrencyName.Width = 1085;
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.Caption = "Code";
+            this.gridColumn5.FieldName = "Code";
+            this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.Visible = true;
+            this.gridColumn5.VisibleIndex = 0;
+            this.gridColumn5.Width = 119;
+            // 
+            // gridColumn6
+            // 
+            this.gridColumn6.Caption = "Name";
+            this.gridColumn6.FieldName = "Name";
+            this.gridColumn6.Name = "gridColumn6";
+            this.gridColumn6.Visible = true;
+            this.gridColumn6.VisibleIndex = 1;
+            this.gridColumn6.Width = 1016;
             // 
             // colChartId
             // 
@@ -679,6 +830,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCostCenters.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblCostCenters)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboFlowTypes.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblFlowType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit2View)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -736,5 +893,17 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
+        private DevExpress.XtraEditors.SearchLookUpEdit cboFlowTypes;
+        private DevExpress.XtraGrid.Views.Grid.GridView searchLookUpEdit2View;
+        private DevExpress.XtraEditors.SearchLookUpEdit cboCostCenters;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView3;
+        private DevExpress.XtraLayout.LayoutControlItem lblCostCenters;
+        private DevExpress.XtraLayout.LayoutControlItem lblFlowType;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
     }
 }

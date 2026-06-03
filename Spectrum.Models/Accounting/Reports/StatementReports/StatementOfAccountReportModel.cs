@@ -13,6 +13,7 @@ namespace Spectrum.Models.Accounting.Reports.StatementReports
         public bool IsPosted { get; set; }
         public string Notes { get; set; }
         public int WorkingYear { get; set; }
+        public bool IsProtected { get; set; }
 
         //details
         public int Line { get; set; }

@@ -2,16 +2,18 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
+using Spectrum.DataLayers.Accounting.Journals;
+using Spectrum.DataLayers.Accounting.JournalType;
+using Spectrum.DataLayers.Common.Currencies;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Accounting.Charts;
+using Spectrum.Models.Accounting.Journals;
+using Spectrum.Models.Accounting.JournalType;
 using Spectrum.Models.Common.Currencies;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
-using Spectrum.DataLayers.Accounting.Journals;
-using Spectrum.Models.Accounting.Journals;
-using Spectrum.Models.Accounting.JournalType;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -34,6 +36,8 @@ namespace Spectrum.Views.Accounting.Journals
         private IList<ChartModel> _charts = new List<ChartModel>();
 
         private readonly JournalRepository _journalRepository = new JournalRepository(DatabaseFactory.ProfilePrimary);
+        private readonly CurrencyRepository _currencyRepository = new CurrencyRepository(DatabaseFactory.ProfilePrimary);
+        private readonly JournalTypeRepository _journalTypeRepository = new JournalTypeRepository(DatabaseFactory.ProfilePrimary);
 
         //Init permissionvariables
         private bool _canAdd = true;
@@ -84,7 +88,9 @@ namespace Spectrum.Views.Accounting.Journals
                 //	}
                 //	//
 
-                _journals = await _journalRepository.GetJournalsAsync();
+                _journals = await _journalRepository.GetJournalsAsync(wYear);
+                _currencies = await _currencyRepository.GetCurrenciesAsync();
+                _journalTypes = await _journalTypeRepository.GetJournalTypesAsync();
             }
             catch (Exception ex)
             {
@@ -96,6 +102,12 @@ namespace Spectrum.Views.Accounting.Journals
         {
             gcJournals.DataSource = null;
             gcJournals.DataSource = _journals;
+
+            repCurrencies.DataSource = null;
+            repCurrencies.DataSource = _currencies;
+
+            repJournalTypes.DataSource = null;
+            repJournalTypes.DataSource = _journalTypes;
         }
 
         private void ApplyDefaults()
@@ -220,6 +232,7 @@ namespace Spectrum.Views.Accounting.Journals
         private void btnPrintStatement_ItemClick(object sender, ItemClickEventArgs e)
         {
             // Print statement of selected Account JV
+
         }
 
         private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
@@ -350,9 +363,12 @@ namespace Spectrum.Views.Accounting.Journals
 
         private void cboWorkingYear_EditValueChanged(object sender, EventArgs e)
         {
-            if (cboWorkingYear.EditValue != null)
+            if (cboWorkingYear.EditValue == null) return;
+
+            if (int.TryParse(cboWorkingYear.EditValue.ToString(), out int selectedYear))
             {
-                wYear = (int)cboWorkingYear.EditValue;
+                wYear = selectedYear;
+                StartLoading();
             }
         }
     }

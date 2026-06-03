@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using Spectrum.DataLayers.Common.Countries.Interfaces;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.Models.Accounting.Banks;
 using Spectrum.Models.Common.Countries;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,19 @@ namespace Spectrum.DataLayers.Common.Countries
 			return await _continents.Find(filter).FirstOrDefaultAsync();
 		}
 
-		public async Task<ContinentModel> GetContinentByName(string continentName)
+        public async Task<ContinentModel> GetDefaultContinentAsync(string excludedId = null)
+        {
+            var filter = Builders<ContinentModel>.Filter.Eq(u => u.IsDefault, true);
+
+            if (!string.IsNullOrWhiteSpace(excludedId))
+            {
+                filter &= Builders<ContinentModel>.Filter.Ne(u => u._id, excludedId);
+            }
+
+            return await _continents.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<ContinentModel> GetContinentByName(string continentName)
 		{
 			if (string.IsNullOrWhiteSpace(continentName)) return null;
 			var pattern = "^" + Regex.Escape(continentName.Trim()) + "$"; // exact match

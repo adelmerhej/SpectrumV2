@@ -42,11 +42,23 @@ namespace Spectrum.DataLayers.Common.Countries
 			return await _cities.Find(filter).FirstOrDefaultAsync();
 		}
 
-		/// <summary>
-		/// Adds a new city to the database.
-		/// </summary>
-		/// <returns>The newly generated Id of the city.</returns>
-		public async Task<string> AddNewCityAsync(CityModel city)
+        public async Task<CityModel> GetDefaultCityAsync(string excludedId = null)
+        {
+            var filter = Builders<CityModel>.Filter.Eq(u => u.IsDefault, true);
+
+            if (!string.IsNullOrWhiteSpace(excludedId))
+            {
+                filter &= Builders<CityModel>.Filter.Ne(u => u._id, excludedId);
+            }
+
+            return await _cities.Find(filter).FirstOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// Adds a new city to the database.
+        /// </summary>
+        /// <returns>The newly generated Id of the city.</returns>
+        public async Task<string> AddNewCityAsync(CityModel city)
 		{
 			try
 			{

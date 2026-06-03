@@ -21,7 +21,6 @@ using Spectrum.Models.Accounting.FlowType;
 using Spectrum.Models.Accounting.Journals;
 using Spectrum.Models.Accounting.JournalType;
 using Spectrum.Models.Common.Currencies;
-using Spectrum.Models.Projects;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using System;
@@ -55,7 +54,7 @@ namespace Spectrum.Views.Accounting.Journals
         private readonly ChartRepository _chartRepository = new ChartRepository(DatabaseFactory.ProfilePrimary);
         private readonly ChartDetailRepository _chartDetailRepository = new ChartDetailRepository(DatabaseFactory.ProfilePrimary);
         private readonly CurrencyRepository _currencyRepository = new CurrencyRepository(DatabaseFactory.ProfilePrimary);
-        private readonly ICurrencyExchangeRepository _currencyExchangeRepository = new CurrencyExchangeRepository(DatabaseFactory.ProfilePrimary);
+        private readonly CurrencyExchangeRepository _currencyExchangeRepository = new CurrencyExchangeRepository(DatabaseFactory.ProfilePrimary);
         private readonly JournalTypeRepository _journalTypeRepository = new JournalTypeRepository(DatabaseFactory.ProfilePrimary);
 
         private readonly CostCenterRepository _costCenterRepository = new CostCenterRepository(DatabaseFactory.ProfilePrimary);
@@ -860,7 +859,7 @@ namespace Spectrum.Views.Accounting.Journals
         #endregion
 
         private void gvJournalDetails_InitNewRow_1(object sender, InitNewRowEventArgs e)
-            {
+        {
             GridView view = sender as GridView;
             bool isValidAmount;
 

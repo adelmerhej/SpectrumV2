@@ -110,7 +110,7 @@ namespace Spectrum.Views.Common.Countries
 			cboContinents.Properties.DataSource = _continents;
 		}
 
-		private void ApplyDefaults()
+		private async void ApplyDefaults()
 		{
 			if (_cityModel == null)
 			{
@@ -154,7 +154,10 @@ namespace Spectrum.Views.Common.Countries
 			}
 
 			bsCity.ResetBindings(false);
-		}
+
+            var defaultCity = await _cityRepository.GetDefaultCityAsync(_cityModel._id);
+            chkIsDefault.Enabled = defaultCity == null;
+        }
 
 		private void ApplyPermissions()
 		{
@@ -188,8 +191,19 @@ namespace Spectrum.Views.Common.Countries
 				BindingContext[bsCity].EndCurrentEdit();
 				_cityModel = (CityModel)bsCity.Current;
 
+                if (_continentModel.IsDefault)
+                {
+                    var defaultCity = await _cityRepository.GetDefaultCityAsync(_cityModel._id);
+                    if (defaultCity != null)
+                    {
+                        chkIsDefault.Enabled = false;
+                        XtraMessageBox.Show("A default city already exists. Only one record can be marked as default.",
+                            @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
 
-				if (string.IsNullOrEmpty(_cityModel._id))
+                if (string.IsNullOrEmpty(_cityModel._id))
 				{
 					_logInfoRepository.CreateLogInfo(_cityModel);
 

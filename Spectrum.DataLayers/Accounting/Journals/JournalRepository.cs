@@ -27,6 +27,11 @@ namespace Spectrum.DataLayers.Accounting.Journals
         {
             return await _journals.Find(journal => true).ToListAsync();
         }
+        public async Task<List<JournalModel>> GetJournalsAsync(int workingYear)
+        {
+            var filter = Builders<JournalModel>.Filter.Eq(journal => journal.WorkingYear, workingYear);
+            return await _journals.Find(filter).ToListAsync();
+        }
 
         public async Task<JournalModel> GetJournalByIdAsync(string id)
         {

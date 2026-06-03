@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraEditors;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.Models.Accounting.Banks;
 using Spectrum.Models.Common.Countries;
 using Spectrum.Utilities;
 using System;
@@ -68,10 +69,11 @@ namespace Spectrum.Views.Common.Countries
 			bsContinent.DataSource = _continentModel;
 		}
 
-		private void ApplyDefaults()
+		private async void ApplyDefaults()
 		{
-
-		}
+            var defaultContinent = await _continentRepository.GetDefaultContinentAsync(_continentModel._id);
+            chkIsDefault.Enabled = defaultContinent == null;
+        }
 
 		private void ApplyPermissions()
 		{
@@ -105,7 +107,18 @@ namespace Spectrum.Views.Common.Countries
 				BindingContext[bsContinent].EndCurrentEdit();
 				_continentModel = (ContinentModel)bsContinent.Current;
 
-
+                if (_continentModel.IsDefault)
+                {
+                    var defaultContinent = await _continentRepository.GetDefaultContinentAsync(_continentModel._id);
+                    if (defaultContinent != null)
+                    {
+                        chkIsDefault.Enabled = false;
+                        XtraMessageBox.Show("A default continent already exists. Only one record can be marked as default.",
+                            @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
+                
 				if (string.IsNullOrEmpty(_continentModel._id))
 				{
 					_logInfoRepository.CreateLogInfo(_continentModel);

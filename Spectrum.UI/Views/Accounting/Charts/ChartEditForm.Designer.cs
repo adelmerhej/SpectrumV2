@@ -30,6 +30,8 @@
 		{
             this.components = new System.ComponentModel.Container();
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
+            this.txtArabicAccountName = new DevExpress.XtraEditors.TextEdit();
+            this.bsChart = new System.Windows.Forms.BindingSource(this.components);
             this.txtOldglacno = new DevExpress.XtraEditors.TextEdit();
             this.txtOldacno = new DevExpress.XtraEditors.TextEdit();
             this.gcChartDetails = new DevExpress.XtraGrid.GridControl();
@@ -56,7 +58,6 @@
             this.colLocked = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repCharts = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.chkLocked = new DevExpress.XtraEditors.CheckEdit();
-            this.bsChart = new System.Windows.Forms.BindingSource(this.components);
             this.chkProtected = new DevExpress.XtraEditors.CheckEdit();
             this.chkActive = new DevExpress.XtraEditors.CheckEdit();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
@@ -81,6 +82,7 @@
             this.lblNotes = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lblAccountType = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lblArabicAccountName = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -88,8 +90,11 @@
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
             this.mainLayout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtArabicAccountName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtOldglacno.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtOldacno.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcChartDetails)).BeginInit();
@@ -100,7 +105,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.checkFormat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCharts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkLocked.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkProtected.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAccountName.Properties)).BeginInit();
@@ -123,6 +127,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.lblNotes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAccountType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblArabicAccountName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
@@ -130,10 +135,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // mainLayout
             // 
+            this.mainLayout.Controls.Add(this.txtArabicAccountName);
             this.mainLayout.Controls.Add(this.txtOldglacno);
             this.mainLayout.Controls.Add(this.txtOldacno);
             this.mainLayout.Controls.Add(this.gcChartDetails);
@@ -152,32 +159,47 @@
             this.mainLayout.Location = new System.Drawing.Point(0, 0);
             this.mainLayout.Name = "mainLayout";
             this.mainLayout.Root = this.Root;
-            this.mainLayout.Size = new System.Drawing.Size(752, 578);
+            this.mainLayout.Size = new System.Drawing.Size(818, 683);
             this.mainLayout.TabIndex = 1;
             this.mainLayout.Text = "layoutControl1";
+            // 
+            // txtArabicAccountName
+            // 
+            this.txtArabicAccountName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "ArabicAccountName", true));
+            this.txtArabicAccountName.Location = new System.Drawing.Point(165, 224);
+            this.txtArabicAccountName.Name = "txtArabicAccountName";
+            this.txtArabicAccountName.Size = new System.Drawing.Size(625, 22);
+            this.txtArabicAccountName.StyleController = this.mainLayout;
+            this.txtArabicAccountName.TabIndex = 21;
+            this.txtArabicAccountName.TabStop = false;
+            // 
+            // bsChart
+            // 
+            this.bsChart.DataSource = typeof(Spectrum.Models.Accounting.Charts.ChartModel);
             // 
             // txtOldglacno
             // 
             this.txtOldglacno.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Oldglacno", true));
-            this.txtOldglacno.Location = new System.Drawing.Point(487, 80);
+            this.txtOldglacno.Location = new System.Drawing.Point(520, 80);
             this.txtOldglacno.Name = "txtOldglacno";
-            this.txtOldglacno.Size = new System.Drawing.Size(237, 22);
+            this.txtOldglacno.Size = new System.Drawing.Size(270, 22);
             this.txtOldglacno.StyleController = this.mainLayout;
             this.txtOldglacno.TabIndex = 20;
+            this.txtOldglacno.TabStop = false;
             // 
             // txtOldacno
             // 
             this.txtOldacno.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "OldAcNo", true));
-            this.txtOldacno.Location = new System.Drawing.Point(137, 80);
+            this.txtOldacno.Location = new System.Drawing.Point(165, 80);
             this.txtOldacno.Name = "txtOldacno";
-            this.txtOldacno.Size = new System.Drawing.Size(237, 22);
+            this.txtOldacno.Size = new System.Drawing.Size(228, 22);
             this.txtOldacno.StyleController = this.mainLayout;
             this.txtOldacno.TabIndex = 19;
             // 
             // gcChartDetails
             // 
             this.gcChartDetails.DataSource = this.bsChartDetails;
-            this.gcChartDetails.Location = new System.Drawing.Point(14, 353);
+            this.gcChartDetails.Location = new System.Drawing.Point(14, 397);
             this.gcChartDetails.MainView = this.gvChartDetails;
             this.gcChartDetails.Name = "gcChartDetails";
             this.gcChartDetails.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -185,7 +207,7 @@
             this.repCharts,
             this.repCostsCenter,
             this.repCurrencies});
-            this.gcChartDetails.Size = new System.Drawing.Size(724, 180);
+            this.gcChartDetails.Size = new System.Drawing.Size(790, 241);
             this.gcChartDetails.TabIndex = 17;
             this.gcChartDetails.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvChartDetails});
@@ -445,24 +467,20 @@
             // chkLocked
             // 
             this.chkLocked.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Locked", true));
-            this.chkLocked.Location = new System.Drawing.Point(489, 325);
+            this.chkLocked.Location = new System.Drawing.Point(531, 369);
             this.chkLocked.Name = "chkLocked";
             this.chkLocked.Properties.Caption = "Locked";
-            this.chkLocked.Size = new System.Drawing.Size(108, 24);
+            this.chkLocked.Size = new System.Drawing.Size(119, 24);
             this.chkLocked.StyleController = this.mainLayout;
             this.chkLocked.TabIndex = 16;
-            // 
-            // bsChart
-            // 
-            this.bsChart.DataSource = typeof(Spectrum.Models.Accounting.Charts.ChartModel);
             // 
             // chkProtected
             // 
             this.chkProtected.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "IsProtected", true));
-            this.chkProtected.Location = new System.Drawing.Point(260, 325);
+            this.chkProtected.Location = new System.Drawing.Point(282, 369);
             this.chkProtected.Name = "chkProtected";
             this.chkProtected.Properties.Caption = "Protected";
-            this.chkProtected.Size = new System.Drawing.Size(225, 24);
+            this.chkProtected.Size = new System.Drawing.Size(245, 24);
             this.chkProtected.StyleController = this.mainLayout;
             this.chkProtected.TabIndex = 15;
             this.chkProtected.Visible = false;
@@ -470,19 +488,19 @@
             // chkActive
             // 
             this.chkActive.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Active", true));
-            this.chkActive.Location = new System.Drawing.Point(601, 325);
+            this.chkActive.Location = new System.Drawing.Point(654, 369);
             this.chkActive.Name = "chkActive";
             this.chkActive.Properties.Caption = "Active";
-            this.chkActive.Size = new System.Drawing.Size(137, 24);
+            this.chkActive.Size = new System.Drawing.Size(150, 24);
             this.chkActive.StyleController = this.mainLayout;
             this.chkActive.TabIndex = 14;
             // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(601, 537);
+            this.btnCancel.Location = new System.Drawing.Point(654, 642);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(137, 27);
+            this.btnCancel.Size = new System.Drawing.Size(150, 27);
             this.btnCancel.StyleController = this.mainLayout;
             this.btnCancel.TabIndex = 13;
             this.btnCancel.Text = "&Cancel";
@@ -490,9 +508,9 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(466, 537);
+            this.btnSave.Location = new System.Drawing.Point(506, 642);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(131, 27);
+            this.btnSave.Size = new System.Drawing.Size(144, 27);
             this.btnSave.StyleController = this.mainLayout;
             this.btnSave.TabIndex = 12;
             this.btnSave.Text = "&Save";
@@ -501,19 +519,19 @@
             // txtAccountName
             // 
             this.txtAccountName.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "AccountName", true));
-            this.txtAccountName.Location = new System.Drawing.Point(137, 196);
+            this.txtAccountName.Location = new System.Drawing.Point(165, 198);
             this.txtAccountName.Name = "txtAccountName";
-            this.txtAccountName.Size = new System.Drawing.Size(587, 22);
+            this.txtAccountName.Size = new System.Drawing.Size(625, 22);
             this.txtAccountName.StyleController = this.mainLayout;
             this.txtAccountName.TabIndex = 8;
             // 
             // txtAccountNumber
             // 
             this.txtAccountNumber.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "AccountNumber", true));
-            this.txtAccountNumber.Location = new System.Drawing.Point(137, 106);
+            this.txtAccountNumber.Location = new System.Drawing.Point(165, 106);
             this.txtAccountNumber.Name = "txtAccountNumber";
             this.txtAccountNumber.Properties.ReadOnly = true;
-            this.txtAccountNumber.Size = new System.Drawing.Size(587, 22);
+            this.txtAccountNumber.Size = new System.Drawing.Size(625, 22);
             this.txtAccountNumber.StyleController = this.mainLayout;
             this.txtAccountNumber.TabIndex = 7;
             this.txtAccountNumber.TabStop = false;
@@ -522,11 +540,11 @@
             // 
             this.txtSerial.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Serial", true));
             this.txtSerial.EditValue = "";
-            this.txtSerial.Location = new System.Drawing.Point(487, 54);
+            this.txtSerial.Location = new System.Drawing.Point(520, 54);
             this.txtSerial.Name = "txtSerial";
             this.txtSerial.Properties.MaxLength = 5;
             this.txtSerial.Properties.NullText = "Enter Serial";
-            this.txtSerial.Size = new System.Drawing.Size(237, 22);
+            this.txtSerial.Size = new System.Drawing.Size(270, 22);
             this.txtSerial.StyleController = this.mainLayout;
             this.txtSerial.TabIndex = 6;
             this.txtSerial.EditValueChanged += new System.EventHandler(this.txtSerial_EditValueChanged);
@@ -534,9 +552,9 @@
             // txtNotes
             // 
             this.txtNotes.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Notes", true));
-            this.txtNotes.Location = new System.Drawing.Point(137, 248);
+            this.txtNotes.Location = new System.Drawing.Point(165, 276);
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(587, 59);
+            this.txtNotes.Size = new System.Drawing.Size(625, 75);
             this.txtNotes.StyleController = this.mainLayout;
             this.txtNotes.TabIndex = 11;
             // 
@@ -544,11 +562,11 @@
             // 
             this.txtNumber.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "Number", true));
             this.txtNumber.EditValue = "";
-            this.txtNumber.Location = new System.Drawing.Point(137, 54);
+            this.txtNumber.Location = new System.Drawing.Point(165, 54);
             this.txtNumber.Name = "txtNumber";
             this.txtNumber.Properties.MaxLength = 5;
             this.txtNumber.Properties.NullText = "Enter Number";
-            this.txtNumber.Size = new System.Drawing.Size(237, 22);
+            this.txtNumber.Size = new System.Drawing.Size(228, 22);
             this.txtNumber.StyleController = this.mainLayout;
             this.txtNumber.TabIndex = 5;
             this.txtNumber.EditValueChanged += new System.EventHandler(this.txtNumber_EditValueChanged);
@@ -556,11 +574,11 @@
             // cboAccountType
             // 
             this.cboAccountType.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsChart, "AccountType", true));
-            this.cboAccountType.Location = new System.Drawing.Point(137, 222);
+            this.cboAccountType.Location = new System.Drawing.Point(165, 250);
             this.cboAccountType.Name = "cboAccountType";
             this.cboAccountType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cboAccountType.Size = new System.Drawing.Size(160, 22);
+            this.cboAccountType.Size = new System.Drawing.Size(158, 22);
             this.cboAccountType.StyleController = this.mainLayout;
             this.cboAccountType.TabIndex = 18;
             this.cboAccountType.SelectedIndexChanged += new System.EventHandler(this.cboAccountType_SelectedIndexChanged);
@@ -582,7 +600,7 @@
             this.layoutControlItem3,
             this.layoutControlItem4});
             this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(752, 578);
+            this.Root.Size = new System.Drawing.Size(818, 683);
             this.Root.TextVisible = false;
             // 
             // grpAccountNumber
@@ -593,10 +611,11 @@
             this.lblAccountNumber,
             this.lblSerial,
             this.lblOldacno,
-            this.lblOldglacno});
+            this.lblOldglacno,
+            this.emptySpaceItem1});
             this.grpAccountNumber.Location = new System.Drawing.Point(0, 0);
             this.grpAccountNumber.Name = "grpAccountNumber";
-            this.grpAccountNumber.Size = new System.Drawing.Size(728, 132);
+            this.grpAccountNumber.Size = new System.Drawing.Size(794, 132);
             this.grpAccountNumber.Text = "Account Number";
             // 
             // lblNumber
@@ -604,60 +623,64 @@
             this.lblNumber.Control = this.txtNumber;
             this.lblNumber.Location = new System.Drawing.Point(0, 0);
             this.lblNumber.Name = "lblNumber";
-            this.lblNumber.Size = new System.Drawing.Size(350, 26);
+            this.lblNumber.Size = new System.Drawing.Size(369, 26);
             this.lblNumber.Text = "Number";
-            this.lblNumber.TextSize = new System.Drawing.Size(94, 16);
+            this.lblNumber.TextSize = new System.Drawing.Size(122, 16);
             // 
             // lblAccountNumber
             // 
             this.lblAccountNumber.Control = this.txtAccountNumber;
             this.lblAccountNumber.Location = new System.Drawing.Point(0, 52);
             this.lblAccountNumber.Name = "lblAccountNumber";
-            this.lblAccountNumber.Size = new System.Drawing.Size(700, 26);
+            this.lblAccountNumber.Size = new System.Drawing.Size(766, 26);
             this.lblAccountNumber.Text = "Account Number";
-            this.lblAccountNumber.TextSize = new System.Drawing.Size(94, 16);
+            this.lblAccountNumber.TextSize = new System.Drawing.Size(122, 16);
             // 
             // lblSerial
             // 
             this.lblSerial.Control = this.txtSerial;
-            this.lblSerial.Location = new System.Drawing.Point(350, 0);
+            this.lblSerial.Location = new System.Drawing.Point(427, 0);
             this.lblSerial.Name = "lblSerial";
-            this.lblSerial.Size = new System.Drawing.Size(350, 26);
+            this.lblSerial.Size = new System.Drawing.Size(339, 26);
             this.lblSerial.Text = "Serial";
-            this.lblSerial.TextSize = new System.Drawing.Size(94, 16);
+            this.lblSerial.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
+            this.lblSerial.TextSize = new System.Drawing.Size(33, 16);
+            this.lblSerial.TextToControlDistance = 32;
             // 
             // lblOldacno
             // 
             this.lblOldacno.Control = this.txtOldacno;
             this.lblOldacno.Location = new System.Drawing.Point(0, 26);
             this.lblOldacno.Name = "lblOldacno";
-            this.lblOldacno.Size = new System.Drawing.Size(350, 26);
+            this.lblOldacno.Size = new System.Drawing.Size(369, 26);
             this.lblOldacno.Text = "Old AcNo";
-            this.lblOldacno.TextSize = new System.Drawing.Size(94, 16);
+            this.lblOldacno.TextSize = new System.Drawing.Size(122, 16);
             // 
             // lblOldglacno
             // 
             this.lblOldglacno.Control = this.txtOldglacno;
-            this.lblOldglacno.Location = new System.Drawing.Point(350, 26);
+            this.lblOldglacno.Location = new System.Drawing.Point(427, 26);
             this.lblOldglacno.Name = "lblOldglacno";
-            this.lblOldglacno.Size = new System.Drawing.Size(350, 26);
+            this.lblOldglacno.Size = new System.Drawing.Size(339, 26);
             this.lblOldglacno.Text = "Old glacno";
-            this.lblOldglacno.TextSize = new System.Drawing.Size(94, 16);
+            this.lblOldglacno.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
+            this.lblOldglacno.TextSize = new System.Drawing.Size(60, 16);
+            this.lblOldglacno.TextToControlDistance = 5;
             // 
             // layoutControlItem9
             // 
             this.layoutControlItem9.Control = this.btnSave;
-            this.layoutControlItem9.Location = new System.Drawing.Point(452, 523);
+            this.layoutControlItem9.Location = new System.Drawing.Point(492, 628);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(135, 31);
+            this.layoutControlItem9.Size = new System.Drawing.Size(148, 31);
             this.layoutControlItem9.TextVisible = false;
             // 
             // layoutControlItem10
             // 
             this.layoutControlItem10.Control = this.btnCancel;
-            this.layoutControlItem10.Location = new System.Drawing.Point(587, 523);
+            this.layoutControlItem10.Location = new System.Drawing.Point(640, 628);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(141, 31);
+            this.layoutControlItem10.Size = new System.Drawing.Size(154, 31);
             this.layoutControlItem10.TextVisible = false;
             // 
             // grpAccountInfo
@@ -667,10 +690,11 @@
             this.lblAccountName,
             this.lblNotes,
             this.emptySpaceItem6,
-            this.lblAccountType});
-            this.grpAccountInfo.Location = new System.Drawing.Point(0, 142);
+            this.lblAccountType,
+            this.lblArabicAccountName});
+            this.grpAccountInfo.Location = new System.Drawing.Point(0, 144);
             this.grpAccountInfo.Name = "grpAccountInfo";
-            this.grpAccountInfo.Size = new System.Drawing.Size(728, 169);
+            this.grpAccountInfo.Size = new System.Drawing.Size(794, 211);
             this.grpAccountInfo.Text = "Account Info";
             // 
             // lblAccountName
@@ -678,83 +702,98 @@
             this.lblAccountName.Control = this.txtAccountName;
             this.lblAccountName.Location = new System.Drawing.Point(0, 0);
             this.lblAccountName.Name = "lblAccountName";
-            this.lblAccountName.Size = new System.Drawing.Size(700, 26);
+            this.lblAccountName.Size = new System.Drawing.Size(766, 26);
             this.lblAccountName.Text = "Account Name";
-            this.lblAccountName.TextSize = new System.Drawing.Size(94, 16);
+            this.lblAccountName.TextSize = new System.Drawing.Size(122, 16);
             // 
             // lblNotes
             // 
             this.lblNotes.Control = this.txtNotes;
-            this.lblNotes.Location = new System.Drawing.Point(0, 52);
+            this.lblNotes.Location = new System.Drawing.Point(0, 78);
             this.lblNotes.Name = "lblNotes";
-            this.lblNotes.Size = new System.Drawing.Size(700, 63);
+            this.lblNotes.Size = new System.Drawing.Size(766, 79);
             this.lblNotes.Text = "Notes";
-            this.lblNotes.TextSize = new System.Drawing.Size(94, 16);
+            this.lblNotes.TextSize = new System.Drawing.Size(122, 16);
             // 
             // emptySpaceItem6
             // 
-            this.emptySpaceItem6.Location = new System.Drawing.Point(273, 26);
+            this.emptySpaceItem6.Location = new System.Drawing.Point(299, 52);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(427, 26);
+            this.emptySpaceItem6.Size = new System.Drawing.Size(467, 26);
             // 
             // lblAccountType
             // 
             this.lblAccountType.Control = this.cboAccountType;
-            this.lblAccountType.Location = new System.Drawing.Point(0, 26);
+            this.lblAccountType.Location = new System.Drawing.Point(0, 52);
             this.lblAccountType.Name = "lblAccountType";
-            this.lblAccountType.Size = new System.Drawing.Size(273, 26);
+            this.lblAccountType.Size = new System.Drawing.Size(299, 26);
             this.lblAccountType.Text = "Account Type";
-            this.lblAccountType.TextSize = new System.Drawing.Size(94, 16);
+            this.lblAccountType.TextSize = new System.Drawing.Size(122, 16);
+            // 
+            // lblArabicAccountName
+            // 
+            this.lblArabicAccountName.Control = this.txtArabicAccountName;
+            this.lblArabicAccountName.Location = new System.Drawing.Point(0, 26);
+            this.lblArabicAccountName.Name = "lblArabicAccountName";
+            this.lblArabicAccountName.Size = new System.Drawing.Size(766, 26);
+            this.lblArabicAccountName.Text = "Arabic Account Name";
+            this.lblArabicAccountName.TextSize = new System.Drawing.Size(122, 16);
             // 
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.Location = new System.Drawing.Point(0, 132);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(728, 10);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(794, 12);
             // 
             // emptySpaceItem4
             // 
-            this.emptySpaceItem4.Location = new System.Drawing.Point(0, 523);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(0, 628);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(452, 31);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(492, 31);
             // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.chkActive;
-            this.layoutControlItem1.Location = new System.Drawing.Point(587, 311);
+            this.layoutControlItem1.Location = new System.Drawing.Point(640, 355);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(141, 28);
+            this.layoutControlItem1.Size = new System.Drawing.Size(154, 28);
             this.layoutControlItem1.TextVisible = false;
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.chkProtected;
-            this.layoutControlItem2.Location = new System.Drawing.Point(246, 311);
+            this.layoutControlItem2.Location = new System.Drawing.Point(268, 355);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(229, 28);
+            this.layoutControlItem2.Size = new System.Drawing.Size(249, 28);
             this.layoutControlItem2.TextVisible = false;
             // 
             // emptySpaceItem2
             // 
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 311);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 355);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(246, 28);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(268, 28);
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.chkLocked;
-            this.layoutControlItem3.Location = new System.Drawing.Point(475, 311);
+            this.layoutControlItem3.Location = new System.Drawing.Point(517, 355);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(112, 28);
+            this.layoutControlItem3.Size = new System.Drawing.Size(123, 28);
             this.layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.gcChartDetails;
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 339);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 383);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(728, 184);
+            this.layoutControlItem4.Size = new System.Drawing.Size(794, 245);
             this.layoutControlItem4.TextVisible = false;
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.Location = new System.Drawing.Point(369, 0);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(58, 52);
             // 
             // ChartEditForm
             // 
@@ -762,7 +801,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(752, 578);
+            this.ClientSize = new System.Drawing.Size(818, 683);
             this.Controls.Add(this.mainLayout);
             this.MaximizeBox = false;
             this.Name = "ChartEditForm";
@@ -770,6 +809,8 @@
             this.Text = "Edit Account";
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).EndInit();
             this.mainLayout.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txtArabicAccountName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bsChart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtOldglacno.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtOldacno.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcChartDetails)).EndInit();
@@ -780,7 +821,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.checkFormat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCharts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkLocked.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bsChart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkProtected.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkActive.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAccountName.Properties)).EndInit();
@@ -803,6 +843,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.lblNotes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblAccountType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblArabicAccountName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
@@ -810,6 +851,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             this.ResumeLayout(false);
 
 		}
@@ -875,5 +917,8 @@
         private DevExpress.XtraEditors.TextEdit txtOldacno;
         private DevExpress.XtraLayout.LayoutControlItem lblOldacno;
         private DevExpress.XtraLayout.LayoutControlItem lblOldglacno;
+        private DevExpress.XtraEditors.TextEdit txtArabicAccountName;
+        private DevExpress.XtraLayout.LayoutControlItem lblArabicAccountName;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
     }
 }
