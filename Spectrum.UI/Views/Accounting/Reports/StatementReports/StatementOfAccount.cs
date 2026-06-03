@@ -142,8 +142,17 @@ namespace Spectrum.Views.Accounting.Reports.StatementReports
 
         private void ApplyDefaults()
         {
-            cboJournalTypes.EditValue = _defaultJournalType;
-            cboCurrencies.EditValue = _defaultCurrency;
+            var defaultJournalType = _journalTypes.FirstOrDefault(x =>
+                string.Equals(x.Code, _defaultJournalType, StringComparison.OrdinalIgnoreCase));
+            cboJournalTypes.EditValue = defaultJournalType != null
+                ? (object)defaultJournalType._id
+                : _defaultJournalType;
+
+            var defaultCurrency = _currencies.FirstOrDefault(x =>
+                string.Equals(x.CurrencyCode, _defaultCurrency, StringComparison.OrdinalIgnoreCase));
+            cboCurrencies.EditValue = defaultCurrency != null
+                ? (object)defaultCurrency._id
+                : _defaultCurrency;
 
             chkWithPreviousBalance.Checked = true;
             chkConsolidatePastPeriods.Checked = true;   

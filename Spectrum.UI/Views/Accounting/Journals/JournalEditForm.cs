@@ -43,13 +43,11 @@ namespace Spectrum.Views.Accounting.Journals
         private IList<CurrencyModel> _currencies = new List<CurrencyModel>();
 
         private IList<JournalTypeModel> _journalTypes = new List<JournalTypeModel>();
-        private IList<IdListModel> deletedList = new List<IdListModel>();
 
         private IList<CostCenterModel> _costCenters = new List<CostCenterModel>();
         private IList<FlowTypeModel> _flowTypes = new List<FlowTypeModel>();
 
         private readonly JournalRepository _journalRepository = new JournalRepository(DatabaseFactory.ProfilePrimary);
-        private readonly JournalDetailRepository _journalDetailRepository = new JournalDetailRepository(DatabaseFactory.ProfilePrimary);
 
         private readonly ChartRepository _chartRepository = new ChartRepository(DatabaseFactory.ProfilePrimary);
         private readonly ChartDetailRepository _chartDetailRepository = new ChartDetailRepository(DatabaseFactory.ProfilePrimary);
@@ -65,7 +63,6 @@ namespace Spectrum.Views.Accounting.Journals
         private string _defaultJournalType = "JV";
         private string _defaultCurrency = "USD";
         private decimal _defaultRate = 89500;
-        private bool _isDeleted;
 
         private bool _canAdd = true;
         private bool _canEdit = true;
@@ -159,9 +156,11 @@ namespace Spectrum.Views.Accounting.Journals
 
         private async Task LoadJournalDetailsAsync()
         {
-            _journalDetails = string.IsNullOrWhiteSpace(_journalModel.JvNo)
-                ? new List<JournalDetailModel>()
-                : await _journalDetailRepository.GetJournalDetailsByJvNoAsync(_journalModel.JvNo);
+            _journalDetails = (_journalModel.JournalDetails ?? new List<JournalDetailModel>())
+                .OrderBy(x => x.Line)
+                .ToList();
+
+            _journalModel.JournalDetails = _journalDetails.ToList();
         }
 
         #endregion
@@ -202,7 +201,7 @@ namespace Spectrum.Views.Accounting.Journals
         private async Task ApplyDefaultsAsync()
         {
             var isNewJournalVoucher = string.IsNullOrWhiteSpace(_journalModel._id);
-            ConfigureJournalDetailsGrid(isNewJournalVoucher);
+            ConfigureJournalDetailsGrid(!_journalModel.Locked && (_isAdmin || _canEdit || isNewJournalVoucher));
 
             if (!isNewJournalVoucher)
             {
@@ -312,13 +311,8 @@ namespace Spectrum.Views.Accounting.Journals
 
             journalDetail.Deleted = true;
 
-            if (!string.IsNullOrWhiteSpace(journalDetail._id) && deletedList.All(x => x.Id != journalDetail._id))
-            {
-                deletedList.Add(new IdListModel { Id = journalDetail._id });
-                _isDeleted = true;
-            }
-
             _journalDetails.Remove(journalDetail);
+            _journalModel.JournalDetails = _journalDetails.ToList();
             bsJournalDetails.ResetBindings(false);
             EnumerateLines();
         }
@@ -462,6 +456,11 @@ namespace Spectrum.Views.Accounting.Journals
 
                 var isNewJournal = string.IsNullOrWhiteSpace(_journalModel._id);
 
+                _journalDetails = _journalDetails
+                    .Where(journalDetail => !journalDetail.Deleted)
+                    .OrderBy(journalDetail => journalDetail.Line)
+                    .ToList();
+
                 if (isNewJournal)
                 {
                     _logInfoRepository.CreateLogInfo(_journalModel);
@@ -475,45 +474,38 @@ namespace Spectrum.Views.Accounting.Journals
                         _journalModel.Reference = await _journalRepository.GetNextReferenceAsync();
                     }
 
-                    await _journalRepository.AddNewJournalAsync(_journalModel);
-
                     txtJvNo.Text = _journalModel.JvNo;
                     txtReference.Text = _journalModel.Reference;
                 }
                 else
                 {
                     _logInfoRepository.UpdateLogInfo(_journalModel);
-                    await _journalRepository.UpdateJournalAsync(_journalModel);
                 }
 
-                //Update Deleted list if Any
-                if (_isDeleted)
-                {
-                    foreach (var record in deletedList)
-                    {
-                        await _journalDetailRepository.DeleteJournalDetailAsync(record.Id);
-                    }
-
-                    EnumerateLines();
-                    _isDeleted = false;
-                }
-
-                // UPDATE DETAILS
                 foreach (var journalDetail in _journalDetails)
                 {
                     journalDetail.JvNo = _journalModel.JvNo;
                     journalDetail.WorkingYear = _journalModel.WorkingYear;
 
-                    if (string.IsNullOrEmpty(journalDetail._id))
+                    if (string.IsNullOrWhiteSpace(journalDetail._id))
                     {
                         _logInfoRepository.CreateLogInfo(journalDetail);
-                        await _journalDetailRepository.AddNewJournalDetailAsync(journalDetail);
                     }
                     else
                     {
                         _logInfoRepository.UpdateLogInfo(journalDetail);
-                        await _journalDetailRepository.UpdateJournalDetailAsync(journalDetail);
                     }
+                }
+
+                _journalModel.JournalDetails = _journalDetails.ToList();
+
+                if (isNewJournal)
+                {
+                    await _journalRepository.AddNewJournalAsync(_journalModel);
+                }
+                else
+                {
+                    await _journalRepository.UpdateJournalAsync(_journalModel);
                 }
 
                 SendUpdatedJournal?.Invoke(_journalModel, EventArgs.Empty);
@@ -977,6 +969,11 @@ namespace Spectrum.Views.Accounting.Journals
 
         private bool CanManageJournal()
         {
+            if (gvJournalDetails.OptionsBehavior.ReadOnly || !gvJournalDetails.OptionsBehavior.Editable)
+            {
+                return false;
+            }
+
             if (!ValidateData() || string.IsNullOrWhiteSpace(_journalModel?._id))
             {
                 XtraMessageBox.Show("Finish journal first, then add details.", "Journal",
@@ -989,7 +986,7 @@ namespace Spectrum.Views.Accounting.Journals
 
         private void gvJournalDetails_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.Delete)
+            if (e.KeyCode != Keys.Delete || !CanManageJournal())
             {
                 return;
             }

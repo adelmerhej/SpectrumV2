@@ -1,6 +1,8 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using Spectrum.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Spectrum.Models.Accounting.Journals
 {
@@ -16,6 +18,7 @@ namespace Spectrum.Models.Accounting.Journals
         public decimal Rate { get; set; }
         public bool IsPosted { get; set; }
         public bool IsCloned { get; set; }
+        public List<JournalDetailModel> JournalDetails { get; set; } = new List<JournalDetailModel>();
 
         #region Implementation of ICloneable
 
@@ -24,6 +27,9 @@ namespace Spectrum.Models.Accounting.Journals
         public object Clone()
         {
             var recordModel = (JournalModel)MemberwiseClone();
+            recordModel.JournalDetails = JournalDetails?
+                .Select(detail => (detail.Clone() as JournalDetailModel) ?? new JournalDetailModel())
+                .ToList() ?? new List<JournalDetailModel>();
             return recordModel;
         }
 

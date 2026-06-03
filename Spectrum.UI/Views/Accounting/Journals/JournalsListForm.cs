@@ -191,7 +191,7 @@ namespace Spectrum.Views.Accounting.Journals
             try
             {
                 string id = gvJournals.GetFocusedRowCellValue("_id").ToString();
-                string name = gvJournals.GetFocusedRowCellValue("JournalName").ToString();
+                string name = gvJournals.GetFocusedRowCellValue("JvNo").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {

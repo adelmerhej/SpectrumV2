@@ -41,11 +41,11 @@ namespace Spectrum.DataLayers.Accounting.Reports.StatementReports
             DateTime? dateFrom, DateTime? dateTo, string chartId, string currencyId, string journalType,
             string costCenter, string flowType, int workingYear, bool consolidatePastPeriods, bool isProtected)
         {
-            var journalFilter = Builders<JournalModel>.Filter.Empty;    
+            var journalFilter = Builders<JournalModel>.Filter.Eq(x => x.Deleted, false);
 
             if (consolidatePastPeriods)
             {
-                if (workingYear > 0)    
+                if (workingYear > 0)
                 {
                     journalFilter &= Builders<JournalModel>.Filter.Lte(x => x.WorkingYear, workingYear);
                 }
@@ -81,7 +81,7 @@ namespace Spectrum.DataLayers.Accounting.Reports.StatementReports
                 return new List<StatementOfAccountReportModel>();
             }
 
-            var detailFilter = Builders<JournalDetailModel>.Filter.In(x => x.JvNo, journals.Select(x => x.JvNo).Distinct().ToList());
+            string accountNumber = null;
 
             if (!string.IsNullOrWhiteSpace(chartId) && chartId != "0")
             {
@@ -91,8 +91,10 @@ namespace Spectrum.DataLayers.Accounting.Reports.StatementReports
                     return new List<StatementOfAccountReportModel>();
                 }
 
-                detailFilter &= Builders<JournalDetailModel>.Filter.Eq(x => x.AccountNumber, chart.AccountNumber);
+                accountNumber = chart.AccountNumber;
             }
+
+            string currencyCode = null;
 
             if (!string.IsNullOrWhiteSpace(currencyId) && currencyId != "0")
             {
@@ -102,26 +104,7 @@ namespace Spectrum.DataLayers.Accounting.Reports.StatementReports
                     return new List<StatementOfAccountReportModel>();
                 }
 
-                detailFilter &= Builders<JournalDetailModel>.Filter.Eq(x => x.Currency, currency.CurrencyCode);
-            }
-
-            if (!string.IsNullOrWhiteSpace(costCenter) && costCenter != "0")
-            {
-                detailFilter &= Builders<JournalDetailModel>.Filter.Eq(x => x.CostCenter, costCenter);
-            }
-
-            if (!string.IsNullOrWhiteSpace(flowType) && flowType != "0")
-            {
-                detailFilter &= Builders<JournalDetailModel>.Filter.Eq(x => x.FlowType, flowType);
-            }
-
-            var details = await _journalDetails.Find(detailFilter)
-                .SortBy(x => x.Line)
-                .ToListAsync();
-
-            if (details.Count == 0)
-            {
-                return new List<StatementOfAccountReportModel>();
+                currencyCode = currency.CurrencyCode;
             }
 
             var journalsByJvNo = journals
@@ -129,17 +112,84 @@ namespace Spectrum.DataLayers.Accounting.Reports.StatementReports
                 .GroupBy(x => x.JvNo, StringComparer.OrdinalIgnoreCase)
                 .ToDictionary(x => x.Key, x => x.First(), StringComparer.OrdinalIgnoreCase);
 
-            var reportData = details
-                .Where(x => !string.IsNullOrWhiteSpace(x.JvNo) && journalsByJvNo.ContainsKey(x.JvNo))
-                .Select(x =>
+            var detailEntries = journalsByJvNo.Values
+                .SelectMany(journal => (journal.JournalDetails ?? new List<JournalDetailModel>())
+                    .Where(detail => detail != null)
+                    .Select(detail => (Journal: journal, Detail: detail)))
+                .ToList();
+
+            var journalNumbersWithoutDetails = journalsByJvNo.Values
+                .Where(journal => journal.JournalDetails == null || journal.JournalDetails.Count == 0)
+                .Select(journal => journal.JvNo)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            if (journalNumbersWithoutDetails.Count > 0)
+            {
+                var legacyDetailFilter = Builders<JournalDetailModel>.Filter.In(x => x.JvNo, journalNumbersWithoutDetails)
+                    & Builders<JournalDetailModel>.Filter.Eq(x => x.Deleted, false);
+
+                if (!string.IsNullOrWhiteSpace(accountNumber))
                 {
-                    var journal = journalsByJvNo[x.JvNo];
+                    legacyDetailFilter &= Builders<JournalDetailModel>.Filter.Eq(x => x.AccountNumber, accountNumber);
+                }
+
+                if (!string.IsNullOrWhiteSpace(currencyCode))
+                {
+                    legacyDetailFilter &= Builders<JournalDetailModel>.Filter.Eq(x => x.Currency, currencyCode);
+                }
+
+                if (!string.IsNullOrWhiteSpace(costCenter) && costCenter != "0")
+                {
+                    legacyDetailFilter &= Builders<JournalDetailModel>.Filter.Eq(x => x.CostCenter, costCenter);
+                }
+
+                if (!string.IsNullOrWhiteSpace(flowType) && flowType != "0")
+                {
+                    legacyDetailFilter &= Builders<JournalDetailModel>.Filter.Eq(x => x.FlowType, flowType);
+                }
+
+                var legacyDetails = await _journalDetails.Find(legacyDetailFilter)
+                    .SortBy(x => x.Line)
+                    .ToListAsync();
+
+                detailEntries.AddRange(legacyDetails
+                    .Where(detail => !string.IsNullOrWhiteSpace(detail.JvNo) && journalsByJvNo.ContainsKey(detail.JvNo))
+                    .Select(detail => (Journal: journalsByJvNo[detail.JvNo], Detail: detail)));
+            }
+
+            var filteredDetails = detailEntries
+                .Where(x => x.Detail != null && !x.Detail.Deleted)
+                .Where(x => string.IsNullOrWhiteSpace(x.Detail.JvNo)
+                    || string.Equals(x.Detail.JvNo, x.Journal.JvNo, StringComparison.OrdinalIgnoreCase))
+                .Where(x => string.IsNullOrWhiteSpace(accountNumber)
+                    || string.Equals(x.Detail.AccountNumber, accountNumber, StringComparison.OrdinalIgnoreCase))
+                .Where(x => string.IsNullOrWhiteSpace(currencyCode)
+                    || string.Equals(x.Detail.Currency, currencyCode, StringComparison.OrdinalIgnoreCase))
+                .Where(x => string.IsNullOrWhiteSpace(costCenter)
+                    || costCenter == "0"
+                    || string.Equals(x.Detail.CostCenter, costCenter, StringComparison.OrdinalIgnoreCase))
+                .Where(x => string.IsNullOrWhiteSpace(flowType)
+                    || flowType == "0"
+                    || string.Equals(x.Detail.FlowType, flowType, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (filteredDetails.Count == 0)
+            {
+                return new List<StatementOfAccountReportModel>();
+            }
+
+            var reportData = filteredDetails
+                .Select(entry =>
+                {
+                    var journal = entry.Journal;
+                    var detail = entry.Detail;
                     var number = string.Empty;
                     var serial = string.Empty;
 
-                    if (!string.IsNullOrWhiteSpace(x.AccountNumber))
+                    if (!string.IsNullOrWhiteSpace(detail.AccountNumber))
                     {
-                        var accountNumberParts = x.AccountNumber
+                        var accountNumberParts = detail.AccountNumber
                             .Split(new[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
 
                         if (accountNumberParts.Length > 0)
@@ -164,20 +214,21 @@ namespace Spectrum.DataLayers.Accounting.Reports.StatementReports
                         IsPosted = journal.IsPosted,
                         Notes = journal.Notes,
                         WorkingYear = journal.WorkingYear,
-                        Line = x.Line,
+                        IsProtected = journal.IsProtected,
+                        Line = detail.Line,
                         Number = number,
                         Serial = serial,
-                        AccountName = x.AccountName,
-                        CostCenter = x.CostCenter,
-                        ValueDate = x.ValueDate,
-                        CurrencyDetail = x.Currency,
-                        RateDetail = x.Rate,
-                        Description = x.Description,
-                        DbCr = x.DbCr,
-                        Amount = x.Amount,
-                        LAmount = x.LAmount,
-                        FAmount = x.FAmount,
-                        DocumentRef = x.DocumentRef,
+                        AccountName = detail.AccountName,
+                        CostCenter = detail.CostCenter,
+                        ValueDate = detail.ValueDate,
+                        CurrencyDetail = detail.Currency,
+                        RateDetail = detail.Rate,
+                        Description = detail.Description,
+                        DbCr = detail.DbCr,
+                        Amount = detail.Amount,
+                        LAmount = detail.LAmount,
+                        FAmount = detail.FAmount,
+                        DocumentRef = detail.DocumentRef,
                         JobNo = string.Empty,
                         Department = string.Empty
                     };
