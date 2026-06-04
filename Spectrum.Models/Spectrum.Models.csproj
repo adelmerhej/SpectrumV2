@@ -149,6 +149,8 @@
     <Compile Include="Accounting\Charts\ChartModel.cs" />
     <Compile Include="Accounting\CostCenter\CostCenterModel.cs" />
     <Compile Include="Accounting\FlowType\FlowTypeModel.cs" />
+    <Compile Include="Accounting\Invoices\InvoiceDetailModel.cs" />
+    <Compile Include="Accounting\Invoices\InvoiceModel.cs" />
     <Compile Include="Accounting\Journals\IdListModel.cs" />
     <Compile Include="Accounting\Journals\JournalDetailModel.cs" />
     <Compile Include="Accounting\Journals\JournalModel.cs" />

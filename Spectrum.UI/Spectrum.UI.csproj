@@ -69,6 +69,7 @@
     <Reference Include="DevExpress.XtraGrid.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraMap.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraNavBar.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPivotGrid.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraReports.v25.2, Version=25.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -957,6 +958,7 @@
     </EmbeddedResource>
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Accounting.Invoices.InvoiceDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Journals.JournalDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Journals.JournalModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.CnssInfo.datasource" />

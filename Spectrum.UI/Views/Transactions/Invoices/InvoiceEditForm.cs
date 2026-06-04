@@ -97,10 +97,10 @@ namespace Spectrum.Views.Transactions.Invoices
         #endregion
         private void WireUpBindings()
         {
-            cboMemebrs.Properties.DataSource = null;
-            cboMemebrs.Properties.DisplayMember = "ClientName";
-            cboMemebrs.Properties.ValueMember = "_id";
-            cboMemebrs.Properties.DataSource = _clients;
+            //cboMemebrs.Properties.DataSource = null;
+            //cboMemebrs.Properties.DisplayMember = "ClientName";
+            //cboMemebrs.Properties.ValueMember = "_id";
+            //cboMemebrs.Properties.DataSource = _clients;
         }
 
         private void ApplyDefaults()
@@ -111,7 +111,7 @@ namespace Spectrum.Views.Transactions.Invoices
         {
             btnNew.Enabled = _isAdmin || _canAdd;
             btnSave.Enabled = _isAdmin || _canEdit;
-            btnSaveAndClose.Enabled = _isAdmin || _canEdit;
+            btnSaveAndNew.Enabled = _isAdmin || _canEdit;
             btnPrint.Enabled = _isAdmin || _canPrint;
             btnDelete.Enabled = _isAdmin || _canDelete;
         }
@@ -132,18 +132,22 @@ namespace Spectrum.Views.Transactions.Invoices
 		{
 
 		}
+        private void btnDuplicate_ItemClick(object sender, ItemClickEventArgs e)
+        {
 
-		private void btnSave_ItemClick(object sender, ItemClickEventArgs e)
+        }
+
+        private void btnSave_ItemClick(object sender, ItemClickEventArgs e)
 		{
 
 		}
 
-		private void btnSaveAndClose_ItemClick(object sender, ItemClickEventArgs e)
-		{
+        private void btnSaveAndNew_ItemClick(object sender, ItemClickEventArgs e)
+        {
 
-		}
+        }
 
-		private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
+        private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
 		{
 
 		}
@@ -157,8 +161,12 @@ namespace Spectrum.Views.Transactions.Invoices
 		{
 
 		}
+        private void btnPrintOriginal_ItemClick(object sender, ItemClickEventArgs e)
+        {
 
-		private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
+        }
+
+        private void btnClose_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			Close();
 		}
@@ -168,7 +176,8 @@ namespace Spectrum.Views.Transactions.Invoices
 
 		}
 
-		#endregion
+        #endregion
 
-	}
+
+    }
 }
