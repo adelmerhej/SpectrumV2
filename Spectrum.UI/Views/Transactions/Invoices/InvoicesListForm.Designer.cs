@@ -1,4 +1,6 @@
-﻿namespace Spectrum.Views.Transactions.Invoices
+﻿using Spectrum.Models.Accounting.Invoices;
+
+namespace Spectrum.Views.Transactions.Invoices
 {
 	partial class InvoicesListForm
 	{
@@ -262,7 +264,7 @@
 			// 
 			// bsInvoices
 			// 
-			this.bsInvoices.DataSource = typeof(Spectrum.Models.Projects.InvoiceModel);
+			this.bsInvoices.DataSource = typeof(InvoiceModel);
 			// 
 			// gvJobPositions
 			// 

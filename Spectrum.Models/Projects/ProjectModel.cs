@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Spectrum.Models.Accounting.Invoices;
 using System;
 using System.Collections.Generic;
 

@@ -3,6 +3,7 @@ using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using Spectrum.DataLayers.DataAccess;
 using Spectrum.DataLayers.HumanResources.JobPositions;
+using Spectrum.Models.Accounting.Invoices;
 using Spectrum.Models.HumanResources.JobPositions;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Views.HumanResources.JobPositions;
@@ -118,7 +119,7 @@ namespace Spectrum.Views.Transactions.Invoices
 
 		private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			InvoiceEditForm frm = new InvoiceEditForm(new Models.Projects.InvoiceModel());
+			InvoiceEditForm frm = new InvoiceEditForm(new InvoiceModel());
 			frm.ShowDialog();
 		}
 

@@ -602,7 +602,7 @@ namespace Spectrum.Views.HumanResources.Employees
             }
         }
 
-        private void openDocuments_ButtonClick(object sender, ButtonPressedEventArgs e)
+         private void openDocuments_ButtonClick(object sender, ButtonPressedEventArgs e)
         {
             try
             {

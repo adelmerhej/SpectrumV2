@@ -22,9 +22,10 @@
 		public string ProjectsDocumentsFolder { get; set; }
 		public string EmployeesDocumentsFolder { get; set; }
 		public string EngineersDocumentsFolder { get; set; }
+        public string InvoicesDocumentsFolder { get; set; }
 
-		// SENSITIVE FIELDS: Stored Encrypted
-		public string EncryptedPassword { get; set; }
+        // SENSITIVE FIELDS: Stored Encrypted
+        public string EncryptedPassword { get; set; }
 		public string EncryptedConnectionString { get; set; }
 	}
 

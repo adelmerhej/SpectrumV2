@@ -1,5 +1,6 @@
 using DevExpress.Spreadsheet;
 using DevExpress.XtraSpreadsheet;
+using Spectrum.Models.Accounting.Invoices;
 using Spectrum.Models.Projects;
 using Spectrum.Reports.Common;
 using Spectrum.Reports.Exporters;
@@ -60,9 +61,9 @@ namespace Spectrum.Reports.Adapters.Projects
                 if (_selectedProjects.Count > 1)
                     return string.Format("Project Report ({0} Projects)", _selectedProjects.Count);
 
-                return string.IsNullOrEmpty(_project.ProjectName)
+                return string.IsNullOrEmpty(_project._id)
                     ? "Project Report"
-                    : _project.ProjectName + " - Report";
+                    : _project._id + " - Report";
             }
         }
 
@@ -109,14 +110,14 @@ namespace Spectrum.Reports.Adapters.Projects
         {
             return new List<GridColumnDescriptor>
             {
-                new GridColumnDescriptor("InvoiceNumber", "Invoice #", false, 120),
+                new GridColumnDescriptor("InvoiceNo", "Invoice #", false, 120),
                 new GridColumnDescriptor("InvoiceDate", "Date", false, 100, "d"),
                 new GridColumnDescriptor("Amount", "Amount", false, 120, "N2"),
-                new GridColumnDescriptor("VAT", "VAT", false, 100, "N2"),
+                new GridColumnDescriptor("TotalVat", "TotalVat", false, 100, "N2"),
                 new GridColumnDescriptor("Paid", "Paid?", false, 60),
                 new GridColumnDescriptor("PaidAmount", "Paid Amount", false, 120, "N2"),
                 new GridColumnDescriptor("Bank", "Bank", false, 120),
-                new GridColumnDescriptor("ProjectName", "Project", true, 150)
+                new GridColumnDescriptor("ProjectId", "Project", true, 150)
             };
         }
 
@@ -152,7 +153,7 @@ namespace Spectrum.Reports.Adapters.Projects
                     {
                         var inv = new InvoiceModel
                         {
-                            ProjectName = _project.ProjectName,
+                            ProjectId = _project._id,
                             InvoiceDate = DateTime.Now
                         };
                         _invoiceBindingList.Add(inv);
@@ -217,7 +218,7 @@ namespace Spectrum.Reports.Adapters.Projects
             decimal paidTotal = 0m;
             foreach (var inv in _invoiceBindingList)
             {
-                invoicedTotal += inv.Amount ?? 0m;
+                invoicedTotal += inv.TotalAmount ?? 0m;
                 paidTotal += inv.PaidAmount ?? 0m;
             }
 
@@ -270,7 +271,7 @@ namespace Spectrum.Reports.Adapters.Projects
             yield return CreateProjectField("Project.ProjectType", "Project Type", "Project Info", typeof(string), null, project => project.ProjectType);
             yield return CreateProjectField("Project.Reference", "Project Reference", "Project Info", typeof(string), null, project => project.Reference);
             yield return CreateProjectField("Project.TentativeReference", "Tentative Reference", "Project Info", typeof(string), null, project => project.TentativeReference);
-            yield return CreateProjectField("Project.ProjectName", "Project Name", "Project Info", typeof(string), null, project => project.ProjectName);
+            yield return CreateProjectField("Project.ProjectId", "Project Name", "Project Info", typeof(string), null, project => project._id);
             yield return CreateProjectField("Project.Contract", "Contract", "Project Info", typeof(string), null, project => project.Contract);
             yield return CreateProjectField("Project.JointVenture", "Joint Venture", "Project Info", typeof(string), null, project => project.JointVenture);
             yield return CreateProjectField("Project.ClientName", "Client", "Project Info", typeof(string), null, project => project.ClientName);
@@ -308,7 +309,7 @@ namespace Spectrum.Reports.Adapters.Projects
             yield return CreateProjectField("Contract.InitialAmount", "Initial Contract Amount", "Services / Contract", typeof(decimal?), "N2", project => project.ContractDetails?.InitialContractAmount);
             yield return CreateProjectField("Contract.Currency", "Currency", "Services / Contract", typeof(string), null, project => project.ContractDetails?.CurrencyCode);
             yield return CreateProjectField("Contract.Retention", "Retention", "Services / Contract", typeof(decimal?), "N2", project => project.ContractDetails?.RetentionPercentage);
-            yield return CreateProjectField("Contract.VAT", "VAT", "Services / Contract", typeof(decimal?), "N2", project => project.ContractDetails?.InitialVatAmount);
+            yield return CreateProjectField("Contract.TotalVat", "TotalVat", "Services / Contract", typeof(decimal?), "N2", project => project.ContractDetails?.InitialVatAmount);
             yield return CreateProjectField("Contract.TTC", "TTC", "Services / Contract", typeof(decimal?), "N2", project => project.ContractDetails?.InitialTtcAmount);
             yield return CreateProjectField("Project.ServicesProvided", "Services Provided", "Services / Contract", typeof(string), null, project => string.Join(", ", project.ContractDetails?.ServicesProvided ?? new List<string>()));
         }
@@ -327,7 +328,7 @@ namespace Spectrum.Reports.Adapters.Projects
             yield return CreateProjectField("ContractDetail.SupervisionFee", "Supervision Fee", "Contract Details", typeof(decimal?), "N2", project => project.ContractDetails?.SupervisionFee);
             yield return CreateProjectField("ContractDetail.InitialContractAmount", "Initial Amount (Detail)", "Contract Details", typeof(decimal?), "N2", project => project.ContractDetails?.InitialContractAmount);
             yield return CreateProjectField("ContractDetail.RetentionPercentage", "Retention %", "Contract Details", typeof(decimal?), "N2", project => project.ContractDetails?.RetentionPercentage);
-            yield return CreateProjectField("ContractDetail.InitialVatAmount", "Initial VAT Amount", "Contract Details", typeof(decimal?), "N2", project => project.ContractDetails?.InitialVatAmount);
+            yield return CreateProjectField("ContractDetail.InitialVatAmount", "Initial TotalVat Amount", "Contract Details", typeof(decimal?), "N2", project => project.ContractDetails?.InitialVatAmount);
             yield return CreateProjectField("ContractDetail.InitialTtcAmount", "Initial TTC Amount", "Contract Details", typeof(decimal?), "N2", project => project.ContractDetails?.InitialTtcAmount);
         }
 
@@ -350,24 +351,24 @@ namespace Spectrum.Reports.Adapters.Projects
         private IEnumerable<FieldDescriptor> GetFinancialSummaryFields(List<InvoiceModel> invoices, List<AddendumModel> addendums)
         {
             yield return CreateProjectField("Summary.AddendumsTotal", "Addendums Total", "Financial Summary", typeof(decimal), "N2", project => (project.Addendums ?? new List<AddendumModel>()).Sum(x => x.Amount ?? 0m));
-            yield return CreateProjectField("Summary.InvoicedTotal", "Invoiced Total", "Financial Summary", typeof(decimal), "N2", project => (project.Invoices ?? new List<InvoiceModel>()).Sum(x => x.Amount ?? 0m));
+            yield return CreateProjectField("Summary.InvoicedTotal", "Invoiced Total", "Financial Summary", typeof(decimal), "N2", project => (project.Invoices ?? new List<InvoiceModel>()).Sum(x => x.TotalAmount));
             yield return CreateProjectField("Summary.PaidTotal", "Paid Total", "Financial Summary", typeof(decimal), "N2", project => (project.Invoices ?? new List<InvoiceModel>()).Sum(x => x.PaidAmount ?? 0m));
             yield return CreateProjectField("Summary.ContractTotal", "Contract Total", "Financial Summary", typeof(decimal), "N2", project => (project.ContractDetails?.InitialContractAmount ?? 0m) + (project.Addendums ?? new List<AddendumModel>()).Sum(x => x.Amount ?? 0m));
-            yield return CreateProjectField("Summary.Balance", "Balance", "Financial Summary", typeof(decimal), "N2", project => (project.ContractDetails?.InitialContractAmount ?? 0m) + (project.Addendums ?? new List<AddendumModel>()).Sum(x => x.Amount ?? 0m) - (project.Invoices ?? new List<InvoiceModel>()).Sum(x => x.Amount ?? 0m));
+            yield return CreateProjectField("Summary.Balance", "Balance", "Financial Summary", typeof(decimal), "N2", project => (project.ContractDetails?.InitialContractAmount ?? 0m) + (project.Addendums ?? new List<AddendumModel>()).Sum(x => x.Amount ?? 0m) - (project.Invoices ?? new List<InvoiceModel>()).Sum(x => x.TotalAmount));
             yield return CreateProjectField("Summary.InvoicesCount", "Invoices Count", "Financial Summary", typeof(int), null, project => (project.Invoices ?? new List<InvoiceModel>()).Count);
             yield return CreateProjectField("Summary.AddendumsCount", "Addendums Count", "Financial Summary", typeof(int), null, project => (project.Addendums ?? new List<AddendumModel>()).Count);
         }
 
         private IEnumerable<FieldDescriptor> GetInvoiceFields(List<InvoiceModel> invoices, int invoiceCount)
         {
-            yield return CreateProjectRowField("Invoice.InvoiceNumber", "Invoice #", "Invoice", typeof(string), null, project => project.Invoices ?? new List<InvoiceModel>(), invoice => invoice.InvoiceNumber);
+            yield return CreateProjectRowField("Invoice.InvoiceNo", "Invoice #", "Invoice", typeof(string), null, project => project.Invoices ?? new List<InvoiceModel>(), invoice => invoice.InvoiceNo);
             yield return CreateProjectRowField("Invoice.InvoiceDate", "Invoice Date", "Invoice", typeof(DateTime?), "d", project => project.Invoices ?? new List<InvoiceModel>(), invoice => invoice.InvoiceDate);
-            yield return CreateProjectRowField("Invoice.Amount", "Amount", "Invoice", typeof(decimal?), "N2", project => project.Invoices ?? new List<InvoiceModel>(), invoice => invoice.Amount);
-            yield return CreateProjectRowField("Invoice.VAT", "Invoice VAT", "Invoice", typeof(decimal?), "N2", project => project.Invoices ?? new List<InvoiceModel>(), invoice => invoice.VAT);
+            yield return CreateProjectRowField("Invoice.Amount", "Amount", "Invoice", typeof(decimal?), "N2", project => project.Invoices ?? new List<InvoiceModel>(), invoice => invoice.TotalAmount);
+            yield return CreateProjectRowField("Invoice.TotalVat", "Invoice TotalVat", "Invoice", typeof(decimal?), "N2", project => project.Invoices ?? new List<InvoiceModel>(), invoice => invoice.TotalVat);
             yield return CreateProjectRowField("Invoice.Paid", "Paid?", "Invoice", typeof(bool), null, project => project.Invoices ?? new List<InvoiceModel>(), invoice => invoice.Paid);
             yield return CreateProjectRowField("Invoice.PaidAmount", "Paid Amount", "Invoice", typeof(decimal?), "N2", project => project.Invoices ?? new List<InvoiceModel>(), invoice => invoice.PaidAmount);
             yield return CreateProjectRowField("Invoice.Bank", "Invoice Bank", "Invoice", typeof(string), null, project => project.Invoices ?? new List<InvoiceModel>(), invoice => invoice.Bank);
-            yield return CreateProjectRowField("Invoice.ProjectName", "Project (Invoice)", "Invoice", typeof(string), null, project => project.Invoices ?? new List<InvoiceModel>(), invoice => invoice.ProjectName);
+            yield return CreateProjectRowField("Invoice.ProjectId", "Project (Invoice)", "Invoice", typeof(string), null, project => project.Invoices ?? new List<InvoiceModel>(), invoice => invoice.ProjectId);
         }
 
         private IEnumerable<FieldDescriptor> GetAddendumFields(List<AddendumModel> addendums, int addendumCount)
@@ -379,7 +380,7 @@ namespace Spectrum.Reports.Adapters.Projects
             yield return CreateProjectRowField("Addendum.BODDate", "BOD Date", "Addendum", typeof(DateTime?), "d", project => project.Addendums ?? new List<AddendumModel>(), addendum => addendum.BODDate);
             yield return CreateProjectRowField("Addendum.EffectiveDate", "Effective Date", "Addendum", typeof(DateTime?), "d", project => project.Addendums ?? new List<AddendumModel>(), addendum => addendum.EffectiveDate);
             yield return CreateProjectRowField("Addendum.Amount", "Addendum Amount", "Addendum", typeof(decimal?), "N2", project => project.Addendums ?? new List<AddendumModel>(), addendum => addendum.Amount);
-            yield return CreateProjectRowField("Addendum.VAT", "Addendum VAT", "Addendum", typeof(decimal?), "N2", project => project.Addendums ?? new List<AddendumModel>(), addendum => addendum.VAT);
+            yield return CreateProjectRowField("Addendum.TotalVat", "Addendum TotalVat", "Addendum", typeof(decimal?), "N2", project => project.Addendums ?? new List<AddendumModel>(), addendum => addendum.VAT);
             yield return CreateProjectRowField("Addendum.Retention", "Addendum Retention", "Addendum", typeof(decimal?), "N2", project => project.Addendums ?? new List<AddendumModel>(), addendum => addendum.Retention);
             yield return CreateProjectRowField("Addendum.TTC", "Addendum TTC", "Addendum", typeof(decimal?), "N2", project => project.Addendums ?? new List<AddendumModel>(), addendum => addendum.TTC);
         }
@@ -443,7 +444,7 @@ namespace Spectrum.Reports.Adapters.Projects
             return new ReportRecordDescriptor
             {
                 Key = GetProjectKey(project),
-                Caption = string.IsNullOrWhiteSpace(project.ProjectName) ? "Unnamed Project" : project.ProjectName,
+                Caption = string.IsNullOrWhiteSpace(project._id) ? "Unnamed Project" : project._id,
                 Model = project
             };
         }
@@ -514,7 +515,7 @@ namespace Spectrum.Reports.Adapters.Projects
             if (!string.IsNullOrWhiteSpace(project._id))
                 return project._id;
 
-            return project.ProjectName ?? string.Empty;
+            return project._id ?? string.Empty;
         }
 
         private string GetProjectBank(ProjectModel project)
@@ -536,7 +537,7 @@ namespace Spectrum.Reports.Adapters.Projects
             var headers = new[]
             {
                 "Project Reference", "Project Name", "Client", "Status",
-                "Invoice #", "Invoice Date", "Amount", "VAT", "Paid", "Paid Amount", "Bank"
+                "Invoice #", "Invoice Date", "Amount", "TotalVat", "Paid", "Paid Amount", "Bank"
             };
 
             var rows = new List<string[]>();
@@ -545,13 +546,13 @@ namespace Spectrum.Reports.Adapters.Projects
                 rows.Add(new[]
                 {
                     _project.Reference ?? "",
-                    _project.ProjectName ?? "",
+                    _project._id ?? "",
                     _project.ClientName ?? "",
                     _project.Status.ToString(),
-                    inv.InvoiceNumber ?? "",
-                    inv.InvoiceDate?.ToString("yyyy-MM-dd") ?? "",
-                    (inv.Amount ?? 0m).ToString("F2"),
-                    (inv.VAT ?? 0m).ToString("F2"),
+                    inv.InvoiceNo ?? "",
+                    inv.InvoiceDate.ToString("yyyy-MM-dd"),
+                    (inv.TotalAmount ?? 0m).ToString("F2"),
+                    (inv.TotalVat ?? 0m).ToString("F2"),
                     inv.Paid ? "Yes" : "No",
                     (inv.PaidAmount ?? 0m).ToString("F2"),
                     inv.Bank ?? ""
@@ -627,7 +628,7 @@ namespace Spectrum.Reports.Adapters.Projects
             row = WriteSectionHeader(worksheet, row, "Project Information", headerColor);
             row = WriteKeyValue(worksheet, row, "Project Reference", _project.Reference, labelColor);
             row = WriteKeyValue(worksheet, row, "Tentative Reference", _project.TentativeReference, labelColor);
-            row = WriteKeyValue(worksheet, row, "Project Name", _project.ProjectName, labelColor);
+            row = WriteKeyValue(worksheet, row, "Project Name", _project._id, labelColor);
             row = WriteKeyValue(worksheet, row, "Contract", _project.Contract, labelColor);
             row = WriteKeyValue(worksheet, row, "Joint Venture", _project.JointVenture, labelColor);
             row = WriteKeyValue(worksheet, row, "Status", _project.Status.ToString(), labelColor);
@@ -660,7 +661,7 @@ namespace Spectrum.Reports.Adapters.Projects
             decimal initialAmount = _project.ContractDetails?.InitialContractAmount ?? 0m;
             decimal addendumTotal = (_project.Addendums ?? new List<AddendumModel>()).Sum(x => x.Amount ?? 0m);
             decimal contractTotal = initialAmount + addendumTotal;
-            decimal invoicedTotal = _invoiceBindingList.Sum(x => x.Amount ?? 0m);
+            decimal invoicedTotal = _invoiceBindingList.Sum(x => x.TotalAmount ?? 0m);
             decimal paidTotal = _invoiceBindingList.Sum(x => x.PaidAmount ?? 0m);
 
             worksheet.Cells[finRow, 4].Value = "Initial Contract";
@@ -809,7 +810,7 @@ namespace Spectrum.Reports.Adapters.Projects
             var cd = _project.ContractDetails;
 
             worksheet.Range["A1:H1"].Merge();
-            worksheet["A1"].Value = "Contract Details \u0633 " + (_project.ProjectName ?? "Project");
+            worksheet["A1"].Value = "Contract Details \u0633 " + (_project._id ?? "Project");
             worksheet["A1"].Font.Bold = true;
             worksheet["A1"].Font.Size = 14;
             worksheet["A1"].Font.Color = System.Drawing.Color.White;
@@ -837,7 +838,7 @@ namespace Spectrum.Reports.Adapters.Projects
             row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Supervision Fee", cd?.SupervisionFee, "#,##0.00");
             row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Initial Contract Amount", cd?.InitialContractAmount, "#,##0.00");
             row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Retention %", cd?.RetentionPercentage, "#,##0.00");
-            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Initial VAT Amount", cd?.InitialVatAmount, "#,##0.00");
+            row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Initial TotalVat Amount", cd?.InitialVatAmount, "#,##0.00");
             row = ReportSpreadsheetHelper.WriteDetailRow(worksheet, row, "Initial TTC Amount", cd?.InitialTtcAmount, "#,##0.00");
 
             worksheet.Columns.AutoFit(0, 1);
@@ -850,14 +851,14 @@ namespace Spectrum.Reports.Adapters.Projects
             var headerColor = System.Drawing.Color.FromArgb(70, 130, 180);
 
             worksheet.Range["A1:H1"].Merge();
-            worksheet["A1"].Value = "Invoices \u0633 " + (_project.ProjectName ?? "Project");
+            worksheet["A1"].Value = "Invoices \u0633 " + (_project._id ?? "Project");
             worksheet["A1"].Font.Bold = true;
             worksheet["A1"].Font.Size = 14;
             worksheet["A1"].Font.Color = System.Drawing.Color.White;
             worksheet["A1"].Alignment.Horizontal = SpreadsheetHorizontalAlignment.Center;
             worksheet["A1"].Fill.BackgroundColor = headerColor;
 
-            var headers = new[] { "Invoice #", "Invoice Date", "Amount", "VAT", "Paid", "Paid Amount", "Bank", "Project" };
+            var headers = new[] { "Invoice #", "Invoice Date", "Amount", "TotalVat", "Paid", "Paid Amount", "Bank", "Project" };
             for (int i = 0; i < headers.Length; i++)
             {
                 worksheet.Cells[1, i].Value = headers[i];
@@ -870,14 +871,14 @@ namespace Spectrum.Reports.Adapters.Projects
                 var invoice = _invoiceBindingList[row];
                 var targetRow = row + 2;
 
-                worksheet.Cells[targetRow, 0].Value = invoice.InvoiceNumber ?? string.Empty;
+                worksheet.Cells[targetRow, 0].Value = invoice.InvoiceNo ?? string.Empty;
                 worksheet.Cells[targetRow, 1].Value = invoice.InvoiceDate;
-                worksheet.Cells[targetRow, 2].Value = (double)(invoice.Amount ?? 0m);
-                worksheet.Cells[targetRow, 3].Value = (double)(invoice.VAT ?? 0m);
+                worksheet.Cells[targetRow, 2].Value = (double)(invoice.TotalAmount);
+                worksheet.Cells[targetRow, 3].Value = (double)(invoice.TotalVat);
                 worksheet.Cells[targetRow, 4].Value = invoice.Paid ? "Yes" : "No";
                 worksheet.Cells[targetRow, 5].Value = (double)(invoice.PaidAmount ?? 0m);
                 worksheet.Cells[targetRow, 6].Value = invoice.Bank ?? string.Empty;
-                worksheet.Cells[targetRow, 7].Value = invoice.ProjectName ?? _project.ProjectName ?? string.Empty;
+                worksheet.Cells[targetRow, 7].Value = invoice.ProjectId ?? _project._id ?? string.Empty;
             }
 
             if (_invoiceBindingList.Count > 0)
@@ -904,14 +905,14 @@ namespace Spectrum.Reports.Adapters.Projects
             var addendums = _project.Addendums ?? new List<AddendumModel>();
 
             worksheet.Range["A1:J1"].Merge();
-            worksheet["A1"].Value = "Addendums \u0633 " + (_project.ProjectName ?? "Project");
+            worksheet["A1"].Value = "Addendums \u0633 " + (_project._id ?? "Project");
             worksheet["A1"].Font.Bold = true;
             worksheet["A1"].Font.Size = 14;
             worksheet["A1"].Font.Color = System.Drawing.Color.White;
             worksheet["A1"].Alignment.Horizontal = SpreadsheetHorizontalAlignment.Center;
             worksheet["A1"].Fill.BackgroundColor = headerColor;
 
-            var headers = new[] { "Seq #", "Title", "Reference", "Decision No", "BOD Date", "Effective Date", "Amount", "VAT", "Retention", "TTC" };
+            var headers = new[] { "Seq #", "Title", "Reference", "Decision No", "BOD Date", "Effective Date", "Amount", "TotalVat", "Retention", "TTC" };
             for (int i = 0; i < headers.Length; i++)
             {
                 worksheet.Cells[1, i].Value = headers[i];
@@ -930,10 +931,10 @@ namespace Spectrum.Reports.Adapters.Projects
                 worksheet.Cells[targetRow, 3].Value = addendum.DecisionNo ?? string.Empty;
                 worksheet.Cells[targetRow, 4].Value = addendum.BODDate;
                 worksheet.Cells[targetRow, 5].Value = addendum.EffectiveDate;
-                worksheet.Cells[targetRow, 6].Value = (double)(addendum.Amount ?? 0m);
-                worksheet.Cells[targetRow, 7].Value = (double)(addendum.VAT ?? 0m);
-                worksheet.Cells[targetRow, 8].Value = (double)(addendum.Retention ?? 0m);
-                worksheet.Cells[targetRow, 9].Value = (double)(addendum.TTC ?? 0m);
+                worksheet.Cells[targetRow, 6].Value = (double)addendum.Amount.GetValueOrDefault();
+                worksheet.Cells[targetRow, 7].Value = (double)addendum.VAT.GetValueOrDefault();
+                worksheet.Cells[targetRow, 8].Value = (double)addendum.Retention.GetValueOrDefault();
+                worksheet.Cells[targetRow, 9].Value = (double)addendum.TTC.GetValueOrDefault();
             }
 
             if (addendums.Count > 0)
@@ -962,7 +963,7 @@ namespace Spectrum.Reports.Adapters.Projects
             var docs = _project.Documents;
 
             worksheet.Range["A1:D1"].Merge();
-            worksheet["A1"].Value = "Warranty & Documents \u0633 " + (_project.ProjectName ?? "Project");
+            worksheet["A1"].Value = "Warranty & Documents \u0633 " + (_project._id ?? "Project");
             worksheet["A1"].Font.Bold = true;
             worksheet["A1"].Font.Size = 14;
             worksheet["A1"].Font.Color = System.Drawing.Color.White;
@@ -1026,20 +1027,19 @@ namespace Spectrum.Reports.Adapters.Projects
 
                 var invoice = new InvoiceModel
                 {
-                    InvoiceNumber = ReportSpreadsheetHelper.GetCellText(worksheet, row, 0),
-                    InvoiceDate = ReportSpreadsheetHelper.GetCellDate(worksheet, row, 1),
-                    Amount = ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, 2),
-                    VAT = ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, 3),
+                    InvoiceNo = ReportSpreadsheetHelper.GetCellText(worksheet, row, 0),
+                    InvoiceDate = (DateTime)ReportSpreadsheetHelper.GetCellDate(worksheet, row, 1),
+                    TotalAmount = (decimal)ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, 2),
+                    TotalVat = (decimal)ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, 3),
                     Paid = ReportSpreadsheetHelper.GetCellBoolean(worksheet, row, 4),
-                    PaidAmount = ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, 5),
+                    PaidAmount = (decimal)ReportSpreadsheetHelper.GetCellDecimal(worksheet, row, 5),
                     Bank = ReportSpreadsheetHelper.GetCellText(worksheet, row, 6),
-                    ProjectName = string.IsNullOrWhiteSpace(ReportSpreadsheetHelper.GetCellText(worksheet, row, 7)) ? _project.ProjectName : ReportSpreadsheetHelper.GetCellText(worksheet, row, 7)
+                    ProjectId = string.IsNullOrWhiteSpace(ReportSpreadsheetHelper.GetCellText(worksheet, row, 7)) ? _project._id : ReportSpreadsheetHelper.GetCellText(worksheet, row, 7)
                 };
 
-                if (string.IsNullOrWhiteSpace(invoice.InvoiceNumber)
-                    && !invoice.InvoiceDate.HasValue
-                    && !invoice.Amount.HasValue
-                    && !invoice.VAT.HasValue
+                if (string.IsNullOrWhiteSpace(invoice.InvoiceNo)
+                    && !invoice.TotalAmount.HasValue
+                    && !invoice.TotalVat.HasValue
                     && string.IsNullOrWhiteSpace(invoice.Bank)
                     && !invoice.PaidAmount.HasValue)
                 {
