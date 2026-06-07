@@ -21,6 +21,7 @@ using Spectrum.Views.Common.Companies;
 using Spectrum.Views.Common.Countries;
 using Spectrum.Views.Common.Currencies;
 using Spectrum.Views.Common.Departments;
+using Spectrum.Views.Common.Items;
 using Spectrum.Views.Common.Services;
 using Spectrum.Views.HumanResources.Common.BloodTypes;
 using Spectrum.Views.HumanResources.Common.EmployeeTypes;
@@ -424,11 +425,7 @@ namespace Spectrum.Views.Main
             OpenForm<BranchesListForm>();
         }
 
-        private void mnuServicesList_Click(object sender, EventArgs e)
-        {
-            OpenForm<ServicesListForm>();
 
-        }
 
         private void mnuAreas_Click(object sender, EventArgs e)
         {
@@ -705,6 +702,16 @@ namespace Spectrum.Views.Main
                 _wYear = (int)cboWorkingYear.EditValue;
                 CurrentUser.WorkingYear = _wYear;
             }
+        }
+
+        private void mnuItems_Click(object sender, EventArgs e)
+        {
+            OpenForm<ItemsListForm>();
+        }
+
+        private void mnuServicesList_Click(object sender, EventArgs e)
+        {
+            OpenForm<ServicesListForm>();
         }
     }
 }

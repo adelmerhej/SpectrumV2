@@ -339,6 +339,18 @@
     <Compile Include="Views\Common\FeatureUnderDevelopmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Views\Common\Items\ItemEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Items\ItemEditForm.Designer.cs">
+      <DependentUpon>ItemEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\Items\ItemsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\Items\ItemsListForm.Designer.cs">
+      <DependentUpon>ItemsListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Common\Services\ServiceEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -793,6 +805,12 @@
     <EmbeddedResource Include="Views\Common\Departments\DepartmentsListForm.resx">
       <DependentUpon>DepartmentsListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Items\ItemEditForm.resx">
+      <DependentUpon>ItemEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\Items\ItemsListForm.resx">
+      <DependentUpon>ItemsListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Common\Services\ServiceEditForm.resx">
       <DependentUpon>ServiceEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -959,8 +977,13 @@
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Invoices.InvoiceDetailModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Accounting.Invoices.InvoiceDocumentModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Accounting.Invoices.InvoiceModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Journals.JournalDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Journals.JournalModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Items.ItemModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Items.ItemTypeModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Common.Services.ServiceTypeModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.CnssInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmergencyContactInfo.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.HumanResources.Employees.EmployeeContactInfo.datasource" />

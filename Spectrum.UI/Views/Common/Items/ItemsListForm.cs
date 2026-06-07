@@ -2,9 +2,9 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
-using Spectrum.DataLayers.Accounting.Invoices;
+using Spectrum.DataLayers.Common.Items;
 using Spectrum.DataLayers.DataAccess;
-using Spectrum.Models.Accounting.Invoices;
+using Spectrum.Models.Common.Items;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
@@ -16,17 +16,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spectrum.Views.Transactions.Invoices
+namespace Spectrum.Views.Common.Items
 {
-    public partial class InvoicesListForm : RibbonForm, IFormWithRibbon
+    public partial class ItemsListForm : RibbonForm, IFormWithRibbon
     {
         private bool _resetMenu;
-        private InvoiceEditForm _invoiceEditForm;
+        private ItemEditForm _itemEditForm;
 
-        private InvoiceModel _invoiceModel = new InvoiceModel();
-        private IList<InvoiceModel> _invoices = new List<InvoiceModel>();
+        private ItemModel _itemModel = new ItemModel();
+        private IList<ItemModel> _items = new List<ItemModel>();
 
-        private readonly InvoiceRepository _invoiceRepository = new InvoiceRepository(DatabaseFactory.ProfilePrimary);
+        private readonly ItemRepository _itemRepository = new ItemRepository(DatabaseFactory.ProfilePrimary);
 
         //Init permissionvariables
         private bool _canAdd = true;
@@ -38,14 +38,14 @@ namespace Spectrum.Views.Transactions.Invoices
 
         #region Implementation of IFormWithRibbon
 
-        public RibbonControl MainRibbon => rcInvoices;
-        public RibbonPage DefaultPage => rpInvoices;
+        public RibbonControl MainRibbon => rcItemsList;
+        public RibbonPage DefaultPage => rpItemsList;
 
 
         #endregion
 
 
-        public InvoicesListForm()
+        public ItemsListForm()
         {
             InitializeComponent();
 
@@ -74,7 +74,7 @@ namespace Spectrum.Views.Transactions.Invoices
                 //	}
                 //	//
 
-                _invoices = await _invoiceRepository.GetInvoicesAsync();
+                _items = await _itemRepository.GetItemsAsync();
             }
             catch (Exception ex)
             {
@@ -84,8 +84,8 @@ namespace Spectrum.Views.Transactions.Invoices
 
         private void WireUpBindings()
         {
-            gcInvoices.DataSource = null;
-            gcInvoices.DataSource = _invoices;
+            gcItems.DataSource = null;
+            gcItems.DataSource = _items;
         }
 
         private void ApplyDefaults()
@@ -119,26 +119,26 @@ namespace Spectrum.Views.Transactions.Invoices
             btnDelete.Enabled = _isAdmin || _canDelete;
         }
 
-        #region Butons Events
+        #region Buttons Event
 
         private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ShowInvoiceEditor(new InvoiceModel());
+            ShowItemEditor(new ItemModel());
         }
 
         private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (!_invoices.Any()) return;
+            if (!_items.Any()) return;
 
             try
             {
-                string currentRowId = gvInvoices.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvItems.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _invoiceModel = _invoices.SingleOrDefault(x => x._id == currentRowId);
-                if (_invoiceModel == null) return;
+                _itemModel = _items.SingleOrDefault(x => x._id == currentRowId);
+                if (_itemModel == null) return;
 
-                ShowInvoiceEditor(_invoiceModel);
+                ShowItemEditor(_itemModel);
             }
             catch (Exception exception)
             {
@@ -153,7 +153,7 @@ namespace Spectrum.Views.Transactions.Invoices
 
         private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
         {
-            gcInvoices.ShowRibbonPrintPreview();
+            gcItems.ShowRibbonPrintPreview();
         }
 
         private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
@@ -162,8 +162,8 @@ namespace Spectrum.Views.Transactions.Invoices
 
             try
             {
-                string id = gvInvoices.GetFocusedRowCellValue("_id").ToString();
-                string name = gvInvoices.GetFocusedRowCellValue("InvoiceNo").ToString();
+                string id = gvItems.GetFocusedRowCellValue("_id").ToString();
+                string name = gvItems.GetFocusedRowCellValue("Name").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -171,16 +171,16 @@ namespace Spectrum.Views.Transactions.Invoices
                             "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                             MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        _invoiceModel = gvInvoices.GetFocusedRow() as InvoiceModel;
-                        if (_invoiceModel == null)
+                        _itemModel = gvItems.GetFocusedRow() as ItemModel;
+                        if (_itemModel == null)
                         {
                             return;
                         }
-                        _invoiceModel.Deleted = true;
+                        _itemModel.Deleted = true;
 
                         //delete the record
-                        await _invoiceRepository.DeleteInvoiceAsync(_invoiceModel._id);
-                        RcvUpdatedInvoiceAsync(_invoiceModel, EventArgs.Empty);
+                        await _itemRepository.DeleteItemAsync(_itemModel._id);
+                        RcvUpdatedItemAsync(_itemModel, EventArgs.Empty);
                     }
                 }
             }
@@ -213,38 +213,57 @@ namespace Spectrum.Views.Transactions.Invoices
                 DialogResult.Yes)
             {
                 _resetMenu = true;
-                LayoutsStyle.ResetLayoutGrid(gvInvoices, CurrentUser.UserName, CurrentUser.Company);
+                LayoutsStyle.ResetLayoutGrid(gvItems, CurrentUser.UserName, CurrentUser.Company);
             }
         }
 
-
         #endregion
 
-        private async void RcvUpdatedInvoiceAsync(object sender, EventArgs e)
+        private void gvItems_DoubleClick(object sender, EventArgs e)
+        {
+            if (!_items.Any()) return;
+
+            try
+            {
+                string currentRowId = gvItems.GetFocusedRowCellValue("_id").ToString();
+                if (string.IsNullOrEmpty(currentRowId)) return;
+
+                _itemModel = _items.SingleOrDefault(x => x._id == currentRowId);
+                if (_itemModel == null) return;
+
+                ShowItemEditor(_itemModel);
+            }
+            catch (Exception exception)
+            {
+                XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void RcvUpdatedItemAsync(object sender, EventArgs e)
         {
             if (sender == null) return;
-            _invoiceModel = sender as InvoiceModel;
-            if (_invoiceModel == null) return;
+            _itemModel = sender as ItemModel;
+            if (_itemModel == null) return;
 
-            if (_invoiceModel.Deleted || _invoiceModel.LastModifiedDate == null)
+            if (_itemModel.Deleted || _itemModel.LastModifiedDate == null)
             {
                 await InitializeBindings();
                 WireUpBindings();
             }
             else
             {
-                gcInvoices.RefreshDataSource();
-                gvInvoices.RefreshRow(gvInvoices.FocusedRowHandle);
-                gvInvoices.UpdateCurrentRow();
+                gcItems.RefreshDataSource();
+                gvItems.RefreshRow(gvItems.FocusedRowHandle);
+                gvItems.UpdateCurrentRow();
             }
         }
 
         private bool CanDelete()
         {
-            InvoiceModel dataBoundItem = gvInvoices.GetFocusedRow() as InvoiceModel;
+            ItemModel dataBoundItem = gvItems.GetFocusedRow() as ItemModel;
 
-            if (gvInvoices == null || gvInvoices.SelectedRowsCount == 0) return false;
-            if (gvInvoices.SelectedRowsCount > 1)
+            if (gvItems == null || gvItems.SelectedRowsCount == 0) return false;
+            if (gvItems.SelectedRowsCount > 1)
             {
                 XtraMessageBox.Show("Only one record can be selected at a time, please try again",
                     "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -261,57 +280,37 @@ namespace Spectrum.Views.Transactions.Invoices
             return true;
         }
 
-        private void ShowInvoiceEditor(InvoiceModel model)
+        private void ShowItemEditor(ItemModel model)
         {
-            if (_invoiceEditForm == null || _invoiceEditForm.IsDisposed)
+            if (_itemEditForm == null || _itemEditForm.IsDisposed)
             {
-                _invoiceEditForm = new InvoiceEditForm(model);
-                _invoiceEditForm.SendUpdatedInvoice += RcvUpdatedInvoiceAsync;
-                _invoiceEditForm.FormClosed += InvoiceEditForm_FormClosed;
-                _invoiceEditForm.Show(this);
+                _itemEditForm = new ItemEditForm(model);
+                _itemEditForm.SendUpdatedItem += RcvUpdatedItemAsync;
+                _itemEditForm.FormClosed += ItemEditForm_FormClosed;
+                _itemEditForm.Show(this);
                 return;
             }
 
-            if (_invoiceEditForm.WindowState == FormWindowState.Minimized)
-                _invoiceEditForm.WindowState = FormWindowState.Normal;
+            if (_itemEditForm.WindowState == FormWindowState.Minimized)
+                _itemEditForm.WindowState = FormWindowState.Normal;
 
-            _invoiceEditForm.Activate();
-            _invoiceEditForm.BringToFront();
+            _itemEditForm.Activate();
+            _itemEditForm.BringToFront();
         }
 
-        private void InvoiceEditForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void ItemEditForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var form = sender as InvoiceEditForm;
+            var form = sender as ItemEditForm;
             if (form != null)
             {
-                form.SendUpdatedInvoice -= RcvUpdatedInvoiceAsync;
-                form.FormClosed -= InvoiceEditForm_FormClosed;
+                form.SendUpdatedItem -= RcvUpdatedItemAsync;
+                form.FormClosed -= ItemEditForm_FormClosed;
             }
-            if (ReferenceEquals(_invoiceEditForm, sender))
-                _invoiceEditForm = null;
+            if (ReferenceEquals(_itemEditForm, sender))
+                _itemEditForm = null;
         }
 
-        private void gvInvoices_DoubleClick(object sender, EventArgs e)
-        {
-            if (!_invoices.Any()) return;
-
-            try
-            {
-                string currentRowId = gvInvoices.GetFocusedRowCellValue("_id").ToString();
-                if (string.IsNullOrEmpty(currentRowId)) return;
-
-                _invoiceModel = _invoices.SingleOrDefault(x => x._id == currentRowId);
-                if (_invoiceModel == null) return;
-
-                ShowInvoiceEditor(_invoiceModel);
-            }
-            catch (Exception exception)
-            {
-                XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void gvInvoices_RowCellStyle(object sender, RowCellStyleEventArgs e)
+        private void gvItems_RowCellStyle(object sender, RowCellStyleEventArgs e)
         {
             var view = sender as GridView;
             if (view == null || e.RowHandle < 0) return;

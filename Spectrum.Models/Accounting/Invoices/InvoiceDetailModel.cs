@@ -5,7 +5,6 @@ namespace Spectrum.Models.Accounting.Invoices
     public class InvoiceDetailModel : EntityObject, ICloneable
     {
         public int LineNo { get; set; }
-        public string ItemId { get; set; }
         public string ItemCode { get; set; }
         public string Description { get; set; }
         public string Currency { get; set; }

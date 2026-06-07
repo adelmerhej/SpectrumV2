@@ -190,6 +190,8 @@
     <Compile Include="Accounting\CostCenter\ICostCenterRepository.cs" />
     <Compile Include="Accounting\FlowType\FlowTypeRepository.cs" />
     <Compile Include="Accounting\FlowType\IFlowTypeRepository.cs" />
+    <Compile Include="Accounting\Invoices\IInvoiceRepository.cs" />
+    <Compile Include="Accounting\Invoices\InvoiceRepository.cs" />
     <Compile Include="Accounting\Journals\IJournalDetailRepository.cs" />
     <Compile Include="Accounting\Journals\IJournalRepository.cs" />
     <Compile Include="Accounting\Journals\JournalDetailRepository.cs" />
@@ -224,12 +226,12 @@
     <Compile Include="Common\Currencies\Interfaces\ICurrencyRepository.cs" />
     <Compile Include="Common\Departments\DepartmentRepository.cs" />
     <Compile Include="Common\Departments\IDepartmentRepository.cs" />
+    <Compile Include="Common\Items\IItemRepository.cs" />
+    <Compile Include="Common\Items\ItemRepository.cs" />
     <Compile Include="Common\Roles\IRoleRepository.cs" />
     <Compile Include="Common\Roles\RoleRepository.cs" />
     <Compile Include="Common\Services\IServiceRepository.cs" />
-    <Compile Include="Common\Services\IServiceTypeRepository.cs" />
     <Compile Include="Common\Services\ServiceRepository.cs" />
-    <Compile Include="Common\Services\ServiceTypeRepository.cs" />
     <Compile Include="DataAccess\DatabaseFactory.cs" />
     <Compile Include="DataAccess\IDatabase.cs" />
     <Compile Include="DataUtilities\ConfigManager.cs" />

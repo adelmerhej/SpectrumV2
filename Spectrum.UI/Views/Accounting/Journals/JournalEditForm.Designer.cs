@@ -68,7 +68,7 @@
             this.chkPosted = new DevExpress.XtraEditors.CheckEdit();
             this.chkProtected = new DevExpress.XtraEditors.CheckEdit();
             this.cboJournalTypes = new DevExpress.XtraEditors.LookUpEdit();
-            this.cboCurrency = new DevExpress.XtraEditors.LookUpEdit();
+            this.cboCurrencies = new DevExpress.XtraEditors.LookUpEdit();
             this.dtJvDate = new DevExpress.XtraEditors.DateEdit();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -167,7 +167,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chkPosted.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkProtected.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboJournalTypes.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboCurrency.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCurrencies.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtJvDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtJvDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
@@ -522,7 +522,7 @@
             this.layoutControl3.Controls.Add(this.chkPosted);
             this.layoutControl3.Controls.Add(this.chkProtected);
             this.layoutControl3.Controls.Add(this.cboJournalTypes);
-            this.layoutControl3.Controls.Add(this.cboCurrency);
+            this.layoutControl3.Controls.Add(this.cboCurrencies);
             this.layoutControl3.Controls.Add(this.dtJvDate);
             this.layoutControl3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl3.Location = new System.Drawing.Point(4, 4);
@@ -645,26 +645,26 @@
             this.cboJournalTypes.StyleController = this.layoutControl3;
             this.cboJournalTypes.TabIndex = 2;
             // 
-            // cboCurrency
+            // cboCurrencies
             // 
-            this.cboCurrency.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournal, "Currency", true));
-            this.cboCurrency.EnterMoveNextControl = true;
-            this.cboCurrency.Location = new System.Drawing.Point(372, 80);
-            this.cboCurrency.Margin = new System.Windows.Forms.Padding(4);
-            this.cboCurrency.Name = "cboCurrency";
-            this.cboCurrency.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.cboCurrencies.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsJournal, "Currency", true));
+            this.cboCurrencies.EnterMoveNextControl = true;
+            this.cboCurrencies.Location = new System.Drawing.Point(372, 80);
+            this.cboCurrencies.Margin = new System.Windows.Forms.Padding(4);
+            this.cboCurrencies.Name = "cboCurrencies";
+            this.cboCurrencies.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cboCurrency.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            this.cboCurrencies.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("_id", "Id", 23, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("CurrencyCode", "Currency", 70, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("CurrencyName", "Name", 140, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default)});
-            this.cboCurrency.Properties.DisplayMember = "CurrencyCode";
-            this.cboCurrency.Properties.NullText = "";
-            this.cboCurrency.Properties.PopupWidthMode = DevExpress.XtraEditors.PopupWidthMode.UseEditorWidth;
-            this.cboCurrency.Properties.ValueMember = "CurrencyCode";
-            this.cboCurrency.Size = new System.Drawing.Size(184, 22);
-            this.cboCurrency.StyleController = this.layoutControl3;
-            this.cboCurrency.TabIndex = 4;
+            this.cboCurrencies.Properties.DisplayMember = "CurrencyCode";
+            this.cboCurrencies.Properties.NullText = "";
+            this.cboCurrencies.Properties.PopupWidthMode = DevExpress.XtraEditors.PopupWidthMode.UseEditorWidth;
+            this.cboCurrencies.Properties.ValueMember = "CurrencyCode";
+            this.cboCurrencies.Size = new System.Drawing.Size(184, 22);
+            this.cboCurrencies.StyleController = this.layoutControl3;
+            this.cboCurrencies.TabIndex = 4;
             // 
             // dtJvDate
             // 
@@ -766,7 +766,7 @@
             // 
             // layoutControlItem6
             // 
-            this.layoutControlItem6.Control = this.cboCurrency;
+            this.layoutControlItem6.Control = this.cboCurrencies;
             this.layoutControlItem6.Location = new System.Drawing.Point(271, 26);
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(261, 26);
@@ -1573,7 +1573,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chkPosted.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkProtected.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboJournalTypes.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboCurrency.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboCurrencies.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtJvDate.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtJvDate.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
@@ -1674,7 +1674,7 @@
         private DevExpress.XtraEditors.CheckEdit chkPosted;
         private DevExpress.XtraEditors.CheckEdit chkProtected;
         private DevExpress.XtraEditors.LookUpEdit cboJournalTypes;
-        private DevExpress.XtraEditors.LookUpEdit cboCurrency;
+        private DevExpress.XtraEditors.LookUpEdit cboCurrencies;
         private DevExpress.XtraEditors.DateEdit dtJvDate;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;

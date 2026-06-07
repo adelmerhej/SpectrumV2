@@ -48,17 +48,6 @@ namespace Spectrum.Views.Common.Services
 		{
 			InitializeComponent();
 
-			// wire events
-			btnNew.ItemClick += btnNew_ItemClick;
-			btnEdit.ItemClick += btnEdit_ItemClick;
-			btnDelete.ItemClick += btnDelete_ItemClick;
-			btnPrint.ItemClick += btnPrint_ItemClick;
-			btnRefresh.ItemClick += btnRefresh_ItemClick;
-			btnClose.ItemClick += btnClose_ItemClick;
-			btnResetGridStyle.ItemClick += btnResetGridStyle_ItemClick;
-			gvServices.DoubleClick += gvServices_DoubleClick;
-			gvServices.RowCellStyle += gvServices_RowCellStyle;
-
 			StartLoading();
 		}
 

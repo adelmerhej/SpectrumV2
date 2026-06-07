@@ -175,9 +175,9 @@
     <Compile Include="Common\Currencies\CurrencyExchangeModel.cs" />
     <Compile Include="Common\Departments\DepartmentModel.cs" />
     <Compile Include="Common\Documents\DocumentModel.cs" />
+    <Compile Include="Common\Items\ItemModel.cs" />
     <Compile Include="Common\Roles\RoleModel.cs" />
     <Compile Include="Common\Services\ServiceModel.cs" />
-    <Compile Include="Common\Services\ServiceTypeModel.cs" />
     <Compile Include="EntityObject.cs" />
     <Compile Include="HumanResources\BloodTypes\BloodTypeModel.cs" />
     <Compile Include="HumanResources\Candidates\CandidateModel.cs" />

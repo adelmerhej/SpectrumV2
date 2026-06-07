@@ -1,21 +1,27 @@
 ﻿using DevExpress.XtraEditors;
+using Spectrum.DataLayers.Common.Items;
 using Spectrum.DataLayers.Common.Services;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.Models.Common.Items;
 using Spectrum.Models.Common.Services;
 using Spectrum.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spectrum.Views.Common.Services
+namespace Spectrum.Views.Common.Items
 {
-    public partial class ServiceEditForm : XtraForm
+    public partial class ItemEditForm : XtraForm
     {
-        private ServiceModel _serviceModel;
+        private ItemModel _itemModel;
 
+        private ServiceModel _serviceModel = new ServiceModel();
+        private IList<ServiceModel> _services = new List<ServiceModel>();
+
+        private readonly ItemRepository _itemRepository = new ItemRepository(DatabaseFactory.ProfilePrimary);
         private readonly ServiceRepository _serviceRepository = new ServiceRepository(DatabaseFactory.ProfilePrimary);
-
         private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
 
         //init permission variables
@@ -23,14 +29,13 @@ namespace Spectrum.Views.Common.Services
         private bool _isAdmin;
         private bool _isProtected;
 
+        public EventHandler SendUpdatedItem;
 
-        public EventHandler SendUpdatedService;
-
-        public ServiceEditForm(ServiceModel model)
+        public ItemEditForm(ItemModel model)
         {
             InitializeComponent();
 
-            _serviceModel = model ?? new ServiceModel();
+            _itemModel = model ?? new ItemModel();
 
             StartLoading();
         }
@@ -50,44 +55,47 @@ namespace Spectrum.Views.Common.Services
             }
         }
 
-        private static Task InitializeBindings()
+        private async Task InitializeBindings()
         {
             try
             {
-                try
-                {
-                    //	//
-                    //	_formId = _formRepository.SelectFormByName(_formName);
-                    //	_userPermission = _userPermissionRepository.SelectUserPermissionById(CurrentUser.UserId, _formId);
-                    //	if (_userPermission is { Count: > 0 })
-                    //	{
-                    //		var isProtected = _userPermission.SingleOrDefault(x => x.ControlName == "IsProtected")?.Value;
-                    //		if (isProtected != null) _isProtected = (bool)isProtected;
-                    //	}
+                //	//
+                //	_formId = _formRepository.SelectFormByName(_formName);
+                //	_userPermission = _userPermissionRepository.SelectUserPermissionById(CurrentUser.UserId, _formId);
+                //	if (_userPermission is { Count: > 0 })
+                //	{
+                //		var isProtected = _userPermission.SingleOrDefault(x => x.ControlName == "IsProtected")?.Value;
+                //		if (isProtected != null) _isProtected = (bool)isProtected;
+                //	}
+                //	//
 
-                }
-                catch (Exception ex)
-                {
-                    XtraMessageBox.Show(ex.Message, @"Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                return Task.CompletedTask;
+                _services = await _serviceRepository.GetServicesAsync();
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                return Task.FromException(exception);
+                XtraMessageBox.Show(ex.Message, @"Error Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void WireUpBindings()
         {
-            bsService.DataSource = _serviceModel;
+            bsItem.DataSource = _itemModel;
+
+            cboServices.Properties.DataSource = null;
+            cboServices.Properties.DataSource = _services;
         }
 
         private async void ApplyDefaults()
         {
-            var defaultService = await _serviceRepository.GetDefaultServiceAsync(_serviceModel._id);
-            chkIsDefault.Enabled = defaultService == null;
+            var defaultItem = await _itemRepository.GetDefaultItemAsync(_itemModel._id);
+            chkIsDefault.Enabled = defaultItem == null;
+
+            var defaultService = await _serviceRepository.GetDefaultServiceAsync(_itemModel._id);
+            if (defaultService != null)
+            {
+                _itemModel.Service = defaultService.ServiceName;
+            }
+
         }
 
         private void ApplyPermissions()
@@ -123,24 +131,24 @@ namespace Spectrum.Views.Common.Services
             {
                 if (!ValidateData()) return;
 
-                BindingContext[bsService].EndCurrentEdit();
-                _serviceModel = (ServiceModel)bsService.Current;
+                BindingContext[bsItem].EndCurrentEdit();
+                _itemModel = (ItemModel)bsItem.Current;
 
 
-                if (string.IsNullOrEmpty(_serviceModel._id))
+                if (string.IsNullOrEmpty(_itemModel._id))
                 {
-                    _logInfoRepository.CreateLogInfo(_serviceModel);
+                    _logInfoRepository.CreateLogInfo(_itemModel);
 
-                    _ = await _serviceRepository.AddNewServiceAsync(_serviceModel);
+                    _ = await _itemRepository.AddNewItemAsync(_itemModel);
                 }
                 else
                 {
-                    _logInfoRepository.UpdateLogInfo(_serviceModel);
+                    _logInfoRepository.UpdateLogInfo(_itemModel);
 
-                    await _serviceRepository.UpdateServiceAsync(_serviceModel);
+                    await _itemRepository.UpdateItemAsync(_itemModel);
                 }
 
-                SendUpdatedService(_serviceModel, EventArgs.Empty);
+                SendUpdatedItem(_itemModel, EventArgs.Empty);
                 Close();
             }
             catch (Exception ex)
@@ -166,6 +174,14 @@ namespace Spectrum.Views.Common.Services
                 validateMessage.Append("\n- Name cannot be empty.");
                 validateReturnValue = false;
                 txtName.Focus();
+            }
+
+            if (cboServices.Text == "")
+            {
+                messageNumber += 1;
+                validateMessage.Append("\n- Service cannot be empty.");
+                validateReturnValue = false;
+                cboServices.Focus();
             }
 
             if (!validateReturnValue)

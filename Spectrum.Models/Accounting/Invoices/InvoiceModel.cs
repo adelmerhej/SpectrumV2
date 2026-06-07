@@ -34,6 +34,7 @@ namespace Spectrum.Models.Accounting.Invoices
         public bool Posted { get; set; }
 
         public bool Paid { get; set; }
+        public bool Approved { get; set; }
 
         [BsonRepresentation(BsonType.Decimal128)]
         public decimal? PaidAmount { get; set; }

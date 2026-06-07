@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.Models.Common.Items;
 using Spectrum.Models.Common.Services;
 using System;
 using System.Collections.Generic;
@@ -41,11 +42,23 @@ namespace Spectrum.DataLayers.Common.Services
 			return await _services.Find(filter).FirstOrDefaultAsync();
 		}
 
-		/// <summary>
-		/// Adds a new service to the database.
-		/// </summary>
-		/// <returns>The newly generated Id of the service.</returns>
-		public async Task<string> AddNewServiceAsync(ServiceModel service)
+        public async Task<ServiceModel> GetDefaultServiceAsync(string excludedId = null)
+        {
+            var filter = Builders<ServiceModel>.Filter.Eq(u => u.IsDefault, true);
+
+            if (!string.IsNullOrWhiteSpace(excludedId))
+            {
+                filter &= Builders<ServiceModel>.Filter.Ne(u => u._id, excludedId);
+            }
+
+            return await _services.Find(filter).FirstOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// Adds a new service to the database.
+        /// </summary>
+        /// <returns>The newly generated Id of the service.</returns>
+        public async Task<string> AddNewServiceAsync(ServiceModel service)
 		{
 			try
 			{

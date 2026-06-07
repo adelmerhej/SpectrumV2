@@ -19,6 +19,7 @@ using Spectrum.DataLayers.Projects;
 using Spectrum.DataLayers.Projects.Settings.Addendum;
 using Spectrum.DataLayers.Projects.Settings.ProjectTypes;
 using Spectrum.DataLayers.Users;
+using Spectrum.Models.Accounting.Invoices;
 using Spectrum.Models.Common.Areas;
 using Spectrum.Models.Common.Countries;
 using Spectrum.Models.Common.Documents;
@@ -36,6 +37,8 @@ using Spectrum.Views.Members.Clients;
 using Spectrum.Views.Members.Engineers;
 using Spectrum.Views.Projects.Settings.Addendum;
 using Spectrum.Views.Projects.Settings.ProjectTypes;
+using Spectrum.Views.Transactions.Invoices;
+using Spectrum.Views.Transactions.Receipts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -80,7 +83,6 @@ namespace Spectrum.Views.Projects
         private LocationModel _locationModel = new LocationModel();
 
         private IList<ServiceModel> _services = new List<ServiceModel>();
-        private IList<ServiceTypeModel> _serviceTypes = new List<ServiceTypeModel>();
         private IList<ProjectTypeModel> _projectTypes = new List<ProjectTypeModel>();
 
         private readonly ProjectRepository _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
@@ -89,7 +91,6 @@ namespace Spectrum.Views.Projects
         private readonly EmployeeRepository _engineerRepository = new EmployeeRepository(DatabaseFactory.ProfilePrimary);
         private readonly UserRepository _userRepository = new UserRepository(DatabaseFactory.ProfilePrimary);
         private readonly ServiceRepository _serviceRepository = new ServiceRepository(DatabaseFactory.ProfilePrimary);
-        private readonly ServiceTypeRepository _serviceTypeRepository = new ServiceTypeRepository(DatabaseFactory.ProfilePrimary);
         private readonly CountryRepository _countryRepository = new CountryRepository(DatabaseFactory.ProfilePrimary);
         private readonly CityRepository _cityRepository = new CityRepository(DatabaseFactory.ProfilePrimary);
         private readonly LocationRepository _locationRepository = new LocationRepository(DatabaseFactory.ProfilePrimary);
@@ -154,7 +155,6 @@ namespace Spectrum.Views.Projects
                 LoadSafelyAsync("engineers", LoadEngineersAsync, () => _engineers = new List<EmployeeModel>()),
                 LoadSafelyAsync("users", LoadUsersAsync, () => _users = new List<UserModel>()),
                 LoadSafelyAsync("services", LoadServicesAsync, () => _services = new List<ServiceModel>()),
-                LoadSafelyAsync("service types", LoadServiceTypesAsync, () => _serviceTypes = new List<ServiceTypeModel>()),
                 LoadSafelyAsync("locations", LoadLocationsAsync, () => _locations = new List<LocationModel>()),
                 LoadSafelyAsync("areas", LoadAreasAsync, () => _areas = new List<AreaModel>()),
                 LoadSafelyAsync("countries", LoadCountriesAsync, () => _countries = new List<CountryModel>()),
@@ -218,10 +218,6 @@ namespace Spectrum.Views.Projects
             _services = await _serviceRepository.GetServicesAsync();
         }
 
-        private async Task LoadServiceTypesAsync()
-        {
-            _serviceTypes = await _serviceTypeRepository.GetServiceTypesAsync();
-        }
 
         private async Task LoadLocationsAsync()
         {
@@ -1843,7 +1839,8 @@ namespace Spectrum.Views.Projects
 
         private void btnNewInvoice_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            InvoiceEditForm frm = new InvoiceEditForm(new InvoiceModel());
+            frm.ShowDialog();
         }
 
         private void btnSaveInvoice_ItemClick(object sender, ItemClickEventArgs e)
@@ -1878,7 +1875,7 @@ namespace Spectrum.Views.Projects
 
         private void btnCloseInvoice_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            Close();
         }
 
         #endregion
@@ -1887,7 +1884,8 @@ namespace Spectrum.Views.Projects
 
         private void btnNewExpense_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            ReceiptEditForm receiptEditForm = new ReceiptEditForm();
+            receiptEditForm.ShowDialog();
         }
 
         private void btnSaveExpense_ItemClick(object sender, ItemClickEventArgs e)
@@ -1917,7 +1915,7 @@ namespace Spectrum.Views.Projects
 
         private void btnCloseExpense_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            Close();
         }
 
         #endregion

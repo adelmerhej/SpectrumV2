@@ -179,8 +179,8 @@ namespace Spectrum.Views.Accounting.Journals
             cboJournalTypes.Properties.DataSource = null;
             cboJournalTypes.Properties.DataSource = _journalTypes;
 
-            cboCurrency.Properties.DataSource = null;
-            cboCurrency.Properties.DataSource = _currencies;
+            cboCurrencies.Properties.DataSource = null;
+            cboCurrencies.Properties.DataSource = _currencies;
 
             repCharts.DataSource = null;
             repCharts.DataSource = _charts;
@@ -233,14 +233,6 @@ namespace Spectrum.Views.Accounting.Journals
             btnPrint.Enabled = _isAdmin || _canPrint;
             btnDelete.Enabled = _isAdmin || _canDelete;
         }
-
-        //private void InitializeMenuItems()
-        //{
-        //    var itemNew = new DXMenuItem("New", ItemNew_Click);
-        //    var itemEdit = new DXMenuItem("Edit", ItemEdit_Click);
-        //    var itemDelete = new DXMenuItem("Delete", ItemDelete_Click);
-        //    _menuItems = new[] { itemNew, itemEdit, itemDelete };
-        //}
 
         private void InitializeMenuItems()
         {
@@ -559,12 +551,12 @@ namespace Spectrum.Views.Accounting.Journals
                 dtJvDate.Focus();
             }
 
-            if (cboCurrency.Text == "")
+            if (cboCurrencies.Text == "")
             {
                 messageNumber += 1;
                 validateMessage.Append("\n- Currency cannot be empty.");
                 validateReturnValue = false;
-                cboCurrency.Focus();
+                cboCurrencies.Focus();
             }
             if (txtRate.Text == "")
             {
@@ -860,7 +852,7 @@ namespace Spectrum.Views.Accounting.Journals
             view.SetRowCellValue(e.RowHandle, view.Columns["Line"], view.RowCount);
             view.SetRowCellValue(e.RowHandle, view.Columns["ValueDate"], DateTime.Now);
             view.SetRowCellValue(e.RowHandle, view.Columns["WorkingYear"], CurrentUser.WorkingYear);
-            view.SetRowCellValue(e.RowHandle, view.Columns["Currency"], cboCurrency.EditValue);
+            view.SetRowCellValue(e.RowHandle, view.Columns["Currency"], cboCurrencies.EditValue);
             view.SetRowCellValue(e.RowHandle, view.Columns["Rate"], decimal.Parse(txtRate.Text));
 
             int currentRowVisibleIndex = view.GetDataSourceRowIndex(e.RowHandle);
