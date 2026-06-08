@@ -193,9 +193,6 @@ namespace Spectrum.Views.Accounting.Journals
 
             repFlowType.DataSource = null;
             repFlowType.DataSource = _flowTypes;
-
-            //gvJournalDetails.InitNewRow -= gvJournalDetails_InitNewRow;
-            //gvJournalDetails.InitNewRow += gvJournalDetails_InitNewRow;
         }
 
         private async Task ApplyDefaultsAsync()
@@ -256,25 +253,6 @@ namespace Spectrum.Views.Accounting.Journals
             gvJournalDetails.OptionsBehavior.AllowDeleteRows = allowEditing ? DevExpress.Utils.DefaultBoolean.True : DevExpress.Utils.DefaultBoolean.False;
             gvJournalDetails.OptionsView.NewItemRowPosition = allowEditing ? NewItemRowPosition.Bottom : NewItemRowPosition.None;
         }
-
-        //private void gvJournalDetails_InitNewRow(object sender, InitNewRowEventArgs e)
-        //{
-        //    var journalDetail = gvJournalDetails.GetRow(e.RowHandle) as JournalDetailModel;
-        //    if (journalDetail == null)
-        //    {
-        //        return;
-        //    }
-
-        //    var journalDate = _journalModel.JournalDate == default(DateTime) ? DateTime.Today : _journalModel.JournalDate;
-        //    journalDetail.JvNo = _journalModel.JvNo;
-        //    journalDetail.Line = _journalDetails.Any() ? _journalDetails.Max(x => x.Line) + 1 : 1;
-        //    journalDetail.ValueDate = journalDate;
-        //    journalDetail.Currency = _journalModel.Currency;
-        //    journalDetail.Rate = _journalModel.Rate > 0 ? _journalModel.Rate : _defaultRate;
-        //    journalDetail.WorkingYear = _journalModel.WorkingYear > 0 ? _journalModel.WorkingYear : journalDate.Year;
-
-        //    bsJournalDetails.ResetBindings(false);
-        //}
 
         #endregion
 
@@ -842,7 +820,7 @@ namespace Spectrum.Views.Accounting.Journals
 
         #endregion
 
-        private void gvJournalDetails_InitNewRow_1(object sender, InitNewRowEventArgs e)
+        private void gvJournalDetails_InitNewRow(object sender, InitNewRowEventArgs e)
         {
             GridView view = sender as GridView;
             bool isValidAmount;
@@ -1061,6 +1039,7 @@ namespace Spectrum.Views.Accounting.Journals
             totalLL = debitLL + creditLL;
             totalUSD = debitUSD + creditUSD;
         }
+
 
     }
 }

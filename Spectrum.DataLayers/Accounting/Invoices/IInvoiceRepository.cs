@@ -8,7 +8,9 @@ namespace Spectrum.DataLayers.Accounting.Invoices
     {
         // CRUD Operations
         Task<List<InvoiceModel>> GetInvoicesAsync();
+        Task<List<InvoiceModel>> GetInvoicesByProjectIdAsync(string projectId);
         Task<InvoiceModel> GetInvoiceByIdAsync(string id);
+        Task<string> GetNextInvoiceNoAsync(int year);
         Task<string> AddNewInvoiceAsync(InvoiceModel invoice);
         Task<bool> UpdateInvoiceAsync(InvoiceModel invoice);
         Task<bool> DeleteInvoiceAsync(string id);

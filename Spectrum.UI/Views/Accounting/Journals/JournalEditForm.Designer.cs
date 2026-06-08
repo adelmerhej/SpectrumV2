@@ -1132,7 +1132,7 @@
             this.gvJournalDetails.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colLine, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.gvJournalDetails.CustomSummaryCalculate += new DevExpress.Data.CustomSummaryEventHandler(this.gvJournalDetails_CustomSummaryCalculate);
-            this.gvJournalDetails.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gvJournalDetails_InitNewRow_1);
+            this.gvJournalDetails.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gvJournalDetails_InitNewRow);
             this.gvJournalDetails.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvJournalDetails_CellValueChanged);
             this.gvJournalDetails.KeyUp += new System.Windows.Forms.KeyEventHandler(this.gvJournalDetails_KeyUp);
             // 

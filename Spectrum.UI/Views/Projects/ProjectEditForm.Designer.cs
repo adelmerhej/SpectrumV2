@@ -1410,6 +1410,7 @@
             this.cboClients.Size = new System.Drawing.Size(727, 22);
             this.cboClients.StyleController = this.projectInfoLayout;
             this.cboClients.TabIndex = 9;
+            this.cboClients.EditValueChanged += new System.EventHandler(this.cboClients_EditValueChanged);
             // 
             // searchLookUpEdit1View
             // 
@@ -2995,7 +2996,7 @@
             this.tabSellingGroup.Caption = "Invoices";
             this.tabSellingGroup.Controls.Add(this.layoutInvoicesGrid);
             this.tabSellingGroup.Name = "tabSellingGroup";
-            this.tabSellingGroup.Size = new System.Drawing.Size(1356, 270);
+            this.tabSellingGroup.Size = new System.Drawing.Size(1436, 270);
             // 
             // layoutInvoicesGrid
             // 
@@ -3004,7 +3005,7 @@
             this.layoutInvoicesGrid.Location = new System.Drawing.Point(0, 0);
             this.layoutInvoicesGrid.Name = "layoutInvoicesGrid";
             this.layoutInvoicesGrid.Root = this.layoutControlGroup3;
-            this.layoutInvoicesGrid.Size = new System.Drawing.Size(1356, 270);
+            this.layoutInvoicesGrid.Size = new System.Drawing.Size(1436, 270);
             this.layoutInvoicesGrid.TabIndex = 0;
             this.layoutInvoicesGrid.Text = "layoutControl1";
             // 
@@ -3017,7 +3018,7 @@
             this.gcInvoices.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repDateEdit,
             this.repInvCheckEdit});
-            this.gcInvoices.Size = new System.Drawing.Size(1328, 242);
+            this.gcInvoices.Size = new System.Drawing.Size(1408, 242);
             this.gcInvoices.TabIndex = 0;
             this.gcInvoices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvInvoices});
@@ -3675,7 +3676,7 @@
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem3});
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1356, 270);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1436, 270);
             this.layoutControlGroup3.TextVisible = false;
             // 
             // layoutControlItem3
@@ -3683,7 +3684,7 @@
             this.layoutControlItem3.Control = this.gcInvoices;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1332, 246);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1412, 246);
             this.layoutControlItem3.TextVisible = false;
             // 
             // tabExpenseGroup

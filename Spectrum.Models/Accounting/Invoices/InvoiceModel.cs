@@ -44,6 +44,7 @@ namespace Spectrum.Models.Accounting.Invoices
         public string DocumentLink { get; set; }
 
         public List<InvoiceDetailModel> InvoiceDetails { get; set; } = new List<InvoiceDetailModel>();
+        public List<InvoiceActivityEntryModel> ActivityTimeline { get; set; } = new List<InvoiceActivityEntryModel>();
 
         #region Implementation of ICloneable
 
@@ -55,9 +56,31 @@ namespace Spectrum.Models.Accounting.Invoices
             invoiceModel.InvoiceDetails = InvoiceDetails?
                 .Select(detail => (detail.Clone() as InvoiceDetailModel) ?? new InvoiceDetailModel())
                 .ToList() ?? new List<InvoiceDetailModel>();
+            invoiceModel.ActivityTimeline = ActivityTimeline?
+                .Select(entry => (InvoiceActivityEntryModel)entry.Clone())
+                .ToList() ?? new List<InvoiceActivityEntryModel>();
             return invoiceModel;
         }
 
         #endregion
+    }
+
+    public class InvoiceActivityEntryModel : ICloneable
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime Timestamp { get; set; }
+
+        public string PerformedBy { get; set; }
+        public int AccentColorArgb { get; set; }
+        public int Sequence { get; set; }
+        public bool DateOnly { get; set; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

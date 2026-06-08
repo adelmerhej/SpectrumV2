@@ -8,6 +8,7 @@ using DevExpress.XtraGrid.Menu;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.WinExplorer;
+using Spectrum.DataLayers.Accounting.Invoices;
 using Spectrum.DataLayers.Common.Areas;
 using Spectrum.DataLayers.Common.Countries;
 using Spectrum.DataLayers.Common.Locations;
@@ -59,31 +60,25 @@ namespace Spectrum.Views.Projects
         private BindingList<DocumentModel> _documents = new BindingList<DocumentModel>();
 
         private IList<ClientModel> _clients = new List<ClientModel>();
-        private ClientModel _clientModel = new ClientModel();
         private IList<ContactModel> _contacts = new List<ContactModel>();
 
         private IList<EmployeeModel> _engineers = new List<EmployeeModel>();
-        private EmployeeModel _engineerModel = new EmployeeModel();
 
-        private UserModel _userModel = new UserModel();
         private IList<UserModel> _users = new List<UserModel>();
 
         private IList<CountryModel> _countries = new List<CountryModel>();
-        private CountryModel _countryModel = new CountryModel();
 
         private IList<CityModel> _cities = new List<CityModel>();
-        private CityModel _cityModel = new CityModel();
 
         private AddendumModel _addendumModel = new AddendumModel();
         private IList<AddendumModel> _addendums = new List<AddendumModel>();
 
         private IList<AreaModel> _areas = new List<AreaModel>();
-        private AreaModel _areaModel = new AreaModel();
         private IList<LocationModel> _locations = new List<LocationModel>();
-        private LocationModel _locationModel = new LocationModel();
 
         private IList<ServiceModel> _services = new List<ServiceModel>();
         private IList<ProjectTypeModel> _projectTypes = new List<ProjectTypeModel>();
+        private IList<InvoiceModel> _invoices = new List<InvoiceModel>();
 
         private readonly ProjectRepository _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
         private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
@@ -97,8 +92,10 @@ namespace Spectrum.Views.Projects
         private readonly AreaRepository _areaRepository = new AreaRepository(DatabaseFactory.ProfilePrimary);
         private readonly AddendumRepository _addendumRepository = new AddendumRepository(DatabaseFactory.ProfilePrimary);
         private readonly ProjectTypeRepository _projectTypeRepository = new ProjectTypeRepository(DatabaseFactory.ProfilePrimary);
+        private readonly InvoiceRepository _invoiceRepository = new InvoiceRepository(DatabaseFactory.ProfilePrimary);
 
         private readonly LogInfoRepository _logInfoRepository = new LogInfoRepository();
+        private readonly ProjectDocumentStore _projectDocumentStore = new ProjectDocumentStore();
 
         private bool _canAdd = true;
         private bool _canEdit = true;
@@ -108,6 +105,7 @@ namespace Spectrum.Views.Projects
         private bool _isProtected = true;
         private readonly List<string> _loadWarnings = new List<string>();
         private DXMenuItem[] _addendumMenuItems;
+        private bool _isInitialized;
 
         public EventHandler SendUpdatedProject;
 
@@ -116,10 +114,22 @@ namespace Spectrum.Views.Projects
             InitializeComponent();
 
             _projectModel = model;
-            StartLoading();
         }
 
-        private async void StartLoading()
+        protected override async void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+
+            if (_isInitialized)
+            {
+                return;
+            }
+
+            _isInitialized = true;
+            await StartLoadingAsync();
+        }
+
+        private async Task StartLoadingAsync()
         {
             try
             {
@@ -161,6 +171,7 @@ namespace Spectrum.Views.Projects
                 LoadSafelyAsync("cities", LoadCitiesAsync, () => _cities = new List<CityModel>()),
                 LoadSafelyAsync("addendums", LoadAddendumsAsync, () => _addendums = new List<AddendumModel>()),
                 LoadSafelyAsync("project types", LoadProjectTypesAsync, () => _projectTypes = new List<ProjectTypeModel>()),
+                LoadSafelyAsync("invoices", LoadInvoicesAsync, () => _invoices = new List<InvoiceModel>())
             };
 
             await Task.WhenAll(loadTasks);
@@ -250,6 +261,14 @@ namespace Spectrum.Views.Projects
             _projectTypes = await _projectTypeRepository.GetProjectTypesAsync();
         }
 
+        private async Task LoadInvoicesAsync()
+        {
+            var projectId = _projectModel?._id;
+            _invoices = string.IsNullOrWhiteSpace(projectId)
+                ? new List<InvoiceModel>()
+                : await _invoiceRepository.GetInvoicesByProjectIdAsync(projectId);
+        }
+
         #endregion
 
         #endregion
@@ -273,56 +292,34 @@ namespace Spectrum.Views.Projects
             InitializeProjectHistoryTimeline();
 
             ConfigureLookupBindings();
+            ConfigureLocationLookups();
 
             BindCheckedComboBoxItems(cboServicesProvided,
                  _services.Select(x => x.ServiceName),
                  _projectModel.ContractDetails.ServicesProvided);
-
-            cboAreas.Properties.DataSource = null;
-            cboAreas.Properties.DataSource = _areas;
-
-            cboLocations.Properties.DataSource = null;
-            cboLocations.Properties.DataSource = _locations;
-
-            cboCountries.Properties.DataSource = null;
-            cboCountries.Properties.DataSource = _countries;
-
-            cboCities.Properties.DataSource = null;
-            cboCities.Properties.DataSource = _cities;
 
             if (_projectModel.Location != null && !string.IsNullOrWhiteSpace(_projectModel.Location._id))
             {
                 cboLocations.EditValue = _projectModel.Location._id;
             }
 
-            // Whenever user changes selection, update project model Location via reflection
+            cboLocations.EditValueChanged -= cboLocations_EditValueChanged;
             cboLocations.EditValueChanged += cboLocations_EditValueChanged;
-
-            //cboStatus.Properties.Items.Clear();
-            //cboStatus.Properties.Items.AddRange(Enum.GetNames(typeof(ProjectStatus)));
-
-            var fontStyle = _projectModel.IsProtected ? FontStyle.Bold : FontStyle.Regular;
-            var foreColor = _projectModel.IsProtected ? Color.Red : Color.Black;
-            var font = new Font("Tahoma", 8, fontStyle);
-
-            var appearances = new[]
-            {
-                btnProtected.ItemAppearance.Normal,
-                btnProtected.ItemAppearance.Hovered,
-                btnProtected.ItemAppearance.Pressed
-            };
-
-            foreach (var appearance in appearances)
-            {
-                appearance.Font = font;
-                appearance.ForeColor = foreColor;
-            }
+            ApplyProtectedAppearance(_projectModel.IsProtected);
 
             HookProjectHistoryEvents();
             RefreshProjectHistoryTimeline();
         }
 
         #endregion
+
+        private void ConfigureLocationLookups()
+        {
+            ResetLookupDataSource(cboAreas, _areas);
+            ResetLookupDataSource(cboLocations, _locations);
+            ResetLookupDataSource(cboCountries, _countries);
+            ResetLookupDataSource(cboCities, _cities);
+        }
 
         private void ConfigureLookupBindings()
         {
@@ -410,8 +407,8 @@ namespace Spectrum.Views.Projects
 
             RefreshContactEmailSource();
 
-            cboClients.EditValueChanged -= cboClients_EditValueChanged;
-            cboClients.EditValueChanged += cboClients_EditValueChanged;
+            gcInvoices.DataBindings.Clear();
+            gcInvoices.DataSource = _invoices;
         }
 
         private static void ConfigurePopupGridColumns(GridView view, params (string fieldName, string caption, int width)[] columns)
@@ -427,6 +424,17 @@ namespace Spectrum.Views.Projects
             }
         }
 
+        private static void ResetLookupDataSource(SearchLookUpEdit lookup, object dataSource)
+        {
+            if (lookup == null)
+            {
+                return;
+            }
+
+            lookup.Properties.DataSource = null;
+            lookup.Properties.DataSource = dataSource;
+        }
+
         private void InitializeProjectHandovers()
         {
             _projectHandovers = new BindingList<ProjectHandoverModel>(_projectModel.ProjectHandovers.ToList());
@@ -435,89 +443,8 @@ namespace Spectrum.Views.Projects
 
         private void InitializeDocumentBindings()
         {
-            _documents = LoadDocumentsForProject();
+            _documents = _projectDocumentStore.LoadDocumentsForProject(_projectModel?._id);
             gcDocuments.DataSource = _documents;
-        }
-
-        private BindingList<DocumentModel> LoadDocumentsForProject()
-        {
-            var documents = new BindingList<DocumentModel>();
-            var projectId = _projectModel?._id;
-            if (string.IsNullOrWhiteSpace(projectId))
-                return documents;
-
-            var connection = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
-            var rootFolder = string.IsNullOrWhiteSpace(connection?.ProjectsDocumentsFolder)
-                ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpectrumApp", "Projects")
-                : connection.ProjectsDocumentsFolder;
-
-            if (!Directory.Exists(rootFolder))
-                return documents;
-
-            var prefix = projectId + "_";
-            var files = Directory.GetFiles(rootFolder)
-                .Where(path => Path.GetFileName(path).StartsWith(prefix, StringComparison.OrdinalIgnoreCase));
-
-            foreach (var filePath in files)
-            {
-                try
-                {
-                    documents.Add(new DocumentModel
-                    {
-                        DocumentName = GetDisplayDocumentName(projectId, filePath),
-                        OriginPath = filePath,
-                        DocumentDate = File.GetCreationTime(filePath),
-                        StreamedDate = DateTime.Now,
-                        DocumentContent = File.ReadAllBytes(filePath)
-                    });
-                }
-                catch
-                {
-                }
-            }
-
-            return documents;
-        }
-
-        private static string GetDisplayDocumentName(string recordId, string filePath)
-        {
-            var fileName = Path.GetFileName(filePath);
-            var prefix = (recordId ?? string.Empty) + "_";
-            return fileName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
-                ? fileName.Substring(prefix.Length)
-                : fileName;
-        }
-
-        private static BindingList<DocumentModel> LoadDocumentsFromSourceFile(string sourceFile)
-        {
-            var documents = new BindingList<DocumentModel>();
-            if (string.IsNullOrWhiteSpace(sourceFile)) return documents;
-
-            var filePaths = sourceFile.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => x.Trim())
-                .Where(x => !string.IsNullOrWhiteSpace(x));
-
-            foreach (var filePath in filePaths)
-            {
-                try
-                {
-                    if (!File.Exists(filePath)) continue;
-
-                    documents.Add(new DocumentModel
-                    {
-                        DocumentName = Path.GetFileName(filePath),
-                        OriginPath = filePath,
-                        DocumentDate = File.GetCreationTime(filePath),
-                        StreamedDate = DateTime.Now,
-                        DocumentContent = File.ReadAllBytes(filePath)
-                    });
-                }
-                catch
-                {
-                }
-            }
-
-            return documents;
         }
 
         private void PersistDocumentLinks()
@@ -710,6 +637,26 @@ namespace Spectrum.Views.Projects
             e.ThumbnailImage = HelperApplication.GetFileExtensionImage(ext, IconSizeType.Large, new Size(64, 64));
         }
 
+        private void ApplyProtectedAppearance(bool isProtected)
+        {
+            var fontStyle = isProtected ? FontStyle.Bold : FontStyle.Regular;
+            var foreColor = isProtected ? Color.Red : Color.Black;
+            var font = new Font("Tahoma", 8, fontStyle);
+
+            var appearances = new[]
+            {
+                btnProtected.ItemAppearance.Normal,
+                btnProtected.ItemAppearance.Hovered,
+                btnProtected.ItemAppearance.Pressed
+            };
+
+            foreach (var appearance in appearances)
+            {
+                appearance.Font = font;
+                appearance.ForeColor = foreColor;
+            }
+        }
+
         private void ApplyPermissions()
         {
             btnNew.Enabled = _isAdmin || _canAdd;
@@ -760,13 +707,7 @@ namespace Spectrum.Views.Projects
 
         private void InitializeProjectHistoryTimeline()
         {
-            if (projectHistoryTimeline == null) return;
-            projectHistoryTimeline.BorderStyle = BorderStyles.NoBorder;
-            projectHistoryTimeline.Properties.ReadOnly = true;
-            projectHistoryTimeline.Properties.ScrollBars = ScrollBars.Vertical;
-            projectHistoryTimeline.Properties.WordWrap = false;
-            projectHistoryTimeline.Properties.Appearance.BackColor = Color.White;
-            projectHistoryTimeline.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            ProjectHistoryTimelineFormatter.Initialize(projectHistoryTimeline);
         }
 
         private void HookProjectHistoryEvents()
@@ -786,107 +727,12 @@ namespace Spectrum.Views.Projects
 
         private void RefreshProjectHistoryTimeline()
         {
-            if (projectHistoryTimeline == null) return;
-
-            var items = BuildProjectHistoryTimelineItems();
-            projectHistoryTimeline.Text = string.Join(
-                Environment.NewLine + Environment.NewLine,
-                items.Select(FormatProjectHistoryTimelineItem));
-        }
-
-        private List<ProjectHistoryTimelineItem> BuildProjectHistoryTimelineItems()
-        {
-            var items = new List<ProjectHistoryTimelineItem>();
-            var contractDetails = _projectModel?.ContractDetails ?? new ContractDetailModel();
-
-            AddProjectHistoryItem(items, _projectModel?.IssuanceDate, "Issuance Date", _projectModel?.Reference);
-            AddProjectHistoryItem(items, contractDetails.SignatureDate, "Signature Date", contractDetails.ContractNumber);
-
-            foreach (var addendum in (_addendums ?? new List<AddendumModel>())
-                         .Where(x => x != null && !x.Deleted)
-                         .OrderBy(x => x.EffectiveDate ?? x.BODDate ?? DateTime.MaxValue)
-                         .ThenBy(x => x.Sequence))
+            if (projectHistoryTimeline == null)
             {
-                AddProjectHistoryItem(
-                    items,
-                    addendum.EffectiveDate ?? addendum.BODDate,
-                    $"Addendum {addendum.Sequence}",
-                    BuildAddendumHistoryDetails(addendum));
+                return;
             }
 
-            AddProjectHistoryItem(items, contractDetails.ActualCompletionDate, "Completion Date", _projectModel?.ProjectName);
-            if (_projectModel?.ExpiryDate != null)
-            {
-                AddProjectHistoryItem(items, _projectModel.ExpiryDate, "Expiry Date", _projectModel.Reference);
-            }
-
-            if (!items.Any())
-            {
-                items.Add(new ProjectHistoryTimelineItem
-                {
-                    EventDate = string.Empty,
-                    Title = "No project history available",
-                    Details = "Dates and addendums will appear here once they are provided.",
-                    Marker = "·"
-                });
-                return items;
-            }
-
-            return items
-                .OrderBy(x => x.SortDate ?? DateTime.MaxValue)
-                .ThenBy(x => x.SortOrder)
-                .ToList();
-        }
-
-        private static void AddProjectHistoryItem(ICollection<ProjectHistoryTimelineItem> items, DateTime? date, string title, string details, int sortOrder = 0)
-        {
-            if (date == null) return;
-
-            items.Add(new ProjectHistoryTimelineItem
-            {
-                SortDate = date,
-                SortOrder = sortOrder,
-                EventDate = date.Value.ToString("dd MMM yyyy"),
-                Title = title,
-                Details = string.IsNullOrWhiteSpace(details) ? string.Empty : details,
-                Marker = "●"
-            });
-        }
-
-        private static string BuildAddendumHistoryDetails(AddendumModel addendum)
-        {
-            var details = new List<string>();
-
-            if (!string.IsNullOrWhiteSpace(addendum.Subject))
-            {
-                details.Add(addendum.Subject.Trim());
-            }
-
-            if (!string.IsNullOrWhiteSpace(addendum.DecisionNo))
-            {
-                details.Add($"Decision No: {addendum.DecisionNo.Trim()}");
-            }
-
-            if (!string.IsNullOrWhiteSpace(addendum.Reference))
-            {
-                details.Add($"Ref: {addendum.Reference.Trim()}");
-            }
-
-            return string.Join(" | ", details.Where(x => !string.IsNullOrWhiteSpace(x)));
-        }
-
-        private static string FormatProjectHistoryTimelineItem(ProjectHistoryTimelineItem item)
-        {
-            if (item == null) return string.Empty;
-
-            if (string.IsNullOrWhiteSpace(item.EventDate))
-            {
-                return item.Title + Environment.NewLine + item.Details;
-            }
-
-            return string.IsNullOrWhiteSpace(item.Details)
-                ? $"{item.Marker} {item.EventDate} - {item.Title}"
-                : $"{item.Marker} {item.EventDate} - {item.Title}{Environment.NewLine}  {item.Details}";
+            projectHistoryTimeline.Text = ProjectHistoryTimelineFormatter.Format(_projectModel, _addendums);
         }
 
         private void SyncIssuanceYearFromDate()
@@ -924,28 +770,28 @@ namespace Spectrum.Views.Projects
 
         #region Project Button Click Handlers
 
-        private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnNew_ItemClick(object sender, ItemClickEventArgs e)
         {
             _projectModel = new ProjectModel();
-            StartLoading();
+            await StartLoadingAsync();
         }
 
-        private void btnSave_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnSave_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (!ValidateData()) return;
-            SaveData();
+            await SaveDataAsync();
         }
 
-        private void btnSaveAndClose_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnSaveAndClose_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (!ValidateData()) return;
-            SaveData();
+            await SaveDataAsync();
             Close();
         }
 
-        private void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
+        private async void btnRefresh_ItemClick(object sender, ItemClickEventArgs e)
         {
-            StartLoading();
+            await StartLoadingAsync();
         }
 
         private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
@@ -965,57 +811,20 @@ namespace Spectrum.Views.Projects
         private void btnPrint_ItemClick(object sender, ItemClickEventArgs e) { }
         private void btnClose_ItemClick(object sender, ItemClickEventArgs e) { Close(); }
 
-        private async void SaveData()
+        private async Task SaveDataAsync()
         {
             try
             {
-                BindingContext[bsProject].EndCurrentEdit();
-                BindingContext[bsContractDetails].EndCurrentEdit();
-                gvJobDetails.CloseEditor();
-                gvJobDetails.UpdateCurrentRow();
-                _projectModel = (ProjectModel)bsProject.Current;
+                CommitPendingEdits();
+                _projectModel = bsProject.Current as ProjectModel ?? _projectModel;
                 _projectModel.ProjectHandovers = _projectHandovers.Where(x => x != null).ToList();
                 PersistDocumentLinks();
-
-                // derive client / engineer names from selected values
-                if (cboClients.EditValue != null)
-                {
-                    var selectedClient = _clients.FirstOrDefault(c => c._id == cboClients.EditValue.ToString());
-                    if (selectedClient != null)
-                    {
-                        _projectModel.ClientIdValue = selectedClient._id;
-                        _projectModel.ClientName = selectedClient.ClientName;
-                    }
-                }
-                if (cboEngineers.EditValue != null)
-                {
-                    var selectedEngineer = _engineers.FirstOrDefault(e => e._id == cboEngineers.EditValue.ToString());
-                    if (selectedEngineer != null)
-                    {
-                        _projectModel.EngineerIdValue = selectedEngineer._id;
-                        _projectModel.EngineerInCharge = selectedEngineer.FullName;
-                    }
-                }
-                if (cboUsers.EditValue != null)
-                {
-                    var selectedUser = _users.FirstOrDefault(u => u._id == cboUsers.EditValue.ToString());
-                    if (selectedUser != null)
-                    {
-                        _projectModel.UserIdValue = selectedUser._id;
-                        _projectModel.Username = selectedUser.Username;
-                    }
-                }
+                ApplySelectedLookupValues();
                 _projectModel.ContractDetails = _projectModel.ContractDetails ?? new ContractDetailModel();
                 var sponsorId = cboFundedBy.EditValue?.ToString();
                 _projectModel.ContractDetails.SponsorId = string.IsNullOrWhiteSpace(sponsorId) ? null : sponsorId;
 
-                // Save selected services and service types
                 _projectModel.ContractDetails.ServicesProvided = GetCheckedItems(cboServicesProvided);
-
-                //if (!string.IsNullOrEmpty(cboStatus.Text))
-                //{
-                //	if (Enum.TryParse<ProjectStatus>(cboStatus.Text, out var st)) _projectModel.Status = st;
-                //}
 
                 if (string.IsNullOrEmpty(_projectModel._id))
                 {
@@ -1032,7 +841,7 @@ namespace Spectrum.Views.Projects
             }
             catch (Exception exception)
             {
-                XtraMessageBox.Show(exception.Message, "Project save error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowError("Project save error", exception);
             }
         }
         
@@ -1063,6 +872,73 @@ namespace Spectrum.Views.Projects
                     "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             return validateReturnValue;
+        }
+
+        private void CommitPendingEdits()
+        {
+            BindingContext[bsProject].EndCurrentEdit();
+            BindingContext[bsContractDetails].EndCurrentEdit();
+            gvJobDetails.CloseEditor();
+            gvJobDetails.UpdateCurrentRow();
+        }
+
+        private void ApplySelectedLookupValues()
+        {
+            ApplySelectedValue(cboClients, _clients, client => client._id, client =>
+            {
+                _projectModel.ClientIdValue = client._id;
+                _projectModel.ClientName = client.ClientName;
+            });
+
+            ApplySelectedValue(cboEngineers, _engineers, engineer => engineer._id, engineer =>
+            {
+                _projectModel.EngineerIdValue = engineer._id;
+                _projectModel.EngineerInCharge = engineer.FullName;
+            });
+
+            ApplySelectedValue(cboUsers, _users, user => user._id, user =>
+            {
+                _projectModel.UserIdValue = user._id;
+                _projectModel.Username = user.Username;
+            });
+        }
+
+        private static void ApplySelectedValue<TModel>(SearchLookUpEdit lookup, IEnumerable<TModel> items, Func<TModel, string> keySelector, Action<TModel> applySelection)
+            where TModel : class
+        {
+            if (lookup?.EditValue == null || items == null || keySelector == null || applySelection == null)
+            {
+                return;
+            }
+
+            var selectedValue = lookup.EditValue.ToString();
+            var selectedItem = items.FirstOrDefault(item => string.Equals(keySelector(item), selectedValue, StringComparison.OrdinalIgnoreCase));
+            if (selectedItem != null)
+            {
+                applySelection(selectedItem);
+            }
+        }
+
+        private static void AddLookupItem<TModel>(IList<TModel> items, TModel item, Func<TModel, string> keySelector, SearchLookUpEdit lookup, object selectedValue)
+            where TModel : class
+        {
+            if (items == null || item == null || keySelector == null || lookup == null)
+            {
+                return;
+            }
+
+            var key = keySelector(item);
+            var existingItem = items.FirstOrDefault(model => string.Equals(keySelector(model), key, StringComparison.OrdinalIgnoreCase));
+            if (existingItem == null)
+            {
+                items.Add(item);
+            }
+
+            ResetLookupDataSource(lookup, items);
+            if (selectedValue != null)
+            {
+                lookup.EditValue = selectedValue;
+            }
         }
 
         private static List<string> GetCheckedItems(CheckedComboBoxEdit edit)
@@ -1198,26 +1074,14 @@ namespace Spectrum.Views.Projects
 
         private void RcvUpdatedCountry(object sender, EventArgs e)
         {
-            if (sender == null) return;
-            _countryModel = sender as CountryModel;
-
-            _countries.Add(_countryModel);
-
-            cboCountries.Properties.DataSource = null;
-            cboCountries.Properties.DataSource = _countries;
-            if (_countryModel != null) cboCountries.EditValue = _countryModel.CountryName;
+            var country = sender as CountryModel;
+            AddLookupItem(_countries, country, model => model.CountryName, cboCountries, country?.CountryName);
         }
 
         private void RcvUpdatedCity(object sender, EventArgs e)
         {
-            if (sender == null) return;
-            _cityModel = sender as CityModel;
-
-            _cities.Add(_cityModel);
-
-            cboCities.Properties.DataSource = null;
-            cboCities.Properties.DataSource = _cities;
-            if (_cityModel != null) cboCities.EditValue = _cityModel.CityName;
+            var city = sender as CityModel;
+            AddLookupItem(_cities, city, model => model.CityName, cboCities, city?.CityName);
         }
 
         private void cboEngineers_AddNewValue(object sender, AddNewValueEventArgs e)
@@ -1259,26 +1123,14 @@ namespace Spectrum.Views.Projects
 
         private void RcvUpdatedArea(object sender, EventArgs e)
         {
-            if (sender == null) return;
-            _areaModel = sender as AreaModel;
-
-            _areas.Add(_areaModel);
-
-            cboAreas.Properties.DataSource = null;
-            cboAreas.Properties.DataSource = _areas;
-            if (_areaModel != null) cboAreas.EditValue = _areaModel.AreaName;
+            var area = sender as AreaModel;
+            AddLookupItem(_areas, area, model => model.AreaName, cboAreas, area?.AreaName);
         }
 
         private void RcvUpdatedLocation(object sender, EventArgs e)
         {
-            if (sender == null) return;
-            _locationModel = sender as LocationModel;
-
-            _locations.Add(_locationModel);
-
-            cboLocations.Properties.DataSource = null;
-            cboLocations.Properties.DataSource = _locations;
-            if (_locationModel != null) cboLocations.EditValue = _locationModel._id;
+            var location = sender as LocationModel;
+            AddLookupItem(_locations, location, model => model._id, cboLocations, location?._id);
         }
 
         private void cboClients_AddNewValue(object sender, AddNewValueEventArgs e)
@@ -1290,14 +1142,8 @@ namespace Spectrum.Views.Projects
 
         private void RcvUpdatedEngineer(object sender, EventArgs e)
         {
-            if (sender == null) return;
-            _engineerModel = sender as EmployeeModel;
-
-            _engineers.Add(_engineerModel);
-
-            cboEngineers.Properties.DataSource = null;
-            cboEngineers.Properties.DataSource = _engineers;
-            if (_engineerModel != null) cboEngineers.EditValue = _engineerModel._id;
+            var engineer = sender as EmployeeModel;
+            AddLookupItem(_engineers, engineer, model => model._id, cboEngineers, engineer?._id);
         }
 
         private void cboEngineers_EditValueChanged(object sender, EventArgs e)
@@ -1383,11 +1229,6 @@ namespace Spectrum.Views.Projects
             {
                 txtContactEmail.EditValue = savedEmail;
             }
-        }
-
-        private void cboContactEmail_EditValueChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void cboClientContact_EditValueChanged(object sender, EventArgs e)
@@ -1489,16 +1330,8 @@ namespace Spectrum.Views.Projects
 
         private void RcvUpdatedClient(object sender, EventArgs e)
         {
-            if (sender == null) return;
-            _clientModel = sender as ClientModel;
-
-            _clients.Add(_clientModel);
-
-            cboClients.Properties.DataSource = null;
-            cboClients.Properties.DisplayMember = "ClientName";
-            cboClients.Properties.ValueMember = "_id";
-            cboClients.Properties.DataSource = _clients;
-            if (_clientModel != null) cboClients.EditValue = _clientModel._id;
+            var client = sender as ClientModel;
+            AddLookupItem(_clients, client, model => model._id, cboClients, client?._id);
         }
 
         private void tabDetails_Click(object sender, EventArgs e)
@@ -1565,19 +1398,16 @@ namespace Spectrum.Views.Projects
 
                 if (ofd.ShowDialog() != DialogResult.OK) return;
 
-                var connection = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
-                var rootFolder = string.IsNullOrWhiteSpace(connection?.ProjectsDocumentsFolder)
-                    ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpectrumApp", "Projects")
-                    : connection.ProjectsDocumentsFolder;
+                var rootFolder = _projectDocumentStore.GetProjectsRootFolder();
                 Directory.CreateDirectory(rootFolder);
 
                 foreach (var file in ofd.FileNames)
                 {
                     try
                     {
-                        string fileName = Path.GetFileName(file);
-                        string archivedFileName = projectId + "_" + fileName;
-                        string destinationPath = Path.Combine(rootFolder, archivedFileName);
+                        var destinationPath = _projectDocumentStore.GetArchivedDocumentPath(projectId, file, rootFolder);
+                        var archivedFileName = Path.GetFileName(destinationPath);
+                        var fileName = Path.GetFileName(file);
 
                         if (File.Exists(destinationPath))
                         {
@@ -1594,18 +1424,11 @@ namespace Spectrum.Views.Projects
 
                         File.Copy(file, destinationPath, true);
 
-                        _documents.Add(new DocumentModel
-                        {
-                            DocumentName = fileName,
-                            OriginPath = destinationPath,
-                            DocumentDate = File.GetCreationTime(destinationPath),
-                            StreamedDate = DateTime.Now,
-                            DocumentContent = File.ReadAllBytes(destinationPath)
-                        });
+                        _documents.Add(_projectDocumentStore.CreateDocumentModel(projectId, destinationPath));
                     }
                     catch (Exception ex)
                     {
-                        XtraMessageBox.Show(ex.Message, @"Copy Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ShowError("Copy Error", ex);
                     }
                 }
 
@@ -1614,7 +1437,7 @@ namespace Spectrum.Views.Projects
             }
             catch (Exception exception)
             {
-                XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowError("Error", exception);
             }
         }
 
@@ -1696,32 +1519,6 @@ namespace Spectrum.Views.Projects
 
         #region Helper Methods
 
-        private bool ConfirmDelete(string itemName)
-        {
-            return XtraMessageBox.Show(
-                $"Are you sure you want to delete Record: `{itemName}`?",
-                "Confirm Delete",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2) == DialogResult.Yes;
-        }
-
-        private void HandleDeleteError(Exception ex)
-        {
-            string message;
-            switch (ex.Message)
-            {
-                case "-2146233088":
-                    message = "This record is linked to one or more transactions, delete all links first.";
-                    break;
-                default:
-                    message = ex.Message;
-                    break;
-            }
-
-            XtraMessageBox.Show(message, "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
         private void ShowError(string message, Exception ex)
         {
             XtraMessageBox.Show(
@@ -1732,21 +1529,6 @@ namespace Spectrum.Views.Projects
         }
 
         #endregion
-
-        private void cboLocations_EditValueChanged_1(object sender, EventArgs e)
-        {
-            try
-            {
-                if (_projectModel.Location != null && !string.IsNullOrWhiteSpace(_projectModel.Location._id))
-                {
-                    cboLocations.EditValue = _projectModel.Location._id;
-                }
-            }
-            catch (Exception ex)
-            {
-                ShowError("Error while selecting location", ex);
-            }
-        }
 
         private void gvAddendum_DoubleClick(object sender, EventArgs e)
         {
@@ -1796,42 +1578,215 @@ namespace Spectrum.Views.Projects
             RefreshProjectHistoryTimeline();
         }
 
-        private class ProjectHistoryTimelineItem
+        private sealed class ProjectDocumentStore
         {
-            public DateTime? SortDate { get; set; }
-            public int SortOrder { get; set; }
-            public string EventDate { get; set; }
-            public string Title { get; set; }
-            public string Details { get; set; }
-            public string Marker { get; set; }
+            public BindingList<DocumentModel> LoadDocumentsForProject(string projectId)
+            {
+                var documents = new BindingList<DocumentModel>();
+                if (string.IsNullOrWhiteSpace(projectId))
+                {
+                    return documents;
+                }
+
+                var rootFolder = GetProjectsRootFolder();
+                if (!Directory.Exists(rootFolder))
+                {
+                    return documents;
+                }
+
+                var prefix = projectId + "_";
+                var files = Directory.GetFiles(rootFolder)
+                    .Where(path => Path.GetFileName(path).StartsWith(prefix, StringComparison.OrdinalIgnoreCase));
+
+                foreach (var filePath in files)
+                {
+                    try
+                    {
+                        documents.Add(CreateDocumentModel(projectId, filePath));
+                    }
+                    catch
+                    {
+                    }
+                }
+
+                return documents;
+            }
+
+            public string GetProjectsRootFolder()
+            {
+                var connection = DatabaseFactory.GetConnection(DatabaseFactory.ProfilePrimary);
+                return string.IsNullOrWhiteSpace(connection?.ProjectsDocumentsFolder)
+                    ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SpectrumApp", "Projects")
+                    : connection.ProjectsDocumentsFolder;
+            }
+
+            public string GetArchivedDocumentPath(string projectId, string sourceFilePath, string rootFolder)
+            {
+                var fileName = Path.GetFileName(sourceFilePath);
+                return Path.Combine(rootFolder, projectId + "_" + fileName);
+            }
+
+            public DocumentModel CreateDocumentModel(string projectId, string filePath)
+            {
+                return new DocumentModel
+                {
+                    DocumentName = GetDisplayDocumentName(projectId, filePath),
+                    OriginPath = filePath,
+                    DocumentDate = File.GetCreationTime(filePath),
+                    StreamedDate = DateTime.Now,
+                    DocumentContent = File.ReadAllBytes(filePath)
+                };
+            }
+
+            private static string GetDisplayDocumentName(string projectId, string filePath)
+            {
+                var fileName = Path.GetFileName(filePath);
+                var prefix = (projectId ?? string.Empty) + "_";
+                return fileName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+                    ? fileName.Substring(prefix.Length)
+                    : fileName;
+            }
+        }
+
+        private static class ProjectHistoryTimelineFormatter
+        {
+            public static void Initialize(MemoEdit timeline)
+            {
+                if (timeline == null)
+                {
+                    return;
+                }
+
+                timeline.BorderStyle = BorderStyles.NoBorder;
+                timeline.Properties.ReadOnly = true;
+                timeline.Properties.ScrollBars = ScrollBars.Vertical;
+                timeline.Properties.WordWrap = false;
+                timeline.Properties.Appearance.BackColor = Color.White;
+                timeline.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            }
+
+            public static string Format(ProjectModel project, IEnumerable<AddendumModel> addendums)
+            {
+                var items = BuildItems(project, addendums);
+                return string.Join(Environment.NewLine + Environment.NewLine, items.Select(FormatItem));
+            }
+
+            private static List<ProjectHistoryTimelineItem> BuildItems(ProjectModel project, IEnumerable<AddendumModel> addendums)
+            {
+                var items = new List<ProjectHistoryTimelineItem>();
+                var contractDetails = project?.ContractDetails ?? new ContractDetailModel();
+
+                AddItem(items, project?.IssuanceDate, "Issuance Date", project?.Reference);
+                AddItem(items, contractDetails.SignatureDate, "Signature Date", contractDetails.ContractNumber);
+
+                foreach (var addendum in (addendums ?? Enumerable.Empty<AddendumModel>())
+                             .Where(x => x != null && !x.Deleted)
+                             .OrderBy(x => x.EffectiveDate ?? x.BODDate ?? DateTime.MaxValue)
+                             .ThenBy(x => x.Sequence))
+                {
+                    AddItem(
+                        items,
+                        addendum.EffectiveDate ?? addendum.BODDate,
+                        "Addendum " + addendum.Sequence,
+                        BuildAddendumDetails(addendum));
+                }
+
+                AddItem(items, contractDetails.ActualCompletionDate, "Completion Date", project?.ProjectName);
+                if (project?.ExpiryDate != null)
+                {
+                    AddItem(items, project.ExpiryDate, "Expiry Date", project.Reference);
+                }
+
+                if (!items.Any())
+                {
+                    items.Add(new ProjectHistoryTimelineItem
+                    {
+                        EventDate = string.Empty,
+                        Title = "No project history available",
+                        Details = "Dates and addendums will appear here once they are provided.",
+                        Marker = "·"
+                    });
+                    return items;
+                }
+
+                return items
+                    .OrderBy(x => x.SortDate ?? DateTime.MaxValue)
+                    .ThenBy(x => x.SortOrder)
+                    .ToList();
+            }
+
+            private static void AddItem(ICollection<ProjectHistoryTimelineItem> items, DateTime? date, string title, string details, int sortOrder = 0)
+            {
+                if (date == null)
+                {
+                    return;
+                }
+
+                items.Add(new ProjectHistoryTimelineItem
+                {
+                    SortDate = date,
+                    SortOrder = sortOrder,
+                    EventDate = date.Value.ToString("dd MMM yyyy"),
+                    Title = title,
+                    Details = string.IsNullOrWhiteSpace(details) ? string.Empty : details,
+                    Marker = "●"
+                });
+            }
+
+            private static string BuildAddendumDetails(AddendumModel addendum)
+            {
+                var details = new List<string>();
+
+                if (!string.IsNullOrWhiteSpace(addendum.Subject))
+                {
+                    details.Add(addendum.Subject.Trim());
+                }
+
+                if (!string.IsNullOrWhiteSpace(addendum.DecisionNo))
+                {
+                    details.Add("Decision No: " + addendum.DecisionNo.Trim());
+                }
+
+                if (!string.IsNullOrWhiteSpace(addendum.Reference))
+                {
+                    details.Add("Ref: " + addendum.Reference.Trim());
+                }
+
+                return string.Join(" | ", details.Where(x => !string.IsNullOrWhiteSpace(x)));
+            }
+
+            private static string FormatItem(ProjectHistoryTimelineItem item)
+            {
+                if (item == null)
+                {
+                    return string.Empty;
+                }
+
+                if (string.IsNullOrWhiteSpace(item.EventDate))
+                {
+                    return item.Title + Environment.NewLine + item.Details;
+                }
+
+                return string.IsNullOrWhiteSpace(item.Details)
+                    ? string.Format("{0} {1} - {2}", item.Marker, item.EventDate, item.Title)
+                    : string.Format("{0} {1} - {2}{3}  {4}", item.Marker, item.EventDate, item.Title, Environment.NewLine, item.Details);
+            }
+
+            private sealed class ProjectHistoryTimelineItem
+            {
+                public DateTime? SortDate { get; set; }
+                public int SortOrder { get; set; }
+                public string EventDate { get; set; }
+                public string Title { get; set; }
+                public string Details { get; set; }
+                public string Marker { get; set; }
+            }
         }
 
         private void btnProtected_CheckedChanged(object sender, ItemClickEventArgs e)
         {
             _projectModel.IsProtected = btnProtected.Checked;
-
-            var fontStyle = btnProtected.Checked
-                ? FontStyle.Bold
-                : FontStyle.Regular;
-
-            var foreColor = btnProtected.Checked
-                ? Color.Red
-                : Color.Black;
-
-            var font = new Font("Tahoma", 8, fontStyle);
-
-            var appearances = new[]
-            {
-                btnProtected.ItemAppearance.Normal,
-                btnProtected.ItemAppearance.Hovered,
-                btnProtected.ItemAppearance.Pressed
-            };
-
-            foreach (var appearance in appearances)
-            {
-                appearance.Font = font;
-                appearance.ForeColor = foreColor;
-            }
+            ApplyProtectedAppearance(btnProtected.Checked);
         }
 
 

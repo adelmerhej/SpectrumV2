@@ -4,6 +4,7 @@ using Spectrum.DataLayers.DataAccess;
 using Spectrum.Models.Accounting.Invoices;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Spectrum.DataLayers.Accounting.Invoices
@@ -24,10 +25,36 @@ namespace Spectrum.DataLayers.Accounting.Invoices
             return await _invoices.Find(invoice => true).ToListAsync();
         }
 
+        public async Task<List<InvoiceModel>> GetInvoicesByProjectIdAsync(string projectId)
+        {
+            if (string.IsNullOrWhiteSpace(projectId))
+            {
+                return new List<InvoiceModel>();
+            }
+
+            var filter = Builders<InvoiceModel>.Filter.Eq(x => x.ProjectId, projectId);
+            return await _invoices.Find(filter).ToListAsync();
+        }
+
         public async Task<InvoiceModel> GetInvoiceByIdAsync(string id)
         {
             var filter = Builders<InvoiceModel>.Filter.Eq(x => x._id, id);
             return await _invoices.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<string> GetNextInvoiceNoAsync(int year)
+        {
+            var prefix = year + "-";
+            var invoices = await _invoices.Find(invoice => invoice.InvoiceNo.StartsWith(prefix))
+                .Project(invoice => invoice.InvoiceNo)
+                .ToListAsync();
+
+            var nextNumber = invoices
+                .Select(invoiceNo => ParseInvoiceSequence(invoiceNo, prefix))
+                .DefaultIfEmpty(0)
+                .Max() + 1;
+
+            return string.Format("{0}-{1}", year, nextNumber.ToString().PadLeft(6, '0'));
         }
 
         public async Task<string> AddNewInvoiceAsync(InvoiceModel invoice)
@@ -76,6 +103,15 @@ namespace Spectrum.DataLayers.Accounting.Invoices
         public async Task<long> GetCountAsync()
         {
             return await _invoices.CountDocumentsAsync(new BsonDocument());
+        }
+
+        private static int ParseInvoiceSequence(string invoiceNo, string prefix)
+        {
+            if (string.IsNullOrWhiteSpace(invoiceNo) || !invoiceNo.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                return 0;
+
+            var sequence = invoiceNo.Substring(prefix.Length);
+            return int.TryParse(sequence, out var parsedSequence) ? parsedSequence : 0;
         }
 
         #region Implementation of IDisposable

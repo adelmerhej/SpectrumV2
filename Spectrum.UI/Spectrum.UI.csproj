@@ -1084,6 +1084,7 @@
     <Folder Include="Views\Accounting\Reports\Management\" />
     <Folder Include="Views\Accounting\Reports\PartnerReports\" />
     <Folder Include="Views\Accounting\Reports\TaxesAndFiscal\" />
+    <Folder Include="Views\Common\Documents\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spectrum.DataLayers\Spectrum.DataLayers.csproj">

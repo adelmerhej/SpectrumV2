@@ -175,6 +175,8 @@
     <Compile Include="Common\Currencies\CurrencyExchangeModel.cs" />
     <Compile Include="Common\Departments\DepartmentModel.cs" />
     <Compile Include="Common\Documents\DocumentModel.cs" />
+    <Compile Include="Common\Documents\LookupLoadResult.cs" />
+    <Compile Include="Common\Documents\TimelineItem.cs" />
     <Compile Include="Common\Items\ItemModel.cs" />
     <Compile Include="Common\Roles\RoleModel.cs" />
     <Compile Include="Common\Services\ServiceModel.cs" />

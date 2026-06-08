@@ -935,6 +935,22 @@ namespace Spectrum.Utilities
 
         #endregion
 
+        #region Parsing Helpers
+
+        public static DateTime? ParseDateTime(string value) =>
+            DateTime.TryParse(value, out var result) ? result : (DateTime?)null;
+
+        public static int ParseInt(object value) =>
+            int.TryParse(value?.ToString(), out var result) ? result : 0;
+
+        public static decimal ParseDecimal(object value) =>
+            decimal.TryParse(value?.ToString(), out var result) ? result : 0m;
+
+        public static bool ParseBool(object value) =>
+            bool.TryParse(value?.ToString(), out var result) && result;
+
+        #endregion
+
     }
 }
 

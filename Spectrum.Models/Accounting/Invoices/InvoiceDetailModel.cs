@@ -13,8 +13,9 @@ namespace Spectrum.Models.Accounting.Invoices
         public decimal LAmount { get; set; }
         public decimal FAmount { get; set; }
         public bool VAT { get; set; }
-        public decimal VATRate { get; set; }
-        public decimal VATValue { get; set; }
+        public decimal VATAmount { get; set; }
+        public decimal VATLAmount { get; set; }
+        public decimal VATFAmount { get; set; }
 
         #region Implementation of ICloneable
 
