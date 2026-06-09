@@ -55,18 +55,22 @@
             this.btnNewExpense = new DevExpress.XtraBars.BarButtonItem();
             this.btnProtected = new DevExpress.XtraBars.BarCheckItem();
             this.btnCloseInvoice = new DevExpress.XtraBars.BarButtonItem();
-            this.btnSaveInvoice = new DevExpress.XtraBars.BarButtonItem();
-            this.btnSaveAndCloseInvoice = new DevExpress.XtraBars.BarButtonItem();
+            this.btnEditInvoice = new DevExpress.XtraBars.BarButtonItem();
             this.btnRefreshInvoice = new DevExpress.XtraBars.BarButtonItem();
             this.btnDeleteInvoice = new DevExpress.XtraBars.BarButtonItem();
             this.btnPrintInvoice = new DevExpress.XtraBars.BarButtonItem();
             this.btnPrintOriginalInvoice = new DevExpress.XtraBars.BarButtonItem();
             this.btnCloseExpense = new DevExpress.XtraBars.BarButtonItem();
-            this.btnSaveExpense = new DevExpress.XtraBars.BarButtonItem();
-            this.btnSaveAndCloseExpense = new DevExpress.XtraBars.BarButtonItem();
+            this.btnEditExpense = new DevExpress.XtraBars.BarButtonItem();
             this.btnRefreshExpense = new DevExpress.XtraBars.BarButtonItem();
             this.btnDeleteExpense = new DevExpress.XtraBars.BarButtonItem();
             this.btnPrintExpenses = new DevExpress.XtraBars.BarButtonItem();
+            this.btnNewAddendum = new DevExpress.XtraBars.BarButtonItem();
+            this.btnEditAddendum = new DevExpress.XtraBars.BarButtonItem();
+            this.btnRefreshAddendum = new DevExpress.XtraBars.BarButtonItem();
+            this.btnDeleteAddendum = new DevExpress.XtraBars.BarButtonItem();
+            this.btnPrintAddendum = new DevExpress.XtraBars.BarButtonItem();
+            this.btnCloseAddendum = new DevExpress.XtraBars.BarButtonItem();
             this.rpMain = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -76,16 +80,20 @@
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup9 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpgSecurity = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.rpAddendum = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup10 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup14 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup16 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup20 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup22 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpInvoices = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup10 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup11 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup12 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup13 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup15 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup12 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpExpenses = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup16 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup17 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup18 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup19 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -326,8 +334,8 @@
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.tabExpenseGroup = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.layoutCostSheetsGrid = new DevExpress.XtraLayout.LayoutControl();
-            this.gcCosts = new DevExpress.XtraGrid.GridControl();
-            this.gvCosts = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gcExpenses = new DevExpress.XtraGrid.GridControl();
+            this.gvExpenses = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -578,8 +586,8 @@
             this.tabExpenseGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutCostSheetsGrid)).BeginInit();
             this.layoutCostSheetsGrid.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gcCosts)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvCosts)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcExpenses)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvExpenses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCostAgents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit2View)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCostItemsList)).BeginInit();
@@ -654,25 +662,30 @@
             this.btnNewExpense,
             this.btnProtected,
             this.btnCloseInvoice,
-            this.btnSaveInvoice,
-            this.btnSaveAndCloseInvoice,
+            this.btnEditInvoice,
             this.btnRefreshInvoice,
             this.btnDeleteInvoice,
             this.btnPrintInvoice,
             this.btnPrintOriginalInvoice,
             this.btnCloseExpense,
-            this.btnSaveExpense,
-            this.btnSaveAndCloseExpense,
+            this.btnEditExpense,
             this.btnRefreshExpense,
             this.btnDeleteExpense,
-            this.btnPrintExpenses});
+            this.btnPrintExpenses,
+            this.btnNewAddendum,
+            this.btnEditAddendum,
+            this.btnRefreshAddendum,
+            this.btnDeleteAddendum,
+            this.btnPrintAddendum,
+            this.btnCloseAddendum});
             this.rcMain.Location = new System.Drawing.Point(0, 0);
             this.rcMain.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rcMain.MaxItemId = 44;
+            this.rcMain.MaxItemId = 50;
             this.rcMain.Name = "rcMain";
             this.rcMain.OptionsMenuMinWidth = 385;
             this.rcMain.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.rpMain,
+            this.rpAddendum,
             this.rpInvoices,
             this.rpExpenses});
             this.rcMain.Size = new System.Drawing.Size(1464, 193);
@@ -845,7 +858,6 @@
             this.rgJobStatusAction.Gallery.DrawImageBackground = false;
             galleryItemGroup2.Caption = "ActionGroup";
             galleryItem1.Caption = "Active";
-            galleryItem1.Checked = true;
             galleryItem1.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
             galleryItem1.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
             galleryItem1.Value = 0;
@@ -858,6 +870,7 @@
             galleryItem3.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
             galleryItem3.Value = 2;
             galleryItem4.Caption = "Cancel current Project";
+            galleryItem4.Checked = true;
             galleryItem4.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage3")));
             galleryItem4.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
             galleryItem4.Value = 3;
@@ -917,23 +930,13 @@
             this.btnCloseInvoice.Name = "btnCloseInvoice";
             this.btnCloseInvoice.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCloseInvoice_ItemClick);
             // 
-            // btnSaveInvoice
+            // btnEditInvoice
             // 
-            this.btnSaveInvoice.Caption = "Save";
-            this.btnSaveInvoice.Enabled = false;
-            this.btnSaveInvoice.Id = 30;
-            this.btnSaveInvoice.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnSaveInvoice.ImageOptions.SvgImage")));
-            this.btnSaveInvoice.Name = "btnSaveInvoice";
-            this.btnSaveInvoice.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSaveInvoice_ItemClick);
-            // 
-            // btnSaveAndCloseInvoice
-            // 
-            this.btnSaveAndCloseInvoice.Caption = "Save && Close";
-            this.btnSaveAndCloseInvoice.Enabled = false;
-            this.btnSaveAndCloseInvoice.Id = 31;
-            this.btnSaveAndCloseInvoice.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnSaveAndCloseInvoice.ImageOptions.SvgImage")));
-            this.btnSaveAndCloseInvoice.Name = "btnSaveAndCloseInvoice";
-            this.btnSaveAndCloseInvoice.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSaveAndCloseInvoice_ItemClick);
+            this.btnEditInvoice.Caption = "Edit";
+            this.btnEditInvoice.Id = 30;
+            this.btnEditInvoice.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEditInvoice.ImageOptions.SvgImage")));
+            this.btnEditInvoice.Name = "btnEditInvoice";
+            this.btnEditInvoice.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnEditInvoice_ItemClick);
             // 
             // btnRefreshInvoice
             // 
@@ -946,7 +949,6 @@
             // btnDeleteInvoice
             // 
             this.btnDeleteInvoice.Caption = "Delete";
-            this.btnDeleteInvoice.Enabled = false;
             this.btnDeleteInvoice.Id = 33;
             this.btnDeleteInvoice.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDeleteInvoice.ImageOptions.SvgImage")));
             this.btnDeleteInvoice.Name = "btnDeleteInvoice";
@@ -955,7 +957,6 @@
             // btnPrintInvoice
             // 
             this.btnPrintInvoice.Caption = "Print Copy";
-            this.btnPrintInvoice.Enabled = false;
             this.btnPrintInvoice.Id = 34;
             this.btnPrintInvoice.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPrintInvoice.ImageOptions.SvgImage")));
             this.btnPrintInvoice.Name = "btnPrintInvoice";
@@ -964,7 +965,6 @@
             // btnPrintOriginalInvoice
             // 
             this.btnPrintOriginalInvoice.Caption = "Print Original Invoice";
-            this.btnPrintOriginalInvoice.Enabled = false;
             this.btnPrintOriginalInvoice.Id = 36;
             this.btnPrintOriginalInvoice.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPrintOriginalInvoice.ImageOptions.SvgImage")));
             this.btnPrintOriginalInvoice.Name = "btnPrintOriginalInvoice";
@@ -978,23 +978,13 @@
             this.btnCloseExpense.Name = "btnCloseExpense";
             this.btnCloseExpense.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCloseExpense_ItemClick);
             // 
-            // btnSaveExpense
+            // btnEditExpense
             // 
-            this.btnSaveExpense.Caption = "Save";
-            this.btnSaveExpense.Enabled = false;
-            this.btnSaveExpense.Id = 38;
-            this.btnSaveExpense.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnSaveExpense.ImageOptions.SvgImage")));
-            this.btnSaveExpense.Name = "btnSaveExpense";
-            this.btnSaveExpense.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSaveExpense_ItemClick);
-            // 
-            // btnSaveAndCloseExpense
-            // 
-            this.btnSaveAndCloseExpense.Caption = "Save && Close";
-            this.btnSaveAndCloseExpense.Enabled = false;
-            this.btnSaveAndCloseExpense.Id = 39;
-            this.btnSaveAndCloseExpense.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnSaveAndCloseExpense.ImageOptions.SvgImage")));
-            this.btnSaveAndCloseExpense.Name = "btnSaveAndCloseExpense";
-            this.btnSaveAndCloseExpense.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSaveAndCloseExpense_ItemClick);
+            this.btnEditExpense.Caption = "Edit";
+            this.btnEditExpense.Id = 38;
+            this.btnEditExpense.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEditExpense.ImageOptions.SvgImage")));
+            this.btnEditExpense.Name = "btnEditExpense";
+            this.btnEditExpense.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnEditExpense_ItemClick);
             // 
             // btnRefreshExpense
             // 
@@ -1007,7 +997,6 @@
             // btnDeleteExpense
             // 
             this.btnDeleteExpense.Caption = "Delete";
-            this.btnDeleteExpense.Enabled = false;
             this.btnDeleteExpense.Id = 41;
             this.btnDeleteExpense.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDeleteExpense.ImageOptions.SvgImage")));
             this.btnDeleteExpense.Name = "btnDeleteExpense";
@@ -1016,11 +1005,58 @@
             // btnPrintExpenses
             // 
             this.btnPrintExpenses.Caption = "Print Expenses";
-            this.btnPrintExpenses.Enabled = false;
             this.btnPrintExpenses.Id = 42;
             this.btnPrintExpenses.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPrintExpenses.ImageOptions.SvgImage")));
             this.btnPrintExpenses.Name = "btnPrintExpenses";
             this.btnPrintExpenses.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPrintExpenses_ItemClick);
+            // 
+            // btnNewAddendum
+            // 
+            this.btnNewAddendum.Caption = "Add New";
+            this.btnNewAddendum.Id = 44;
+            this.btnNewAddendum.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnNewAddendum.ImageOptions.SvgImage")));
+            this.btnNewAddendum.Name = "btnNewAddendum";
+            this.btnNewAddendum.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNewAddendum_ItemClick);
+            // 
+            // btnEditAddendum
+            // 
+            this.btnEditAddendum.Caption = "Edit";
+            this.btnEditAddendum.Id = 45;
+            this.btnEditAddendum.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnEditAddendum.ImageOptions.SvgImage")));
+            this.btnEditAddendum.Name = "btnEditAddendum";
+            this.btnEditAddendum.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnEditAddendum_ItemClick);
+            // 
+            // btnRefreshAddendum
+            // 
+            this.btnRefreshAddendum.Caption = "Refresh";
+            this.btnRefreshAddendum.Id = 46;
+            this.btnRefreshAddendum.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnRefreshAddendum.ImageOptions.SvgImage")));
+            this.btnRefreshAddendum.Name = "btnRefreshAddendum";
+            this.btnRefreshAddendum.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnRefreshAddendum_ItemClick);
+            // 
+            // btnDeleteAddendum
+            // 
+            this.btnDeleteAddendum.Caption = "Delete";
+            this.btnDeleteAddendum.Id = 47;
+            this.btnDeleteAddendum.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDeleteAddendum.ImageOptions.SvgImage")));
+            this.btnDeleteAddendum.Name = "btnDeleteAddendum";
+            this.btnDeleteAddendum.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDeleteAddendum_ItemClick);
+            // 
+            // btnPrintAddendum
+            // 
+            this.btnPrintAddendum.Caption = "Print Addendum";
+            this.btnPrintAddendum.Id = 48;
+            this.btnPrintAddendum.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPrintAddendum.ImageOptions.SvgImage")));
+            this.btnPrintAddendum.Name = "btnPrintAddendum";
+            this.btnPrintAddendum.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPrintAddendum_ItemClick);
+            // 
+            // btnCloseAddendum
+            // 
+            this.btnCloseAddendum.Caption = "Close";
+            this.btnCloseAddendum.Id = 49;
+            this.btnCloseAddendum.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnCloseAddendum.ImageOptions.SvgImage")));
+            this.btnCloseAddendum.Name = "btnCloseAddendum";
+            this.btnCloseAddendum.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCloseAddendum_ItemClick);
             // 
             // rpMain
             // 
@@ -1094,15 +1130,57 @@
             this.rpgSecurity.Name = "rpgSecurity";
             this.rpgSecurity.Text = "Security";
             // 
+            // rpAddendum
+            // 
+            this.rpAddendum.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup10,
+            this.ribbonPageGroup14,
+            this.ribbonPageGroup16,
+            this.ribbonPageGroup20,
+            this.ribbonPageGroup22});
+            this.rpAddendum.Name = "rpAddendum";
+            this.rpAddendum.Text = "Addendum";
+            // 
+            // ribbonPageGroup10
+            // 
+            this.ribbonPageGroup10.ItemLinks.Add(this.btnNewAddendum);
+            this.ribbonPageGroup10.Name = "ribbonPageGroup10";
+            this.ribbonPageGroup10.Text = "New";
+            // 
+            // ribbonPageGroup14
+            // 
+            this.ribbonPageGroup14.ItemLinks.Add(this.btnEditAddendum);
+            this.ribbonPageGroup14.ItemLinks.Add(this.btnRefreshAddendum);
+            this.ribbonPageGroup14.Name = "ribbonPageGroup14";
+            this.ribbonPageGroup14.Text = "Edit";
+            // 
+            // ribbonPageGroup16
+            // 
+            this.ribbonPageGroup16.ItemLinks.Add(this.btnDeleteAddendum);
+            this.ribbonPageGroup16.Name = "ribbonPageGroup16";
+            this.ribbonPageGroup16.Text = "Delete";
+            // 
+            // ribbonPageGroup20
+            // 
+            this.ribbonPageGroup20.ItemLinks.Add(this.btnPrintAddendum);
+            this.ribbonPageGroup20.Name = "ribbonPageGroup20";
+            this.ribbonPageGroup20.Text = "Quick Reports";
+            // 
+            // ribbonPageGroup22
+            // 
+            this.ribbonPageGroup22.Alignment = DevExpress.XtraBars.Ribbon.RibbonPageGroupAlignment.Far;
+            this.ribbonPageGroup22.ItemLinks.Add(this.btnCloseAddendum);
+            this.ribbonPageGroup22.Name = "ribbonPageGroup22";
+            this.ribbonPageGroup22.Text = "Close";
+            // 
             // rpInvoices
             // 
             this.rpInvoices.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup6,
-            this.ribbonPageGroup10,
             this.ribbonPageGroup11,
-            this.ribbonPageGroup12,
             this.ribbonPageGroup13,
-            this.ribbonPageGroup15});
+            this.ribbonPageGroup15,
+            this.ribbonPageGroup12});
             this.rpInvoices.Name = "rpInvoices";
             this.rpInvoices.Text = "Invoices";
             this.rpInvoices.Visible = false;
@@ -1113,24 +1191,12 @@
             this.ribbonPageGroup6.Name = "ribbonPageGroup6";
             this.ribbonPageGroup6.Text = "New";
             // 
-            // ribbonPageGroup10
-            // 
-            this.ribbonPageGroup10.ItemLinks.Add(this.btnSaveInvoice);
-            this.ribbonPageGroup10.ItemLinks.Add(this.btnSaveAndCloseInvoice);
-            this.ribbonPageGroup10.Name = "ribbonPageGroup10";
-            this.ribbonPageGroup10.Text = "Save";
-            // 
             // ribbonPageGroup11
             // 
+            this.ribbonPageGroup11.ItemLinks.Add(this.btnEditInvoice);
             this.ribbonPageGroup11.ItemLinks.Add(this.btnRefreshInvoice);
             this.ribbonPageGroup11.Name = "ribbonPageGroup11";
             this.ribbonPageGroup11.Text = "Edit";
-            // 
-            // ribbonPageGroup12
-            // 
-            this.ribbonPageGroup12.ItemLinks.Add(this.btnDeleteInvoice);
-            this.ribbonPageGroup12.Name = "ribbonPageGroup12";
-            this.ribbonPageGroup12.Text = "Delete";
             // 
             // ribbonPageGroup13
             // 
@@ -1148,11 +1214,16 @@
             this.ribbonPageGroup15.Name = "ribbonPageGroup15";
             this.ribbonPageGroup15.Text = "Close";
             // 
+            // ribbonPageGroup12
+            // 
+            this.ribbonPageGroup12.ItemLinks.Add(this.btnDeleteInvoice);
+            this.ribbonPageGroup12.Name = "ribbonPageGroup12";
+            this.ribbonPageGroup12.Text = "Delete";
+            // 
             // rpExpenses
             // 
             this.rpExpenses.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup5,
-            this.ribbonPageGroup16,
             this.ribbonPageGroup17,
             this.ribbonPageGroup18,
             this.ribbonPageGroup19,
@@ -1167,15 +1238,9 @@
             this.ribbonPageGroup5.Name = "ribbonPageGroup5";
             this.ribbonPageGroup5.Text = "New";
             // 
-            // ribbonPageGroup16
-            // 
-            this.ribbonPageGroup16.ItemLinks.Add(this.btnSaveExpense);
-            this.ribbonPageGroup16.ItemLinks.Add(this.btnSaveAndCloseExpense);
-            this.ribbonPageGroup16.Name = "ribbonPageGroup16";
-            this.ribbonPageGroup16.Text = "Save";
-            // 
             // ribbonPageGroup17
             // 
+            this.ribbonPageGroup17.ItemLinks.Add(this.btnEditExpense);
             this.ribbonPageGroup17.ItemLinks.Add(this.btnRefreshExpense);
             this.ribbonPageGroup17.Name = "ribbonPageGroup17";
             this.ribbonPageGroup17.Text = "Edit";
@@ -2996,7 +3061,7 @@
             this.tabSellingGroup.Caption = "Invoices";
             this.tabSellingGroup.Controls.Add(this.layoutInvoicesGrid);
             this.tabSellingGroup.Name = "tabSellingGroup";
-            this.tabSellingGroup.Size = new System.Drawing.Size(1436, 270);
+            this.tabSellingGroup.Size = new System.Drawing.Size(1440, 272);
             // 
             // layoutInvoicesGrid
             // 
@@ -3005,7 +3070,7 @@
             this.layoutInvoicesGrid.Location = new System.Drawing.Point(0, 0);
             this.layoutInvoicesGrid.Name = "layoutInvoicesGrid";
             this.layoutInvoicesGrid.Root = this.layoutControlGroup3;
-            this.layoutInvoicesGrid.Size = new System.Drawing.Size(1436, 270);
+            this.layoutInvoicesGrid.Size = new System.Drawing.Size(1440, 272);
             this.layoutInvoicesGrid.TabIndex = 0;
             this.layoutInvoicesGrid.Text = "layoutControl1";
             // 
@@ -3018,7 +3083,7 @@
             this.gcInvoices.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repDateEdit,
             this.repInvCheckEdit});
-            this.gcInvoices.Size = new System.Drawing.Size(1408, 242);
+            this.gcInvoices.Size = new System.Drawing.Size(1412, 244);
             this.gcInvoices.TabIndex = 0;
             this.gcInvoices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvInvoices});
@@ -3676,7 +3741,7 @@
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem3});
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1436, 270);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1440, 272);
             this.layoutControlGroup3.TextVisible = false;
             // 
             // layoutControlItem3
@@ -3684,7 +3749,7 @@
             this.layoutControlItem3.Control = this.gcInvoices;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1412, 246);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1416, 248);
             this.layoutControlItem3.TextVisible = false;
             // 
             // tabExpenseGroup
@@ -3696,7 +3761,7 @@
             // 
             // layoutCostSheetsGrid
             // 
-            this.layoutCostSheetsGrid.Controls.Add(this.gcCosts);
+            this.layoutCostSheetsGrid.Controls.Add(this.gcExpenses);
             this.layoutCostSheetsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutCostSheetsGrid.Location = new System.Drawing.Point(0, 0);
             this.layoutCostSheetsGrid.Name = "layoutCostSheetsGrid";
@@ -3705,26 +3770,26 @@
             this.layoutCostSheetsGrid.TabIndex = 0;
             this.layoutCostSheetsGrid.Text = "layoutControl1";
             // 
-            // gcCosts
+            // gcExpenses
             // 
-            this.gcCosts.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.gcCosts.Location = new System.Drawing.Point(14, 14);
-            this.gcCosts.MainView = this.gvCosts;
-            this.gcCosts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gcCosts.Name = "gcCosts";
-            this.gcCosts.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.gcExpenses.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.gcExpenses.Location = new System.Drawing.Point(14, 14);
+            this.gcExpenses.MainView = this.gvExpenses;
+            this.gcExpenses.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gcExpenses.Name = "gcExpenses";
+            this.gcExpenses.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repCostAgents,
             this.repCostItemsList,
             this.repCostMethodofPaymentList,
             this.repCostCurrenciesList});
-            this.gcCosts.Size = new System.Drawing.Size(1408, 242);
-            this.gcCosts.TabIndex = 0;
-            this.gcCosts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvCosts});
+            this.gcExpenses.Size = new System.Drawing.Size(1408, 242);
+            this.gcExpenses.TabIndex = 0;
+            this.gcExpenses.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvExpenses});
             // 
-            // gvCosts
+            // gvExpenses
             // 
-            this.gvCosts.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gvExpenses.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.gridColumn7,
             this.gridColumn8,
             this.gridColumn9,
@@ -3738,19 +3803,19 @@
             this.gridColumn11,
             this.gridColumn12,
             this.colCostDeleted});
-            this.gvCosts.DetailHeight = 431;
-            this.gvCosts.GridControl = this.gcCosts;
-            this.gvCosts.Name = "gvCosts";
-            this.gvCosts.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
-            this.gvCosts.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
-            this.gvCosts.OptionsBehavior.Editable = false;
-            this.gvCosts.OptionsBehavior.ReadOnly = true;
-            this.gvCosts.OptionsNavigation.AutoFocusNewRow = true;
-            this.gvCosts.OptionsNavigation.EnterMoveNextColumn = true;
-            this.gvCosts.OptionsPrint.AutoWidth = false;
-            this.gvCosts.OptionsView.ColumnAutoWidth = false;
-            this.gvCosts.OptionsView.ShowFooter = true;
-            this.gvCosts.OptionsView.ShowGroupPanel = false;
+            this.gvExpenses.DetailHeight = 431;
+            this.gvExpenses.GridControl = this.gcExpenses;
+            this.gvExpenses.Name = "gvExpenses";
+            this.gvExpenses.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gvExpenses.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gvExpenses.OptionsBehavior.Editable = false;
+            this.gvExpenses.OptionsBehavior.ReadOnly = true;
+            this.gvExpenses.OptionsNavigation.AutoFocusNewRow = true;
+            this.gvExpenses.OptionsNavigation.EnterMoveNextColumn = true;
+            this.gvExpenses.OptionsPrint.AutoWidth = false;
+            this.gvExpenses.OptionsView.ColumnAutoWidth = false;
+            this.gvExpenses.OptionsView.ShowFooter = true;
+            this.gvExpenses.OptionsView.ShowGroupPanel = false;
             // 
             // gridColumn7
             // 
@@ -4032,7 +4097,7 @@
             // 
             // layoutControlItem4
             // 
-            this.layoutControlItem4.Control = this.gcCosts;
+            this.layoutControlItem4.Control = this.gcExpenses;
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(1412, 246);
@@ -4723,8 +4788,8 @@
             this.tabExpenseGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutCostSheetsGrid)).EndInit();
             this.layoutCostSheetsGrid.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gcCosts)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvCosts)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcExpenses)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvExpenses)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCostAgents)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit2View)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCostItemsList)).EndInit();
@@ -4793,15 +4858,13 @@
         private DevExpress.XtraBars.BarButtonItem btnNewExpense;
         private DevExpress.XtraBars.BarCheckItem btnProtected;
         private DevExpress.XtraBars.BarButtonItem btnCloseInvoice;
-        private DevExpress.XtraBars.BarButtonItem btnSaveInvoice;
-        private DevExpress.XtraBars.BarButtonItem btnSaveAndCloseInvoice;
+        private DevExpress.XtraBars.BarButtonItem btnEditInvoice;
         private DevExpress.XtraBars.BarButtonItem btnRefreshInvoice;
         private DevExpress.XtraBars.BarButtonItem btnDeleteInvoice;
         private DevExpress.XtraBars.BarButtonItem btnPrintInvoice;
         private DevExpress.XtraBars.BarButtonItem btnPrintOriginalInvoice;
         private DevExpress.XtraBars.BarButtonItem btnCloseExpense;
-        private DevExpress.XtraBars.BarButtonItem btnSaveExpense;
-        private DevExpress.XtraBars.BarButtonItem btnSaveAndCloseExpense;
+        private DevExpress.XtraBars.BarButtonItem btnEditExpense;
         private DevExpress.XtraBars.BarButtonItem btnRefreshExpense;
         private DevExpress.XtraBars.BarButtonItem btnDeleteExpense;
         private DevExpress.XtraBars.BarButtonItem btnPrintExpenses;
@@ -4816,14 +4879,12 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup rpgSecurity;
         private DevExpress.XtraBars.Ribbon.RibbonPage rpInvoices;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup10;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup11;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup12;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup13;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup15;
         private DevExpress.XtraBars.Ribbon.RibbonPage rpExpenses;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup5;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup16;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup17;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup18;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup19;
@@ -4962,8 +5023,8 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraBars.Navigation.TabNavigationPage tabExpenseGroup;
         private DevExpress.XtraLayout.LayoutControl layoutCostSheetsGrid;
-        private DevExpress.XtraGrid.GridControl gcCosts;
-        private DevExpress.XtraGrid.Views.Grid.GridView gvCosts;
+        private DevExpress.XtraGrid.GridControl gcExpenses;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvExpenses;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
@@ -5141,5 +5202,17 @@
         private DevExpress.XtraEditors.CheckEdit chkSubjectToVat;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem21;
+        private DevExpress.XtraBars.Ribbon.RibbonPage rpAddendum;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup10;
+        private DevExpress.XtraBars.BarButtonItem btnNewAddendum;
+        private DevExpress.XtraBars.BarButtonItem btnEditAddendum;
+        private DevExpress.XtraBars.BarButtonItem btnRefreshAddendum;
+        private DevExpress.XtraBars.BarButtonItem btnDeleteAddendum;
+        private DevExpress.XtraBars.BarButtonItem btnPrintAddendum;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup14;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup16;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup20;
+        private DevExpress.XtraBars.BarButtonItem btnCloseAddendum;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup22;
     }
 }

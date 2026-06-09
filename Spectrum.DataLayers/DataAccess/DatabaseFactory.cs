@@ -53,6 +53,18 @@ namespace Spectrum.DataLayers.DataAccess
 				ProjectsDocumentsFolder = model.ProjectsDocumentsFolder,
 				EmployeesDocumentsFolder = model.EmployeesDocumentsFolder,
 				EngineersDocumentsFolder = model.EngineersDocumentsFolder,
+				InvoiceTypeName = model.InvoiceTypeName,
+				InvoiceJournalTypeCode = model.InvoiceJournalTypeCode,
+				CustomerTypeName = model.CustomerTypeName,
+				CustomerDbCr = model.CustomerDbCr,
+				VatTypeName = model.VatTypeName,
+				VatAccountNumber = model.VatAccountNumber,
+				ExpenseTypeName = model.ExpenseTypeName,
+				ExpenseJournalTypeCode = model.ExpenseJournalTypeCode,
+				VendorTypeName = model.VendorTypeName,
+				VendorDbCr = model.VendorDbCr,
+				ExpenseVatTypeName = model.ExpenseVatTypeName,
+				ExpenseVatAccountNumber = model.ExpenseVatAccountNumber,
 			};
 
 			if (config.Connections.ContainsKey(profileName))
@@ -104,7 +116,19 @@ namespace Spectrum.DataLayers.DataAccess
 
 				ProjectsDocumentsFolder = profile.ProjectsDocumentsFolder,
 				EmployeesDocumentsFolder = profile.EmployeesDocumentsFolder,
-				EngineersDocumentsFolder = profile.EngineersDocumentsFolder
+				EngineersDocumentsFolder = profile.EngineersDocumentsFolder,
+				InvoiceTypeName = profile.InvoiceTypeName,
+				InvoiceJournalTypeCode = profile.InvoiceJournalTypeCode,
+				CustomerTypeName = profile.CustomerTypeName,
+				CustomerDbCr = profile.CustomerDbCr,
+				VatTypeName = profile.VatTypeName,
+				VatAccountNumber = profile.VatAccountNumber,
+				ExpenseTypeName = profile.ExpenseTypeName,
+				ExpenseJournalTypeCode = profile.ExpenseJournalTypeCode,
+				VendorTypeName = profile.VendorTypeName,
+				VendorDbCr = profile.VendorDbCr,
+				ExpenseVatTypeName = profile.ExpenseVatTypeName,
+				ExpenseVatAccountNumber = profile.ExpenseVatAccountNumber
 			};
 
 			HydrateLegacyAiFieldsFromNested(model);

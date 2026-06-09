@@ -148,6 +148,7 @@
     <Compile Include="Accounting\Charts\ChartDetailModel.cs" />
     <Compile Include="Accounting\Charts\ChartModel.cs" />
     <Compile Include="Accounting\CostCenter\CostCenterModel.cs" />
+    <Compile Include="Accounting\Expenses\ExpenseModel.cs" />
     <Compile Include="Accounting\FlowType\FlowTypeModel.cs" />
     <Compile Include="Accounting\Invoices\InvoiceDetailModel.cs" />
     <Compile Include="Accounting\Invoices\InvoiceDocumentModel.cs" />
@@ -226,7 +227,6 @@
     <Compile Include="Users\UserPermissionModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Operations\Invoices\" />
     <Folder Include="Operations\Quotations\" />
   </ItemGroup>
   <ItemGroup>

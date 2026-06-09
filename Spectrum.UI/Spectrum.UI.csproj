@@ -489,6 +489,12 @@
     <Compile Include="Views\Main\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Main\MainSettings\ApplicationSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Main\MainSettings\ApplicationSettingForm.Designer.cs">
+      <DependentUpon>ApplicationSettingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main\Update\CheckForUpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -608,6 +614,12 @@
     </Compile>
     <Compile Include="Views\Reports\DocumentViewerForm.Designer.cs">
       <DependentUpon>DocumentViewerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transactions\Expenses\ExpenseEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Transactions\Expenses\ExpenseEditForm.Designer.cs">
+      <DependentUpon>ExpenseEditForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Transactions\Expenses\ExpensesListForm.cs">
       <SubType>Form</SubType>
@@ -880,6 +892,9 @@
     <EmbeddedResource Include="Views\Main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Main\MainSettings\ApplicationSettingForm.resx">
+      <DependentUpon>ApplicationSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Main\Update\CheckForUpdateForm.resx">
       <DependentUpon>CheckForUpdateForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -937,6 +952,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Reports\DocumentViewerForm.resx">
       <DependentUpon>DocumentViewerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Transactions\Expenses\ExpenseEditForm.resx">
+      <DependentUpon>ExpenseEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Transactions\Expenses\ExpensesListForm.resx">
       <DependentUpon>ExpensesListForm.cs</DependentUpon>

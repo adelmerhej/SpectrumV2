@@ -24,6 +24,22 @@
 		public string EngineersDocumentsFolder { get; set; }
         public string InvoicesDocumentsFolder { get; set; }
 
+		// Invoice posting configuration
+		public string InvoiceTypeName { get; set; }
+		public string InvoiceJournalTypeCode { get; set; }
+		public string CustomerTypeName { get; set; }
+		public string CustomerDbCr { get; set; }
+		public string VatTypeName { get; set; }
+		public string VatAccountNumber { get; set; }
+
+		// Expense posting configuration
+		public string ExpenseTypeName { get; set; }
+		public string ExpenseJournalTypeCode { get; set; }
+		public string VendorTypeName { get; set; }
+		public string VendorDbCr { get; set; }
+		public string ExpenseVatTypeName { get; set; }
+		public string ExpenseVatAccountNumber { get; set; }
+
         // SENSITIVE FIELDS: Stored Encrypted
         public string EncryptedPassword { get; set; }
 		public string EncryptedConnectionString { get; set; }

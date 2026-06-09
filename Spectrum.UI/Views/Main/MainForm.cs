@@ -31,6 +31,7 @@ using Spectrum.Views.HumanResources.HRCVs;
 using Spectrum.Views.HumanResources.JobPositions;
 using Spectrum.Views.HumanResources.Roles;
 using Spectrum.Views.Main.Connections;
+using Spectrum.Views.Main.MainSettings;
 using Spectrum.Views.Main.Update;
 using Spectrum.Views.Members.Clients;
 using Spectrum.Views.Members.Engineers;
@@ -476,7 +477,7 @@ namespace Spectrum.Views.Main
 
         private void mnuGeneralSettings_Click(object sender, EventArgs e)
         {
-            ApiKeySettingForm frm = new ApiKeySettingForm();
+            ApplicationSettingForm frm = new ApplicationSettingForm();
             frm.ShowDialog();
         }
 

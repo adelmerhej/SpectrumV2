@@ -20,6 +20,7 @@ using Spectrum.DataLayers.Projects;
 using Spectrum.DataLayers.Projects.Settings.Addendum;
 using Spectrum.DataLayers.Projects.Settings.ProjectTypes;
 using Spectrum.DataLayers.Users;
+using Spectrum.Models.Accounting.Expenses;
 using Spectrum.Models.Accounting.Invoices;
 using Spectrum.Models.Common.Areas;
 using Spectrum.Models.Common.Countries;
@@ -78,7 +79,9 @@ namespace Spectrum.Views.Projects
 
         private IList<ServiceModel> _services = new List<ServiceModel>();
         private IList<ProjectTypeModel> _projectTypes = new List<ProjectTypeModel>();
+
         private IList<InvoiceModel> _invoices = new List<InvoiceModel>();
+        private IList<ExpenseModel> _expenses = new List<ExpenseModel>();
 
         private readonly ProjectRepository _projectRepository = new ProjectRepository(DatabaseFactory.ProfilePrimary);
         private readonly ClientRepository _clientRepository = new ClientRepository(DatabaseFactory.ProfilePrimary);
@@ -103,6 +106,7 @@ namespace Spectrum.Views.Projects
         private bool _canPrint = true;
         private bool _isAdmin = true;
         private bool _isProtected = true;
+
         private readonly List<string> _loadWarnings = new List<string>();
         private DXMenuItem[] _addendumMenuItems;
         private bool _isInitialized;
@@ -659,12 +663,36 @@ namespace Spectrum.Views.Projects
 
         private void ApplyPermissions()
         {
+            // In a real application, these permission flags would be determined by the current user's roles/permissions and the project's state
+            // For demonstration, they are hardcoded to true. Adjust the logic as needed to integrate with your actual permission system.
+
+            // Project permissions (e.g., based on user roles, project status, etc.)
             btnNew.Enabled = _isAdmin || _canAdd;
             btnSave.Enabled = _isAdmin || _canEdit;
             btnSaveAndClose.Enabled = _isAdmin || _canEdit;
             btnPrint.Enabled = _isAdmin || _canPrint;
             btnDelete.Enabled = _isAdmin || _canDelete;
             btnProtected.Enabled = _isAdmin || _isProtected;
+
+            // invoice permissions (e.g., only allow if project is active and user has edit rights)
+            btnNewInvoice.Enabled = (_isAdmin || _canEdit);
+            btnEditInvoice.Enabled = (_isAdmin || _canEdit) && gvInvoices.FocusedRowHandle >= 0;
+            btnPrintInvoice.Enabled = (_isAdmin || _canPrint) && gvInvoices.FocusedRowHandle >= 0;
+            btnPrintOriginalInvoice.Enabled = (_isAdmin || _canPrint) && gvInvoices.FocusedRowHandle >= 0;
+            btnDeleteInvoice.Enabled = (_isAdmin || _canDelete) && gvInvoices.FocusedRowHandle >= 0;
+
+            // Addendum permissions (e.g., only allow if project is saved and user has edit rights)
+            btnNewAddendum.Enabled = (_isAdmin || _canEdit);
+            btnEditAddendum.Enabled = (_isAdmin || _canEdit) && gvAddendum.FocusedRowHandle >= 0;
+            btnDeleteAddendum.Enabled = (_isAdmin || _canDelete) && gvAddendum.FocusedRowHandle >= 0;
+            btnPrintAddendum.Enabled = (_isAdmin || _canPrint) && gvAddendum.FocusedRowHandle >= 0;
+
+            // Expenses permissions (e.g., only allow if project is active and user has edit rights)
+            btnNewExpense.Enabled = (_isAdmin || _canEdit);
+            btnEditExpense.Enabled = (_isAdmin || _canEdit) && gvExpenses.FocusedRowHandle >= 0;
+            btnDeleteExpense.Enabled = (_isAdmin || _canDelete) && gvExpenses.FocusedRowHandle >= 0;
+            btnPrintExpenses.Enabled = (_isAdmin || _canPrint) && gvExpenses.FocusedRowHandle >= 0;
+
         }
 
         #endregion
@@ -1338,19 +1366,29 @@ namespace Spectrum.Views.Projects
         {
             switch (tabDetails.SelectedPage.Name)
             {
+                case "tabAddendum":
+                    rpAddendum.Visible = true;
+                    rpInvoices.Visible = false;
+                    rpExpenses.Visible = false;
+                    rcMain.SelectPage(rpAddendum);
+                    break;
+
                 case "tabSellingGroup":
+                    rpAddendum.Visible = false;
                     rpInvoices.Visible = true;
                     rpExpenses.Visible = false;
                     rcMain.SelectPage(rpInvoices);
                     break;
 
                 case "tabExpenseGroup":
+                    rpAddendum.Visible = false;
                     rpInvoices.Visible = false;
                     rpExpenses.Visible = true;
                     rcMain.SelectPage(rpExpenses);
                     break;
 
                 default:
+                    rpAddendum.Visible = false;
                     rpInvoices.Visible = false;
                     rpExpenses.Visible = false;
                     rcMain.SelectPage(rpMain);
@@ -1798,14 +1836,25 @@ namespace Spectrum.Views.Projects
             frm.ShowDialog();
         }
 
-        private void btnSaveInvoice_ItemClick(object sender, ItemClickEventArgs e)
+        private void btnEditInvoice_ItemClick(object sender, ItemClickEventArgs e)
         {
+            if (!_invoices.Any()) return;
 
-        }
+            try
+            {
+                string currentRowId = gvInvoices.GetFocusedRowCellValue("_id").ToString();
+                if (string.IsNullOrEmpty(currentRowId)) return;
 
-        private void btnSaveAndCloseInvoice_ItemClick(object sender, ItemClickEventArgs e)
-        {
+                var existingItem = _invoices.SingleOrDefault(x => x._id == currentRowId);
+                if (existingItem == null) return;
 
+                InvoiceEditForm frm = new InvoiceEditForm(existingItem);
+                frm.ShowDialog();
+            }
+            catch (Exception exception)
+            {
+                XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRefreshInvoice_ItemClick(object sender, ItemClickEventArgs e)
@@ -1843,14 +1892,25 @@ namespace Spectrum.Views.Projects
             receiptEditForm.ShowDialog();
         }
 
-        private void btnSaveExpense_ItemClick(object sender, ItemClickEventArgs e)
+        private void btnEditExpense_ItemClick(object sender, ItemClickEventArgs e)
         {
+            if (!_expenses.Any()) return;
 
-        }
+            try
+            {
+                string currentRowId = gvExpenses.GetFocusedRowCellValue("_id").ToString();
+                if (string.IsNullOrEmpty(currentRowId)) return;
 
-        private void btnSaveAndCloseExpense_ItemClick(object sender, ItemClickEventArgs e)
-        {
+                var existingItem = _expenses.SingleOrDefault(x => x._id == currentRowId);
+                if (existingItem == null) return;
 
+                ExpenseEditForm frm = new ExpenseEditForm(existingItem);
+                frm.ShowDialog();
+            }
+            catch (Exception exception)
+            {
+                XtraMessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRefreshExpense_ItemClick(object sender, ItemClickEventArgs e)
@@ -1874,6 +1934,42 @@ namespace Spectrum.Views.Projects
         }
 
         #endregion
+
+
+        #region Addendum Button Click Handlers (Placeholders)
+        private void btnNewAddendum_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnEditAddendum_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnRefreshAddendum_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnDeleteAddendum_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnPrintAddendum_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnCloseAddendum_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Close() ;
+        }
+
+
+        #endregion
+
 
     }
 }
