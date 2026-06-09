@@ -12,27 +12,27 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectEditForm));
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges1 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges2 = new DevExpress.Skins.SkinPaddingEdges();
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup2 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem1 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem2 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem3 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem4 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem5 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem6 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup3 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges3 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.Skins.SkinPaddingEdges skinPaddingEdges4 = new DevExpress.Skins.SkinPaddingEdges();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup4 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem7 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem8 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem9 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem10 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem11 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem12 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.ContextButton contextButton2 = new DevExpress.Utils.ContextButton();
             DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.ContextButton contextButton1 = new DevExpress.Utils.ContextButton();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             this.bsProject = new System.Windows.Forms.BindingSource(this.components);
             this.rcMain = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
@@ -273,63 +273,10 @@
             this.gvInvoices = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colInvoiceNo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colInvoiceRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colJobId1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDepartmentId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colInvoiceDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repDateEdit = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.colMemberId = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAttn = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSubject = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSubject1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSubject2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSubject3 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCurrencyId = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCurrencyRate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAmount = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colLAmount = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFAmount = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTotalItemVAT = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTotalItemNonVAT = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTotalVAT = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colLTotalVAT = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFTotalVAT = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNotify1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colToNotified = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colIsAgent = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repInvCheckEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
-            this.colSalesId = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colUserId = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colOperationDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colModifyDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPosted = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colOriginal1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colClosed = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colClosedDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCanceled = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCanceledDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colReason = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCurSLRate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTotalReceived = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDiffOfExchange = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTotalCreditNote = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTotalDebitNote = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTotalDue = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colLocked = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPrintOriginalDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPrintOriginalByUser = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colLastPrintOrigDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colLastPrintOrigByUser = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colJVNO = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDebitNote = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCreditNote = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDueDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colRefNo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSettledAmount = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPaid = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNotes1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colActive = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.tabExpenseGroup = new DevExpress.XtraBars.Navigation.TabNavigationPage();
@@ -411,6 +358,14 @@
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lblTotalInvoicesUSD = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.colAmount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colInvoiceVAT = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn32 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPaidAmount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn34 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repTextEdit = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.gridColumn28 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn31 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bsProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rcMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainLayout)).BeginInit();
@@ -630,6 +585,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblTotalInvoicesUSD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repTextEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // bsProject
@@ -807,16 +763,16 @@
             // 
             this.galleryQuickLetters.Gallery.ColumnCount = 2;
             this.galleryQuickLetters.Gallery.DrawImageBackground = false;
-            galleryItemGroup1.Caption = "Group1";
+            galleryItemGroup3.Caption = "Group1";
             this.galleryQuickLetters.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup1});
+            galleryItemGroup3});
             this.galleryQuickLetters.Gallery.ItemImageLocation = DevExpress.Utils.Locations.Left;
-            skinPaddingEdges1.Bottom = -4;
-            skinPaddingEdges1.Top = -4;
-            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges1;
-            skinPaddingEdges2.Bottom = -1;
-            skinPaddingEdges2.Top = -1;
-            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges2;
+            skinPaddingEdges3.Bottom = -4;
+            skinPaddingEdges3.Top = -4;
+            this.galleryQuickLetters.Gallery.ItemImagePadding = skinPaddingEdges3;
+            skinPaddingEdges4.Bottom = -1;
+            skinPaddingEdges4.Top = -1;
+            this.galleryQuickLetters.Gallery.ItemTextPadding = skinPaddingEdges4;
             this.galleryQuickLetters.Gallery.ShowItemText = true;
             this.galleryQuickLetters.Id = 14;
             this.galleryQuickLetters.Name = "galleryQuickLetters";
@@ -856,41 +812,41 @@
             // 
             this.rgJobStatusAction.Gallery.ColumnCount = 3;
             this.rgJobStatusAction.Gallery.DrawImageBackground = false;
-            galleryItemGroup2.Caption = "ActionGroup";
-            galleryItem1.Caption = "Active";
-            galleryItem1.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
-            galleryItem1.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem1.Value = 0;
-            galleryItem2.Caption = "Close current Project";
-            galleryItem2.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage1")));
-            galleryItem2.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem2.Value = 1;
-            galleryItem3.Caption = "Edit closed Project";
-            galleryItem3.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage2")));
-            galleryItem3.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem3.Value = 2;
-            galleryItem4.Caption = "Cancel current Project";
-            galleryItem4.Checked = true;
-            galleryItem4.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage3")));
-            galleryItem4.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem4.Value = 3;
-            galleryItem5.Caption = "ReOpen canceled Project";
-            galleryItem5.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage4")));
-            galleryItem5.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem5.Value = 4;
-            galleryItem6.Caption = "N/A";
-            galleryItem6.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage5")));
-            galleryItem6.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem6.Value = 5;
-            galleryItemGroup2.Items.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItem[] {
-            galleryItem1,
-            galleryItem2,
-            galleryItem3,
-            galleryItem4,
-            galleryItem5,
-            galleryItem6});
+            galleryItemGroup4.Caption = "ActionGroup";
+            galleryItem7.Caption = "Active";
+            galleryItem7.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
+            galleryItem7.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem7.Value = 0;
+            galleryItem8.Caption = "Close current Project";
+            galleryItem8.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage1")));
+            galleryItem8.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem8.Value = 1;
+            galleryItem9.Caption = "Edit closed Project";
+            galleryItem9.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage2")));
+            galleryItem9.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem9.Value = 2;
+            galleryItem10.Caption = "Cancel current Project";
+            galleryItem10.Checked = true;
+            galleryItem10.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage3")));
+            galleryItem10.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem10.Value = 3;
+            galleryItem11.Caption = "ReOpen canceled Project";
+            galleryItem11.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage4")));
+            galleryItem11.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem11.Value = 4;
+            galleryItem12.Caption = "N/A";
+            galleryItem12.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage5")));
+            galleryItem12.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem12.Value = 5;
+            galleryItemGroup4.Items.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItem[] {
+            galleryItem7,
+            galleryItem8,
+            galleryItem9,
+            galleryItem10,
+            galleryItem11,
+            galleryItem12});
             this.rgJobStatusAction.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup2});
+            galleryItemGroup4});
             this.rgJobStatusAction.Gallery.ItemCheckMode = DevExpress.XtraBars.Ribbon.Gallery.ItemCheckMode.SingleCheck;
             this.rgJobStatusAction.Gallery.ItemImageLocation = DevExpress.Utils.Locations.Left;
             this.rgJobStatusAction.Gallery.ShowItemText = true;
@@ -2003,7 +1959,7 @@
             this.txtContactEmail.Name = "txtContactEmail";
             this.txtContactEmail.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "View", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "View Contact", "ViewContact", null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "View", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "View Contact", "ViewContact", null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.txtContactEmail.Properties.DisplayMember = "Email";
             this.txtContactEmail.Properties.NullText = "";
             this.txtContactEmail.Properties.PopupView = this.gridView13;
@@ -3061,7 +3017,7 @@
             this.tabSellingGroup.Caption = "Invoices";
             this.tabSellingGroup.Controls.Add(this.layoutInvoicesGrid);
             this.tabSellingGroup.Name = "tabSellingGroup";
-            this.tabSellingGroup.Size = new System.Drawing.Size(1440, 272);
+            this.tabSellingGroup.Size = new System.Drawing.Size(1436, 270);
             // 
             // layoutInvoicesGrid
             // 
@@ -3070,7 +3026,7 @@
             this.layoutInvoicesGrid.Location = new System.Drawing.Point(0, 0);
             this.layoutInvoicesGrid.Name = "layoutInvoicesGrid";
             this.layoutInvoicesGrid.Root = this.layoutControlGroup3;
-            this.layoutInvoicesGrid.Size = new System.Drawing.Size(1440, 272);
+            this.layoutInvoicesGrid.Size = new System.Drawing.Size(1436, 270);
             this.layoutInvoicesGrid.TabIndex = 0;
             this.layoutInvoicesGrid.Text = "layoutControl1";
             // 
@@ -3082,8 +3038,9 @@
             this.gcInvoices.Name = "gcInvoices";
             this.gcInvoices.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repDateEdit,
-            this.repInvCheckEdit});
-            this.gcInvoices.Size = new System.Drawing.Size(1412, 244);
+            this.repInvCheckEdit,
+            this.repTextEdit});
+            this.gcInvoices.Size = new System.Drawing.Size(1408, 242);
             this.gcInvoices.TabIndex = 0;
             this.gcInvoices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvInvoices});
@@ -3093,61 +3050,15 @@
             this.gvInvoices.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colId,
             this.colInvoiceNo,
-            this.colInvoiceRef,
-            this.colJobId1,
-            this.colDepartmentId,
             this.colInvoiceDate,
             this.colMemberId,
-            this.colAttn,
-            this.colSubject,
-            this.colSubject1,
-            this.colSubject2,
-            this.colSubject3,
-            this.colCurrencyId,
-            this.colCurrencyRate,
             this.colAmount,
-            this.colLAmount,
-            this.colFAmount,
-            this.colTotalItemVAT,
-            this.colTotalItemNonVAT,
-            this.colTotalVAT,
-            this.colLTotalVAT,
-            this.colFTotalVAT,
-            this.colNotify1,
-            this.colToNotified,
-            this.colIsAgent,
-            this.colSalesId,
-            this.colUserId,
-            this.colOperationDate,
-            this.colModifyDate,
-            this.colPosted,
-            this.colOriginal1,
-            this.colClosed,
-            this.colClosedDate,
-            this.colCanceled,
-            this.colCanceledDate,
-            this.colReason,
-            this.colCurSLRate,
-            this.colTotalReceived,
-            this.colDiffOfExchange,
-            this.colTotalCreditNote,
-            this.colTotalDebitNote,
-            this.colTotalDue,
-            this.colLocked,
-            this.colPrintOriginalDate,
-            this.colPrintOriginalByUser,
-            this.colLastPrintOrigDate,
-            this.colLastPrintOrigByUser,
-            this.colJVNO,
-            this.colDebitNote,
-            this.colCreditNote,
-            this.colDueDate,
-            this.colRefNo,
-            this.colSettledAmount,
-            this.colPaid,
-            this.colNotes1,
-            this.colIsDefault,
-            this.colActive});
+            this.colInvoiceVAT,
+            this.gridColumn32,
+            this.colPaidAmount,
+            this.gridColumn34,
+            this.gridColumn28,
+            this.gridColumn31});
             this.gvInvoices.GridControl = this.gcInvoices;
             this.gvInvoices.Name = "gvInvoices";
             this.gvInvoices.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
@@ -3177,30 +3088,6 @@
             this.colInvoiceNo.VisibleIndex = 0;
             this.colInvoiceNo.Width = 94;
             // 
-            // colInvoiceRef
-            // 
-            this.colInvoiceRef.FieldName = "InvoiceRef";
-            this.colInvoiceRef.MinWidth = 25;
-            this.colInvoiceRef.Name = "colInvoiceRef";
-            this.colInvoiceRef.Visible = true;
-            this.colInvoiceRef.VisibleIndex = 1;
-            this.colInvoiceRef.Width = 150;
-            // 
-            // colJobId1
-            // 
-            this.colJobId1.Caption = "Job No";
-            this.colJobId1.FieldName = "JobId";
-            this.colJobId1.MinWidth = 25;
-            this.colJobId1.Name = "colJobId1";
-            this.colJobId1.Width = 94;
-            // 
-            // colDepartmentId
-            // 
-            this.colDepartmentId.FieldName = "DepartmentId";
-            this.colDepartmentId.MinWidth = 25;
-            this.colDepartmentId.Name = "colDepartmentId";
-            this.colDepartmentId.Width = 94;
-            // 
             // colInvoiceDate
             // 
             this.colInvoiceDate.ColumnEdit = this.repDateEdit;
@@ -3208,7 +3095,7 @@
             this.colInvoiceDate.MinWidth = 25;
             this.colInvoiceDate.Name = "colInvoiceDate";
             this.colInvoiceDate.Visible = true;
-            this.colInvoiceDate.VisibleIndex = 2;
+            this.colInvoiceDate.VisibleIndex = 1;
             this.colInvoiceDate.Width = 94;
             // 
             // repDateEdit
@@ -3227,512 +3114,17 @@
             // colMemberId
             // 
             this.colMemberId.Caption = "Member Name";
-            this.colMemberId.FieldName = "MemberId";
+            this.colMemberId.FieldName = "MemberName";
             this.colMemberId.MinWidth = 25;
             this.colMemberId.Name = "colMemberId";
             this.colMemberId.Visible = true;
-            this.colMemberId.VisibleIndex = 3;
+            this.colMemberId.VisibleIndex = 2;
             this.colMemberId.Width = 300;
-            // 
-            // colAttn
-            // 
-            this.colAttn.FieldName = "Attn";
-            this.colAttn.MinWidth = 25;
-            this.colAttn.Name = "colAttn";
-            this.colAttn.Visible = true;
-            this.colAttn.VisibleIndex = 6;
-            this.colAttn.Width = 200;
-            // 
-            // colSubject
-            // 
-            this.colSubject.FieldName = "Subject";
-            this.colSubject.MinWidth = 25;
-            this.colSubject.Name = "colSubject";
-            this.colSubject.Visible = true;
-            this.colSubject.VisibleIndex = 7;
-            this.colSubject.Width = 200;
-            // 
-            // colSubject1
-            // 
-            this.colSubject1.FieldName = "Subject1";
-            this.colSubject1.MinWidth = 25;
-            this.colSubject1.Name = "colSubject1";
-            this.colSubject1.Visible = true;
-            this.colSubject1.VisibleIndex = 8;
-            this.colSubject1.Width = 200;
-            // 
-            // colSubject2
-            // 
-            this.colSubject2.FieldName = "Subject2";
-            this.colSubject2.MinWidth = 25;
-            this.colSubject2.Name = "colSubject2";
-            this.colSubject2.Visible = true;
-            this.colSubject2.VisibleIndex = 9;
-            this.colSubject2.Width = 200;
-            // 
-            // colSubject3
-            // 
-            this.colSubject3.FieldName = "Subject3";
-            this.colSubject3.MinWidth = 25;
-            this.colSubject3.Name = "colSubject3";
-            this.colSubject3.Visible = true;
-            this.colSubject3.VisibleIndex = 10;
-            this.colSubject3.Width = 200;
-            // 
-            // colCurrencyId
-            // 
-            this.colCurrencyId.FieldName = "CurrencyId";
-            this.colCurrencyId.MinWidth = 25;
-            this.colCurrencyId.Name = "colCurrencyId";
-            this.colCurrencyId.Visible = true;
-            this.colCurrencyId.VisibleIndex = 11;
-            this.colCurrencyId.Width = 94;
-            // 
-            // colCurrencyRate
-            // 
-            this.colCurrencyRate.DisplayFormat.FormatString = "{0:n2}";
-            this.colCurrencyRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colCurrencyRate.FieldName = "CurrencyRate";
-            this.colCurrencyRate.GroupFormat.FormatString = "{0:n2}";
-            this.colCurrencyRate.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colCurrencyRate.MinWidth = 25;
-            this.colCurrencyRate.Name = "colCurrencyRate";
-            this.colCurrencyRate.Visible = true;
-            this.colCurrencyRate.VisibleIndex = 12;
-            this.colCurrencyRate.Width = 100;
-            // 
-            // colAmount
-            // 
-            this.colAmount.DisplayFormat.FormatString = "{0:n2}";
-            this.colAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colAmount.FieldName = "Amount";
-            this.colAmount.GroupFormat.FormatString = "{0:n2}";
-            this.colAmount.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colAmount.MinWidth = 25;
-            this.colAmount.Name = "colAmount";
-            this.colAmount.Visible = true;
-            this.colAmount.VisibleIndex = 13;
-            this.colAmount.Width = 150;
-            // 
-            // colLAmount
-            // 
-            this.colLAmount.DisplayFormat.FormatString = "{0:n2}";
-            this.colLAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colLAmount.FieldName = "LAmount";
-            this.colLAmount.GroupFormat.FormatString = "{0:n2}";
-            this.colLAmount.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colLAmount.MinWidth = 25;
-            this.colLAmount.Name = "colLAmount";
-            this.colLAmount.Visible = true;
-            this.colLAmount.VisibleIndex = 14;
-            this.colLAmount.Width = 150;
-            // 
-            // colFAmount
-            // 
-            this.colFAmount.DisplayFormat.FormatString = "{0:n2}";
-            this.colFAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colFAmount.FieldName = "FAmount";
-            this.colFAmount.GroupFormat.FormatString = "{0:n2}";
-            this.colFAmount.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colFAmount.MinWidth = 25;
-            this.colFAmount.Name = "colFAmount";
-            this.colFAmount.Visible = true;
-            this.colFAmount.VisibleIndex = 15;
-            this.colFAmount.Width = 150;
-            // 
-            // colTotalItemVAT
-            // 
-            this.colTotalItemVAT.DisplayFormat.FormatString = "{0:n2}";
-            this.colTotalItemVAT.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colTotalItemVAT.FieldName = "TotalItemVAT";
-            this.colTotalItemVAT.GroupFormat.FormatString = "{0:n2}";
-            this.colTotalItemVAT.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colTotalItemVAT.MinWidth = 25;
-            this.colTotalItemVAT.Name = "colTotalItemVAT";
-            this.colTotalItemVAT.Visible = true;
-            this.colTotalItemVAT.VisibleIndex = 16;
-            this.colTotalItemVAT.Width = 150;
-            // 
-            // colTotalItemNonVAT
-            // 
-            this.colTotalItemNonVAT.DisplayFormat.FormatString = "{0:n2}";
-            this.colTotalItemNonVAT.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colTotalItemNonVAT.FieldName = "TotalItemNonVAT";
-            this.colTotalItemNonVAT.GroupFormat.FormatString = "{0:n2}";
-            this.colTotalItemNonVAT.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colTotalItemNonVAT.MinWidth = 25;
-            this.colTotalItemNonVAT.Name = "colTotalItemNonVAT";
-            this.colTotalItemNonVAT.Visible = true;
-            this.colTotalItemNonVAT.VisibleIndex = 17;
-            this.colTotalItemNonVAT.Width = 150;
-            // 
-            // colTotalVAT
-            // 
-            this.colTotalVAT.Caption = "VAT";
-            this.colTotalVAT.FieldName = "TotalVAT";
-            this.colTotalVAT.MinWidth = 25;
-            this.colTotalVAT.Name = "colTotalVAT";
-            this.colTotalVAT.Visible = true;
-            this.colTotalVAT.VisibleIndex = 18;
-            this.colTotalVAT.Width = 150;
-            // 
-            // colLTotalVAT
-            // 
-            this.colLTotalVAT.Caption = "VAT (L.L.)";
-            this.colLTotalVAT.DisplayFormat.FormatString = "{0:n2}";
-            this.colLTotalVAT.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colLTotalVAT.FieldName = "LTotalVAT";
-            this.colLTotalVAT.GroupFormat.FormatString = "{0:n2}";
-            this.colLTotalVAT.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colLTotalVAT.MinWidth = 25;
-            this.colLTotalVAT.Name = "colLTotalVAT";
-            this.colLTotalVAT.Visible = true;
-            this.colLTotalVAT.VisibleIndex = 19;
-            this.colLTotalVAT.Width = 150;
-            // 
-            // colFTotalVAT
-            // 
-            this.colFTotalVAT.Caption = "VAT (USD)";
-            this.colFTotalVAT.DisplayFormat.FormatString = "{0:n2}";
-            this.colFTotalVAT.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colFTotalVAT.FieldName = "FTotalVAT";
-            this.colFTotalVAT.GroupFormat.FormatString = "{0:n2}";
-            this.colFTotalVAT.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colFTotalVAT.MinWidth = 25;
-            this.colFTotalVAT.Name = "colFTotalVAT";
-            this.colFTotalVAT.Visible = true;
-            this.colFTotalVAT.VisibleIndex = 20;
-            this.colFTotalVAT.Width = 150;
-            // 
-            // colNotify1
-            // 
-            this.colNotify1.FieldName = "Notify";
-            this.colNotify1.MinWidth = 25;
-            this.colNotify1.Name = "colNotify1";
-            this.colNotify1.Visible = true;
-            this.colNotify1.VisibleIndex = 5;
-            this.colNotify1.Width = 94;
-            // 
-            // colToNotified
-            // 
-            this.colToNotified.FieldName = "ToNotified";
-            this.colToNotified.MinWidth = 25;
-            this.colToNotified.Name = "colToNotified";
-            this.colToNotified.Visible = true;
-            this.colToNotified.VisibleIndex = 4;
-            this.colToNotified.Width = 94;
-            // 
-            // colIsAgent
-            // 
-            this.colIsAgent.ColumnEdit = this.repInvCheckEdit;
-            this.colIsAgent.FieldName = "IsAgent";
-            this.colIsAgent.MinWidth = 25;
-            this.colIsAgent.Name = "colIsAgent";
-            this.colIsAgent.Visible = true;
-            this.colIsAgent.VisibleIndex = 21;
-            this.colIsAgent.Width = 94;
             // 
             // repInvCheckEdit
             // 
             this.repInvCheckEdit.AutoHeight = false;
             this.repInvCheckEdit.Name = "repInvCheckEdit";
-            // 
-            // colSalesId
-            // 
-            this.colSalesId.FieldName = "SalesId";
-            this.colSalesId.MinWidth = 25;
-            this.colSalesId.Name = "colSalesId";
-            this.colSalesId.Visible = true;
-            this.colSalesId.VisibleIndex = 22;
-            this.colSalesId.Width = 94;
-            // 
-            // colUserId
-            // 
-            this.colUserId.FieldName = "UserId";
-            this.colUserId.MinWidth = 25;
-            this.colUserId.Name = "colUserId";
-            this.colUserId.Visible = true;
-            this.colUserId.VisibleIndex = 23;
-            this.colUserId.Width = 94;
-            // 
-            // colOperationDate
-            // 
-            this.colOperationDate.FieldName = "OperationDate";
-            this.colOperationDate.MinWidth = 25;
-            this.colOperationDate.Name = "colOperationDate";
-            this.colOperationDate.Visible = true;
-            this.colOperationDate.VisibleIndex = 24;
-            this.colOperationDate.Width = 94;
-            // 
-            // colModifyDate
-            // 
-            this.colModifyDate.FieldName = "ModifyDate";
-            this.colModifyDate.MinWidth = 25;
-            this.colModifyDate.Name = "colModifyDate";
-            this.colModifyDate.Visible = true;
-            this.colModifyDate.VisibleIndex = 25;
-            this.colModifyDate.Width = 94;
-            // 
-            // colPosted
-            // 
-            this.colPosted.FieldName = "Posted";
-            this.colPosted.MinWidth = 25;
-            this.colPosted.Name = "colPosted";
-            this.colPosted.Visible = true;
-            this.colPosted.VisibleIndex = 26;
-            this.colPosted.Width = 94;
-            // 
-            // colOriginal1
-            // 
-            this.colOriginal1.FieldName = "Original";
-            this.colOriginal1.MinWidth = 25;
-            this.colOriginal1.Name = "colOriginal1";
-            this.colOriginal1.Visible = true;
-            this.colOriginal1.VisibleIndex = 27;
-            this.colOriginal1.Width = 94;
-            // 
-            // colClosed
-            // 
-            this.colClosed.FieldName = "Closed";
-            this.colClosed.MinWidth = 25;
-            this.colClosed.Name = "colClosed";
-            this.colClosed.Visible = true;
-            this.colClosed.VisibleIndex = 28;
-            this.colClosed.Width = 94;
-            // 
-            // colClosedDate
-            // 
-            this.colClosedDate.FieldName = "ClosedDate";
-            this.colClosedDate.MinWidth = 25;
-            this.colClosedDate.Name = "colClosedDate";
-            this.colClosedDate.Visible = true;
-            this.colClosedDate.VisibleIndex = 29;
-            this.colClosedDate.Width = 94;
-            // 
-            // colCanceled
-            // 
-            this.colCanceled.FieldName = "Canceled";
-            this.colCanceled.MinWidth = 25;
-            this.colCanceled.Name = "colCanceled";
-            this.colCanceled.Visible = true;
-            this.colCanceled.VisibleIndex = 30;
-            this.colCanceled.Width = 94;
-            // 
-            // colCanceledDate
-            // 
-            this.colCanceledDate.FieldName = "CanceledDate";
-            this.colCanceledDate.MinWidth = 25;
-            this.colCanceledDate.Name = "colCanceledDate";
-            this.colCanceledDate.Visible = true;
-            this.colCanceledDate.VisibleIndex = 31;
-            this.colCanceledDate.Width = 94;
-            // 
-            // colReason
-            // 
-            this.colReason.FieldName = "Reason";
-            this.colReason.MinWidth = 25;
-            this.colReason.Name = "colReason";
-            this.colReason.Visible = true;
-            this.colReason.VisibleIndex = 32;
-            this.colReason.Width = 94;
-            // 
-            // colCurSLRate
-            // 
-            this.colCurSLRate.FieldName = "CurSLRate";
-            this.colCurSLRate.MinWidth = 25;
-            this.colCurSLRate.Name = "colCurSLRate";
-            this.colCurSLRate.Visible = true;
-            this.colCurSLRate.VisibleIndex = 33;
-            this.colCurSLRate.Width = 150;
-            // 
-            // colTotalReceived
-            // 
-            this.colTotalReceived.FieldName = "TotalReceived";
-            this.colTotalReceived.MinWidth = 25;
-            this.colTotalReceived.Name = "colTotalReceived";
-            this.colTotalReceived.Visible = true;
-            this.colTotalReceived.VisibleIndex = 34;
-            this.colTotalReceived.Width = 150;
-            // 
-            // colDiffOfExchange
-            // 
-            this.colDiffOfExchange.FieldName = "DiffOfExchange";
-            this.colDiffOfExchange.MinWidth = 25;
-            this.colDiffOfExchange.Name = "colDiffOfExchange";
-            this.colDiffOfExchange.Visible = true;
-            this.colDiffOfExchange.VisibleIndex = 35;
-            this.colDiffOfExchange.Width = 150;
-            // 
-            // colTotalCreditNote
-            // 
-            this.colTotalCreditNote.FieldName = "TotalCreditNote";
-            this.colTotalCreditNote.MinWidth = 25;
-            this.colTotalCreditNote.Name = "colTotalCreditNote";
-            this.colTotalCreditNote.Visible = true;
-            this.colTotalCreditNote.VisibleIndex = 36;
-            this.colTotalCreditNote.Width = 94;
-            // 
-            // colTotalDebitNote
-            // 
-            this.colTotalDebitNote.FieldName = "TotalDebitNote";
-            this.colTotalDebitNote.MinWidth = 25;
-            this.colTotalDebitNote.Name = "colTotalDebitNote";
-            this.colTotalDebitNote.Visible = true;
-            this.colTotalDebitNote.VisibleIndex = 37;
-            this.colTotalDebitNote.Width = 150;
-            // 
-            // colTotalDue
-            // 
-            this.colTotalDue.FieldName = "TotalDue";
-            this.colTotalDue.MinWidth = 25;
-            this.colTotalDue.Name = "colTotalDue";
-            this.colTotalDue.Visible = true;
-            this.colTotalDue.VisibleIndex = 38;
-            this.colTotalDue.Width = 150;
-            // 
-            // colLocked
-            // 
-            this.colLocked.ColumnEdit = this.repInvCheckEdit;
-            this.colLocked.FieldName = "Locked";
-            this.colLocked.MinWidth = 25;
-            this.colLocked.Name = "colLocked";
-            this.colLocked.Visible = true;
-            this.colLocked.VisibleIndex = 39;
-            this.colLocked.Width = 94;
-            // 
-            // colPrintOriginalDate
-            // 
-            this.colPrintOriginalDate.FieldName = "PrintOriginalDate";
-            this.colPrintOriginalDate.MinWidth = 25;
-            this.colPrintOriginalDate.Name = "colPrintOriginalDate";
-            this.colPrintOriginalDate.Visible = true;
-            this.colPrintOriginalDate.VisibleIndex = 40;
-            this.colPrintOriginalDate.Width = 94;
-            // 
-            // colPrintOriginalByUser
-            // 
-            this.colPrintOriginalByUser.FieldName = "PrintOriginalByUser";
-            this.colPrintOriginalByUser.MinWidth = 25;
-            this.colPrintOriginalByUser.Name = "colPrintOriginalByUser";
-            this.colPrintOriginalByUser.Visible = true;
-            this.colPrintOriginalByUser.VisibleIndex = 41;
-            this.colPrintOriginalByUser.Width = 94;
-            // 
-            // colLastPrintOrigDate
-            // 
-            this.colLastPrintOrigDate.FieldName = "LastPrintOrigDate";
-            this.colLastPrintOrigDate.MinWidth = 25;
-            this.colLastPrintOrigDate.Name = "colLastPrintOrigDate";
-            this.colLastPrintOrigDate.Visible = true;
-            this.colLastPrintOrigDate.VisibleIndex = 42;
-            this.colLastPrintOrigDate.Width = 94;
-            // 
-            // colLastPrintOrigByUser
-            // 
-            this.colLastPrintOrigByUser.FieldName = "LastPrintOrigByUser";
-            this.colLastPrintOrigByUser.MinWidth = 25;
-            this.colLastPrintOrigByUser.Name = "colLastPrintOrigByUser";
-            this.colLastPrintOrigByUser.Visible = true;
-            this.colLastPrintOrigByUser.VisibleIndex = 43;
-            this.colLastPrintOrigByUser.Width = 94;
-            // 
-            // colJVNO
-            // 
-            this.colJVNO.FieldName = "JVNO";
-            this.colJVNO.MinWidth = 25;
-            this.colJVNO.Name = "colJVNO";
-            this.colJVNO.Visible = true;
-            this.colJVNO.VisibleIndex = 44;
-            this.colJVNO.Width = 94;
-            // 
-            // colDebitNote
-            // 
-            this.colDebitNote.ColumnEdit = this.repInvCheckEdit;
-            this.colDebitNote.FieldName = "DebitNote";
-            this.colDebitNote.MinWidth = 25;
-            this.colDebitNote.Name = "colDebitNote";
-            this.colDebitNote.Visible = true;
-            this.colDebitNote.VisibleIndex = 45;
-            this.colDebitNote.Width = 94;
-            // 
-            // colCreditNote
-            // 
-            this.colCreditNote.ColumnEdit = this.repInvCheckEdit;
-            this.colCreditNote.FieldName = "CreditNote";
-            this.colCreditNote.MinWidth = 25;
-            this.colCreditNote.Name = "colCreditNote";
-            this.colCreditNote.Visible = true;
-            this.colCreditNote.VisibleIndex = 46;
-            this.colCreditNote.Width = 94;
-            // 
-            // colDueDate
-            // 
-            this.colDueDate.ColumnEdit = this.repDateEdit;
-            this.colDueDate.FieldName = "DueDate";
-            this.colDueDate.MinWidth = 25;
-            this.colDueDate.Name = "colDueDate";
-            this.colDueDate.Visible = true;
-            this.colDueDate.VisibleIndex = 47;
-            this.colDueDate.Width = 94;
-            // 
-            // colRefNo
-            // 
-            this.colRefNo.FieldName = "RefNo";
-            this.colRefNo.MinWidth = 25;
-            this.colRefNo.Name = "colRefNo";
-            this.colRefNo.Visible = true;
-            this.colRefNo.VisibleIndex = 48;
-            this.colRefNo.Width = 94;
-            // 
-            // colSettledAmount
-            // 
-            this.colSettledAmount.DisplayFormat.FormatString = "{0:n2}";
-            this.colSettledAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colSettledAmount.FieldName = "SettledAmount";
-            this.colSettledAmount.GroupFormat.FormatString = "{0:n2}";
-            this.colSettledAmount.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colSettledAmount.MinWidth = 25;
-            this.colSettledAmount.Name = "colSettledAmount";
-            this.colSettledAmount.Visible = true;
-            this.colSettledAmount.VisibleIndex = 49;
-            this.colSettledAmount.Width = 94;
-            // 
-            // colPaid
-            // 
-            this.colPaid.ColumnEdit = this.repInvCheckEdit;
-            this.colPaid.FieldName = "Paid";
-            this.colPaid.MinWidth = 25;
-            this.colPaid.Name = "colPaid";
-            this.colPaid.Visible = true;
-            this.colPaid.VisibleIndex = 50;
-            this.colPaid.Width = 94;
-            // 
-            // colNotes1
-            // 
-            this.colNotes1.FieldName = "Notes";
-            this.colNotes1.MinWidth = 25;
-            this.colNotes1.Name = "colNotes1";
-            this.colNotes1.Visible = true;
-            this.colNotes1.VisibleIndex = 51;
-            this.colNotes1.Width = 94;
-            // 
-            // colIsDefault
-            // 
-            this.colIsDefault.FieldName = "IsDefault";
-            this.colIsDefault.MinWidth = 25;
-            this.colIsDefault.Name = "colIsDefault";
-            this.colIsDefault.Visible = true;
-            this.colIsDefault.VisibleIndex = 52;
-            this.colIsDefault.Width = 94;
-            // 
-            // colActive
-            // 
-            this.colActive.FieldName = "Active";
-            this.colActive.MinWidth = 25;
-            this.colActive.Name = "colActive";
-            this.colActive.Visible = true;
-            this.colActive.VisibleIndex = 53;
-            this.colActive.Width = 94;
             // 
             // layoutControlGroup3
             // 
@@ -3741,7 +3133,7 @@
             this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem3});
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(1440, 272);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(1436, 270);
             this.layoutControlGroup3.TextVisible = false;
             // 
             // layoutControlItem3
@@ -3749,7 +3141,7 @@
             this.layoutControlItem3.Control = this.gcInvoices;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1416, 248);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1412, 246);
             this.layoutControlItem3.TextVisible = false;
             // 
             // tabExpenseGroup
@@ -4144,12 +3536,12 @@
             this.gvDocuments.ColumnSet.DescriptionColumn = this.colDate1;
             this.gvDocuments.ColumnSet.TextColumn = this.colName;
             this.gvDocuments.ContextButtonOptions.AllowGlyphSkinning = true;
-            contextButton1.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Right;
-            contextButton1.Id = new System.Guid("29468572-0411-449a-bc2d-0c333134705c");
-            contextButton1.ImageOptionsCollection.ItemNormal.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage6")));
-            contextButton1.ImageOptionsCollection.ItemNormal.SvgImageSize = new System.Drawing.Size(16, 16);
-            contextButton1.Name = "removeButton";
-            this.gvDocuments.ContextButtons.Add(contextButton1);
+            contextButton2.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Right;
+            contextButton2.Id = new System.Guid("29468572-0411-449a-bc2d-0c333134705c");
+            contextButton2.ImageOptionsCollection.ItemNormal.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage6")));
+            contextButton2.ImageOptionsCollection.ItemNormal.SvgImageSize = new System.Drawing.Size(16, 16);
+            contextButton2.Name = "removeButton";
+            this.gvDocuments.ContextButtons.Add(contextButton2);
             this.gvDocuments.GridControl = this.gcDocuments;
             this.gvDocuments.Name = "gvDocuments";
             this.gvDocuments.OptionsBehavior.Editable = false;
@@ -4194,11 +3586,11 @@
             this.openDocuments.Name = "openDocuments";
             this.openDocuments.Properties.AutoHeight = false;
             this.openDocuments.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(16, 16);
+            editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(16, 16);
             this.openDocuments.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton(),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", "loadFile", null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", "loadFile", null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.openDocuments.Properties.Client = this.gcDocuments;
             this.openDocuments.Size = new System.Drawing.Size(1328, 56);
             this.openDocuments.StyleController = this.layoutAttachedDocumnets;
@@ -4600,6 +3992,84 @@
             this.emptySpaceItem2.Name = "emptySpaceItem2";
             this.emptySpaceItem2.Size = new System.Drawing.Size(528, 69);
             // 
+            // colAmount
+            // 
+            this.colAmount.ColumnEdit = this.repTextEdit;
+            this.colAmount.FieldName = "TotalAmount";
+            this.colAmount.MinWidth = 25;
+            this.colAmount.Name = "colAmount";
+            this.colAmount.Visible = true;
+            this.colAmount.VisibleIndex = 3;
+            this.colAmount.Width = 94;
+            // 
+            // colInvoiceVAT
+            // 
+            this.colInvoiceVAT.ColumnEdit = this.repTextEdit;
+            this.colInvoiceVAT.FieldName = "TotalVat";
+            this.colInvoiceVAT.MinWidth = 25;
+            this.colInvoiceVAT.Name = "colInvoiceVAT";
+            this.colInvoiceVAT.Visible = true;
+            this.colInvoiceVAT.VisibleIndex = 4;
+            this.colInvoiceVAT.Width = 94;
+            // 
+            // gridColumn32
+            // 
+            this.gridColumn32.FieldName = "Paid";
+            this.gridColumn32.MinWidth = 25;
+            this.gridColumn32.Name = "gridColumn32";
+            this.gridColumn32.Visible = true;
+            this.gridColumn32.VisibleIndex = 5;
+            this.gridColumn32.Width = 94;
+            // 
+            // colPaidAmount
+            // 
+            this.colPaidAmount.ColumnEdit = this.repTextEdit;
+            this.colPaidAmount.FieldName = "PaidAmount";
+            this.colPaidAmount.MinWidth = 25;
+            this.colPaidAmount.Name = "colPaidAmount";
+            this.colPaidAmount.Visible = true;
+            this.colPaidAmount.VisibleIndex = 6;
+            this.colPaidAmount.Width = 94;
+            // 
+            // gridColumn34
+            // 
+            this.gridColumn34.FieldName = "Bank";
+            this.gridColumn34.MinWidth = 25;
+            this.gridColumn34.Name = "gridColumn34";
+            this.gridColumn34.Visible = true;
+            this.gridColumn34.VisibleIndex = 7;
+            this.gridColumn34.Width = 94;
+            // 
+            // repTextEdit
+            // 
+            this.repTextEdit.AutoHeight = false;
+            this.repTextEdit.DisplayFormat.FormatString = "n";
+            this.repTextEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.repTextEdit.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
+            this.repTextEdit.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
+            this.repTextEdit.MaskSettings.Set("mask", "n");
+            this.repTextEdit.Name = "repTextEdit";
+            this.repTextEdit.UseMaskAsDisplayFormat = true;
+            // 
+            // gridColumn28
+            // 
+            this.gridColumn28.FieldName = "Notes";
+            this.gridColumn28.MinWidth = 25;
+            this.gridColumn28.Name = "gridColumn28";
+            this.gridColumn28.Visible = true;
+            this.gridColumn28.VisibleIndex = 8;
+            this.gridColumn28.Width = 94;
+            // 
+            // gridColumn31
+            // 
+            this.gridColumn31.ColumnEdit = this.repInvCheckEdit;
+            this.gridColumn31.FieldName = "Active";
+            this.gridColumn31.MinWidth = 25;
+            this.gridColumn31.Name = "gridColumn31";
+            this.gridColumn31.Visible = true;
+            this.gridColumn31.VisibleIndex = 9;
+            this.gridColumn31.Width = 94;
+            // 
             // ProjectEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -4832,6 +4302,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblTotalInvoicesUSD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repTextEdit)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -4962,63 +4433,10 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gvInvoices;
         private DevExpress.XtraGrid.Columns.GridColumn colId;
         private DevExpress.XtraGrid.Columns.GridColumn colInvoiceNo;
-        private DevExpress.XtraGrid.Columns.GridColumn colInvoiceRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colJobId1;
-        private DevExpress.XtraGrid.Columns.GridColumn colDepartmentId;
         private DevExpress.XtraGrid.Columns.GridColumn colInvoiceDate;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repDateEdit;
         private DevExpress.XtraGrid.Columns.GridColumn colMemberId;
-        private DevExpress.XtraGrid.Columns.GridColumn colAttn;
-        private DevExpress.XtraGrid.Columns.GridColumn colSubject;
-        private DevExpress.XtraGrid.Columns.GridColumn colSubject1;
-        private DevExpress.XtraGrid.Columns.GridColumn colSubject2;
-        private DevExpress.XtraGrid.Columns.GridColumn colSubject3;
-        private DevExpress.XtraGrid.Columns.GridColumn colCurrencyId;
-        private DevExpress.XtraGrid.Columns.GridColumn colCurrencyRate;
-        private DevExpress.XtraGrid.Columns.GridColumn colAmount;
-        private DevExpress.XtraGrid.Columns.GridColumn colLAmount;
-        private DevExpress.XtraGrid.Columns.GridColumn colFAmount;
-        private DevExpress.XtraGrid.Columns.GridColumn colTotalItemVAT;
-        private DevExpress.XtraGrid.Columns.GridColumn colTotalItemNonVAT;
-        private DevExpress.XtraGrid.Columns.GridColumn colTotalVAT;
-        private DevExpress.XtraGrid.Columns.GridColumn colLTotalVAT;
-        private DevExpress.XtraGrid.Columns.GridColumn colFTotalVAT;
-        private DevExpress.XtraGrid.Columns.GridColumn colNotify1;
-        private DevExpress.XtraGrid.Columns.GridColumn colToNotified;
-        private DevExpress.XtraGrid.Columns.GridColumn colIsAgent;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repInvCheckEdit;
-        private DevExpress.XtraGrid.Columns.GridColumn colSalesId;
-        private DevExpress.XtraGrid.Columns.GridColumn colUserId;
-        private DevExpress.XtraGrid.Columns.GridColumn colOperationDate;
-        private DevExpress.XtraGrid.Columns.GridColumn colModifyDate;
-        private DevExpress.XtraGrid.Columns.GridColumn colPosted;
-        private DevExpress.XtraGrid.Columns.GridColumn colOriginal1;
-        private DevExpress.XtraGrid.Columns.GridColumn colClosed;
-        private DevExpress.XtraGrid.Columns.GridColumn colClosedDate;
-        private DevExpress.XtraGrid.Columns.GridColumn colCanceled;
-        private DevExpress.XtraGrid.Columns.GridColumn colCanceledDate;
-        private DevExpress.XtraGrid.Columns.GridColumn colReason;
-        private DevExpress.XtraGrid.Columns.GridColumn colCurSLRate;
-        private DevExpress.XtraGrid.Columns.GridColumn colTotalReceived;
-        private DevExpress.XtraGrid.Columns.GridColumn colDiffOfExchange;
-        private DevExpress.XtraGrid.Columns.GridColumn colTotalCreditNote;
-        private DevExpress.XtraGrid.Columns.GridColumn colTotalDebitNote;
-        private DevExpress.XtraGrid.Columns.GridColumn colTotalDue;
-        private DevExpress.XtraGrid.Columns.GridColumn colLocked;
-        private DevExpress.XtraGrid.Columns.GridColumn colPrintOriginalDate;
-        private DevExpress.XtraGrid.Columns.GridColumn colPrintOriginalByUser;
-        private DevExpress.XtraGrid.Columns.GridColumn colLastPrintOrigDate;
-        private DevExpress.XtraGrid.Columns.GridColumn colLastPrintOrigByUser;
-        private DevExpress.XtraGrid.Columns.GridColumn colJVNO;
-        private DevExpress.XtraGrid.Columns.GridColumn colDebitNote;
-        private DevExpress.XtraGrid.Columns.GridColumn colCreditNote;
-        private DevExpress.XtraGrid.Columns.GridColumn colDueDate;
-        private DevExpress.XtraGrid.Columns.GridColumn colRefNo;
-        private DevExpress.XtraGrid.Columns.GridColumn colSettledAmount;
-        private DevExpress.XtraGrid.Columns.GridColumn colPaid;
-        private DevExpress.XtraGrid.Columns.GridColumn colNotes1;
-        private DevExpress.XtraGrid.Columns.GridColumn colIsDefault;
-        private DevExpress.XtraGrid.Columns.GridColumn colActive;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraBars.Navigation.TabNavigationPage tabExpenseGroup;
@@ -5214,5 +4632,13 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup20;
         private DevExpress.XtraBars.BarButtonItem btnCloseAddendum;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup22;
+        private DevExpress.XtraGrid.Columns.GridColumn colAmount;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repTextEdit;
+        private DevExpress.XtraGrid.Columns.GridColumn colInvoiceVAT;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn32;
+        private DevExpress.XtraGrid.Columns.GridColumn colPaidAmount;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn34;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn28;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn31;
     }
 }

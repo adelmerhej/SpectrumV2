@@ -57,9 +57,9 @@ namespace Spectrum.Models.Accounting.Expenses
             invoiceModel.InvoiceDetails = InvoiceDetails?
                 .Select(detail => (detail.Clone() as InvoiceDetailModel) ?? new InvoiceDetailModel())
                 .ToList() ?? new List<InvoiceDetailModel>();
-            invoiceModel.ActivityTimeline = ActivityTimeline?
-                .Select(entry => (InvoiceActivityEntryModel)entry.Clone())
-                .ToList() ?? new List<InvoiceActivityEntryModel>();
+            //invoiceModel.ActivityTimeline = ActivityTimeline?
+            //    .Select(entry => (InvoiceActivityEntryModel)entry.Clone())
+            //    .ToList() ?? new List<InvoiceActivityEntryModel>();
             return invoiceModel;
         }
 

@@ -39,6 +39,7 @@ using Spectrum.Views.Members.Clients;
 using Spectrum.Views.Members.Engineers;
 using Spectrum.Views.Projects.Settings.Addendum;
 using Spectrum.Views.Projects.Settings.ProjectTypes;
+using Spectrum.Views.Transactions.Expenses;
 using Spectrum.Views.Transactions.Invoices;
 using Spectrum.Views.Transactions.Receipts;
 using System;
@@ -46,6 +47,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -413,6 +415,114 @@ namespace Spectrum.Views.Projects
 
             gcInvoices.DataBindings.Clear();
             gcInvoices.DataSource = _invoices;
+
+            gcExpenses.DataBindings.Clear();
+            gcExpenses.DataSource = _expenses;
+
+            HookFinancialSummaryEvents();
+            CalculateFinancialSummary();
+        }
+
+        private void HookFinancialSummaryEvents()
+        {
+            gvInvoices.RowCountChanged -= FinancialSummary_RowCountChanged;
+            gvInvoices.RowCountChanged += FinancialSummary_RowCountChanged;
+
+            gvExpenses.RowCountChanged -= FinancialSummary_RowCountChanged;
+            gvExpenses.RowCountChanged += FinancialSummary_RowCountChanged;
+        }
+
+        private void FinancialSummary_RowCountChanged(object sender, EventArgs e)
+        {
+            CalculateFinancialSummary();
+        }
+
+        private void CalculateFinancialSummary()
+        {
+            var totalInvoicesUsd = SumGridColumn(gvInvoices, "TotalFAmount", "FAmount", "ForeignAmount");
+            var totalInvoicesLl = SumGridColumn(gvInvoices, "TotalLAmount", "LAmount", "LocalAmount");
+
+            var totalExpensesUsd = SumGridColumn(gvExpenses, "ProvisionAmountUSD", "TotalFAmount", "FAmount", "ForeignAmount");
+            var totalExpensesLl = SumGridColumn(gvExpenses, "ProvisionAmountLL", "TotalLAmount", "LAmount", "LocalAmount");
+
+            txtTotalInvoicesUSD.EditValue = totalInvoicesUsd;
+            txtTotalInvoicesLL.EditValue = totalInvoicesLl;
+            txtTotalExpensesUSD.EditValue = totalExpensesUsd;
+            txtTotalExpensesLL.EditValue = totalExpensesLl;
+
+            txtBalanceUSD.EditValue = totalInvoicesUsd - totalExpensesUsd;
+            txtProfitLL.EditValue = totalInvoicesLl - totalExpensesLl;
+        }
+
+        private static decimal SumGridColumn(GridView view, params string[] preferredFieldNames)
+        {
+            if (view == null || preferredFieldNames == null || preferredFieldNames.Length == 0)
+            {
+                return 0m;
+            }
+
+            var fieldName = preferredFieldNames.FirstOrDefault(name => view.Columns.ColumnByFieldName(name) != null);
+            if (string.IsNullOrWhiteSpace(fieldName))
+            {
+                return 0m;
+            }
+
+            decimal total = 0m;
+            for (var i = 0; i < view.DataRowCount; i++)
+            {
+                var rowHandle = view.GetVisibleRowHandle(i);
+                if (rowHandle < 0)
+                {
+                    continue;
+                }
+
+                total += ToDecimal(view.GetRowCellValue(rowHandle, fieldName));
+            }
+
+            return total;
+        }
+
+        private static decimal ToDecimal(object value)
+        {
+            if (value == null || value == DBNull.Value)
+            {
+                return 0m;
+            }
+
+            if (value is decimal decimalValue)
+            {
+                return decimalValue;
+            }
+
+            if (value is IConvertible)
+            {
+                try
+                {
+                    return Convert.ToDecimal(value);
+                }
+                catch
+                {
+                    // fallback to string parsing below
+                }
+            }
+
+            var text = value.ToString();
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return 0m;
+            }
+
+            if (decimal.TryParse(text, NumberStyles.Any, CultureInfo.CurrentCulture, out var parsedCurrent))
+            {
+                return parsedCurrent;
+            }
+
+            if (decimal.TryParse(text, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsedInvariant))
+            {
+                return parsedInvariant;
+            }
+
+            return 0m;
         }
 
         private static void ConfigurePopupGridColumns(GridView view, params (string fieldName, string caption, int width)[] columns)
@@ -1904,8 +2014,8 @@ namespace Spectrum.Views.Projects
                 var existingItem = _expenses.SingleOrDefault(x => x._id == currentRowId);
                 if (existingItem == null) return;
 
-                ExpenseEditForm frm = new ExpenseEditForm(existingItem);
-                frm.ShowDialog();
+                //ExpenseEditForm frm = new ExpenseEditForm(existingItem);
+                //frm.ShowDialog();
             }
             catch (Exception exception)
             {

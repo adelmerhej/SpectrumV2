@@ -82,6 +82,7 @@ namespace Spectrum.Views.Transactions.Invoices
             this.mainLayout = new DevExpress.XtraLayout.LayoutControl();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.colMemberId = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gvInvoiceDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repTextEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repCheckEdit)).BeginInit();
@@ -277,14 +278,14 @@ namespace Spectrum.Views.Transactions.Invoices
             this.gcInvoices.EmbeddedNavigator.Buttons.Edit.Visible = false;
             this.gcInvoices.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
             this.gcInvoices.EmbeddedNavigator.Buttons.Remove.Visible = false;
-            this.gcInvoices.Location = new System.Drawing.Point(12, 12);
+            this.gcInvoices.Location = new System.Drawing.Point(14, 14);
             this.gcInvoices.MainView = this.gvInvoices;
             this.gcInvoices.Name = "gcInvoices";
             this.gcInvoices.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repCheckEdit,
             this.repDateEdit,
             this.repTextEdit});
-            this.gcInvoices.Size = new System.Drawing.Size(1357, 548);
+            this.gcInvoices.Size = new System.Drawing.Size(1353, 544);
             this.gcInvoices.TabIndex = 8;
             this.gcInvoices.UseEmbeddedNavigator = true;
             this.gcInvoices.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -302,6 +303,7 @@ namespace Spectrum.Views.Transactions.Invoices
             this.colProjectName,
             this.colInvoiceNumber,
             this.colInvoiceDate,
+            this.colMemberId,
             this.colAmount,
             this.colVAT,
             this.colPaid,
@@ -388,7 +390,7 @@ namespace Spectrum.Views.Transactions.Invoices
             this.colVAT.MinWidth = 25;
             this.colVAT.Name = "colVAT";
             this.colVAT.Visible = true;
-            this.colVAT.VisibleIndex = 4;
+            this.colVAT.VisibleIndex = 5;
             this.colVAT.Width = 105;
             // 
             // colPaid
@@ -398,7 +400,7 @@ namespace Spectrum.Views.Transactions.Invoices
             this.colPaid.MinWidth = 25;
             this.colPaid.Name = "colPaid";
             this.colPaid.Visible = true;
-            this.colPaid.VisibleIndex = 5;
+            this.colPaid.VisibleIndex = 6;
             this.colPaid.Width = 81;
             // 
             // colPaidAmount
@@ -408,7 +410,7 @@ namespace Spectrum.Views.Transactions.Invoices
             this.colPaidAmount.MinWidth = 25;
             this.colPaidAmount.Name = "colPaidAmount";
             this.colPaidAmount.Visible = true;
-            this.colPaidAmount.VisibleIndex = 6;
+            this.colPaidAmount.VisibleIndex = 7;
             this.colPaidAmount.Width = 183;
             // 
             // colBank
@@ -417,7 +419,7 @@ namespace Spectrum.Views.Transactions.Invoices
             this.colBank.MinWidth = 25;
             this.colBank.Name = "colBank";
             this.colBank.Visible = true;
-            this.colBank.VisibleIndex = 7;
+            this.colBank.VisibleIndex = 8;
             this.colBank.Width = 235;
             // 
             // colNotes
@@ -426,7 +428,7 @@ namespace Spectrum.Views.Transactions.Invoices
             this.colNotes.MinWidth = 25;
             this.colNotes.Name = "colNotes";
             this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 8;
+            this.colNotes.VisibleIndex = 9;
             this.colNotes.Width = 276;
             // 
             // colActive
@@ -436,7 +438,7 @@ namespace Spectrum.Views.Transactions.Invoices
             this.colActive.MinWidth = 25;
             this.colActive.Name = "colActive";
             this.colActive.Visible = true;
-            this.colActive.VisibleIndex = 9;
+            this.colActive.VisibleIndex = 10;
             this.colActive.Width = 94;
             // 
             // rcInvoices
@@ -620,8 +622,18 @@ namespace Spectrum.Views.Transactions.Invoices
             this.layoutControlItem1.Control = this.gcInvoices;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1361, 552);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1357, 548);
             this.layoutControlItem1.TextVisible = false;
+            // 
+            // colMemberId
+            // 
+            this.colMemberId.Caption = "Member Name";
+            this.colMemberId.FieldName = "MemberId";
+            this.colMemberId.MinWidth = 25;
+            this.colMemberId.Name = "colMemberId";
+            this.colMemberId.Visible = true;
+            this.colMemberId.VisibleIndex = 4;
+            this.colMemberId.Width = 94;
             // 
             // InvoicesListForm
             // 
@@ -705,5 +717,6 @@ namespace Spectrum.Views.Transactions.Invoices
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn11;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn12;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn13;
+        private DevExpress.XtraGrid.Columns.GridColumn colMemberId;
     }
 }
