@@ -23,6 +23,13 @@
 		public string EmployeesDocumentsFolder { get; set; }
 		public string EngineersDocumentsFolder { get; set; }
         public string InvoicesDocumentsFolder { get; set; }
+		public string InvoicePostingInvoiceType { get; set; }
+		public string InvoicePostingJournalType { get; set; }
+		public string InvoicePostingCustomerType { get; set; }
+		public string InvoicePostingCustomerDbCr { get; set; }
+		public string InvoicePostingVatType { get; set; }
+		public string InvoicePostingVatAccountType { get; set; }
+		public string InvoicePostingVatAccountNumber { get; set; }
 
 		// Invoice posting configuration
 		public string InvoiceTypeName { get; set; }
