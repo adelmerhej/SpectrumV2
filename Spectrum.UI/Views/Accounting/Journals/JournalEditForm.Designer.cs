@@ -1168,6 +1168,7 @@
             this.colChartId.FieldName = "AccountNumber";
             this.colChartId.MinWidth = 25;
             this.colChartId.Name = "colChartId";
+            this.colChartId.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.BeginsWith;
             this.colChartId.Visible = true;
             this.colChartId.VisibleIndex = 1;
             this.colChartId.Width = 121;
@@ -1192,6 +1193,7 @@
             this.gridColumn3});
             this.repositoryItemSearchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.repositoryItemSearchLookUpEdit1View.Name = "repositoryItemSearchLookUpEdit1View";
+            this.repositoryItemSearchLookUpEdit1View.OptionsFind.Condition = DevExpress.Data.Filtering.FilterCondition.StartsWith;
             this.repositoryItemSearchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.repositoryItemSearchLookUpEdit1View.OptionsView.ShowGroupPanel = false;
             // 

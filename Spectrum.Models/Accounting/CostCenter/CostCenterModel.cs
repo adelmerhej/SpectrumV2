@@ -1,5 +1,4 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using Spectrum.Models;
 using System;
 
 namespace Spectrum.Models.Accounting.CostCenter
@@ -15,8 +14,7 @@ namespace Spectrum.Models.Accounting.CostCenter
         /// <returns>A new object that is a copy of this instance.</returns>
         public object Clone()
         {
-            var recordModel = (CostCenterModel)MemberwiseClone();
-            return recordModel;
+            return MemberwiseClone();
         }
 
         #endregion

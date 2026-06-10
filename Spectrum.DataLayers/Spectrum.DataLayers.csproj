@@ -182,12 +182,16 @@
   <ItemGroup>
     <Compile Include="Accounting\Banks\BankRepository.cs" />
     <Compile Include="Accounting\Banks\IBankRepository.cs" />
+    <Compile Include="Accounting\CashRegister\CashRegisterRepository.cs" />
+    <Compile Include="Accounting\CashRegister\ICashRegisterRepository.cs" />
     <Compile Include="Accounting\Charts\ChartDetailRepository.cs" />
     <Compile Include="Accounting\Charts\ChartRepository.cs" />
     <Compile Include="Accounting\Charts\IChartDetailRepository.cs" />
     <Compile Include="Accounting\Charts\IChartRepository.cs" />
     <Compile Include="Accounting\CostCenter\CostCenterRepository.cs" />
     <Compile Include="Accounting\CostCenter\ICostCenterRepository.cs" />
+    <Compile Include="Accounting\FinancialGroup\FinancialGroupRepository.cs" />
+    <Compile Include="Accounting\FinancialGroup\IFinancialGroupRepository.cs" />
     <Compile Include="Accounting\FlowType\FlowTypeRepository.cs" />
     <Compile Include="Accounting\FlowType\IFlowTypeRepository.cs" />
     <Compile Include="Accounting\Invoices\IInvoiceRepository.cs" />

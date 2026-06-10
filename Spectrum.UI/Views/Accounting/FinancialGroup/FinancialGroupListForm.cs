@@ -2,35 +2,34 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
+using Spectrum.DataLayers.Accounting.FinancialGroup;
+using Spectrum.DataLayers.Accounting.FlowType;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.Models.Accounting.FinancialGroup;
+using Spectrum.Models.Accounting.FlowType;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
 using Spectrum.Views.Accounting.FlowType;
-using Spectrum.DataLayers.Accounting.FlowType;
-using Spectrum.Models.Accounting.FlowType;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spectrum.Views.Accounting.FlowType
+namespace Spectrum.Views.Accounting.FinancialGroup
 {
-    public partial class FlowTypeListForm : RibbonForm, IFormWithRibbon
+    public partial class FinancialGroupListForm : RibbonForm, IFormWithRibbon
     {
         private bool _resetMenu;
-        private FlowTypeEditForm _flowTypeEditForm;
+        private FinancialGroupEditForm _financialGroupEditForm;
 
-        private FlowTypeModel _flowTypeModel = new FlowTypeModel();
-        private IList<FlowTypeModel> _flowTypes = new List<FlowTypeModel>();
+        private FinancialGroupModel _financialGroupModel = new FinancialGroupModel();
+        private IList<FinancialGroupModel> _financialGroups = new List<FinancialGroupModel>();
 
-        private readonly FlowTypeRepository _flowTypeRepository = new FlowTypeRepository(DatabaseFactory.ProfilePrimary);
+        private readonly FinancialGroupRepository _financialGroupRepository = new FinancialGroupRepository(DatabaseFactory.ProfilePrimary);
 
         //Init permissionvariables
         private bool _canAdd = true;
@@ -42,13 +41,13 @@ namespace Spectrum.Views.Accounting.FlowType
 
         #region Implementation of IFormWithRibbon
 
-        public RibbonControl MainRibbon => rcFlowTypes;
-        public RibbonPage DefaultPage => rpFlowTypes;
+        public RibbonControl MainRibbon => rcFinancialGroups;
+        public RibbonPage DefaultPage => rpFinancialGroups;
 
 
         #endregion
 
-        public FlowTypeListForm()
+        public FinancialGroupListForm()
         {
             InitializeComponent();
 
@@ -77,7 +76,7 @@ namespace Spectrum.Views.Accounting.FlowType
                 //	}
                 //	//
 
-                _flowTypes = await _flowTypeRepository.GetFlowTypesAsync();
+                _financialGroups = await _financialGroupRepository.GetFinancialGroupsAsync();
             }
             catch (Exception ex)
             {
@@ -87,8 +86,8 @@ namespace Spectrum.Views.Accounting.FlowType
 
         private void WireUpBindings()
         {
-            gcFlowTypes.DataSource = null;
-            gcFlowTypes.DataSource = _flowTypes;
+            gcFinancialGroups.DataSource = null;
+            gcFinancialGroups.DataSource = _financialGroups;
         }
 
         private void ApplyDefaults()
@@ -126,22 +125,22 @@ namespace Spectrum.Views.Accounting.FlowType
 
         private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ShowFlowTypeEditor(new FlowTypeModel());
+            ShowFinancialGroupEditor(new FinancialGroupModel());
         }
 
         private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (!_flowTypes.Any()) return;
+            if (!_financialGroups.Any()) return;
 
             try
             {
-                string currentRowId = gvFlowTypes.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvFinancialGroups.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _flowTypeModel = _flowTypes.SingleOrDefault(x => x._id == currentRowId);
-                if (_flowTypeModel == null) return;
+                _financialGroupModel = _financialGroups.SingleOrDefault(x => x._id == currentRowId);
+                if (_financialGroupModel == null) return;
 
-                ShowFlowTypeEditor(_flowTypeModel);
+                ShowFinancialGroupEditor(_financialGroupModel);
             }
             catch (Exception exception)
             {
@@ -156,7 +155,7 @@ namespace Spectrum.Views.Accounting.FlowType
 
         private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
         {
-            gcFlowTypes.ShowRibbonPrintPreview();
+            gcFinancialGroups.ShowRibbonPrintPreview();
         }
 
         private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
@@ -165,8 +164,8 @@ namespace Spectrum.Views.Accounting.FlowType
 
             try
             {
-                string id = gvFlowTypes.GetFocusedRowCellValue("_id").ToString();
-                string name = gvFlowTypes.GetFocusedRowCellValue("FlowTypeName").ToString();
+                string id = gvFinancialGroups.GetFocusedRowCellValue("_id").ToString();
+                string name = gvFinancialGroups.GetFocusedRowCellValue("FinancialGroupName").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -174,16 +173,16 @@ namespace Spectrum.Views.Accounting.FlowType
                             "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                             MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        _flowTypeModel = gvFlowTypes.GetFocusedRow() as FlowTypeModel;
-                        if (_flowTypeModel == null)
+                        _financialGroupModel = gvFinancialGroups.GetFocusedRow() as FinancialGroupModel;
+                        if (_financialGroupModel == null)
                         {
                             return;
                         }
-                        _flowTypeModel.Deleted = true;
+                        _financialGroupModel.Deleted = true;
 
                         //delete the record
-                        await _flowTypeRepository.DeleteFlowTypeAsync(_flowTypeModel._id);
-                        RcvUpdatedFlowTypeAsync(_flowTypeModel, EventArgs.Empty);
+                        await _financialGroupRepository.DeleteFinancialGroupAsync(_financialGroupModel._id);
+                        RcvUpdatedFinancialGroupAsync(_financialGroupModel, EventArgs.Empty);
                     }
                 }
             }
@@ -216,38 +215,38 @@ namespace Spectrum.Views.Accounting.FlowType
                 DialogResult.Yes)
             {
                 _resetMenu = true;
-                LayoutsStyle.ResetLayoutGrid(gvFlowTypes, CurrentUser.UserName, CurrentUser.Company);
+                LayoutsStyle.ResetLayoutGrid(gvFinancialGroups, CurrentUser.UserName, CurrentUser.Company);
             }
         }
 
 
         #endregion
 
-        private async void RcvUpdatedFlowTypeAsync(object sender, EventArgs e)
+        private async void RcvUpdatedFinancialGroupAsync(object sender, EventArgs e)
         {
             if (sender == null) return;
-            _flowTypeModel = sender as FlowTypeModel;
-            if (_flowTypeModel == null) return;
+            _financialGroupModel = sender as FinancialGroupModel;
+            if (_financialGroupModel == null) return;
 
-            if (_flowTypeModel.Deleted || _flowTypeModel.LastModifiedDate == null)
+            if (_financialGroupModel.Deleted || _financialGroupModel.LastModifiedDate == null)
             {
                 await InitializeBindings();
                 WireUpBindings();
             }
             else
             {
-                gcFlowTypes.RefreshDataSource();
-                gvFlowTypes.RefreshRow(gvFlowTypes.FocusedRowHandle);
-                gvFlowTypes.UpdateCurrentRow();
+                gcFinancialGroups.RefreshDataSource();
+                gvFinancialGroups.RefreshRow(gvFinancialGroups.FocusedRowHandle);
+                gvFinancialGroups.UpdateCurrentRow();
             }
         }
 
         private bool CanDelete()
         {
-            FlowTypeModel dataBoundItem = gvFlowTypes.GetFocusedRow() as FlowTypeModel;
+            FinancialGroupModel dataBoundItem = gvFinancialGroups.GetFocusedRow() as FinancialGroupModel;
 
-            if (gvFlowTypes == null || gvFlowTypes.SelectedRowsCount == 0) return false;
-            if (gvFlowTypes.SelectedRowsCount > 1)
+            if (gvFinancialGroups == null || gvFinancialGroups.SelectedRowsCount == 0) return false;
+            if (gvFinancialGroups.SelectedRowsCount > 1)
             {
                 XtraMessageBox.Show("Only one record can be selected at a time, please try again",
                     "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -264,49 +263,49 @@ namespace Spectrum.Views.Accounting.FlowType
             return true;
         }
 
-        private void ShowFlowTypeEditor(FlowTypeModel model)
+        private void ShowFinancialGroupEditor(FinancialGroupModel model)
         {
-            if (_flowTypeEditForm == null || _flowTypeEditForm.IsDisposed)
+            if (_financialGroupEditForm == null || _financialGroupEditForm.IsDisposed)
             {
-                _flowTypeEditForm = new FlowTypeEditForm(model);
-                _flowTypeEditForm.SendUpdatedFlowType += RcvUpdatedFlowTypeAsync;
-                _flowTypeEditForm.FormClosed += FlowTypeEditForm_FormClosed;
-                _flowTypeEditForm.Show(this);
+                _financialGroupEditForm = new FinancialGroupEditForm(model);
+                _financialGroupEditForm.SendUpdatedFinancialGroup += RcvUpdatedFinancialGroupAsync;
+                _financialGroupEditForm.FormClosed += FinancialGroupEditForm_FormClosed;
+                _financialGroupEditForm.Show(this);
                 return;
             }
 
-            if (_flowTypeEditForm.WindowState == FormWindowState.Minimized)
-                _flowTypeEditForm.WindowState = FormWindowState.Normal;
+            if (_financialGroupEditForm.WindowState == FormWindowState.Minimized)
+                _financialGroupEditForm.WindowState = FormWindowState.Normal;
 
-            _flowTypeEditForm.Activate();
-            _flowTypeEditForm.BringToFront();
+            _financialGroupEditForm.Activate();
+            _financialGroupEditForm.BringToFront();
         }
 
-        private void FlowTypeEditForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void FinancialGroupEditForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var form = sender as FlowTypeEditForm;
+            var form = sender as FinancialGroupEditForm;
             if (form != null)
             {
-                form.SendUpdatedFlowType -= RcvUpdatedFlowTypeAsync;
-                form.FormClosed -= FlowTypeEditForm_FormClosed;
+                form.SendUpdatedFinancialGroup -= RcvUpdatedFinancialGroupAsync;
+                form.FormClosed -= FinancialGroupEditForm_FormClosed;
             }
-            if (ReferenceEquals(_flowTypeEditForm, sender))
-                _flowTypeEditForm = null;
+            if (ReferenceEquals(_financialGroupEditForm, sender))
+                _financialGroupEditForm = null;
         }
 
-        private void gvFlowTypes_DoubleClick(object sender, EventArgs e)
+        private void gvFinancialGroups_DoubleClick(object sender, EventArgs e)
         {
-            if (!_flowTypes.Any()) return;
+            if (!_financialGroups.Any()) return;
 
             try
             {
-                string currentRowId = gvFlowTypes.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvFinancialGroups.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _flowTypeModel = _flowTypes.SingleOrDefault(x => x._id == currentRowId);
-                if (_flowTypeModel == null) return;
+                _financialGroupModel = _financialGroups.SingleOrDefault(x => x._id == currentRowId);
+                if (_financialGroupModel == null) return;
 
-                ShowFlowTypeEditor(_flowTypeModel);
+                ShowFinancialGroupEditor(_financialGroupModel);
             }
             catch (Exception exception)
             {

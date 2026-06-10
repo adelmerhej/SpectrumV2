@@ -1,12 +1,18 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace Spectrum.Models.Accounting.FlowType
+namespace Spectrum.Models.Accounting.CashRegister
 {
-    public class FlowTypeModel : EntityObject, ICloneable
+    public class CashRegisterModel : EntityObject, ICloneable
     {
-        [BsonElement("FlowTypeName")]
-        public string FlowTypeName { get; set; }
+        [BsonElement("Name")]
+        public string Name { get; set; }
+
+        [BsonElement("AccountNumber")]
+        public string AccountNumber { get; set; }
+
+        [BsonElement("AccountName")]
+        public string AccountName { get; set; }
 
         #region Implementation of ICloneable
 

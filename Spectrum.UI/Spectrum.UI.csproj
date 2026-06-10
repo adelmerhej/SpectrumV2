@@ -120,6 +120,18 @@
     <Compile Include="Views\Accounting\Banks\BanksListForm.Designer.cs">
       <DependentUpon>BanksListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Accounting\CashRegister\CashRegisterEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\CashRegister\CashRegisterEditForm.Designer.cs">
+      <DependentUpon>CashRegisterEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounting\CashRegister\CashRegistersListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\CashRegister\CashRegistersListForm.Designer.cs">
+      <DependentUpon>CashRegistersListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Accounting\Charts\ChartEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +155,18 @@
     </Compile>
     <Compile Include="Views\Accounting\CostCenter\CostCentersListForm.Designer.cs">
       <DependentUpon>CostCentersListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounting\FinancialGroup\FinancialGroupEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\FinancialGroup\FinancialGroupEditForm.Designer.cs">
+      <DependentUpon>FinancialGroupEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounting\FinancialGroup\FinancialGroupListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accounting\FinancialGroup\FinancialGroupListForm.Designer.cs">
+      <DependentUpon>FinancialGroupListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Accounting\FlowType\FlowTypeEditForm.cs">
       <SubType>Form</SubType>
@@ -627,6 +651,9 @@
     <Compile Include="Views\Transactions\Expenses\ExpensesListForm.Designer.cs">
       <DependentUpon>ExpensesListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Transactions\Invoices\Classes\ActivityTimelineEntry.cs" />
+    <Compile Include="Views\Transactions\Invoices\Classes\InvoiceDetailSnapshot.cs" />
+    <Compile Include="Views\Transactions\Invoices\Classes\InvoiceHeaderSnapshot.cs" />
     <Compile Include="Views\Transactions\Invoices\InvoiceEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -709,6 +736,12 @@
     <EmbeddedResource Include="Views\Accounting\Banks\BanksListForm.resx">
       <DependentUpon>BanksListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\CashRegister\CashRegisterEditForm.resx">
+      <DependentUpon>CashRegisterEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\CashRegister\CashRegistersListForm.resx">
+      <DependentUpon>CashRegistersListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\Charts\ChartEditForm.resx">
       <DependentUpon>ChartEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -720,6 +753,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\CostCenter\CostCentersListForm.resx">
       <DependentUpon>CostCentersListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\FinancialGroup\FinancialGroupEditForm.resx">
+      <DependentUpon>FinancialGroupEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accounting\FinancialGroup\FinancialGroupListForm.resx">
+      <DependentUpon>FinancialGroupListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Accounting\FlowType\FlowTypeEditForm.resx">
       <DependentUpon>FlowTypeEditForm.cs</DependentUpon>
@@ -992,8 +1031,10 @@
     <EmbeddedResource Include="Views\Users\UsersListForm.resx">
       <DependentUpon>UsersListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\Spectrum.Models.Accounting.CashRegister.CashRegisterModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Charts.ChartModel.datasource" />
+    <None Include="Properties\DataSources\Spectrum.Models.Accounting.FinancialGroup.FinancialGroupModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Invoices.InvoiceDetailModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Invoices.InvoiceDocumentModel.datasource" />
     <None Include="Properties\DataSources\Spectrum.Models.Accounting.Invoices.InvoiceModel.datasource" />

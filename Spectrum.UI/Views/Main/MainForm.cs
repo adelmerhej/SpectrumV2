@@ -8,8 +8,10 @@ using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
 using Spectrum.Views.Accounting.Banks;
+using Spectrum.Views.Accounting.CashRegister;
 using Spectrum.Views.Accounting.Charts;
 using Spectrum.Views.Accounting.CostCenter;
+using Spectrum.Views.Accounting.FinancialGroup;
 using Spectrum.Views.Accounting.FlowType;
 using Spectrum.Views.Accounting.Journals;
 using Spectrum.Views.Accounting.JournalType;
@@ -713,6 +715,16 @@ namespace Spectrum.Views.Main
         private void mnuServicesList_Click(object sender, EventArgs e)
         {
             OpenForm<ServicesListForm>();
+        }
+
+        private void mnuFinancialGroup_Click(object sender, EventArgs e)
+        {
+            OpenForm<FinancialGroupListForm>();
+        }
+
+        private void mnuCashRegister_Click(object sender, EventArgs e)
+        {
+            OpenForm<CashRegistersListForm>();
         }
     }
 }

@@ -30,23 +30,22 @@
 		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoiceEditForm));
-            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup2 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem7 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem8 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem9 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem10 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem11 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem12 = new DevExpress.XtraBars.Ribbon.GalleryItem();
-            DevExpress.Utils.ContextButton contextButton2 = new DevExpress.Utils.ContextButton();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup1 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem1 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem2 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem3 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem4 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem5 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.XtraBars.Ribbon.GalleryItem galleryItem6 = new DevExpress.XtraBars.Ribbon.GalleryItem();
+            DevExpress.Utils.ContextButton contextButton1 = new DevExpress.Utils.ContextButton();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             this.ribbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
             this.btnClose = new DevExpress.XtraBars.BarButtonItem();
-            this.btnSaveAndNew = new DevExpress.XtraBars.BarButtonItem();
             this.btnDelete = new DevExpress.XtraBars.BarButtonItem();
             this.btnPrint = new DevExpress.XtraBars.BarButtonItem();
             this.btnRefresh = new DevExpress.XtraBars.BarButtonItem();
@@ -55,6 +54,9 @@
             this.btnResetGridStyle = new DevExpress.XtraBars.BarButtonItem();
             this.btnDuplicate = new DevExpress.XtraBars.BarButtonItem();
             this.btnPrintOriginal = new DevExpress.XtraBars.BarButtonItem();
+            this.btnAddLine = new DevExpress.XtraBars.BarButtonItem();
+            this.btnDeleteLine = new DevExpress.XtraBars.BarButtonItem();
+            this.btnInsertLine = new DevExpress.XtraBars.BarButtonItem();
             this.rpMain = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup8 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -62,6 +64,7 @@
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup9 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rpViewSettings = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
@@ -297,7 +300,6 @@
             this.ribbonControl.ExpandCollapseItem,
             this.btnSave,
             this.btnClose,
-            this.btnSaveAndNew,
             this.btnDelete,
             this.btnPrint,
             this.btnRefresh,
@@ -305,10 +307,13 @@
             this.rgJobStatusAction,
             this.btnResetGridStyle,
             this.btnDuplicate,
-            this.btnPrintOriginal});
+            this.btnPrintOriginal,
+            this.btnAddLine,
+            this.btnDeleteLine,
+            this.btnInsertLine});
             this.ribbonControl.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ribbonControl.MaxItemId = 27;
+            this.ribbonControl.MaxItemId = 30;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.OptionsMenuMinWidth = 385;
             this.ribbonControl.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
@@ -338,17 +343,6 @@
             this.btnClose.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.Escape);
             this.btnClose.Name = "btnClose";
             this.btnClose.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClose_ItemClick);
-            // 
-            // btnSaveAndNew
-            // 
-            this.btnSaveAndNew.Caption = "Save && New";
-            this.btnSaveAndNew.Enabled = false;
-            this.btnSaveAndNew.Id = 3;
-            this.btnSaveAndNew.ImageOptions.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.False;
-            this.btnSaveAndNew.ImageOptions.ImageUri.Uri = "resource://DevExpress.DevAV.Resources.SaveAndClose.svg";
-            this.btnSaveAndNew.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnSaveAndNew.ImageOptions.SvgImage")));
-            this.btnSaveAndNew.Name = "btnSaveAndNew";
-            this.btnSaveAndNew.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSaveAndNew_ItemClick);
             // 
             // btnDelete
             // 
@@ -395,40 +389,40 @@
             // 
             this.rgJobStatusAction.Gallery.ColumnCount = 3;
             this.rgJobStatusAction.Gallery.DrawImageBackground = false;
-            galleryItemGroup2.Caption = "ActionGroup";
-            galleryItem7.Caption = "Normal Mod";
-            galleryItem7.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
-            galleryItem7.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem7.Value = 0;
-            galleryItem8.Caption = "Make payment";
-            galleryItem8.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage1")));
-            galleryItem8.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem8.Value = 1;
-            galleryItem9.Caption = "Edit Invoice";
-            galleryItem9.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage2")));
-            galleryItem9.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem9.Value = 2;
-            galleryItem10.Caption = "Cancel Invoice";
-            galleryItem10.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage3")));
-            galleryItem10.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem10.Value = 3;
-            galleryItem11.Caption = "Post Invoice";
-            galleryItem11.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage4")));
-            galleryItem11.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem11.Value = 4;
-            galleryItem12.Caption = "N/A";
-            galleryItem12.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage5")));
-            galleryItem12.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
-            galleryItem12.Value = 5;
-            galleryItemGroup2.Items.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItem[] {
-            galleryItem7,
-            galleryItem8,
-            galleryItem9,
-            galleryItem10,
-            galleryItem11,
-            galleryItem12});
+            galleryItemGroup1.Caption = "ActionGroup";
+            galleryItem1.Caption = "Normal Mod";
+            galleryItem1.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage")));
+            galleryItem1.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem1.Value = 0;
+            galleryItem2.Caption = "Make payment";
+            galleryItem2.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage1")));
+            galleryItem2.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem2.Value = 1;
+            galleryItem3.Caption = "Edit Invoice";
+            galleryItem3.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage2")));
+            galleryItem3.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem3.Value = 2;
+            galleryItem4.Caption = "Cancel Invoice";
+            galleryItem4.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage3")));
+            galleryItem4.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem4.Value = 3;
+            galleryItem5.Caption = "Post Invoice";
+            galleryItem5.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage4")));
+            galleryItem5.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem5.Value = 4;
+            galleryItem6.Caption = "N/A";
+            galleryItem6.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage5")));
+            galleryItem6.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            galleryItem6.Value = 5;
+            galleryItemGroup1.Items.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItem[] {
+            galleryItem1,
+            galleryItem2,
+            galleryItem3,
+            galleryItem4,
+            galleryItem5,
+            galleryItem6});
             this.rgJobStatusAction.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
-            galleryItemGroup2});
+            galleryItemGroup1});
             this.rgJobStatusAction.Gallery.ItemCheckMode = DevExpress.XtraBars.Ribbon.Gallery.ItemCheckMode.SingleCheck;
             this.rgJobStatusAction.Gallery.ItemImageLocation = DevExpress.Utils.Locations.Left;
             this.rgJobStatusAction.Gallery.ShowItemText = true;
@@ -461,6 +455,30 @@
             this.btnPrintOriginal.Name = "btnPrintOriginal";
             this.btnPrintOriginal.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPrintOriginal_ItemClick);
             // 
+            // btnAddLine
+            // 
+            this.btnAddLine.Caption = "Add Line";
+            this.btnAddLine.Id = 27;
+            this.btnAddLine.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnAddLine.ImageOptions.SvgImage")));
+            this.btnAddLine.Name = "btnAddLine";
+            this.btnAddLine.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnAddLine_ItemClick);
+            // 
+            // btnDeleteLine
+            // 
+            this.btnDeleteLine.Caption = "Delete Line";
+            this.btnDeleteLine.Id = 28;
+            this.btnDeleteLine.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDeleteLine.ImageOptions.SvgImage")));
+            this.btnDeleteLine.Name = "btnDeleteLine";
+            this.btnDeleteLine.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDeleteLine_ItemClick);
+            // 
+            // btnInsertLine
+            // 
+            this.btnInsertLine.Caption = "Insert Line";
+            this.btnInsertLine.Id = 29;
+            this.btnInsertLine.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnInsertLine.ImageOptions.SvgImage")));
+            this.btnInsertLine.Name = "btnInsertLine";
+            this.btnInsertLine.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnInsertLine_ItemClick);
+            // 
             // rpMain
             // 
             this.rpMain.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -469,7 +487,8 @@
             this.ribbonPageGroup2,
             this.ribbonPageGroup4,
             this.ribbonPageGroup3,
-            this.ribbonPageGroup9});
+            this.ribbonPageGroup9,
+            this.ribbonPageGroup5});
             this.rpMain.Name = "rpMain";
             this.rpMain.Text = "INVOICE";
             // 
@@ -484,7 +503,6 @@
             // 
             this.ribbonPageGroup1.CaptionButtonVisible = DevExpress.Utils.DefaultBoolean.False;
             this.ribbonPageGroup1.ItemLinks.Add(this.btnSave);
-            this.ribbonPageGroup1.ItemLinks.Add(this.btnSaveAndNew);
             this.ribbonPageGroup1.ItemLinks.Add(this.btnRefresh, true);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             this.ribbonPageGroup1.Text = "Save";
@@ -519,6 +537,14 @@
             this.ribbonPageGroup9.ItemLinks.Add(this.rgJobStatusAction);
             this.ribbonPageGroup9.Name = "ribbonPageGroup9";
             this.ribbonPageGroup9.Text = "Actions";
+            // 
+            // ribbonPageGroup5
+            // 
+            this.ribbonPageGroup5.ItemLinks.Add(this.btnAddLine);
+            this.ribbonPageGroup5.ItemLinks.Add(this.btnInsertLine);
+            this.ribbonPageGroup5.ItemLinks.Add(this.btnDeleteLine, true);
+            this.ribbonPageGroup5.Name = "ribbonPageGroup5";
+            this.ribbonPageGroup5.Text = "Invoice Details Actions";
             // 
             // rpViewSettings
             // 
@@ -589,36 +615,36 @@
             // toggleProtected
             // 
             this.toggleProtected.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "IsProtected", true));
-            this.toggleProtected.Location = new System.Drawing.Point(900, 196);
+            this.toggleProtected.Location = new System.Drawing.Point(898, 197);
             this.toggleProtected.MenuManager = this.ribbonControl;
             this.toggleProtected.Name = "toggleProtected";
             this.toggleProtected.Properties.OffText = "Off";
             this.toggleProtected.Properties.OnText = "On";
-            this.toggleProtected.Size = new System.Drawing.Size(164, 24);
+            this.toggleProtected.Size = new System.Drawing.Size(169, 24);
             this.toggleProtected.StyleController = this.mainLayout;
             this.toggleProtected.TabIndex = 34;
             // 
             // toggleLocked
             // 
             this.toggleLocked.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "Locked", true));
-            this.toggleLocked.Location = new System.Drawing.Point(633, 196);
+            this.toggleLocked.Location = new System.Drawing.Point(629, 197);
             this.toggleLocked.MenuManager = this.ribbonControl;
             this.toggleLocked.Name = "toggleLocked";
             this.toggleLocked.Properties.OffText = "Off";
             this.toggleLocked.Properties.OnText = "On";
-            this.toggleLocked.Size = new System.Drawing.Size(164, 24);
+            this.toggleLocked.Size = new System.Drawing.Size(169, 24);
             this.toggleLocked.StyleController = this.mainLayout;
             this.toggleLocked.TabIndex = 33;
             // 
             // togglePosted
             // 
             this.togglePosted.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "Posted", true));
-            this.togglePosted.Location = new System.Drawing.Point(369, 196);
+            this.togglePosted.Location = new System.Drawing.Point(363, 197);
             this.togglePosted.MenuManager = this.ribbonControl;
             this.togglePosted.Name = "togglePosted";
             this.togglePosted.Properties.OffText = "Off";
             this.togglePosted.Properties.OnText = "On";
-            this.togglePosted.Size = new System.Drawing.Size(161, 24);
+            this.togglePosted.Size = new System.Drawing.Size(166, 24);
             this.togglePosted.StyleController = this.mainLayout;
             this.togglePosted.TabIndex = 32;
             // 
@@ -626,10 +652,10 @@
             // 
             this.layoutControl1.Controls.Add(this.gcDocuments);
             this.layoutControl1.Controls.Add(this.openDocuments);
-            this.layoutControl1.Location = new System.Drawing.Point(270, 56);
+            this.layoutControl1.Location = new System.Drawing.Point(267, 52);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup4;
-            this.layoutControl1.Size = new System.Drawing.Size(794, 217);
+            this.layoutControl1.Size = new System.Drawing.Size(800, 223);
             this.layoutControl1.TabIndex = 29;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -637,11 +663,11 @@
             // 
             this.gcDocuments.DataSource = this.bsDocuments;
             this.gcDocuments.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(5);
-            this.gcDocuments.Location = new System.Drawing.Point(14, 46);
+            this.gcDocuments.Location = new System.Drawing.Point(12, 46);
             this.gcDocuments.MainView = this.gvDocuments;
             this.gcDocuments.Margin = new System.Windows.Forms.Padding(4);
             this.gcDocuments.Name = "gcDocuments";
-            this.gcDocuments.Size = new System.Drawing.Size(766, 157);
+            this.gcDocuments.Size = new System.Drawing.Size(776, 165);
             this.gcDocuments.TabIndex = 9;
             this.gcDocuments.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDocuments});
@@ -660,12 +686,12 @@
             this.gvDocuments.ColumnSet.DescriptionColumn = this.colDate1;
             this.gvDocuments.ColumnSet.TextColumn = this.colName;
             this.gvDocuments.ContextButtonOptions.AllowGlyphSkinning = true;
-            contextButton2.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Right;
-            contextButton2.Id = new System.Guid("29468572-0411-449a-bc2d-0c333134705c");
-            contextButton2.ImageOptionsCollection.ItemNormal.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage6")));
-            contextButton2.ImageOptionsCollection.ItemNormal.SvgImageSize = new System.Drawing.Size(16, 16);
-            contextButton2.Name = "removeButton";
-            this.gvDocuments.ContextButtons.Add(contextButton2);
+            contextButton1.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Right;
+            contextButton1.Id = new System.Guid("29468572-0411-449a-bc2d-0c333134705c");
+            contextButton1.ImageOptionsCollection.ItemNormal.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("resource.SvgImage6")));
+            contextButton1.ImageOptionsCollection.ItemNormal.SvgImageSize = new System.Drawing.Size(16, 16);
+            contextButton1.Name = "removeButton";
+            this.gvDocuments.ContextButtons.Add(contextButton1);
             this.gvDocuments.GridControl = this.gcDocuments;
             this.gvDocuments.Name = "gvDocuments";
             this.gvDocuments.OptionsBehavior.Editable = false;
@@ -708,17 +734,17 @@
             // 
             // openDocuments
             // 
-            this.openDocuments.Location = new System.Drawing.Point(113, 14);
+            this.openDocuments.Location = new System.Drawing.Point(108, 12);
             this.openDocuments.Name = "openDocuments";
             this.openDocuments.Properties.AutoHeight = false;
             this.openDocuments.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
-            editorButtonImageOptions2.SvgImageSize = new System.Drawing.Size(16, 16);
+            editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
+            editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(16, 16);
             this.openDocuments.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton(),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", "loadFile", null, DevExpress.Utils.ToolTipAnchor.Default)});
-            this.openDocuments.Size = new System.Drawing.Size(667, 28);
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", "loadFile", null, DevExpress.Utils.ToolTipAnchor.Default)});
+            this.openDocuments.Size = new System.Drawing.Size(680, 30);
             this.openDocuments.StyleController = this.layoutControl1;
             this.openDocuments.TabIndex = 7;
             this.openDocuments.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.openDocuments_ButtonClick);
@@ -731,15 +757,15 @@
             this.layoutControlItem6,
             this.lblDocumentLink});
             this.layoutControlGroup4.Name = "layoutControlGroup4";
-            this.layoutControlGroup4.Size = new System.Drawing.Size(794, 217);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(800, 223);
             this.layoutControlGroup4.TextVisible = false;
             // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.gcDocuments;
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 32);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 34);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(770, 161);
+            this.layoutControlItem6.Size = new System.Drawing.Size(780, 169);
             this.layoutControlItem6.TextVisible = false;
             // 
             // lblDocumentLink
@@ -749,13 +775,13 @@
             this.lblDocumentLink.CustomizationFormText = "Document Link";
             this.lblDocumentLink.Location = new System.Drawing.Point(0, 0);
             this.lblDocumentLink.Name = "lblDocumentLink";
-            this.lblDocumentLink.Size = new System.Drawing.Size(770, 32);
+            this.lblDocumentLink.Size = new System.Drawing.Size(780, 34);
             this.lblDocumentLink.Text = "Document Link";
             this.lblDocumentLink.TextSize = new System.Drawing.Size(84, 16);
             // 
             // txtGrandTotal
             // 
-            this.txtGrandTotal.Location = new System.Drawing.Point(1192, 107);
+            this.txtGrandTotal.Location = new System.Drawing.Point(1190, 105);
             this.txtGrandTotal.MenuManager = this.ribbonControl;
             this.txtGrandTotal.Name = "txtGrandTotal";
             this.txtGrandTotal.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -764,49 +790,49 @@
             this.txtGrandTotal.Properties.MaskSettings.Set("mask", "n");
             this.txtGrandTotal.Properties.ReadOnly = true;
             this.txtGrandTotal.Properties.UseMaskAsDisplayFormat = true;
-            this.txtGrandTotal.Size = new System.Drawing.Size(312, 22);
+            this.txtGrandTotal.Size = new System.Drawing.Size(316, 22);
             this.txtGrandTotal.StyleController = this.mainLayout;
             this.txtGrandTotal.TabIndex = 28;
             // 
             // txtTotalVat
             // 
             this.txtTotalVat.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "TotalVat", true));
-            this.txtTotalVat.Location = new System.Drawing.Point(1192, 40);
+            this.txtTotalVat.Location = new System.Drawing.Point(1190, 38);
             this.txtTotalVat.MenuManager = this.ribbonControl;
             this.txtTotalVat.Name = "txtTotalVat";
             this.txtTotalVat.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             this.txtTotalVat.Properties.MaskSettings.Set("mask", "n");
             this.txtTotalVat.Properties.ReadOnly = true;
             this.txtTotalVat.Properties.UseMaskAsDisplayFormat = true;
-            this.txtTotalVat.Size = new System.Drawing.Size(312, 22);
+            this.txtTotalVat.Size = new System.Drawing.Size(316, 22);
             this.txtTotalVat.StyleController = this.mainLayout;
             this.txtTotalVat.TabIndex = 27;
             // 
             // txtSubTotal
             // 
             this.txtSubTotal.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "TotalAmount", true));
-            this.txtSubTotal.Location = new System.Drawing.Point(1192, 14);
+            this.txtSubTotal.Location = new System.Drawing.Point(1190, 12);
             this.txtSubTotal.MenuManager = this.ribbonControl;
             this.txtSubTotal.Name = "txtSubTotal";
             this.txtSubTotal.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             this.txtSubTotal.Properties.MaskSettings.Set("mask", "n");
             this.txtSubTotal.Properties.ReadOnly = true;
             this.txtSubTotal.Properties.UseMaskAsDisplayFormat = true;
-            this.txtSubTotal.Size = new System.Drawing.Size(312, 22);
+            this.txtSubTotal.Size = new System.Drawing.Size(316, 22);
             this.txtSubTotal.StyleController = this.mainLayout;
             this.txtSubTotal.TabIndex = 25;
             // 
             // gcInvoiceDetails
             // 
             this.gcInvoiceDetails.DataSource = this.bsInvoiceDetails;
-            this.gcInvoiceDetails.Location = new System.Drawing.Point(270, 343);
+            this.gcInvoiceDetails.Location = new System.Drawing.Point(267, 341);
             this.gcInvoiceDetails.MainView = this.gvInvoiceDetails;
             this.gcInvoiceDetails.MenuManager = this.ribbonControl;
             this.gcInvoiceDetails.Name = "gcInvoiceDetails";
             this.gcInvoiceDetails.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repItems,
             this.repCurrencies});
-            this.gcInvoiceDetails.Size = new System.Drawing.Size(1220, 287);
+            this.gcInvoiceDetails.Size = new System.Drawing.Size(1227, 293);
             this.gcInvoiceDetails.TabIndex = 24;
             this.gcInvoiceDetails.UseEmbeddedNavigator = true;
             this.gcInvoiceDetails.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -837,6 +863,7 @@
             this.gvInvoiceDetails.OptionsNavigation.EnterMoveNextColumn = true;
             this.gvInvoiceDetails.OptionsPrint.AutoWidth = false;
             this.gvInvoiceDetails.OptionsView.ColumnAutoWidth = false;
+            this.gvInvoiceDetails.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
             this.gvInvoiceDetails.OptionsView.ShowGroupPanel = false;
             this.gvInvoiceDetails.PopupMenuShowing += new DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventHandler(this.gvInvoiceDetails_PopupMenuShowing);
             this.gvInvoiceDetails.CustomSummaryCalculate += new DevExpress.Data.CustomSummaryEventHandler(this.gvInvoiceDetails_CustomSummaryCalculate);
@@ -857,6 +884,8 @@
             this.colLineNo.FieldName = "LineNo";
             this.colLineNo.MinWidth = 25;
             this.colLineNo.Name = "colLineNo";
+            this.colLineNo.OptionsColumn.ReadOnly = true;
+            this.colLineNo.OptionsColumn.TabStop = false;
             this.colLineNo.Visible = true;
             this.colLineNo.VisibleIndex = 0;
             this.colLineNo.Width = 94;
@@ -923,6 +952,7 @@
             this.colDescription.FieldName = "Description";
             this.colDescription.MinWidth = 25;
             this.colDescription.Name = "colDescription";
+            this.colDescription.OptionsColumn.TabStop = false;
             this.colDescription.Visible = true;
             this.colDescription.VisibleIndex = 2;
             this.colDescription.Width = 264;
@@ -933,6 +963,10 @@
             this.colCurrency.FieldName = "Currency";
             this.colCurrency.MinWidth = 25;
             this.colCurrency.Name = "colCurrency";
+            this.colCurrency.OptionsColumn.AllowEdit = false;
+            this.colCurrency.OptionsColumn.AllowFocus = false;
+            this.colCurrency.OptionsColumn.ReadOnly = true;
+            this.colCurrency.OptionsColumn.TabStop = false;
             this.colCurrency.Visible = true;
             this.colCurrency.VisibleIndex = 3;
             this.colCurrency.Width = 94;
@@ -992,6 +1026,7 @@
             this.colRate.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colRate.MinWidth = 25;
             this.colRate.Name = "colRate";
+            this.colRate.OptionsColumn.TabStop = false;
             this.colRate.Visible = true;
             this.colRate.VisibleIndex = 4;
             this.colRate.Width = 94;
@@ -1007,7 +1042,7 @@
             this.colAmount.Name = "colAmount";
             this.colAmount.Visible = true;
             this.colAmount.VisibleIndex = 5;
-            this.colAmount.Width = 94;
+            this.colAmount.Width = 180;
             // 
             // colLAmount
             // 
@@ -1019,9 +1054,10 @@
             this.colLAmount.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colLAmount.MinWidth = 25;
             this.colLAmount.Name = "colLAmount";
+            this.colLAmount.OptionsColumn.TabStop = false;
             this.colLAmount.Visible = true;
             this.colLAmount.VisibleIndex = 6;
-            this.colLAmount.Width = 94;
+            this.colLAmount.Width = 200;
             // 
             // colFAmount
             // 
@@ -1033,9 +1069,10 @@
             this.colFAmount.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colFAmount.MinWidth = 25;
             this.colFAmount.Name = "colFAmount";
+            this.colFAmount.OptionsColumn.TabStop = false;
             this.colFAmount.Visible = true;
             this.colFAmount.VisibleIndex = 7;
-            this.colFAmount.Width = 94;
+            this.colFAmount.Width = 200;
             // 
             // colVAT
             // 
@@ -1044,7 +1081,7 @@
             this.colVAT.Name = "colVAT";
             this.colVAT.Visible = true;
             this.colVAT.VisibleIndex = 8;
-            this.colVAT.Width = 94;
+            this.colVAT.Width = 63;
             // 
             // colVATAmount
             // 
@@ -1056,9 +1093,10 @@
             this.colVATAmount.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colVATAmount.MinWidth = 25;
             this.colVATAmount.Name = "colVATAmount";
+            this.colVATAmount.OptionsColumn.TabStop = false;
             this.colVATAmount.Visible = true;
             this.colVATAmount.VisibleIndex = 9;
-            this.colVATAmount.Width = 94;
+            this.colVATAmount.Width = 190;
             // 
             // colVATValue
             // 
@@ -1070,6 +1108,7 @@
             this.colVATValue.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colVATValue.MinWidth = 25;
             this.colVATValue.Name = "colVATValue";
+            this.colVATValue.OptionsColumn.TabStop = false;
             this.colVATValue.Width = 94;
             // 
             // gridColumn15
@@ -1082,6 +1121,7 @@
             this.gridColumn15.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumn15.MinWidth = 25;
             this.gridColumn15.Name = "gridColumn15";
+            this.gridColumn15.OptionsColumn.TabStop = false;
             this.gridColumn15.Width = 94;
             // 
             // colNotes
@@ -1089,6 +1129,7 @@
             this.colNotes.FieldName = "Notes";
             this.colNotes.MinWidth = 25;
             this.colNotes.Name = "colNotes";
+            this.colNotes.OptionsColumn.TabStop = false;
             this.colNotes.Visible = true;
             this.colNotes.VisibleIndex = 10;
             this.colNotes.Width = 368;
@@ -1097,9 +1138,9 @@
             // 
             this.leftSideInvoiceMenu.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] {
             this.mnuTransaction});
-            this.leftSideInvoiceMenu.Location = new System.Drawing.Point(28, 28);
+            this.leftSideInvoiceMenu.Location = new System.Drawing.Point(24, 24);
             this.leftSideInvoiceMenu.Name = "leftSideInvoiceMenu";
-            this.leftSideInvoiceMenu.Size = new System.Drawing.Size(200, 255);
+            this.leftSideInvoiceMenu.Size = new System.Drawing.Size(205, 261);
             this.leftSideInvoiceMenu.StyleController = this.mainLayout;
             this.leftSideInvoiceMenu.TabIndex = 23;
             // 
@@ -1137,127 +1178,129 @@
             // txtSubject
             // 
             this.txtSubject.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "Subject", true));
-            this.txtSubject.Location = new System.Drawing.Point(369, 170);
+            this.txtSubject.Location = new System.Drawing.Point(363, 171);
             this.txtSubject.MenuManager = this.ribbonControl;
             this.txtSubject.Name = "txtSubject";
-            this.txtSubject.Size = new System.Drawing.Size(695, 22);
+            this.txtSubject.Size = new System.Drawing.Size(704, 22);
             this.txtSubject.StyleController = this.mainLayout;
             this.txtSubject.TabIndex = 21;
+            this.txtSubject.EditValueChanged += new System.EventHandler(this.txtSubject_EditValueChanged);
             // 
             // txtRate
             // 
             this.txtRate.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "Rate", true));
-            this.txtRate.Location = new System.Drawing.Point(813, 108);
+            this.txtRate.Location = new System.Drawing.Point(810, 104);
             this.txtRate.MenuManager = this.ribbonControl;
             this.txtRate.Name = "txtRate";
             this.txtRate.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             this.txtRate.Properties.MaskSettings.Set("mask", "n");
             this.txtRate.Properties.UseMaskAsDisplayFormat = true;
-            this.txtRate.Size = new System.Drawing.Size(251, 22);
+            this.txtRate.Size = new System.Drawing.Size(257, 22);
             this.txtRate.StyleController = this.mainLayout;
             this.txtRate.TabIndex = 19;
+            this.txtRate.EditValueChanged += new System.EventHandler(this.txtRate_EditValueChanged);
             // 
             // txtInvoiceNo
             // 
             this.txtInvoiceNo.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "InvoiceNo", true));
-            this.txtInvoiceNo.Location = new System.Drawing.Point(369, 56);
+            this.txtInvoiceNo.Location = new System.Drawing.Point(363, 52);
             this.txtInvoiceNo.MenuManager = this.ribbonControl;
             this.txtInvoiceNo.Name = "txtInvoiceNo";
             this.txtInvoiceNo.Properties.ReadOnly = true;
-            this.txtInvoiceNo.Size = new System.Drawing.Size(223, 22);
+            this.txtInvoiceNo.Size = new System.Drawing.Size(228, 22);
             this.txtInvoiceNo.StyleController = this.mainLayout;
             this.txtInvoiceNo.TabIndex = 15;
             // 
             // txtWorkingYear
             // 
             this.txtWorkingYear.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "WorkingYear", true));
-            this.txtWorkingYear.Location = new System.Drawing.Point(127, 610);
+            this.txtWorkingYear.Location = new System.Drawing.Point(120, 614);
             this.txtWorkingYear.MenuManager = this.ribbonControl;
             this.txtWorkingYear.Name = "txtWorkingYear";
             this.txtWorkingYear.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.txtWorkingYear.Properties.ReadOnly = true;
-            this.txtWorkingYear.Size = new System.Drawing.Size(101, 20);
+            this.txtWorkingYear.Size = new System.Drawing.Size(109, 20);
             this.txtWorkingYear.StyleController = this.mainLayout;
             this.txtWorkingYear.TabIndex = 14;
             // 
             // txtLastModifyAt
             // 
             this.txtLastModifyAt.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "LastModifiedDate", true));
-            this.txtLastModifyAt.Location = new System.Drawing.Point(127, 586);
+            this.txtLastModifyAt.Location = new System.Drawing.Point(120, 590);
             this.txtLastModifyAt.MenuManager = this.ribbonControl;
             this.txtLastModifyAt.Name = "txtLastModifyAt";
             this.txtLastModifyAt.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.txtLastModifyAt.Properties.ReadOnly = true;
-            this.txtLastModifyAt.Size = new System.Drawing.Size(101, 20);
+            this.txtLastModifyAt.Size = new System.Drawing.Size(109, 20);
             this.txtLastModifyAt.StyleController = this.mainLayout;
             this.txtLastModifyAt.TabIndex = 13;
             // 
             // txtLastModifyBy
             // 
             this.txtLastModifyBy.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "LastModifiedBy", true));
-            this.txtLastModifyBy.Location = new System.Drawing.Point(127, 562);
+            this.txtLastModifyBy.Location = new System.Drawing.Point(120, 566);
             this.txtLastModifyBy.MenuManager = this.ribbonControl;
             this.txtLastModifyBy.Name = "txtLastModifyBy";
             this.txtLastModifyBy.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.txtLastModifyBy.Properties.ReadOnly = true;
-            this.txtLastModifyBy.Size = new System.Drawing.Size(101, 20);
+            this.txtLastModifyBy.Size = new System.Drawing.Size(109, 20);
             this.txtLastModifyBy.StyleController = this.mainLayout;
             this.txtLastModifyBy.TabIndex = 12;
             // 
             // txtCreatedAt
             // 
             this.txtCreatedAt.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "CreatedAt", true));
-            this.txtCreatedAt.Location = new System.Drawing.Point(127, 538);
+            this.txtCreatedAt.Location = new System.Drawing.Point(120, 542);
             this.txtCreatedAt.MenuManager = this.ribbonControl;
             this.txtCreatedAt.Name = "txtCreatedAt";
             this.txtCreatedAt.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.txtCreatedAt.Properties.ReadOnly = true;
-            this.txtCreatedAt.Size = new System.Drawing.Size(101, 20);
+            this.txtCreatedAt.Size = new System.Drawing.Size(109, 20);
             this.txtCreatedAt.StyleController = this.mainLayout;
             this.txtCreatedAt.TabIndex = 11;
             // 
             // txtCreatedBy
             // 
             this.txtCreatedBy.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "CreatedBy", true));
-            this.txtCreatedBy.Location = new System.Drawing.Point(127, 514);
+            this.txtCreatedBy.Location = new System.Drawing.Point(120, 518);
             this.txtCreatedBy.MenuManager = this.ribbonControl;
             this.txtCreatedBy.Name = "txtCreatedBy";
             this.txtCreatedBy.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.txtCreatedBy.Properties.ReadOnly = true;
-            this.txtCreatedBy.Size = new System.Drawing.Size(101, 20);
+            this.txtCreatedBy.Size = new System.Drawing.Size(109, 20);
             this.txtCreatedBy.StyleController = this.mainLayout;
             this.txtCreatedBy.TabIndex = 10;
             // 
             // txtProtected
             // 
-            this.txtProtected.Location = new System.Drawing.Point(127, 462);
+            this.txtProtected.Location = new System.Drawing.Point(120, 470);
             this.txtProtected.MenuManager = this.ribbonControl;
             this.txtProtected.Name = "txtProtected";
             this.txtProtected.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.txtProtected.Properties.ReadOnly = true;
-            this.txtProtected.Size = new System.Drawing.Size(101, 20);
+            this.txtProtected.Size = new System.Drawing.Size(109, 20);
             this.txtProtected.StyleController = this.mainLayout;
             this.txtProtected.TabIndex = 9;
             // 
             // txtLocked
             // 
-            this.txtLocked.Location = new System.Drawing.Point(127, 438);
+            this.txtLocked.Location = new System.Drawing.Point(120, 446);
             this.txtLocked.MenuManager = this.ribbonControl;
             this.txtLocked.Name = "txtLocked";
             this.txtLocked.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.txtLocked.Properties.ReadOnly = true;
-            this.txtLocked.Size = new System.Drawing.Size(101, 20);
+            this.txtLocked.Size = new System.Drawing.Size(109, 20);
             this.txtLocked.StyleController = this.mainLayout;
             this.txtLocked.TabIndex = 8;
             // 
             // txtPosted
             // 
-            this.txtPosted.Location = new System.Drawing.Point(127, 414);
+            this.txtPosted.Location = new System.Drawing.Point(120, 422);
             this.txtPosted.MenuManager = this.ribbonControl;
             this.txtPosted.Name = "txtPosted";
             this.txtPosted.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.txtPosted.Properties.ReadOnly = true;
-            this.txtPosted.Size = new System.Drawing.Size(101, 20);
+            this.txtPosted.Size = new System.Drawing.Size(109, 20);
             this.txtPosted.StyleController = this.mainLayout;
             this.txtPosted.TabIndex = 7;
             // 
@@ -1265,7 +1308,7 @@
             // 
             this.dtInvoiceDate.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "InvoiceDate", true));
             this.dtInvoiceDate.EditValue = null;
-            this.dtInvoiceDate.Location = new System.Drawing.Point(813, 56);
+            this.dtInvoiceDate.Location = new System.Drawing.Point(810, 52);
             this.dtInvoiceDate.MenuManager = this.ribbonControl;
             this.dtInvoiceDate.Name = "dtInvoiceDate";
             this.dtInvoiceDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1280,14 +1323,15 @@
             this.dtInvoiceDate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.dtInvoiceDate.Properties.MaskSettings.Set("mask", "dd/MM/yyyy");
             this.dtInvoiceDate.Properties.UseMaskAsDisplayFormat = true;
-            this.dtInvoiceDate.Size = new System.Drawing.Size(251, 22);
+            this.dtInvoiceDate.Size = new System.Drawing.Size(257, 22);
             this.dtInvoiceDate.StyleController = this.mainLayout;
             this.dtInvoiceDate.TabIndex = 17;
+            this.dtInvoiceDate.EditValueChanged += new System.EventHandler(this.dtInvoiceDate_EditValueChanged);
             // 
             // cboCurrencies
             // 
             this.cboCurrencies.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "Currency", true));
-            this.cboCurrencies.Location = new System.Drawing.Point(369, 108);
+            this.cboCurrencies.Location = new System.Drawing.Point(363, 104);
             this.cboCurrencies.MenuManager = this.ribbonControl;
             this.cboCurrencies.Name = "cboCurrencies";
             this.cboCurrencies.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1296,9 +1340,10 @@
             this.cboCurrencies.Properties.NullText = "";
             this.cboCurrencies.Properties.PopupView = this.searchLookUpEdit1View;
             this.cboCurrencies.Properties.ValueMember = "CurrencyCode";
-            this.cboCurrencies.Size = new System.Drawing.Size(223, 22);
+            this.cboCurrencies.Size = new System.Drawing.Size(228, 22);
             this.cboCurrencies.StyleController = this.mainLayout;
             this.cboCurrencies.TabIndex = 18;
+            this.cboCurrencies.EditValueChanged += new System.EventHandler(this.cboCurrencies_EditValueChanged);
             // 
             // searchLookUpEdit1View
             // 
@@ -1339,7 +1384,7 @@
             // cboMemebrs
             // 
             this.cboMemebrs.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "MemberName", true));
-            this.cboMemebrs.Location = new System.Drawing.Point(369, 144);
+            this.cboMemebrs.Location = new System.Drawing.Point(363, 145);
             this.cboMemebrs.MenuManager = this.ribbonControl;
             this.cboMemebrs.Name = "cboMemebrs";
             this.cboMemebrs.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -1348,9 +1393,10 @@
             this.cboMemebrs.Properties.NullText = "";
             this.cboMemebrs.Properties.PopupView = this.gridView1;
             this.cboMemebrs.Properties.ValueMember = "ClientName";
-            this.cboMemebrs.Size = new System.Drawing.Size(695, 22);
+            this.cboMemebrs.Size = new System.Drawing.Size(704, 22);
             this.cboMemebrs.StyleController = this.mainLayout;
             this.cboMemebrs.TabIndex = 20;
+            this.cboMemebrs.EditValueChanged += new System.EventHandler(this.cboMemebrs_EditValueChanged);
             // 
             // gridView1
             // 
@@ -1381,24 +1427,24 @@
             // txtNotes
             // 
             this.txtNotes.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "Notes", true));
-            this.txtNotes.Location = new System.Drawing.Point(1093, 195);
+            this.txtNotes.Location = new System.Drawing.Point(1094, 192);
             this.txtNotes.MenuManager = this.ribbonControl;
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(411, 102);
+            this.txtNotes.Size = new System.Drawing.Size(412, 105);
             this.txtNotes.StyleController = this.mainLayout;
             this.txtNotes.TabIndex = 22;
             // 
             // activityTimelineScroll
             // 
-            this.activityTimelineScroll.Location = new System.Drawing.Point(270, 56);
+            this.activityTimelineScroll.Location = new System.Drawing.Point(267, 52);
             this.activityTimelineScroll.Name = "activityTimelineScroll";
-            this.activityTimelineScroll.Size = new System.Drawing.Size(794, 217);
+            this.activityTimelineScroll.Size = new System.Drawing.Size(800, 223);
             this.activityTimelineScroll.TabIndex = 35;
             // 
             // cboProjectReferences
             // 
             this.cboProjectReferences.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bsInvoice, "Reference", true));
-            this.cboProjectReferences.Location = new System.Drawing.Point(369, 82);
+            this.cboProjectReferences.Location = new System.Drawing.Point(363, 78);
             this.cboProjectReferences.MenuManager = this.ribbonControl;
             this.cboProjectReferences.Name = "cboProjectReferences";
             this.cboProjectReferences.Properties.AcceptEditorTextAsNewValue = DevExpress.Utils.DefaultBoolean.True;
@@ -1411,9 +1457,10 @@
             this.cboProjectReferences.Properties.SearchMode = DevExpress.XtraEditors.Repository.GridLookUpSearchMode.AutoSuggest;
             this.cboProjectReferences.Properties.UseAdvancedMode = DevExpress.Utils.DefaultBoolean.True;
             this.cboProjectReferences.Properties.ValueMember = "Reference";
-            this.cboProjectReferences.Size = new System.Drawing.Size(223, 22);
+            this.cboProjectReferences.Size = new System.Drawing.Size(228, 22);
             this.cboProjectReferences.StyleController = this.mainLayout;
             this.cboProjectReferences.TabIndex = 16;
+            this.cboProjectReferences.EditValueChanged += new System.EventHandler(this.cboProjectReferences_EditValueChanged);
             // 
             // gridLookUpEdit1View
             // 
@@ -1485,9 +1532,9 @@
             this.lblLastModifyBy,
             this.lblCreatedAt,
             this.lblCreatedBy});
-            this.layoutControlGroup1.Location = new System.Drawing.Point(0, 486);
+            this.layoutControlGroup1.Location = new System.Drawing.Point(0, 494);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(232, 148);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(233, 144);
             this.layoutControlGroup1.Text = "Audit";
             this.layoutControlGroup1.TextVisible = false;
             // 
@@ -1496,7 +1543,7 @@
             this.lblWorkingYear.Control = this.txtWorkingYear;
             this.lblWorkingYear.Location = new System.Drawing.Point(0, 96);
             this.lblWorkingYear.Name = "lblWorkingYear";
-            this.lblWorkingYear.Size = new System.Drawing.Size(204, 24);
+            this.lblWorkingYear.Size = new System.Drawing.Size(209, 24);
             this.lblWorkingYear.Text = "Working Year";
             this.lblWorkingYear.TextSize = new System.Drawing.Size(84, 16);
             // 
@@ -1505,7 +1552,7 @@
             this.lblLastModifyAt.Control = this.txtLastModifyAt;
             this.lblLastModifyAt.Location = new System.Drawing.Point(0, 72);
             this.lblLastModifyAt.Name = "lblLastModifyAt";
-            this.lblLastModifyAt.Size = new System.Drawing.Size(204, 24);
+            this.lblLastModifyAt.Size = new System.Drawing.Size(209, 24);
             this.lblLastModifyAt.Text = "Last Modify At";
             this.lblLastModifyAt.TextSize = new System.Drawing.Size(84, 16);
             // 
@@ -1514,7 +1561,7 @@
             this.lblLastModifyBy.Control = this.txtLastModifyBy;
             this.lblLastModifyBy.Location = new System.Drawing.Point(0, 48);
             this.lblLastModifyBy.Name = "lblLastModifyBy";
-            this.lblLastModifyBy.Size = new System.Drawing.Size(204, 24);
+            this.lblLastModifyBy.Size = new System.Drawing.Size(209, 24);
             this.lblLastModifyBy.Text = "Last Modify By";
             this.lblLastModifyBy.TextSize = new System.Drawing.Size(84, 16);
             // 
@@ -1523,7 +1570,7 @@
             this.lblCreatedAt.Control = this.txtCreatedAt;
             this.lblCreatedAt.Location = new System.Drawing.Point(0, 24);
             this.lblCreatedAt.Name = "lblCreatedAt";
-            this.lblCreatedAt.Size = new System.Drawing.Size(204, 24);
+            this.lblCreatedAt.Size = new System.Drawing.Size(209, 24);
             this.lblCreatedAt.Text = "Created At";
             this.lblCreatedAt.TextSize = new System.Drawing.Size(84, 16);
             // 
@@ -1532,7 +1579,7 @@
             this.lblCreatedBy.Control = this.txtCreatedBy;
             this.lblCreatedBy.Location = new System.Drawing.Point(0, 0);
             this.lblCreatedBy.Name = "lblCreatedBy";
-            this.lblCreatedBy.Size = new System.Drawing.Size(204, 24);
+            this.lblCreatedBy.Size = new System.Drawing.Size(209, 24);
             this.lblCreatedBy.Text = "Created By";
             this.lblCreatedBy.TextSize = new System.Drawing.Size(84, 16);
             // 
@@ -1543,9 +1590,9 @@
             this.lblProtectedDisplay,
             this.lblLockedDisplay,
             this.lblPostedDisplay});
-            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 360);
+            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 372);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(232, 126);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(233, 122);
             this.layoutControlGroup2.Text = "Status";
             // 
             // lblProtectedDisplay
@@ -1553,7 +1600,7 @@
             this.lblProtectedDisplay.Control = this.txtProtected;
             this.lblProtectedDisplay.Location = new System.Drawing.Point(0, 48);
             this.lblProtectedDisplay.Name = "lblProtectedDisplay";
-            this.lblProtectedDisplay.Size = new System.Drawing.Size(204, 24);
+            this.lblProtectedDisplay.Size = new System.Drawing.Size(209, 24);
             this.lblProtectedDisplay.Text = "Protected";
             this.lblProtectedDisplay.TextSize = new System.Drawing.Size(84, 16);
             // 
@@ -1562,7 +1609,7 @@
             this.lblLockedDisplay.Control = this.txtLocked;
             this.lblLockedDisplay.Location = new System.Drawing.Point(0, 24);
             this.lblLockedDisplay.Name = "lblLockedDisplay";
-            this.lblLockedDisplay.Size = new System.Drawing.Size(204, 24);
+            this.lblLockedDisplay.Size = new System.Drawing.Size(209, 24);
             this.lblLockedDisplay.Text = "Locked";
             this.lblLockedDisplay.TextSize = new System.Drawing.Size(84, 16);
             // 
@@ -1571,39 +1618,39 @@
             this.lblPostedDisplay.Control = this.txtPosted;
             this.lblPostedDisplay.Location = new System.Drawing.Point(0, 0);
             this.lblPostedDisplay.Name = "lblPostedDisplay";
-            this.lblPostedDisplay.Size = new System.Drawing.Size(204, 24);
+            this.lblPostedDisplay.Size = new System.Drawing.Size(209, 24);
             this.lblPostedDisplay.Text = "Posted";
             this.lblPostedDisplay.TextSize = new System.Drawing.Size(84, 16);
             // 
             // emptySpaceItem6
             // 
-            this.emptySpaceItem6.Location = new System.Drawing.Point(0, 287);
+            this.emptySpaceItem6.Location = new System.Drawing.Point(0, 289);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(232, 73);
+            this.emptySpaceItem6.Size = new System.Drawing.Size(233, 83);
             // 
             // emptySpaceItem7
             // 
-            this.emptySpaceItem7.Location = new System.Drawing.Point(1079, 151);
+            this.emptySpaceItem7.Location = new System.Drawing.Point(1082, 151);
             this.emptySpaceItem7.Name = "emptySpaceItem7";
-            this.emptySpaceItem7.Size = new System.Drawing.Size(415, 10);
+            this.emptySpaceItem7.Size = new System.Drawing.Size(416, 10);
             // 
             // emptySpaceItem2
             // 
-            this.emptySpaceItem2.Location = new System.Drawing.Point(1079, 119);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(1082, 119);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(415, 32);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(416, 32);
             // 
             // emptySpaceItem12
             // 
-            this.emptySpaceItem12.Location = new System.Drawing.Point(242, 277);
+            this.emptySpaceItem12.Location = new System.Drawing.Point(243, 279);
             this.emptySpaceItem12.Name = "emptySpaceItem12";
-            this.emptySpaceItem12.Size = new System.Drawing.Size(826, 10);
+            this.emptySpaceItem12.Size = new System.Drawing.Size(828, 10);
             // 
             // emptySpaceItem13
             // 
-            this.emptySpaceItem13.Location = new System.Drawing.Point(232, 0);
+            this.emptySpaceItem13.Location = new System.Drawing.Point(233, 0);
             this.emptySpaceItem13.Name = "emptySpaceItem13";
-            this.emptySpaceItem13.Size = new System.Drawing.Size(10, 634);
+            this.emptySpaceItem13.Size = new System.Drawing.Size(10, 638);
             // 
             // layoutControlGroup3
             // 
@@ -1612,7 +1659,7 @@
             this.layoutControlItem4});
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(232, 287);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(233, 289);
             this.layoutControlGroup3.TextVisible = false;
             // 
             // layoutControlItem4
@@ -1620,15 +1667,15 @@
             this.layoutControlItem4.Control = this.leftSideInvoiceMenu;
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(204, 259);
+            this.layoutControlItem4.Size = new System.Drawing.Size(209, 265);
             this.layoutControlItem4.TextVisible = false;
             // 
             // tabInvoiceGroup
             // 
-            this.tabInvoiceGroup.Location = new System.Drawing.Point(242, 0);
+            this.tabInvoiceGroup.Location = new System.Drawing.Point(243, 0);
             this.tabInvoiceGroup.Name = "tabInvoiceGroup";
             this.tabInvoiceGroup.SelectedTabPage = this.tabInvoice;
-            this.tabInvoiceGroup.Size = new System.Drawing.Size(826, 277);
+            this.tabInvoiceGroup.Size = new System.Drawing.Size(828, 279);
             this.tabInvoiceGroup.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.tabInvoice,
             this.tabDetails,
@@ -1654,7 +1701,7 @@
             this.lblProtected});
             this.tabInvoice.Location = new System.Drawing.Point(0, 0);
             this.tabInvoice.Name = "tabInvoice";
-            this.tabInvoice.Size = new System.Drawing.Size(798, 221);
+            this.tabInvoice.Size = new System.Drawing.Size(804, 227);
             this.tabInvoice.Text = "Invoice";
             // 
             // lblInvocieNo
@@ -1662,22 +1709,22 @@
             this.lblInvocieNo.Control = this.txtInvoiceNo;
             this.lblInvocieNo.Location = new System.Drawing.Point(0, 0);
             this.lblInvocieNo.Name = "lblInvocieNo";
-            this.lblInvocieNo.Size = new System.Drawing.Size(326, 26);
+            this.lblInvocieNo.Size = new System.Drawing.Size(328, 26);
             this.lblInvocieNo.Text = "Invoice No";
             this.lblInvocieNo.TextSize = new System.Drawing.Size(84, 16);
             // 
             // emptySpaceItem9
             // 
-            this.emptySpaceItem9.Location = new System.Drawing.Point(326, 0);
+            this.emptySpaceItem9.Location = new System.Drawing.Point(328, 0);
             this.emptySpaceItem9.Name = "emptySpaceItem9";
-            this.emptySpaceItem9.Size = new System.Drawing.Size(118, 26);
+            this.emptySpaceItem9.Size = new System.Drawing.Size(119, 26);
             // 
             // lblInvoiceDate
             // 
             this.lblInvoiceDate.Control = this.dtInvoiceDate;
-            this.lblInvoiceDate.Location = new System.Drawing.Point(444, 0);
+            this.lblInvoiceDate.Location = new System.Drawing.Point(447, 0);
             this.lblInvoiceDate.Name = "lblInvoiceDate";
-            this.lblInvoiceDate.Size = new System.Drawing.Size(354, 26);
+            this.lblInvoiceDate.Size = new System.Drawing.Size(357, 26);
             this.lblInvoiceDate.Text = "Invoice Date";
             this.lblInvoiceDate.TextSize = new System.Drawing.Size(84, 16);
             // 
@@ -1686,37 +1733,37 @@
             this.lblProjectReference.Control = this.cboProjectReferences;
             this.lblProjectReference.Location = new System.Drawing.Point(0, 26);
             this.lblProjectReference.Name = "lblProjectReference";
-            this.lblProjectReference.Size = new System.Drawing.Size(326, 26);
+            this.lblProjectReference.Size = new System.Drawing.Size(328, 26);
             this.lblProjectReference.Text = "Reference";
             this.lblProjectReference.TextSize = new System.Drawing.Size(84, 16);
             // 
             // emptySpaceItem10
             // 
-            this.emptySpaceItem10.Location = new System.Drawing.Point(326, 26);
+            this.emptySpaceItem10.Location = new System.Drawing.Point(328, 26);
             this.emptySpaceItem10.Name = "emptySpaceItem10";
-            this.emptySpaceItem10.Size = new System.Drawing.Size(472, 26);
+            this.emptySpaceItem10.Size = new System.Drawing.Size(476, 26);
             // 
             // lblCurrency
             // 
             this.lblCurrency.Control = this.cboCurrencies;
             this.lblCurrency.Location = new System.Drawing.Point(0, 52);
             this.lblCurrency.Name = "lblCurrency";
-            this.lblCurrency.Size = new System.Drawing.Size(326, 26);
+            this.lblCurrency.Size = new System.Drawing.Size(328, 26);
             this.lblCurrency.Text = "Currency";
             this.lblCurrency.TextSize = new System.Drawing.Size(84, 16);
             // 
             // emptySpaceItem11
             // 
-            this.emptySpaceItem11.Location = new System.Drawing.Point(326, 52);
+            this.emptySpaceItem11.Location = new System.Drawing.Point(328, 52);
             this.emptySpaceItem11.Name = "emptySpaceItem11";
-            this.emptySpaceItem11.Size = new System.Drawing.Size(118, 26);
+            this.emptySpaceItem11.Size = new System.Drawing.Size(119, 26);
             // 
             // lblRate
             // 
             this.lblRate.Control = this.txtRate;
-            this.lblRate.Location = new System.Drawing.Point(444, 52);
+            this.lblRate.Location = new System.Drawing.Point(447, 52);
             this.lblRate.Name = "lblRate";
-            this.lblRate.Size = new System.Drawing.Size(354, 26);
+            this.lblRate.Size = new System.Drawing.Size(357, 26);
             this.lblRate.Text = "Rate";
             this.lblRate.TextSize = new System.Drawing.Size(84, 16);
             // 
@@ -1724,56 +1771,56 @@
             // 
             this.emptySpaceItem3.Location = new System.Drawing.Point(0, 78);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(798, 10);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(804, 15);
             // 
             // lblMemebrName
             // 
             this.lblMemebrName.Control = this.cboMemebrs;
-            this.lblMemebrName.Location = new System.Drawing.Point(0, 88);
+            this.lblMemebrName.Location = new System.Drawing.Point(0, 93);
             this.lblMemebrName.Name = "lblMemebrName";
-            this.lblMemebrName.Size = new System.Drawing.Size(798, 26);
+            this.lblMemebrName.Size = new System.Drawing.Size(804, 26);
             this.lblMemebrName.Text = "Memebr Name";
             this.lblMemebrName.TextSize = new System.Drawing.Size(84, 16);
             // 
             // lblSubject
             // 
             this.lblSubject.Control = this.txtSubject;
-            this.lblSubject.Location = new System.Drawing.Point(0, 114);
+            this.lblSubject.Location = new System.Drawing.Point(0, 119);
             this.lblSubject.Name = "lblSubject";
-            this.lblSubject.Size = new System.Drawing.Size(798, 26);
+            this.lblSubject.Size = new System.Drawing.Size(804, 26);
             this.lblSubject.Text = "Subject";
             this.lblSubject.TextSize = new System.Drawing.Size(84, 16);
             // 
             // emptySpaceItem8
             // 
-            this.emptySpaceItem8.Location = new System.Drawing.Point(0, 168);
+            this.emptySpaceItem8.Location = new System.Drawing.Point(0, 173);
             this.emptySpaceItem8.Name = "emptySpaceItem8";
-            this.emptySpaceItem8.Size = new System.Drawing.Size(798, 53);
+            this.emptySpaceItem8.Size = new System.Drawing.Size(804, 54);
             // 
             // lblPosted
             // 
             this.lblPosted.Control = this.togglePosted;
-            this.lblPosted.Location = new System.Drawing.Point(0, 140);
+            this.lblPosted.Location = new System.Drawing.Point(0, 145);
             this.lblPosted.Name = "lblPosted";
-            this.lblPosted.Size = new System.Drawing.Size(264, 28);
+            this.lblPosted.Size = new System.Drawing.Size(266, 28);
             this.lblPosted.Text = "Posted";
             this.lblPosted.TextSize = new System.Drawing.Size(84, 16);
             // 
             // lblLocked
             // 
             this.lblLocked.Control = this.toggleLocked;
-            this.lblLocked.Location = new System.Drawing.Point(264, 140);
+            this.lblLocked.Location = new System.Drawing.Point(266, 145);
             this.lblLocked.Name = "lblLocked";
-            this.lblLocked.Size = new System.Drawing.Size(267, 28);
+            this.lblLocked.Size = new System.Drawing.Size(269, 28);
             this.lblLocked.Text = "Locked";
             this.lblLocked.TextSize = new System.Drawing.Size(84, 16);
             // 
             // lblProtected
             // 
             this.lblProtected.Control = this.toggleProtected;
-            this.lblProtected.Location = new System.Drawing.Point(531, 140);
+            this.lblProtected.Location = new System.Drawing.Point(535, 145);
             this.lblProtected.Name = "lblProtected";
-            this.lblProtected.Size = new System.Drawing.Size(267, 28);
+            this.lblProtected.Size = new System.Drawing.Size(269, 28);
             this.lblProtected.Text = "Protected";
             this.lblProtected.TextSize = new System.Drawing.Size(84, 16);
             // 
@@ -1783,7 +1830,7 @@
             this.layoutControlItem7});
             this.tabDetails.Location = new System.Drawing.Point(0, 0);
             this.tabDetails.Name = "tabDetails";
-            this.tabDetails.Size = new System.Drawing.Size(798, 221);
+            this.tabDetails.Size = new System.Drawing.Size(804, 227);
             this.tabDetails.Text = "Details";
             // 
             // layoutControlItem7
@@ -1791,7 +1838,7 @@
             this.layoutControlItem7.Control = this.activityTimelineScroll;
             this.layoutControlItem7.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(798, 221);
+            this.layoutControlItem7.Size = new System.Drawing.Size(804, 227);
             this.layoutControlItem7.TextVisible = false;
             // 
             // tabAttachment
@@ -1800,7 +1847,7 @@
             this.layoutControlItem2});
             this.tabAttachment.Location = new System.Drawing.Point(0, 0);
             this.tabAttachment.Name = "tabAttachment";
-            this.tabAttachment.Size = new System.Drawing.Size(798, 221);
+            this.tabAttachment.Size = new System.Drawing.Size(804, 227);
             this.tabAttachment.Text = "Attachment";
             // 
             // layoutControlItem2
@@ -1808,15 +1855,15 @@
             this.layoutControlItem2.Control = this.layoutControl1;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(798, 221);
+            this.layoutControlItem2.Size = new System.Drawing.Size(804, 227);
             this.layoutControlItem2.TextVisible = false;
             // 
             // tabbedControlGroup2
             // 
-            this.tabbedControlGroup2.Location = new System.Drawing.Point(242, 287);
+            this.tabbedControlGroup2.Location = new System.Drawing.Point(243, 289);
             this.tabbedControlGroup2.Name = "tabbedControlGroup2";
             this.tabbedControlGroup2.SelectedTabPage = this.tabInvoiceDetails;
-            this.tabbedControlGroup2.Size = new System.Drawing.Size(1252, 347);
+            this.tabbedControlGroup2.Size = new System.Drawing.Size(1255, 349);
             this.tabbedControlGroup2.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.tabInvoiceDetails});
             // 
@@ -1826,7 +1873,7 @@
             this.layoutControlItem1});
             this.tabInvoiceDetails.Location = new System.Drawing.Point(0, 0);
             this.tabInvoiceDetails.Name = "tabInvoiceDetails";
-            this.tabInvoiceDetails.Size = new System.Drawing.Size(1224, 291);
+            this.tabInvoiceDetails.Size = new System.Drawing.Size(1231, 297);
             this.tabInvoiceDetails.Text = "Invoice Details";
             // 
             // layoutControlItem1
@@ -1834,24 +1881,24 @@
             this.layoutControlItem1.Control = this.gcInvoiceDetails;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(1224, 291);
+            this.layoutControlItem1.Size = new System.Drawing.Size(1231, 297);
             this.layoutControlItem1.TextVisible = false;
             // 
             // lblSubTotal
             // 
             this.lblSubTotal.Control = this.txtSubTotal;
-            this.lblSubTotal.Location = new System.Drawing.Point(1079, 0);
+            this.lblSubTotal.Location = new System.Drawing.Point(1082, 0);
             this.lblSubTotal.Name = "lblSubTotal";
-            this.lblSubTotal.Size = new System.Drawing.Size(415, 26);
+            this.lblSubTotal.Size = new System.Drawing.Size(416, 26);
             this.lblSubTotal.Text = "Sub Total";
             this.lblSubTotal.TextSize = new System.Drawing.Size(84, 16);
             // 
             // lblTotalVat
             // 
             this.lblTotalVat.Control = this.txtTotalVat;
-            this.lblTotalVat.Location = new System.Drawing.Point(1079, 26);
+            this.lblTotalVat.Location = new System.Drawing.Point(1082, 26);
             this.lblTotalVat.Name = "lblTotalVat";
-            this.lblTotalVat.Size = new System.Drawing.Size(415, 26);
+            this.lblTotalVat.Size = new System.Drawing.Size(416, 26);
             this.lblTotalVat.Text = "Total VAT";
             this.lblTotalVat.TextSize = new System.Drawing.Size(84, 16);
             // 
@@ -1860,30 +1907,30 @@
             this.lblGrandTotal.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGrandTotal.AppearanceItemCaption.Options.UseFont = true;
             this.lblGrandTotal.Control = this.txtGrandTotal;
-            this.lblGrandTotal.Location = new System.Drawing.Point(1079, 93);
+            this.lblGrandTotal.Location = new System.Drawing.Point(1082, 93);
             this.lblGrandTotal.Name = "lblGrandTotal";
-            this.lblGrandTotal.Size = new System.Drawing.Size(415, 26);
+            this.lblGrandTotal.Size = new System.Drawing.Size(416, 26);
             this.lblGrandTotal.Text = "Grand Total";
             this.lblGrandTotal.TextSize = new System.Drawing.Size(84, 16);
             // 
             // emptySpaceItem1
             // 
-            this.emptySpaceItem1.Location = new System.Drawing.Point(1068, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(1071, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(11, 287);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(11, 289);
             // 
             // emptySpaceItem4
             // 
-            this.emptySpaceItem4.Location = new System.Drawing.Point(1079, 52);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(1082, 52);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(415, 41);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(416, 41);
             // 
             // lblNotes
             // 
             this.lblNotes.Control = this.txtNotes;
-            this.lblNotes.Location = new System.Drawing.Point(1079, 161);
+            this.lblNotes.Location = new System.Drawing.Point(1082, 161);
             this.lblNotes.Name = "lblNotes";
-            this.lblNotes.Size = new System.Drawing.Size(415, 126);
+            this.lblNotes.Size = new System.Drawing.Size(416, 128);
             this.lblNotes.Text = "Notes";
             this.lblNotes.TextLocation = DevExpress.Utils.Locations.Top;
             this.lblNotes.TextSize = new System.Drawing.Size(84, 16);
@@ -2006,7 +2053,6 @@
 		private DevExpress.XtraBars.Ribbon.RibbonControl ribbonControl;
 		private DevExpress.XtraBars.BarButtonItem btnSave;
 		private DevExpress.XtraBars.BarButtonItem btnClose;
-		private DevExpress.XtraBars.BarButtonItem btnSaveAndNew;
 		private DevExpress.XtraBars.BarButtonItem btnDelete;
 		private DevExpress.XtraBars.BarButtonItem btnPrint;
 		private DevExpress.XtraBars.BarButtonItem btnRefresh;
@@ -2152,5 +2198,9 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn16;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn17;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn18;
+        private DevExpress.XtraBars.BarButtonItem btnAddLine;
+        private DevExpress.XtraBars.BarButtonItem btnDeleteLine;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup5;
+        private DevExpress.XtraBars.BarButtonItem btnInsertLine;
     }
 }

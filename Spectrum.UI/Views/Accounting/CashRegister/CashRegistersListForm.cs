@@ -2,35 +2,31 @@
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
+using Spectrum.DataLayers.Accounting.CashRegister;
 using Spectrum.DataLayers.DataAccess;
+using Spectrum.Models.Accounting.CashRegister;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Interfaces;
 using Spectrum.Utilities.Layout;
-using Spectrum.Views.Accounting.FlowType;
-using Spectrum.DataLayers.Accounting.FlowType;
-using Spectrum.Models.Accounting.FlowType;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spectrum.Views.Accounting.FlowType
+namespace Spectrum.Views.Accounting.CashRegister
 {
-    public partial class FlowTypeListForm : RibbonForm, IFormWithRibbon
+    public partial class CashRegistersListForm : RibbonForm, IFormWithRibbon
     {
         private bool _resetMenu;
-        private FlowTypeEditForm _flowTypeEditForm;
+        private CashRegisterEditForm _cashRegisterEditForm;
 
-        private FlowTypeModel _flowTypeModel = new FlowTypeModel();
-        private IList<FlowTypeModel> _flowTypes = new List<FlowTypeModel>();
+        private CashRegisterModel _cashRegisterModel = new CashRegisterModel();
+        private IList<CashRegisterModel> _cashRegisters = new List<CashRegisterModel>();
 
-        private readonly FlowTypeRepository _flowTypeRepository = new FlowTypeRepository(DatabaseFactory.ProfilePrimary);
+        private readonly CashRegisterRepository _cashRegisterRepository = new CashRegisterRepository(DatabaseFactory.ProfilePrimary);
 
         //Init permissionvariables
         private bool _canAdd = true;
@@ -42,13 +38,13 @@ namespace Spectrum.Views.Accounting.FlowType
 
         #region Implementation of IFormWithRibbon
 
-        public RibbonControl MainRibbon => rcFlowTypes;
-        public RibbonPage DefaultPage => rpFlowTypes;
+        public RibbonControl MainRibbon => rcCashRegister;
+        public RibbonPage DefaultPage => rpCashRegister;
+
 
 
         #endregion
-
-        public FlowTypeListForm()
+        public CashRegistersListForm()
         {
             InitializeComponent();
 
@@ -77,7 +73,7 @@ namespace Spectrum.Views.Accounting.FlowType
                 //	}
                 //	//
 
-                _flowTypes = await _flowTypeRepository.GetFlowTypesAsync();
+                _cashRegisters = await _cashRegisterRepository.GetCashRegistersAsync();
             }
             catch (Exception ex)
             {
@@ -87,8 +83,8 @@ namespace Spectrum.Views.Accounting.FlowType
 
         private void WireUpBindings()
         {
-            gcFlowTypes.DataSource = null;
-            gcFlowTypes.DataSource = _flowTypes;
+            gcCashRegisters.DataSource = null;
+            gcCashRegisters.DataSource = _cashRegisters;
         }
 
         private void ApplyDefaults()
@@ -126,22 +122,22 @@ namespace Spectrum.Views.Accounting.FlowType
 
         private void btnNew_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ShowFlowTypeEditor(new FlowTypeModel());
+            ShowCashRegisterEditor(new CashRegisterModel());
         }
 
         private void btnEdit_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (!_flowTypes.Any()) return;
+            if (!_cashRegisters.Any()) return;
 
             try
             {
-                string currentRowId = gvFlowTypes.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvCashRegisters.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _flowTypeModel = _flowTypes.SingleOrDefault(x => x._id == currentRowId);
-                if (_flowTypeModel == null) return;
+                _cashRegisterModel = _cashRegisters.SingleOrDefault(x => x._id == currentRowId);
+                if (_cashRegisterModel == null) return;
 
-                ShowFlowTypeEditor(_flowTypeModel);
+                ShowCashRegisterEditor(_cashRegisterModel);
             }
             catch (Exception exception)
             {
@@ -156,7 +152,7 @@ namespace Spectrum.Views.Accounting.FlowType
 
         private void btnPrint_ItemClick(object sender, ItemClickEventArgs e)
         {
-            gcFlowTypes.ShowRibbonPrintPreview();
+            gcCashRegisters.ShowRibbonPrintPreview();
         }
 
         private async void btnDelete_ItemClick(object sender, ItemClickEventArgs e)
@@ -165,8 +161,8 @@ namespace Spectrum.Views.Accounting.FlowType
 
             try
             {
-                string id = gvFlowTypes.GetFocusedRowCellValue("_id").ToString();
-                string name = gvFlowTypes.GetFocusedRowCellValue("FlowTypeName").ToString();
+                string id = gvCashRegisters.GetFocusedRowCellValue("_id").ToString();
+                string name = gvCashRegisters.GetFocusedRowCellValue("Name").ToString();
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -174,16 +170,16 @@ namespace Spectrum.Views.Accounting.FlowType
                             "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                             MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        _flowTypeModel = gvFlowTypes.GetFocusedRow() as FlowTypeModel;
-                        if (_flowTypeModel == null)
+                        _cashRegisterModel = gvCashRegisters.GetFocusedRow() as CashRegisterModel;
+                        if (_cashRegisterModel == null)
                         {
                             return;
                         }
-                        _flowTypeModel.Deleted = true;
+                        _cashRegisterModel.Deleted = true;
 
                         //delete the record
-                        await _flowTypeRepository.DeleteFlowTypeAsync(_flowTypeModel._id);
-                        RcvUpdatedFlowTypeAsync(_flowTypeModel, EventArgs.Empty);
+                        await _cashRegisterRepository.DeleteCashRegisterAsync(_cashRegisterModel._id);
+                        RcvUpdatedCashRegisterAsync(_cashRegisterModel, EventArgs.Empty);
                     }
                 }
             }
@@ -216,38 +212,38 @@ namespace Spectrum.Views.Accounting.FlowType
                 DialogResult.Yes)
             {
                 _resetMenu = true;
-                LayoutsStyle.ResetLayoutGrid(gvFlowTypes, CurrentUser.UserName, CurrentUser.Company);
+                LayoutsStyle.ResetLayoutGrid(gvCashRegisters, CurrentUser.UserName, CurrentUser.Company);
             }
         }
 
 
         #endregion
 
-        private async void RcvUpdatedFlowTypeAsync(object sender, EventArgs e)
+        private async void RcvUpdatedCashRegisterAsync(object sender, EventArgs e)
         {
             if (sender == null) return;
-            _flowTypeModel = sender as FlowTypeModel;
-            if (_flowTypeModel == null) return;
+            _cashRegisterModel = sender as CashRegisterModel;
+            if (_cashRegisterModel == null) return;
 
-            if (_flowTypeModel.Deleted || _flowTypeModel.LastModifiedDate == null)
+            if (_cashRegisterModel.Deleted || _cashRegisterModel.LastModifiedDate == null)
             {
                 await InitializeBindings();
                 WireUpBindings();
             }
             else
             {
-                gcFlowTypes.RefreshDataSource();
-                gvFlowTypes.RefreshRow(gvFlowTypes.FocusedRowHandle);
-                gvFlowTypes.UpdateCurrentRow();
+                gcCashRegisters.RefreshDataSource();
+                gvCashRegisters.RefreshRow(gvCashRegisters.FocusedRowHandle);
+                gvCashRegisters.UpdateCurrentRow();
             }
         }
 
         private bool CanDelete()
         {
-            FlowTypeModel dataBoundItem = gvFlowTypes.GetFocusedRow() as FlowTypeModel;
+            CashRegisterModel dataBoundItem = gvCashRegisters.GetFocusedRow() as CashRegisterModel;
 
-            if (gvFlowTypes == null || gvFlowTypes.SelectedRowsCount == 0) return false;
-            if (gvFlowTypes.SelectedRowsCount > 1)
+            if (gvCashRegisters == null || gvCashRegisters.SelectedRowsCount == 0) return false;
+            if (gvCashRegisters.SelectedRowsCount > 1)
             {
                 XtraMessageBox.Show("Only one record can be selected at a time, please try again",
                     "Delete error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -264,49 +260,49 @@ namespace Spectrum.Views.Accounting.FlowType
             return true;
         }
 
-        private void ShowFlowTypeEditor(FlowTypeModel model)
+        private void ShowCashRegisterEditor(CashRegisterModel model)
         {
-            if (_flowTypeEditForm == null || _flowTypeEditForm.IsDisposed)
+            if (_cashRegisterEditForm == null || _cashRegisterEditForm.IsDisposed)
             {
-                _flowTypeEditForm = new FlowTypeEditForm(model);
-                _flowTypeEditForm.SendUpdatedFlowType += RcvUpdatedFlowTypeAsync;
-                _flowTypeEditForm.FormClosed += FlowTypeEditForm_FormClosed;
-                _flowTypeEditForm.Show(this);
+                _cashRegisterEditForm = new CashRegisterEditForm(model);
+                _cashRegisterEditForm.SendUpdatedCashRegister += RcvUpdatedCashRegisterAsync;
+                _cashRegisterEditForm.FormClosed += CashRegisterEditForm_FormClosed;
+                _cashRegisterEditForm.Show(this);
                 return;
             }
 
-            if (_flowTypeEditForm.WindowState == FormWindowState.Minimized)
-                _flowTypeEditForm.WindowState = FormWindowState.Normal;
+            if (_cashRegisterEditForm.WindowState == FormWindowState.Minimized)
+                _cashRegisterEditForm.WindowState = FormWindowState.Normal;
 
-            _flowTypeEditForm.Activate();
-            _flowTypeEditForm.BringToFront();
+            _cashRegisterEditForm.Activate();
+            _cashRegisterEditForm.BringToFront();
         }
 
-        private void FlowTypeEditForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void CashRegisterEditForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var form = sender as FlowTypeEditForm;
+            var form = sender as CashRegisterEditForm;
             if (form != null)
             {
-                form.SendUpdatedFlowType -= RcvUpdatedFlowTypeAsync;
-                form.FormClosed -= FlowTypeEditForm_FormClosed;
+                form.SendUpdatedCashRegister -= RcvUpdatedCashRegisterAsync;
+                form.FormClosed -= CashRegisterEditForm_FormClosed;
             }
-            if (ReferenceEquals(_flowTypeEditForm, sender))
-                _flowTypeEditForm = null;
+            if (ReferenceEquals(_cashRegisterEditForm, sender))
+                _cashRegisterEditForm = null;
         }
 
-        private void gvFlowTypes_DoubleClick(object sender, EventArgs e)
+        private void gvCashRegisters_DoubleClick(object sender, EventArgs e)
         {
-            if (!_flowTypes.Any()) return;
+            if (!_cashRegisters.Any()) return;
 
             try
             {
-                string currentRowId = gvFlowTypes.GetFocusedRowCellValue("_id").ToString();
+                string currentRowId = gvCashRegisters.GetFocusedRowCellValue("_id").ToString();
                 if (string.IsNullOrEmpty(currentRowId)) return;
 
-                _flowTypeModel = _flowTypes.SingleOrDefault(x => x._id == currentRowId);
-                if (_flowTypeModel == null) return;
+                _cashRegisterModel = _cashRegisters.SingleOrDefault(x => x._id == currentRowId);
+                if (_cashRegisterModel == null) return;
 
-                ShowFlowTypeEditor(_flowTypeModel);
+                ShowCashRegisterEditor(_cashRegisterModel);
             }
             catch (Exception exception)
             {
@@ -314,7 +310,7 @@ namespace Spectrum.Views.Accounting.FlowType
             }
         }
 
-        private void gvFlowTypes_RowCellStyle(object sender, RowCellStyleEventArgs e)
+        private void gvCashRegisters_RowCellStyle(object sender, RowCellStyleEventArgs e)
         {
             var view = sender as GridView;
             if (view == null || e.RowHandle < 0) return;

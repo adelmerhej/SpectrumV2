@@ -23,6 +23,7 @@ using Spectrum.Models.Accounting.JournalType;
 using Spectrum.Models.Common.Currencies;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
+using Spectrum.Utilities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -141,7 +142,7 @@ namespace Spectrum.Views.Accounting.Journals
 
         private async Task LoadChartsAsync()
         {
-            _charts = await _chartRepository.GetChartsAsync();
+            _charts = await _chartRepository.GetChartsAsync(ChartType.R.ToString());
         }
 
         private async Task LoadCostCentersAsync()

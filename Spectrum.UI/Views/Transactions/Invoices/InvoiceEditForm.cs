@@ -1,11 +1,8 @@
-﻿using DevExpress.ChartRangeControlClient.Core;
-using DevExpress.Data;
+﻿using DevExpress.Data;
 using DevExpress.Utils;
 using DevExpress.Utils.Menu;
-using DevExpress.Xpo;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
-using DevExpress.XtraCharts.Designer.Native;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid;
@@ -27,6 +24,7 @@ using Spectrum.Models.Projects;
 using Spectrum.Models.Users;
 using Spectrum.Utilities;
 using Spectrum.Utilities.Enums;
+using Spectrum.Views.Transactions.Invoices.Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -255,7 +253,6 @@ namespace Spectrum.Views.Transactions.Invoices
             btnNew.Enabled = _isAdmin || _canAdd;
             btnDuplicate.Enabled = _isAdmin || _canAdd;
             btnSave.Enabled = _isAdmin || _canEdit;
-            btnSaveAndNew.Enabled = _isAdmin || _canEdit;
             btnPrint.Enabled = _isAdmin || _canPrint;
             btnPrintOriginal.Enabled = _isAdmin || _canPrint;
             btnDelete.Enabled = _isAdmin || _canDelete;
@@ -351,10 +348,15 @@ namespace Spectrum.Views.Transactions.Invoices
 
         private async void cboCurrencies_EditValueChanged(object sender, EventArgs e)
         {
+            var invoiceDate = GetSelectedInvoiceDate();
+            var selectedCurrency = NormalizeText(cboCurrencies.EditValue);
+
+            var localExchange = await _currencyExchangeRepository.GetLatestExchangeByCurrencyAsync(selectedCurrency, invoiceDate);
+            txtRate.EditValue = localExchange != null ? localExchange.Rate : 0m;
+
             if (_suspendActivityTracking)
                 return;
 
-            var selectedCurrency = NormalizeText(cboCurrencies.EditValue);
             if (!string.Equals(_invoiceHeaderSnapshot.Currency, selectedCurrency, StringComparison.OrdinalIgnoreCase))
             {
                 AppendLineActivity(DateTime.UtcNow, "Invoice Currency Updated", BuildFieldChangeDescription("currency", _invoiceHeaderSnapshot.Currency, selectedCurrency), CurrentUser.UserName, Color.FromArgb(37, 99, 235));
@@ -540,7 +542,7 @@ namespace Spectrum.Views.Transactions.Invoices
             var header = new Label
             {
                 AutoSize = false,
-                Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(17, 24, 39),
                 Location = new Point(16, y),
                 Size = new Size(contentWidth, 26),
@@ -554,7 +556,7 @@ namespace Spectrum.Views.Transactions.Invoices
                 var emptyLabel = new Label
                 {
                     AutoSize = false,
-                    Font = new Font("Segoe UI", 9F),
+                    Font = new Font("Segoe UI", 8F),
                     ForeColor = Color.FromArgb(107, 114, 128),
                     Location = new Point(16, y),
                     Size = new Size(contentWidth, 22),
@@ -903,45 +905,6 @@ namespace Spectrum.Views.Transactions.Invoices
             return string.Format(" ({0})", string.Join(" - ", values));
         }
 
-        private sealed class ActivityTimelineEntry
-        {
-            public string Title { get; set; }
-            public string Description { get; set; }
-            public DateTime Timestamp { get; set; }
-            public string PerformedBy { get; set; }
-            public Color AccentColor { get; set; }
-            public int Sequence { get; set; }
-            public bool DateOnly { get; set; }
-        }
-
-        private sealed class InvoiceDetailSnapshot
-        {
-            public int LineNo { get; set; }
-            public string ItemId { get; set; }
-            public string ItemCode { get; set; }
-            public string Description { get; set; }
-            public string Currency { get; set; }
-            public decimal Rate { get; set; }
-            public decimal Amount { get; set; }
-            public decimal LAmount { get; set; }
-            public decimal FAmount { get; set; }
-            public bool VAT { get; set; }
-            public decimal VATAmount { get; set; }
-            public decimal VATLAmount { get; set; }
-            public decimal VATFAmount { get; set; }
-            public string Notes { get; set; }
-        }
-
-        private sealed class InvoiceHeaderSnapshot
-        {
-            public DateTime InvoiceDate { get; set; }
-            public string Currency { get; set; }
-            public string Subject { get; set; }
-            public string MemberName { get; set; }
-            public string ProjectReference { get; set; }
-            public decimal Rate { get; set; }
-        }
-
         #endregion
 
         #region Menu Item Events
@@ -1064,6 +1027,12 @@ namespace Spectrum.Views.Transactions.Invoices
             {
                 messageNumber += 1; validateMessage.Append("\n- Currency cannot be empty.");
                 validateReturnValue = false; cboCurrencies.Focus();
+            }
+
+            if (string.IsNullOrWhiteSpace(txtRate.Text))
+            {
+                messageNumber += 1; validateMessage.Append("\n- Rate cannot be empty.");
+                validateReturnValue = false; txtRate.Focus();
             }
 
             if (!validateReturnValue)
@@ -1354,21 +1323,26 @@ namespace Spectrum.Views.Transactions.Invoices
                 .Where(x => x != null && !x.Deleted)
                 .ToList();
 
-            var subTotal = activeDetails.Sum(x => x.Amount);
+            var totalAmount = activeDetails.Sum(x => x.Amount);
+            var totalLAmount = activeDetails.Sum(x => x.LAmount);
+            var totalFAmount = activeDetails.Sum(x => x.FAmount);
             var totalVat = activeDetails.Sum(x => x.VATAmount);
-            var grandTotal = subTotal + totalVat;
+            var grandTotal = totalAmount + totalVat;
 
             if (_invoiceModel != null)
             {
-                _invoiceModel.TotalAmount = subTotal;
+                _invoiceModel.TotalAmount = totalAmount;
+                _invoiceModel.TotalLAmount = totalLAmount;
+                _invoiceModel.TotalFAmount = totalFAmount;
                 _invoiceModel.TotalVat = totalVat;
             }
 
-            txtSubTotal.EditValue = subTotal;
+            txtSubTotal.EditValue = totalFAmount;
             txtTotalVat.EditValue = totalVat;
             txtGrandTotal.EditValue = grandTotal;
-        }
 
+            //bsInvoice?.ResetBindings(false);
+        }
 
         #region UI Helper Methods
 
@@ -1385,19 +1359,23 @@ namespace Spectrum.Views.Transactions.Invoices
 
         #endregion
 
-
-
         #region Grid Cell Value Changed Logic
 
         private void gvInvoiceDetails_InitNewRow(object sender, InitNewRowEventArgs e)
         {
             GridView view = sender as GridView;
 
+            _invoiceModel = bsInvoice.Current as InvoiceModel ?? _invoiceModel;
+
+            var invoiceCurrency = Convert.ToString(cboCurrencies.EditValue);
+            var invoiceRate = HelperApplication.ParseDecimal(txtRate.EditValue);
+
             //Set static values to Invoice details
             view.SetRowCellValue(e.RowHandle, view.Columns["LineNo"], view.RowCount);
             view.SetRowCellValue(e.RowHandle, view.Columns["WorkingYear"], CurrentUser.WorkingYear);
-            view.SetRowCellValue(e.RowHandle, view.Columns["Currency"], cboCurrencies.EditValue);
-            view.SetRowCellValue(e.RowHandle, view.Columns["Rate"], decimal.Parse(txtRate.Text));
+            view.SetRowCellValue(e.RowHandle, view.Columns["Currency"], invoiceCurrency);
+            view.SetRowCellValue(e.RowHandle, view.Columns["Rate"], invoiceRate);
+            _ = RecalculateDetailAmountsAsync(view, e.RowHandle, sender, null);
 
             int currentRowVisibleIndex = view.GetDataSourceRowIndex(e.RowHandle);
             int previousRowVisibleIndex = currentRowVisibleIndex - 1;
@@ -1433,10 +1411,37 @@ namespace Spectrum.Views.Transactions.Invoices
             RenderActivityTimeline();
         }
 
-        private void gvInvoiceDetails_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        private async void gvInvoiceDetails_CellValueChanged(object sender, CellValueChangedEventArgs e)
         {
             if (_suspendActivityTracking || e.RowHandle < 0 || e.Column == null || string.Equals(e.Column.FieldName, nameof(InvoiceDetailModel.LineNo), StringComparison.Ordinal))
                 return;
+
+            if (string.Equals(e.Column.FieldName, nameof(InvoiceDetailModel.ItemCode), StringComparison.Ordinal))
+            {
+                var currentDescription = Convert.ToString(gvInvoiceDetails.GetRowCellValue(e.RowHandle, nameof(InvoiceDetailModel.Description)));
+                var selectedItemName = Convert.ToString(gvInvoiceDetails.GetRowCellValue(e.RowHandle, nameof(InvoiceDetailModel.ItemCode)));
+
+                if (string.IsNullOrWhiteSpace(currentDescription) && !string.IsNullOrWhiteSpace(selectedItemName))
+                {
+                    var suspendTracking = _suspendActivityTracking;
+                    _suspendActivityTracking = true;
+                    try
+                    {
+                        gvInvoiceDetails.SetRowCellValue(e.RowHandle, nameof(InvoiceDetailModel.Description), selectedItemName);
+                    }
+                    finally
+                    {
+                        _suspendActivityTracking = suspendTracking;
+                    }
+                }
+            }
+
+            if (string.Equals(e.Column.FieldName, nameof(InvoiceDetailModel.Amount), StringComparison.Ordinal)
+                || string.Equals(e.Column.FieldName, nameof(InvoiceDetailModel.Rate), StringComparison.Ordinal)
+                || string.Equals(e.Column.FieldName, nameof(InvoiceDetailModel.Currency), StringComparison.Ordinal))
+            {
+                await RecalculateDetailAmountsAsync(gvInvoiceDetails, e.RowHandle, sender, e);
+            }
 
             var detail = gvInvoiceDetails.GetRow(e.RowHandle) as InvoiceDetailModel;
             if (detail == null)
@@ -1460,6 +1465,59 @@ namespace Spectrum.Views.Transactions.Invoices
 
             AppendLineActivity(DateTime.UtcNow, "Line Updated", changeDescription, CurrentUser.UserName, Color.FromArgb(37, 99, 235));
             RenderActivityTimeline();
+        }
+
+        private async Task RecalculateDetailAmountsAsync(GridView view, int rowHandle, object sender, CellValueChangedEventArgs e)
+        {
+            if (view == null || rowHandle < 0)
+                return;
+
+            var amount = HelperApplication.ParseDecimal(view.GetRowCellValue(rowHandle, nameof(InvoiceDetailModel.Amount)));
+            var exchangeRates = await GetInvoiceExchangeRatesAsync(sender, e);
+
+            var localAmount = amount * exchangeRates.LocalRate;
+            var foreignAmount = exchangeRates.ForeignRate == 0m ? 0m : localAmount / exchangeRates.ForeignRate;
+
+            var detail = view.GetRow(rowHandle) as InvoiceDetailModel;
+            if (detail != null)
+            {
+                detail.LAmount = localAmount;
+                detail.FAmount = foreignAmount;
+            }
+
+            var currentLAmount = HelperApplication.ParseDecimal(view.GetRowCellValue(rowHandle, nameof(InvoiceDetailModel.LAmount)));
+            var currentFAmount = HelperApplication.ParseDecimal(view.GetRowCellValue(rowHandle, nameof(InvoiceDetailModel.FAmount)));
+
+            var suspendTracking = _suspendActivityTracking;
+            _suspendActivityTracking = true;
+            try
+            {
+                if (currentLAmount != localAmount)
+                    view.SetRowCellValue(rowHandle, nameof(InvoiceDetailModel.LAmount), localAmount);
+
+                if (currentFAmount != foreignAmount)
+                    view.SetRowCellValue(rowHandle, nameof(InvoiceDetailModel.FAmount), foreignAmount);
+            }
+            finally
+            {
+                _suspendActivityTracking = suspendTracking;
+            }
+        }
+
+        private async Task<(decimal LocalRate, decimal ForeignRate)> GetInvoiceExchangeRatesAsync(object sender, CellValueChangedEventArgs e)
+        {
+            GridView view = sender as GridView;
+
+            var invoiceDate = GetSelectedInvoiceDate();
+            var localCurrency = view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Currency"]).ToString();
+
+            var localExchange = await _currencyExchangeRepository.GetLatestExchangeByCurrencyAsync(localCurrency, invoiceDate);
+            var localRate = localExchange != null ? localExchange.Rate : 0m;
+
+            var foreignExchange = await _currencyExchangeRepository.GetLatestExchangeByCurrencyAsync(_defaultForeignCurrency, invoiceDate);
+            var foreignRate = foreignExchange != null ? foreignExchange.Rate : 0m;
+
+            return (localRate, foreignRate);
         }
 
         private void gvInvoiceDetails_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
@@ -1540,101 +1598,6 @@ namespace Spectrum.Views.Transactions.Invoices
 
         #endregion
 
-        #region Amount Calculations
-
-        private async void CalculateAmount(GridView view, CellValueChangedEventArgs e)
-        {
-            if (view?.Columns == null) return;
-
-            DateTime invoiceDate = HelperApplication.ParseDateTime(dtInvoiceDate.EditValue?.ToString()) ?? dtInvoiceDate.DateTime;
-            string currencyId = view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Currency"])?.ToString();
-            decimal amount = HelperApplication.ParseDecimal(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Amount"]));
-            bool isVat = HelperApplication.ParseBool(view.GetRowCellValue(e.RowHandle, "Vat"));
-
-            var exchangeRates = await GetExchangeRates(currencyId, invoiceDate);
-
-            view.SetRowCellValue(e.RowHandle, "LAmount", amount * exchangeRates.LocalRate);
-            view.SetRowCellValue(e.RowHandle, "FAmount", amount * exchangeRates.LocalRate / exchangeRates.ForeignRate);
-
-            if (isVat)
-            {
-                SetVatAmount(view, e);
-            }
-        }
-
-        private async Task<(decimal LocalRate, decimal ForeignRate)> GetExchangeRates(string currencyId, DateTime date)
-        {
-            var exchange = await _currencyExchangeRepository.GetLatestExchangeByCurrencyAsync(currencyId, date);
-
-            var localExchange = await _currencyExchangeRepository.GetLatestExchangeByCurrencyAsync(currencyId, date);
-            var foreignExchange = await _currencyExchangeRepository.GetLatestExchangeByCurrencyAsync(_defaultForeignCurrency, date);
-
-            return (
-                LocalRate: localExchange?.Rate ?? 0,
-                ForeignRate: foreignExchange?.Rate ?? 1
-            );
-        }
-
-        #endregion
-
-        #region VAT Calculations
-
-        private async void SetVatAmount(GridView view, CellValueChangedEventArgs e)
-        {
-            DateTime invoiceDate = HelperApplication.ParseDateTime(dtInvoiceDate.EditValue?.ToString()) ?? dtInvoiceDate.DateTime;
-            string currencyId = view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Currency"])?.ToString();
-            decimal amount = HelperApplication.ParseDecimal(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Amount"]));
-            decimal vatRate = HelperApplication.ParseDecimal(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["VatRate"]));
-
-            var exchangeRates = await _currencyExchangeRepository.GetLatestExchangeByCurrencyAsync(currencyId, invoiceDate);
-            var foreignExchangeRates = await _currencyExchangeRepository.GetLatestExchangeByCurrencyAsync(_defaultForeignCurrency, invoiceDate);
-            decimal vatMultiplier = vatRate / 100;
-
-            view.SetRowCellValue(e.RowHandle, "VatAmount", amount * vatMultiplier);
-            view.SetRowCellValue(e.RowHandle, "LVatAmount", amount * vatMultiplier * exchangeRates.Rate);
-            view.SetRowCellValue(e.RowHandle, "FAVatAmount", (amount * vatMultiplier * exchangeRates.Rate) / foreignExchangeRates.Rate);
-        }
-
-        private void SetVatRateNotification(GridView view, CellValueChangedEventArgs e)
-        {
-            var noteMessage = new StringBuilder();
-            string currentNotes = view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Notes"])?.ToString() ?? string.Empty;
-            noteMessage.Append(currentNotes);
-
-            bool isVat = HelperApplication.ParseBool(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Vat"]));
-
-            if (isVat)
-            {
-                if (!currentNotes.Contains(VatNoteMessage))
-                {
-                    noteMessage.Append(VatNoteMessage);
-                }
-            }
-            else
-            {
-                noteMessage.Replace(VatNoteMessage, string.Empty);
-            }
-
-            view.SetRowCellValue(e.RowHandle, "Notes", noteMessage.ToString());
-        }
-
-        private void SetVatRate(GridView view, CellValueChangedEventArgs e)
-        {
-            bool isVat = HelperApplication.ParseBool(view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Vat"]));
-            view.SetRowCellValue(e.RowHandle, "VatRate", isVat ? _defaultVat : 0);
-        }
-
-        private async void SetCurrencyRate(GridView view, CellValueChangedEventArgs e)
-        {
-            string currencyId = view.GetRowCellValue(view.FocusedRowHandle, view.Columns["Currency"])?.ToString();
-            DateTime currencyDate = _invoiceModel.InvoiceDate;
-
-            var currencyExchange = await _currencyExchangeRepository.GetLatestExchangeByCurrencyAsync(currencyId, currencyDate);
-            view.SetRowCellValue(e.RowHandle, "Rate", currencyExchange?.Rate ?? 0);
-        }
-
-        #endregion
-
         private void gvInvoiceDetails_CustomSummaryCalculate(object sender, CustomSummaryEventArgs e)
         {
             var summaryId = Convert.ToInt32((e.Item as GridSummaryItem)?.Tag);
@@ -1650,11 +1613,12 @@ namespace Spectrum.Views.Transactions.Invoices
             decimal totalVat;
 
             CalculateInvoiceTotals(out totalAmount, out totalLAmount, out totalFAmount, out totalVat);
-   
+
             _invoiceModel.TotalAmount = totalAmount;
             _invoiceModel.TotalLAmount = totalLAmount;
             _invoiceModel.TotalFAmount = totalFAmount;
             _invoiceModel.TotalVat = totalVat;
+            bsInvoice?.ResetBindings(false);
 
             switch (summaryId)
             {
@@ -1686,10 +1650,112 @@ namespace Spectrum.Views.Transactions.Invoices
                     continue;
                 }
 
+                totalAmount += invoiceDetail.Amount;
                 totalLAmount += invoiceDetail.LAmount;
                 totalFAmount += invoiceDetail.FAmount;
                 totalVat += invoiceDetail.VATAmount;
             }
+        }
+
+        private void AddInvoiceDetailLine(int insertIndex)
+        {
+            if (!ValidateData()) return;
+
+            if (gvInvoiceDetails.OptionsBehavior.ReadOnly || !gvInvoiceDetails.OptionsBehavior.Editable)
+            {
+                return;
+            }
+
+            if (_invoiceDetails == null)
+            {
+                _invoiceDetails = new BindingList<InvoiceDetailModel>();
+                bsInvoiceDetails.DataSource = _invoiceDetails;
+            }
+
+            var normalizedIndex = Math.Max(0, Math.Min(insertIndex, _invoiceDetails.Count));
+            var detail = new InvoiceDetailModel
+            {
+                Currency = Convert.ToString(cboCurrencies.EditValue),
+                Rate = HelperApplication.ParseDecimal(txtRate.EditValue),
+                Description = txtSubject.Text.Trim()
+            };
+
+            _invoiceDetails.Insert(normalizedIndex, detail);
+            EnumerateLines();
+            SyncInvoiceDetailsFromBinding();
+            bsInvoiceDetails.ResetBindings(false);
+            RefreshInvoiceTotals();
+
+            var rowHandle = gvInvoiceDetails.GetRowHandle(normalizedIndex);
+            if (rowHandle >= 0)
+            {
+                gvInvoiceDetails.FocusedRowHandle = rowHandle;
+            }
+
+            if (_suspendActivityTracking)
+            {
+                return;
+            }
+
+            _detailSnapshots[detail] = CreateSnapshot(detail);
+            AppendLineActivity(DateTime.UtcNow, "Line Added", BuildAddedLineDescription(detail), CurrentUser.UserName, Color.FromArgb(37, 99, 235));
+            RenderActivityTimeline();
+        }
+
+        private void DeleteFocusedInvoiceDetailLine()
+        {
+            if (gvInvoiceDetails.OptionsBehavior.ReadOnly || !gvInvoiceDetails.OptionsBehavior.Editable)
+            {
+                return;
+            }
+
+            if (!ConfirmAction("Are you sure you want to delete this record?", "Confirm Delete"))
+            {
+                return;
+            }
+
+            var detail = gvInvoiceDetails.GetFocusedRow() as InvoiceDetailModel;
+            if (detail == null)
+            {
+                return;
+            }
+
+            detail.Deleted = true;
+            _invoiceDetails.Remove(detail);
+            EnumerateLines();
+            SyncInvoiceDetailsFromBinding();
+            bsInvoiceDetails.ResetBindings(false);
+            RefreshInvoiceTotals();
+        }
+
+        private void btnAddLine_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            AddInvoiceDetailLine(_invoiceDetails != null ? _invoiceDetails.Count : 0);
+        }
+
+        private void btnInsertLine_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (!ValidateData()) return;
+
+            if (_invoiceDetails == null || _invoiceDetails.Count == 0 || gvInvoiceDetails.DataRowCount == 0)
+            {
+                AddInvoiceDetailLine(0);
+                return;
+            }
+
+            var focusedRowHandle = gvInvoiceDetails.FocusedRowHandle;
+            var insertIndex = gvInvoiceDetails.GetDataSourceRowIndex(focusedRowHandle);
+            if (insertIndex < 0)
+            {
+                insertIndex = 0;
+            }
+
+            AddInvoiceDetailLine(insertIndex);
+        }
+
+        private void btnDeleteLine_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            DeleteFocusedInvoiceDetailLine();
         }
     }
 }

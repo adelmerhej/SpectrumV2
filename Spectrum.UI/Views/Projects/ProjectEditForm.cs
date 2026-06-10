@@ -294,6 +294,8 @@ namespace Spectrum.Views.Projects
             bsContractDetails.DataSource = _projectModel.ContractDetails;
             bsLocationInfo.DataSource = _projectModel.Location;
 
+            bsInvoices.DataSource = _invoices;
+
             gcAddendum.DataSource = _addendums;
             InitializeProjectHistoryTimeline();
 
@@ -413,8 +415,8 @@ namespace Spectrum.Views.Projects
 
             RefreshContactEmailSource();
 
-            gcInvoices.DataBindings.Clear();
-            gcInvoices.DataSource = _invoices;
+            gcInvoices.DataSource = null;
+            gcInvoices.DataSource = bsInvoices;
 
             gcExpenses.DataBindings.Clear();
             gcExpenses.DataSource = _expenses;

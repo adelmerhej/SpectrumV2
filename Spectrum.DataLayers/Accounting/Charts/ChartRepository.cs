@@ -33,6 +33,12 @@ namespace Spectrum.DataLayers.Accounting.Charts
 			return await _charts.Find(chart => true).ToListAsync();
 		}
 
+        public async Task<List<ChartModel>> GetChartsAsync(string type)
+        {
+            var filter = Builders<ChartModel>.Filter.Eq(x => x.AccountType, type);
+            return await _charts.Find(filter).ToListAsync();
+        }
+
         // Interface async implementations (wrapping legacy sync methods)
         public async Task<List<ChartModel>> GetChartsAsync(int workingYear)
         {
@@ -54,11 +60,23 @@ namespace Spectrum.DataLayers.Accounting.Charts
 			return await _charts.Find(filter).FirstOrDefaultAsync();
 		}
 
-		public async Task<ChartModel> GetChartByNumber(string accountNumber)
+		public async Task<ChartModel> GetChartByAccountNumber(string accountNumber)
 		{
 			if (string.IsNullOrWhiteSpace(accountNumber)) return null;
-			var pattern = "^" + Regex.Escape(accountNumber.Trim()) + "$"; // exact match
-			var filter = Builders<ChartModel>.Filter.Regex(u => u.AccountNumber, new BsonRegularExpression(pattern, "i"));
+
+			var parts = Regex.Split(accountNumber.Trim(), "\\s+")
+				.Where(x => !string.IsNullOrWhiteSpace(x))
+				.ToArray();
+
+			if (parts.Length < 2) return null;
+
+			var numberPattern = "^" + Regex.Escape(parts[0]) + "$";
+			var serialPattern = "^" + Regex.Escape(parts[1]) + "$";
+
+			var filter = Builders<ChartModel>.Filter.And(
+				Builders<ChartModel>.Filter.Regex(x => x.Number, new BsonRegularExpression(numberPattern, "i")),
+				Builders<ChartModel>.Filter.Regex(x => x.Serial, new BsonRegularExpression(serialPattern, "i")));
+
 			return await _charts.Find(filter).FirstOrDefaultAsync();
 		}
 
